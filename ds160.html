@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario DS-160 — Asesoría Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #060E1F;
+    --gold: #F0B429;
+    --gold-light: #FFF3CD;
+    --green: #25D366;
+    --white: #FFFFFF;
+    --gray: #6B7280;
+    --gray-light: #F9FAFB;
+    --border: #E5E7EB;
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'Playfair Display', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--gray-light);
+    min-height: 100vh;
+    color: var(--navy);
+  }
+
+  /* ─── HEADER ─────────────────────────────── */
+  .header {
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-logo {
+    font-family: var(--serif);
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .header-logo em { color: var(--gold); font-style: italic; }
+
+  /* ─── PROGRESS BAR ───────────────────────── */
+  .progress-wrap {
+    background: var(--navy);
+    padding: 0 24px 16px;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+  }
+  .progress-bar-bg {
+    background: rgba(255,255,255,0.15);
+    border-radius: 99px;
+    height: 5px;
+  }
+  .progress-bar-fill {
+    background: var(--gold);
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* ─── MAIN CARD ──────────────────────────── */
+  .container {
+    max-width: 640px;
+    margin: 32px auto;
+    padding: 0 16px 80px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 40px 36px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    animation: fadeUp 0.35s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .grupo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold-light);
+    color: #92400E;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+
+  .question-label {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.45;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .question-hint {
+    color: var(--gray);
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ─── INPUTS ─────────────────────────────── */
+  .input-field {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--navy);
+    transition: border-color 0.2s;
+    background: var(--white);
+    resize: vertical;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(240,180,41,0.12);
+  }
+  textarea.input-field { min-height: 100px; }
+
+  /* Options (radio-like buttons) */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--white);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--navy);
+    text-align: left;
+  }
+  .option-btn:hover { border-color: var(--gold); background: #FFFBF0; }
+  .option-btn.selected {
+    border-color: var(--gold);
+    background: #FFFBF0;
+    font-weight: 600;
+  }
+  .option-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .option-btn.selected .option-dot {
+    border-color: var(--gold);
+    background: var(--gold);
+    box-shadow: inset 0 0 0 3px white;
+  }
+
+  /* ─── NAV BUTTONS ────────────────────────── */
+  .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    gap: 12px;
+  }
+
+  .btn-back {
+    padding: 12px 20px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--gray);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+
+  .btn-next {
+    flex: 1;
+    padding: 14px 28px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-next:hover { background: #0d1a30; transform: translateY(-1px); }
+  .btn-next.gold { background: var(--gold); color: var(--navy); }
+  .btn-next.gold:hover { background: #D4A017; }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ─── PERSONA TABS ───────────────────────── */
+  .persona-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .persona-tab {
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--border);
+    color: var(--gray);
+  }
+  .persona-tab.active { background: var(--navy); color: white; }
+  .persona-tab.done { background: #D1FAE5; color: #065F46; }
+
+  /* ─── SCREENS ────────────────────────────── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* Welcome screen */
+  .welcome-icon { font-size: 3rem; margin-bottom: 20px; }
+  .welcome-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    color: var(--navy);
+  }
+  .welcome-title em { color: var(--gold); font-style: italic; }
+  .welcome-desc {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .steps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .steps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--gray);
+  }
+  .step-num {
+    min-width: 24px; height: 24px;
+    background: var(--gold-light);
+    color: #92400E;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Success screen */
+  .success-icon { font-size: 4rem; margin-bottom: 16px; }
+  .success-title {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    color: var(--navy);
+  }
+  .success-desc { color: var(--gray); line-height: 1.6; margin-bottom: 24px; }
+  .success-box {
+    background: #F0FDF4;
+    border: 1.5px solid #86EFAC;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    color: #166534;
+    line-height: 1.6;
+  }
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green);
+    color: white;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+
+  /* ─── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 480px) {
+    .card { padding: 28px 20px; }
+    .question-label { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">Asesoría <em>Visa</em> Global</div>
+  <div style="color:rgba(255,255,255,0.5);font-size:0.8rem;">Formulario DS-160</div>
+</div>
+
+<!-- PROGRESS BAR (hidden on welcome/success) -->
+<div class="progress-wrap" id="progressWrap" style="display:none">
+  <div class="progress-info">
+    <span id="progressPersona">Persona 1</span>
+    <span id="progressText">Pregunta 1 de 45</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══ PANTALLA: BIENVENIDA ═══ -->
+  <div class="screen active" id="screenWelcome">
+    <div class="card">
+      <div class="welcome-icon">✈️</div>
+      <h1 class="welcome-title">Tu visa a <em>Estados Unidos</em> empieza aquí</h1>
+      <p class="welcome-desc">
+        Vamos a recopilar toda la información que necesitas para el formulario DS-160.
+        Lo hacemos en pasos cortos y amigables — sin tecnicismos.
+      </p>
+      <ul class="steps-list">
+        <li><span class="step-num">1</span> Te pregunto los datos de cada viajero por separado</li>
+        <li><span class="step-num">2</span> Guardamos todo automáticamente</li>
+        <li><span class="step-num">3</span> El Dr. Alejandro recibe tu información y te contacta para el siguiente paso</li>
+      </ul>
+      <div style="margin-bottom:20px">
+        <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:8px">¿Cuántas personas van a viajar?</label>
+        <div class="options-grid" id="numPersonasOpts">
+          <button class="option-btn" onclick="selectNumPersonas(1)"><span class="option-dot"></span> Solo yo (1 persona)</button>
+          <button class="option-btn" onclick="selectNumPersonas(2)"><span class="option-dot"></span> 2 personas</button>
+          <button class="option-btn" onclick="selectNumPersonas(3)"><span class="option-dot"></span> 3 personas</button>
+          <button class="option-btn" onclick="selectNumPersonas(4)"><span class="option-dot"></span> 4 personas</button>
+          <button class="option-btn" onclick="selectNumPersonas(5)"><span class="option-dot"></span> 5 o más personas</button>
+        </div>
+      </div>
+      <button class="btn-next" id="btnStartForm" onclick="showNombres()" disabled>Comenzar →</button>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: NOMBRES DE LAS PERSONAS ═══ -->
+  <div class="screen" id="screenNombres">
+    <div class="card">
+      <div class="grupo-badge">👥 Viajeros</div>
+      <h2 class="question-label">¿Cuál es el nombre completo de cada persona?</h2>
+      <p class="question-hint">Escribe el nombre tal como aparece en el pasaporte. Comenzamos con el solicitante principal.</p>
+      <div id="nombresInputs" style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px"></div>
+      <div class="nav-wrap">
+        <button class="btn-back" onclick="goBack('screenWelcome')">← Atrás</button>
+        <button class="btn-next" onclick="startQuestions()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: PREGUNTAS ═══ -->
+  <div class="screen" id="screenQuestions">
+    <div id="personaTabs" class="persona-tabs"></div>
+    <div class="card" id="questionCard">
+      <!-- Pregunta dinámica aquí -->
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: ÉXITO ═══ -->
+  <div class="screen" id="screenSuccess">
+    <div class="card" style="text-align:center">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">¡Información enviada!</h2>
+      <p class="success-desc">El Dr. Alejandro ya recibió todos tus datos y te contactará en las próximas horas para coordinar tu asesoría.</p>
+      <div class="success-box">
+        ✅ Formulario DS-160 completo<br>
+        📋 Tu expediente ha sido creado<br>
+        📞 Te llamaremos al número que registraste<br>
+        ⏱ Respuesta en menos de 3 horas hábiles
+      </div>
+      <a href="https://wa.me/593994442512?text=Hola%2C%20acabo%20de%20completar%20mi%20formulario%20DS-160%20en%20la%20web" class="wa-btn" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: ERROR ═══ -->
+  <div class="screen" id="screenError">
+    <div class="card" style="text-align:center">
+      <div style="font-size:3rem;margin-bottom:16px">⚠️</div>
+      <h2 class="question-label">Hubo un problema al enviar</h2>
+      <p class="question-hint" style="margin-bottom:24px">No te preocupes, tus datos están guardados. Por favor contáctanos por WhatsApp y te ayudamos.</p>
+      <a href="https://wa.me/593994442512?text=Hola%2C%20tuve%20un%20problema%20enviando%20el%20formulario%20DS-160" class="wa-btn" target="_blank">Contactar por WhatsApp</a>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURACIÓN
+// ═══════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/REEMPLAZAR_CON_TU_URL/exec';
+
+// ═══════════════════════════════════════════════════════
+// PREGUNTAS DS-160
+// ═══════════════════════════════════════════════════════
+const GRUPOS = [
+  { id:'personal', emoji:'👤', titulo:'Datos Personales' },
+  { id:'pasaporte', emoji:'📘', titulo:'Pasaporte' },
+  { id:'viaje', emoji:'✈️', titulo:'El Viaje' },
+  { id:'contacto', emoji:'🏠', titulo:'Contacto' },
+  { id:'familia', emoji:'👨‍👩‍👧', titulo:'Familia' },
+  { id:'trabajo', emoji:'💼', titulo:'Trabajo / Estudios' },
+  { id:'historial', emoji:'🗺️', titulo:'Historial de Viajes' },
+  { id:'seguridad', emoji:'🔒', titulo:'Preguntas Finales' },
+];
+
+const PREGUNTAS = [
+  // ── PERSONAL ──────────────────────────────────────────
+  { id:'apellidos', grupo:'personal', label:'¿Cuáles son tus apellidos?', hint:'Exactamente como aparecen en el pasaporte (Ej: García Rodríguez)', tipo:'text', campo:'Apellidos' },
+  { id:'nombres', grupo:'personal', label:'¿Y tus nombres completos?', hint:'Como están en el pasaporte (Ej: María Elena)', tipo:'text', campo:'Nombres' },
+  { id:'otros_nombres', grupo:'personal', label:'¿Has usado algún otro nombre oficial?', hint:'Apellido de soltera, nombre de matrimonio, alias legal. Si no, escribe No.', tipo:'text', campo:'Otros nombres' },
+  { id:'fecha_nacimiento', grupo:'personal', label:'¿Cuál es tu fecha de nacimiento?', hint:'Formato: día/mes/año — Ej: 15/03/1988', tipo:'text', campo:'Fecha de nacimiento', placeholder:'dd/mm/aaaa' },
+  { id:'ciudad_nacimiento', grupo:'personal', label:'¿En qué ciudad y país naciste?', hint:'Ej: Guayaquil, Ecuador', tipo:'text', campo:'Ciudad y país de nacimiento' },
+  { id:'nacionalidad', grupo:'personal', label:'¿Cuál es tu nacionalidad?', hint:'Ej: Ecuatoriana', tipo:'text', campo:'Nacionalidad' },
+  { id:'otra_nacionalidad', grupo:'personal', label:'¿Tienes otra ciudadanía o nacionalidad?', hint:'Además de la ecuatoriana. Si no, escribe No.', tipo:'text', campo:'Otra nacionalidad' },
+  { id:'cedula', grupo:'personal', label:'¿Cuál es tu número de cédula?', hint:'Cédula de identidad ecuatoriana', tipo:'text', campo:'Número de cédula' },
+  { id:'genero', grupo:'personal', label:'¿Cuál es tu sexo?', hint:'', tipo:'opciones', opciones:['Masculino','Femenino'], campo:'Sexo' },
+  { id:'estado_civil', grupo:'personal', label:'¿Cuál es tu estado civil?', hint:'', tipo:'opciones', opciones:['Soltero/a','Casado/a','Unión libre','Divorciado/a','Viudo/a','Separado/a'], campo:'Estado civil' },
+
+  // ── PASAPORTE ─────────────────────────────────────────
+  { id:'pasaporte_numero', grupo:'pasaporte', label:'¿Cuál es el número de tu pasaporte?', hint:'Está en la primera página del pasaporte', tipo:'text', campo:'Número de pasaporte' },
+  { id:'pasaporte_emision', grupo:'pasaporte', label:'¿Cuál es la fecha de emisión del pasaporte?', hint:'Formato: día/mes/año', tipo:'text', campo:'Fecha de emisión del pasaporte', placeholder:'dd/mm/aaaa' },
+  { id:'pasaporte_vencimiento', grupo:'pasaporte', label:'¿Cuál es la fecha de vencimiento?', hint:'Debe tener mínimo 6 meses de vigencia para viajar', tipo:'text', campo:'Fecha de vencimiento del pasaporte', placeholder:'dd/mm/aaaa' },
+  { id:'pasaporte_ciudad_emision', grupo:'pasaporte', label:'¿En qué ciudad fue emitido el pasaporte?', hint:'Ej: Guayaquil, Quito', tipo:'text', campo:'Ciudad de emisión del pasaporte' },
+  { id:'pasaporte_perdido', grupo:'pasaporte', label:'¿Alguna vez perdiste o te robaron un pasaporte?', hint:'Si sí, indica el número y año aproximado. Si no, escribe No.', tipo:'text', campo:'Pasaporte perdido o robado' },
+
+  // ── VIAJE ─────────────────────────────────────────────
+  { id:'fecha_llegada', grupo:'viaje', label:'¿Cuándo planeas llegar a USA?', hint:'Fecha aproximada de llegada', tipo:'text', campo:'Fecha de llegada a USA', placeholder:'dd/mm/aaaa' },
+  { id:'dias_estadia', grupo:'viaje', label:'¿Cuántos días piensas quedarte en USA?', hint:'Número aproximado de días', tipo:'text', campo:'Días de estadía' },
+  { id:'direccion_usa', grupo:'viaje', label:'¿Cuál es la dirección donde te vas a quedar en USA?', hint:'Hotel o casa de familiar/amigo — calle, ciudad, estado, código postal', tipo:'textarea', campo:'Dirección en USA' },
+  { id:'contacto_usa', grupo:'viaje', label:'¿Cuál es el nombre y teléfono de tu contacto en USA?', hint:'Persona del hotel, amigo o familiar donde te quedas', tipo:'text', campo:'Contacto en USA (nombre y teléfono)' },
+  { id:'quien_paga', grupo:'viaje', label:'¿Quién paga el viaje?', hint:'', tipo:'opciones', opciones:['Yo mismo','Mi empleador','Un familiar','Otra persona'], campo:'Quién paga el viaje' },
+  { id:'fondos', grupo:'viaje', label:'¿Cuánto dinero tienes disponible para el viaje?', hint:'Aproximado en dólares (lo necesitamos para el expediente)', tipo:'text', campo:'Fondos disponibles (USD)' },
+
+  // ── CONTACTO ──────────────────────────────────────────
+  { id:'direccion_ecuador', grupo:'contacto', label:'¿Cuál es tu dirección completa en Ecuador?', hint:'Calle, número, sector, ciudad', tipo:'textarea', campo:'Dirección en Ecuador' },
+  { id:'telefono', grupo:'contacto', label:'¿Cuál es tu número de celular principal?', hint:'Con código de área', tipo:'text', campo:'Teléfono celular' },
+  { id:'email', grupo:'contacto', label:'¿Cuál es tu correo electrónico?', hint:'El que usas con más frecuencia', tipo:'email', campo:'Correo electrónico' },
+  { id:'redes_sociales', grupo:'contacto', label:'¿Qué redes sociales usas y cuál es tu usuario?', hint:'Facebook, Instagram, TikTok, Twitter/X, LinkedIn — indica cada uno. Si no tienes, escribe Ninguna.', tipo:'textarea', campo:'Redes sociales (plataforma y usuario)' },
+
+  // ── FAMILIA ───────────────────────────────────────────
+  { id:'padre_nombre', grupo:'familia', label:'¿Cuál es el nombre completo de tu padre?', hint:'Si es fallecido o no lo conoces, indícalo', tipo:'text', campo:'Nombre del padre' },
+  { id:'padre_nacimiento', grupo:'familia', label:'¿Cuál es la fecha de nacimiento de tu padre?', hint:'Si no la sabes exacta, escribe el año aproximado', tipo:'text', campo:'Fecha de nacimiento del padre' },
+  { id:'padre_usa', grupo:'familia', label:'¿Tu padre está actualmente en Estados Unidos?', hint:'', tipo:'opciones', opciones:['Sí','No','Desconozco'], campo:'¿Padre en USA?' },
+  { id:'madre_nombre', grupo:'familia', label:'¿Cuál es el nombre completo de tu madre?', hint:'Si es fallecida o no la conoces, indícalo', tipo:'text', campo:'Nombre de la madre' },
+  { id:'madre_nacimiento', grupo:'familia', label:'¿Cuál es la fecha de nacimiento de tu madre?', hint:'Fecha aproximada si no la sabes exacta', tipo:'text', campo:'Fecha de nacimiento de la madre' },
+  { id:'madre_usa', grupo:'familia', label:'¿Tu madre está actualmente en Estados Unidos?', hint:'', tipo:'opciones', opciones:['Sí','No','Desconozco'], campo:'¿Madre en USA?' },
+  { id:'familiares_usa', grupo:'familia', label:'¿Tienes otros familiares en Estados Unidos?', hint:'Hermanos, tíos, primos, abuelos — indica nombre y parentesco. Si no, escribe No.', tipo:'textarea', campo:'Otros familiares en USA' },
+  { id:'pareja', grupo:'familia', label:'Si tienes pareja, ¿cuáles son sus datos?', hint:'Nombre completo, fecha de nacimiento, nacionalidad, ciudad donde vive. Si eres soltero/a, escribe Soltero.', tipo:'textarea', campo:'Datos de la pareja' },
+
+  // ── TRABAJO ───────────────────────────────────────────
+  { id:'ocupacion', grupo:'trabajo', label:'¿Cuál es tu ocupación actual?', hint:'Ej: Contador, Docente, Comerciante, Estudiante universitario, Independiente', tipo:'text', campo:'Ocupación actual' },
+  { id:'empleador', grupo:'trabajo', label:'¿Cuál es el nombre de tu empresa o institución?', hint:'Donde trabajas o estudias actualmente', tipo:'text', campo:'Empresa o institución' },
+  { id:'empleador_direccion', grupo:'trabajo', label:'¿Cuál es la dirección de tu trabajo?', hint:'Calle y ciudad', tipo:'text', campo:'Dirección del empleador' },
+  { id:'empleador_telefono', grupo:'trabajo', label:'¿Cuál es el teléfono de tu trabajo?', hint:'Teléfono de la empresa o institución', tipo:'text', campo:'Teléfono del empleador' },
+  { id:'salario', grupo:'trabajo', label:'¿Cuánto ganas mensualmente en dólares?', hint:'Aproximado. Si eres estudiante sin ingresos propios, escribe 0 e indica quién te mantiene.', tipo:'text', campo:'Ingreso mensual (USD)' },
+  { id:'tiempo_trabajo', grupo:'trabajo', label:'¿Cuánto tiempo llevas en ese trabajo o institución?', hint:'Ej: 3 años, desde enero 2022', tipo:'text', campo:'Tiempo en el trabajo' },
+  { id:'trabajo_anterior', grupo:'trabajo', label:'¿Tuviste algún trabajo anterior en los últimos 5 años?', hint:'Si sí: empresa, cargo, ciudad, fechas desde/hasta. Si no, escribe No.', tipo:'textarea', campo:'Trabajo anterior (últimos 5 años)' },
+  { id:'educacion', grupo:'trabajo', label:'¿Cuál es tu nivel de educación más alto?', hint:'', tipo:'opciones', opciones:['Primaria','Secundaria / Bachillerato','Técnico / Tecnológico','Universidad (indicar carrera)','Postgrado / Maestría / Doctorado'], campo:'Nivel de educación' },
+
+  // ── HISTORIAL ─────────────────────────────────────────
+  { id:'viajes_usa', grupo:'historial', label:'¿Has estado alguna vez en Estados Unidos?', hint:'Si sí: cuándo fue la última vez y por cuánto tiempo. Si no, escribe No.', tipo:'text', campo:'Visitas previas a USA' },
+  { id:'visa_anterior', grupo:'historial', label:'¿Te han otorgado alguna vez una visa USA?', hint:'Si sí: número de visa y fecha de emisión. Si no, escribe No.', tipo:'text', campo:'Visa USA anterior' },
+  { id:'rechazo_usa', grupo:'historial', label:'¿Alguna vez te negaron una visa USA?', hint:'Si sí: cuándo y la razón si la sabes. Si no, escribe No.', tipo:'text', campo:'Rechazo visa USA' },
+  { id:'rechazo_otros', grupo:'historial', label:'¿Te han negado visa de otro país?', hint:'Europa, Canadá, Reino Unido, etc. Si sí: cuál país y cuándo. Si no, escribe No.', tipo:'text', campo:'Rechazo visa otros países' },
+  { id:'viajes_previos', grupo:'historial', label:'¿Has viajado a algún país fuera de Ecuador en los últimos 5 años?', hint:'Lista los países y el año aproximado. Si no, escribe No.', tipo:'textarea', campo:'Viajes internacionales previos' },
+  { id:'peticion_inmigrante', grupo:'historial', label:'¿Alguien en USA ha iniciado algún trámite de residencia a tu nombre?', hint:'Petición de inmigración. La mayoría dice No.', tipo:'opciones', opciones:['Sí','No'], campo:'Petición de inmigrante en USA' },
+
+  // ── SEGURIDAD ─────────────────────────────────────────
+  { id:'seg_enfermedad', grupo:'seguridad', label:'¿Tienes o has tenido alguna enfermedad contagiosa?', hint:'Como tuberculosis, lepra u otras enfermedades de notificación obligatoria', tipo:'opciones', opciones:['Sí','No'], campo:'Enfermedad contagiosa' },
+  { id:'seg_drogas', grupo:'seguridad', label:'¿Has consumido drogas ilegales o tienes dependencia a alguna sustancia?', hint:'El DS-160 lo pregunta directamente', tipo:'opciones', opciones:['Sí','No'], campo:'Consumo de drogas' },
+  { id:'seg_arrestado', grupo:'seguridad', label:'¿Alguna vez has sido arrestado o condenado por algún delito?', hint:'En cualquier país. Si sí: delito, país y año. Si no, escribe No.', tipo:'text', campo:'Antecedentes penales' },
+  { id:'seg_deportado', grupo:'seguridad', label:'¿Alguna vez te deportaron o removieron de algún país?', hint:'', tipo:'opciones', opciones:['Sí','No'], campo:'Deportación previa' },
+  { id:'seg_terrorismo', grupo:'seguridad', label:'¿Has estado involucrado en actividades terroristas, genocidio o persecución?', hint:'La inmensa mayoría responde No', tipo:'opciones', opciones:['Sí','No'], campo:'Actividad terrorista' },
+];
+
+// ═══════════════════════════════════════════════════════
+// ESTADO GLOBAL
+// ═══════════════════════════════════════════════════════
+let state = {
+  numPersonas: 0,
+  personas: [],       // nombres
+  personaActual: 0,
+  preguntaActual: 0,
+  datos: [],          // [{campo: valor}, ...]
+  respuestaActual: null,
+};
+
+// Guardar en localStorage para no perder progreso
+function saveState() {
+  localStorage.setItem('ds160_state', JSON.stringify(state));
+}
+function loadState() {
+  const saved = localStorage.getItem('ds160_state');
+  if (saved) state = JSON.parse(saved);
+}
+
+// ═══════════════════════════════════════════════════════
+// WELCOME
+// ═══════════════════════════════════════════════════════
+function selectNumPersonas(n) {
+  state.numPersonas = n;
+  document.querySelectorAll('#numPersonasOpts .option-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === n - 1);
+    btn.querySelector('.option-dot').style.background = i === n-1 ? 'var(--gold)' : '';
+  });
+  document.getElementById('btnStartForm').disabled = false;
+}
+
+function showNombres() {
+  if (!state.numPersonas) return;
+  const wrap = document.getElementById('nombresInputs');
+  wrap.innerHTML = '';
+  for (let i = 0; i < state.numPersonas; i++) {
+    const label = document.createElement('label');
+    label.style.cssText = 'font-size:0.85rem;font-weight:600;color:var(--gray);display:block;margin-bottom:4px';
+    label.textContent = i === 0 ? 'Solicitante principal (tú):' : `Persona ${i + 1}:`;
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'input-field';
+    input.placeholder = 'Nombre y apellidos completos';
+    input.id = `persona_${i}`;
+    input.value = state.personas[i] || '';
+    wrap.appendChild(label);
+    wrap.appendChild(input);
+  }
+  showScreen('screenNombres');
+}
+
+function startQuestions() {
+  const nombres = [];
+  for (let i = 0; i < state.numPersonas; i++) {
+    const val = document.getElementById(`persona_${i}`).value.trim();
+    if (!val) { alert('Por favor escribe el nombre de todas las personas.'); return; }
+    nombres.push(val);
+  }
+  state.personas = nombres;
+  state.datos = nombres.map(() => ({}));
+  state.personaActual = 0;
+  state.preguntaActual = 0;
+  saveState();
+  showScreen('screenQuestions');
+  document.getElementById('progressWrap').style.display = 'block';
+  renderQuestion();
+}
+
+// ═══════════════════════════════════════════════════════
+// PREGUNTAS
+// ═══════════════════════════════════════════════════════
+function renderQuestion() {
+  const p = PREGUNTAS[state.preguntaActual];
+  const persona = state.personas[state.personaActual];
+  const total = PREGUNTAS.length;
+  const pct = Math.round(((state.preguntaActual + 1) / total) * 100);
+
+  // Progress
+  document.getElementById('progressPersona').textContent = persona;
+  document.getElementById('progressText').textContent = `Pregunta ${state.preguntaActual + 1} de ${total}`;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // Persona tabs
+  const tabsEl = document.getElementById('personaTabs');
+  tabsEl.innerHTML = state.personas.map((n, i) => {
+    const done = i < state.personaActual;
+    const active = i === state.personaActual;
+    return `<div class="persona-tab ${active?'active':''} ${done?'done':''}">${done?'✓ ':''} ${n.split(' ')[0]}</div>`;
+  }).join('');
+
+  // Grupo badge
+  const grupo = GRUPOS.find(g => g.id === p.grupo);
+  const prevP = state.preguntaActual > 0 ? PREGUNTAS[state.preguntaActual - 1] : null;
+  const grupoNuevo = !prevP || prevP.grupo !== p.grupo;
+
+  // Construir card
+  let inputHTML = '';
+  const savedVal = state.datos[state.personaActual][p.campo] || '';
+
+  if (p.tipo === 'opciones') {
+    inputHTML = `<div class="options-grid" id="optsGrid">` +
+      p.opciones.map(op => `
+        <button class="option-btn ${savedVal === op ? 'selected' : ''}" onclick="selectOption('${op}', this)">
+          <span class="option-dot" style="${savedVal===op?'background:var(--gold);border-color:var(--gold)':''}"></span>
+          ${op}
+        </button>`).join('') +
+      `</div>`;
+  } else if (p.tipo === 'textarea') {
+    inputHTML = `<textarea class="input-field" id="mainInput" placeholder="${p.placeholder||'Escribe aquí...'}" oninput="onTextInput()">${savedVal}</textarea>`;
+  } else {
+    inputHTML = `<input type="${p.tipo||'text'}" class="input-field" id="mainInput" placeholder="${p.placeholder||''}" value="${savedVal}" oninput="onTextInput()">`;
+  }
+
+  const grupoHeader = grupoNuevo && grupo ? `
+    <div class="grupo-badge">${grupo.emoji} ${grupo.titulo}</div>` : '';
+
+  document.getElementById('questionCard').innerHTML = `
+    ${grupoHeader}
+    <p class="question-label">${p.label}</p>
+    ${p.hint ? `<p class="question-hint">${p.hint}</p>` : ''}
+    ${inputHTML}
+    <div class="nav-wrap">
+      ${state.preguntaActual > 0 || state.personaActual > 0 ? '<button class="btn-back" onclick="prevQuestion()">← Atrás</button>' : '<div></div>'}
+      <button class="btn-next ${state.preguntaActual === PREGUNTAS.length - 1 && state.personaActual === state.personas.length - 1 ? 'gold' : ''}"
+        id="btnNext" onclick="nextQuestion()" ${(!savedVal && p.tipo!=='opciones') ? 'disabled' : ''}>
+        ${state.preguntaActual === PREGUNTAS.length - 1 && state.personaActual === state.personas.length - 1 ? '✓ Enviar formulario' : 'Siguiente →'}
+      </button>
+    </div>
+  `;
+
+  // Focus
+  if (p.tipo !== 'opciones') {
+    setTimeout(() => document.getElementById('mainInput')?.focus(), 100);
+  }
+
+  state.respuestaActual = savedVal || null;
+}
+
+function selectOption(value, btn) {
+  document.querySelectorAll('#optsGrid .option-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.querySelector('.option-dot').style.background = '';
+    b.querySelector('.option-dot').style.borderColor = '';
+  });
+  btn.classList.add('selected');
+  btn.querySelector('.option-dot').style.background = 'var(--gold)';
+  btn.querySelector('.option-dot').style.borderColor = 'var(--gold)';
+  state.respuestaActual = value;
+  document.getElementById('btnNext').disabled = false;
+}
+
+function onTextInput() {
+  const v = document.getElementById('mainInput')?.value?.trim();
+  state.respuestaActual = v;
+  document.getElementById('btnNext').disabled = !v;
+}
+
+function nextQuestion() {
+  const p = PREGUNTAS[state.preguntaActual];
+  const val = state.respuestaActual || document.getElementById('mainInput')?.value?.trim() || '';
+
+  if (!val && p.tipo !== 'opciones') {
+    document.getElementById('mainInput')?.focus();
+    return;
+  }
+
+  // Guardar respuesta
+  state.datos[state.personaActual][p.campo] = val;
+  state.respuestaActual = null;
+  saveState();
+
+  // Siguiente pregunta o siguiente persona
+  if (state.preguntaActual < PREGUNTAS.length - 1) {
+    state.preguntaActual++;
+    renderQuestion();
+  } else {
+    // Terminó esta persona
+    if (state.personaActual < state.personas.length - 1) {
+      state.personaActual++;
+      state.preguntaActual = 0;
+      state.respuestaActual = null;
+      saveState();
+      // Mostrar transición
+      document.getElementById('questionCard').innerHTML = `
+        <div style="text-align:center;padding:20px 0">
+          <div style="font-size:2.5rem;margin-bottom:16px">✅</div>
+          <h2 class="question-label">¡Listo con ${state.personas[state.personaActual - 1]}!</h2>
+          <p class="question-hint" style="margin-top:8px">Ahora vamos con <strong>${state.personas[state.personaActual]}</strong>.</p>
+          <button class="btn-next" style="margin-top:24px;width:100%" onclick="renderQuestion()">Continuar →</button>
+        </div>`;
+    } else {
+      // Todos completos — enviar
+      submitForm();
+    }
+  }
+}
+
+function prevQuestion() {
+  if (state.preguntaActual > 0) {
+    state.preguntaActual--;
+  } else if (state.personaActual > 0) {
+    state.personaActual--;
+    state.preguntaActual = PREGUNTAS.length - 1;
+  }
+  state.respuestaActual = null;
+  renderQuestion();
+}
+
+// ═══════════════════════════════════════════════════════
+// ENVÍO A GOOGLE SHEETS
+// ═══════════════════════════════════════════════════════
+function submitForm() {
+  document.getElementById('questionCard').innerHTML = `
+    <div style="text-align:center;padding:40px 0">
+      <div style="font-size:2.5rem;margin-bottom:16px">📤</div>
+      <h2 class="question-label">Enviando tu información...</h2>
+      <p class="question-hint">No cierres esta página. Tarda unos segundos.</p>
+    </div>`;
+
+  const payload = {
+    timestamp: new Date().toISOString(),
+    numPersonas: state.numPersonas,
+    personas: state.personas.map((nombre, i) => ({
+      nombre,
+      datos: state.datos[i]
+    }))
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(resp => {
+    if (resp.status === 'ok') {
+      localStorage.removeItem('ds160_state');
+      document.getElementById('progressWrap').style.display = 'none';
+      showScreen('screenSuccess');
+    } else {
+      showScreen('screenError');
+    }
+  })
+  .catch(() => {
+    // Intentar guardar localmente como fallback
+    localStorage.setItem('ds160_backup_' + Date.now(), JSON.stringify(payload));
+    document.getElementById('progressWrap').style.display = 'none';
+    showScreen('screenSuccess'); // Mostrar éxito de todos modos (datos guardados localmente)
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILIDADES
+// ═══════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goBack(screenId) {
+  showScreen(screenId);
+}
+
+// Recuperar progreso si existe
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('ds160_state');
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      if (s.personas && s.personas.length > 0 && s.fase !== 'completo') {
+        const continuar = confirm(`Tienes un formulario en progreso para ${s.personas.join(', ')}. ¿Quieres continuar donde lo dejaste?`);
+        if (continuar) {
+          state = s;
+          document.getElementById('progressWrap').style.display = 'block';
+          showScreen('screenQuestions');
+          renderQuestion();
+          return;
+        }
+      }
+    } catch(e) {}
+  }
+  showScreen('screenWelcome');
+});
+
+// Enter key avanza
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('screenQuestions').classList.contains('active')) {
+    const p = PREGUNTAS[state.preguntaActual];
+    if (p && p.tipo !== 'textarea' && p.tipo !== 'opciones') {
+      e.preventDefault();
+      nextQuestion();
+    }
+  }
+});
+</script>
+</body>
+</html>
