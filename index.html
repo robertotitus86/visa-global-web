@@ -452,7 +452,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 
 /* ═══ URGENCY ════════════════════════════════════════ */
 #urgency {
-  position:fixed; top:0; left:0; right:0; z-index:499;
+  position:fixed; top:0; left:0; right:0; z-index:501;
   background:linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold));
   background-size:200% 100%; animation:gold-shift 3s linear infinite;
   padding:9px 24px; text-align:center;
@@ -827,8 +827,8 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 <!-- CTA FULL -->
 <div class="cta-full">
   <div class="cta-full-inner" data-r>
-    <h2>No arriesgues $185 en tasas<br>sin <em>la estrategia correcta.</em></h2>
-    <p>La tasa consular no se devuelve si te niegan. Una evaluación con nosotros cuesta $0 y puede salvarte de un rechazo costoso.</p>
+    <h2>No arriesgues tus tasas consulares<br>sin <em>la estrategia correcta.</em></h2>
+    <p>Visa USA: $185 · Visa Schengen: €80 · Visa UK: £115 — no se devuelven si te niegan. Una evaluación con nosotros cuesta $0 y puede salvarte de un rechazo muy costoso.</p>
     <a class="btn-dark" href="https://wa.me/593994442512?text=Hola,%20quiero%20que%20evaluen%20mi%20caso%20de%20visa%20gratis" target="_blank">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#F0B429"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
       Evalúa mi caso — es gratis
@@ -971,7 +971,15 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 /* ── LOADER ── */
 window.addEventListener('load', () => {
   setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 1600);
-  setTimeout(() => { document.getElementById('urgency').classList.add('show'); }, 3500);
+  setTimeout(() => {
+    const urg = document.getElementById('urgency');
+    const nav = document.getElementById('nav');
+    urg.classList.add('show');
+    setTimeout(() => {
+      const h = urg.getBoundingClientRect().height;
+      nav.style.top = h + 'px';
+    }, 650); // esperar que termine la animación
+  }, 3500);
 });
 
 /* ── NAV SCROLL ── */
