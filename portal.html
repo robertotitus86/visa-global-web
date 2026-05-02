@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Solicitud — Asesoría Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #060E1F;
+  --navy2: #0d1a30;
+  --navy3: #1a2a45;
+  --gold: #F0B429;
+  --gold2: #ffd166;
+  --gold-dim: rgba(240,180,41,0.15);
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.5);
+  --border: rgba(255,255,255,0.08);
+  --input-bg: rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.12);
+  --sans: 'DM Sans', sans-serif;
+  --serif: 'Playfair Display', serif;
+  --ease: cubic-bezier(.22,.68,0,1.2);
+  --ease2: cubic-bezier(.4,0,.2,1);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── BACKGROUND ─────────────────────────── */
+.bg-wrap {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 50% at 10% 0%, rgba(240,180,41,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 70% at 90% 100%, rgba(14,30,60,.8) 0%, transparent 60%),
+    var(--navy);
+}
+.mesh {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(240,180,41,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,180,41,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── HEADER ─────────────────────────────── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 40px;
+  height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(6,14,31,.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: .01em;
+}
+.logo em { color: var(--gold); font-style: italic; }
+.header-tag {
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(240,180,41,.2);
+  padding: 5px 14px; border-radius: 99px;
+}
+
+/* ── MAIN WRAP ──────────────────────────── */
+.main {
+  position: relative; z-index: 1;
+  padding: 100px 24px 60px;
+  max-width: 860px; margin: 0 auto;
+}
+
+/* ── HERO ───────────────────────────────── */
+.hero {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fade-up .6s var(--ease) both;
+}
+.hero-label {
+  display: inline-block;
+  font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(240,180,41,.2);
+  padding: 5px 16px; border-radius: 99px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700; line-height: 1.2;
+  margin-bottom: 14px;
+}
+.hero h1 em { color: var(--gold); font-style: italic; }
+.hero p {
+  font-size: .95rem; color: var(--muted);
+  max-width: 520px; margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── TABS ───────────────────────────────── */
+.tabs-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px;
+  margin-bottom: 32px;
+  animation: fade-up .6s .1s var(--ease) both;
+}
+.tab-btn {
+  background: transparent;
+  border: none; cursor: pointer;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .8rem; font-weight: 600;
+  letter-spacing: .02em;
+  padding: 12px 8px;
+  border-radius: calc(var(--radius) - 4px);
+  transition: all .25s var(--ease2);
+  line-height: 1.3;
+  text-align: center;
+}
+.tab-btn:hover { color: var(--white); background: rgba(255,255,255,.06); }
+.tab-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(240,180,41,.3);
+}
+.tab-btn span {
+  display: block;
+  font-size: .65rem; font-weight: 500;
+  opacity: .75; margin-top: 2px;
+  letter-spacing: .04em;
+}
+
+/* ── FORM PANEL ─────────────────────────── */
+.tab-panel { display: none; }
+.tab-panel.active {
+  display: block;
+  animation: fade-up .4s var(--ease) both;
+}
+
+/* ── STEP PROGRESS ──────────────────────── */
+.step-progress {
+  display: flex; align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.step-item {
+  display: flex; align-items: center;
+  flex: 1; min-width: 0;
+}
+.step-dot {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: 1.5px solid rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+  color: var(--muted);
+  transition: all .3s var(--ease2);
+  position: relative; z-index: 1;
+}
+.step-dot.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 0 0 4px rgba(240,180,41,.2);
+}
+.step-dot.done {
+  background: rgba(240,180,41,.2);
+  border-color: rgba(240,180,41,.4);
+  color: var(--gold);
+}
+.step-line {
+  flex: 1; height: 1px;
+  background: rgba(255,255,255,.08);
+  margin: 0 4px;
+  transition: background .3s;
+}
+.step-line.done { background: rgba(240,180,41,.35); }
+.step-label {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--muted); margin-top: 6px;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 70px;
+  text-align: center;
+}
+.step-label.active { color: var(--gold); }
+.step-wrap {
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ── FORM STEP ──────────────────────────── */
+.form-step { display: none; }
+.form-step.active { display: block; }
+
+.step-header {
+  margin-bottom: 28px;
+}
+.step-header h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-weight: 700;
+  margin-bottom: 6px;
+}
+.step-header p {
+  font-size: .85rem; color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── FIELD GRID ─────────────────────────── */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.field-grid.full { grid-template-columns: 1fr; }
+.field-grid.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+.field {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.field.span2 { grid-column: span 2; }
+.field.span3 { grid-column: span 3; }
+
+label {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+label .req { color: var(--gold); margin-left: 2px; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: .9rem;
+  padding: 11px 14px;
+  width: 100%;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.4);
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+select option { background: var(--navy2); color: var(--white); }
+textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(240,180,41,.5);
+  background: rgba(255,255,255,.07);
+  box-shadow: 0 0 0 3px rgba(240,180,41,.1);
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
+
+.radio-group {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.radio-btn {
+  flex: 1; min-width: 80px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: .875rem; font-weight: 500;
+  color: var(--muted);
+  text-align: center;
+  transition: all .2s var(--ease2);
+}
+.radio-btn:hover { border-color: rgba(240,180,41,.3); color: var(--white); }
+.radio-btn.selected {
+  background: var(--gold-dim);
+  border-color: rgba(240,180,41,.5);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ── DOCUMENT UPLOAD ────────────────────── */
+.upload-section {
+  border: 1px dashed rgba(240,180,41,.25);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 8px;
+  background: rgba(240,180,41,.03);
+}
+.upload-title {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 6px; color: var(--gold2);
+}
+.upload-desc {
+  font-size: .8rem; color: var(--muted);
+  margin-bottom: 20px; line-height: 1.5;
+}
+.upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.upload-field {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.upload-label {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+}
+input[type="file"] {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .8rem;
+  padding: 9px 12px;
+  cursor: pointer;
+  width: 100%;
+}
+input[type="file"]:hover { border-color: rgba(240,180,41,.3); }
+input[type="file"]::file-selector-button {
+  background: rgba(240,180,41,.15);
+  border: none; border-radius: 5px;
+  color: var(--gold);
+  font-family: var(--sans);
+  font-size: .75rem; font-weight: 600;
+  padding: 5px 12px; margin-right: 10px;
+  cursor: pointer;
+  transition: background .2s;
+}
+input[type="file"]::file-selector-button:hover {
+  background: rgba(240,180,41,.25);
+}
+
+/* ── NAVIGATION ─────────────────────────── */
+.step-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.btn {
+  font-family: var(--sans);
+  font-size: .875rem; font-weight: 600;
+  border: none; border-radius: var(--radius-sm);
+  cursor: pointer; padding: 12px 28px;
+  transition: all .2s var(--ease2);
+  letter-spacing: .02em;
+}
+.btn-prev {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--input-border);
+}
+.btn-prev:hover { color: var(--white); border-color: rgba(255,255,255,.25); }
+.btn-next, .btn-submit {
+  background: var(--gold);
+  color: var(--navy);
+  min-width: 140px;
+  position: relative; overflow: hidden;
+}
+.btn-next:hover, .btn-submit:hover {
+  background: var(--gold2);
+  box-shadow: 0 6px 20px rgba(240,180,41,.35);
+  transform: translateY(-1px);
+}
+.btn-next:active, .btn-submit:active { transform: translateY(0); }
+.step-counter {
+  font-size: .75rem; color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── SUBMIT / LOADING ───────────────────── */
+.submit-state { display: none; text-align: center; padding: 20px 0; }
+.submit-state.active { display: block; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 2px solid rgba(240,180,41,.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.submit-state p { font-size: .9rem; color: var(--muted); }
+
+/* ── SUCCESS ────────────────────────────── */
+.success-panel {
+  display: none;
+  text-align: center;
+  padding: 60px 32px;
+  animation: fade-up .5s var(--ease) both;
+}
+.success-panel.active { display: block; }
+.success-mark {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(34,197,94,.12);
+  border: 1.5px solid rgba(34,197,94,.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 1.5rem;
+}
+.success-panel h2 {
+  font-family: var(--serif);
+  font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 12px;
+}
+.success-panel p {
+  font-size: .9rem; color: var(--muted);
+  max-width: 420px; margin: 0 auto;
+  line-height: 1.7;
+}
+.success-id {
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(240,180,41,.2);
+  color: var(--gold);
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .06em;
+  padding: 8px 20px; border-radius: 99px;
+}
+
+/* ── CARD WRAP ──────────────────────────── */
+.card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px;
+  backdrop-filter: blur(8px);
+}
+
+/* ── DIVIDER ────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 28px 0;
+}
+
+/* ── INFO BOX ───────────────────────────── */
+.info-box {
+  background: rgba(240,180,41,.06);
+  border: 1px solid rgba(240,180,41,.15);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: .82rem; color: rgba(255,255,255,.7);
+  line-height: 1.6;
+}
+.info-box strong { color: var(--gold); }
+
+/* ── ANIMATIONS ─────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 640px) {
+  .main { padding: 90px 16px 48px; }
+  .header { padding: 0 20px; }
+  .tabs-nav { grid-template-columns: 1fr 1fr; }
+  .tab-btn { font-size: .72rem; }
+  .field-grid { grid-template-columns: 1fr; }
+  .field-grid.triple { grid-template-columns: 1fr; }
+  .field.span2, .field.span3 { grid-column: span 1; }
+  .upload-grid { grid-template-columns: 1fr; }
+  .card { padding: 24px 18px; }
+  .step-progress { gap: 0; }
+  .step-dot { width: 24px; height: 24px; font-size: .65rem; }
+  .step-label { max-width: 52px; font-size: .56rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-wrap"><div class="mesh"></div></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Asesoría <em>Visa Global</em></div>
+  <div class="header-tag">Portal de Solicitud</div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Inicio de proceso</div>
+    <h1>Comienza tu proceso<br>de visa con <em>nosotros</em></h1>
+    <p>Completa el formulario correspondiente al tipo de visa que deseas tramitar. Toda la información es confidencial y protegida.</p>
+  </div>
+
+  <!-- TABS NAV -->
+  <div class="tabs-nav" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('usa', this)" role="tab">
+      Visa USA
+      <span>DS-160</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('schengen', this)" role="tab">
+      Visa Schengen
+      <span>Europa</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('uk', this)" role="tab">
+      Reino Unido
+      <span>Standard Visitor</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('rechazo', this)" role="tab">
+      Caso de Rechazo
+      <span>Visa denegada</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PANEL USA DS-160 -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="panel-usa" class="tab-panel active">
+    <div class="card">
+      <div id="usa-success" class="success-panel">
+        <div class="success-mark">&#10003;</div>
+        <h2>Expediente recibido</h2>
+        <p>Hemos recibido tu información para la Visa USA. Roberto revisará tu caso y se pondrá en contacto contigo a la brevedad.</p>
+        <div class="success-id" id="usa-ref"></div>
+      </div>
+      <div id="usa-form-wrap">
+        <div id="usa-submit-state" class="submit-state">
+          <div class="spinner"></div>
+          <p>Enviando tu expediente...</p>
+        </div>
+
+        <!-- Progress USA -->
+        <div id="usa-progress" class="step-progress"></div>
+
+        <form id="form-usa" onsubmit="return false;">
+          <!-- STEP 1: Datos Personales -->
+          <div class="form-step active" data-step="1">
+            <div class="step-header">
+              <h3>Datos Personales</h3>
+              <p>Ingresa tus datos tal como aparecen en tu pasaporte.</p>
+            </div>
+            <div class="info-box"><strong>Importante:</strong> Todos los datos deben coincidir exactamente con tu documento de identidad.</div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Apellidos <span class="req">*</span></label>
+                <input type="text" name="apellidos" placeholder="García Rodríguez" required>
+              </div>
+              <div class="field">
+                <label>Nombres <span class="req">*</span></label>
+                <input type="text" name="nombres" placeholder="María Elena" required>
+              </div>
+              <div class="field span2">
+                <label>Otros nombres usados (apellido de soltera, nombre legal anterior)</label>
+                <input type="text" name="otros_nombres" placeholder="Si no aplica, escribe: No">
+              </div>
+              <div class="field">
+                <label>Fecha de nacimiento <span class="req">*</span></label>
+                <input type="date" name="fecha_nacimiento" required>
+              </div>
+              <div class="field">
+                <label>Ciudad y país de nacimiento <span class="req">*</span></label>
+                <input type="text" name="ciudad_nacimiento" placeholder="Guayaquil, Ecuador">
+              </div>
+              <div class="field">
+                <label>Nacionalidad <span class="req">*</span></label>
+                <input type="text" name="nacionalidad" placeholder="Ecuatoriana">
+              </div>
+              <div class="field">
+                <label>Otra ciudadanía / nacionalidad</label>
+                <input type="text" name="otra_nacionalidad" placeholder="No (si aplica, indicar)">
+              </div>
+              <div class="field">
+                <label>Número de cédula <span class="req">*</span></label>
+                <input type="text" name="cedula" placeholder="0901234567">
+              </div>
+              <div class="field">
+                <label>Sexo <span class="req">*</span></label>
+                <select name="genero" required>
+                  <option value="">Seleccionar</option>
+                  <option>Masculino</option>
+                  <option>Femenino</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Estado civil <span class="req">*</span></label>
+                <select name="estado_civil" required>
+                  <option value="">Seleccionar</option>
+                  <option>Soltero/a</option>
+                  <option>Casado/a</option>
+                  <option>Unión libre</option>
+                  <option>Divorciado/a</option>
+                  <option>Viudo/a</option>
+                  <option>Separado/a</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: Pasaporte -->
+          <div class="form-step" data-step="2">
+            <div class="step-header">
+              <h3>Pasaporte</h3>
+              <p>Ten tu pasaporte a la mano. Necesitamos los datos de la primera página.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Número de pasaporte <span class="req">*</span></label>
+                <input type="text" name="pasaporte_numero" placeholder="A1234567" required>
+              </div>
+              <div class="field">
+                <label>Ciudad de emisión <span class="req">*</span></label>
+                <input type="text" name="pasaporte_ciudad_emision" placeholder="Guayaquil">
+              </div>
+              <div class="field">
+                <label>Fecha de emisión <span class="req">*</span></label>
+                <input type="date" name="pasaporte_emision" required>
+              </div>
+              <div class="field">
+                <label>Fecha de vencimiento <span class="req">*</span></label>
+                <input type="date" name="pasaporte_vencimiento" required>
+              </div>
+              <div class="field span2">
+                <label>¿Has perdido o te han robado algún pasaporte?</label>
+                <input type="text" name="pasaporte_perdido" placeholder="No (si sí, indicar número y año)">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: El Viaje -->
+          <div class="form-step" data-step="3">
+            <div class="step-header">
+              <h3>El Viaje</h3>
+              <p>Cuéntanos los detalles del viaje que planeas realizar a Estados Unidos.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Fecha de llegada planeada a USA <span class="req">*</span></label>
+                <input type="date" name="fecha_llegada_usa" required>
+              </div>
+              <div class="field">
+                <label>Días de estadía <span class="req">*</span></label>
+                <input type="number" name="dias_estadia" placeholder="15" min="1" max="180" required>
+              </div>
+              <div class="field span2">
+                <label>Dirección donde te alojarás en USA <span class="req">*</span></label>
+                <input type="text" name="direccion_usa" placeholder="123 Main St, Miami, FL — Hotel o dirección de familiar/amigo">
+              </div>
+              <div class="field span2">
+                <label>Nombre y teléfono del contacto en USA <span class="req">*</span></label>
+                <input type="text" name="contacto_usa" placeholder="Juan García — +1 305 555 0000">
+              </div>
+              <div class="field">
+                <label>¿Quién paga el viaje? <span class="req">*</span></label>
+                <select name="quien_paga" required>
+                  <option value="">Seleccionar</option>
+                  <option>Yo mismo</option>
+                  <option>Mi empleador</option>
+                  <option>Un familiar</option>
+                  <option>Otra persona</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Fondos disponibles para el viaje (USD) <span class="req">*</span></label>
+                <input type="text" name="fondos_disponibles" placeholder="Ej: $3,000">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Contacto -->
+          <div class="form-step" data-step="4">
+            <div class="step-header">
+              <h3>Dirección y Contacto</h3>
+              <p>Tu información de contacto actual en Ecuador.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field span2">
+                <label>Dirección completa en Ecuador <span class="req">*</span></label>
+                <input type="text" name="direccion_ecuador" placeholder="Calle, número, sector, ciudad" required>
+              </div>
+              <div class="field">
+                <label>Teléfono celular <span class="req">*</span></label>
+                <input type="tel" name="telefono" placeholder="+593 99 000 0000" required>
+              </div>
+              <div class="field">
+                <label>Correo electrónico <span class="req">*</span></label>
+                <input type="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+              </div>
+              <div class="field span2">
+                <label>Redes sociales (últimos 5 años — plataforma y usuario)</label>
+                <textarea name="redes_sociales" placeholder="Facebook: @mariag / Instagram: @mariag_ec / TikTok: @mariag — Si no tienes, escribe: Ninguna"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: Familia -->
+          <div class="form-step" data-step="5">
+            <div class="step-header">
+              <h3>Información Familiar</h3>
+              <p>Datos sobre tu núcleo familiar requeridos por el DS-160.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Nombre completo del padre <span class="req">*</span></label>
+                <input type="text" name="padre_nombre" placeholder="Carlos García López" required>
+              </div>
+              <div class="field">
+                <label>Fecha de nacimiento del padre</label>
+                <input type="date" name="padre_nacimiento">
+              </div>
+              <div class="field">
+                <label>¿Tu padre está en Estados Unidos?</label>
+                <select name="padre_en_usa">
+                  <option value="">Seleccionar</option>
+                  <option>No</option>
+                  <option>Sí, ciudadano</option>
+                  <option>Sí, residente</option>
+                  <option>Sí, con visa</option>
+                  <option>Fallecido</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Nombre completo de la madre <span class="req">*</span></label>
+                <input type="text" name="madre_nombre" placeholder="Rosa Rodríguez de García" required>
+              </div>
+              <div class="field">
+                <label>Fecha de nacimiento de la madre</label>
+                <input type="date" name="madre_nacimiento">
+              </div>
+              <div class="field">
+                <label>¿Tu madre está en Estados Unidos?</label>
+                <select name="madre_en_usa">
+                  <option value="">Seleccionar</option>
+                  <option>No</option>
+                  <option>Sí, ciudadana</option>
+                  <option>Sí, residente</option>
+                  <option>Sí, con visa</option>
+                  <option>Fallecida</option>
+                </select>
+              </div>
+              <div class="field span2">
+                <label>Otros familiares en USA (hermanos, tíos, primos, abuelos)</label>
+                <textarea name="familiares_usa" placeholder="Nombre, parentesco — Si no tienes, escribe: Ninguno"></textarea>
+              </div>
+              <div class="field span2">
+                <label>Datos de la pareja (si estás casado/a o en unión libre)</label>
+                <textarea name="pareja_datos" placeholder="Nombre completo, fecha nacimiento, nacionalidad, ciudad donde vive — Si eres soltero/a: Soltero/a"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 6: Trabajo -->
+          <div class="form-step" data-step="6">
+            <div class="step-header">
+              <h3>Trabajo o Estudios</h3>
+              <p>Tu situación laboral o académica actual.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>Ocupación actual <span class="req">*</span></label>
+                <input type="text" name="ocupacion" placeholder="Contador, Docente, Comerciante..." required>
+              </div>
+              <div class="field">
+                <label>Empresa o institución <span class="req">*</span></label>
+                <input type="text" name="empleador_nombre" placeholder="Empresa ABC S.A." required>
+              </div>
+              <div class="field">
+                <label>Dirección del empleador</label>
+                <input type="text" name="empleador_direccion" placeholder="Av. Principal 123, Guayaquil">
+              </div>
+              <div class="field">
+                <label>Teléfono del empleador</label>
+                <input type="tel" name="empleador_telefono" placeholder="04 000 0000">
+              </div>
+              <div class="field">
+                <label>Ingreso mensual aproximado (USD) <span class="req">*</span></label>
+                <input type="text" name="salario" placeholder="800" required>
+              </div>
+              <div class="field">
+                <label>Tiempo en ese trabajo/institución <span class="req">*</span></label>
+                <input type="text" name="tiempo_trabajo" placeholder="3 años / desde marzo 2022" required>
+              </div>
+              <div class="field span2">
+                <label>Trabajo anterior (últimos 5 años)</label>
+                <textarea name="trabajo_anterior" placeholder="Empresa, cargo, fechas — Si no aplica: No"></textarea>
+              </div>
+              <div class="field">
+                <label>Nivel de educación más alto <span class="req">*</span></label>
+                <select name="educacion" required>
+                  <option value="">Seleccionar</option>
+                  <option>Primaria</option>
+                  <option>Secundaria / Bachillerato</option>
+                  <option>Técnico / Tecnológico</option>
+                  <option>Universidad</option>
+                  <option>Postgrado / Maestría</option>
+                  <option>Doctorado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 7: Historial -->
+          <div class="form-step" data-step="7">
+            <div class="step-header">
+              <h3>Historial de Viajes</h3>
+              <p>Información sobre tus viajes previos y visas anteriores.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field span2">
+                <label>¿Has estado antes en Estados Unidos?</label>
+                <textarea name="viajes_previos_usa" placeholder="Última visita: mes/año, duración de estadía — Si no: Nunca he viajado a USA"></textarea>
+              </div>
+              <div class="field">
+                <label>¿Tuviste visa USA anteriormente?</label>
+                <input type="text" name="visa_usa_anterior" placeholder="Número y fecha — Si no: No">
+              </div>
+              <div class="field">
+                <label>¿Te negaron alguna vez una visa USA?</label>
+                <input type="text" name="rechazo_usa" placeholder="Año y motivo — Si no: No">
+              </div>
+              <div class="field">
+                <label>¿Negaron visa de otro país (Europa, Canadá, UK)?</label>
+                <input type="text" name="rechazo_otros_paises" placeholder="País, año — Si no: No">
+              </div>
+              <div class="field">
+                <label>Viajes internacionales últimos 5 años</label>
+                <input type="text" name="viajes_internacionales" placeholder="Colombia 2023, Perú 2022 — Si no: No">
+              </div>
+              <div class="field span2">
+                <label>¿Alguien ha iniciado trámites de residencia o inmigración a tu nombre en USA?</label>
+                <select name="peticion_inmigrante">
+                  <option value="">Seleccionar</option>
+                  <option>No</option>
+                  <option>Sí</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 8: Seguridad + Documentos -->
+          <div class="form-step" data-step="8">
+            <div class="step-header">
+              <h3>Preguntas de Seguridad y Documentos</h3>
+              <p>Último bloque. Responde con honestidad — la mayoría de estas respuestas son No.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>¿Has tenido alguna enfermedad contagiosa?</label>
+                <select name="seg_enfermedad">
+                  <option>No</option>
+                  <option>Sí (indicar en observaciones)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>¿Has consumido drogas ilegales?</label>
+                <select name="seg_drogas">
+                  <option>No</option>
+                  <option>Sí (indicar en observaciones)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>¿Has sido arrestado o condenado por algún delito?</label>
+                <select name="seg_arrestado">
+                  <option>No</option>
+                  <option>Sí (indicar en observaciones)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>¿Has sido deportado de algún país?</label>
+                <select name="seg_deportado">
+                  <option>No</option>
+                  <option>Sí (indicar en observaciones)</option>
+                </select>
+              </div>
+              <div class="field span2">
+                <label>¿Involucrado en actividad terrorista, genocidio o persecución?</label>
+                <select name="seg_terrorismo">
+                  <option>No</option>
+                  <option>Sí (indicar en observaciones)</option>
+                </select>
+              </div>
+              <div class="field span2">
+                <label>Observaciones adicionales</label>
+                <textarea name="observaciones" placeholder="Cualquier información adicional relevante para tu caso..."></textarea>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="upload-section">
+              <div class="upload-title">Documentos de soporte</div>
+              <div class="upload-desc">Sube los documentos que tengas disponibles. Esto agilizará la revisión de tu expediente. Formatos aceptados: PDF, JPG, PNG.</div>
+              <div class="upload-grid">
+                <div class="upload-field">
+                  <div class="upload-label">Foto del pasaporte (página principal)</div>
+                  <input type="file" name="doc_pasaporte" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Estado de cuenta bancario</div>
+                  <input type="file" name="doc_cuenta" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Carta o certificado de trabajo</div>
+                  <input type="file" name="doc_trabajo" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Otros documentos relevantes</div>
+                  <input type="file" name="doc_otros" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-prev" id="usa-prev" onclick="changeStep('usa', -1)">Anterior</button>
+            <span class="step-counter" id="usa-counter"></span>
+            <button type="button" class="btn btn-next" id="usa-next" onclick="changeStep('usa', 1)">Continuar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PANEL SCHENGEN -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="panel-schengen" class="tab-panel">
+    <div class="card">
+      <div id="schengen-success" class="success-panel">
+        <div class="success-mark">&#10003;</div>
+        <h2>Expediente recibido</h2>
+        <p>Hemos recibido tu información para la Visa Schengen. Roberto revisará tu caso y se pondrá en contacto contigo a la brevedad.</p>
+        <div class="success-id" id="schengen-ref"></div>
+      </div>
+      <div id="schengen-form-wrap">
+        <div id="schengen-submit-state" class="submit-state">
+          <div class="spinner"></div>
+          <p>Enviando tu expediente...</p>
+        </div>
+        <div id="schengen-progress" class="step-progress"></div>
+        <form id="form-schengen" onsubmit="return false;">
+          <!-- STEP 1: Personal -->
+          <div class="form-step active" data-step="1">
+            <div class="step-header">
+              <h3>Datos Personales</h3>
+              <p>Ingresa tus datos tal como aparecen en tu pasaporte.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field"><label>Apellidos <span class="req">*</span></label><input type="text" name="apellidos" placeholder="García Rodríguez" required></div>
+              <div class="field"><label>Nombres <span class="req">*</span></label><input type="text" name="nombres" placeholder="María Elena" required></div>
+              <div class="field span2"><label>Otros nombres usados</label><input type="text" name="otros_nombres" placeholder="Si no aplica: No"></div>
+              <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" name="fecha_nacimiento" required></div>
+              <div class="field"><label>Ciudad y país de nacimiento</label><input type="text" name="ciudad_nacimiento" placeholder="Guayaquil, Ecuador"></div>
+              <div class="field"><label>Nacionalidad <span class="req">*</span></label><input type="text" name="nacionalidad" placeholder="Ecuatoriana" required></div>
+              <div class="field"><label>Otra nacionalidad</label><input type="text" name="otra_nacionalidad" placeholder="No"></div>
+              <div class="field"><label>Número de cédula <span class="req">*</span></label><input type="text" name="cedula" placeholder="0901234567" required></div>
+              <div class="field"><label>Sexo <span class="req">*</span></label><select name="genero" required><option value="">Seleccionar</option><option>Masculino</option><option>Femenino</option></select></div>
+              <div class="field"><label>Estado civil <span class="req">*</span></label><select name="estado_civil" required><option value="">Seleccionar</option><option>Soltero/a</option><option>Casado/a</option><option>Unión libre</option><option>Divorciado/a</option><option>Viudo/a</option><option>Separado/a</option></select></div>
+            </div>
+          </div>
+          <!-- STEP 2: Pasaporte -->
+          <div class="form-step" data-step="2">
+            <div class="step-header"><h3>Pasaporte</h3><p>Datos del pasaporte vigente.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Número de pasaporte <span class="req">*</span></label><input type="text" name="pasaporte_numero" required></div>
+              <div class="field"><label>Ciudad de emisión</label><input type="text" name="pasaporte_ciudad_emision" placeholder="Guayaquil"></div>
+              <div class="field"><label>Fecha de emisión <span class="req">*</span></label><input type="date" name="pasaporte_emision" required></div>
+              <div class="field"><label>Fecha de vencimiento <span class="req">*</span></label><input type="date" name="pasaporte_vencimiento" required></div>
+              <div class="field span2"><label>¿Pasaportes anteriores? (número, año)</label><input type="text" name="pasaporte_anterior" placeholder="No"></div>
+            </div>
+          </div>
+          <!-- STEP 3: Viaje Europa -->
+          <div class="form-step" data-step="3">
+            <div class="step-header"><h3>El Viaje a Europa</h3><p>Detalles del viaje planificado.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>País principal de destino <span class="req">*</span></label><input type="text" name="pais_destino" placeholder="España, Italia, Francia..." required></div>
+              <div class="field"><label>¿Cuántos países visitarás?</label><input type="text" name="otros_paises" placeholder="Solo España / España y Francia..."></div>
+              <div class="field"><label>Fecha de entrada planeada <span class="req">*</span></label><input type="date" name="fecha_entrada" required></div>
+              <div class="field"><label>Fecha de salida planeada <span class="req">*</span></label><input type="date" name="fecha_salida" required></div>
+              <div class="field span2"><label>Nombre y dirección del alojamiento en Europa <span class="req">*</span></label><input type="text" name="alojamiento_europa" placeholder="Hotel Madrid Center, Calle Gran Vía 45, Madrid" required></div>
+              <div class="field span2"><label>Nombre y contacto de persona en Europa (si aplica)</label><input type="text" name="contacto_europa" placeholder="Juan García — +34 600 000 000 — Si hotel: No aplica"></div>
+              <div class="field"><label>¿Quién paga el viaje?</label><select name="quien_paga"><option value="">Seleccionar</option><option>Yo mismo</option><option>Familiar</option><option>Empleador</option><option>Otra persona</option></select></div>
+              <div class="field"><label>Fondos disponibles (USD)</label><input type="text" name="fondos_disponibles" placeholder="$4,000"></div>
+              <div class="field span2"><label>Motivo del viaje <span class="req">*</span></label><select name="motivo_viaje" required><option value="">Seleccionar</option><option>Turismo</option><option>Visita familiar</option><option>Negocios</option><option>Cultura / Arte</option><option>Otro</option></select></div>
+            </div>
+          </div>
+          <!-- STEP 4: Contacto -->
+          <div class="form-step" data-step="4">
+            <div class="step-header"><h3>Contacto en Ecuador</h3><p>Información de contacto actual.</p></div>
+            <div class="field-grid">
+              <div class="field span2"><label>Dirección completa <span class="req">*</span></label><input type="text" name="direccion_ecuador" required></div>
+              <div class="field"><label>Teléfono celular <span class="req">*</span></label><input type="tel" name="telefono" required></div>
+              <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" name="email" required></div>
+            </div>
+          </div>
+          <!-- STEP 5: Familia -->
+          <div class="form-step" data-step="5">
+            <div class="step-header"><h3>Información Familiar</h3><p>Datos requeridos para la solicitud Schengen.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Nombre del padre</label><input type="text" name="padre_nombre"></div>
+              <div class="field"><label>Nombre de la madre</label><input type="text" name="madre_nombre"></div>
+              <div class="field span2"><label>Datos de la pareja (si casado/a o unión libre)</label><textarea name="pareja_datos" placeholder="Nombre, nacimiento, nacionalidad — Si soltero/a: Soltero/a"></textarea></div>
+              <div class="field span2"><label>Familiares con residencia en Europa</label><input type="text" name="familiares_europa" placeholder="Nombre, parentesco, país — Si no: Ninguno"></div>
+            </div>
+          </div>
+          <!-- STEP 6: Trabajo -->
+          <div class="form-step" data-step="6">
+            <div class="step-header"><h3>Situación Laboral</h3><p>Tu trabajo o estudios actuales.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Ocupación <span class="req">*</span></label><input type="text" name="ocupacion" required></div>
+              <div class="field"><label>Empresa o institución <span class="req">*</span></label><input type="text" name="empleador_nombre" required></div>
+              <div class="field"><label>Dirección del empleador</label><input type="text" name="empleador_direccion"></div>
+              <div class="field"><label>Teléfono del empleador</label><input type="tel" name="empleador_telefono"></div>
+              <div class="field"><label>Ingreso mensual (USD) <span class="req">*</span></label><input type="text" name="salario" required></div>
+              <div class="field"><label>Tiempo en ese empleo</label><input type="text" name="tiempo_trabajo"></div>
+              <div class="field"><label>Nivel de educación</label><select name="educacion"><option value="">Seleccionar</option><option>Secundaria</option><option>Técnico</option><option>Universidad</option><option>Postgrado</option></select></div>
+            </div>
+          </div>
+          <!-- STEP 7: Historial + Documentos -->
+          <div class="form-step" data-step="7">
+            <div class="step-header"><h3>Historial de Visas y Documentos</h3><p>Información sobre visas y viajes previos.</p></div>
+            <div class="field-grid">
+              <div class="field span2"><label>¿Has tenido visa Schengen anteriormente?</label><input type="text" name="visa_schengen_anterior" placeholder="Número, país, fecha — Si no: No"></div>
+              <div class="field"><label>¿Te negaron visa Schengen antes?</label><input type="text" name="rechazo_schengen" placeholder="País, año — Si no: No"></div>
+              <div class="field"><label>¿Te negaron visa de otro país (USA, UK, Canadá)?</label><input type="text" name="rechazo_otros" placeholder="País, año — Si no: No"></div>
+              <div class="field span2"><label>Viajes internacionales últimos 5 años</label><input type="text" name="viajes_internacionales" placeholder="Colombia 2023, Perú 2022 — Si no: No"></div>
+              <div class="field span2"><label>¿Tienes seguro de viaje contratado?</label><select name="seguro_viaje"><option>No aún</option><option>Sí, ya lo tengo</option><option>Lo contrataré después</option></select></div>
+            </div>
+            <div class="divider"></div>
+            <div class="upload-section">
+              <div class="upload-title">Documentos de soporte</div>
+              <div class="upload-desc">Sube los documentos que tengas disponibles. Formatos: PDF, JPG, PNG.</div>
+              <div class="upload-grid">
+                <div class="upload-field"><div class="upload-label">Foto del pasaporte</div><input type="file" name="doc_pasaporte" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Estado de cuenta bancario</div><input type="file" name="doc_cuenta" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Carta o certificado de trabajo</div><input type="file" name="doc_trabajo" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Reserva de hotel o alojamiento</div><input type="file" name="doc_hotel" accept=".pdf,.jpg,.jpeg,.png"></div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="field-grid full"><div class="field"><label>Observaciones adicionales</label><textarea name="observaciones" placeholder="Cualquier información adicional..."></textarea></div></div>
+          </div>
+          <div class="step-nav">
+            <button type="button" class="btn btn-prev" id="schengen-prev" onclick="changeStep('schengen', -1)">Anterior</button>
+            <span class="step-counter" id="schengen-counter"></span>
+            <button type="button" class="btn btn-next" id="schengen-next" onclick="changeStep('schengen', 1)">Continuar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PANEL REINO UNIDO -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="panel-uk" class="tab-panel">
+    <div class="card">
+      <div id="uk-success" class="success-panel">
+        <div class="success-mark">&#10003;</div>
+        <h2>Expediente recibido</h2>
+        <p>Hemos recibido tu información para la Visa de Reino Unido. Roberto revisará tu caso a la brevedad.</p>
+        <div class="success-id" id="uk-ref"></div>
+      </div>
+      <div id="uk-form-wrap">
+        <div id="uk-submit-state" class="submit-state">
+          <div class="spinner"></div>
+          <p>Enviando tu expediente...</p>
+        </div>
+        <div id="uk-progress" class="step-progress"></div>
+        <form id="form-uk" onsubmit="return false;">
+          <!-- STEP 1 -->
+          <div class="form-step active" data-step="1">
+            <div class="step-header"><h3>Datos Personales</h3><p>Datos del solicitante principal.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Apellidos <span class="req">*</span></label><input type="text" name="apellidos" required></div>
+              <div class="field"><label>Nombres <span class="req">*</span></label><input type="text" name="nombres" required></div>
+              <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" name="fecha_nacimiento" required></div>
+              <div class="field"><label>Ciudad y país de nacimiento</label><input type="text" name="ciudad_nacimiento" placeholder="Guayaquil, Ecuador"></div>
+              <div class="field"><label>Nacionalidad</label><input type="text" name="nacionalidad" placeholder="Ecuatoriana"></div>
+              <div class="field"><label>Número de cédula</label><input type="text" name="cedula"></div>
+              <div class="field"><label>Sexo</label><select name="genero"><option value="">Seleccionar</option><option>Masculino</option><option>Femenino</option></select></div>
+              <div class="field"><label>Estado civil</label><select name="estado_civil"><option value="">Seleccionar</option><option>Soltero/a</option><option>Casado/a</option><option>Unión libre</option><option>Divorciado/a</option><option>Viudo/a</option></select></div>
+            </div>
+          </div>
+          <!-- STEP 2 -->
+          <div class="form-step" data-step="2">
+            <div class="step-header"><h3>Pasaporte</h3><p>Datos del pasaporte vigente.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Número de pasaporte <span class="req">*</span></label><input type="text" name="pasaporte_numero" required></div>
+              <div class="field"><label>Ciudad de emisión</label><input type="text" name="pasaporte_ciudad_emision"></div>
+              <div class="field"><label>Fecha de emisión <span class="req">*</span></label><input type="date" name="pasaporte_emision" required></div>
+              <div class="field"><label>Fecha de vencimiento <span class="req">*</span></label><input type="date" name="pasaporte_vencimiento" required></div>
+            </div>
+          </div>
+          <!-- STEP 3 -->
+          <div class="form-step" data-step="3">
+            <div class="step-header"><h3>El Viaje al Reino Unido</h3><p>Detalles de la visita planificada.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>Fecha de llegada planeada <span class="req">*</span></label><input type="date" name="fecha_llegada" required></div>
+              <div class="field"><label>Fecha de salida planeada <span class="req">*</span></label><input type="date" name="fecha_salida" required></div>
+              <div class="field span2"><label>Dirección de alojamiento en UK <span class="req">*</span></label><input type="text" name="alojamiento_uk" placeholder="Hotel London Bridge, Tooley St, London SE1" required></div>
+              <div class="field span2"><label>Contacto en UK (familiar, amigo, hotel)</label><input type="text" name="contacto_uk" placeholder="Nombre, teléfono — Si hotel: No aplica"></div>
+              <div class="field"><label>Motivo de la visita</label><select name="motivo_viaje"><option>Turismo</option><option>Visita familiar</option><option>Negocios</option><option>Tránsito</option><option>Otro</option></select></div>
+              <div class="field"><label>¿Quién financia el viaje?</label><select name="quien_paga"><option value="">Seleccionar</option><option>Yo mismo</option><option>Familiar en UK</option><option>Empleador</option><option>Otra persona</option></select></div>
+              <div class="field"><label>Fondos disponibles (USD)</label><input type="text" name="fondos_disponibles" placeholder="$3,500"></div>
+            </div>
+          </div>
+          <!-- STEP 4 -->
+          <div class="form-step" data-step="4">
+            <div class="step-header"><h3>Contacto y Trabajo</h3><p>Información de contacto y situación laboral.</p></div>
+            <div class="field-grid">
+              <div class="field span2"><label>Dirección en Ecuador <span class="req">*</span></label><input type="text" name="direccion_ecuador" required></div>
+              <div class="field"><label>Teléfono <span class="req">*</span></label><input type="tel" name="telefono" required></div>
+              <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" required></div>
+              <div class="field"><label>Ocupación <span class="req">*</span></label><input type="text" name="ocupacion" required></div>
+              <div class="field"><label>Empleador</label><input type="text" name="empleador_nombre"></div>
+              <div class="field"><label>Ingreso mensual (USD)</label><input type="text" name="salario"></div>
+              <div class="field"><label>Tiempo en ese empleo</label><input type="text" name="tiempo_trabajo"></div>
+            </div>
+          </div>
+          <!-- STEP 5 -->
+          <div class="form-step" data-step="5">
+            <div class="step-header"><h3>Historial y Vínculos Familiares</h3><p>Vínculos en UK y viajes previos.</p></div>
+            <div class="field-grid">
+              <div class="field span2"><label>¿Tienes familiares en Reino Unido?</label><input type="text" name="familiares_uk" placeholder="Nombre, parentesco, estatus migratorio — Si no: Ninguno"></div>
+              <div class="field"><label>¿Has visitado UK antes?</label><input type="text" name="visitas_uk_previas" placeholder="Año, duración — Si no: No"></div>
+              <div class="field"><label>¿Tuviste visa UK anterior?</label><input type="text" name="visa_uk_anterior" placeholder="Tipo, año — Si no: No"></div>
+              <div class="field"><label>¿Te negaron visa UK?</label><input type="text" name="rechazo_uk" placeholder="Año, motivo — Si no: No"></div>
+              <div class="field"><label>¿Negativa de visa en otro país?</label><input type="text" name="rechazo_otros" placeholder="País, año — Si no: No"></div>
+              <div class="field span2"><label>Viajes internacionales últimos 5 años</label><input type="text" name="viajes_internacionales" placeholder="Colombia 2023... — Si no: No"></div>
+            </div>
+          </div>
+          <!-- STEP 6: Seguridad + Documentos -->
+          <div class="form-step" data-step="6">
+            <div class="step-header"><h3>Información de Seguridad y Documentos</h3><p>Preguntas finales y carga de documentos.</p></div>
+            <div class="field-grid">
+              <div class="field"><label>¿Antecedentes penales en cualquier país?</label><select name="seg_arrestado"><option>No</option><option>Sí (indicar)</option></select></div>
+              <div class="field"><label>¿Has sido deportado?</label><select name="seg_deportado"><option>No</option><option>Sí (indicar)</option></select></div>
+              <div class="field span2"><label>Observaciones adicionales</label><textarea name="observaciones" placeholder="Cualquier información adicional..."></textarea></div>
+            </div>
+            <div class="divider"></div>
+            <div class="upload-section">
+              <div class="upload-title">Documentos de soporte</div>
+              <div class="upload-desc">Adjunta los documentos disponibles. Formatos: PDF, JPG, PNG.</div>
+              <div class="upload-grid">
+                <div class="upload-field"><div class="upload-label">Foto del pasaporte</div><input type="file" name="doc_pasaporte" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Estado de cuenta bancario</div><input type="file" name="doc_cuenta" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Carta de trabajo</div><input type="file" name="doc_trabajo" accept=".pdf,.jpg,.jpeg,.png"></div>
+                <div class="upload-field"><div class="upload-label">Reserva de vuelo / hotel</div><input type="file" name="doc_reserva" accept=".pdf,.jpg,.jpeg,.png"></div>
+              </div>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button type="button" class="btn btn-prev" id="uk-prev" onclick="changeStep('uk', -1)">Anterior</button>
+            <span class="step-counter" id="uk-counter"></span>
+            <button type="button" class="btn btn-next" id="uk-next" onclick="changeStep('uk', 1)">Continuar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PANEL RECHAZO -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="panel-rechazo" class="tab-panel">
+    <div class="card">
+      <div id="rechazo-success" class="success-panel">
+        <div class="success-mark">&#10003;</div>
+        <h2>Caso recibido</h2>
+        <p>Hemos recibido los documentos de tu caso. Roberto analizará la situación y te contactará con una estrategia personalizada para revertir el rechazo.</p>
+        <div class="success-id" id="rechazo-ref"></div>
+      </div>
+      <div id="rechazo-form-wrap">
+        <div id="rechazo-submit-state" class="submit-state">
+          <div class="spinner"></div>
+          <p>Enviando tu expediente...</p>
+        </div>
+        <div id="rechazo-progress" class="step-progress"></div>
+        <form id="form-rechazo" onsubmit="return false;">
+          <!-- STEP 1 -->
+          <div class="form-step active" data-step="1">
+            <div class="step-header">
+              <h3>Datos del Solicitante</h3>
+              <p>Cuéntanos sobre ti y el rechazo que recibiste.</p>
+            </div>
+            <div class="info-box"><strong>Nota:</strong> Los casos con rechazo previo tienen solución. Más del 70% de nuestros clientes con rechazos anteriores obtienen la visa en la segunda solicitud con la estrategia correcta.</div>
+            <div class="field-grid">
+              <div class="field"><label>Nombre completo <span class="req">*</span></label><input type="text" name="nombre_completo" required></div>
+              <div class="field"><label>Teléfono <span class="req">*</span></label><input type="tel" name="telefono" required></div>
+              <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" name="email" required></div>
+              <div class="field"><label>Tipo de visa solicitada <span class="req">*</span></label><select name="tipo_visa" required><option value="">Seleccionar</option><option>Visa USA B1/B2</option><option>Visa Schengen</option><option>Visa Reino Unido</option><option>Otra</option></select></div>
+              <div class="field"><label>País / Consulado donde aplicaste <span class="req">*</span></label><input type="text" name="consulado" placeholder="Embajada USA en Ecuador / Consulado España..." required></div>
+              <div class="field"><label>Fecha del rechazo <span class="req">*</span></label><input type="date" name="fecha_rechazo" required></div>
+            </div>
+          </div>
+          <!-- STEP 2 -->
+          <div class="form-step" data-step="2">
+            <div class="step-header">
+              <h3>Motivo del Rechazo</h3>
+              <p>Detalla el motivo indicado y la situación completa.</p>
+            </div>
+            <div class="field-grid full">
+              <div class="field"><label>Motivo indicado en la carta de rechazo <span class="req">*</span></label><select name="motivo_rechazo" required><option value="">Seleccionar</option><option>Vínculos insuficientes con el país de origen</option><option>Fondos insuficientes</option><option>Propósito del viaje no convincente</option><option>Historial de viajes insuficiente</option><option>Situación laboral</option><option>No se especificó motivo claro</option><option>Otro</option></select></div>
+              <div class="field"><label>Transcribe o explica el texto exacto de la carta de rechazo</label><textarea name="texto_rechazo" style="min-height:100px" placeholder="Escribe aquí el texto de la carta, o explica lo que recuerdas..."></textarea></div>
+              <div class="field"><label>¿Has tenido otros rechazos de visas en el pasado? (cualquier país)</label><textarea name="rechazos_previos" placeholder="País, año, tipo de visa — Si es el primero: Este es mi primer rechazo"></textarea></div>
+              <div class="field"><label>¿Qué ha cambiado desde el rechazo hasta ahora en tu situación?</label><textarea name="cambios_desde_rechazo" placeholder="Nuevo empleo, más ahorros, matrimonio, viajes realizados... Si nada cambió: Nada por el momento"></textarea></div>
+              <div class="field"><label>¿Cuándo necesitas viajar aproximadamente?</label><input type="text" name="fecha_viaje_objetivo" placeholder="Julio 2026, lo antes posible, sin fecha fija..."></div>
+            </div>
+          </div>
+          <!-- STEP 3: Documentos -->
+          <div class="form-step" data-step="3">
+            <div class="step-header">
+              <h3>Documentos del Caso</h3>
+              <p>Sube los documentos que tengas del proceso anterior. Esto nos permite hacer un análisis preciso.</p>
+            </div>
+            <div class="field-grid full">
+              <div class="field"><label>Observaciones adicionales sobre tu caso</label><textarea name="observaciones" placeholder="Cualquier información que consideres relevante para evaluar tu situación..."></textarea></div>
+            </div>
+            <div class="divider"></div>
+            <div class="upload-section">
+              <div class="upload-title">Documentos para el análisis</div>
+              <div class="upload-desc">Sube todos los documentos que tengas disponibles. Mientras más documentos proporciones, más preciso será el análisis de tu caso.</div>
+              <div class="upload-grid">
+                <div class="upload-field">
+                  <div class="upload-label">Carta de rechazo (obligatorio)</div>
+                  <input type="file" name="doc_rechazo" accept=".pdf,.jpg,.jpeg,.png" required>
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Foto del pasaporte</div>
+                  <input type="file" name="doc_pasaporte" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Estado de cuenta bancario actual</div>
+                  <input type="file" name="doc_cuenta" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Carta de trabajo actual</div>
+                  <input type="file" name="doc_trabajo" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Documentos presentados anteriormente</div>
+                  <input type="file" name="doc_previos" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                </div>
+                <div class="upload-field">
+                  <div class="upload-label">Otros documentos relevantes</div>
+                  <input type="file" name="doc_otros" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button type="button" class="btn btn-prev" id="rechazo-prev" onclick="changeStep('rechazo', -1)">Anterior</button>
+            <span class="step-counter" id="rechazo-counter"></span>
+            <button type="button" class="btn btn-next" id="rechazo-next" onclick="changeStep('rechazo', 1)">Continuar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;margin-top:48px;padding-bottom:24px;">
+    <p style="font-size:.75rem;color:rgba(255,255,255,.3);">Asesoría Visa Global &mdash; Tu información es confidencial y protegida &mdash; +593 99 444 2512</p>
+  </div>
+
+</main>
+
+<script>
+// ── CONFIGURATION ──────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8ieQe3gySZ2ZS2x32gK_ecvgw7sDHaJmYrIRshYbgpQFNDXME1PM56KOhqKeSk3T3TA/exec';
+
+// ── STEP DEFINITIONS ───────────────────────────────────────────────
+const STEPS = {
+  usa: ['Datos personales','Pasaporte','El viaje','Contacto','Familia','Trabajo','Historial','Seguridad'],
+  schengen: ['Datos personales','Pasaporte','El viaje','Contacto','Familia','Trabajo','Historial'],
+  uk: ['Datos personales','Pasaporte','El viaje','Contacto','Historial','Seguridad'],
+  rechazo: ['Datos del caso','Motivo del rechazo','Documentos']
+};
+
+// Track current step per tab
+const currentStep = { usa: 1, schengen: 1, uk: 1, rechazo: 1 };
+
+// ── INIT ──────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  ['usa', 'schengen', 'uk', 'rechazo'].forEach(tab => {
+    buildProgress(tab);
+    updateNav(tab);
+  });
+});
+
+// ── TAB SWITCHING ─────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── PROGRESS BAR ──────────────────────────────────────────────────
+function buildProgress(tab) {
+  const wrap = document.getElementById(tab + '-progress');
+  if (!wrap) return;
+  const steps = STEPS[tab];
+  wrap.innerHTML = '';
+
+  steps.forEach((label, i) => {
+    const n = i + 1;
+    const isFirst = i === 0;
+
+    if (!isFirst) {
+      const line = document.createElement('div');
+      line.className = 'step-line';
+      line.id = `${tab}-line-${n}`;
+      wrap.appendChild(line);
+    }
+
+    const itemWrap = document.createElement('div');
+    itemWrap.className = 'step-wrap';
+
+    const dot = document.createElement('div');
+    dot.className = 'step-dot' + (n === 1 ? ' active' : '');
+    dot.id = `${tab}-dot-${n}`;
+    dot.textContent = n;
+
+    const lbl = document.createElement('div');
+    lbl.className = 'step-label' + (n === 1 ? ' active' : '');
+    lbl.id = `${tab}-lbl-${n}`;
+    lbl.textContent = label;
+
+    itemWrap.appendChild(dot);
+    itemWrap.appendChild(lbl);
+    wrap.appendChild(itemWrap);
+  });
+}
+
+function refreshProgress(tab) {
+  const cur = currentStep[tab];
+  const total = STEPS[tab].length;
+  for (let i = 1; i <= total; i++) {
+    const dot = document.getElementById(`${tab}-dot-${i}`);
+    const lbl = document.getElementById(`${tab}-lbl-${i}`);
+    const line = document.getElementById(`${tab}-line-${i}`);
+    if (!dot) continue;
+    dot.className = 'step-dot' + (i < cur ? ' done' : i === cur ? ' active' : '');
+    dot.textContent = i < cur ? '✓' : i;
+    if (lbl) lbl.className = 'step-label' + (i === cur ? ' active' : '');
+    if (line) line.className = 'step-line' + (i <= cur ? ' done' : '');
+  }
+}
+
+// ── STEP NAVIGATION ───────────────────────────────────────────────
+function changeStep(tab, dir) {
+  const form = document.getElementById('form-' + tab);
+  const steps = form.querySelectorAll('.form-step');
+  const total = steps.length;
+  const cur = currentStep[tab];
+  const next = cur + dir;
+
+  // Validate current step before advancing
+  if (dir === 1) {
+    const curStep = steps[cur - 1];
+    const required = curStep.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(f => {
+      if (!f.value.trim()) {
+        f.style.borderColor = 'rgba(239,68,68,0.6)';
+        f.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.1)';
+        valid = false;
+        f.addEventListener('input', () => {
+          f.style.borderColor = '';
+          f.style.boxShadow = '';
+        }, { once: true });
+      }
+    });
+    if (!valid) return;
+  }
+
+  if (next < 1 || next > total) {
+    if (next > total) submitForm(tab);
+    return;
+  }
+
+  steps[cur - 1].classList.remove('active');
+  steps[next - 1].classList.add('active');
+  currentStep[tab] = next;
+  refreshProgress(tab);
+  updateNav(tab);
+
+  document.getElementById('panel-' + tab).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateNav(tab) {
+  const cur = currentStep[tab];
+  const total = STEPS[tab].length;
+  const prevBtn = document.getElementById(tab + '-prev');
+  const nextBtn = document.getElementById(tab + '-next');
+  const counter = document.getElementById(tab + '-counter');
+
+  if (prevBtn) prevBtn.style.visibility = cur === 1 ? 'hidden' : 'visible';
+  if (counter) counter.textContent = `Paso ${cur} de ${total}`;
+  if (nextBtn) {
+    nextBtn.textContent = cur === total ? 'Enviar expediente' : 'Continuar';
+    nextBtn.className = cur === total ? 'btn btn-submit' : 'btn btn-next';
+  }
+}
+
+// ── FORM SUBMISSION ───────────────────────────────────────────────
+async function submitForm(tab) {
+  const form = document.getElementById('form-' + tab);
+  const formWrap = document.getElementById(tab + '-form-wrap');
+  const submitState = document.getElementById(tab + '-submit-state');
+  const successPanel = document.getElementById(tab + '-success');
+  const refEl = document.getElementById(tab + '-ref');
+
+  // Gather data
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((v, k) => {
+    if (!k.startsWith('doc_')) data[k] = v;
+  });
+
+  const tipoMap = { usa: 'USA DS-160', schengen: 'Schengen', uk: 'Reino Unido', rechazo: 'Caso de Rechazo' };
+  const refId = tipoMap[tab].replace(/\s/g,'').toUpperCase().slice(0,3) + Date.now().toString().slice(-6);
+
+  data.tipo_visa = tipoMap[tab];
+  data.ref_id = refId;
+  data.fecha_envio = new Date().toLocaleString('es-EC', { timeZone: 'America/Guayaquil' });
+
+  // Show loading
+  submitState.classList.add('active');
+  document.querySelector(`#${tab}-form-wrap form`).style.display = 'none';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ personas: [{ nombre: data.nombre_completo || (data.nombres + ' ' + data.apellidos), datos: data }], tipo_visa: tipoMap[tab], ref: refId })
+    });
+  } catch(e) {
+    console.log('Note: no-cors mode — data sent');
+  }
+
+  // Show success
+  submitState.classList.remove('active');
+  formWrap.style.display = 'none';
+  if (refEl) refEl.textContent = 'Referencia: ' + refId;
+  successPanel.classList.add('active');
+}
+
+// ── RADIO BUTTONS ─────────────────────────────────────────────────
+document.querySelectorAll('.radio-group').forEach(group => {
+  group.querySelectorAll('.radio-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const input = group.previousElementSibling;
+      if (input && input.tagName === 'INPUT') input.value = btn.textContent.trim();
+    });
+  });
+});
+</script>
+</body>
+</html>
