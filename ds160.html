@@ -406,10 +406,111 @@ body {
 }
 
 /* ── RESPONSIVE ───────────────────────────────────── */
-@media(max-width:540px){
-  .card{padding:32px 24px;}
-  .num-grid{grid-template-columns:repeat(5,1fr); gap:6px;}
-  .progress-outer{padding:12px 20px 0;}
+
+/* Tablet y pantallas medianas */
+@media(max-width:700px){
+  .header{ padding:14px 20px; }
+  .header-badge{ font-size:.62rem; padding:4px 10px; }
+  .progress-outer{ top:53px; padding:10px 20px 0; }
+  .main{ padding:160px 16px 80px; }
+  .card{ padding:36px 28px; border-radius:20px; }
+  .welcome-title{ font-size:1.7rem; }
+  .steps{ gap:10px; margin-bottom:28px; }
+  .step{ padding:13px 15px; gap:12px; }
+}
+
+/* Móvil */
+@media(max-width:480px){
+  /* Header más compacto */
+  .header{ padding:12px 16px; }
+  .logo{ font-size:.95rem; }
+  .header-badge{ display:none; } /* ocultar badge en pantallas muy pequeñas */
+
+  /* Progress pegado al header */
+  .progress-outer{ top:49px; padding:10px 16px 0; }
+  .progress-meta{ font-size:.7rem; margin-bottom:8px; }
+  .progress-track{ margin-bottom:10px; }
+  .persona-pill{ font-size:.65rem; padding:3px 10px; }
+
+  /* Main con espacio correcto para header + progress */
+  .main{ padding:165px 12px 60px; align-items:flex-start; }
+
+  /* Card */
+  .card{ padding:28px 20px; border-radius:18px; }
+
+  /* Welcome */
+  .welcome-eyebrow{ font-size:.65rem; margin-bottom:16px; }
+  .welcome-title{ font-size:1.5rem; margin-bottom:12px; }
+  .welcome-sub{ font-size:.875rem; margin-bottom:24px; }
+  .steps{ margin-bottom:24px; gap:8px; }
+  .step{ padding:12px 14px; gap:10px; }
+  .step-text{ font-size:.82rem; }
+
+  /* Selector número de personas — 5 columnas siguen bien en móvil */
+  .num-grid{ gap:6px; margin-bottom:24px; }
+  .num-btn{ font-size:.9rem; border-radius:12px; }
+  .num-btn span{ display:none; } /* ocultar subtítulo en móvil */
+  .num-label{ font-size:.75rem; }
+
+  /* Nombres */
+  .nombre-input{ font-size:.95rem; padding:16px 14px 12px; }
+
+  /* Preguntas */
+  .q-group{ font-size:.65rem; padding:5px 12px; margin-bottom:18px; }
+  .q-label{ font-size:1.2rem; margin-bottom:8px; }
+  .q-hint{ font-size:.82rem; margin-bottom:20px; }
+
+  /* Opciones */
+  .opts{ gap:8px; }
+  .opt{ padding:14px 16px; font-size:.9rem; gap:12px; }
+  .opt:hover{ transform:none; } /* sin desplazamiento en touch */
+  .opt-radio{ width:18px; height:18px; }
+
+  /* Inputs */
+  .field-input, .field-textarea{ padding:16px 14px 13px; font-size:.95rem; }
+  .field-label{ font-size:.62rem; left:12px; }
+  .field-textarea{ min-height:90px; }
+
+  /* Botones nav */
+  .nav{ gap:8px; margin-top:24px; }
+  .btn-back{ padding:12px 16px; font-size:.82rem; }
+  .btn-next{ padding:14px 20px; font-size:.9rem; }
+
+  /* Transición persona */
+  .persona-change .check{ width:60px; height:60px; font-size:1.6rem; }
+  .persona-change h2{ font-size:1.35rem; }
+
+  /* Éxito */
+  .success-ring{ width:80px; height:80px; font-size:2.2rem; margin-bottom:20px; }
+  .success-title{ font-size:1.6rem; }
+  .success-sub{ font-size:.875rem; }
+  .success-item{ padding:12px 14px; font-size:.84rem; }
+  .wa-btn{ padding:14px 24px; font-size:.9rem; width:100%; justify-content:center; }
+
+  /* Orbs más pequeñas para no consumir recursos */
+  .orb1{ width:250px; height:250px; top:-80px; right:-60px; }
+  .orb2{ width:200px; height:200px; bottom:-60px; left:-60px; }
+  .orb3{ display:none; }
+}
+
+/* Teléfonos muy pequeños (320px) */
+@media(max-width:360px){
+  .card{ padding:22px 16px; }
+  .q-label{ font-size:1.1rem; }
+  .btn-back{ padding:11px 13px; font-size:.78rem; }
+  .btn-next{ padding:13px 16px; font-size:.85rem; }
+  .num-btn{ font-size:.8rem; }
+}
+
+/* Touch: eliminar efectos hover que no aplican */
+@media(hover:none){
+  .opt:hover{ transform:none; border-color:var(--border); color:var(--muted); background:var(--glass); }
+  .opt:hover::before{ opacity:0; }
+  .step:hover{ background:var(--glass); border-color:var(--border); }
+  .btn-next:hover{ transform:none; box-shadow:0 8px 24px rgba(240,180,41,.25); }
+  .btn-next:not(:disabled){ animation:none; } /* sin pulse en móvil para rendimiento */
+  .btn-next:active{ transform:scale(.98); }
+  .opt:active{ border-color:var(--gold); color:var(--white); background:rgba(240,180,41,.08); }
 }
 </style>
 </head>
@@ -780,17 +881,22 @@ function enviar(){
     personas:S.personas.map((nombre,i)=>({nombre, datos:S.datos[i]}))
   };
 
-  fetch(APPS_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
-    .then(r=>r.json())
-    .then(r=>{
-      localStorage.removeItem('ds160v2');
-      document.getElementById('progressOuter').classList.add('hidden');
-      show('sOk');
-      confetti();
-    })
-    .catch(()=>{
-      localStorage.setItem('ds160_bkp_'+Date.now(), JSON.stringify(payload));
-      localStorage.removeItem('ds160v2');
+  // no-cors evita el bloqueo CORS de Apps Script — los datos SÍ se guardan en Sheets
+  fetch(APPS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain'},
+    body: JSON.stringify(payload)
+  })
+  .then(()=>{
+    localStorage.removeItem('ds160v2');
+    document.getElementById('progressOuter').classList.add('hidden');
+    show('sOk');
+    confetti();
+  })
+  .catch(()=>{
+    localStorage.setItem('ds160_bkp_'+Date.now(), JSON.stringify(payload));
+    localStorage.removeItem('ds160v2');
       document.getElementById('progressOuter').classList.add('hidden');
       show('sOk');
       confetti();
