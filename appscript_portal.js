@@ -6,7 +6,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
-const EMAIL_ROBERTO = 'info@asesoriadevisadosglobal.com';
+const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
 const SS_ID        = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
 
 // Hojas del Spreadsheet por tipo de visa
