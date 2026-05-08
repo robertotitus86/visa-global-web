@@ -1327,6 +1327,13 @@ document.addEventListener('DOMContentLoaded', () => {
     buildProgress(tab);
     updateNav(tab);
   });
+
+  // Auto-open tab from URL param: ?visa=schengen
+  const param = new URLSearchParams(window.location.search).get('visa');
+  if (param && ['schengen', 'uk', 'rechazo'].includes(param)) {
+    const btn = document.querySelector(`.tab-btn[onclick*="'${param}'"]`);
+    if (btn) switchTab(param, btn);
+  }
 });
 
 // ── TAB SWITCHING ─────────────────────────────────────────────────
