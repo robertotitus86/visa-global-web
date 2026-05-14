@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud Visa USA — Asesoría Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#060E1F; --navy2:#0d1a30; --navy3:#1a2a45;
+  --gold:#F0B429; --gold2:#ffd166; --gold-dim:rgba(240,180,41,.13);
+  --white:#fff; --muted:rgba(255,255,255,.5); --muted2:rgba(255,255,255,.25);
+  --border:rgba(255,255,255,.08); --input-bg:rgba(255,255,255,.05);
+  --red:rgba(239,68,68,.8); --green:#4ade80;
+  --sans:'DM Sans',sans-serif; --serif:'Playfair Display',serif;
+  --ease:cubic-bezier(.22,.68,0,1.2); --ease2:cubic-bezier(.4,0,.2,1);
+  --r:14px; --rs:8px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 90% 50% at 10% 0%,rgba(240,180,41,.06) 0%,transparent 55%),
+  radial-gradient(ellipse 60% 70% at 90% 100%,rgba(14,30,60,.8) 0%,transparent 60%),var(--navy)}
+.mesh{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(240,180,41,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(240,180,41,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 20px;
+  background:rgba(6,14,31,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--serif);font-size:.95rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-progress{flex:1;max-width:200px;margin:0 16px}
+.hdr-progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.hdr-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s var(--ease2)}
+.hdr-step-label{font-size:.6rem;color:var(--muted);margin-top:3px;text-align:right}
+
+/* TRAVELER PILLS */
+.traveler-nav{position:fixed;top:60px;left:0;right:0;z-index:99;
+  display:flex;gap:6px;padding:10px 20px;overflow-x:auto;
+  background:rgba(6,14,31,.85);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);scrollbar-width:none}
+.traveler-nav::-webkit-scrollbar{display:none}
+.t-pill{flex-shrink:0;display:flex;align-items:center;gap:6px;
+  padding:5px 12px 5px 6px;border-radius:99px;border:1px solid var(--border);
+  font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted)}
+.t-pill.active{border-color:rgba(240,180,41,.5);background:var(--gold-dim);color:var(--white)}
+.t-pill.done{border-color:rgba(74,222,128,.3);background:rgba(74,222,128,.08);color:var(--green)}
+.t-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.68rem;font-weight:700;flex-shrink:0}
+.t-pill.active .t-avatar{background:var(--gold);color:var(--navy)}
+.t-pill.done .t-avatar{background:var(--green);color:var(--navy)}
+.t-pill:not(.active):not(.done) .t-avatar{background:rgba(255,255,255,.12);color:var(--muted)}
+
+/* MAIN */
+.main{position:relative;z-index:1;
+  padding-top:140px; /* header(60) + pills(80) */
+  padding-bottom:100px;min-height:100vh}
+.wrap{max-width:580px;margin:0 auto;padding:0 16px}
+
+/* PHASE LABEL */
+.phase-label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);
+  padding:4px 12px;border-radius:99px;display:inline-block;margin-bottom:16px}
+
+/* CARD */
+.card{background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:var(--r);padding:24px 20px;
+  animation:fadeUp .35s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.card-title{font-family:var(--serif);font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:6px}
+.card-title em{color:var(--gold);font-style:italic}
+.card-sub{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:22px}
+
+/* STEP DOTS */
+.step-dots{display:flex;gap:5px;margin-bottom:20px}
+.step-dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.15);transition:all .3s}
+.step-dot.active{width:20px;background:var(--gold)}
+.step-dot.done{background:rgba(74,222,128,.6)}
+
+/* FIELD */
+.field{margin-bottom:18px}
+.field-label{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.75);
+  margin-bottom:6px;display:block;letter-spacing:.01em}
+.field-hint{font-size:.68rem;color:var(--muted);margin-top:4px;line-height:1.5}
+.field-error{font-size:.68rem;color:#f87171;margin-top:4px;display:none}
+.field.has-error .field-error{display:block}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:rgba(239,68,68,.5)!important}
+
+input[type=text],input[type=date],input[type=email],input[type=tel],input[type=number],select,textarea{
+  width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.88rem;
+  padding:11px 14px;outline:none;transition:border-color .2s,background .2s;
+  -webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:rgba(240,180,41,.5);background:rgba(255,255,255,.07)}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.25)}
+select option{background:var(--navy2);color:var(--white)}
+textarea{resize:vertical;min-height:80px;line-height:1.5}
+
+/* YES / NO BUTTONS */
+.yesno{display:flex;gap:8px}
+.yn-btn{flex:1;padding:11px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);
+  background:transparent;color:var(--muted);font-family:var(--sans);font-size:.88rem;font-weight:600;
+  cursor:pointer;transition:all .2s;text-align:center}
+.yn-btn:hover{border-color:rgba(240,180,41,.3);color:var(--white)}
+.yn-btn.selected-yes{background:rgba(240,180,41,.15);border-color:rgba(240,180,41,.5);color:var(--gold)}
+.yn-btn.selected-no{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25);color:var(--white)}
+
+/* RADIO OPTIONS */
+.radio-opts{display:flex;flex-direction:column;gap:7px}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);cursor:pointer;transition:all .2s}
+.radio-opt:hover{border-color:rgba(240,180,41,.3)}
+.radio-opt.selected{background:var(--gold-dim);border-color:rgba(240,180,41,.45)}
+.radio-circle{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.25);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.radio-opt.selected .radio-circle{border-color:var(--gold);background:var(--gold)}
+.radio-circle::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--navy);opacity:0}
+.radio-opt.selected .radio-circle::after{opacity:1}
+.radio-opt-label{font-size:.85rem;color:var(--muted);transition:color .2s}
+.radio-opt.selected .radio-opt-label{color:var(--white);font-weight:500}
+
+/* TWO COLUMN GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:420px){.grid-2{grid-template-columns:1fr}}
+
+/* SECURITY BATCH */
+.sec-batch{display:flex;flex-direction:column;gap:6px}
+.sec-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  border:1px solid rgba(255,255,255,.07);border-radius:var(--rs);cursor:pointer;transition:all .2s}
+.sec-item.flagged{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06)}
+.sec-check{width:18px;height:18px;border-radius:4px;border:1.5px solid rgba(255,255,255,.2);
+  flex-shrink:0;margin-top:1px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.sec-item.flagged .sec-check{background:var(--gold);border-color:var(--gold)}
+.sec-check::after{content:'';width:5px;height:8px;border:2px solid var(--navy);
+  border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);
+  opacity:0;transition:opacity .15s}
+.sec-item.flagged .sec-check::after{opacity:1}
+.sec-text{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.4}
+.sec-cat{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin:10px 0 5px}
+.sec-none-btn{width:100%;padding:14px;border-radius:var(--rs);
+  background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);
+  color:var(--green);font-family:var(--sans);font-size:.88rem;font-weight:700;
+  cursor:pointer;transition:all .2s;margin-bottom:12px}
+.sec-none-btn:hover{background:rgba(74,222,128,.15)}
+
+/* SOCIAL MEDIA */
+.sm-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:420px){.sm-grid{grid-template-columns:1fr}}
+.sm-platform{display:flex;align-items:center;gap:8px;padding:9px 12px;
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);cursor:pointer;transition:all .2s}
+.sm-platform:hover{border-color:rgba(240,180,41,.3)}
+.sm-platform.selected{background:var(--gold-dim);border-color:rgba(240,180,41,.45)}
+.sm-platform-name{font-size:.82rem;color:var(--muted);font-weight:500;transition:color .2s}
+.sm-platform.selected .sm-platform-name{color:var(--white)}
+.sm-username{margin-top:6px}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:20px 0}
+.section-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px}
+
+/* NAV BUTTONS */
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  padding:12px 16px;background:rgba(6,14,31,.95);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.nav-back{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  color:var(--muted);font-family:var(--sans);font-size:.85rem;font-weight:600;
+  padding:11px 20px;border-radius:var(--rs);cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-back:hover{color:var(--white);background:rgba(255,255,255,.12)}
+.nav-next{flex:1;background:var(--gold);color:var(--navy);border:none;
+  font-family:var(--sans);font-size:.9rem;font-weight:700;
+  padding:13px 20px;border-radius:var(--rs);cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 16px rgba(240,180,41,.3)}
+.nav-next:hover{background:var(--gold2);transform:translateY(-1px)}
+.nav-next:active{transform:translateY(0)}
+.nav-save{font-size:.65rem;color:var(--muted);text-align:center;flex-shrink:0}
+
+/* SETUP TRAVELER ROW */
+.traveler-row{display:flex;gap:10px;align-items:flex-start;
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:var(--rs);padding:12px;margin-bottom:8px}
+.t-num{width:28px;height:28px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+  display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.traveler-row-fields{flex:1;display:flex;flex-direction:column;gap:8px}
+.traveler-row-fields input,.traveler-row-fields select{margin:0}
+
+/* REVIEW */
+.review-person{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);
+  padding:16px;margin-bottom:12px}
+.review-person-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.review-avatar{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:var(--gold)}
+.review-name{font-size:.95rem;font-weight:700}
+.review-role{font-size:.7rem;color:var(--muted)}
+.review-rows{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:380px){.review-rows{grid-template-columns:1fr}}
+.review-row{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.review-key{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.review-val{font-size:.78rem;color:var(--white);font-weight:500;margin-top:1px;word-break:break-word}
+
+/* CONFIRMATION */
+.confirm-box{text-align:center;padding:32px 20px}
+.confirm-icon{width:64px;height:64px;border-radius:50%;background:rgba(74,222,128,.15);
+  border:2px solid rgba(74,222,128,.3);display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;margin:0 auto 20px}
+.confirm-title{font-family:var(--serif);font-size:1.5rem;margin-bottom:10px}
+.confirm-sub{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.next-steps{text-align:left}
+.next-step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.next-step:last-child{border:none}
+.step-n{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.step-text{font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5;padding-top:3px}
+
+/* PROGRESS MINI */
+.mini-progress{height:3px;background:rgba(255,255,255,.08);border-radius:2px;
+  overflow:hidden;margin-top:16px;margin-bottom:4px}
+.mini-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+
+/* SPINNER */
+.spinner{width:22px;height:22px;border:2px solid rgba(6,14,31,.3);border-top-color:var(--navy);
+  border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* HIDDEN */
+.hidden{display:none!important}
+
+/* COUNT SELECTOR */
+.count-grid{display:flex;flex-wrap:wrap;gap:8px}
+.count-btn{width:52px;height:52px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);
+  background:transparent;color:var(--muted);font-family:var(--sans);font-size:1.1rem;font-weight:700;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.count-btn:hover{border-color:rgba(240,180,41,.4);color:var(--white)}
+.count-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+
+/* SUBMIT BTN */
+.submit-btn{width:100%;padding:15px;border-radius:var(--rs);background:var(--gold);
+  border:none;color:var(--navy);font-family:var(--sans);font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(240,180,41,.35)}
+.submit-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* FLAG BADGE */
+.flag-ok{display:inline-block;font-size:.65rem;background:rgba(74,222,128,.12);
+  border:1px solid rgba(74,222,128,.25);color:var(--green);padding:2px 8px;border-radius:10px;font-weight:600}
+.flag-warn{display:inline-block;font-size:.65rem;background:rgba(251,191,36,.1);
+  border:1px solid rgba(251,191,36,.25);color:#fbbf24;padding:2px 8px;border-radius:10px;font-weight:600}
+.flag-bad{display:inline-block;font-size:.65rem;background:rgba(239,68,68,.12);
+  border:1px solid rgba(239,68,68,.25);color:#f87171;padding:2px 8px;border-radius:10px;font-weight:600}
+
+/* REPEAT SECTION (previous employers) */
+.repeat-item{background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:var(--rs);padding:14px;margin-bottom:10px}
+.repeat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.repeat-title{font-size:.78rem;font-weight:700;color:var(--muted)}
+.repeat-del{font-size:.72rem;color:rgba(239,68,68,.7);cursor:pointer;padding:3px 8px;
+  border:1px solid rgba(239,68,68,.2);border-radius:5px;transition:all .2s}
+.repeat-del:hover{color:#f87171;border-color:rgba(239,68,68,.5)}
+.add-btn{width:100%;padding:10px;border-radius:var(--rs);background:transparent;
+  border:1px dashed rgba(255,255,255,.15);color:var(--muted);font-family:var(--sans);
+  font-size:.82rem;cursor:pointer;transition:all .2s}
+.add-btn:hover{border-color:rgba(240,180,41,.3);color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="bg"><div class="mesh"></div></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo">Visa <em>Global</em></div>
+  <div class="hdr-progress">
+    <div class="hdr-progress-bar"><div class="hdr-progress-fill" id="globalProgressFill" style="width:0%"></div></div>
+    <div class="hdr-step-label" id="globalProgressLabel">Iniciando...</div>
+  </div>
+  <div style="font-size:.7rem;color:var(--muted);white-space:nowrap">Visa USA · Turismo</div>
+</header>
+
+<!-- TRAVELER PILLS -->
+<nav class="traveler-nav hidden" id="travelerNav"></nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="wrap" id="screenWrap"></div>
+</main>
+
+<!-- BOTTOM NAV -->
+<footer class="nav" id="bottomNav">
+  <button class="nav-back hidden" id="btnBack" onclick="goBack()">Atras</button>
+  <button class="nav-next" id="btnNext" onclick="goNext()">Comenzar</button>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const WEBHOOK = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const LS_KEY  = 'visa_intake_v1';
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+const S = {
+  phase: 'setup',       // setup | shared | traveler | review | done
+  sharedStep: 0,        // 0-3
+  travelerIdx: 0,       // which traveler
+  travelerStep: 0,      // step within current traveler
+  travelers: [],        // [{name, role, dob}]
+  shared: {},
+  perTraveler: [],      // array of data objects per traveler
+  securityFlags: {},    // travelerIdx -> array of flagged question ids
+};
+
+// Security questions
+const SEC_QUESTIONS = [
+  {cat:'Salud', id:'health1', text:'Tiene alguna enfermedad transmisible de importancia para la salud publica'},
+  {cat:'Salud', id:'health2', text:'Tiene algun trastorno mental o fisico que represente una amenaza para otros'},
+  {cat:'Salud', id:'health3', text:'Es o ha sido adicto a drogas o estupefacientes'},
+  {cat:'Criminal', id:'crim1', text:'Ha sido arrestado o condenado por algun delito (incluyendo DUI / conducir en estado etilico)'},
+  {cat:'Criminal', id:'crim2', text:'Ha infringido leyes relacionadas con sustancias controladas'},
+  {cat:'Criminal', id:'crim3', text:'Ha participado en actividades de prostitucion o proxenetismo'},
+  {cat:'Criminal', id:'crim4', text:'Ha estado involucrado en lavado de dinero'},
+  {cat:'Trafico', id:'traf1', text:'Ha participado en trafico de personas'},
+  {cat:'Trafico', id:'traf2', text:'Se ha beneficiado conscientemente de ganancias derivadas del trafico de personas'},
+  {cat:'Terrorismo', id:'terr1', text:'Ha participado en espionaje, sabotaje o actividades terroristas'},
+  {cat:'Terrorismo', id:'terr2', text:'Ha proporcionado apoyo material o financiero a organizaciones terroristas'},
+  {cat:'Terrorismo', id:'terr3', text:'Es o ha sido miembro de una organizacion terrorista'},
+  {cat:'Terrorismo', id:'terr4', text:'Ha participado en genocidio o tortura'},
+  {cat:'Terrorismo', id:'terr5', text:'Ha cometido ejecuciones extrajudiciales o violencia politica'},
+  {cat:'Terrorismo', id:'terr6', text:'Ha reclutado o utilizado ninos soldados'},
+  {cat:'Terrorismo', id:'terr7', text:'Ha violado la libertad religiosa como funcionario del gobierno'},
+  {cat:'Migracion', id:'mig1', text:'Ha obtenido o intentado obtener una visa o entrada a USA mediante fraude o declaracion falsa'},
+  {cat:'Migracion', id:'mig2', text:'Ha sido deportado o expulsado de USA'},
+  {cat:'Migracion', id:'mig3', text:'Ha permanecido ilegalmente en USA mas tiempo del autorizado'},
+  {cat:'Migracion', id:'mig4', text:'Ha votado ilegalmente en elecciones de USA o renunciado a la ciudadania para evitar impuestos'},
+];
+
+// US States list
+const US_STATES = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware',
+  'Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana',
+  'Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana',
+  'Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina',
+  'North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina',
+  'South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia',
+  'Wisconsin','Wyoming','Washington D.C.','Puerto Rico'];
+
+const SOCIAL_PLATFORMS = ['Facebook','Instagram','Twitter / X','TikTok','YouTube','LinkedIn','Snapchat','Pinterest'];
+
+// Marital statuses that require spouse section
+const MARRIED_STATUSES = ['Casado/a','Union de hecho'];
+
+// ═══════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════
+function td(idx) { return S.perTraveler[idx] || {}; }
+function setTd(idx, obj) { S.perTraveler[idx] = Object.assign({}, S.perTraveler[idx], obj); save(); }
+function isMinor(idx) {
+  const dob = S.travelers[idx]?.dob;
+  if (!dob) return false;
+  const age = (new Date() - new Date(dob)) / (365.25*24*3600*1000);
+  return age < 14;
+}
+function getAge(idx) {
+  const dob = S.travelers[idx]?.dob || S.perTraveler[idx]?.dob;
+  if (!dob) return 99;
+  return Math.floor((new Date() - new Date(dob)) / (365.25*24*3600*1000));
+}
+function initial(name) { return (name||'?')[0].toUpperCase(); }
+function fmtDate(d) { if(!d) return '—'; const p=d.split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:d; }
+
+function save() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({S, ts: Date.now()})); } catch(e) {}
+}
+function load() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const {S: saved} = JSON.parse(raw);
+    Object.assign(S, saved);
+    return true;
+  } catch(e) { return false; }
+}
+
+// ═══════════════════════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════════════════════
+function totalSteps() {
+  const sharedSteps = 4;
+  const perPersonSteps = 8; // (7 if minor, but estimate 8)
+  return 1 + sharedSteps + (S.travelers.length * perPersonSteps) + 1;
+}
+function currentStep() {
+  if (S.phase === 'setup') return 0;
+  if (S.phase === 'shared') return 1 + S.sharedStep;
+  if (S.phase === 'traveler') return 1 + 4 + (S.travelerIdx * 8) + S.travelerStep;
+  if (S.phase === 'review') return totalSteps() - 1;
+  return totalSteps();
+}
+function updateProgress() {
+  const pct = S.travelers.length ? Math.round((currentStep() / totalSteps()) * 100) : 5;
+  document.getElementById('globalProgressFill').style.width = pct + '%';
+  let label = '';
+  if (S.phase === 'setup') label = 'Configuracion inicial';
+  else if (S.phase === 'shared') label = `Datos del viaje (${S.sharedStep+1}/4)`;
+  else if (S.phase === 'traveler') label = `${S.travelers[S.travelerIdx]?.name||'Viajero'} (${S.travelerStep+1}/8)`;
+  else if (S.phase === 'review') label = 'Revision final';
+  else label = 'Completado';
+  document.getElementById('globalProgressLabel').textContent = label + ' · ' + pct + '%';
+}
+function updateTravelerNav() {
+  const nav = document.getElementById('travelerNav');
+  if (S.phase === 'setup' || S.travelers.length === 0) { nav.classList.add('hidden'); return; }
+  nav.classList.remove('hidden');
+  nav.innerHTML = S.travelers.map((t, i) => {
+    const done = i < S.travelerIdx || (i === S.travelerIdx && S.phase === 'review');
+    const active = i === S.travelerIdx && S.phase === 'traveler';
+    const cls = done ? 'done' : active ? 'active' : '';
+    return `<div class="t-pill ${cls}" onclick="jumpToTraveler(${i})">
+      <div class="t-avatar">${initial(t.name)}</div>
+      <span>${t.name.split(' ')[0]}</span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER HELPERS
+// ═══════════════════════════════════════════════════════════
+function field(id, label, type, opts={}) {
+  const {placeholder='', hint='', required=false, defaultVal='', value='', options=[], rows=3} = opts;
+  const v = value !== undefined && value !== '' ? value : defaultVal;
+  const req = required ? '<span style="color:var(--gold);margin-left:2px">*</span>' : '';
+  let input = '';
+
+  if (type === 'text' || type === 'email' || type === 'tel' || type === 'number') {
+    input = `<input type="${type}" id="${id}" name="${id}" placeholder="${placeholder}" value="${esc(v)}" oninput="updateField('${id}')">`;
+  } else if (type === 'date') {
+    input = `<input type="date" id="${id}" name="${id}" value="${esc(v)}" onchange="updateField('${id}')">`;
+  } else if (type === 'textarea') {
+    input = `<textarea id="${id}" name="${id}" placeholder="${placeholder}" rows="${rows}" oninput="updateField('${id}')">${esc(v)}</textarea>`;
+  } else if (type === 'select') {
+    const opts2 = options.map(o => `<option value="${esc(o)}" ${v===o?'selected':''}>${o}</option>`).join('');
+    input = `<select id="${id}" name="${id}" onchange="updateField('${id}')"><option value="">Seleccionar...</option>${opts2}</select>`;
+  }
+
+  const hintHtml = hint ? `<div class="field-hint">${hint}</div>` : '';
+  const errHtml = `<div class="field-error" id="${id}_err">Campo requerido</div>`;
+  return `<div class="field" id="${id}_wrap">
+    <label class="field-label" for="${id}">${label}${req}</label>
+    ${input}${hintHtml}${errHtml}
+  </div>`;
+}
+
+function yesno(id, label, value='', hint='') {
+  const yes = value==='si' ? 'selected-yes' : '';
+  const no  = value==='no' ? 'selected-no'  : '';
+  const hintHtml = hint ? `<div class="field-hint">${hint}</div>` : '';
+  const errHtml = `<div class="field-error" id="${id}_err">Selecciona una opcion</div>`;
+  return `<div class="field" id="${id}_wrap">
+    <label class="field-label">${label} <span style="color:var(--gold);margin-left:2px">*</span></label>
+    <div class="yesno">
+      <button type="button" class="yn-btn ${yes}" id="${id}_si" onclick="setYesNo('${id}','si')">Si</button>
+      <button type="button" class="yn-btn ${no}" id="${id}_no" onclick="setYesNo('${id}','no')">No</button>
+    </div>
+    ${hintHtml}${errHtml}
+  </div>`;
+}
+
+function radio(id, label, options, value='') {
+  const opts = options.map(o =>
+    `<div class="radio-opt ${value===o?'selected':''}" onclick="setRadio('${id}','${esc(o)}',this)">
+      <div class="radio-circle"></div>
+      <span class="radio-opt-label">${o}</span>
+    </div>`
+  ).join('');
+  const errHtml = `<div class="field-error" id="${id}_err">Selecciona una opcion</div>`;
+  return `<div class="field" id="${id}_wrap">
+    <label class="field-label">${label} <span style="color:var(--gold);margin-left:2px">*</span></label>
+    <div class="radio-opts" id="${id}_opts">${opts}</div>
+    ${errHtml}
+  </div>`;
+}
+
+function esc(s) { return String(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ═══════════════════════════════════════════════════════════
+// FIELD EVENT HANDLERS
+// ═══════════════════════════════════════════════════════════
+function updateField(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const ctx = getCurrentDataCtx();
+  ctx[id] = el.value;
+  save();
+  // Clear error
+  const wrap = document.getElementById(id + '_wrap');
+  if (wrap) wrap.classList.remove('has-error');
+}
+function setYesNo(id, val) {
+  document.getElementById(id+'_si').className = 'yn-btn ' + (val==='si'?'selected-yes':'');
+  document.getElementById(id+'_no').className = 'yn-btn ' + (val==='no'?'selected-no':'');
+  const ctx = getCurrentDataCtx();
+  ctx[id] = val;
+  save();
+  const wrap = document.getElementById(id + '_wrap');
+  if (wrap) wrap.classList.remove('has-error');
+  // Trigger conditional render for some fields
+  handleConditional(id, val);
+}
+function setRadio(id, val, el) {
+  el.closest('.radio-opts').querySelectorAll('.radio-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  const ctx = getCurrentDataCtx();
+  ctx[id] = val;
+  save();
+  const wrap = document.getElementById(id + '_wrap');
+  if (wrap) wrap.classList.remove('has-error');
+  handleConditional(id, val);
+}
+function handleConditional(id, val) {
+  // Show/hide conditional fields based on yesno/select values
+  const conditionals = {
+    'hasSocialMedia': () => {
+      document.getElementById('sm_section')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasOtherNames': () => {
+      document.getElementById('otherNames_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasSecondNationality': () => {
+      document.getElementById('secondNationality_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasUsSSN': () => {
+      document.getElementById('usSSN_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hadLostPassport': () => {
+      document.getElementById('lostPassportNumber_wrap')?.classList.toggle('hidden', val !== 'si');
+      document.getElementById('lostPassportCountry_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasRelativesInUS': () => {
+      document.getElementById('relativesInUSDetails_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'isMarried': () => {
+      document.getElementById('spouse_section')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasBeenInUS': () => {
+      document.getElementById('usVisitDetails_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasHadUSVisa': () => {
+      document.getElementById('previousVisaSection')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasBeenRefused': () => {
+      document.getElementById('refusalDetails_wrap')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hasPreviousEmployers': () => {
+      document.getElementById('prevEmp_section')?.classList.toggle('hidden', val !== 'si');
+    },
+    'whoIsPaying': () => {
+      document.getElementById('payer_other')?.classList.toggle('hidden', val === 'Yo mismo (viajero principal)');
+    },
+  };
+  if (conditionals[id]) conditionals[id]();
+}
+
+function getCurrentDataCtx() {
+  if (S.phase === 'shared') return S.shared;
+  if (S.phase === 'traveler') return S.perTraveler[S.travelerIdx] || (S.perTraveler[S.travelerIdx] = {});
+  return S.shared;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SCREENS
+// ═══════════════════════════════════════════════════════════
+function renderScreen() {
+  const wrap = document.getElementById('screenWrap');
+  updateProgress();
+  updateTravelerNav();
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+  btnBack.classList.toggle('hidden', S.phase === 'setup');
+  btnNext.textContent = 'Continuar';
+  btnNext.disabled = false;
+
+  let html = '';
+
+  if (S.phase === 'setup')       html = renderSetup();
+  else if (S.phase === 'shared') html = renderShared();
+  else if (S.phase === 'traveler') html = renderTraveler();
+  else if (S.phase === 'review') { html = renderReview(); btnNext.textContent = 'Enviar Solicitud'; }
+  else if (S.phase === 'done')   { html = renderDone(); btnNext.classList.add('hidden'); btnBack.classList.add('hidden'); }
+
+  wrap.innerHTML = html;
+  wrap.scrollTop = 0;
+  window.scrollTo(0, 0);
+
+  // Restore conditionals
+  if (S.phase === 'shared' || S.phase === 'traveler') {
+    const ctx = getCurrentDataCtx();
+    ['hasSocialMedia','hasOtherNames','hasSecondNationality','hasUsSSN','hadLostPassport',
+     'hasRelativesInUS','isMarried','hasBeenInUS','hasHadUSVisa','hasBeenRefused',
+     'hasPreviousEmployers','whoIsPaying'].forEach(id => {
+      if (ctx[id]) handleConditional(id, ctx[id]);
+    });
+  }
+}
+
+// ── SETUP ────────────────────────────────────────────────
+function renderSetup() {
+  const count = S.travelers.length || 0;
+  const rows = (S.travelers.length ? S.travelers : Array(count||1).fill(null)).map((t, i) => {
+    const name = t?.name || '';
+    const dob  = t?.dob  || '';
+    return `<div class="traveler-row" id="trow_${i}">
+      <div class="t-num">${i+1}</div>
+      <div class="traveler-row-fields">
+        <input type="text" placeholder="Nombre completo (como en pasaporte)" value="${esc(name)}"
+          oninput="setTravelerField(${i},'name',this.value)" id="tname_${i}">
+        <div class="grid-2">
+          <select onchange="setTravelerField(${i},'role',this.value)" id="trole_${i}">
+            <option value="">Tipo de viajero</option>
+            <option ${t?.role==='Adulto'?'selected':''}>Adulto</option>
+            <option ${t?.role==='Menor (menor de 18)'?'selected':''}>Menor (menor de 18)</option>
+          </select>
+          <input type="date" placeholder="Fecha de nacimiento" value="${esc(dob)}"
+            onchange="setTravelerField(${i},'dob',this.value)" id="tdob_${i}"
+            title="Fecha de nacimiento">
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const cnt = S.travelers.length || 1;
+  return `<div class="phase-label">Visa USA · Turismo B1/B2</div>
+  <div class="card">
+    <div class="card-title">Bienvenido a <em>Visa Global</em></div>
+    <div class="card-sub">Este formulario recopila toda la informacion necesaria para gestionar su solicitud de visa americana de turismo. Tomara aproximadamente 15-25 minutos.</div>
+
+    <div class="section-title">Cuantas personas viajan?</div>
+    <div class="count-grid" id="countGrid">
+      ${[1,2,3,4,5,6,7,8].map(n =>
+        `<button class="count-btn ${cnt===n?'selected':''}" onclick="setCount(${n})">${n}</button>`
+      ).join('')}
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-title">Datos de cada viajero</div>
+    <div id="travelerRows">${rows}</div>
+
+    <div class="field-hint" style="margin-top:8px">El nombre debe coincidir exactamente con el pasaporte.</div>
+  </div>`;
+}
+
+function setCount(n) {
+  document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  // Resize travelers array
+  while (S.travelers.length < n) S.travelers.push({name:'',role:'',dob:''});
+  S.travelers = S.travelers.slice(0, n);
+  while (S.perTraveler.length < n) S.perTraveler.push({});
+  S.perTraveler = S.perTraveler.slice(0, n);
+  save();
+  // Re-render rows
+  const rows = S.travelers.map((t, i) => `<div class="traveler-row" id="trow_${i}">
+    <div class="t-num">${i+1}</div>
+    <div class="traveler-row-fields">
+      <input type="text" placeholder="Nombre completo (como en pasaporte)" value="${esc(t.name)}"
+        oninput="setTravelerField(${i},'name',this.value)">
+      <div class="grid-2">
+        <select onchange="setTravelerField(${i},'role',this.value)">
+          <option value="">Tipo de viajero</option>
+          <option ${t.role==='Adulto'?'selected':''}>Adulto</option>
+          <option ${t.role==='Menor (menor de 18)'?'selected':''}>Menor (menor de 18)</option>
+        </select>
+        <input type="date" value="${esc(t.dob)}" onchange="setTravelerField(${i},'dob',this.value)" title="Fecha de nacimiento">
+      </div>
+    </div>
+  </div>`).join('');
+  document.getElementById('travelerRows').innerHTML = rows;
+}
+
+function setTravelerField(idx, key, val) {
+  if (!S.travelers[idx]) S.travelers[idx] = {name:'',role:'',dob:''};
+  S.travelers[idx][key] = val;
+  save();
+}
+
+// ── SHARED SCREENS ───────────────────────────────────────
+function renderShared() {
+  const sd = S.shared;
+  const steps = ['Informacion del Viaje','Alojamiento en USA','Quien Paga el Viaje','Contacto en USA'];
+  const dots = steps.map((_,i) =>
+    `<div class="step-dot ${i<S.sharedStep?'done':i===S.sharedStep?'active':''}"></div>`
+  ).join('');
+
+  let body = '';
+  if (S.sharedStep === 0) {
+    body = `
+      ${field('intendedArrival','Fecha estimada de llegada a USA','date',{required:true,value:sd.intendedArrival,hint:'Si no tiene fecha exacta, ponga una aproximada'})}
+      ${field('lengthOfStayDays','Cuantos dias planean quedarse en total?','number',{required:true,placeholder:'Ej: 14',value:sd.lengthOfStayDays,hint:'Incluye dias de llegada y salida'})}
+      ${field('purposeNote','Proposito principal del viaje','text',{required:true,placeholder:'Ej: Turismo familiar, visitar Disneyland y Nueva York',value:sd.purposeNote||'Turismo vacacional'})}`;
+  } else if (S.sharedStep === 1) {
+    const stayType = sd.usStayType||'';
+    body = `
+      ${radio('usStayType','Donde se hospedaran en USA?',['Hotel / Resort','Casa de familiar o amigo','Alquiler vacacional (Airbnb, Vrbo)','Otro'],stayType)}
+      ${field('usStayName','Nombre del hotel o de la persona que los recibe','text',{required:true,placeholder:'Ej: Marriott Miami o John Smith',value:sd.usStayName})}
+      ${field('usStayStreet','Direccion en USA (calle y numero)','text',{required:true,placeholder:'Ej: 123 Main Street',value:sd.usStayStreet})}
+      <div class="grid-2">
+        ${field('usStayCity','Ciudad','text',{required:true,placeholder:'Ej: Miami',value:sd.usStayCity})}
+        ${field('usStayState','Estado','select',{required:true,options:US_STATES,value:sd.usStayState})}
+      </div>
+      ${field('usStayZip','Codigo postal (ZIP)','text',{placeholder:'Ej: 33101',value:sd.usStayZip})}`;
+  } else if (S.sharedStep === 2) {
+    const payer = sd.whoIsPaying||'';
+    const showOther = payer && payer !== 'Yo mismo (viajero principal)';
+    body = `
+      ${radio('whoIsPaying','Quien cubrira los gastos del viaje?',['Yo mismo (viajero principal)','Otra persona','Una empresa u organizacion'],payer)}
+      <div id="payer_other" class="${showOther?'':'hidden'}">
+        <div class="divider"></div>
+        <div class="section-title">Datos de quien paga</div>
+        ${field('payerName','Nombre completo','text',{placeholder:'Ej: Maria Garcia',value:sd.payerName})}
+        ${field('payerRelationship','Relacion con el viajero','text',{placeholder:'Ej: Esposa, empleador, patrocinador',value:sd.payerRelationship})}
+        ${field('payerPhone','Telefono','tel',{placeholder:'+593 99 999 9999',value:sd.payerPhone})}
+        ${field('payerAddress','Direccion','text',{placeholder:'Direccion completa',value:sd.payerAddress})}
+      </div>`;
+  } else if (S.sharedStep === 3) {
+    body = `
+      <div class="card-sub" style="margin-bottom:16px">Persona o lugar al que se pueden contactar durante su estancia en USA (puede ser el hotel o un familiar/amigo).</div>
+      ${field('usContactName','Nombre completo del contacto en USA','text',{required:true,placeholder:'Ej: Holiday Inn Miami o Pedro Gonzalez',value:sd.usContactName})}
+      ${field('usContactRelationship','Tipo de contacto','select',{required:true,options:['Hotel / Alojamiento','Familiar','Amigo/a','Companero de trabajo','Empresa','Otro'],value:sd.usContactRelationship})}
+      ${field('usContactPhone','Telefono del contacto (con codigo de pais)','tel',{required:true,placeholder:'+1 305 555 0000',value:sd.usContactPhone})}
+      ${field('usContactStreet','Direccion del contacto','text',{required:true,placeholder:'Ej: 123 Main Street',value:sd.usContactStreet})}
+      <div class="grid-2">
+        ${field('usContactCity','Ciudad','text',{required:true,placeholder:'Ej: Miami',value:sd.usContactCity})}
+        ${field('usContactState','Estado','select',{required:true,options:US_STATES,value:sd.usContactState})}
+      </div>`;
+  }
+
+  return `<div class="phase-label">Datos del Viaje</div>
+  <div class="card">
+    <div class="step-dots">${dots}</div>
+    <div class="card-title">${steps[S.sharedStep]}</div>
+    <div class="card-sub">Esta informacion aplica para <strong>todos los viajeros</strong>.</div>
+    ${body}
+  </div>`;
+}
+
+// ── TRAVELER SCREENS ─────────────────────────────────────
+function renderTraveler() {
+  const i    = S.travelerIdx;
+  const t    = S.travelers[i];
+  const data = S.perTraveler[i] || {};
+  const name = t?.name || `Viajero ${i+1}`;
+  const minor = isMinor(i) || (data.dob && getAge(i) < 14);
+  const married = MARRIED_STATUSES.includes(data.maritalStatus);
+
+  const maxStep = minor ? 6 : 7; // adults have work step
+  const stepNames = minor
+    ? ['Datos Personales','Nacimiento y Nac.','Pasaporte','Contacto','Familia','Viajes y Seguridad','Seguridad']
+    : ['Datos Personales','Nacimiento y Nac.','Pasaporte','Contacto','Familia','Trabajo y Educacion','Viajes y Seguridad'];
+
+  // Clamp step
+  if (S.travelerStep > maxStep) S.travelerStep = maxStep;
+
+  const dots = stepNames.map((_,j) =>
+    `<div class="step-dot ${j<S.travelerStep?'done':j===S.travelerStep?'active':''}"></div>`
+  ).join('');
+
+  let body = '';
+  const step = S.travelerStep;
+
+  if (step === 0) {
+    // Personal info 1
+    body = `
+      ${field('surnames','Apellido(s)','text',{required:true,placeholder:'GOMEZ PAREDES',hint:'En MAYUSCULAS, exactamente como en el pasaporte',value:data.surnames})}
+      ${field('givenNames','Nombre(s)','text',{required:true,placeholder:'CARLOS ANDRES',hint:'En MAYUSCULAS, exactamente como en el pasaporte',value:data.givenNames})}
+      ${field('nativeAlphabetName','Nombre en alfabeto nativo','text',{placeholder:'N/A — para ecuatorianos generalmente N/A',value:data.nativeAlphabetName||'N/A'})}
+      ${yesno('hasOtherNames','Ha usado otros nombres? (apellido anterior, alias, nombre de soltera)',data.hasOtherNames)}
+      <div id="otherNames_wrap" class="${data.hasOtherNames==='si'?'':'hidden'}">
+        ${field('otherNames','Otros nombres que ha utilizado','text',{placeholder:'Ej: Maria Elena Torres (soltera)',value:data.otherNames})}
+      </div>
+      ${radio('sex','Sexo',['Masculino','Femenino'],data.sex)}
+      ${field('maritalStatus','Estado civil','select',{required:true,options:['Soltero/a','Casado/a','Union de hecho','Divorciado/a','Separado/a','Viudo/a'],value:data.maritalStatus})}`;
+  } else if (step === 1) {
+    // Birth & nationality
+    body = `
+      ${field('dob','Fecha de nacimiento','date',{required:true,value:data.dob})}
+      <div class="grid-2">
+        ${field('cityOfBirth','Ciudad de nacimiento','text',{required:true,placeholder:'Ej: Guayaquil',value:data.cityOfBirth})}
+        ${field('stateOfBirth','Provincia de nacimiento','text',{placeholder:'Ej: Guayas',value:data.stateOfBirth})}
+      </div>
+      ${field('countryOfBirth','Pais de nacimiento','text',{required:true,value:data.countryOfBirth||'Ecuador'})}
+      ${field('nationality','Nacionalidad','text',{required:true,value:data.nationality||'Ecuador'})}
+      ${yesno('hasSecondNationality','Tiene otra nacionalidad ademas de la ecuatoriana?',data.hasSecondNationality)}
+      <div id="secondNationality_wrap" class="${data.hasSecondNationality==='si'?'':'hidden'}">
+        ${field('secondNationality','Segunda nacionalidad','text',{placeholder:'Ej: Espanola',value:data.secondNationality})}
+      </div>
+      ${field('nationalId','Numero de cedula de identidad ecuatoriana','text',{required:true,placeholder:'Ej: 0912345678',value:data.nationalId})}
+      ${yesno('hasUsSSN','Tiene numero de Seguro Social de USA (SSN)?',data.hasUsSSN||'no','La gran mayoria responde NO')}
+      <div id="usSSN_wrap" class="${data.hasUsSSN==='si'?'':'hidden'}">
+        ${field('usSSN','Numero de Seguro Social USA','text',{value:data.usSSN})}
+      </div>`;
+  } else if (step === 2) {
+    // Passport
+    body = `
+      ${field('passportType','Tipo de documento de viaje','select',{required:true,options:['Ordinario','Diplomatico','De servicio','Documento de emergencia','Otro'],value:data.passportType||'Ordinario'})}
+      ${field('passportNumber','Numero de pasaporte','text',{required:true,placeholder:'Ej: P123456789',hint:'Exactamente como aparece en la pagina de datos',value:data.passportNumber})}
+      ${field('passportCountry','Pais que emitio el pasaporte','text',{required:true,value:data.passportCountry||'Ecuador'})}
+      ${field('passportCity','Ciudad donde fue emitido','text',{placeholder:'Ej: Guayaquil',value:data.passportCity})}
+      <div class="grid-2">
+        ${field('passportIssueDate','Fecha de emision','date',{required:true,value:data.passportIssueDate})}
+        ${field('passportExpiry','Fecha de vencimiento','date',{required:true,hint:'Debe tener al menos 6 meses vigencia',value:data.passportExpiry})}
+      </div>
+      ${yesno('hadLostPassport','Ha perdido o le han robado algun pasaporte?',data.hadLostPassport||'no')}
+      <div id="lostPassportNumber_wrap" class="${data.hadLostPassport==='si'?'':'hidden'}">
+        ${field('lostPassportNumber','Numero del pasaporte perdido/robado','text',{value:data.lostPassportNumber})}
+      </div>
+      <div id="lostPassportCountry_wrap" class="${data.hadLostPassport==='si'?'':'hidden'}">
+        ${field('lostPassportCountry','Pais que lo emitio','text',{value:data.lostPassportCountry||'Ecuador'})}
+      </div>`;
+  } else if (step === 3) {
+    // Address & contact
+    const smSelected = data.socialMedia || [];
+    const smHtml = SOCIAL_PLATFORMS.map(p => {
+      const sel = smSelected.find(s => s.platform === p);
+      return `<div class="sm-platform ${sel?'selected':''}" onclick="toggleSM('${p}',this)" id="smp_${p.replace(/\s/g,'_').replace('/','_')}">
+        <div class="radio-circle" style="width:14px;height:14px"></div>
+        <span class="sm-platform-name">${p}</span>
+      </div>
+      ${sel?`<div class="sm-username">${field('smuser_'+p,'Usuario en '+p,'text',{placeholder:'@usuario',value:sel.username||''})}</div>`:'<div class="sm-username hidden" id="smuser_wrap_'+p.replace(/\s/g,'_').replace('/','_')+'">'+field('smuser_'+p,'Usuario en '+p,'text',{placeholder:'@usuario',value:''})+'</div>'}`;
+    }).join('');
+
+    body = `
+      ${field('homeStreet','Direccion de residencia (calle y numero)','text',{required:true,placeholder:'Ej: Av. 9 de Octubre 123 y Malcon',value:data.homeStreet})}
+      <div class="grid-2">
+        ${field('homeCity','Ciudad','text',{required:true,placeholder:'Ej: Guayaquil',value:data.homeCity||'Guayaquil'})}
+        ${field('homeProvince','Provincia','text',{required:true,placeholder:'Ej: Guayas',value:data.homeProvince||'Guayas'})}
+      </div>
+      ${field('homeCountry','Pais de residencia','text',{required:true,value:data.homeCountry||'Ecuador'})}
+      ${field('primaryPhone','Telefono principal (con codigo de pais)','tel',{required:true,placeholder:'+593 99 000 0000',value:data.primaryPhone})}
+      ${field('secondaryPhone','Telefono secundario (opcional)','tel',{placeholder:'+593 ...',value:data.secondaryPhone})}
+      ${field('email','Correo electronico','email',{required:true,value:data.email})}
+      <div class="divider"></div>
+      ${yesno('hasSocialMedia','Usa redes sociales? (Facebook, Instagram, TikTok, etc.)',data.hasSocialMedia,'Debe incluir TODAS las cuentas activas')}
+      <div id="sm_section" class="${data.hasSocialMedia==='si'?'':'hidden'}">
+        <div class="section-title" style="margin-top:12px">Seleccione las que usa</div>
+        <div class="sm-grid">${smHtml}</div>
+      </div>`;
+  } else if (step === 4) {
+    // Family
+    const isMar = married || MARRIED_STATUSES.includes(data.maritalStatus);
+    body = `
+      <div class="section-title">Datos del Padre</div>
+      <div class="grid-2">
+        ${field('fatherSurname','Apellido(s) del padre','text',{required:true,placeholder:'GOMEZ',value:data.fatherSurname})}
+        ${field('fatherGivenName','Nombre(s) del padre','text',{required:true,placeholder:'JOSE',value:data.fatherGivenName})}
+      </div>
+      ${field('fatherDob','Fecha de nacimiento del padre','date',{value:data.fatherDob})}
+      ${field('fatherInUS','El padre actualmente esta en USA?','select',{required:true,options:['No','Si — Ciudadano americano','Si — Residente permanente (green card)','Si — Visa temporal','No lo se'],value:data.fatherInUS||'No'})}
+      <div class="divider"></div>
+      <div class="section-title">Datos de la Madre</div>
+      <div class="grid-2">
+        ${field('motherSurname','Apellido(s) de la madre','text',{required:true,placeholder:'PAREDES',value:data.motherSurname})}
+        ${field('motherGivenName','Nombre(s) de la madre','text',{required:true,placeholder:'ANA',value:data.motherGivenName})}
+      </div>
+      ${field('motherDob','Fecha de nacimiento de la madre','date',{value:data.motherDob})}
+      ${field('motherInUS','La madre actualmente esta en USA?','select',{required:true,options:['No','Si — Ciudadana americana','Si — Residente permanente (green card)','Si — Visa temporal','No lo se'],value:data.motherInUS||'No'})}
+      <div class="divider"></div>
+      ${yesno('hasRelativesInUS','Tiene otros familiares (no padres) en USA?',data.hasRelativesInUS||'no')}
+      <div id="relativesInUSDetails_wrap" class="${data.hasRelativesInUS==='si'?'':'hidden'}">
+        ${field('relativesInUSDetails','Describa sus familiares en USA','textarea',{placeholder:'Ej: Hermano — Carlos Gomez — Ciudadano americano, vive en Miami\nPrima — Lucia Torres — Visa de trabajo H-1B',value:data.relativesInUSDetails})}
+      </div>
+      <div class="divider"></div>
+      ${yesno('isMarried','Actualmente esta casado/a o en union de hecho?',data.isMarried||(isMar?'si':'no'))}
+      <div id="spouse_section" class="${data.isMarried==='si'||isMar?'':'hidden'}">
+        <div class="section-title" style="margin-top:12px">Datos del Conyuge</div>
+        <div class="grid-2">
+          ${field('spouseSurname','Apellido(s) del conyuge','text',{placeholder:'Apellido',value:data.spouseSurname})}
+          ${field('spouseGivenName','Nombre(s) del conyuge','text',{placeholder:'Nombre',value:data.spouseGivenName})}
+        </div>
+        ${field('spouseDob','Fecha de nacimiento del conyuge','date',{value:data.spouseDob})}
+        ${field('spouseNationality','Nacionalidad del conyuge','text',{value:data.spouseNationality||'Ecuador'})}
+        ${field('spouseCountryBirth','Pais de nacimiento del conyuge','text',{value:data.spouseCountryBirth||'Ecuador'})}
+      </div>`;
+  } else if (step === 5 && !minor) {
+    // Work & Education (adults only)
+    const emp = data.employmentStatus || '';
+    const isWorking = emp && !['Estudiante','Jubilado/a','Desempleado/a','Ama/Amo de casa'].includes(emp);
+    const isStudent = emp === 'Estudiante';
+
+    body = `
+      ${field('employmentStatus','Situacion laboral actual','select',{required:true,
+        options:['Empleado (relacion de dependencia)','Independiente / Empresa propia','Estudiante','Jubilado/a','Ama/Amo de casa','Sin empleo actualmente'],
+        value:emp})}
+      ${isWorking?`
+      <div class="section-title">Empleo Actual</div>
+      ${field('currentOccupation','Cargo o titulo profesional','text',{required:true,placeholder:'Ej: Contador, Profesora, Gerente de ventas',value:data.currentOccupation})}
+      ${field('currentEmployerName','Nombre de la empresa','text',{required:true,placeholder:'Ej: Empresa ABC S.A.',value:data.currentEmployerName})}
+      ${field('currentEmployerStreet','Direccion de la empresa','text',{required:true,placeholder:'Calle y numero',value:data.currentEmployerStreet})}
+      <div class="grid-2">
+        ${field('currentEmployerCity','Ciudad','text',{required:true,placeholder:'Ej: Guayaquil',value:data.currentEmployerCity||'Guayaquil'})}
+        ${field('currentEmployerPhone','Telefono de la empresa','tel',{placeholder:'+593 4 ...',value:data.currentEmployerPhone})}
+      </div>
+      ${field('currentStartDate','Fecha de inicio en este trabajo','date',{required:true,value:data.currentStartDate})}
+      ${field('monthlySalary','Salario mensual aproximado (USD)','text',{required:true,placeholder:'Ej: 800',value:data.monthlySalary})}
+      ${field('jobDuties','Descripcion breve de sus funciones','textarea',{required:true,placeholder:'Ej: Gestion contable, supervision de personal, atencion al cliente',value:data.jobDuties})}
+      <div class="divider"></div>
+      ${yesno('hasPreviousEmployers','Ha tenido empleos anteriores en los ultimos 5 anos?',data.hasPreviousEmployers||'no')}
+      <div id="prevEmp_section" class="${data.hasPreviousEmployers==='si'?'':'hidden'}">
+        <div id="prevEmpList">${renderPrevEmployers(i)}</div>
+        <button type="button" class="add-btn" onclick="addPrevEmployer(${i})">+ Agregar empleo anterior</button>
+      </div>`:''}
+      ${isStudent?`
+      <div class="section-title">Institucion Educativa</div>
+      ${field('schoolName','Nombre de la institucion','text',{required:true,placeholder:'Ej: Universidad de Guayaquil',value:data.schoolName})}
+      ${field('schoolCity','Ciudad de la institucion','text',{required:true,placeholder:'Ej: Guayaquil',value:data.schoolCity||'Guayaquil'})}
+      ${field('schoolCourse','Carrera o programa de estudios','text',{placeholder:'Ej: Ingenieria en Sistemas',value:data.schoolCourse})}`:''}
+      ${!isWorking && !isStudent?`<div class="field-hint" style="margin-top:8px">Guardado. Puede continuar al siguiente paso.</div>`:''}
+      <div class="divider"></div>
+      <div class="section-title">Educacion (desde los 16 anos)</div>
+      ${field('educationSummary','Instituciones educativas cursadas (resumen)','textarea',{
+        placeholder:'Ej:\nColegio Nacional Simon Bolivar, Guayaquil, 2000-2006\nUniversidad Estatal de Guayaquil, Economia, 2006-2011',
+        rows:4, value:data.educationSummary})}`;
+  } else if ((step === 5 && minor) || (step === 6 && !minor)) {
+    // Travel history & additional info
+    body = `
+      ${yesno('hasBeenInUS','Ha estado en USA antes?',data.hasBeenInUS||'no')}
+      <div id="usVisitDetails_wrap" class="${data.hasBeenInUS==='si'?'':'hidden'}">
+        ${field('usVisitDetails','Cuando fue y cuanto tiempo se quedo?','textarea',{
+          placeholder:'Ej: Junio 2019, 15 dias, turismo con visa B2',rows:2,value:data.usVisitDetails})}
+      </div>
+      ${yesno('hasHadUSVisa','Ha tenido o tiene una visa americana?',data.hasHadUSVisa||'no')}
+      <div id="previousVisaSection" class="${data.hasHadUSVisa==='si'?'':'hidden'}">
+        <div class="grid-2">
+          ${field('previousVisaNumber','Numero de la visa','text',{placeholder:'Ej: A123456789',value:data.previousVisaNumber})}
+          ${field('previousVisaIssueDate','Fecha de emision','date',{value:data.previousVisaIssueDate})}
+        </div>
+        ${field('previousVisaType','Tipo de visa','select',{options:['B1/B2 Turismo','F-1 Estudiante','H-1B Trabajo','J-1 Intercambio','Otro'],value:data.previousVisaType})}
+      </div>
+      ${yesno('hasBeenRefused','Le han negado una visa a USA o entrada al pais?',data.hasBeenRefused||'no')}
+      <div id="refusalDetails_wrap" class="${data.hasBeenRefused==='si'?'':'hidden'}">
+        ${field('refusalDetails','Explique cuando y por que razon','textarea',{
+          placeholder:'Ej: 2018, solicitud B2, rechazada por falta de lazos economicos con Ecuador',rows:2,value:data.refusalDetails})}
+      </div>
+      <div class="divider"></div>
+      ${field('countriesVisited5Years','Paises visitados en los ultimos 5 anos (excepto Ecuador y USA)','textarea',{
+        placeholder:'Ej: Peru (marzo 2023), Colombia (diciembre 2022), España (2021)',rows:2,value:data.countriesVisited5Years})}
+      ${field('languages','Idiomas que habla','text',{required:true,placeholder:'Ej: Espanol, Ingles basico',value:data.languages||'Espanol'})}
+      ${field('organizations','Organizaciones o grupos a los que pertenece','textarea',{
+        placeholder:'Ej: Ninguna. O: Camara de Comercio de Guayaquil',rows:2,value:data.organizations||'Ninguna'})}
+      ${yesno('hasMilitaryService','Ha prestado servicio militar?',data.hasMilitaryService||'no')}`;
+  } else if ((step === 6 && minor) || (step === 7 && !minor)) {
+    // Security questions
+    const flags = S.securityFlags[i] || [];
+    const allNone = flags.length === 0 && data.securityConfirmed;
+    const cats = [...new Set(SEC_QUESTIONS.map(q => q.cat))];
+    const secHtml = cats.map(cat => {
+      const qs = SEC_QUESTIONS.filter(q => q.cat === cat);
+      return `<div class="sec-cat">${cat}</div>` + qs.map(q => {
+        const flagged = flags.includes(q.id);
+        return `<div class="sec-item ${flagged?'flagged':''}" onclick="toggleSecFlag(${i},'${q.id}',this)">
+          <div class="sec-check"></div>
+          <div class="sec-text">${q.text}</div>
+        </div>`;
+      }).join('');
+    }).join('');
+
+    body = `
+      <div class="card-sub">Estas preguntas son obligatorias para todos los solicitantes de visa americana. <strong>Para la gran mayoria de turistas ecuatorianos, NINGUNA aplica.</strong> Solo marque las que SI aplican a usted.</div>
+      <button type="button" class="sec-none-btn" onclick="confirmSecNone(${i})">
+        ${allNone ? 'Confirmado — Ninguna aplica' : 'Confirmar que NINGUNA de estas situaciones me aplica'}
+      </button>
+      <div class="section-title">O marque las que SI aplican (haga clic para seleccionar):</div>
+      <div class="sec-batch">${secHtml}</div>
+      ${flags.length > 0 ? `
+      <div class="divider"></div>
+      ${field('securityExplanation','Explique brevemente las situaciones que marcó','textarea',{
+        required:true,rows:3,placeholder:'Proporcione detalles de la situacion...',value:data.securityExplanation})}`:''}`;
+  }
+
+  return `<div class="phase-label">${name}${minor?' (Menor)':''}</div>
+  <div class="card">
+    <div class="step-dots">${dots}</div>
+    <div class="card-title">${stepNames[step]}</div>
+    ${body}
+  </div>`;
+}
+
+function renderPrevEmployers(travelerIdx) {
+  const data = S.perTraveler[travelerIdx] || {};
+  const emps = data.previousEmployers || [];
+  if (!emps.length) return '';
+  return emps.map((e,j) => `
+    <div class="repeat-item" id="premp_${j}">
+      <div class="repeat-header">
+        <span class="repeat-title">Empleo anterior ${j+1}</span>
+        <span class="repeat-del" onclick="removePrevEmployer(${travelerIdx},${j})">Eliminar</span>
+      </div>
+      <div class="grid-2">
+        ${field(`pe_${j}_name`,'Empresa','text',{placeholder:'Nombre de la empresa',value:e.name})}
+        ${field(`pe_${j}_title`,'Cargo','text',{placeholder:'Su cargo',value:e.title})}
+      </div>
+      ${field(`pe_${j}_city`,'Ciudad','text',{placeholder:'Ciudad',value:e.city})}
+      <div class="grid-2">
+        ${field(`pe_${j}_from`,'Desde','date',{value:e.from})}
+        ${field(`pe_${j}_to`,'Hasta','date',{value:e.to})}
+      </div>
+      ${field(`pe_${j}_reason`,'Razon de salida','text',{placeholder:'Ej: Mejor oportunidad laboral',value:e.reason})}
+    </div>`).join('');
+}
+
+function addPrevEmployer(travelerIdx) {
+  const data = S.perTraveler[travelerIdx] || {};
+  if (!data.previousEmployers) data.previousEmployers = [];
+  data.previousEmployers.push({name:'',title:'',city:'',from:'',to:'',reason:''});
+  S.perTraveler[travelerIdx] = data; save();
+  document.getElementById('prevEmpList').innerHTML = renderPrevEmployers(travelerIdx);
+}
+function removePrevEmployer(travelerIdx, idx) {
+  const data = S.perTraveler[travelerIdx] || {};
+  data.previousEmployers.splice(idx, 1);
+  save();
+  document.getElementById('prevEmpList').innerHTML = renderPrevEmployers(travelerIdx);
+}
+
+function toggleSM(platform, el) {
+  el.classList.toggle('selected');
+  const idx = S.travelerIdx;
+  const data = S.perTraveler[idx] || {};
+  if (!data.socialMedia) data.socialMedia = [];
+  const existing = data.socialMedia.find(s => s.platform === platform);
+  if (existing) {
+    data.socialMedia = data.socialMedia.filter(s => s.platform !== platform);
+  } else {
+    data.socialMedia.push({platform, username:''});
+  }
+  S.perTraveler[idx] = data; save();
+  // Show/hide username input
+  const safeId = platform.replace(/\s/g,'_').replace('/','_');
+  const wrapEl = document.getElementById('smuser_wrap_' + safeId);
+  if (wrapEl) wrapEl.classList.toggle('hidden', !el.classList.contains('selected'));
+}
+
+function toggleSecFlag(travelerIdx, qId, el) {
+  if (!S.securityFlags[travelerIdx]) S.securityFlags[travelerIdx] = [];
+  const flags = S.securityFlags[travelerIdx];
+  const idx2 = flags.indexOf(qId);
+  if (idx2 >= 0) { flags.splice(idx2, 1); el.classList.remove('flagged'); }
+  else { flags.push(qId); el.classList.add('flagged'); }
+  save();
+  const data = S.perTraveler[travelerIdx] || {};
+  data.securityConfirmed = false;
+  S.perTraveler[travelerIdx] = data; save();
+}
+
+function confirmSecNone(travelerIdx) {
+  S.securityFlags[travelerIdx] = [];
+  const data = S.perTraveler[travelerIdx] || {};
+  data.securityConfirmed = true;
+  S.perTraveler[travelerIdx] = data; save();
+  const btn = document.querySelector('.sec-none-btn');
+  if (btn) { btn.textContent = 'Confirmado — Ninguna aplica'; btn.style.opacity = '1'; }
+}
+
+// ── REVIEW ───────────────────────────────────────────────
+function renderReview() {
+  const sd = S.shared;
+  const persons = S.travelers.map((t, i) => {
+    const d = S.perTraveler[i] || {};
+    return `<div class="review-person">
+      <div class="review-person-header">
+        <div class="review-avatar">${initial(t.name)}</div>
+        <div>
+          <div class="review-name">${t.name}</div>
+          <div class="review-role">${t.role} · ${fmtDate(t.dob||d.dob)}</div>
+        </div>
+        <button type="button" onclick="editTraveler(${i})" style="margin-left:auto;font-size:.72rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;cursor:pointer">Editar</button>
+      </div>
+      <div class="review-rows">
+        <div class="review-row"><div class="review-key">Apellido(s)</div><div class="review-val">${d.surnames||'—'}</div></div>
+        <div class="review-row"><div class="review-key">Nombre(s)</div><div class="review-val">${d.givenNames||'—'}</div></div>
+        <div class="review-row"><div class="review-key">Pasaporte</div><div class="review-val">${d.passportNumber||'—'}</div></div>
+        <div class="review-row"><div class="review-key">Vence</div><div class="review-val">${fmtDate(d.passportExpiry)}</div></div>
+        <div class="review-row"><div class="review-key">Telefono</div><div class="review-val">${d.primaryPhone||'—'}</div></div>
+        <div class="review-row"><div class="review-key">Email</div><div class="review-val">${d.email||'—'}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<div class="phase-label">Revision Final</div>
+  <div class="card">
+    <div class="card-title">Revise su solicitud</div>
+    <div class="card-sub">Verifique que todo este correcto antes de enviar. Una vez enviado, su asesor recibira los datos y se pondra en contacto.</div>
+    <div style="background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);padding:12px 14px;margin-bottom:20px;font-size:.82rem;line-height:1.6">
+      <strong style="color:var(--gold)">Viaje:</strong> Llegada aprox. ${fmtDate(sd.intendedArrival)} · ${sd.lengthOfStayDays||'?'} dias · ${sd.usStayCity||'?'}, ${sd.usStayState||'?'}<br>
+      <strong style="color:var(--gold)">Alojamiento:</strong> ${sd.usStayName||'—'}<br>
+      <strong style="color:var(--gold)">Contacto USA:</strong> ${sd.usContactName||'—'}
+    </div>
+    ${persons}
+    <div class="divider"></div>
+    <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
+      Al enviar, su asesor recibira todos los datos de forma segura y se pondra en contacto en menos de 24 horas para confirmar los proximos pasos.
+    </div>
+  </div>`;
+}
+
+function editTraveler(idx) {
+  S.phase = 'traveler'; S.travelerIdx = idx; S.travelerStep = 0; renderScreen();
+}
+
+// ── DONE ─────────────────────────────────────────────────
+function renderDone() {
+  return `<div class="card">
+    <div class="confirm-box">
+      <div class="confirm-icon">&#10003;</div>
+      <div class="confirm-title">Solicitud <em style="color:var(--gold)">enviada</em></div>
+      <div class="confirm-sub">Su informacion fue recibida correctamente. Roberto revisara su perfil y en menos de 24 horas recibira un correo con el analisis y los siguientes pasos.</div>
+      <div class="next-steps">
+        <div class="next-step">
+          <div class="step-n">1</div>
+          <div class="step-text"><strong>Foto para la visa:</strong> Revise su correo — recibirara las especificaciones exactas de la foto. La foto incorrecta es el error mas comun que retrasa el proceso.</div>
+        </div>
+        <div class="next-step">
+          <div class="step-n">2</div>
+          <div class="step-text"><strong>Documentos de respaldo:</strong> Su asesor le enviara una lista personalizada segun su perfil (carta laboral, estados de cuenta, etc.).</div>
+        </div>
+        <div class="next-step">
+          <div class="step-n">3</div>
+          <div class="step-text"><strong>Pago del servicio:</strong> Una vez revisado su perfil, recibira el link de pago para formalizar la asesoria.</div>
+        </div>
+        <div class="next-step">
+          <div class="step-n">4</div>
+          <div class="step-text"><strong>Preparacion de entrevista:</strong> Antes de su cita en el consulado, tendra acceso al simulador de entrevista personalizado para su perfil.</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:12px;background:rgba(255,255,255,.04);border-radius:var(--rs);font-size:.78rem;color:var(--muted)">
+        Cualquier duda al <strong style="color:var(--white)">+593 99 444 2512</strong> (WhatsApp)
+      </div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════════════════════
+function validateSetup() {
+  let ok = true;
+  S.travelers.forEach((t, i) => {
+    if (!t.name || t.name.trim().length < 2) {
+      const el = document.getElementById(`tname_${i}`);
+      if (el) { el.style.borderColor = 'rgba(239,68,68,.5)'; }
+      ok = false;
+    }
+  });
+  return ok && S.travelers.length > 0;
+}
+
+function validateCurrent() {
+  let ok = true;
+  document.querySelectorAll('.field[id]').forEach(wrap => {
+    const id = wrap.id.replace('_wrap','');
+    // Only validate visible required fields
+    if (wrap.classList.contains('hidden')) return;
+    const input = document.getElementById(id);
+    if (!input) return;
+    const label = wrap.querySelector('.field-label');
+    if (label && label.querySelector('span[style*="gold"]')) {
+      // is required
+      if (!input.value || input.value.trim() === '') {
+        wrap.classList.add('has-error');
+        ok = false;
+      } else {
+        wrap.classList.remove('has-error');
+      }
+    }
+  });
+  // Check yesno required fields
+  document.querySelectorAll('.field [id$="_si"]').forEach(btn => {
+    const id = btn.id.replace('_si','');
+    const wrap = document.getElementById(id + '_wrap');
+    if (!wrap || wrap.classList.contains('hidden')) return;
+    const ctx = getCurrentDataCtx();
+    if (!ctx[id]) {
+      wrap.classList.add('has-error');
+      ok = false;
+    } else {
+      wrap.classList.remove('has-error');
+    }
+  });
+  if (!ok) {
+    const firstErr = document.querySelector('.field.has-error');
+    if (firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  return ok;
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function goNext() {
+  // Save any loose inputs
+  document.querySelectorAll('input,select,textarea').forEach(el => {
+    if (el.id) { const ctx = getCurrentDataCtx(); if (ctx !== null) ctx[el.id] = el.value; }
+  });
+  save();
+
+  if (S.phase === 'setup') {
+    if (!validateSetup()) { alert('Por favor complete el nombre, tipo y fecha de nacimiento de cada viajero.'); return; }
+    S.phase = 'shared'; S.sharedStep = 0;
+  } else if (S.phase === 'shared') {
+    if (!validateCurrent()) return;
+    if (S.sharedStep < 3) { S.sharedStep++; }
+    else { S.phase = 'traveler'; S.travelerIdx = 0; S.travelerStep = 0; }
+  } else if (S.phase === 'traveler') {
+    if (!validateCurrent()) return;
+    const i = S.travelerIdx;
+    const minor = isMinor(i) || getAge(i) < 14;
+    const maxStep = minor ? 6 : 7;
+    if (S.travelerStep < maxStep) {
+      S.travelerStep++;
+    } else {
+      // Next traveler or review
+      if (S.travelerIdx < S.travelers.length - 1) {
+        S.travelerIdx++; S.travelerStep = 0;
+      } else {
+        S.phase = 'review';
+      }
+    }
+  } else if (S.phase === 'review') {
+    submitForm();
+    return;
+  }
+  renderScreen();
+}
+
+function goBack() {
+  if (S.phase === 'shared') {
+    if (S.sharedStep > 0) { S.sharedStep--; }
+    else { S.phase = 'setup'; }
+  } else if (S.phase === 'traveler') {
+    if (S.travelerStep > 0) { S.travelerStep--; }
+    else if (S.travelerIdx > 0) { S.travelerIdx--; const minor = isMinor(S.travelerIdx); S.travelerStep = minor ? 6 : 7; }
+    else { S.phase = 'shared'; S.sharedStep = 3; }
+  } else if (S.phase === 'review') {
+    S.phase = 'traveler'; S.travelerIdx = S.travelers.length - 1;
+    const minor = isMinor(S.travelerIdx); S.travelerStep = minor ? 6 : 7;
+  }
+  renderScreen();
+}
+
+function jumpToTraveler(idx) {
+  if (S.phase === 'traveler' || S.phase === 'review') {
+    S.phase = 'traveler'; S.travelerIdx = idx; S.travelerStep = 0; renderScreen();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════════════════════
+async function submitForm() {
+  const btn = document.getElementById('btnNext');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Enviando...';
+
+  const refId = 'INK-' + Date.now().toString().slice(-6);
+  const personas = S.travelers.map((t, i) => ({
+    nombre: t.name,
+    rol: t.role,
+    fecha_nacimiento: t.dob,
+    datos: S.perTraveler[i] || {},
+    banderas_seguridad: S.securityFlags[i] || []
+  }));
+
+  const payload = {
+    tipo_visa: 'USA DS-160',
+    subtipo: 'intake_familiar',
+    ref: refId,
+    fecha_envio: new Date().toISOString(),
+    shared: S.shared,
+    num_viajeros: S.travelers.length,
+    personas
+  };
+
+  try {
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+  } catch(e) { /* no-cors swallows errors */ }
+
+  // Clear localStorage
+  localStorage.removeItem(LS_KEY);
+  S.phase = 'done';
+  renderScreen();
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+function init() {
+  const restored = load();
+  if (restored && S.travelers.length > 0 && S.phase !== 'done') {
+    // Show resume prompt
+    const banner = document.createElement('div');
+    banner.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:200;background:rgba(240,180,41,.15);border-bottom:1px solid rgba(240,180,41,.25);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem';
+    banner.innerHTML = `<span style="color:var(--white)">Tiene un formulario en progreso guardado.</span>
+      <div style="display:flex;gap:8px">
+        <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">Continuar</button>
+        <button onclick="localStorage.removeItem('${LS_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar nuevo</button>
+      </div>`;
+    document.body.appendChild(banner);
+  }
+  renderScreen();
+}
+
+// Keyboard: Enter = Next (except textarea)
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'SELECT') {
+    e.preventDefault(); goNext();
+  }
+});
+
+init();
+</script>
+</body>
+</html>
