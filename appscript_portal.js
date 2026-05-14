@@ -1,13 +1,20 @@
 // ═══════════════════════════════════════════════════════════════════════
-// GOOGLE APPS SCRIPT — Portal Unificado v2.0
+// GOOGLE APPS SCRIPT — Portal Unificado v3.0
 // Asesoría Visa Global — Roberto Acosta
 // Maneja: USA DS-160 | Schengen | Reino Unido | Caso de Rechazo
-// Guardar como nuevo despliegue en Apps Script. Reemplaza appscript_ds160.js
+//         + intake_familiar (nuevo intake.html multi-viajero DS-160)
 // ═══════════════════════════════════════════════════════════════════════
 
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
 const SS_ID        = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
+
+// Columnas del CRM de casos
+const COL_CRM = [
+  'Ref ID','Fecha','Estado','Tipo Visa','Nombre Principal','Num Viajeros',
+  'Telefono','Email','Probabilidad','Paquete','Llegada USA','Dias Estancia',
+  'Pago','Cita','Notas','Ver Expediente'
+];
 
 // Hojas del Spreadsheet por tipo de visa
 const HOJAS = {
@@ -24,10 +31,382 @@ const COL_RESUMEN = [
   'Puntos Debiles', 'Estrategia', 'Ver Expediente'
 ];
 
-// ── doPost: recibe datos del formulario ────────────────────────────
+// ── doPost: enruta según subtipo ──────────────────────────────────
 function doPost(e) {
   try {
-    const payload   = JSON.parse(e.postData.contents);
+    const payload = JSON.parse(e.postData.contents);
+    if (payload.subtipo === 'intake_familiar') {
+      return manejarIntakeFamiliar(payload);
+    }
+    return manejarPortalLegacy(payload);
+  } catch(err) {
+    console.error('doPost error:', err.toString());
+    return ok({ error: err.toString() });
+  }
+}
+
+// ── NUEVO: Handler intake_familiar (intake.html multi-viajero) ────
+function manejarIntakeFamiliar(payload) {
+  const ss       = SpreadsheetApp.openById(SS_ID);
+  const personas = payload.personas || [];
+  const shared   = payload.shared   || {};
+  const refId    = payload.ref      || ('INK' + Date.now().toString().slice(-6));
+  const fecha    = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+  const numViaj  = personas.length;
+
+  if (!numViaj) return ok({ error: 'Sin viajeros' });
+
+  const primerViajero = personas[0];
+  const nombrePrincipal = primerViajero.nombre || '';
+  const datosP0 = primerViajero.datos || {};
+  const emailCliente = datosP0.email || '';
+  const telCliente   = datosP0.primaryPhone || '';
+
+  // 1. Guardar detalle completo en hoja "Intake DS-160 Detalle"
+  const sheetDet = getOrCreateSheet(ss, 'Intake DS-160 Detalle',
+    ['Ref ID','Fecha','Viajero','Rol','Campo','Respuesta']);
+  // Shared info
+  Object.entries(shared).forEach(([campo, valor]) => {
+    if (valor && String(valor).trim()) {
+      sheetDet.appendRow([refId, fecha, 'COMPARTIDO', '—', campo, String(valor)]);
+    }
+  });
+  // Per-traveler data
+  personas.forEach(p => {
+    const datos = p.datos || {};
+    Object.entries(datos).forEach(([campo, valor]) => {
+      if (valor && String(valor).trim() && String(valor) !== 'N/A') {
+        sheetDet.appendRow([refId, fecha, p.nombre, p.rol, campo, String(valor)]);
+      }
+    });
+    // Security flags
+    if (p.banderas_seguridad && p.banderas_seguridad.length) {
+      sheetDet.appendRow([refId, fecha, p.nombre, p.rol, 'BANDERAS_SEGURIDAD',
+        p.banderas_seguridad.join(', ')]);
+    }
+  });
+  formatearCabecera(sheetDet, 1);
+
+  // 2. Análisis IA familiar
+  const analisis = analizarPerfilFamiliar(shared, personas, refId);
+
+  // 3. Guardar en CRM de casos
+  const sheetCRM = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
+  const crmRow   = sheetCRM.getLastRow() + 1;
+  const reporteUrl = generarUrlReporte(refId, 'USA DS-160');
+  sheetCRM.appendRow([
+    refId, fecha, 'NUEVO — Formulario recibido', 'USA DS-160',
+    nombrePrincipal, numViaj, telCliente, emailCliente,
+    analisis.probabilidad || '—', analisis.paquete || '—',
+    shared.intendedArrival || '—', shared.lengthOfStayDays || '—',
+    'Pendiente', 'Por agendar', '', reporteUrl
+  ]);
+  formatearCabecera(sheetCRM, 1);
+  // Color fila nueva
+  sheetCRM.getRange(crmRow, 1, 1, COL_CRM.length)
+    .setBackground('#F0FDF4');
+  sheetCRM.getRange(crmRow, 3)
+    .setFontColor('#166534').setFontWeight('bold');
+  try { sheetCRM.autoResizeColumns(1, COL_CRM.length); } catch(e) {}
+
+  // 4. Email a Roberto con análisis completo
+  notificarRobertoIntakeFamiliar(refId, fecha, nombrePrincipal, numViaj,
+    telCliente, emailCliente, shared, personas, analisis, reporteUrl);
+
+  // 5. Email al cliente con próximos pasos
+  if (emailCliente) {
+    notificarClienteIntake(emailCliente, nombrePrincipal, refId, numViaj, shared);
+  }
+
+  return ok({ refId, status: 'ok', analisis: analisis.probabilidad });
+}
+
+// ── Análisis IA — Familia completa ───────────────────────────────
+function analizarPerfilFamiliar(shared, personas, refId) {
+  try {
+    const prompt = construirPromptFamiliar(shared, personas);
+    return llamarClaudeIA(prompt);
+  } catch(e) {
+    console.error('analizarPerfilFamiliar error:', e.toString());
+    return {
+      probabilidad: '—', paquete: 'PROFESIONAL $197',
+      fuertes: 'Revisar manualmente', debiles: 'Revisar manualmente',
+      estrategia: 'Revisar caso manualmente', documentos_clave: '—',
+      proximos_pasos: '1. Contactar al cliente por WhatsApp\n2. Revisar pasaportes\n3. Solicitar documentos laborales'
+    };
+  }
+}
+
+function construirPromptFamiliar(shared, personas) {
+  const numViaj = personas.length;
+  const perfilesDetalle = personas.map((p, i) => {
+    const d = p.datos || {};
+    const rol    = p.rol || 'Adulto';
+    const edadAprox = p.fecha_nacimiento
+      ? Math.floor((Date.now() - new Date(p.fecha_nacimiento)) / (365.25*24*3600*1000))
+      : '?';
+    const esAdulto = !rol.includes('Menor') && edadAprox >= 14;
+    const flags    = p.banderas_seguridad || [];
+    let lineas = [
+      `VIAJERO ${i+1}: ${p.nombre} | Rol: ${rol} | Edad aprox: ${edadAprox}`,
+      `  Estado civil: ${d.maritalStatus || '—'}`,
+      `  Nacionalidad: ${d.nationality || 'Ecuador'}`,
+      `  Ciudad residencia: ${d.homeCity || '—'}`,
+    ];
+    if (esAdulto) {
+      lineas = lineas.concat([
+        `  Situacion laboral: ${d.employmentStatus || '—'}`,
+        `  Cargo: ${d.currentOccupation || '—'}`,
+        `  Empleador: ${d.currentEmployerName || '—'}`,
+        `  Salario mensual (USD): ${d.monthlySalary || '—'}`,
+        `  Tiempo en empleo actual: desde ${d.currentStartDate || '—'}`,
+      ]);
+    }
+    lineas = lineas.concat([
+      `  Ha estado en USA antes: ${d.hasBeenInUS || 'no'}`,
+      `  Ha tenido visa USA: ${d.hasHadUSVisa || 'no'}`,
+      `  Le han negado visa USA: ${d.hasBeenRefused || 'no'}`,
+      `  ${d.hasBeenRefused==='si' ? 'DETALLE RECHAZO: '+d.refusalDetails : ''}`,
+      `  Paises visitados 5 anos: ${d.countriesVisited5Years || 'Ninguno'}`,
+      `  Familiares en USA: ${d.hasRelativesInUS==='si' ? d.relativesInUSDetails : 'No'}`,
+      `  Padre en USA: ${d.fatherInUS || 'No'}`,
+      `  Madre en USA: ${d.motherInUS || 'No'}`,
+      `  Banderas de seguridad marcadas: ${flags.length ? flags.join(', ') : 'Ninguna'}`,
+    ]);
+    return lineas.filter(l => l.trim() && !l.endsWith(': —') && !l.endsWith(': ')).join('\n');
+  }).join('\n\n');
+
+  return `Eres un experto asesor de visas con 15 anos de experiencia analizando solicitudes de visa B1/B2 de turismo USA para ciudadanos ecuatorianos.
+
+Analiza el siguiente caso familiar y proporciona un analisis detallado y estrategia de accion:
+
+INFORMACION DEL VIAJE (FAMILIAR):
+- Numero de viajeros: ${numViaj}
+- Fecha estimada de llegada USA: ${shared.intendedArrival || '—'}
+- Duracion: ${shared.lengthOfStayDays || '—'} dias
+- Alojamiento: ${shared.usStayType || '—'} — ${shared.usStayName || '—'}, ${shared.usStayCity || '—'}, ${shared.usStayState || '—'}
+- Quien paga: ${shared.whoIsPaying || '—'}
+- Contacto USA: ${shared.usContactName || '—'} (${shared.usContactRelationship || '—'})
+- Proposito declarado: ${shared.purposeNote || 'Turismo vacacional'}
+
+PERFILES INDIVIDUALES:
+${perfilesDetalle}
+
+Responde en JSON exacto sin markdown ni bloques de codigo:
+{
+  "probabilidad": "porcentaje estimado de aprobacion para la familia (ej: 72%)",
+  "paquete": "ESENCIAL $97 o PROFESIONAL $197 o VIP $397",
+  "razon_paquete": "una linea explicando por que ese paquete",
+  "fuertes": "3-5 puntos fuertes del perfil familiar separados por punto y coma",
+  "debiles": "2-4 riesgos o debilidades separados por punto y coma",
+  "estrategia": "estrategia completa de 6-8 pasos numerados para maximizar probabilidad. Ser especifico con este caso",
+  "documentos_clave": "lista de 4-7 documentos criticos para este caso familiar especifico separados por punto y coma",
+  "proximos_pasos": "3 acciones concretas que el asesor debe tomar esta semana, numeradas",
+  "alerta_principal": "si hay algun riesgo critico o bandera roja, mencionarlo en 1-2 lineas. Si no hay, escribir PERFIL LIMPIO"
+}`;
+}
+
+// ── Email a Roberto — Intake Familiar ────────────────────────────
+function notificarRobertoIntakeFamiliar(refId, fecha, nombre, numViaj, tel, email, shared, personas, analisis, reporteUrl) {
+  try {
+    const esAlerta = analisis.alerta_principal && !analisis.alerta_principal.includes('LIMPIO');
+    const colorAlerta = esAlerta ? '#7C3AED' : '#060E1F';
+
+    const viajerosList = personas.map((p, i) =>
+      `<tr><td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9">${i+1}. ${p.nombre}</td>
+       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9;color:#64748B">${p.rol}</td>
+       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9;color:#64748B">${(p.datos||{}).employmentStatus||'—'}</td>
+       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9">${(p.banderas_seguridad||[]).length?'<span style="color:#ef4444">'+p.banderas_seguridad.length+' flag(s)</span>':'<span style="color:#22c55e">Limpio</span>'}</td></tr>`
+    ).join('');
+
+    const html = `
+<div style="font-family:Calibri,Arial,sans-serif;max-width:720px;margin:0 auto;background:#F4F6F9;padding:20px">
+
+  <div style="background:${colorAlerta};color:white;padding:22px 28px;border-radius:12px 12px 0 0">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:6px">
+      INTAKE FAMILIAR — USA TURISMO B1/B2
+    </div>
+    <h1 style="font-size:20px;font-weight:700;margin:0 0 4px">Nuevo caso — ${nombre}</h1>
+    <div style="font-size:13px;opacity:.8">${numViaj} viajero${numViaj>1?'s':''} · Llegada aprox: ${shared.intendedArrival||'—'} · ${shared.lengthOfStayDays||'—'} dias · ${shared.usStayCity||'?'}</div>
+  </div>
+
+  <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:22px 28px">
+
+    <!-- ALERTA si hay bandera roja -->
+    ${esAlerta ? `<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">ALERTA — REVISAR</div>
+      <div style="font-size:13px;color:#7F1D1D">${analisis.alerta_principal||''}</div>
+    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:#166534;font-weight:600">
+      Perfil limpio — sin banderas criticas detectadas
+    </div>`}
+
+    <!-- DATOS RÁPIDOS -->
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px">
+      <tr><td style="padding:6px 0;color:#64748B;width:38%">Referencia</td><td style="font-weight:700">${refId}</td></tr>
+      <tr><td style="padding:6px 0;color:#64748B">Nombre principal</td><td style="font-weight:700">${nombre}</td></tr>
+      <tr><td style="padding:6px 0;color:#64748B">Telefono</td><td>${tel||'—'}</td></tr>
+      <tr><td style="padding:6px 0;color:#64748B">Email</td><td>${email||'—'}</td></tr>
+      <tr><td style="padding:6px 0;color:#64748B">Alojamiento USA</td><td>${shared.usStayName||'—'}, ${shared.usStayCity||'—'}, ${shared.usStayState||'—'}</td></tr>
+      <tr><td style="padding:6px 0;color:#64748B">Quien paga</td><td>${shared.whoIsPaying||'—'}</td></tr>
+    </table>
+
+    <!-- VIAJEROS -->
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#64748B;margin-bottom:8px">Viajeros</div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;background:#F8FAFC;border-radius:8px;overflow:hidden">
+      <tr style="background:#E2E8F0">
+        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">#</td>
+        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Rol</td>
+        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Empleo</td>
+        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Seguridad</td>
+      </tr>
+      ${viajerosList}
+    </table>
+
+    <!-- ANÁLISIS IA -->
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#166534;margin-bottom:10px">
+        ANALISIS IA — ${analisis.probabilidad||'—'} probabilidad — ${analisis.paquete||'—'}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#166534;margin-bottom:5px">PUNTOS FUERTES</div>
+          <div style="font-size:12px;color:#1A2940;line-height:1.6">${(analisis.fuertes||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#991B1B;margin-bottom:5px">PUNTOS DEBILES</div>
+          <div style="font-size:12px;color:#1A2940;line-height:1.6">${(analisis.debiles||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">ESTRATEGIA RECOMENDADA</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.estrategia||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    </div>
+
+    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:14px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">DOCUMENTOS A SOLICITAR</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_clave||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
+    </div>
+
+    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROXIMOS PASOS ESTA SEMANA</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    </div>
+
+    <a href="${reporteUrl}" style="display:inline-block;background:#060E1F;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;margin-right:10px">
+      Ver expediente completo
+    </a>
+    <a href="https://wa.me/${(tel||'').replace(/\D/g,'')}" style="display:inline-block;background:#22c55e;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
+      WhatsApp cliente
+    </a>
+  </div>
+
+  <div style="text-align:center;padding:14px;font-size:11px;color:#94A3B8">
+    Asesoria Visa Global — ${fecha} — Sistema automatico intake.html
+  </div>
+</div>`;
+
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: `NUEVO CASO ${numViaj} viajero${numViaj>1?'s':''} — ${nombre} — [${refId}]${esAlerta?' ⚠ REVISAR':''}`,
+      htmlBody: html
+    });
+  } catch(e) {
+    console.error('notificarRobertoIntakeFamiliar error:', e.toString());
+  }
+}
+
+// ── Email al cliente — Confirmación y próximos pasos ─────────────
+function notificarClienteIntake(emailCliente, nombre, refId, numViaj, shared) {
+  try {
+    const primerNombre = nombre.split(' ')[0] || nombre;
+    const llegada = shared.intendedArrival || '(por confirmar)';
+    const dias    = shared.lengthOfStayDays || '';
+    const ciudad  = shared.usStayCity || 'USA';
+
+    const html = `
+<div style="font-family:Calibri,Arial,sans-serif;max-width:620px;margin:0 auto;background:#F4F6F9;padding:20px">
+
+  <div style="background:#060E1F;padding:22px 28px;border-radius:12px 12px 0 0;border-bottom:3px solid #F0B429">
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:6px">Asesoria Visa Global</div>
+    <h1 style="font-size:20px;font-weight:700;color:white;margin:0">Su solicitud fue recibida</h1>
+    <div style="font-size:12px;color:#F0B429;margin-top:4px">Referencia: ${refId}</div>
+  </div>
+
+  <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:24px 28px">
+    <p style="font-size:14px;color:#1A2940;line-height:1.7;margin-bottom:20px">
+      Estimado/a <strong>${primerNombre}</strong>, recibimos correctamente la informacion de su grupo (${numViaj} viajero${numViaj>1?'s':''}). Su asesor Roberto revisara el expediente y en menos de <strong>24 horas</strong> recibira un correo con el analisis personalizado de su caso.
+    </p>
+
+    <!-- PASOS INMEDIATOS -->
+    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:18px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:14px">Que ocurre ahora</div>
+
+      <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:50%;background:#060E1F;color:#F0B429;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">1</div>
+        <div><strong style="font-size:13px;color:#1A2940">Analisis de perfil (hoy)</strong><br><span style="font-size:12px;color:#64748B">Revisamos toda su informacion y le enviamos el analisis completo con la lista de documentos necesarios para su caso.</span></div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:50%;background:#060E1F;color:#F0B429;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">2</div>
+        <div><strong style="font-size:13px;color:#1A2940">Foto para la visa (esta semana)</strong><br><span style="font-size:12px;color:#64748B">Recibira las especificaciones exactas. Por favor espere nuestras instrucciones antes de sacar la foto.</span></div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:50%;background:#060E1F;color:#F0B429;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">3</div>
+        <div><strong style="font-size:13px;color:#1A2940">Documentos de respaldo</strong><br><span style="font-size:12px;color:#64748B">Le pediremos solo los documentos relevantes para su perfil. Iremos paso a paso.</span></div>
+      </div>
+    </div>
+
+    <!-- SPECS FOTO (importante, darselos ya) -->
+    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-left:4px solid #F0B429;border-radius:0 10px 10px 0;padding:14px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Especificaciones de la foto para la visa USA</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">
+        Fondo blanco liso (no gris, no crema)<br>
+        Tamano: 5x5 cm (2x2 pulgadas)<br>
+        Cara descubierta, frente a la camara, expression neutral<br>
+        Sin lentes (ni de sol ni de graduacion)<br>
+        Sin gorras, sombreros ni accesorios que cubran la cabeza<br>
+        Foto reciente (menos de 6 meses)<br>
+        Alta resolucion (300 DPI minimo si es digital)<br>
+        <strong style="color:#92400E">Necesitara una foto por cada viajero</strong>
+      </div>
+    </div>
+
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px;margin-bottom:24px;font-size:12px;color:#166534;line-height:1.6">
+      <strong>Su referencia:</strong> ${refId}<br>
+      <strong>Viaje estimado:</strong> ${llegada}${dias?' · '+dias+' dias':''} · ${ciudad}
+    </div>
+
+    <div style="border-top:1px solid #E2E8F0;padding-top:18px;font-size:12px;color:#64748B;line-height:1.7">
+      Cualquier pregunta, escribanos directamente por WhatsApp:<br>
+      <a href="https://wa.me/593994442512" style="color:#060E1F;font-weight:700;text-decoration:none;font-size:14px">+593 99 444 2512</a>
+      <br><br>
+      <strong style="color:#1A2940">Asesoria Visa Global</strong><br>
+      Roberto Acosta · asesoriadevisadosglobal.com
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:14px;font-size:11px;color:#94A3B8">
+    Este es un mensaje automatico. Puede responder a este correo o contactarnos por WhatsApp.
+  </div>
+</div>`;
+
+    MailApp.sendEmail({
+      to: emailCliente,
+      replyTo: EMAIL_ROBERTO,
+      subject: `Solicitud recibida — Visa USA — ${primerNombre} [${refId}]`,
+      htmlBody: html
+    });
+  } catch(e) {
+    console.error('notificarClienteIntake error:', e.toString());
+  }
+}
+
+// ── Handler legacy (portal.html antiguo) ─────────────────────────
+function manejarPortalLegacy(payload) {
+  try {
     const tipoVisa  = payload.tipo_visa || 'USA DS-160';
     const refId     = payload.ref || ('REF' + Date.now().toString().slice(-6));
     const fecha     = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
