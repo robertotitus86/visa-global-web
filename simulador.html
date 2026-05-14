@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Entrevista Consular USA — Asesoría Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#1a2a45;
+  --gold:#F0B429;--gold2:#ffd166;--gold-dim:rgba(240,180,41,.12);
+  --white:#fff;--muted:rgba(255,255,255,.5);--muted2:rgba(255,255,255,.2);
+  --border:rgba(255,255,255,.08);--input-bg:rgba(255,255,255,.05);
+  --green:#22c55e;--red:#ef4444;--amber:#f59e0b;
+  --sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif;
+  --ease:cubic-bezier(.22,.68,0,1.2);--r:14px;--rs:8px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(240,180,41,.07) 0%,transparent 55%),var(--navy)}
+.mesh{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(240,180,41,.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(240,180,41,.02) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;
+  display:flex;align-items:center;padding:0 20px;gap:12px;
+  background:rgba(6,14,31,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--serif);font-size:.9rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+
+/* MAIN */
+.main{position:relative;z-index:1;padding:72px 16px 40px;min-height:100vh}
+.wrap{max-width:620px;margin:0 auto}
+
+/* SCREEN BASE */
+.screen{animation:fadeUp .4s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hidden{display:none!important}
+
+/* ── WELCOME ── */
+.welcome-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);background:var(--gold-dim);
+  border:1px solid rgba(240,180,41,.2);padding:4px 14px;border-radius:99px;margin-bottom:18px}
+.welcome-title{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.2;margin-bottom:12px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:28px}
+
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+@media(max-width:440px){.tips-grid{grid-template-columns:1fr}}
+.tip-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.tip-num{font-size:.65rem;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.tip-text{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.5}
+
+.start-btn{width:100%;padding:15px;background:var(--gold);color:var(--navy);border:none;
+  border-radius:var(--r);font-family:var(--sans);font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(240,180,41,.3);margin-bottom:12px}
+.start-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.back-link{text-align:center;font-size:.78rem;color:var(--muted)}
+.back-link a{color:var(--gold);text-decoration:none}
+
+/* ── CONSUL CARD ── */
+.consul-window{background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.consul-top{background:rgba(255,255,255,.04);padding:12px 16px;display:flex;
+  align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.consul-avatar{width:36px;height:36px;border-radius:50%;background:var(--navy3);
+  border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);flex-shrink:0}
+.consul-name{font-size:.8rem;font-weight:700;color:var(--white)}
+.consul-role{font-size:.65rem;color:var(--muted)}
+.consul-status{margin-left:auto;font-size:.62rem;font-weight:600;padding:3px 10px;
+  background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);border-radius:99px}
+.consul-body{padding:20px 16px}
+.consul-q-num{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px}
+.consul-question{font-family:var(--serif);font-size:1.3rem;line-height:1.35;
+  color:var(--white);margin-bottom:8px}
+.consul-tip{font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.5;
+  border-left:2px solid rgba(240,180,41,.3);padding-left:10px;margin-top:10px}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:16px}
+.progress-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s var(--ease)}
+.progress-label{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:5px}
+
+/* ANSWER AREA */
+.answer-wrap{margin-bottom:12px}
+.answer-label{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:7px;display:block}
+textarea.answer-input{width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.9rem;
+  padding:12px 14px;outline:none;resize:vertical;min-height:100px;line-height:1.6;
+  transition:border-color .2s}
+textarea.answer-input:focus{border-color:rgba(240,180,41,.5)}
+textarea.answer-input::placeholder{color:rgba(255,255,255,.2)}
+.char-count{font-size:.62rem;color:var(--muted);text-align:right;margin-top:4px}
+
+/* HINT */
+.hint-toggle{font-size:.75rem;color:rgba(240,180,41,.7);cursor:pointer;margin-bottom:10px;
+  display:inline-flex;align-items:center;gap:5px;transition:color .2s;background:none;border:none}
+.hint-toggle:hover{color:var(--gold)}
+.hint-box{background:rgba(240,180,41,.07);border:1px solid rgba(240,180,41,.15);
+  border-radius:var(--rs);padding:12px 14px;font-size:.8rem;color:rgba(255,255,255,.75);
+  line-height:1.6;margin-bottom:12px}
+.hint-box strong{color:var(--gold)}
+
+/* FEEDBACK */
+.feedback{border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;animation:fadeUp .3s var(--ease)}
+.feedback.bien  {background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25)}
+.feedback.mejorar{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25)}
+.feedback.riesgo {background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.25)}
+.feedback-head{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.feedback-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.feedback.bien .feedback-icon{background:rgba(34,197,94,.2);color:var(--green)}
+.feedback.mejorar .feedback-icon{background:rgba(245,158,11,.2);color:var(--amber)}
+.feedback.riesgo .feedback-icon{background:rgba(239,68,68,.2);color:var(--red)}
+.feedback-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.feedback.bien .feedback-label{color:var(--green)}
+.feedback.mejorar .feedback-label{color:var(--amber)}
+.feedback.riesgo .feedback-label{color:var(--red)}
+.feedback-msg{font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.5}
+
+/* NAV */
+.nav-row{display:flex;gap:10px;align-items:center}
+.btn-next{flex:1;padding:13px;background:var(--gold);color:var(--navy);border:none;
+  border-radius:var(--rs);font-family:var(--sans);font-size:.9rem;font-weight:700;
+  cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(240,180,41,.25)}
+.btn-next:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-next:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-skip{padding:13px 16px;background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--muted);border-radius:var(--rs);font-family:var(--sans);font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:all .2s}
+.btn-skip:hover{color:var(--white);background:rgba(255,255,255,.1)}
+
+/* ── LOADING ── */
+.loading-box{text-align:center;padding:48px 20px}
+.loading-spinner{width:48px;height:48px;border:3px solid rgba(240,180,41,.2);
+  border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-title{font-family:var(--serif);font-size:1.3rem;margin-bottom:8px}
+.loading-sub{font-size:.82rem;color:var(--muted);line-height:1.6}
+.loading-steps{margin-top:20px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.loading-step{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.loading-step.done{color:var(--green)}
+.loading-step.active{color:var(--white)}
+.loading-step-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.loading-step.done .loading-step-dot{background:var(--green)}
+.loading-step.active .loading-step-dot{background:var(--gold)}
+.loading-step:not(.done):not(.active) .loading-step-dot{background:rgba(255,255,255,.15)}
+
+/* ── REPORT ── */
+.report-header{background:linear-gradient(135deg,var(--navy2),var(--navy3));
+  border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px;text-align:center}
+.report-score-ring{width:90px;height:90px;border-radius:50%;border:4px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 14px}
+.report-score-num{font-family:var(--serif);font-size:1.8rem;font-weight:700;line-height:1}
+.report-score-label{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.report-title{font-family:var(--serif);font-size:1.3rem;margin-bottom:4px}
+.report-sub{font-size:.8rem;color:var(--muted)}
+
+.report-section{background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;margin-bottom:12px}
+.report-section-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px}
+
+.qa-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.qa-item:last-child{border:none}
+.qa-question{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:4px}
+.qa-answer{font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:5px;
+  font-style:italic;padding-left:10px;border-left:2px solid rgba(255,255,255,.1)}
+.qa-eval{font-size:.72rem;line-height:1.4}
+.qa-eval.bien{color:rgba(34,197,94,.8)}
+.qa-eval.mejorar{color:rgba(245,158,11,.8)}
+.qa-eval.riesgo{color:rgba(239,68,68,.8)}
+
+.score-pill{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-left:8px}
+.score-pill.bien{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.score-pill.mejorar{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--amber)}
+.score-pill.riesgo{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+
+.ai-section{background:rgba(240,180,41,.06);border:1px solid rgba(240,180,41,.15);
+  border-radius:var(--r);padding:16px;margin-bottom:12px}
+.ai-section-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px}
+.ai-text{font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.7}
+.ai-text p{margin-bottom:8px}
+
+.retry-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;
+  border-radius:var(--r);font-family:var(--sans);font-size:.95rem;font-weight:700;
+  cursor:pointer;transition:all .2s;margin-top:12px;box-shadow:0 4px 16px rgba(240,180,41,.25)}
+.retry-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.share-btn{width:100%;padding:11px;background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--muted);border-radius:var(--r);font-family:var(--sans);font-size:.85rem;font-weight:600;
+  cursor:pointer;transition:all .2s;margin-top:8px}
+.share-btn:hover{color:var(--white);background:rgba(255,255,255,.1)}
+</style>
+</head>
+<body>
+<div class="bg"><div class="mesh"></div></div>
+
+<header class="hdr">
+  <div class="logo">Visa <em>Global</em></div>
+  <div class="hdr-right">
+    <span class="hdr-prog" id="hdrProgress"></span>
+  </div>
+</header>
+
+<main class="main">
+  <div class="wrap">
+
+    <!-- WELCOME -->
+    <div id="screenWelcome" class="screen">
+      <div class="welcome-badge">Simulador de Entrevista · Visa USA B1/B2</div>
+      <h1 class="welcome-title">Practique su entrevista<br><em>consular</em></h1>
+      <p class="welcome-sub">Este simulador replica las preguntas mas comunes de la entrevista en el Consulado Americano. Responda como si estuviera frente al consul. Al terminar recibira un reporte detallado con coaching personalizado.</p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-num">Responda en espanol</div>
+          <div class="tip-text">En la entrevista real habra un interprete si lo necesita. Responda con naturalidad.</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">Sea conciso y directo</div>
+          <div class="tip-text">Las respuestas cortas, claras y especificas son las mas efectivas. No improvise de mas.</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">No mienta</div>
+          <div class="tip-text">El consul tiene acceso a bases de datos. Responda siempre con la verdad.</div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">Demuestre que regresa</div>
+          <div class="tip-text">Su objetivo es convencer al consul de que tiene razon para regresar a Ecuador.</div>
+        </div>
+      </div>
+
+      <button class="start-btn" onclick="startSim()">Comenzar simulacro de entrevista</button>
+      <div class="back-link"><a href="/">Volver al sitio principal</a></div>
+    </div>
+
+    <!-- QUESTION -->
+    <div id="screenQuestion" class="screen hidden">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="progress-label">
+          <span id="progressText">Pregunta 1 de 12</span>
+          <span id="progressPct">0%</span>
+        </div>
+      </div>
+
+      <div class="consul-window">
+        <div class="consul-top">
+          <div class="consul-avatar">CO</div>
+          <div>
+            <div class="consul-name">Oficial Consular</div>
+            <div class="consul-role">Consulado General de los EE.UU. — Guayaquil</div>
+          </div>
+          <div class="consul-status">Sesion activa</div>
+        </div>
+        <div class="consul-body">
+          <div class="consul-q-num" id="qNum">Pregunta 1</div>
+          <div class="consul-question" id="qText"></div>
+          <div class="consul-tip" id="qTip"></div>
+        </div>
+      </div>
+
+      <div class="answer-wrap">
+        <label class="answer-label">Su respuesta</label>
+        <textarea class="answer-input" id="answerInput"
+          placeholder="Escriba aqui su respuesta como si estuviera frente al consul..."
+          oninput="updateCharCount()" onkeydown="handleKey(event)"></textarea>
+        <div class="char-count" id="charCount">0 caracteres</div>
+      </div>
+
+      <button class="hint-toggle" id="hintToggle" onclick="toggleHint()">Ver ejemplo de buena respuesta</button>
+      <div class="hint-box hidden" id="hintBox"></div>
+
+      <div class="feedback hidden" id="feedbackBox">
+        <div class="feedback-head">
+          <div class="feedback-icon" id="fbIcon"></div>
+          <span class="feedback-label" id="fbLabel"></span>
+        </div>
+        <div class="feedback-msg" id="fbMsg"></div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn-skip" onclick="skipQuestion()">Omitir</button>
+        <button class="btn-next" id="btnNext" onclick="nextQuestion()">Evaluar respuesta</button>
+      </div>
+    </div>
+
+    <!-- LOADING / ANALYSIS -->
+    <div id="screenLoading" class="screen hidden">
+      <div class="loading-box">
+        <div class="loading-spinner"></div>
+        <div class="loading-title">Analizando su entrevista</div>
+        <div class="loading-sub">La inteligencia artificial esta revisando cada respuesta para darte un diagnostico completo.</div>
+        <div class="loading-steps" id="loadingSteps">
+          <div class="loading-step active" id="ls1"><div class="loading-step-dot"></div>Revisando sus 12 respuestas...</div>
+          <div class="loading-step" id="ls2"><div class="loading-step-dot"></div>Identificando fortalezas y riesgos...</div>
+          <div class="loading-step" id="ls3"><div class="loading-step-dot"></div>Generando coaching personalizado...</div>
+          <div class="loading-step" id="ls4"><div class="loading-step-dot"></div>Preparando reporte final...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORT -->
+    <div id="screenReport" class="screen hidden">
+      <div class="report-header">
+        <div class="report-score-ring" id="scoreRing">
+          <div class="report-score-num" id="scoreNum">—</div>
+          <div class="report-score-label">/ 100</div>
+        </div>
+        <div class="report-title" id="reportTitle">Reporte de Entrevista</div>
+        <div class="report-sub" id="reportSub"></div>
+      </div>
+
+      <div class="ai-section" id="aiCoachingSection">
+        <div class="ai-section-title">Diagnostico — Inteligencia Artificial</div>
+        <div class="ai-text" id="aiCoachingText"></div>
+      </div>
+
+      <div class="report-section">
+        <div class="report-section-title">Revision por pregunta</div>
+        <div id="qaReview"></div>
+      </div>
+
+      <div class="report-section" id="improvSection" style="display:none">
+        <div class="report-section-title">Respuestas a mejorar</div>
+        <div id="improvList"></div>
+      </div>
+
+      <button class="retry-btn" onclick="restart()">Practicar de nuevo</button>
+      <button class="share-btn" onclick="window.print()">Imprimir reporte</button>
+      <div style="text-align:center;margin-top:16px;font-size:.75rem;color:var(--muted)">
+        Asesoría Visa Global · <a href="/" style="color:var(--gold);text-decoration:none">asesoriadevisadosglobal.com</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// QUESTIONS BANK
+// ═══════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+
+const QUESTIONS = [
+  {
+    id: 'purpose',
+    q: '¿Cual es el proposito de su visita a los Estados Unidos?',
+    tip: 'Esta es la pregunta clave. El consul quiere confirmar que su visita es de turismo legitimo. Sea especifico: destino, duracion, actividades.',
+    hint: '<strong>Ejemplo:</strong> "Voy a realizar un viaje de turismo familiar. Visitaremos Disney World en Orlando y los Cayos de Florida durante 14 dias. Regresamos el [fecha] porque los ninos tienen clases."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 20) return {s:'mejorar',m:'Respuesta muy corta. Agregue el destino, duracion y motivo concreto.'};
+      if (/trabaj|queda|negoci|estudi|quedarme|ilegal/.test(t)) return {s:'riesgo',m:'Cuidado: su respuesta puede generar sospechas de intencion migratoria. Enfoque en el turismo.'};
+      if (/turismo|vacacion|visit|familia|conocer|disney|nueva york|miami|parque|playa/.test(t)) return {s:'bien',m:'Respuesta clara y orientada al turismo. Asegurese de mencionar la fecha de regreso.'};
+      return {s:'mejorar',m:'Agregue detalles: destino especifico, duracion y por que regresara a Ecuador.'};
+    }
+  },
+  {
+    id: 'duration',
+    q: '¿Cuanto tiempo planea quedarse en los Estados Unidos?',
+    tip: 'Diga el numero exacto de dias y mencione por que debe regresar en esa fecha.',
+    hint: '<strong>Ejemplo:</strong> "Planificamos estar 14 dias, del [fecha de llegada] al [fecha de salida]. Debo regresar porque mis hijos tienen clases y yo tengo compromisos laborales."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 15) return {s:'mejorar',m:'Respuesta muy corta. Indique el numero exacto de dias y por que regresara.'};
+      if (/indefinido|no se|depende|puede que|quizas|por mucho|tiempo/.test(t) && !/dia|semana|mes/.test(t)) return {s:'riesgo',m:'Respuesta vaga. El consul necesita escuchar un numero especifico y la razon para regresar.'};
+      if (/\d+\s*(dia|semana|mes)/.test(t) || /dia|\d+/.test(t)) return {s:'bien',m:'Bien. Mencionar la duracion especifica es positivo.'};
+      return {s:'mejorar',m:'Sea mas especifico: "14 dias", "3 semanas". Mencione por que regresara.'};
+    }
+  },
+  {
+    id: 'accommodation',
+    q: '¿Donde se va a hospedar durante su estancia?',
+    tip: 'Tenga la informacion exacta: nombre del hotel, ciudad o direccion del familiar/amigo.',
+    hint: '<strong>Ejemplo:</strong> "Nos hospedaremos en el Holiday Inn de Orlando, Florida. Ya tenemos la reserva confirmada." — O: "En casa de mi prima que vive en Miami, en [direccion]."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 15) return {s:'mejorar',m:'Respuesta muy corta. El consul necesita nombre del alojamiento y ciudad.'};
+      if (/no se|cualquier|donde sea|lo que haya/.test(t)) return {s:'riesgo',m:'Respuesta alarmante. Debe tener el alojamiento planificado antes de la entrevista.'};
+      if (/hotel|airbnb|hostal|apartamento|casa|prima|tio|amigo|familiar|reserva/.test(t)) return {s:'bien',m:'Bien. Tener el alojamiento confirmado transmite planificacion seria.'};
+      return {s:'mejorar',m:'Mencione el nombre especifico del hotel o la persona que lo recibe y en que ciudad.'};
+    }
+  },
+  {
+    id: 'work',
+    q: '¿Trabaja usted actualmente? ¿En que empresa y que cargo ocupa?',
+    tip: 'El empleo es uno de los lazos mas importantes con Ecuador. Mencione empresa, cargo y cuanto tiempo lleva trabajando ahi.',
+    hint: '<strong>Ejemplo:</strong> "Si, trabajo como [cargo] en [empresa] desde hace [X anos]. Mi empleador me concedio permiso de vacaciones del [fecha] al [fecha]."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 20) return {s:'mejorar',m:'Amplíe su respuesta: empresa, cargo y tiempo trabajando.'};
+      if (/no trabajo|desempleado|sin trabajo/.test(t)) return {s:'riesgo',m:'Si no trabaja, debe compensar con otros lazos: propiedades, negocio, familia a cargo, fondos suficientes.'};
+      if (/trabajo|empresa|cargo|gerente|contador|profesor|ingeniero|empleado|anos|anos|meses/.test(t)) return {s:'bien',m:'Buena respuesta. Mencionar el tiempo en el empleo refuerza los lazos con Ecuador.'};
+      return {s:'mejorar',m:'Incluya: nombre de la empresa, su cargo y hace cuanto trabaja ahi.'};
+    }
+  },
+  {
+    id: 'salary',
+    q: '¿Cuanto gana mensualmente y quien cubre los gastos del viaje?',
+    tip: 'El consul evalua si usted puede costear el viaje. Mencione su salario y muestre que tiene fondos. Si viaja en familia, mencione el ingreso familiar total.',
+    hint: '<strong>Ejemplo:</strong> "Gano aproximadamente [X] dolares mensuales. Para este viaje tenemos ahorrados [Y] dolares. El viaje lo pagamos de nuestros ahorros."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 15) return {s:'mejorar',m:'Respuesta incompleta. El consul necesita saber si usted puede financiar el viaje.'};
+      if (/no tengo|muy poco|casi nada|no se/.test(t)) return {s:'riesgo',m:'Respuesta que genera dudas sobre su capacidad economica. Si el viaje lo paga alguien mas, explicarlo claramente.'};
+      if (/\d+|sueldo|salario|ahorro|ingreso|dolares/.test(t)) return {s:'bien',m:'Bien. Dar una cifra concreta demuestra solidez economica.'};
+      return {s:'mejorar',m:'Mencione una cantidad especifica de su salario o ahorros disponibles.'};
+    }
+  },
+  {
+    id: 'ties',
+    q: '¿Que tiene en Ecuador que lo lleve a regresar despues de su visita?',
+    tip: 'Esta es la pregunta mas importante. El consul quiere ver "lazos" con Ecuador: trabajo, familia, propiedades, negocio. Mencione todo lo que tenga.',
+    hint: '<strong>Ejemplo:</strong> "Tengo mi trabajo estable al que debo regresar, mis hijos estudian en [colegio], tengo una casa propia en Guayaquil y mi madre vive conmigo. Todas mis raices estan en Ecuador."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 30) return {s:'mejorar',m:'Esta pregunta necesita una respuesta solida. Mencione todos sus lazos.'};
+      const lazos = [/trabajo|empleo/, /hijos|hijo|familia|esposa|esposo|padres/, /casa|propiedad|terreno|departamento/, /negocio|empresa propia/, /deuda|prestamo|credito/];
+      const count = lazos.filter(p => p.test(t)).length;
+      if (count >= 3) return {s:'bien',m:'Excelente. Mencionar multiples lazos es muy positivo. Preparese para explicar cada uno si le preguntan.'};
+      if (count >= 1) return {s:'mejorar',m:'Bien, pero puede agregar mas: trabajo, propiedades, hijos en escuela, deudas, negocios. Cuantos mas lazos, mejor.'};
+      return {s:'riesgo',m:'Respuesta debil. Debe demostrar claramente que tiene razon para regresar. Mencione trabajo, familia, propiedades.'};
+    }
+  },
+  {
+    id: 'relatives_us',
+    q: '¿Tiene familiares o conocidos en los Estados Unidos?',
+    tip: 'Sea honesto. Si tiene familia en USA, el consul lo sabe. Explique la relacion y enfatice que usted tiene su vida en Ecuador.',
+    hint: '<strong>Ejemplo sin familia:</strong> "No, no tengo familia en USA. Me hospedare en un hotel reservado." — <strong>Con familia:</strong> "Tengo un primo en Miami pero yo vivo y trabajo en Ecuador, donde tengo mi familia y casa."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 10) return {s:'mejorar',m:'Respuesta muy corta. Sea claro al respecto.'};
+      if (/tengo.*ciudadan|vive.*usa|familia.*residente|hermano.*usa/.test(t) && !/trabajo.*ecuador|vivo.*ecuador|mis.*raiz/.test(t)) return {s:'mejorar',m:'Si tiene familia en USA, esta bien. Pero complemente enfatizando que sus raices y vida estan en Ecuador.'};
+      if (/no.*familia|no.*conocid|ninguno/.test(t) || /pero.*ecuador|trabajo.*ecuador|vivo.*ecuador/.test(t)) return {s:'bien',m:'Respuesta adecuada. Sea siempre honesto.'};
+      return {s:'mejorar',m:'Especifique si tiene o no tiene familia en USA, y si tiene, aclare que su vida esta en Ecuador.'};
+    }
+  },
+  {
+    id: 'destinations',
+    q: '¿Que lugares o atracciones planea visitar durante su estancia?',
+    tip: 'Tener un itinerario concreto demuestra planificacion y que es un turista real. Mencione lugares especificos.',
+    hint: '<strong>Ejemplo:</strong> "Visitaremos Disney World y Universal Studios en Orlando, luego pasaremos 3 dias en Miami Beach. Quiero que mis hijos conozcan Kennedy Space Center."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 20) return {s:'mejorar',m:'Mencione lugares o atracciones concretas que planea visitar.'};
+      if (/no se|cualquier|lo que sea|donde caiga/.test(t)) return {s:'riesgo',m:'Un turista siempre sabe a donde quiere ir. La falta de planificacion genera sospechas.'};
+      if (/disney|universal|miami|nueva york|las vegas|yellowstone|grand canyon|niagara|washington|chicago|houston|california|florida|orlando|kennedy|museum|beach/.test(t)) return {s:'bien',m:'Excelente. Un itinerario especifico demuestra que es un turista planificado.'};
+      return {s:'mejorar',m:'Sea mas especifico: nombres de parques, ciudades o atracciones puntuales.'};
+    }
+  },
+  {
+    id: 'previous_visa',
+    q: '¿Ha visitado los Estados Unidos anteriormente o ha tenido una visa americana?',
+    tip: 'Sea totalmente honesto. Si ha tenido visas o viajes previos, mencionelos. Si tuvo un rechazo, el consul lo sabe.',
+    hint: '<strong>Sin historial:</strong> "No, esta es mi primera solicitud de visa para USA." — <strong>Con historial:</strong> "Si, tuve visa B2 en [ano] y visite [ciudad] por [X dias]. Regrese segun lo planificado."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 15) return {s:'mejorar',m:'Respuesta incompleta. Sea claro y honesto al respecto.'};
+      if (/rechazo.*menti|no dije.*verdad|le dije.*mentira/.test(t)) return {s:'riesgo',m:'NUNCA mencione que mintio en una solicitud anterior. Eso puede generar un rechazo permanente.'};
+      if (/si.*vis|si.*viaj|primer.*solicitud|nunca.*viaj|no.*visa/.test(t)) return {s:'bien',m:'Respuesta honesta y directa. Siempre diga la verdad.'};
+      return {s:'mejorar',m:'Sea mas claro: indique si ha tenido visa o visas anteriores y si visito USA.'};
+    }
+  },
+  {
+    id: 'return_date',
+    q: '¿Cuando exactamente planea regresar a Ecuador?',
+    tip: 'Tenga la fecha exacta de regreso. Idealmente mencione por que debe regresar en esa fecha especifica.',
+    hint: '<strong>Ejemplo:</strong> "Regresamos el [fecha exacta]. Tengo que estar en el trabajo el [fecha] y los ninos empiezan clases el [fecha]."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 10) return {s:'mejorar',m:'Respuesta muy corta. Indique la fecha exacta de regreso y la razon.'};
+      if (/no se|depende|quizas|tal vez/.test(t)) return {s:'riesgo',m:'Respuesta alarmante. Debe tener una fecha de regreso confirmada con boleto de avion.'};
+      if (/\d{1,2}.*de.*\d{4}|\d{1,2}\/\d{1,2}|fecha|boleto|vuelo|regreso/.test(t)) return {s:'bien',m:'Bien. Tener la fecha exacta y el motivo de regreso es muy positivo.'};
+      return {s:'mejorar',m:'Mencione la fecha exacta de regreso y por que debe estar de vuelta en esa fecha.'};
+    }
+  },
+  {
+    id: 'funds',
+    q: '¿Cuantos fondos tiene disponibles para este viaje?',
+    tip: 'El consul evalua que el monto sea coherente con la duracion del viaje. Para Ecuador, entre $100-$200 por dia por persona es razonable.',
+    hint: '<strong>Ejemplo:</strong> "Tenemos aproximadamente [X] dolares en cuenta bancaria destinados para este viaje. Corresponde a [Y] dolares diarios por persona, que es suficiente para los [Z] dias."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 10) return {s:'mejorar',m:'Respuesta muy corta. El consul necesita saber que tiene fondos suficientes.'};
+      if (/\d+/.test(t)) return {s:'bien',m:'Dar una cifra concreta es positivo. Asegurese de que el monto sea coherente con los dias de viaje.'};
+      if (/suficiente|tengo|ahorro|banco|cuenta/.test(t)) return {s:'mejorar',m:'Mencione una cantidad especifica. "Tengo suficiente" no responde la pregunta del consul.'};
+      return {s:'mejorar',m:'Sea especifico: cuantos dolares tiene disponibles y en que los gastara.'};
+    }
+  },
+  {
+    id: 'whyusa',
+    q: '¿Por que escoge los Estados Unidos para este viaje en particular?',
+    tip: 'Esta es su oportunidad de mostrar entusiasmo genuino. Mencione algo especifico que quiera experimentar que solo esta en USA.',
+    hint: '<strong>Ejemplo:</strong> "Mis hijos han sonahado toda su vida con visitar Disney World. Ademas quiero que conozcan Nueva York y la grandeza de esa ciudad. Es un viaje familiar que hemos planificado por dos anos."',
+    eval(r) {
+      const t = r.toLowerCase();
+      if (t.length < 20) return {s:'mejorar',m:'Respuesta muy corta. Muestre entusiasmo genuino con razones especificas.'};
+      if (/no se|cualquier|porque si|para ver que hay/.test(t)) return {s:'riesgo',m:'Respuesta que genera dudas. Un turista siempre tiene una razon concreta para elegir un destino.'};
+      if (/sueno|hijos|familia|cultura|historia|disney|conocer|experiencia|planif|anos/.test(t)) return {s:'bien',m:'Respuesta autentica y convincente. El entusiasmo genuino es positivo.'};
+      return {s:'mejorar',m:'Agregue una razon personal y especifica: algo que solo existe en USA o que significa algo para usted.'};
+    }
+  },
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let currentQ = 0;
+let answers  = []; // [{q, answer, score, msg}]
+let hintOpen = false;
+let evaluated = false;
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+function startSim() {
+  currentQ  = 0;
+  answers   = [];
+  hintOpen  = false;
+  evaluated = false;
+  show('screenQuestion');
+  loadQuestion();
+}
+
+function show(id) {
+  ['screenWelcome','screenQuestion','screenLoading','screenReport'].forEach(s => {
+    document.getElementById(s).classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function loadQuestion() {
+  evaluated = false;
+  hintOpen  = false;
+
+  const q   = QUESTIONS[currentQ];
+  const pct = Math.round((currentQ / QUESTIONS.length) * 100);
+
+  document.getElementById('qNum').textContent      = `Pregunta ${currentQ + 1} de ${QUESTIONS.length}`;
+  document.getElementById('qText').textContent     = q.q;
+  document.getElementById('qTip').textContent      = q.tip;
+  document.getElementById('hintBox').innerHTML     = q.hint;
+  document.getElementById('hintBox').classList.add('hidden');
+  document.getElementById('hintToggle').textContent = 'Ver ejemplo de buena respuesta';
+  document.getElementById('answerInput').value     = '';
+  document.getElementById('answerInput').focus();
+  document.getElementById('charCount').textContent  = '0 caracteres';
+  document.getElementById('feedbackBox').className  = 'feedback hidden';
+  document.getElementById('btnNext').textContent    = 'Evaluar respuesta';
+  document.getElementById('btnNext').disabled       = false;
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `Pregunta ${currentQ + 1} de ${QUESTIONS.length}`;
+  document.getElementById('progressPct').textContent  = pct + '%';
+  document.getElementById('hdrProgress').innerHTML    = `<strong>${currentQ + 1}</strong>/${QUESTIONS.length}`;
+}
+
+function toggleHint() {
+  hintOpen = !hintOpen;
+  document.getElementById('hintBox').classList.toggle('hidden', !hintOpen);
+  document.getElementById('hintToggle').textContent = hintOpen ? 'Ocultar ejemplo' : 'Ver ejemplo de buena respuesta';
+}
+
+function updateCharCount() {
+  const len = document.getElementById('answerInput').value.length;
+  document.getElementById('charCount').textContent = len + ' caracteres';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) nextQuestion();
+}
+
+function nextQuestion() {
+  const input = document.getElementById('answerInput').value.trim();
+
+  if (!evaluated) {
+    // EVALUATE
+    if (input.length < 5) {
+      document.getElementById('feedbackBox').className = 'feedback mejorar';
+      document.getElementById('fbIcon').textContent = '!';
+      document.getElementById('fbLabel').textContent = 'Respuesta requerida';
+      document.getElementById('fbMsg').textContent = 'Por favor escriba una respuesta antes de continuar.';
+      document.getElementById('feedbackBox').classList.remove('hidden');
+      return;
+    }
+
+    const q    = QUESTIONS[currentQ];
+    const {s, m} = q.eval(input);
+
+    answers.push({ q: q.q, answer: input, score: s, msg: m, qId: q.id });
+
+    const icons = { bien:'✓', mejorar:'!', riesgo:'⚠' };
+    const labels = { bien:'Muy bien', mejorar:'Puede mejorar', riesgo:'Riesgo' };
+    document.getElementById('feedbackBox').className = `feedback ${s}`;
+    document.getElementById('fbIcon').textContent    = icons[s];
+    document.getElementById('fbLabel').textContent   = labels[s];
+    document.getElementById('fbMsg').textContent     = m;
+    document.getElementById('feedbackBox').classList.remove('hidden');
+    document.getElementById('btnNext').textContent   = currentQ < QUESTIONS.length - 1 ? 'Siguiente pregunta' : 'Ver reporte final';
+    evaluated = true;
+  } else {
+    // ADVANCE
+    if (currentQ < QUESTIONS.length - 1) {
+      currentQ++;
+      loadQuestion();
+    } else {
+      showLoading();
+    }
+  }
+}
+
+function skipQuestion() {
+  const q = QUESTIONS[currentQ];
+  answers.push({ q: q.q, answer: '(omitida)', score: 'mejorar', msg: 'Pregunta omitida.', qId: q.id });
+  if (currentQ < QUESTIONS.length - 1) { currentQ++; loadQuestion(); }
+  else showLoading();
+}
+
+// ═══════════════════════════════════════════════════════
+// LOADING + REPORT
+// ═══════════════════════════════════════════════════════
+function showLoading() {
+  show('screenLoading');
+  const steps = ['ls1','ls2','ls3','ls4'];
+  let idx = 0;
+  const advance = () => {
+    if (idx > 0) {
+      document.getElementById(steps[idx-1]).classList.remove('active');
+      document.getElementById(steps[idx-1]).classList.add('done');
+    }
+    if (idx < steps.length) {
+      document.getElementById(steps[idx]).classList.add('active');
+      idx++;
+      setTimeout(advance, 1400);
+    }
+  };
+  advance();
+  setTimeout(generateReport, 5800);
+}
+
+async function generateReport() {
+  // Calculate local score
+  const scores = { bien: 10, mejorar: 6, riesgo: 2 };
+  const rawScore = answers.reduce((sum, a) => sum + (scores[a.score] || 5), 0);
+  const maxScore = QUESTIONS.length * 10;
+  const pct = Math.round((rawScore / maxScore) * 100);
+
+  // Try Claude analysis via Apps Script
+  let aiAnalysis = null;
+  try {
+    const payload = {
+      subtipo: 'evaluateInterview',
+      answers: answers.map(a => ({ pregunta: a.q, respuesta: a.answer, evaluacion: a.score })),
+      score: pct
+    };
+    const resp = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+    // no-cors means we can't read the response — use local fallback
+  } catch(e) {}
+
+  buildReport(pct);
+}
+
+function buildReport(score) {
+  // Score ring color
+  const ring = document.getElementById('scoreRing');
+  const color = score >= 75 ? '#22c55e' : score >= 55 ? '#f59e0b' : '#ef4444';
+  ring.style.borderColor = color;
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreNum').style.color = color;
+
+  // Title
+  let titulo, sub;
+  if (score >= 80) { titulo = 'Preparado para la entrevista'; sub = 'Sus respuestas son solidas. Continue practicando las preguntas donde puede mejorar.'; }
+  else if (score >= 60) { titulo = 'Casi listo — algunos ajustes necesarios'; sub = 'Tiene buenas respuestas pero hay areas que fortalecer antes de la entrevista.'; }
+  else { titulo = 'Necesita mas preparacion'; sub = 'No se preocupe — con practica sus respuestas mejoraran significativamente.'; }
+  document.getElementById('reportTitle').textContent = titulo;
+  document.getElementById('reportSub').textContent   = sub;
+
+  // AI coaching (local generation based on answers)
+  const riesgos  = answers.filter(a => a.score === 'riesgo');
+  const mejoras  = answers.filter(a => a.score === 'mejorar');
+  const biens    = answers.filter(a => a.score === 'bien');
+
+  let coaching = '';
+  if (biens.length >= 8) coaching += '<p>Sus respuestas muestran una preparacion solida. Demuestra claridad sobre el proposito del viaje y tiene lazos convincentes con Ecuador.</p>';
+  else if (biens.length >= 5) coaching += '<p>Tiene respuestas fuertes en mas de la mitad de las preguntas. Con un poco mas de preparacion estara listo para la entrevista real.</p>';
+  else coaching += '<p>Sus respuestas necesitan mayor especificidad y contundencia. Practique cada pregunta hasta que las respuestas salgan de forma natural.</p>';
+
+  if (riesgos.length > 0) coaching += `<p><strong style="color:#f87171">Atencion:</strong> Tiene ${riesgos.length} respuesta${riesgos.length>1?'s':''} de alto riesgo. Estas son las mas urgentes de trabajar antes de la entrevista.</p>`;
+  if (mejoras.length > 0) coaching += `<p>Tiene ${mejoras.length} respuesta${mejoras.length>1?'s':''} que pueden mejorar con mayor especificidad y detalle.</p>`;
+
+  coaching += '<p><strong>Recomendacion:</strong> Practique frente a un espejo o grabese en video. Sus respuestas deben salir de forma natural, sin leer ni dudar.</p>';
+  coaching += '<p>Recuerde: el consul hace la entrevista en menos de 2 minutos. Sea conciso, directo y seguro.</p>';
+
+  document.getElementById('aiCoachingText').innerHTML = coaching;
+
+  // Q&A review
+  const qaHtml = answers.map((a, i) => {
+    const icons = {bien:'✓', mejorar:'!', riesgo:'⚠'};
+    return `<div class="qa-item">
+      <div class="qa-question">${i+1}. ${a.q} <span class="score-pill ${a.score}">${icons[a.score]} ${a.score}</span></div>
+      ${a.answer !== '(omitida)' ? `<div class="qa-answer">"${a.answer.substring(0,150)}${a.answer.length>150?'...':''}"</div>` : ''}
+      <div class="qa-eval ${a.score}">${a.msg}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('qaReview').innerHTML = qaHtml;
+
+  // Respuestas a mejorar
+  const toImprove = answers.filter(a => a.score !== 'bien');
+  if (toImprove.length > 0) {
+    document.getElementById('improvSection').style.display = 'block';
+    document.getElementById('improvList').innerHTML = toImprove.map(a => {
+      const q = QUESTIONS.find(x => x.qId === a.qId);
+      return `<div class="qa-item">
+        <div class="qa-question" style="color:${a.score==='riesgo'?'#f87171':'#fbbf24'}">${a.q}</div>
+        <div class="hint-box" style="margin-top:6px">${q ? q.hint : ''}</div>
+      </div>`;
+    }).join('');
+  }
+
+  show('screenReport');
+  document.getElementById('hdrProgress').innerHTML = `<strong>${score}</strong>/100`;
+}
+
+function restart() {
+  show('screenWelcome');
+  document.getElementById('hdrProgress').textContent = '';
+}
+</script>
+</body>
+</html>
