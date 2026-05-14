@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM — Asesoría Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#1a2a45;
+  --gold:#F0B429;--gold-dim:rgba(240,180,41,.12);
+  --white:#fff;--muted:rgba(255,255,255,.5);--muted2:rgba(255,255,255,.2);
+  --border:rgba(255,255,255,.08);--input-bg:rgba(255,255,255,.06);
+  --green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--red:#ef4444;--amber:#f59e0b;--gray:#6b7280;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --r:10px;--rs:6px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* PIN MODAL */
+.pin-overlay{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;align-items:center;justify-content:center}
+.pin-box{width:340px;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center}
+.pin-logo{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.pin-logo em{color:var(--gold);font-style:italic}
+.pin-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px}
+.pin-label{font-size:.72rem;font-weight:600;color:var(--muted);text-align:left;margin-bottom:6px;display:block}
+.pin-input{width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);
+  color:var(--white);font-family:var(--sans);font-size:1.1rem;padding:12px 14px;outline:none;
+  letter-spacing:.2em;text-align:center;margin-bottom:14px}
+.pin-input:focus{border-color:rgba(240,180,41,.5)}
+.pin-btn{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:var(--rs);
+  font-family:var(--sans);font-size:.9rem;font-weight:700;padding:12px;cursor:pointer;transition:background .2s}
+.pin-btn:hover{background:#ffd166}
+.pin-err{font-size:.75rem;color:#f87171;margin-top:8px;display:none}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;gap:12px;padding:12px 20px;
+  background:rgba(6,14,31,.95);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
+.logo{font-size:.95rem;font-weight:700;white-space:nowrap}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-badge{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);
+  padding:3px 10px;border-radius:99px}
+.hdr-stats{display:flex;gap:10px;margin-left:auto;align-items:center;flex-wrap:wrap}
+.stat-pill{font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+.stat-new{color:#fbbf24;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08)}
+.stat-active{color:#60a5fa;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.08)}
+.stat-cita{color:#f87171;border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.08)}
+.hdr-btns{display:flex;gap:8px;margin-left:12px}
+.btn-sync{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);
+  font-family:var(--sans);font-size:.78rem;font-weight:600;padding:7px 14px;border-radius:var(--rs);
+  cursor:pointer;transition:all .2s}
+.btn-sync:hover{color:var(--white);background:rgba(255,255,255,.12)}
+.btn-new{background:var(--gold);color:var(--navy);border:none;
+  font-family:var(--sans);font-size:.78rem;font-weight:700;padding:7px 16px;border-radius:var(--rs);
+  cursor:pointer;transition:background .2s}
+.btn-new:hover{background:#ffd166}
+
+/* KANBAN */
+.kanban-wrap{padding:16px;overflow-x:auto;min-height:calc(100vh - 60px)}
+.kanban{display:flex;gap:12px;min-width:max-content;align-items:flex-start}
+.col{width:250px;flex-shrink:0}
+.col-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;
+  border-radius:var(--r) var(--r) 0 0;margin-bottom:6px}
+.col-title{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.col-count{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;opacity:.85}
+
+/* CARDS */
+.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);
+  padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;position:relative}
+.card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);transform:translateY(-1px)}
+.card-urgente{border-color:rgba(239,68,68,.35)!important;background:rgba(239,68,68,.04)!important}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.card-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.82rem;font-weight:700;flex-shrink:0;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(240,180,41,.25)}
+.card-name{font-size:.85rem;font-weight:700;color:var(--white);line-height:1.2}
+.card-type{font-size:.65rem;color:var(--muted);margin-top:1px}
+.card-meta{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.meta-pill{font-size:.62rem;padding:2px 7px;border-radius:99px;font-weight:600}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border)}
+.card-date{font-size:.62rem;color:var(--muted)}
+.card-actions{display:flex;gap:5px}
+.action-btn{width:26px;height:26px;border-radius:var(--rs);border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.action-btn:hover{border-color:rgba(240,180,41,.4);color:var(--gold);background:var(--gold-dim)}
+.action-btn.green:hover{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08)}
+
+/* EMPTY COL */
+.col-empty{border:1px dashed rgba(255,255,255,.08);border-radius:var(--r);padding:20px;
+  text-align:center;font-size:.72rem;color:rgba(255,255,255,.2);margin-top:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);
+  display:flex;align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(4px);display:none}
+.modal-overlay.open{display:flex}
+.modal{background:var(--navy2);border:1px solid var(--border);border-radius:14px;
+  width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--navy2);z-index:1}
+.modal-title{font-size:1rem;font-weight:700}
+.modal-close{width:28px;height:28px;border-radius:var(--rs);border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;font-size:1rem;transition:all .2s}
+.modal-close:hover{color:var(--white)}
+.modal-body{padding:20px}
+.modal-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+
+/* FORM */
+.field{margin-bottom:14px}
+.field-label{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:5px;display:block}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.85rem;
+  padding:9px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(240,180,41,.5)}
+.field textarea{resize:vertical;min-height:60px}
+.field select option{background:var(--navy2)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:var(--navy);border:none;border-radius:var(--rs);
+  font-family:var(--sans);font-size:.85rem;font-weight:700;padding:9px 20px;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:#ffd166}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);
+  border-radius:var(--rs);font-family:var(--sans);font-size:.85rem;font-weight:600;padding:9px 16px;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{color:var(--white);background:rgba(255,255,255,.12)}
+.btn-danger{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#f87171;
+  border-radius:var(--rs);font-family:var(--sans);font-size:.85rem;font-weight:600;padding:9px 16px;cursor:pointer;transition:all .2s}
+
+/* LINK BOX */
+.link-box{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);
+  padding:10px 12px;font-size:.78rem;color:var(--gold);word-break:break-all;margin:10px 0;cursor:pointer}
+.link-box:hover{background:rgba(240,180,41,.14)}
+
+/* STATUS SELECT */
+.status-select{background:var(--input-bg);border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);
+  color:var(--white);font-family:var(--sans);font-size:.78rem;padding:5px 8px;cursor:pointer;outline:none}
+
+/* SECTION */
+.section-title{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;margin-top:16px}
+.detail-row{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.detail-key{color:var(--muted);flex-shrink:0;width:42%}
+.detail-val{color:var(--white);font-weight:500;text-align:right;word-break:break-word}
+
+/* AI BOX */
+.ai-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-top:8px}
+.ai-label{font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ai-text{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.6}
+.prob-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:99px;margin-left:8px}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--navy2);
+  border:1px solid rgba(240,180,41,.3);border-radius:var(--r);padding:12px 18px;
+  font-size:.82rem;color:var(--white);max-width:300px;transform:translateY(80px);
+  opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(34,197,94,.3);color:var(--green)}
+.toast.error{border-color:rgba(239,68,68,.3);color:#f87171}
+
+/* SPINNER */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);
+  border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- PIN OVERLAY -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-logo">Visa <em>Global</em> — Panel Asesor</div>
+    <div class="pin-sub">Acceso privado — Roberto Acosta</div>
+    <label class="pin-label">PIN de acceso</label>
+    <input class="pin-input" type="password" id="pinInput" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')checkPin()">
+    <button class="pin-btn" onclick="checkPin()">Entrar</button>
+    <div class="pin-err" id="pinErr">PIN incorrecto. Intenta de nuevo.</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr hidden" id="appHeader">
+  <div class="logo">Visa <em>Global</em></div>
+  <div class="hdr-badge">Panel Asesor</div>
+  <div class="hdr-stats">
+    <span class="stat-pill stat-new" id="statNew">0 nuevos</span>
+    <span class="stat-pill stat-active" id="statActive">0 activos</span>
+    <span class="stat-pill stat-cita" id="statCita">0 citas</span>
+  </div>
+  <div class="hdr-btns">
+    <button class="btn-sync" onclick="syncCases()" id="btnSync">Sincronizar</button>
+    <button class="btn-new" onclick="openNewCase()">+ Nuevo caso</button>
+  </div>
+</header>
+
+<!-- KANBAN -->
+<div class="kanban-wrap hidden" id="appKanban">
+  <div class="kanban" id="kanbanBoard"></div>
+</div>
+
+<!-- MODAL: NUEVO CASO -->
+<div class="modal-overlay" id="modalNewCase">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Nuevo Caso</span>
+      <button class="modal-close" onclick="closeModal('modalNewCase')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-2">
+        <div class="field">
+          <label class="field-label">Nombre completo *</label>
+          <input type="text" id="nc_nombre" placeholder="Ej: Carlos Gomez">
+        </div>
+        <div class="field">
+          <label class="field-label">Tipo de visa *</label>
+          <select id="nc_tipo">
+            <option>USA DS-160</option>
+            <option>Schengen</option>
+            <option>Reino Unido</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label class="field-label">Num. viajeros</label>
+          <select id="nc_viaj">
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">Paquete</label>
+          <select id="nc_paquete">
+            <option>ESENCIAL $97</option>
+            <option>PROFESIONAL $197</option>
+            <option>VIP $397</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label class="field-label">Telefono</label>
+          <input type="tel" id="nc_tel" placeholder="+593 99 ...">
+        </div>
+        <div class="field">
+          <label class="field-label">Email</label>
+          <input type="email" id="nc_email" placeholder="cliente@email.com">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Notas iniciales</label>
+        <textarea id="nc_notas" placeholder="Comentarios del cliente, tipo de viaje, urgencia..."></textarea>
+      </div>
+      <div id="nc_resultado" class="hidden">
+        <div class="section-title">Link del formulario para el cliente</div>
+        <div class="link-box" id="nc_link" onclick="copyLink(this.textContent)" title="Clic para copiar"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn-primary" onclick="copyLink(document.getElementById('nc_link').textContent)">Copiar link</button>
+          <a id="nc_wa" href="#" target="_blank" class="btn-secondary" style="text-decoration:none;padding:9px 16px;border-radius:6px;font-size:.85rem;font-weight:600;display:inline-block">Enviar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('modalNewCase')">Cancelar</button>
+      <button class="btn-primary" id="nc_btn" onclick="crearCaso()">Crear caso</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: DETALLE CASO -->
+<div class="modal-overlay" id="modalDetail">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="det_title">Detalle del caso</span>
+      <button class="modal-close" onclick="closeModal('modalDetail')">×</button>
+    </div>
+    <div class="modal-body" id="det_body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('modalDetail')">Cerrar</button>
+      <button class="btn-primary" id="det_wa" onclick="">WhatsApp cliente</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const LS_CASES   = 'visa_crm_cases_v1';
+const LS_PIN     = 'visa_crm_pin';
+const INTAKE_URL = 'https://www.asesoriadevisadosglobal.com/intake.html';
+
+const ESTADOS = [
+  'Formulario Enviado',
+  'Formulario Recibido',
+  'En Proceso — Documentos',
+  'En Proceso — DS-160',
+  'Pago Pendiente',
+  'Pago Recibido',
+  'Cita por Agendar',
+  'Cita Agendada',
+  'Simulador Activo',
+  'Entrevista Realizada',
+  'Aprobado',
+  'Rechazado',
+  'Cerrado',
+];
+
+const COLS = [
+  { id:'formulario',  label:'Formulario',     color:'#f59e0b', bg:'rgba(245,158,11,.12)',  estados:['Formulario Enviado','Formulario Recibido'] },
+  { id:'proceso',     label:'En Proceso',      color:'#8b5cf6', bg:'rgba(139,92,246,.12)', estados:['En Proceso — Documentos','En Proceso — DS-160','Pago Pendiente','Pago Recibido'] },
+  { id:'cita',        label:'Cita / Entrevista',color:'#ef4444',bg:'rgba(239,68,68,.12)',  estados:['Cita por Agendar','Cita Agendada','Simulador Activo','Entrevista Realizada'] },
+  { id:'cerrado',     label:'Cerrado',          color:'#6b7280', bg:'rgba(107,114,128,.12)',estados:['Aprobado','Rechazado','Cerrado'] },
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let PIN   = '';
+let CASES = [];
+
+// ═══════════════════════════════════════════════════════
+// PIN
+// ═══════════════════════════════════════════════════════
+function checkPin() {
+  const v = document.getElementById('pinInput').value.trim();
+  if (!v) return;
+  PIN = v;
+  sessionStorage.setItem(LS_PIN, v);
+  document.getElementById('pinOverlay').classList.add('hidden');
+  document.getElementById('appHeader').classList.remove('hidden');
+  document.getElementById('appKanban').classList.remove('hidden');
+  loadLocal();
+  syncCases();
+}
+
+// ═══════════════════════════════════════════════════════
+// PERSISTENCE
+// ═══════════════════════════════════════════════════════
+function saveLocal() { try { localStorage.setItem(LS_CASES, JSON.stringify(CASES)); } catch(e) {} }
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(LS_CASES);
+    if (raw) { CASES = JSON.parse(raw); renderKanban(); }
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════
+// SYNC
+// ═══════════════════════════════════════════════════════
+async function syncCases() {
+  const btn = document.getElementById('btnSync');
+  btn.innerHTML = '<span class="spin"></span>Sincronizando...';
+  btn.disabled = true;
+  try {
+    const url = `${SCRIPT_URL}?action=getCases&pin=${encodeURIComponent(PIN)}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.error) {
+      showToast(data.error === 'PIN incorrecto' ? 'PIN incorrecto' : 'Error al sincronizar: ' + data.error, 'error');
+      if (data.error === 'PIN incorrecto') showPinError();
+    } else {
+      CASES = data.cases || [];
+      saveLocal();
+      renderKanban();
+      showToast('Sincronizado — ' + CASES.length + ' casos', 'success');
+    }
+  } catch(e) {
+    showToast('Sin conexion. Usando datos locales.', 'error');
+  }
+  btn.innerHTML = 'Sincronizar';
+  btn.disabled = false;
+}
+
+function showPinError() {
+  document.getElementById('pinErr').style.display = 'block';
+  document.getElementById('pinOverlay').classList.remove('hidden');
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER KANBAN
+// ═══════════════════════════════════════════════════════
+function getColId(estado) {
+  const e = (estado || '').toLowerCase();
+  if (e.includes('nuevo') || e.includes('enviado') || e.includes('recibido') || e.includes('intake')) return 'formulario';
+  if (e.includes('proceso') || e.includes('documento') || e.includes('ds-160') || e.includes('pago')) return 'proceso';
+  if (e.includes('cita') || e.includes('entrevista') || e.includes('simulador') || e.includes('agendar')) return 'cita';
+  if (e.includes('aprobado') || e.includes('rechazado') || e.includes('cerrado')) return 'cerrado';
+  return 'formulario';
+}
+
+function renderKanban() {
+  const board = document.getElementById('kanbanBoard');
+  const grouped = {};
+  COLS.forEach(c => { grouped[c.id] = []; });
+  CASES.forEach(cas => {
+    const colId = getColId(cas['Estado'] || cas['estado'] || '');
+    if (grouped[colId]) grouped[colId].push(cas);
+  });
+
+  // Update stats
+  const newCnt    = (grouped['formulario'] || []).length;
+  const activeCnt = (grouped['proceso']    || []).length;
+  const citaCnt   = (grouped['cita']       || []).length;
+  document.getElementById('statNew').textContent    = newCnt    + ' formulario' + (newCnt!==1?'s':'');
+  document.getElementById('statActive').textContent = activeCnt + ' en proceso';
+  document.getElementById('statCita').textContent   = citaCnt   + ' cita' + (citaCnt!==1?'s':'');
+
+  board.innerHTML = COLS.map(col => {
+    const cases = grouped[col.id] || [];
+    const cards  = cases.length
+      ? cases.map(c => renderCard(c, col.color)).join('')
+      : `<div class="col-empty">Sin casos</div>`;
+    return `<div class="col">
+      <div class="col-header" style="background:${col.bg};border:1px solid ${col.color}30">
+        <span class="col-title" style="color:${col.color}">${col.label}</span>
+        <span class="col-count" style="background:${col.color}22;color:${col.color}">${cases.length}</span>
+      </div>
+      ${cards}
+    </div>`;
+  }).join('');
+}
+
+function renderCard(c, accentColor) {
+  const refId    = c['Ref ID']          || c['refId'] || '—';
+  const nombre   = c['Nombre Principal']|| c['nombre']|| '—';
+  const tipo     = c['Tipo Visa']        || '—';
+  const viaj     = c['Num Viajeros']     || '1';
+  const tel      = c['Telefono']         || '';
+  const email    = c['Email']            || '';
+  const prob     = c['Probabilidad']     || '';
+  const paquete  = c['Paquete']          || '';
+  const estado   = c['Estado']           || '';
+  const fecha    = c['Fecha']            || '';
+  const cita     = c['Cita']             || '';
+  const pago     = c['Pago']             || '';
+
+  const isCita   = (cita && cita !== 'Por agendar' && cita !== '—');
+  const urgente  = isCita && isUpcoming(cita);
+
+  const probColor = probToColor(prob);
+  const paqColor  = paqueteColor(paquete);
+
+  const waLink = tel ? `https://wa.me/${tel.replace(/\D/g,'')}` : '#';
+
+  return `<div class="card ${urgente?'card-urgente':''}" data-ref="${refId}" onclick="openDetail('${refId}')">
+    <div class="card-top">
+      <div class="card-avatar">${(nombre[0]||'?').toUpperCase()}</div>
+      <div>
+        <div class="card-name">${nombre}</div>
+        <div class="card-type">${tipo} · ${viaj} viajero${viaj!=='1'?'s':''}</div>
+      </div>
+    </div>
+    <div class="card-meta">
+      ${prob ? `<span class="meta-pill" style="background:${probColor}22;color:${probColor};border:1px solid ${probColor}40">${prob}</span>` : ''}
+      ${paquete && paquete!=='—' ? `<span class="meta-pill" style="background:rgba(240,180,41,.12);color:#F0B429;border:1px solid rgba(240,180,41,.25)">${paquete}</span>` : ''}
+      ${pago && pago!=='Pendiente' && pago!=='—' ? `<span class="meta-pill" style="background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)">${pago}</span>` : ''}
+      ${isCita ? `<span class="meta-pill" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.25)">Cita: ${cita}</span>` : ''}
+    </div>
+    <div class="card-footer">
+      <span class="card-date">${fecha.substring(0,10)}</span>
+      <div class="card-actions" onclick="event.stopPropagation()">
+        ${tel ? `<a class="action-btn green" href="${waLink}" target="_blank" title="WhatsApp">WA</a>` : ''}
+        <button class="action-btn" onclick="copyLink('${INTAKE_URL}?ref=${refId}')" title="Copiar link formulario">&#128279;</button>
+        <button class="action-btn" onclick="openDetail('${refId}')" title="Ver detalle">&#128196;</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function isUpcoming(dateStr) {
+  if (!dateStr || dateStr === 'Por agendar') return false;
+  try {
+    const d = new Date(dateStr);
+    const diff = (d - Date.now()) / (1000*3600*24);
+    return diff >= 0 && diff <= 7;
+  } catch(e) { return false; }
+}
+function probToColor(p) {
+  const n = parseInt(p);
+  if (!n) return '#6b7280';
+  if (n >= 75) return '#22c55e';
+  if (n >= 50) return '#f59e0b';
+  return '#ef4444';
+}
+function paqueteColor(p) {
+  if (!p || p==='—') return '#6b7280';
+  if (p.includes('VIP'))         return '#8b5cf6';
+  if (p.includes('PROFESIONAL')) return '#3b82f6';
+  return '#22c55e';
+}
+
+// ═══════════════════════════════════════════════════════
+// DETAIL MODAL
+// ═══════════════════════════════════════════════════════
+function openDetail(refId) {
+  const c = CASES.find(x => (x['Ref ID']||x['refId']) === refId);
+  if (!c) return;
+
+  const nombre   = c['Nombre Principal'] || '—';
+  const tipo     = c['Tipo Visa']         || '—';
+  const viaj     = c['Num Viajeros']      || '1';
+  const tel      = c['Telefono']          || '';
+  const email    = c['Email']             || '';
+  const prob     = c['Probabilidad']      || '—';
+  const paquete  = c['Paquete']           || '—';
+  const llegada  = c['Llegada USA']       || '—';
+  const dias     = c['Dias Estancia']     || '—';
+  const pago     = c['Pago']             || 'Pendiente';
+  const cita     = c['Cita']             || 'Por agendar';
+  const notas    = c['Notas']            || '';
+  const estado   = c['Estado']           || 'Formulario Enviado';
+  const fecha    = c['Fecha']            || '';
+  const url      = c['Ver Expediente']   || '';
+  const intakeLink = `${INTAKE_URL}?ref=${refId}`;
+
+  document.getElementById('det_title').textContent = nombre + ' — ' + refId;
+
+  const waLink = tel ? `https://wa.me/${tel.replace(/\D/g,'')}` : '#';
+  document.getElementById('det_wa').onclick = () => window.open(waLink,'_blank');
+
+  document.getElementById('det_body').innerHTML = `
+    <!-- ESTADO -->
+    <div class="section-title">Estado del caso</div>
+    <div class="field">
+      <label class="field-label">Cambiar estado</label>
+      <select class="status-select" style="width:100%" onchange="updateCaseField('${refId}','Estado',this.value)">
+        ${ESTADOS.map(s => `<option ${s===estado?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label class="field-label">Fecha de cita</label>
+        <input type="date" value="${cita!=='Por agendar'&&cita!=='—'?cita:''}" onchange="updateCaseField('${refId}','Cita',this.value)">
+      </div>
+      <div class="field">
+        <label class="field-label">Estado pago</label>
+        <select class="status-select" style="width:100%" onchange="updateCaseField('${refId}','Pago',this.value)">
+          ${['Pendiente','Pago parcial','Pagado completo'].map(s=>`<option ${s===pago?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+
+    <!-- DATOS -->
+    <div class="section-title" style="margin-top:16px">Datos del cliente</div>
+    <div class="detail-row"><span class="detail-key">Referencia</span><span class="detail-val">${refId}</span></div>
+    <div class="detail-row"><span class="detail-key">Tipo visa</span><span class="detail-val">${tipo}</span></div>
+    <div class="detail-row"><span class="detail-key">Viajeros</span><span class="detail-val">${viaj}</span></div>
+    <div class="detail-row"><span class="detail-key">Telefono</span><span class="detail-val">${tel||'—'}</span></div>
+    <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${email||'—'}</span></div>
+    <div class="detail-row"><span class="detail-key">Llegada USA</span><span class="detail-val">${llegada}</span></div>
+    <div class="detail-row"><span class="detail-key">Duracion</span><span class="detail-val">${dias} dias</span></div>
+    <div class="detail-row"><span class="detail-key">Paquete</span><span class="detail-val">${paquete}</span></div>
+    <div class="detail-row"><span class="detail-key">Probabilidad IA</span><span class="detail-val">${prob}</span></div>
+    <div class="detail-row"><span class="detail-key">Ingresado</span><span class="detail-val">${fecha}</span></div>
+
+    <!-- NOTAS -->
+    <div class="section-title" style="margin-top:16px">Notas internas</div>
+    <div class="field">
+      <textarea id="det_notas" rows="3" placeholder="Agrega notas sobre este caso..." onblur="updateCaseField('${refId}','Notas',this.value)">${notas}</textarea>
+    </div>
+
+    <!-- LINKS -->
+    <div class="section-title">Links rapidos</div>
+    <div style="font-size:.72rem;color:var(--muted);margin-bottom:5px">Link formulario (enviar al cliente)</div>
+    <div class="link-box" onclick="copyLink('${intakeLink}')" title="Clic para copiar">${intakeLink}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn-primary" onclick="copyLink('${intakeLink}')">Copiar link</button>
+      ${tel ? `<a href="https://wa.me/${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Hola '+nombre.split(' ')[0]+', le comparto el link para completar su formulario de visa: '+intakeLink)}" target="_blank" class="btn-secondary" style="text-decoration:none;padding:9px 16px;border-radius:6px;font-size:.85rem;font-weight:600;display:inline-block">Enviar por WhatsApp</a>` : ''}
+      ${url && url!=='—' ? `<a href="${url}" target="_blank" class="btn-secondary" style="text-decoration:none;padding:9px 16px;border-radius:6px;font-size:.85rem;font-weight:600;display:inline-block">Ver expediente</a>` : ''}
+    </div>
+  `;
+
+  openModal('modalDetail');
+}
+
+// ═══════════════════════════════════════════════════════
+// UPDATE CASE
+// ═══════════════════════════════════════════════════════
+async function updateCaseField(refId, campo, valor) {
+  // Update local
+  const c = CASES.find(x => (x['Ref ID']||x['refId']) === refId);
+  if (c) { c[campo] = valor; saveLocal(); renderKanban(); }
+
+  // Sync to Sheets
+  try {
+    const url = `${SCRIPT_URL}?action=updateCase&pin=${encodeURIComponent(PIN)}&ref=${encodeURIComponent(refId)}&campo=${encodeURIComponent(campo)}&valor=${encodeURIComponent(valor)}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.error) { showToast('Error al guardar: ' + data.error, 'error'); }
+    else { showToast('Guardado en Sheets', 'success'); }
+  } catch(e) {
+    showToast('Guardado localmente. Sincroniza cuando tengas conexion.', '');
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// NEW CASE
+// ═══════════════════════════════════════════════════════
+function openNewCase() {
+  document.getElementById('nc_resultado').classList.add('hidden');
+  document.getElementById('nc_btn').disabled = false;
+  document.getElementById('nc_btn').textContent = 'Crear caso';
+  openModal('modalNewCase');
+}
+
+async function crearCaso() {
+  const nombre  = document.getElementById('nc_nombre').value.trim();
+  const tipo    = document.getElementById('nc_tipo').value;
+  const viaj    = document.getElementById('nc_viaj').value;
+  const paquete = document.getElementById('nc_paquete').value;
+  const tel     = document.getElementById('nc_tel').value.trim();
+  const email   = document.getElementById('nc_email').value.trim();
+  const notas   = document.getElementById('nc_notas').value.trim();
+
+  if (!nombre) { showToast('Ingresa el nombre del cliente', 'error'); return; }
+
+  const btn = document.getElementById('nc_btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Creando...';
+
+  try {
+    const params = new URLSearchParams({ action:'newCase', pin:PIN, nombre, tipo, viaj, paquete, tel, email, notas });
+    const resp   = await fetch(`${SCRIPT_URL}?${params.toString()}`);
+    const data   = await resp.json();
+
+    if (data.error) {
+      showToast('Error: ' + data.error, 'error');
+      btn.disabled = false;
+      btn.textContent = 'Crear caso';
+      return;
+    }
+
+    const refId     = data.refId || ('LOCAL-' + Date.now().toString().slice(-6));
+    const intakeUrl = data.intakeUrl || `${INTAKE_URL}?ref=${refId}`;
+
+    // Add to local cases
+    const newCase = {
+      'Ref ID': refId, 'Fecha': new Date().toLocaleDateString('es-EC'),
+      'Estado': 'Formulario Enviado', 'Tipo Visa': tipo,
+      'Nombre Principal': nombre, 'Num Viajeros': viaj,
+      'Telefono': tel, 'Email': email, 'Probabilidad': '—',
+      'Paquete': paquete, 'Llegada USA': '—', 'Dias Estancia': '—',
+      'Pago': 'Pendiente', 'Cita': 'Por agendar', 'Notas': notas,
+      'Ver Expediente': intakeUrl,
+    };
+    CASES.unshift(newCase);
+    saveLocal();
+    renderKanban();
+
+    // Show result
+    document.getElementById('nc_link').textContent = intakeUrl;
+    const waMsg = encodeURIComponent(`Hola ${nombre.split(' ')[0]}, le comparto el formulario para su proceso de visa ${tipo}: ${intakeUrl}`);
+    document.getElementById('nc_wa').href = tel
+      ? `https://wa.me/${tel.replace(/\D/g,'')}?text=${waMsg}`
+      : `https://wa.me/?text=${waMsg}`;
+    document.getElementById('nc_resultado').classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Caso creado';
+    showToast('Caso creado — ' + refId, 'success');
+  } catch(e) {
+    // Fallback: create locally only
+    const refId     = 'LOCAL-' + Date.now().toString().slice(-6);
+    const intakeUrl = `${INTAKE_URL}?ref=${refId}`;
+    const newCase = {
+      'Ref ID': refId, 'Fecha': new Date().toLocaleDateString('es-EC'),
+      'Estado': 'Formulario Enviado', 'Tipo Visa': tipo,
+      'Nombre Principal': nombre, 'Num Viajeros': viaj,
+      'Telefono': tel, 'Email': email, 'Probabilidad': '—',
+      'Paquete': paquete, 'Llegada USA': '—', 'Dias Estancia': '—',
+      'Pago': 'Pendiente', 'Cita': 'Por agendar', 'Notas': notas,
+      'Ver Expediente': intakeUrl,
+    };
+    CASES.unshift(newCase);
+    saveLocal();
+    renderKanban();
+    document.getElementById('nc_link').textContent = intakeUrl;
+    const waMsg = encodeURIComponent(`Hola ${nombre.split(' ')[0]}, su formulario: ${intakeUrl}`);
+    document.getElementById('nc_wa').href = `https://wa.me/${tel.replace(/\D/g,'')}?text=${waMsg}`;
+    document.getElementById('nc_resultado').classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Guardado local';
+    showToast('Creado localmente. Sincroniza cuando tengas internet.', '');
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function copyLink(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('Link copiado', 'success')).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = text; document.body.appendChild(el); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+    showToast('Link copiado', 'success');
+  });
+}
+
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3000);
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+function init() {
+  const savedPin = sessionStorage.getItem(LS_PIN);
+  if (savedPin) {
+    PIN = savedPin;
+    document.getElementById('pinOverlay').classList.add('hidden');
+    document.getElementById('appHeader').classList.remove('hidden');
+    document.getElementById('appKanban').classList.remove('hidden');
+    loadLocal();
+    syncCases();
+  } else {
+    document.getElementById('pinInput').focus();
+  }
+}
+
+document.getElementById('pinInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPin();
+});
+
+init();
+</script>
+</body>
+</html>

@@ -6,6 +6,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
+const ADMIN_PIN    = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
 const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
 const SS_ID        = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
 
@@ -469,8 +470,14 @@ function manejarPortalLegacy(payload) {
   }
 }
 
-// ── doGet: reporte HTML del expediente ────────────────────────────
+// ── doGet: reporte HTML del expediente ─────────────────────────────
 function doGet(e) {
+  // Admin endpoints
+  const action = e.parameter.action;
+  if (action === 'getCases')    return adminGetCases(e);
+  if (action === 'updateCase')  return adminUpdateCase(e);
+  if (action === 'newCase')     return adminNewCase(e);
+
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
   if (!refId) return ContentService.createTextOutput('Falta id').setMimeType(ContentService.MimeType.TEXT);
@@ -702,6 +709,108 @@ function generarHTMLReporte(refId, tipo, personas, analisis) {
   </div>` : ''}
   ${personasHTML}
 </div></body></html>`;
+}
+
+// ── Admin: GET /getCases ──────────────────────────────────────────
+function adminGetCases(e) {
+  if (e.parameter.pin !== ADMIN_PIN) {
+    return ContentService.createTextOutput(JSON.stringify({error:'PIN incorrecto'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  try {
+    const ss    = SpreadsheetApp.openById(SS_ID);
+    const sheet = ss.getSheetByName('CASOS CRM');
+    if (!sheet || sheet.getLastRow() < 2) {
+      return ContentService.createTextOutput(JSON.stringify({status:'ok', cases:[]}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    const data    = sheet.getDataRange().getValues();
+    const headers = data[0].map(h => String(h).trim());
+    const cases   = data.slice(1).map((row, i) => {
+      const obj = { _row: i + 2 };
+      headers.forEach((h, j) => { obj[h] = row[j] !== undefined ? String(row[j]) : ''; });
+      return obj;
+    });
+    return ContentService.createTextOutput(JSON.stringify({status:'ok', cases}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({error: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ── Admin: GET /updateCase ────────────────────────────────────────
+function adminUpdateCase(e) {
+  if (e.parameter.pin !== ADMIN_PIN) {
+    return ContentService.createTextOutput(JSON.stringify({error:'PIN incorrecto'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  try {
+    const refId    = e.parameter.ref;
+    const campo    = e.parameter.campo;   // 'Estado', 'Notas', 'Cita', 'Pago'
+    const valor    = e.parameter.valor;
+    const ss       = SpreadsheetApp.openById(SS_ID);
+    const sheet    = ss.getSheetByName('CASOS CRM');
+    if (!sheet) return ContentService.createTextOutput(JSON.stringify({error:'Sin hoja CRM'})).setMimeType(ContentService.MimeType.JSON);
+
+    const data    = sheet.getDataRange().getValues();
+    const headers = data[0].map(h => String(h).trim());
+    const colIdx  = headers.indexOf(campo);
+    if (colIdx < 0) return ContentService.createTextOutput(JSON.stringify({error:'Campo no encontrado: '+campo})).setMimeType(ContentService.MimeType.JSON);
+
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0]) === refId) {
+        sheet.getRange(i + 1, colIdx + 1).setValue(valor);
+        // Color fila según estado
+        if (campo === 'Estado') {
+          const colores = {
+            'Formulario Enviado':    '#FFF9E6',
+            'Formulario Recibido':   '#EFF6FF',
+            'En Proceso':            '#F5F0FF',
+            'Cita Agendada':         '#FFF1F2',
+            'Aprobado':              '#F0FDF4',
+            'Rechazado':             '#FFF1F2',
+            'Cerrado':               '#F4F6F9',
+          };
+          const bg = colores[valor] || '#FFFFFF';
+          sheet.getRange(i + 1, 1, 1, headers.length).setBackground(bg);
+        }
+        return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({error:'Caso no encontrado'})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ── Admin: GET /newCase ───────────────────────────────────────────
+function adminNewCase(e) {
+  if (e.parameter.pin !== ADMIN_PIN) {
+    return ContentService.createTextOutput(JSON.stringify({error:'PIN incorrecto'})).setMimeType(ContentService.MimeType.JSON);
+  }
+  try {
+    const ss      = SpreadsheetApp.openById(SS_ID);
+    const sheet   = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
+    const refId   = 'CRM-' + Date.now().toString().slice(-6);
+    const fecha   = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    const nombre  = e.parameter.nombre  || '';
+    const tipo    = e.parameter.tipo    || 'USA DS-160';
+    const viaj    = e.parameter.viaj    || '1';
+    const tel     = e.parameter.tel     || '';
+    const email   = e.parameter.email   || '';
+    const paquete = e.parameter.paquete || '—';
+    const intakeUrl = 'https://www.asesoriadevisadosglobal.com/intake.html?ref=' + refId;
+    sheet.appendRow([
+      refId, fecha, 'Formulario Enviado', tipo,
+      nombre, viaj, tel, email,
+      '—', paquete, '—', '—', 'Pendiente', 'Por agendar', '', intakeUrl
+    ]);
+    formatearCabecera(sheet, 1);
+    return ContentService.createTextOutput(JSON.stringify({status:'ok', refId, intakeUrl})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
