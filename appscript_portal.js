@@ -208,11 +208,17 @@ Analiza este caso y dame una estrategia CONCRETA Y ESPECIFICA para maximizar la 
 
 VIAJE:
 - Viajeros: ${numViaj} personas
+- Tipo de grupo: ${shared.tipoGrupo || '—'}
 - Llegada USA: ${shared.intendedArrival || '—'} por ${shared.lengthOfStayDays || '—'} dias
 - Alojamiento: ${shared.usStayType || '—'} — ${shared.usStayName || '—'}, ${shared.usStayCity || '—'}, ${shared.usStayState || '—'}
 - Paga: ${shared.whoIsPaying || '—'}
 - Contacto USA: ${shared.usContactName || '—'} (${shared.usContactRelationship || '—'})
-- Proposito: ${shared.purposeNote || 'Turismo vacacional'}
+- Proposito especifico: ${shared.purposeNote || 'Turismo vacacional'}
+- Motivacion real: ${shared.motivacionReal || '—'}
+- HAY MENORES: ${shared.hayMenores || 'no'} | Detalles: ${shared.menoresDetalles || '—'}
+- Autorizacion otro progenitor lista: ${shared.autorizacionLista || '—'}
+- RECHAZO PREVIO EN GRUPO: ${shared.hayRechazo || 'no'} | Detalles y que cambio: ${shared.rechazoDetalles || '—'}
+- PAREJA SIN MATRIMONIO EN GRUPO: ${shared.hayPareja || 'no'} | Detalles: ${shared.parejaDetalles || '—'}
 
 PERFILES:
 ${perfilesDetalle}

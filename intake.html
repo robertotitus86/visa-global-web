@@ -592,6 +592,15 @@ function handleConditional(id, val) {
     'whoIsPaying': () => {
       document.getElementById('payer_other')?.classList.toggle('hidden', val === 'Yo mismo (viajero principal)');
     },
+    'hayMenores': () => {
+      document.getElementById('menores_section')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hayRechazo': () => {
+      document.getElementById('rechazo_grupo_section')?.classList.toggle('hidden', val !== 'si');
+    },
+    'hayPareja': () => {
+      document.getElementById('pareja_section')?.classList.toggle('hidden', val !== 'si');
+    },
   };
   if (conditionals[id]) conditionals[id]();
 }
@@ -632,7 +641,7 @@ function renderScreen() {
     const ctx = getCurrentDataCtx();
     ['hasSocialMedia','hasOtherNames','hasSecondNationality','hasUsSSN','hadLostPassport',
      'hasRelativesInUS','isMarried','hasBeenInUS','hasHadUSVisa','hasBeenRefused',
-     'hasPreviousEmployers','whoIsPaying'].forEach(id => {
+     'hasPreviousEmployers','whoIsPaying','hayMenores','hayRechazo','hayPareja'].forEach(id => {
       if (ctx[id]) handleConditional(id, ctx[id]);
     });
   }
@@ -860,7 +869,7 @@ function setTravelerField(idx, key, val) {
 // ── SHARED SCREENS ───────────────────────────────────────
 function renderShared() {
   const sd = S.shared;
-  const steps = ['Informacion del Viaje','Alojamiento en USA','Quien Paga el Viaje','Contacto en USA'];
+  const steps = ['Informacion del Viaje','Composicion del Grupo','Alojamiento en USA','Quien Paga el Viaje','Contacto en USA'];
   const dots = steps.map((_,i) =>
     `<div class="step-dot ${i<S.sharedStep?'done':i===S.sharedStep?'active':''}"></div>`
   ).join('');
@@ -870,11 +879,41 @@ function renderShared() {
     body = `
       ${field('intendedArrival','Fecha estimada de llegada a USA','date',{required:true,value:sd.intendedArrival,hint:'Si no tiene fecha exacta, ponga una aproximada'})}
       ${field('lengthOfStayDays','Cuantos dias planean quedarse en total?','number',{required:true,placeholder:'Ej: 14',value:sd.lengthOfStayDays,hint:'Incluye dias de llegada y salida'})}
-      ${field('purposeNote','Proposito principal del viaje','text',{required:true,placeholder:'Ej: Turismo familiar, visitar Disneyland y Nueva York',value:sd.purposeNote||'Turismo vacacional'})}`;
+      ${field('purposeNote','Proposito principal del viaje — sea especifico','textarea',{required:true,placeholder:'Ej: Vacaciones familiares. Visitaremos Disney World en Orlando y Miami Beach. Los ninos quieren conocer los parques. Regresamos porque los ninos tienen clases.',value:sd.purposeNote,rows:3})}
+      ${field('motivacionReal','¿Por que eligio Estados Unidos especificamente para este viaje?','textarea',{required:true,placeholder:'Ej: Mis hijos han sonado con ir a Disney desde pequenos. Ademas quiero que conozcan Nueva York. Lo hemos ahorrado por 2 anos.',value:sd.motivacionReal,rows:2})}`;
   } else if (S.sharedStep === 1) {
-    const stayType = sd.usStayType||'';
+    // NUEVO: Composicion del grupo
+    const hasMinors = S.travelers.some((t,i) => isMinor(i) || (S.perTraveler[i]?.dob && getAge(i) < 18));
     body = `
-      ${radio('usStayType','Donde se hospedaran en USA?',['Hotel / Resort','Casa de familiar o amigo','Alquiler vacacional (Airbnb, Vrbo)','Otro'],stayType)}
+      ${radio('tipoGrupo','Como se relacionan los viajeros entre si?',[
+        'Familia nuclear (padres casados + hijos)',
+        'Pareja sin hijos',
+        'Familia no convencional (divorciados, parejas, hijos de distintas relaciones)',
+        'Amigos o conocidos',
+        'Viaje individual'
+      ], sd.tipoGrupo)}
+      ${yesno('hayMenores','Hay menores de edad en el grupo?',sd.hayMenores||( hasMinors?'si':'no'))}
+      <div id="menores_section" class="${sd.hayMenores==='si'||hasMinors?'':'hidden'}">
+        <div class="divider"></div>
+        <div class="section-title">Autorizacion de menores</div>
+        <div class="card-sub" style="margin-bottom:12px;font-size:.78rem">Para que un menor viaje al extranjero sin ambos padres, necesita autorizacion notariada del progenitor que no viaja. Esto es OBLIGATORIO.</div>
+        ${field('menoresDetalles','Para cada menor: nombre, edad, y si viaja con ambos padres o solo con uno','textarea',{required:true,placeholder:'Ej:\n- Sofia Gomez, 10 anos, viaja con papa y mama\n- Lucas Torres, 8 anos, viaja solo con papa (mama no viaja — necesita autorizacion notariada)',value:sd.menoresDetalles,rows:4})}
+        ${yesno('autorizacionLista','¿Tienen ya la(s) autorizacion(es) notariada(s) del otro progenitor?',sd.autorizacionLista,'Si algun menor viaja sin uno de sus padres, esto es imprescindible antes de la cita')}
+      </div>
+      <div class="divider"></div>
+      ${yesno('hayRechazo','¿Alguno del grupo ha tenido rechazo de visa americana anteriormente?',sd.hayRechazo||'no')}
+      <div id="rechazo_grupo_section" class="${sd.hayRechazo==='si'?'':'hidden'}">
+        ${field('rechazoDetalles','¿Quien fue rechazado, cuando y que motivo le dieron?','textarea',{required:true,placeholder:'Ej: Carlos Gomez — enero 2022 — motivo: lazos insuficientes con Ecuador\n\n¿Que cambio desde entonces? Ej: Ahora tiene casa propia, mejor empleo y los ninos en escuela.',value:sd.rechazoDetalles,rows:4})}
+      </div>
+      <div class="divider"></div>
+      ${yesno('hayPareja','¿Alguno del grupo viaja con pareja actual (sin estar casados legalmente)?',sd.hayPareja||'no')}
+      <div id="pareja_section" class="${sd.hayPareja==='si'?'':'hidden'}">
+        ${field('parejaDetalles','Describe la relacion de pareja (cuanto tiempo juntos, conviven, hijos en comun)','textarea',{placeholder:'Ej: Carlos y Luisa llevan 2 anos juntos, conviven desde hace 1 ano, no tienen hijos en comun. Cada uno tiene hijos de relaciones anteriores.',value:sd.parejaDetalles,rows:3})}
+      </div>`;
+  } else if (S.sharedStep === 2) {
+    const stayType2 = sd.usStayType||'';
+    body = `
+      ${radio('usStayType','Donde se hospedaran en USA?',['Hotel / Resort','Casa de familiar o amigo','Alquiler vacacional (Airbnb, Vrbo)','Otro'],stayType2)}
       ${field('usStayName','Nombre del hotel o de la persona que los recibe','text',{required:true,placeholder:'Ej: Marriott Miami o John Smith',value:sd.usStayName})}
       ${field('usStayStreet','Direccion en USA (calle y numero)','text',{required:true,placeholder:'Ej: 123 Main Street',value:sd.usStayStreet})}
       <div class="grid-2">
@@ -882,7 +921,7 @@ function renderShared() {
         ${field('usStayState','Estado','select',{required:true,options:US_STATES,value:sd.usStayState})}
       </div>
       ${field('usStayZip','Codigo postal (ZIP)','text',{placeholder:'Ej: 33101',value:sd.usStayZip})}`;
-  } else if (S.sharedStep === 2) {
+  } else if (S.sharedStep === 3) {
     const payer = sd.whoIsPaying||'';
     const showOther = payer && payer !== 'Yo mismo (viajero principal)';
     body = `
@@ -895,7 +934,7 @@ function renderShared() {
         ${field('payerPhone','Telefono','tel',{placeholder:'+593 99 999 9999',value:sd.payerPhone})}
         ${field('payerAddress','Direccion','text',{placeholder:'Direccion completa',value:sd.payerAddress})}
       </div>`;
-  } else if (S.sharedStep === 3) {
+  } else if (S.sharedStep === 4) {
     body = `
       <div class="card-sub" style="margin-bottom:16px">Persona o lugar al que se pueden contactar durante su estancia en USA (puede ser el hotel o un familiar/amigo).</div>
       ${field('usContactName','Nombre completo del contacto en USA','text',{required:true,placeholder:'Ej: Holiday Inn Miami o Pedro Gonzalez',value:sd.usContactName})}
@@ -1382,7 +1421,7 @@ function goNext() {
     S.phase = 'shared'; S.sharedStep = 0;
   } else if (S.phase === 'shared') {
     if (!validateCurrent()) return;
-    if (S.sharedStep < 3) { S.sharedStep++; }
+    if (S.sharedStep < 4) { S.sharedStep++; }
     else { S.phase = 'traveler'; S.travelerIdx = 0; S.travelerStep = 0; }
   } else if (S.phase === 'traveler') {
     if (!validateCurrent()) return;
@@ -1413,7 +1452,7 @@ function goBack() {
   } else if (S.phase === 'traveler') {
     if (S.travelerStep > 0) { S.travelerStep--; }
     else if (S.travelerIdx > 0) { S.travelerIdx--; const minor = isMinor(S.travelerIdx); S.travelerStep = minor ? 6 : 7; }
-    else { S.phase = 'shared'; S.sharedStep = 3; }
+    else { S.phase = 'shared'; S.sharedStep = 4; }
   } else if (S.phase === 'review') {
     S.phase = 'traveler'; S.travelerIdx = S.travelers.length - 1;
     const minor = isMinor(S.travelerIdx); S.travelerStep = minor ? 6 : 7;
