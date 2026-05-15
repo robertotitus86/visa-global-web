@@ -442,9 +442,16 @@ function notificarClienteIntake(emailCliente, nombre, refId, numViaj, shared) {
       </div>
     </div>
 
-    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px;margin-bottom:24px;font-size:12px;color:#166534;line-height:1.6">
-      <strong>Su referencia:</strong> ${refId}<br>
-      <strong>Viaje estimado:</strong> ${llegada}${dias?' · '+dias+' dias':''} · ${ciudad}
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:24px;line-height:1.8">
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Su numero de seguimiento</div>
+      <div style="font-size:22px;font-weight:700;color:#166534;letter-spacing:.05em;margin-bottom:6px">${refId}</div>
+      <div style="font-size:12px;color:#166534">
+        Guarde este numero. Puede escribirnos al WhatsApp +593 99 444 2512 indicando este numero y le daremos el estado de su caso al instante.<br>
+        <strong>Ejemplo:</strong> "Hola, mi caso es ${refId}"
+      </div>
+    </div>
+    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:24px;font-size:12px;color:#64748B;line-height:1.6">
+      <strong style="color:#1A2940">Viaje estimado:</strong> ${llegada}${dias?' · '+dias+' dias':''} · ${ciudad}
     </div>
 
     <div style="border-top:1px solid #E2E8F0;padding-top:18px;font-size:12px;color:#64748B;line-height:1.7">
@@ -541,11 +548,12 @@ function manejarPortalLegacy(payload) {
 function doGet(e) {
   // Admin endpoints
   const action = e.parameter.action;
-  if (action === 'getCases')      return adminGetCases(e);
-  if (action === 'updateCase')    return adminUpdateCase(e);
-  if (action === 'newCase')       return adminNewCase(e);
-  if (action === 'getExtraction') return getExtraction(e);
-  if (action === 'reanalizar')    return reanalizar(e);
+  if (action === 'getCases')           return adminGetCases(e);
+  if (action === 'updateCase')         return adminUpdateCase(e);
+  if (action === 'newCase')            return adminNewCase(e);
+  if (action === 'getExtraction')      return getExtraction(e);
+  if (action === 'reanalizar')         return reanalizar(e);
+  if (action === 'buscarPorTelefono')  return buscarPorTelefono(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -973,6 +981,84 @@ function getExtraction(e) {
   }
 }
 
+// ── Bot WhatsApp: buscar caso por telefono ────────────────────────
+function buscarPorTelefono(e) {
+  try {
+    const telefonoBruto = (e.parameter.telefono || '').replace(/\D/g, '');
+    if (!telefonoBruto) return ContentService.createTextOutput(JSON.stringify({status:'sin_caso'})).setMimeType(ContentService.MimeType.JSON);
+
+    const ss    = SpreadsheetApp.openById(SS_ID);
+    const sheet = ss.getSheetByName('CASOS CRM');
+    if (!sheet) return ContentService.createTextOutput(JSON.stringify({status:'sin_caso'})).setMimeType(ContentService.MimeType.JSON);
+
+    const data    = sheet.getDataRange().getValues();
+    const headers = data[0].map(h => String(h).trim());
+    const telIdx  = headers.indexOf('Telefono');
+
+    // Buscar por telefono (comparar solo digitos)
+    for (let i = 1; i < data.length; i++) {
+      const telSheets = String(data[i][telIdx] || '').replace(/\D/g, '');
+      if (telSheets && (telSheets.endsWith(telefonoBruto) || telefonoBruto.endsWith(telSheets))) {
+        const caso = {};
+        headers.forEach((h, j) => { caso[h] = String(data[i][j] || ''); });
+
+        // Obtener proximos pasos segun estado
+        const estado   = caso['Estado'] || '';
+        const siguientePaso = obtenerSiguientePaso(estado, caso);
+
+        return ContentService.createTextOutput(JSON.stringify({
+          status: 'ok',
+          caso,
+          siguiente_paso: siguientePaso
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({status:'sin_caso'})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status:'error', error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function obtenerSiguientePaso(estado, caso) {
+  const e = estado.toLowerCase();
+  if (e.includes('enviado') || e.includes('formulario enviado')) {
+    return `Pendiente: llenar el formulario de datos en el link que le enviamos. Una vez completado, analizamos su perfil en menos de 24 horas.`;
+  }
+  if (e.includes('recibido') || e.includes('formulario recibido')) {
+    return `Su formulario fue recibido. Estamos analizando su perfil. En menos de 24 horas recibe el analisis completo con los documentos que necesita.`;
+  }
+  if (e.includes('documento')) {
+    const notas = caso['Notas'] || '';
+    return `Estamos recopilando sus documentos. ${notas ? 'Nota del asesor: ' + notas : 'Por favor tenga listos los documentos solicitados.'}`;
+  }
+  if (e.includes('ds-160') || e.includes('ds160')) {
+    return `Estamos llenando su formulario DS-160. Le avisamos en cuanto este listo para revisar.`;
+  }
+  if (e.includes('pago pendiente')) {
+    return `Su analisis esta listo. El siguiente paso es confirmar el pago para formalizar la asesoria. Le enviamos el link de pago.`;
+  }
+  if (e.includes('pago recibido')) {
+    return `Pago confirmado. Estamos preparando su expediente completo. Le contactamos pronto con los detalles.`;
+  }
+  if (e.includes('cita por agendar')) {
+    return `Su DS-160 esta listo. El siguiente paso es agendar la cita en el consulado. Le guiamos en ese proceso.`;
+  }
+  if (e.includes('cita agendada')) {
+    const cita = caso['Cita'] || '';
+    return `Tiene cita en el consulado${cita && cita !== 'Por agendar' ? ' el ' + cita : ''}. Le enviamos el acceso al simulador de entrevista para prepararse.`;
+  }
+  if (e.includes('simulador')) {
+    return `Tiene acceso al simulador de entrevista en asesoriadevisadosglobal.com/simulador.html. Practique antes de su cita.`;
+  }
+  if (e.includes('entrevista realizada')) {
+    return `Ya realizo su entrevista. Esperamos el resultado del consulado juntos.`;
+  }
+  if (e.includes('aprobado')) {
+    return `Felicitaciones! Su visa fue aprobada. Si necesita asesoria para proximos viajes, con gusto le ayudamos.`;
+  }
+  return `Su caso esta en proceso. Le contactamos pronto con actualizaciones.`;
+}
+
 // ── Admin: GET /getCases ──────────────────────────────────────────
 function adminGetCases(e) {
   if (e.parameter.pin !== ADMIN_PIN) {
@@ -1054,7 +1140,7 @@ function adminNewCase(e) {
   try {
     const ss      = SpreadsheetApp.openById(SS_ID);
     const sheet   = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
-    const refId   = 'CRM-' + Date.now().toString().slice(-6);
+    const refId   = 'VG-' + Date.now().toString().slice(-6);
     const fecha   = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
     const nombre  = e.parameter.nombre  || '';
     const tipo    = e.parameter.tipo    || 'USA DS-160';

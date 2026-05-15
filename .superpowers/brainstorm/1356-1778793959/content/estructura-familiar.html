@@ -1,0 +1,90 @@
+<h2>¿Cómo debería fluir el formulario para una familia de 4?</h2>
+<p class="subtitle">Elige la estructura que mejor se adapte a la experiencia que quieres dar a tus clientes</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1a30;padding:16px;min-height:160px;border-radius:8px 8px 0 0;font-family:sans-serif;">
+      <div style="display:flex;gap:6px;margin-bottom:12px;">
+        <div style="flex:1;background:#F0B429;border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#060E1F;">Papa</div>
+        <div style="flex:1;background:rgba(255,255,255,.1);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;color:rgba(255,255,255,.5);">Mama</div>
+        <div style="flex:1;background:rgba(255,255,255,.1);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;color:rgba(255,255,255,.5);">Hijo 1</div>
+        <div style="flex:1;background:rgba(255,255,255,.1);border-radius:6px;padding:8px 4px;text-align:center;font-size:11px;color:rgba(255,255,255,.5);">Hijo 2</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;">Paso 2 de 8 — Datos personales</div>
+        <div style="height:8px;background:rgba(255,255,255,.1);border-radius:4px;margin-bottom:10px;overflow:hidden;">
+          <div style="width:25%;height:100%;background:#F0B429;border-radius:4px;"></div>
+        </div>
+        <div style="height:28px;background:rgba(255,255,255,.08);border-radius:5px;margin-bottom:6px;"></div>
+        <div style="height:28px;background:rgba(255,255,255,.08);border-radius:5px;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Ficha por Persona (Tabs)</h3>
+      <p>4 pestañas, una por miembro. Cada uno tiene su propio wizard de 8 pasos. Se puede llenar en cualquier orden y volver atrás libremente. Familiar para el usuario.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1a30;padding:16px;min-height:160px;border-radius:8px 8px 0 0;font-family:sans-serif;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <div style="font-size:11px;color:#F0B429;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;">Pregunta 12 de 48 — Carlos (Papa)</div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(240,180,41,.2);border-radius:10px;padding:16px 20px;width:100%;max-width:280px;text-align:center;">
+        <div style="font-size:13px;color:rgba(255,255,255,.9);margin-bottom:12px;font-weight:500;">¿Cuantos anos tiene Carlos?</div>
+        <div style="display:flex;gap:8px;justify-content:center;">
+          <div style="background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.3);border-radius:6px;padding:6px 16px;font-size:12px;color:#F0B429;">35</div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:6px 16px;font-size:12px;color:rgba(255,255,255,.5);">→</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;margin-top:14px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#F0B429;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Flujo Continuo (Typeform)</h3>
+      <p>Una pregunta a la vez, estilo conversacional. Primero completa a Papa, luego Mama, luego hijos. Muy dinamico y moderno. Riesgo: si se cierra se pierde el progreso.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1a30;padding:14px;min-height:160px;border-radius:8px 8px 0 0;font-family:sans-serif;">
+      <div style="font-size:10px;color:#F0B429;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Panel Familiar — Familia Gomez</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:rgba(240,180,41,.12);border:1px solid rgba(240,180,41,.3);border-radius:8px;padding:10px;text-align:center;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#F0B429;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#060E1F;">C</div>
+          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Carlos</div>
+          <div style="font-size:10px;color:#F0B429;">100% listo</div>
+          <div style="height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:100%;height:100%;background:#F0B429;"></div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">M</div>
+          <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Maria</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.5);">62% listo</div>
+          <div style="height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:62%;height:100%;background:rgba(240,180,41,.7);"></div></div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);margin:0 auto 6px;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);">Sofia — Pendiente</div>
+          <div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:6px;"></div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center;">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);margin:0 auto 6px;"></div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);">Lucas — Pendiente</div>
+          <div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:6px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Panel Familiar (Dashboard + Mini-Wizard) ★ Recomendado</h3>
+      <p>Primero configuras la familia (nombres y roles). Luego un panel con las 4 tarjetas muestra el progreso de cada uno. Haces clic en cualquier miembro para abrir su wizard. Se puede pausar y retomar. Facil de ver que falta.</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:24px;padding:16px;background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;">
+  <strong style="color:#F0B429;">Mi recomendacion:</strong> Opcion C. El panel familiar da la mejor vision de progreso para el asesor y el cliente. Cada persona tiene su propio mini-wizard dinamico pero todo esta en un mismo lugar. Ademas funciona perfecto en movil.
+</div>

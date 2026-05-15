@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sistema Completo — Asesoría Visa Global</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#060E1F;color:#fff;padding:20px 16px;min-height:100vh}
+h2{font-family:Georgia,serif;font-size:1.4rem;color:#F0B429;margin-bottom:4px;text-align:center}
+.sub{text-align:center;color:rgba(255,255,255,.5);font-size:.8rem;margin-bottom:24px}
+
+/* PIPELINE */
+.pipeline{display:flex;gap:0;margin-bottom:28px;overflow-x:auto;padding-bottom:4px}
+.pipe-step{flex:1;min-width:110px;position:relative}
+.pipe-step:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.25);font-size:1rem;z-index:2}
+.pipe-inner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;margin:0 4px;padding:10px 8px;text-align:center;min-height:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.pipe-step.active .pipe-inner{background:rgba(240,180,41,.1);border-color:rgba(240,180,41,.3)}
+.pipe-num{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.06em}
+.pipe-label{font-size:.72rem;font-weight:700;color:#fff;line-height:1.3;text-align:center}
+.pipe-step.active .pipe-label{color:#F0B429}
+.pipe-auto{font-size:.58rem;color:rgba(34,197,94,.7);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:1px 6px;margin-top:2px}
+
+/* SYSTEM MAP */
+.system-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+@media(max-width:600px){.system-grid{grid-template-columns:1fr}}
+
+.sys-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.sys-card-header{padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sys-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.sys-title{font-size:.82rem;font-weight:700;color:#fff}
+.sys-sub{font-size:.65rem;color:rgba(255,255,255,.4)}
+.sys-body{padding:12px 14px}
+.sys-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.74rem;color:rgba(255,255,255,.7)}
+.sys-item:last-child{border:none}
+.sys-item::before{content:'·';color:#F0B429;flex-shrink:0;font-size:1rem;line-height:1.2}
+.sys-tag{font-size:.6rem;padding:1px 7px;border-radius:10px;font-weight:600;flex-shrink:0;margin-left:auto}
+.tag-auto{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2);color:#4ade80}
+.tag-manual{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24}
+.tag-ai{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.2);color:#c084fc}
+.tag-new{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2);color:#60a5fa}
+
+/* CRM PREVIEW */
+.crm-preview{background:#0d1a30;border-radius:10px;padding:12px}
+.crm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.crm-title{font-size:.8rem;font-weight:700;color:#fff}
+.crm-badge{font-size:.6rem;background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.2);color:#F0B429;padding:2px 8px;border-radius:20px;font-weight:700}
+.kanban{display:flex;gap:8px;overflow-x:auto}
+.col{flex-shrink:0;width:130px}
+.col-title{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.08)}
+.case-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:7px;padding:7px 9px;margin-bottom:5px;font-size:.68rem}
+.case-name{font-weight:700;color:#fff;margin-bottom:2px}
+.case-type{color:rgba(255,255,255,.45);font-size:.6rem;margin-bottom:4px}
+.case-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px}
+.dot-green{background:#4ade80}
+.dot-yellow{background:#F0B429}
+.dot-blue{background:#60a5fa}
+.dot-red{background:#f87171}
+.case-status{font-size:.58rem;color:rgba(255,255,255,.4)}
+
+/* ANALYSIS PREVIEW */
+.analysis-preview{background:#0d1a30;border-radius:10px;padding:12px;font-size:.74rem}
+.an-header{font-size:.7rem;font-weight:700;color:#F0B429;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.an-section{margin-bottom:10px}
+.an-label{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.an-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.an-key{color:rgba(255,255,255,.65)}
+.flag-bad{font-size:.6rem;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.25);color:#f87171;padding:1px 7px;border-radius:10px}
+.flag-ok{font-size:.6rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2);color:#4ade80;padding:1px 7px;border-radius:10px}
+.flag-warn{font-size:.6rem;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24;padding:1px 7px;border-radius:10px}
+.an-strat{background:rgba(240,180,41,.07);border-left:2px solid #F0B429;padding:8px 10px;border-radius:0 6px 6px 0;font-size:.7rem;color:rgba(255,255,255,.75);line-height:1.5;margin-top:4px}
+
+/* WEEK PLAN */
+.week-plan{border:1px solid rgba(240,180,41,.2);border-radius:12px;background:rgba(240,180,41,.05);padding:16px;margin-top:4px}
+.week-title{font-size:.85rem;font-weight:700;color:#F0B429;margin-bottom:12px}
+.week-items{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:550px){.week-items{grid-template-columns:1fr}}
+.week-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 12px}
+.week-num{font-size:.6rem;font-weight:700;color:#F0B429;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.week-name{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px}
+.week-desc{font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.4}
+.week-files{font-size:.62rem;color:rgba(240,180,41,.7);margin-top:4px}
+</style>
+</head>
+<body>
+
+<h2>Sistema Completo — Back-Office Asesoría Visa Global</h2>
+<p class="sub">Un cliente entra, el sistema lo lleva automaticamente hasta la entrevista</p>
+
+<!-- PIPELINE -->
+<div style="font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Flujo de un caso — de inicio a fin</div>
+<div class="pipeline">
+  <div class="pipe-step">
+    <div class="pipe-inner">
+      <div class="pipe-num">1</div>
+      <div class="pipe-label">Venta cerrada</div>
+      <div class="pipe-auto">manual</div>
+    </div>
+  </div>
+  <div class="pipe-step active">
+    <div class="pipe-inner">
+      <div class="pipe-num">2</div>
+      <div class="pipe-label">Link formulario enviado</div>
+      <div class="pipe-auto">automatico</div>
+    </div>
+  </div>
+  <div class="pipe-step active">
+    <div class="pipe-inner">
+      <div class="pipe-num">3</div>
+      <div class="pipe-label">Cliente llena datos</div>
+      <div class="pipe-auto">automatico</div>
+    </div>
+  </div>
+  <div class="pipe-step active">
+    <div class="pipe-inner">
+      <div class="pipe-num">4</div>
+      <div class="pipe-label">Analisis IA + estrategia</div>
+      <div class="pipe-auto">auto · Claude</div>
+    </div>
+  </div>
+  <div class="pipe-step active">
+    <div class="pipe-inner">
+      <div class="pipe-num">5</div>
+      <div class="pipe-label">Instruc. foto + docs</div>
+      <div class="pipe-auto">email / WA</div>
+    </div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-inner">
+      <div class="pipe-num">6</div>
+      <div class="pipe-label">Pago confirmado</div>
+      <div class="pipe-auto">manual</div>
+    </div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-inner">
+      <div class="pipe-num">7</div>
+      <div class="pipe-label">Cita agendada</div>
+      <div class="pipe-auto">manual</div>
+    </div>
+  </div>
+  <div class="pipe-step active">
+    <div class="pipe-inner">
+      <div class="pipe-num">8</div>
+      <div class="pipe-label">Simulador entrevista</div>
+      <div class="pipe-auto">auto · IA</div>
+    </div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-inner">
+      <div class="pipe-num">9</div>
+      <div class="pipe-label">Resultado visa</div>
+      <div class="pipe-auto">manual</div>
+    </div>
+  </div>
+</div>
+
+<!-- SISTEMA: 4 modulos -->
+<div class="system-grid">
+
+  <!-- MODULO 1: INTAKE -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <div class="sys-icon" style="background:rgba(240,180,41,.15)">📋</div>
+      <div>
+        <div class="sys-title">1. Formulario Intake</div>
+        <div class="sys-sub">intake.html — nuevo archivo</div>
+      </div>
+    </div>
+    <div class="sys-body">
+      <div class="sys-item">USA DS-160 completo (19 secciones, 80+ campos) <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Modo Cliente: 1 pregunta a la vez, guiado <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Modo Asesor: todos los campos, rapido <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">N viajeros flexible (1 a 6+) <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Menores: saltan seccion de empleo <span class="sys-tag tag-auto">auto</span></div>
+      <div class="sys-item">Guardado local: puede pausar y retomar <span class="sys-tag tag-auto">auto</span></div>
+      <div class="sys-item">Foto pasaporte: upload por persona <span class="sys-tag tag-new">nuevo</span></div>
+    </div>
+  </div>
+
+  <!-- MODULO 2: CRM -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <div class="sys-icon" style="background:rgba(96,165,250,.15)">🗂️</div>
+      <div>
+        <div class="sys-title">2. CRM de Casos</div>
+        <div class="sys-sub">admin.html — nuevo archivo (solo Roberto)</div>
+      </div>
+    </div>
+    <div class="sys-body">
+      <div class="sys-item">Kanban: ver todos los casos por estado <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Crear caso: nombre, paquete, visa, contacto <span class="sys-tag tag-manual">manual</span></div>
+      <div class="sys-item">Cambiar estado con un clic <span class="sys-tag tag-manual">manual</span></div>
+      <div class="sys-item">Ver ficha completa del cliente <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Historial de acciones por caso <span class="sys-tag tag-auto">auto</span></div>
+      <div class="sys-item">Generar link unico del formulario <span class="sys-tag tag-auto">auto</span></div>
+      <div class="sys-item">Acceso: contrasena simple en el navegador <span class="sys-tag tag-new">nuevo</span></div>
+    </div>
+  </div>
+
+  <!-- MODULO 3: ANALISIS IA -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <div class="sys-icon" style="background:rgba(168,85,247,.15)">🧠</div>
+      <div>
+        <div class="sys-title">3. Analisis IA del Perfil</div>
+        <div class="sys-sub">Apps Script + Claude API — al enviar formulario</div>
+      </div>
+    </div>
+    <div class="sys-body">
+      <div class="sys-item">Fortalezas del perfil (empleo, viajes, familia) <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Banderas rojas detectadas automaticamente <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Estrategia recomendada por caso <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Documentos necesarios segun perfil <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Probabilidad de aprobacion estimada <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Email a Roberto con todo esto al instante <span class="sys-tag tag-auto">auto</span></div>
+      <div class="sys-item">Email al cliente con siguientes pasos <span class="sys-tag tag-auto">auto</span></div>
+    </div>
+  </div>
+
+  <!-- MODULO 4: SIMULADOR -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <div class="sys-icon" style="background:rgba(34,197,94,.15)">🎭</div>
+      <div>
+        <div class="sys-title">4. Simulador de Entrevista</div>
+        <div class="sys-sub">simulador.html — USA unicamente esta semana</div>
+      </div>
+    </div>
+    <div class="sys-body">
+      <div class="sys-item">Preguntas personalizadas segun el perfil <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Respuestas sugeridas para cada pregunta <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Modo practica: el cliente responde, IA evalua <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Preguntas tipicas B1/B2 turismo <span class="sys-tag tag-new">nuevo</span></div>
+      <div class="sys-item">Alerta de inconsistencias en respuestas <span class="sys-tag tag-ai">Claude</span></div>
+      <div class="sys-item">Se activa cuando estado = Cita Agendada <span class="sys-tag tag-auto">auto</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CRM PREVIEW -->
+<div style="font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Vista previa — CRM de casos (como lo veras tu)</div>
+<div class="crm-preview" style="margin-bottom:24px">
+  <div class="crm-header">
+    <span class="crm-title">Panel de Casos — Asesor</span>
+    <span class="crm-badge">3 activos · 1 urgente</span>
+  </div>
+  <div class="kanban">
+    <div class="col">
+      <div class="col-title">Formulario pendiente</div>
+      <div class="case-card">
+        <div class="case-name">Familia Gomez</div>
+        <div class="case-type">USA · 4 personas · Profesional $197</div>
+        <div><span class="case-dot dot-yellow"></span><span class="case-status">Link enviado hoy</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-title">Analisis listo</div>
+      <div class="case-card">
+        <div class="case-name">Familia Torres</div>
+        <div class="case-type">USA · 2 personas · Esencial $97</div>
+        <div><span class="case-dot dot-blue"></span><span class="case-status">Esperando foto</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-title">Pago recibido</div>
+      <div class="case-card">
+        <div class="case-name">Ana Mendez</div>
+        <div class="case-type">USA · 1 persona · VIP $397</div>
+        <div><span class="case-dot dot-green"></span><span class="case-status">DS-160 en proceso</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-title">Cita agendada</div>
+      <div class="case-card" style="border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06)">
+        <div class="case-name">Pedro Vargas</div>
+        <div class="case-type">USA · 1 persona · Profesional</div>
+        <div><span class="case-dot dot-red"></span><span class="case-status">Entrevista: 20 mayo</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-title">Cerrado</div>
+      <div class="case-card" style="opacity:.6">
+        <div class="case-name">Familia Reyes</div>
+        <div class="case-type">USA · 3 personas</div>
+        <div><span class="case-dot dot-green"></span><span class="case-status">Aprobado</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSIS PREVIEW -->
+<div style="font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Vista previa — Analisis IA que llega a tu email al instante</div>
+<div class="analysis-preview" style="margin-bottom:24px">
+  <div class="an-header">Analisis de Perfil · Carlos Gomez · Visa USA B2</div>
+  <div class="an-section">
+    <div class="an-label">Evaluacion del perfil</div>
+    <div class="an-row"><span class="an-key">Empleo estable</span><span class="flag-ok">FORTALEZA</span></div>
+    <div class="an-row"><span class="an-key">Sin viajes previos a USA</span><span class="flag-warn">NEUTRO</span></div>
+    <div class="an-row"><span class="an-key">Sin rechazo previo</span><span class="flag-ok">FORTALEZA</span></div>
+    <div class="an-row"><span class="an-key">Hijos menores sin pasaporte vigente</span><span class="flag-bad">RIESGO</span></div>
+    <div class="an-row"><span class="an-key">Propiedad raiz en Ecuador</span><span class="flag-ok">FORTALEZA</span></div>
+  </div>
+  <div class="an-section">
+    <div class="an-label">Estrategia recomendada</div>
+    <div class="an-strat">Enfatizar los lazos con Ecuador: empleo fijo, propiedad, hijos en escuela. El motivo del viaje (turismo familiar — Disneyland) es convincente. Asegurar pasaportes de los menores antes de la cita. Preparar carta del empleador certificando vacaciones y regreso garantizado.</div>
+  </div>
+  <div class="an-section">
+    <div class="an-label">Proximos pasos del asesor</div>
+    <div class="an-row"><span class="an-key">1. Solicitar renovacion pasaporte Sofia y Lucas</span><span class="flag-bad">URGENTE</span></div>
+    <div class="an-row"><span class="an-key">2. Pedir carta laboral con sello y firma</span><span class="flag-warn">Esta semana</span></div>
+    <div class="an-row"><span class="an-key">3. Preparar itinerario de viaje detallado</span><span class="flag-warn">Antes cita</span></div>
+  </div>
+</div>
+
+<!-- PLAN ESTA SEMANA -->
+<div class="week-plan">
+  <div class="week-title">Esta semana — USA unicamente (MVP completo)</div>
+  <div class="week-items">
+    <div class="week-item">
+      <div class="week-num">Hoy / Manana</div>
+      <div class="week-name">intake.html</div>
+      <div class="week-desc">Formulario DS-160 dinamico: modo cliente + modo asesor, N viajeros, guardado local, foto upload</div>
+      <div class="week-files">→ nuevo archivo en visa-global-web/</div>
+    </div>
+    <div class="week-item">
+      <div class="week-num">Dia 2 / 3</div>
+      <div class="week-name">admin.html — CRM</div>
+      <div class="week-desc">Panel kanban de casos, crear caso, generar link, cambiar estado, ver ficha del cliente</div>
+      <div class="week-files">→ nuevo archivo, acceso con contrasena</div>
+    </div>
+    <div class="week-item">
+      <div class="week-num">Dia 3 / 4</div>
+      <div class="week-name">Apps Script actualizado</div>
+      <div class="week-desc">Al recibir formulario: analisis Claude, email a Roberto, email al cliente con instrucciones</div>
+      <div class="week-files">→ actualiza appscript_portal.js</div>
+    </div>
+    <div class="week-item">
+      <div class="week-num">Dia 4 / 5</div>
+      <div class="week-name">simulador.html</div>
+      <div class="week-desc">Simulador de entrevista consular USA: preguntas personalizadas segun perfil, practica con IA</div>
+      <div class="week-files">→ nuevo archivo</div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:16px;font-size:.75rem;color:rgba(255,255,255,.35)">
+  Todo sobre la infraestructura existente: GitHub Pages + Google Sheets + Apps Script + Claude API · Costo adicional: $0
+</div>
+
+</body>
+</html>

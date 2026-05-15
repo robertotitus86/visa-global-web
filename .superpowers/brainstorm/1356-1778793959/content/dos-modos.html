@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diseño — Dos Modos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#060E1F;color:#fff;padding:24px 16px;min-height:100vh}
+h2{font-family:Georgia,serif;font-size:1.5rem;color:#F0B429;margin-bottom:6px;text-align:center}
+.subtitle{text-align:center;color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:28px}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}}
+
+.mode-card{border:2px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;user-select:none}
+.mode-card:hover{border-color:rgba(240,180,41,.5);transform:translateY(-2px)}
+.mode-card.selected{border-color:#F0B429;box-shadow:0 0 0 3px rgba(240,180,41,.2)}
+.mode-card.selected .mode-header{background:rgba(240,180,41,.18)}
+
+.mode-header{background:rgba(255,255,255,.04);padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07)}
+.mode-icon{width:38px;height:38px;border-radius:9px;background:rgba(240,180,41,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.mode-title{font-size:.95rem;font-weight:700;color:#fff}
+.mode-sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:1px}
+
+.mode-preview{padding:14px}
+
+/* --- MODO A PREVIEW --- */
+.screen-a{background:#0d1a30;border-radius:10px;padding:14px;font-size:.78rem}
+.sa-badge{display:inline-block;background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.25);color:#F0B429;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.sa-progress{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sa-bar{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.sa-bar-fill{height:100%;background:#F0B429;border-radius:3px}
+.sa-bar-fill.p35{width:35%}
+.sa-bar-fill.p0{width:0}
+.sa-pct{font-size:.65rem;color:rgba(255,255,255,.4);width:28px;text-align:right}
+.sa-persons{display:flex;gap:6px;margin-bottom:12px}
+.sa-person{flex:1;border-radius:8px;padding:7px 5px;text-align:center;font-size:.65rem;border:1px solid rgba(255,255,255,.08)}
+.sa-person.active{background:rgba(240,180,41,.15);border-color:rgba(240,180,41,.3);color:#F0B429}
+.sa-person.done{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:#4ade80}
+.sa-person.pending{background:rgba(255,255,255,.04);color:rgba(255,255,255,.35)}
+.sa-person .sa-initial{display:block;width:22px;height:22px;border-radius:50%;margin:0 auto 4px;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sa-person.active .sa-initial{background:#F0B429;color:#060E1F}
+.sa-person.done .sa-initial{background:#4ade80;color:#060E1F}
+.sa-person.pending .sa-initial{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.sa-question{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px}
+.sa-q-label{font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.sa-q-text{font-size:.88rem;color:#fff;font-weight:600;margin-bottom:10px;line-height:1.4}
+.sa-q-input{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:7px 10px;width:100%;color:#fff;font-size:.8rem}
+.sa-q-hint{font-size:.65rem;color:rgba(255,255,255,.35);margin-top:5px}
+.sa-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.sa-btn{border-radius:6px;padding:6px 14px;font-size:.72rem;font-weight:700;border:none;cursor:pointer}
+.sa-btn.next{background:#F0B429;color:#060E1F}
+.sa-btn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)}
+
+/* --- MODO B PREVIEW --- */
+.screen-b{background:#0d1a30;border-radius:10px;padding:12px;font-size:.78rem}
+.sb-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sb-title{font-size:.82rem;font-weight:700;color:#fff}
+.sb-badge{font-size:.6rem;background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.2);color:#F0B429;padding:2px 8px;border-radius:20px;font-weight:600;letter-spacing:.06em}
+.sb-tabs{display:flex;gap:4px;margin-bottom:10px}
+.sb-tab{border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 10px;font-size:.65rem;color:rgba(255,255,255,.4);cursor:pointer}
+.sb-tab.active{background:rgba(240,180,41,.15);border-color:rgba(240,180,41,.3);color:#F0B429;font-weight:700}
+.sb-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.sb-field{display:flex;flex-direction:column;gap:3px}
+.sb-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em}
+.sb-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:5px 8px;color:#fff;font-size:.72rem}
+.sb-input.filled{border-color:rgba(240,180,41,.25);background:rgba(240,180,41,.05)}
+.sb-section-title{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em;grid-column:1/-1;margin-top:4px;padding-top:6px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-progress-row{display:flex;gap:4px;margin-top:8px}
+.sb-prog{flex:1;text-align:center;font-size:.6rem}
+.sb-prog-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-bottom:3px}
+.sb-prog-fill{height:100%;border-radius:2px}
+.green{background:#4ade80}
+.yellow{background:#F0B429}
+.gray{background:rgba(255,255,255,.2)}
+.sb-prog-name{color:rgba(255,255,255,.5)}
+
+/* --- OUTPUT SECTION --- */
+.output-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;margin-top:8px;font-size:.75rem}
+.out-title{font-size:.78rem;font-weight:700;color:#F0B429;margin-bottom:8px}
+.out-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+.out-row:last-child{border:none}
+.out-key{color:rgba(255,255,255,.4);font-size:.68rem}
+.out-flag{font-size:.65rem;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171;padding:2px 8px;border-radius:12px;margin-top:6px;display:inline-block}
+.out-ok{font-size:.65rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2);color:#4ade80;padding:2px 8px;border-radius:12px;margin-top:6px;display:inline-block}
+
+.recommend-badge{background:rgba(240,180,41,.12);border:1px solid rgba(240,180,41,.25);border-radius:8px;padding:10px 14px;font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.6;margin-top:16px}
+.recommend-badge strong{color:#F0B429}
+
+/* selector effect */
+.mode-card::after{content:'';display:block;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.2);margin:12px 12px 0 auto}
+.mode-card.selected::after{background:#F0B429;border-color:#F0B429;content:'✓';display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#060E1F;font-weight:900}
+</style>
+</head>
+<body>
+
+<h2>Las dos opciones listas — elige o usa las dos</h2>
+<p class="subtitle">Ambas comparten los mismos datos y van al mismo Google Sheets — solo cambia la experiencia</p>
+
+<div class="cols">
+
+  <!-- MODO A: CLIENTE -->
+  <div class="mode-card" onclick="this.classList.toggle('selected')" data-choice="a">
+    <div class="mode-header">
+      <div class="mode-icon">📱</div>
+      <div>
+        <div class="mode-title">Modo Cliente — Autoservicio</div>
+        <div class="mode-sub">El cliente llena desde su celular o PC — solo o con su familia</div>
+      </div>
+    </div>
+    <div class="mode-preview">
+      <div class="screen-a">
+        <div class="sa-badge">Visa USA · Turismo · Familia Gomez</div>
+
+        <div class="sa-persons">
+          <div class="sa-person done">
+            <span class="sa-initial" style="display:flex">C</span>
+            Carlos<br><span style="color:#4ade80;font-size:.58rem">100%</span>
+          </div>
+          <div class="sa-person active">
+            <span class="sa-initial" style="display:flex">M</span>
+            Maria<br><span style="font-size:.58rem">35%</span>
+          </div>
+          <div class="sa-person pending">
+            <span class="sa-initial" style="display:flex">S</span>
+            Sofia<br><span style="font-size:.58rem">—</span>
+          </div>
+          <div class="sa-person pending">
+            <span class="sa-initial" style="display:flex">L</span>
+            Lucas<br><span style="font-size:.58rem">—</span>
+          </div>
+        </div>
+
+        <div class="sa-progress">
+          <div class="sa-bar"><div class="sa-bar-fill p35"></div></div>
+          <div class="sa-pct">35%</div>
+        </div>
+
+        <div class="sa-question">
+          <div class="sa-q-label">Maria · Pasaporte</div>
+          <div class="sa-q-text">¿Cual es el numero de pasaporte de Maria?</div>
+          <input class="sa-q-input" placeholder="Ej: P123456789" readonly>
+          <div class="sa-q-hint">Exactamente como aparece en la pagina de datos del pasaporte</div>
+          <div class="sa-btns">
+            <button class="sa-btn back">Atras</button>
+            <button class="sa-btn next">Continuar →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-box">
+        <div class="out-title">Al terminar recibe:</div>
+        <div class="out-row"><span class="out-key">Resumen DS-160</span><span>Tabla lista para copiar</span></div>
+        <div class="out-row"><span class="out-key">Documentos necesarios</span><span>Checklist personalizado</span></div>
+        <div class="out-row"><span class="out-key">Posibles riesgos</span><span>Detectados automaticamente</span></div>
+        <span class="out-ok">Funciona en movil y PC</span>
+        <span class="out-flag" style="margin-left:6px">Puede pausar y retomar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODO B: ASESOR -->
+  <div class="mode-card" onclick="this.classList.toggle('selected')" data-choice="b">
+    <div class="mode-header">
+      <div class="mode-icon">💼</div>
+      <div>
+        <div class="mode-title">Modo Asesor — Entrada Rapida</div>
+        <div class="mode-sub">Roberto llena en sesion con el cliente — vista compacta y eficiente</div>
+      </div>
+    </div>
+    <div class="mode-preview">
+      <div class="screen-b">
+        <div class="sb-header">
+          <span class="sb-title">Familia Gomez · Visa USA</span>
+          <span class="sb-badge">MODO ASESOR</span>
+        </div>
+
+        <div class="sb-tabs">
+          <div class="sb-tab done-tab" style="background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.2);color:#4ade80">✓ Carlos</div>
+          <div class="sb-tab active">Maria</div>
+          <div class="sb-tab">Sofia</div>
+          <div class="sb-tab">Lucas</div>
+        </div>
+
+        <div class="sb-grid">
+          <div class="sb-section-title">DATOS PERSONALES</div>
+          <div class="sb-field">
+            <span class="sb-label">Apellidos</span>
+            <div class="sb-input filled">Gomez Paredes</div>
+          </div>
+          <div class="sb-field">
+            <span class="sb-label">Nombres</span>
+            <div class="sb-input filled">Maria Elena</div>
+          </div>
+          <div class="sb-field">
+            <span class="sb-label">Fecha Nac.</span>
+            <div class="sb-input filled">15/03/1985</div>
+          </div>
+          <div class="sb-field">
+            <span class="sb-label">Ciudad Nac.</span>
+            <div class="sb-input">Guayaquil</div>
+          </div>
+          <div class="sb-section-title">PASAPORTE</div>
+          <div class="sb-field">
+            <span class="sb-label">Num. Pasaporte</span>
+            <div class="sb-input">Pendiente...</div>
+          </div>
+          <div class="sb-field">
+            <span class="sb-label">Vencimiento</span>
+            <div class="sb-input">Pendiente...</div>
+          </div>
+        </div>
+
+        <div class="sb-progress-row">
+          <div class="sb-prog">
+            <div class="sb-prog-bar"><div class="sb-prog-fill green" style="width:100%"></div></div>
+            <div class="sb-prog-name">Carlos</div>
+          </div>
+          <div class="sb-prog">
+            <div class="sb-prog-bar"><div class="sb-prog-fill yellow" style="width:40%"></div></div>
+            <div class="sb-prog-name">Maria</div>
+          </div>
+          <div class="sb-prog">
+            <div class="sb-prog-bar"><div class="sb-prog-fill gray" style="width:0%"></div></div>
+            <div class="sb-prog-name">Sofia</div>
+          </div>
+          <div class="sb-prog">
+            <div class="sb-prog-bar"><div class="sb-prog-fill gray" style="width:0%"></div></div>
+            <div class="sb-prog-name">Lucas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-box">
+        <div class="out-title">Al terminar genera:</div>
+        <div class="out-row"><span class="out-key">Ficha DS-160 por persona</span><span>Con todos los datos</span></div>
+        <div class="out-row"><span class="out-key">Reporte de estrategia</span><span>Banderas + prep entrevista</span></div>
+        <div class="out-row"><span class="out-key">Google Sheets</span><span>Auto-guardado en hoja</span></div>
+        <span class="out-ok">Vista compacta — rapido</span>
+        <span class="out-flag" style="margin-left:6px">Menos clics, mas campos</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PANTALLA DE INICIO COMPARTIDA -->
+<div style="border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;margin-bottom:20px">
+  <div style="background:rgba(255,255,255,.04);padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07)">
+    <div style="font-size:.8rem;font-weight:700;color:#F0B429">Pantalla de inicio — igual para los dos modos</div>
+    <div style="font-size:.68rem;color:rgba(255,255,255,.4);margin-top:1px">El cliente o asesor empieza aqui — define tipo de visa y cuantos viajeros</div>
+  </div>
+  <div style="padding:14px;background:#0d1a30;display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start">
+    <div style="flex:1;min-width:180px">
+      <div style="font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Tipo de Visa</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.35);border-radius:7px;padding:8px 12px;font-size:.78rem;font-weight:700;color:#F0B429">🇺🇸 USA — Turismo B1/B2</div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:7px;padding:8px 12px;font-size:.78rem;color:rgba(255,255,255,.5)">🇪🇺 Schengen / Europa</div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:7px;padding:8px 12px;font-size:.78rem;color:rgba(255,255,255,.5)">🇬🇧 Reino Unido</div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:180px">
+      <div style="font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Cuantos viajeros</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;font-size:.8rem;color:rgba(255,255,255,.5)">1</div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;font-size:.8rem;color:rgba(255,255,255,.5)">2</div>
+        <div style="background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.3);border-radius:6px;padding:5px 12px;font-size:.8rem;font-weight:700;color:#F0B429">3</div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;font-size:.8rem;color:rgba(255,255,255,.5)">4</div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;font-size:.8rem;color:rgba(255,255,255,.5)">5</div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;font-size:.8rem;color:rgba(255,255,255,.5)">6+</div>
+      </div>
+      <div style="font-size:.68rem;color:rgba(255,255,255,.35)">Luego defines nombre y rol de cada uno (adulto / menor)</div>
+    </div>
+  </div>
+</div>
+
+<div class="recommend-badge">
+  <strong>Plan:</strong> Una sola pagina <code>intake.html</code> que detecta el modo (cliente vs asesor) con un toggle al inicio. Ambos modos usan las mismas preguntas pero con diferente ritmo: el cliente ve 1 pregunta a la vez, el asesor ve todo agrupado por secciones. Al final ambos envian al mismo Google Sheets y generan el mismo reporte de estrategia. Funciona para USA (DS-160 · 19 secciones), Schengen (37 campos), y UK (VAF1A). Menores de 14 años saltan automaticamente las secciones de empleo.
+</div>
+
+<div style="text-align:center;margin-top:20px;font-size:.78rem;color:rgba(255,255,255,.35)">
+  Haz clic en uno o ambos modos para seleccionar — o dime en el terminal
+</div>
+
+</body>
+</html>

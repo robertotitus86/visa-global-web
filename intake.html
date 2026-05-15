@@ -1476,7 +1476,7 @@ async function submitForm() {
 
   // Usar ref del URL si el asesor generó el link desde el CRM
   const urlRef = new URLSearchParams(window.location.search).get('ref');
-  const refId  = urlRef || ('INK-' + Date.now().toString().slice(-6));
+  const refId  = urlRef || ('VG-' + Date.now().toString().slice(-6));
   const personas = S.travelers.map((t, i) => ({
     nombre: t.name,
     rol: t.role,
