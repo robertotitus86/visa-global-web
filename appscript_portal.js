@@ -203,33 +203,40 @@ function construirPromptFamiliar(shared, personas) {
     return lineas.filter(l => l.trim() && !l.endsWith(': —') && !l.endsWith(': ')).join('\n');
   }).join('\n\n');
 
-  return `Eres un experto asesor de visas con 15 anos de experiencia analizando solicitudes de visa B1/B2 de turismo USA para ciudadanos ecuatorianos.
+  return `Eres el mejor asesor de visas B1/B2 USA del mundo, con 20 anos de experiencia logrando aprobaciones para ciudadanos ecuatorianos. Tu objetivo es siempre llevar la probabilidad de aprobacion al rango 80-100%. Conoces exactamente como piensan los consules americanos en Guayaquil y Quito.
 
-Analiza el siguiente caso familiar y proporciona un analisis detallado y estrategia de accion:
+Analiza este caso y dame una estrategia CONCRETA Y ESPECIFICA para maximizar la aprobacion:
 
-INFORMACION DEL VIAJE (FAMILIAR):
-- Numero de viajeros: ${numViaj}
-- Fecha estimada de llegada USA: ${shared.intendedArrival || '—'}
-- Duracion: ${shared.lengthOfStayDays || '—'} dias
+VIAJE:
+- Viajeros: ${numViaj} personas
+- Llegada USA: ${shared.intendedArrival || '—'} por ${shared.lengthOfStayDays || '—'} dias
 - Alojamiento: ${shared.usStayType || '—'} — ${shared.usStayName || '—'}, ${shared.usStayCity || '—'}, ${shared.usStayState || '—'}
-- Quien paga: ${shared.whoIsPaying || '—'}
+- Paga: ${shared.whoIsPaying || '—'}
 - Contacto USA: ${shared.usContactName || '—'} (${shared.usContactRelationship || '—'})
-- Proposito declarado: ${shared.purposeNote || 'Turismo vacacional'}
+- Proposito: ${shared.purposeNote || 'Turismo vacacional'}
 
-PERFILES INDIVIDUALES:
+PERFILES:
 ${perfilesDetalle}
+
+CONTEXTO DEL CONSULADO USA EN ECUADOR:
+- Los consules rechazan principalmente por: falta de lazos con Ecuador, fondos insuficientes, historial de overstay, parientes en USA sin explicacion clara, proposito vago del viaje.
+- Aprueban cuando ven: empleo estable con carta del empleador, propiedad en Ecuador, hijos en escuela, fondos bancarios de al menos 3 meses de salario, itinerario especifico, boleto de regreso confirmado.
+- Para familias: el consul evalua al titular principal. Si el titular es solido, la familia se aprueba con el.
+- Duraciones de 10-21 dias son las mas seguras para primera visa.
 
 Responde en JSON exacto sin markdown ni bloques de codigo:
 {
-  "probabilidad": "porcentaje estimado de aprobacion para la familia (ej: 72%)",
+  "probabilidad": "porcentaje estimado de aprobacion CON la estrategia aplicada (objetivo: 80-100%)",
+  "probabilidad_sin_estrategia": "probabilidad actual sin preparacion adicional",
   "paquete": "ESENCIAL $97 o PROFESIONAL $197 o VIP $397",
-  "razon_paquete": "una linea explicando por que ese paquete",
-  "fuertes": "3-5 puntos fuertes del perfil familiar separados por punto y coma",
-  "debiles": "2-4 riesgos o debilidades separados por punto y coma",
-  "estrategia": "estrategia completa de 6-8 pasos numerados para maximizar probabilidad. Ser especifico con este caso",
-  "documentos_clave": "lista de 4-7 documentos criticos para este caso familiar especifico separados por punto y coma",
-  "proximos_pasos": "3 acciones concretas que el asesor debe tomar esta semana, numeradas",
-  "alerta_principal": "si hay algun riesgo critico o bandera roja, mencionarlo en 1-2 lineas. Si no hay, escribir PERFIL LIMPIO"
+  "razon_paquete": "una linea explicando por que ese paquete segun la complejidad del caso",
+  "fuertes": "3-5 puntos fuertes del perfil que el consul vera positivamente, separados por punto y coma",
+  "debiles": "2-4 debilidades reales del perfil que pueden causar rechazo, separados por punto y coma",
+  "estrategia": "plan CONCRETO de 7-10 pasos numerados para llevar este caso al 80-100%. Cada paso debe ser especifico para ESTE caso, no generico. Incluir: que documentos preparar exactamente, como presentarlos, que decir en la entrevista sobre cada punto debil, que enfatizar.",
+  "documentos_exactos": "lista de 5-8 documentos especificos con descripcion de como deben estar (ej: 'Carta laboral en papel membretado con cargo, salario y fecha de inicio, firmada por RRHH o gerente general' — NO solo 'carta laboral'), separados por punto y coma",
+  "guion_entrevista": "3-5 preguntas que el consul hara SEGURO a este perfil y la respuesta ideal para cada una. Formato: PREGUNTA: [pregunta] | RESPUESTA IDEAL: [respuesta]",
+  "proximos_pasos": "5 acciones especificas que el asesor debe hacer esta semana con este cliente, en orden de urgencia, numeradas",
+  "alerta_principal": "el riesgo mas critico de este caso especifico y como neutralizarlo. Si no hay riesgo critico, escribir PERFIL LIMPIO"
 }`;
 }
 
@@ -311,14 +318,33 @@ function notificarRobertoIntakeFamiliar(refId, fecha, nombre, numViaj, tel, emai
       <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.estrategia||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
     </div>
 
-    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:14px;margin-bottom:20px">
-      <div style="font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">DOCUMENTOS A SOLICITAR</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_clave||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
+    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">DOCUMENTOS EXACTOS A PREPARAR</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_exactos||analisis.documentos_clave||'—').split(';').map((s,i)=>`<div style="padding:5px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join('')}</div>
     </div>
 
-    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:24px">
-      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROXIMOS PASOS ESTA SEMANA</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">GUION DE ENTREVISTA — PREGUNTAS Y RESPUESTAS IDEALES</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>')}</div>
+    </div>
+
+    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROBABILIDAD — CON ESTRATEGIA VS SIN PREPARAR</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="text-align:center;background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px">
+          <div style="font-size:22px;font-weight:700;color:#166534">${analisis.probabilidad||'—'}</div>
+          <div style="font-size:10px;color:#166534;font-weight:600">CON ESTRATEGIA APLICADA</div>
+        </div>
+        <div style="text-align:center;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:8px;padding:10px">
+          <div style="font-size:22px;font-weight:700;color:#991B1B">${analisis.probabilidad_sin_estrategia||'—'}</div>
+          <div style="font-size:10px;color:#991B1B;font-weight:600">SIN PREPARACION</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROXIMOS PASOS — ESTA SEMANA (EN ORDEN DE URGENCIA)</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
     </div>
 
     <a href="${reporteUrl}" style="display:inline-block;background:#060E1F;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;margin-right:10px">
@@ -597,7 +623,7 @@ function llamarClaudeIA(prompt) {
     },
     payload: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 900,
+      max_tokens: 2000,
       messages: [{ role: 'user', content: prompt }],
     }),
     muteHttpExceptions: true,
