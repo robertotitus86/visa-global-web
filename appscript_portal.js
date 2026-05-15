@@ -36,9 +36,8 @@ const COL_RESUMEN = [
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
-    if (payload.subtipo === 'intake_familiar') {
-      return manejarIntakeFamiliar(payload);
-    }
+    if (payload.subtipo === 'intake_familiar') return manejarIntakeFamiliar(payload);
+    if (payload.subtipo === 'extractDS160')    return extractarDS160(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
@@ -526,9 +525,10 @@ function manejarPortalLegacy(payload) {
 function doGet(e) {
   // Admin endpoints
   const action = e.parameter.action;
-  if (action === 'getCases')    return adminGetCases(e);
-  if (action === 'updateCase')  return adminUpdateCase(e);
-  if (action === 'newCase')     return adminNewCase(e);
+  if (action === 'getCases')      return adminGetCases(e);
+  if (action === 'updateCase')    return adminUpdateCase(e);
+  if (action === 'newCase')       return adminNewCase(e);
+  if (action === 'getExtraction') return getExtraction(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -761,6 +761,72 @@ function generarHTMLReporte(refId, tipo, personas, analisis) {
   </div>` : ''}
   ${personasHTML}
 </div></body></html>`;
+}
+
+// ── Extraer datos de DS-160 PDF ───────────────────────────────────
+function extractarDS160(payload) {
+  try {
+    const extractId   = payload.extractId;
+    const travelerIdx = payload.travelerIdx || 0;
+    const pdfText     = payload.pdfText || '';
+
+    const prompt = `Eres un experto en formularios DS-160 de visa USA para Ecuador. Analiza este texto extraido de un DS-160 completado anteriormente y extrae TODOS los datos que puedas identificar. Devuelve SOLO un JSON valido sin markdown con estos campos (null si no encuentras el dato):
+{"surnames":"apellidos en mayusculas como en pasaporte","givenNames":"nombres en mayusculas","dob":"YYYY-MM-DD","cityOfBirth":"ciudad","stateOfBirth":"provincia","countryOfBirth":"Ecuador","sex":"Masculino o Femenino","maritalStatus":"estado civil","nationality":"Ecuador","nationalId":"cedula 10 digitos","passportNumber":"numero pasaporte","passportType":"Ordinario","passportCountry":"Ecuador","passportIssueDate":"YYYY-MM-DD","passportExpiry":"YYYY-MM-DD","homeStreet":"direccion","homeCity":"ciudad residencia","homeProvince":"provincia residencia","primaryPhone":"telefono con codigo","email":"correo@email.com","employmentStatus":"situacion laboral","currentOccupation":"cargo","currentEmployerName":"empresa","currentEmployerCity":"ciudad empresa","monthlySalary":"salario USD","hasBeenInUS":"si o no","usVisitDetails":"detalles visita anterior","hasHadUSVisa":"si o no","previousVisaNumber":"numero visa anterior","previousVisaIssueDate":"YYYY-MM-DD","hasBeenRefused":"si o no","refusalDetails":"motivo rechazo","fatherSurname":"apellido padre","fatherGivenName":"nombre padre","motherSurname":"apellido madre","motherGivenName":"nombre madre","languages":"Espanol","organizations":"Ninguna","countriesVisited5Years":"paises visitados"}
+
+TEXTO DEL DS-160:
+${pdfText.substring(0, 6000)}`;
+
+    const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+      },
+      payload: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+      muteHttpExceptions: true,
+    });
+
+    const json     = JSON.parse(resp.getContentText());
+    const text     = json.content?.[0]?.text || '{}';
+    const clean    = text.replace(/```json|```/g, '').trim();
+    const extracted = JSON.parse(clean);
+
+    // Save to Extractions sheet
+    const ss    = SpreadsheetApp.openById(SS_ID);
+    const sheet = getOrCreateSheet(ss, 'Extractions DS-160', ['Extract ID','Fecha','Viajero','Datos JSON']);
+    sheet.appendRow([extractId, new Date().toISOString(), travelerIdx, JSON.stringify(extracted)]);
+
+    return ok({ status: 'ok', extractId });
+  } catch(err) {
+    console.error('extractarDS160 error:', err.toString());
+    return ok({ error: err.toString() });
+  }
+}
+
+// ── Recuperar extraccion por ID ───────────────────────────────────
+function getExtraction(e) {
+  try {
+    const extractId = e.parameter.extractId;
+    const ss        = SpreadsheetApp.openById(SS_ID);
+    const sheet     = ss.getSheetByName('Extractions DS-160');
+    if (!sheet) return ContentService.createTextOutput(JSON.stringify({status:'pending'})).setMimeType(ContentService.MimeType.JSON);
+
+    const data = sheet.getDataRange().getValues();
+    const row  = data.find((r, i) => i > 0 && r[0] === extractId);
+    if (!row) return ContentService.createTextOutput(JSON.stringify({status:'pending'})).setMimeType(ContentService.MimeType.JSON);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'ok',
+      datos: JSON.parse(row[3])
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // ── Admin: GET /getCases ──────────────────────────────────────────

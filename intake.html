@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solicitud Visa USA — Asesoría Visa Global</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root {
   --navy:#060E1F; --navy2:#0d1a30; --navy3:#1a2a45;
@@ -232,6 +233,34 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 
 /* HIDDEN */
 .hidden{display:none!important}
+
+/* DS-160 UPLOAD */
+.upload-banner{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:24px}
+.upload-banner-title{font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:4px}
+.upload-banner-sub{font-size:.75rem;color:var(--muted);margin-bottom:12px}
+.upload-slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.upload-slots{grid-template-columns:1fr}}
+.upload-slot{border:1px dashed rgba(255,255,255,.15);border-radius:var(--rs);
+  padding:10px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.upload-slot:hover{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.05)}
+.upload-slot.loaded{border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.06);border-style:solid}
+.upload-slot.processing{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06);border-style:solid}
+.upload-slot-label{font-size:.7rem;font-weight:600;color:var(--muted);margin-bottom:4px}
+.upload-slot-name{font-size:.65rem;color:var(--green);margin-top:3px;word-break:break-all}
+.upload-slot-status{font-size:.65rem;margin-top:3px}
+.upload-slot input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-progress{margin-top:12px}
+.upload-progress-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.upload-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
+.upload-progress-text{font-size:.68rem;color:var(--muted);margin-top:4px;text-align:center}
+.upload-skip{font-size:.72rem;color:var(--muted);text-align:center;margin-top:8px;cursor:pointer}
+.upload-skip:hover{color:var(--gold)}
+.extracted-preview{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.2);
+  border-radius:var(--rs);padding:10px 12px;margin-top:6px;font-size:.72rem;color:rgba(255,255,255,.7);
+  line-height:1.6}
+.spin-sm{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.2);
+  border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle}
 
 /* COUNT SELECTOR */
 .count-grid{display:flex;flex-wrap:wrap;gap:8px}
@@ -609,6 +638,110 @@ function renderScreen() {
   }
 }
 
+// ═══════════════════════════════════════════════════════════
+// DS-160 PDF EXTRACTION
+// ═══════════════════════════════════════════════════════════
+const EXTRACTED = {}; // index -> extracted data object
+
+async function extractPDFText(file) {
+  return new Promise(async (resolve) => {
+    try {
+      if (typeof pdfjsLib === 'undefined') { resolve(''); return; }
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const ab  = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({data: ab}).promise;
+      let text = '';
+      for (let i = 1; i <= Math.min(pdf.numPages, 15); i++) {
+        const page    = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+      }
+      resolve(text);
+    } catch(e) { resolve(''); }
+  });
+}
+
+async function handlePDFUpload(idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const slot = document.getElementById(`slot_${idx}`);
+  const statusEl = document.getElementById(`slot_status_${idx}`);
+  slot.classList.add('processing');
+  statusEl.innerHTML = '<span class="spin-sm"></span> Extrayendo...';
+
+  try {
+    const text = await extractPDFText(file);
+    if (!text || text.trim().length < 50) {
+      statusEl.textContent = 'PDF sin texto — se enviara a analisis IA';
+    }
+
+    // Send to Apps Script for Claude extraction
+    const extractId = 'EXT-' + idx + '-' + Date.now().toString().slice(-6);
+    const payload = {
+      subtipo: 'extractDS160',
+      extractId,
+      travelerIdx: idx,
+      fileName: file.name,
+      pdfText: text.substring(0, 8000) // limit text size
+    };
+
+    // Fire and forget POST (no-cors)
+    fetch(WEBHOOK, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    }).catch(() => {});
+
+    // Poll for result
+    statusEl.innerHTML = '<span class="spin-sm"></span> Analizando con IA...';
+    let result = null;
+    for (let attempt = 0; attempt < 12; attempt++) {
+      await new Promise(r => setTimeout(r, 3000));
+      try {
+        const resp = await fetch(`${WEBHOOK}?action=getExtraction&extractId=${extractId}`);
+        const data = await resp.json();
+        if (data.status === 'ok' && data.datos) { result = data.datos; break; }
+      } catch(e) {}
+    }
+
+    if (result) {
+      EXTRACTED[idx] = result;
+      slot.classList.remove('processing');
+      slot.classList.add('loaded');
+      const nombre = result.surnames && result.givenNames
+        ? `${result.givenNames} ${result.surnames}`.trim()
+        : file.name.replace('.pdf','');
+      statusEl.innerHTML = `<span style="color:var(--green)">Extraido: ${nombre}</span>`;
+      // Pre-fill traveler name if detected
+      if (result.surnames || result.givenNames) {
+        const fullName = `${result.givenNames||''} ${result.surnames||''}`.trim();
+        if (!S.travelers[idx]) S.travelers[idx] = {name:'',role:'Adulto',dob:''};
+        if (!S.travelers[idx].name) S.travelers[idx].name = fullName;
+        if (result.dob && !S.travelers[idx].dob) S.travelers[idx].dob = result.dob;
+        // Update traveler row input if visible
+        const nameInput = document.getElementById(`tname_${idx}`);
+        if (nameInput && !nameInput.value) nameInput.value = fullName;
+      }
+    } else {
+      slot.classList.remove('processing');
+      statusEl.innerHTML = '<span style="color:var(--amber)">Procesando... revisar en email</span>';
+    }
+  } catch(e) {
+    slot.classList.remove('processing');
+    statusEl.textContent = 'Error al leer el archivo';
+  }
+}
+
+function applyExtractedData() {
+  // Apply EXTRACTED data to S.perTraveler for each index
+  Object.entries(EXTRACTED).forEach(([idx, data]) => {
+    const i = parseInt(idx);
+    if (!S.perTraveler[i]) S.perTraveler[i] = {};
+    Object.assign(S.perTraveler[i], data);
+  });
+}
+
 // ── SETUP ────────────────────────────────────────────────
 function renderSetup() {
   const count = S.travelers.length || 0;
@@ -635,10 +768,31 @@ function renderSetup() {
   }).join('');
 
   const cnt = S.travelers.length || 1;
+  // Build upload slots for current traveler count
+  const numSlots = S.travelers.length || 1;
+  const uploadSlots = Array.from({length: numSlots}, (_,i) => {
+    const loaded = EXTRACTED[i] ? 'loaded' : '';
+    const nombre = S.travelers[i]?.name || `Viajero ${i+1}`;
+    return `<div class="upload-slot ${loaded}" id="slot_${i}">
+      <div class="upload-slot-label">${nombre.split(' ')[0] || 'Viajero '+(i+1)}</div>
+      <div style="font-size:.65rem;color:rgba(255,255,255,.3)">Subir DS-160 PDF</div>
+      <div class="upload-slot-status" id="slot_status_${i}">${EXTRACTED[i]?'<span style="color:var(--green)">Cargado</span>':''}</div>
+      <input type="file" accept="application/pdf,.pdf" onchange="handlePDFUpload(${i},this)">
+    </div>`;
+  }).join('');
+
   return `<div class="phase-label">Visa USA · Turismo B1/B2</div>
   <div class="card">
     <div class="card-title">Bienvenido a <em>Visa Global</em></div>
     <div class="card-sub">Este formulario recopila toda la informacion necesaria para gestionar su solicitud de visa americana de turismo. Tomara aproximadamente 15-25 minutos.</div>
+
+    <!-- UPLOAD DS-160 ANTERIORES -->
+    <div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--r);padding:14px;margin-bottom:20px">
+      <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:3px">¿Tiene formularios DS-160 anteriores?</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Suba los PDFs y pre-llenaremos el formulario automaticamente. Ahorra hasta 30 min por persona.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:7px" id="uploadSlotsGrid">${uploadSlots}</div>
+      <div style="font-size:.65rem;color:var(--muted);text-align:center;margin-top:8px">O continue sin subir PDFs — puede llenar todo manualmente</div>
+    </div>
 
     <div class="section-title">Cuantas personas viajan?</div>
     <div class="count-grid" id="countGrid">
@@ -681,6 +835,20 @@ function setCount(n) {
     </div>
   </div>`).join('');
   document.getElementById('travelerRows').innerHTML = rows;
+  // Refresh upload slots for new count
+  const grid = document.getElementById('uploadSlotsGrid');
+  if (grid) {
+    grid.innerHTML = Array.from({length: n}, (_,i) => {
+      const t = S.travelers[i];
+      const loaded = EXTRACTED[i] ? 'loaded' : '';
+      return `<div class="upload-slot ${loaded}" id="slot_${i}">
+        <div class="upload-slot-label">${t?.name?.split(' ')[0]||'Viajero '+(i+1)}</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.3)">Subir DS-160 PDF</div>
+        <div class="upload-slot-status" id="slot_status_${i}">${EXTRACTED[i]?'<span style="color:var(--green)">Cargado</span>':''}</div>
+        <input type="file" accept="application/pdf,.pdf" onchange="handlePDFUpload(${i},this)">
+      </div>`;
+    }).join('');
+  }
 }
 
 function setTravelerField(idx, key, val) {
@@ -1210,6 +1378,7 @@ function goNext() {
 
   if (S.phase === 'setup') {
     if (!validateSetup()) { alert('Por favor complete el nombre, tipo y fecha de nacimiento de cada viajero.'); return; }
+    applyExtractedData(); // Pre-fill form with any extracted DS-160 data
     S.phase = 'shared'; S.sharedStep = 0;
   } else if (S.phase === 'shared') {
     if (!validateCurrent()) return;
