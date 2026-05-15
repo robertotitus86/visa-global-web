@@ -573,6 +573,18 @@ function openDetail(refId) {
       <textarea id="det_notas" rows="3" placeholder="Agrega notas sobre este caso..." onblur="updateCaseField('${refId}','Notas',this.value)">${notas}</textarea>
     </div>
 
+    <!-- RE-ANALIZAR -->
+    <div class="section-title" style="margin-top:16px">Completar datos y re-analizar</div>
+    <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">
+      Agrega la informacion que falta — respuestas a preguntas pendientes, aclaraciones, cambios de situacion. Claude re-analizara el caso completo y te enviara un nuevo analisis al email.
+    </div>
+    <div class="field">
+      <textarea id="det_extra" rows="5" placeholder="Ej:&#10;Carlos — Salario: $1,200/mes, lleva 4 años en la empresa&#10;Sofia (menor) — Tiene autorización notariada del padre, lista&#10;Motivo rechazo anterior: sin carta laboral — ahora sí la tiene&#10;Carlos y Luisa llevan 2 años juntos, conviven desde hace 1 año"></textarea>
+    </div>
+    <button class="btn-primary" id="btnReanalizar" onclick="reanalizar('${refId}')">Re-analizar con IA</button>
+    <div id="reanalizar_status" style="font-size:.72rem;color:var(--muted);margin-top:8px"></div>
+    <div class="divider"></div>
+
     <!-- LINKS -->
     <div class="section-title">Links rapidos</div>
     <div style="font-size:.72rem;color:var(--muted);margin-bottom:5px">Link formulario (enviar al cliente)</div>
@@ -702,6 +714,34 @@ async function crearCaso() {
 // ═══════════════════════════════════════════════════════
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+async function reanalizar(refId) {
+  const info  = document.getElementById('det_extra')?.value?.trim();
+  if (!info) { showToast('Escribe la informacion adicional primero', 'error'); return; }
+  const btn   = document.getElementById('btnReanalizar');
+  const status = document.getElementById('reanalizar_status');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Analizando...';
+  status.textContent = 'Enviando a Claude — el nuevo analisis llegara a tu email en ~30 segundos...';
+  try {
+    const url  = `${SCRIPT_URL}?action=reanalizar&pin=${encodeURIComponent(PIN)}&ref=${encodeURIComponent(refId)}&info=${encodeURIComponent(info)}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (data.error) {
+      showToast('Error: ' + data.error, 'error');
+      status.textContent = 'Error al re-analizar. Intenta de nuevo.';
+    } else {
+      showToast('Re-analisis listo — revisa tu email', 'success');
+      status.innerHTML = `<span style="color:var(--green)">Re-analisis enviado — nueva probabilidad: <strong>${data.probabilidad||'—'}</strong>. Revisa nanotiendaec@gmail.com</span>`;
+      document.getElementById('det_extra').value = '';
+    }
+  } catch(e) {
+    showToast('Error de conexion', 'error');
+    status.textContent = 'Sin conexion. Intenta de nuevo.';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Re-analizar con IA';
+}
 
 async function deleteCase(refId) {
   if (!confirm('¿Eliminar este caso? Esta accion no se puede deshacer.')) return;

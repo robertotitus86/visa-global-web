@@ -241,7 +241,8 @@ Responde en JSON exacto sin markdown ni bloques de codigo:
   "documentos_exactos": "lista de 5-8 documentos especificos con descripcion de como deben estar (ej: 'Carta laboral en papel membretado con cargo, salario y fecha de inicio, firmada por RRHH o gerente general' — NO solo 'carta laboral'), separados por punto y coma",
   "guion_entrevista": "3-5 preguntas que el consul hara SEGURO a este perfil y la respuesta ideal para cada una. Formato: PREGUNTA: [pregunta] | RESPUESTA IDEAL: [respuesta]",
   "proximos_pasos": "5 acciones especificas que el asesor debe hacer esta semana con este cliente, en orden de urgencia, numeradas",
-  "alerta_principal": "el riesgo mas critico de este caso especifico y como neutralizarlo. Si no hay riesgo critico, escribir PERFIL LIMPIO"
+  "alerta_principal": "el riesgo mas critico de este caso especifico y como neutralizarlo. Si no hay riesgo critico, escribir PERFIL LIMPIO",
+  "campos_faltantes": "lista de preguntas ESPECIFICAS que el asesor debe hacerle al cliente porque no estan en el formulario y son necesarias para completar el perfil. Formato: '1. [PERSONA] — [PREGUNTA EXACTA A HACERLE]'. Si el perfil esta completo, escribir PERFIL COMPLETO. Ejemplos: '1. Carlos — Cuanto lleva en su empleo actual y cuanto gana mensualmente. 2. Sofia — Tiene la autorizacion notariada del padre para viajar.'"
 }`;
 }
 
@@ -351,6 +352,15 @@ function notificarRobertoIntakeFamiliar(refId, fecha, nombre, numViaj, tel, emai
       <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROXIMOS PASOS — ESTA SEMANA (EN ORDEN DE URGENCIA)</div>
       <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
     </div>
+
+    ${analisis.campos_faltantes && !analisis.campos_faltantes.includes('COMPLETO') ? `
+    <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">INFORMACION FALTANTE — PREGUNTAR AL CLIENTE</div>
+      <div style="font-size:13px;color:#7F1D1D;line-height:1.9">${(analisis.campos_faltantes||'').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+      <div style="margin-top:12px">
+        <a href="${reporteUrl.replace('/exec?','/exec?action=verFormAdmin&')}&ref=${refId}&pin=admin" style="display:inline-block;background:#991B1B;color:white;padding:9px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:12px">Completar datos faltantes en el admin</a>
+      </div>
+    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:#166534;font-weight:600">Perfil completo — no faltan datos criticos</div>`}
 
     <a href="${reporteUrl}" style="display:inline-block;background:#060E1F;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;margin-right:10px">
       Ver expediente completo
@@ -535,6 +545,7 @@ function doGet(e) {
   if (action === 'updateCase')    return adminUpdateCase(e);
   if (action === 'newCase')       return adminNewCase(e);
   if (action === 'getExtraction') return getExtraction(e);
+  if (action === 'reanalizar')    return reanalizar(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -767,6 +778,133 @@ function generarHTMLReporte(refId, tipo, personas, analisis) {
   </div>` : ''}
   ${personasHTML}
 </div></body></html>`;
+}
+
+// ── Re-analizar caso con info adicional del asesor ────────────────
+function reanalizar(e) {
+  if (e.parameter.pin !== ADMIN_PIN) {
+    return ContentService.createTextOutput(JSON.stringify({error:'PIN incorrecto'})).setMimeType(ContentService.MimeType.JSON);
+  }
+  try {
+    const refId     = e.parameter.ref;
+    const infoExtra = e.parameter.info || '';
+    const ss        = SpreadsheetApp.openById(SS_ID);
+
+    // Leer datos existentes del expediente
+    const detSheet = ss.getSheetByName('Intake DS-160 Detalle');
+    let perfilTexto = '';
+    if (detSheet) {
+      const rows = detSheet.getDataRange().getValues().filter((r,i) => i > 0 && r[0] === refId);
+      perfilTexto = rows.map(r => `${r[2]} — ${r[4]}: ${r[5]}`).join('\n');
+    }
+
+    // Leer datos del CRM
+    const crmSheet = ss.getSheetByName('CASOS CRM');
+    let nombreCliente = refId;
+    if (crmSheet) {
+      const crmData = crmSheet.getDataRange().getValues();
+      const row = crmData.find((r,i) => i > 0 && r[0] === refId);
+      if (row) nombreCliente = row[4] || refId;
+    }
+
+    const prompt = `Eres el mejor asesor de visas B1/B2 USA del mundo. Re-analiza este caso con la informacion adicional que el asesor acaba de obtener del cliente.
+
+DATOS ORIGINALES DEL EXPEDIENTE (${nombreCliente}):
+${perfilTexto.substring(0, 4000)}
+
+INFORMACION ADICIONAL RECABADA POR EL ASESOR:
+${infoExtra}
+
+Con esta informacion completa, genera un nuevo analisis. Responde en JSON exacto sin markdown:
+{
+  "probabilidad": "nueva probabilidad con info completa",
+  "probabilidad_sin_estrategia": "sin preparacion",
+  "paquete": "ESENCIAL $97 o PROFESIONAL $197 o VIP $397",
+  "fuertes": "puntos fuertes separados por punto y coma",
+  "debiles": "debilidades separadas por punto y coma",
+  "estrategia": "plan actualizado de 7-10 pasos ESPECIFICOS para este caso",
+  "documentos_exactos": "documentos especificos con descripcion detallada separados por punto y coma",
+  "guion_entrevista": "3-5 preguntas que hara el consul y respuesta ideal. Formato: PREGUNTA: [pregunta] | RESPUESTA IDEAL: [respuesta]",
+  "proximos_pasos": "5 acciones urgentes esta semana numeradas",
+  "alerta_principal": "riesgo critico o PERFIL LIMPIO",
+  "campos_faltantes": "preguntas que aun faltan o PERFIL COMPLETO"
+}`;
+
+    const analisis = llamarClaudeIA(prompt);
+
+    // Actualizar CRM con nuevo analisis
+    if (crmSheet) {
+      const crmData  = crmSheet.getDataRange().getValues();
+      const headers  = crmData[0].map(h => String(h));
+      const rowIdx   = crmData.findIndex((r,i) => i > 0 && r[0] === refId);
+      if (rowIdx > 0) {
+        const updates = { 'Probabilidad': analisis.probabilidad||'—', 'Paquete': analisis.paquete||'—' };
+        Object.entries(updates).forEach(([campo, valor]) => {
+          const col = headers.indexOf(campo);
+          if (col >= 0) crmSheet.getRange(rowIdx+1, col+1).setValue(valor);
+        });
+      }
+    }
+
+    // Enviar nuevo email a Roberto
+    const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    const htmlReanalisis = `<div style="font-family:Calibri,Arial,sans-serif;max-width:700px;margin:0 auto">
+      <div style="background:#7C3AED;color:white;padding:20px 28px;border-radius:12px 12px 0 0">
+        <div style="font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">RE-ANALISIS CON DATOS ACTUALIZADOS</div>
+        <h2 style="font-size:18px;font-weight:700;margin:0">${nombreCliente} — [${refId}]</h2>
+      </div>
+      <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:22px 28px">
+        <div style="background:#F5F0FF;border:1px solid #C4B5FD;border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-size:10px;font-weight:700;color:#6D28D9;text-transform:uppercase;margin-bottom:6px">INFO ADICIONAL QUE PROPORCIONASTE</div>
+          <div style="font-size:13px;color:#1A2940;line-height:1.7">${infoExtra.replace(/\n/g,'<br>')}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div style="text-align:center;background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:12px">
+            <div style="font-size:24px;font-weight:700;color:#166534">${analisis.probabilidad||'—'}</div>
+            <div style="font-size:10px;color:#166534;font-weight:600">CON ESTRATEGIA</div>
+          </div>
+          <div style="text-align:center;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:8px;padding:12px">
+            <div style="font-size:24px;font-weight:700;color:#991B1B">${analisis.probabilidad_sin_estrategia||'—'}</div>
+            <div style="font-size:10px;color:#991B1B;font-weight:600">SIN PREPARACION</div>
+          </div>
+        </div>
+        <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:14px;margin-bottom:12px">
+          <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;margin-bottom:7px">NUEVA ESTRATEGIA</div>
+          <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.estrategia||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+        </div>
+        <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:14px;margin-bottom:12px">
+          <div style="font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;margin-bottom:7px">DOCUMENTOS EXACTOS</div>
+          <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_exactos||'—').split(';').map((s,i)=>`<strong>${i+1}.</strong> ${s.trim()}`).join('<br>')}</div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px;margin-bottom:12px">
+          <div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;margin-bottom:7px">GUION DE ENTREVISTA ACTUALIZADO</div>
+          <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>')}</div>
+        </div>
+        ${analisis.campos_faltantes && !analisis.campos_faltantes.includes('COMPLETO') ? `
+        <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;margin-bottom:7px">AUN FALTAN ESTOS DATOS</div>
+          <div style="font-size:12px;color:#7F1D1D;line-height:1.9">${(analisis.campos_faltantes||'').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+        </div>` : '<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#166534;font-weight:600">Perfil ahora completo</div>'}
+      </div>
+      <div style="text-align:center;padding:12px;font-size:11px;color:#94A3B8">Re-analisis — ${fecha}</div>
+    </div>`;
+
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: `RE-ANALISIS ${nombreCliente} — ${analisis.probabilidad||'—'} — [${refId}]`,
+      htmlBody: htmlReanalisis
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'ok',
+      probabilidad: analisis.probabilidad,
+      campos_faltantes: analisis.campos_faltantes
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch(err) {
+    console.error('reanalizar error:', err.toString());
+    return ContentService.createTextOutput(JSON.stringify({error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // ── Extraer datos de DS-160 PDF ───────────────────────────────────
