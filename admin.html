@@ -283,6 +283,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
     </div>
     <div class="modal-body" id="det_body"></div>
     <div class="modal-footer">
+      <button class="btn-danger" id="det_del" onclick="">Eliminar caso</button>
       <button class="btn-secondary" onclick="closeModal('modalDetail')">Cerrar</button>
       <button class="btn-primary" id="det_wa" onclick="">WhatsApp cliente</button>
     </div>
@@ -371,7 +372,7 @@ async function syncCases() {
       showToast(data.error === 'PIN incorrecto' ? 'PIN incorrecto' : 'Error al sincronizar: ' + data.error, 'error');
       if (data.error === 'PIN incorrecto') showPinError();
     } else {
-      CASES = data.cases || [];
+      CASES = (data.cases || []).filter(c => c['Estado'] !== 'ELIMINADO');
       saveLocal();
       renderKanban();
       showToast('Sincronizado — ' + CASES.length + ' casos', 'success');
@@ -528,7 +529,8 @@ function openDetail(refId) {
   document.getElementById('det_title').textContent = nombre + ' — ' + refId;
 
   const waLink = tel ? `https://wa.me/${tel.replace(/\D/g,'')}` : '#';
-  document.getElementById('det_wa').onclick = () => window.open(waLink,'_blank');
+  document.getElementById('det_wa').onclick  = () => window.open(waLink,'_blank');
+  document.getElementById('det_del').onclick = () => deleteCase(refId);
 
   document.getElementById('det_body').innerHTML = `
     <!-- ESTADO -->
@@ -700,6 +702,20 @@ async function crearCaso() {
 // ═══════════════════════════════════════════════════════
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+async function deleteCase(refId) {
+  if (!confirm('¿Eliminar este caso? Esta accion no se puede deshacer.')) return;
+  CASES = CASES.filter(c => (c['Ref ID']||c['refId']) !== refId);
+  saveLocal();
+  renderKanban();
+  closeModal('modalDetail');
+  showToast('Caso eliminado', 'success');
+  // Marcar como eliminado en Sheets
+  try {
+    const url = `${SCRIPT_URL}?action=updateCase&pin=${encodeURIComponent(PIN)}&ref=${encodeURIComponent(refId)}&campo=Estado&valor=ELIMINADO`;
+    await fetch(url);
+  } catch(e) {}
+}
 
 function copyLink(text) {
   navigator.clipboard.writeText(text).then(() => showToast('Link copiado', 'success')).catch(() => {
