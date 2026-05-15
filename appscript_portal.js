@@ -91,23 +91,49 @@ function manejarIntakeFamiliar(payload) {
   // 2. Análisis IA familiar
   const analisis = analizarPerfilFamiliar(shared, personas, refId);
 
-  // 3. Guardar en CRM de casos
-  const sheetCRM = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
-  const crmRow   = sheetCRM.getLastRow() + 1;
-  const reporteUrl = generarUrlReporte(refId, 'USA DS-160');
-  sheetCRM.appendRow([
-    refId, fecha, 'NUEVO — Formulario recibido', 'USA DS-160',
-    nombrePrincipal, numViaj, telCliente, emailCliente,
-    analisis.probabilidad || '—', analisis.paquete || '—',
-    shared.intendedArrival || '—', shared.lengthOfStayDays || '—',
-    'Pendiente', 'Por agendar', '', reporteUrl
-  ]);
+  // 3. Guardar/actualizar en CRM de casos
+  const sheetCRM   = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
+  const reporteUrl  = generarUrlReporte(refId, 'USA DS-160');
+  const crmData     = sheetCRM.getDataRange().getValues();
+  const crmHeaders  = crmData[0].map(h => String(h).trim());
+  const refColIdx   = crmHeaders.indexOf('Ref ID');
+  const existingRow = crmData.findIndex((row, i) => i > 0 && String(row[refColIdx]) === refId);
+
+  if (existingRow > 0) {
+    // Actualizar fila existente (caso creado desde el CRM)
+    const rowNum = existingRow + 1;
+    const fieldsToUpdate = {
+      'Estado':        'Formulario Recibido',
+      'Num Viajeros':  numViaj,
+      'Telefono':      telCliente || crmData[existingRow][crmHeaders.indexOf('Telefono')],
+      'Email':         emailCliente || crmData[existingRow][crmHeaders.indexOf('Email')],
+      'Probabilidad':  analisis.probabilidad || '—',
+      'Paquete':       analisis.paquete || '—',
+      'Llegada USA':   shared.intendedArrival || '—',
+      'Dias Estancia': shared.lengthOfStayDays || '—',
+      'Ver Expediente': reporteUrl,
+    };
+    Object.entries(fieldsToUpdate).forEach(([campo, valor]) => {
+      const colIdx = crmHeaders.indexOf(campo);
+      if (colIdx >= 0) sheetCRM.getRange(rowNum, colIdx + 1).setValue(valor);
+    });
+    sheetCRM.getRange(rowNum, 1, 1, COL_CRM.length).setBackground('#EFF6FF');
+    sheetCRM.getRange(rowNum, crmHeaders.indexOf('Estado') + 1)
+      .setFontColor('#1E40AF').setFontWeight('bold');
+  } else {
+    // Crear fila nueva (cliente llegó directo sin pasar por CRM)
+    const crmRow = sheetCRM.getLastRow() + 1;
+    sheetCRM.appendRow([
+      refId, fecha, 'Formulario Recibido', 'USA DS-160',
+      nombrePrincipal, numViaj, telCliente, emailCliente,
+      analisis.probabilidad || '—', analisis.paquete || '—',
+      shared.intendedArrival || '—', shared.lengthOfStayDays || '—',
+      'Pendiente', 'Por agendar', '', reporteUrl
+    ]);
+    sheetCRM.getRange(crmRow, 1, 1, COL_CRM.length).setBackground('#F0FDF4');
+    sheetCRM.getRange(crmRow, 3).setFontColor('#166534').setFontWeight('bold');
+  }
   formatearCabecera(sheetCRM, 1);
-  // Color fila nueva
-  sheetCRM.getRange(crmRow, 1, 1, COL_CRM.length)
-    .setBackground('#F0FDF4');
-  sheetCRM.getRange(crmRow, 3)
-    .setFontColor('#166534').setFontWeight('bold');
   try { sheetCRM.autoResizeColumns(1, COL_CRM.length); } catch(e) {}
 
   // 4. Email a Roberto con análisis completo
