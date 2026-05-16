@@ -453,6 +453,8 @@ function renderCard(c, accentColor) {
   const fecha    = c['Fecha']            || '';
   const cita     = c['Cita']             || '';
   const pago     = c['Pago']             || '';
+  const stored   = c['Ver Expediente']   || '';
+  const cardLink = stored.includes('intake.html') ? stored : `${INTAKE_URL}?ref=${refId}`;
 
   const isCita   = (cita && cita !== 'Por agendar' && cita !== '—');
   const urgente  = isCita && isUpcoming(cita);
@@ -480,7 +482,7 @@ function renderCard(c, accentColor) {
       <span class="card-date">${fecha.substring(0,10)}</span>
       <div class="card-actions" onclick="event.stopPropagation()">
         ${tel ? `<a class="action-btn green" href="${waLink}" target="_blank" title="WhatsApp">WA</a>` : ''}
-        <button class="action-btn" onclick="copyLink('${INTAKE_URL}?ref=${refId}')" title="Copiar link formulario">&#128279;</button>
+        <button class="action-btn" onclick="copyLink('${cardLink}')" title="Copiar link formulario">&#128279;</button>
         <button class="action-btn" onclick="openDetail('${refId}')" title="Ver detalle">&#128196;</button>
       </div>
     </div>
