@@ -324,6 +324,10 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 <footer class="nav" id="bottomNav">
   <button class="nav-back hidden" id="btnBack" onclick="goBack()">Atras</button>
   <button class="nav-next" id="btnNext" onclick="goNext()">Comenzar</button>
+  <button id="btnSaveNow" onclick="forceSaveNow(this)" title="Guardar en nube ahora"
+    style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);font-family:var(--sans);font-size:.72rem;padding:8px 12px;border-radius:var(--rs);cursor:pointer;transition:all .2s;white-space:nowrap">
+    Guardar
+  </button>
 </footer>
 
 <script>
@@ -446,20 +450,51 @@ function showSyncBadge(status, text) {
 async function saveToCloud() {
   if (!CLIENT_REF) return;
   showSyncBadge('saving', 'Guardando...');
-  // no-cors no devuelve respuesta — asumimos OK si no lanza excepcion
-  // El verdadero error se detecta en loadFromCloud (si no hay datos en nube = fallo silencioso)
   try {
-    await fetch(WEBHOOK, {
+    // POST (no-cors, fire and forget)
+    fetch(WEBHOOK, {
       method: 'POST',
       mode: 'no-cors',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ subtipo: 'save_draft', ref: CLIENT_REF, data: { S, ts: Date.now() } })
     });
-    showSyncBadge('saved', 'Sincronizado ✓');
+    // Verificar con GET 3 segundos después que realmente se guardó
+    await new Promise(r => setTimeout(r, 3000));
+    try {
+      const check = await fetch(WEBHOOK + '?action=get_draft&ref=' + encodeURIComponent(CLIENT_REF));
+      if (check.ok) {
+        const data = await check.json();
+        const saved = data.S || data.data?.S;
+        const tieneViajeros = saved && saved.travelers && saved.travelers.length > 0;
+        if (tieneViajeros) {
+          showSyncBadge('saved', 'Guardado en nube ✓ verificado');
+          _cloudSaveOk = true;
+        } else {
+          showSyncBadge('local', 'Solo local — reintentando...');
+          _cloudSaveOk = false;
+          // Reintentar en 10 segundos
+          setTimeout(saveToCloud, 10000);
+        }
+      }
+    } catch(verifyErr) {
+      showSyncBadge('saved', 'Sincronizado ✓');
+    }
   } catch(e) {
-    // Red caída o bloqueado — datos siguen en localStorage
-    showSyncBadge('local', 'Sin conexión — guardado localmente');
+    showSyncBadge('local', 'Sin conexion — datos guardados en tu dispositivo');
+    _cloudSaveOk = false;
   }
+}
+
+// Auto-guardado cada 60 segundos aunque no haya actividad
+let _cloudSaveOk = false;
+let _autoSaveInterval = null;
+function startAutoSave() {
+  if (_autoSaveInterval) return;
+  _autoSaveInterval = setInterval(() => {
+    if (CLIENT_REF && S.travelers && S.travelers.length > 0) {
+      saveToCloud();
+    }
+  }, 60000);
 }
 
 async function loadFromCloud() {
@@ -1829,6 +1864,44 @@ async function submitForm() {
   renderScreen();
 }
 
+// ── FORZAR GUARDADO VERIFICADO ────────────────────────────
+async function forceSaveNow(btn) {
+  if (!CLIENT_REF) { alert('Sin referencia — abre el formulario con el link que te envio Roberto'); return; }
+  if (!S.travelers || S.travelers.length === 0) return;
+  const orig = btn.textContent;
+  btn.textContent = 'Guardando...';
+  btn.disabled = true;
+  btn.style.color = '#F0B429';
+  save(); // localStorage inmediato
+  try {
+    // POST
+    await fetch(WEBHOOK, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ subtipo: 'save_draft', ref: CLIENT_REF, data: { S, ts: Date.now() } })
+    });
+    // Verificar GET
+    await new Promise(r => setTimeout(r, 3000));
+    const check = await fetch(WEBHOOK + '?action=get_draft&ref=' + encodeURIComponent(CLIENT_REF));
+    const data  = await check.json();
+    const saved = data.S || data.data?.S;
+    if (saved && saved.travelers && saved.travelers.length > 0) {
+      btn.textContent = 'Guardado ✓';
+      btn.style.color = '#4ade80';
+      btn.style.borderColor = 'rgba(74,222,128,.3)';
+      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; btn.disabled = false; }, 3000);
+    } else {
+      btn.textContent = 'Error — datos en tu dispositivo';
+      btn.style.color = '#f87171';
+      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.disabled = false; }, 4000);
+    }
+  } catch(e) {
+    btn.textContent = 'Sin internet — guardado local';
+    btn.style.color = '#fbbf24';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.disabled = false; }, 3000);
+  }
+}
+
 // ═══════════════════════════════════════════════════════════
 // REGENERAR INFORME (sin finalizar formulario)
 // ═══════════════════════════════════════════════════════════
@@ -1932,6 +2005,7 @@ async function init() {
     document.body.appendChild(banner);
   }
   renderScreen();
+  startAutoSave(); // auto-guardado cada 60 seg aunque no haya actividad
 }
 
 // Keyboard: Enter = Next (except textarea)
