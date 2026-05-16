@@ -1431,43 +1431,63 @@ function validateSetup() {
   return ok && S.travelers.length > 0;
 }
 
-function validateCurrent() {
-  let ok = true;
+// Devuelve lista de labels de campos requeridos que faltan (sin bloquear)
+function getMissingFields() {
+  const missing = [];
   document.querySelectorAll('.field[id]').forEach(wrap => {
-    const id = wrap.id.replace('_wrap','');
-    // Only validate visible required fields
     if (wrap.classList.contains('hidden')) return;
+    const id    = wrap.id.replace('_wrap','');
     const input = document.getElementById(id);
     if (!input) return;
     const label = wrap.querySelector('.field-label');
     if (label && label.querySelector('span[style*="gold"]')) {
-      // is required
       if (!input.value || input.value.trim() === '') {
+        const txt = label.textContent.replace('*','').trim();
+        missing.push(txt);
         wrap.classList.add('has-error');
-        ok = false;
       } else {
         wrap.classList.remove('has-error');
       }
     }
   });
-  // Check yesno required fields
   document.querySelectorAll('.field [id$="_si"]').forEach(btn => {
-    const id = btn.id.replace('_si','');
+    const id   = btn.id.replace('_si','');
     const wrap = document.getElementById(id + '_wrap');
     if (!wrap || wrap.classList.contains('hidden')) return;
-    const ctx = getCurrentDataCtx();
+    const ctx  = getCurrentDataCtx();
     if (!ctx[id]) {
+      const label = wrap.querySelector('.field-label');
+      missing.push(label ? label.textContent.replace('*','').trim() : id);
       wrap.classList.add('has-error');
-      ok = false;
     } else {
       wrap.classList.remove('has-error');
     }
   });
-  if (!ok) {
+  return missing;
+}
+
+function validateCurrent() {
+  const missing = getMissingFields();
+  if (missing.length > 0) {
     const firstErr = document.querySelector('.field.has-error');
     if (firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
   }
-  return ok;
+  return missing.length === 0;
+}
+
+// Igual que validateCurrent pero NUNCA bloquea — solo marca visualmente
+// y guarda los campos faltantes en S para el análisis posterior
+function validateAndContinue() {
+  const missing = getMissingFields();
+  if (missing.length > 0) {
+    // Guardar en S para que el análisis sepa qué falta
+    const ctx = getCurrentDataCtx();
+    if (ctx !== null) {
+      if (!ctx._pendientes) ctx._pendientes = [];
+      ctx._pendientes = [...new Set([...ctx._pendientes, ...missing])];
+    }
+  }
+  return true; // siempre deja pasar
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1485,11 +1505,11 @@ function goNext() {
     applyExtractedData(); // Pre-fill form with any extracted DS-160 data
     S.phase = 'shared'; S.sharedStep = 0;
   } else if (S.phase === 'shared') {
-    if (!validateCurrent()) return;
+    validateAndContinue(); // registra pendientes pero no bloquea
     if (S.sharedStep < 4) { S.sharedStep++; }
     else { S.phase = 'traveler'; S.travelerIdx = 0; S.travelerStep = 0; }
   } else if (S.phase === 'traveler') {
-    if (!validateCurrent()) return;
+    validateAndContinue(); // registra pendientes pero no bloquea
     const i = S.travelerIdx;
     const minor = isMinor(i) || getAge(i) < 14;
     const maxStep = minor ? 6 : 7;

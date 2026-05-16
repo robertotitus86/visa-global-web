@@ -139,8 +139,24 @@ function manejarIntakeFamiliar(payload) {
   });
   formatearCabecera(sheetDet, 1);
 
-  // 2. Análisis IA familiar
+  // 2. Recopilar campos pendientes del formulario (dejados en blanco)
+  const pendientesFormulario = [];
+  const pendShared = shared._pendientes || [];
+  if (pendShared.length) {
+    pendShared.forEach(p => pendientesFormulario.push('DATOS DEL VIAJE — ' + p));
+  }
+  personas.forEach(p => {
+    const pend = (p.datos || {})._pendientes || [];
+    pend.forEach(f => pendientesFormulario.push((p.nombre || 'Viajero') + ' — ' + f));
+  });
+
+  // 3. Análisis IA familiar
   const analisis = analizarPerfilFamiliar(shared, personas, refId);
+  // Inyectar pendientes del formulario al analisis para el email
+  if (pendientesFormulario.length) {
+    const listaPend = pendientesFormulario.map((p, i) => `${i+1}. ${p}`).join('\n');
+    analisis.campos_faltantes_formulario = listaPend;
+  }
 
   // 3. Guardar/actualizar en CRM de casos
   const sheetCRM   = getOrCreateSheet(ss, 'CASOS CRM', COL_CRM);
@@ -405,9 +421,15 @@ function notificarRobertoIntakeFamiliar(refId, fecha, nombre, numViaj, tel, emai
       <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
     </div>
 
+    ${analisis.campos_faltantes_formulario ? `
+    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">⚠ CAMPOS NO LLENADOS EN EL FORMULARIO — SOLICITAR AL CLIENTE</div>
+      <div style="font-size:12px;color:#78350F;line-height:1.9">${analisis.campos_faltantes_formulario.replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    </div>` : ''}
+
     ${analisis.campos_faltantes && !analisis.campos_faltantes.includes('COMPLETO') ? `
     <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:16px;margin-bottom:20px">
-      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">INFORMACION FALTANTE — PREGUNTAR AL CLIENTE</div>
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">INFORMACION ADICIONAL IDENTIFICADA POR IA — PREGUNTAR AL CLIENTE</div>
       <div style="font-size:13px;color:#7F1D1D;line-height:1.9">${(analisis.campos_faltantes||'').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
       <div style="margin-top:12px">
         <a href="${reporteUrl.replace('/exec?','/exec?action=verFormAdmin&')}&ref=${refId}&pin=admin" style="display:inline-block;background:#991B1B;color:white;padding:9px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:12px">Completar datos faltantes en el admin</a>
