@@ -5,6 +5,8 @@
 //         + intake_familiar (nuevo intake.html multi-viajero DS-160)
 // ═══════════════════════════════════════════════════════════════════════
 
+// IMPORTANTE: configurar en Google Apps Script → Configuracion del proyecto → Propiedades del script
+// Nombre: ANTHROPIC_KEY  Valor: sk-ant-api03-...
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 const ADMIN_PIN    = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
 const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
@@ -658,6 +660,7 @@ function doGet(e) {
   if (action === 'buscarPorTelefono')  return buscarPorTelefono(e);
   if (action === 'get_draft')          return getDraftAction(e);
   if (action === 'reconstruct')        return reconstructFromDetalle(e);
+  if (action === 'test')              return testSistema(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -752,8 +755,8 @@ function llamarClaudeIA(prompt) {
         'content-type': 'application/json',
       },
       payload: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2500,
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4000,
         messages: [{ role: 'user', content: prompt }],
       }),
       muteHttpExceptions: true,
@@ -1043,6 +1046,39 @@ Con esta informacion completa, genera un nuevo analisis. Responde en JSON exacto
 }
 
 // ── Extraer datos de DS-160 PDF ───────────────────────────────────
+// ── TEST SISTEMA ─────────────────────────────────────────────────
+function testSistema(e) {
+  const resultados = {};
+  // 1. Verificar ANTHROPIC_KEY
+  resultados.anthropic_key = ANTHROPIC_KEY ? 'CONFIGURADA (' + ANTHROPIC_KEY.substring(0,20) + '...)' : 'NO CONFIGURADA';
+  // 2. Verificar Spreadsheet
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    resultados.spreadsheet = 'OK — ' + ss.getName();
+    resultados.hojas = ss.getSheets().map(s => s.getName()).join(', ');
+  } catch(e2) { resultados.spreadsheet = 'ERROR: ' + e2.toString(); }
+  // 3. Enviar email de prueba
+  try {
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: 'TEST SISTEMA — Visa Global Apps Script funcionando',
+      htmlBody: `<div style="font-family:Arial;padding:20px;background:#f4f6f9">
+        <h2 style="color:#060E1F">Sistema funcionando correctamente</h2>
+        <p>Este email confirma que Apps Script puede enviar emails.</p>
+        <p><strong>ANTHROPIC_KEY:</strong> ${resultados.anthropic_key}</p>
+        <p><strong>Spreadsheet:</strong> ${resultados.spreadsheet}</p>
+        <p><strong>Hojas:</strong> ${resultados.hojas||'—'}</p>
+        <p style="color:#64748B;font-size:12px">Visa Global · ${new Date().toISOString()}</p>
+      </div>`
+    });
+    resultados.email = 'ENVIADO a ' + EMAIL_ROBERTO;
+  } catch(e3) { resultados.email = 'ERROR: ' + e3.toString(); }
+
+  return ContentService
+    .createTextOutput(JSON.stringify(resultados, null, 2))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 // ── ANALIZADOR DE DS-160 ANTERIORES ─────────────────────────────
 // Recibe PDFs de formularios anteriores, extrae todo y genera estrategia completa
 function analizarDs160Anteriores(payload) {
