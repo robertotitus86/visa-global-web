@@ -1379,7 +1379,6 @@ function confirmSecNone(travelerIdx) {
 // ── GUARDAR CAMPO DESDE REVISIÓN ─────────────────────────
 function saveRF(ctx, fieldId, value, uid) {
   const v = String(value || '').trim();
-  if (!v) return;
 
   if (ctx === 'shared') {
     S.shared[fieldId] = v;
@@ -1390,19 +1389,25 @@ function saveRF(ctx, fieldId, value, uid) {
   }
   save();
 
-  // Marcar fila como completada visualmente
+  // Actualizar fila visualmente según si tiene valor o no
   const row = document.getElementById('rfrow_' + uid);
-  const valEl = document.getElementById('rfval_' + uid);
-  if (row) {
+  if (!row) return;
+  if (v) {
     row.dataset.rf = 'filled';
     row.style.background = 'rgba(74,222,128,.04)';
-    const keyEl = row.querySelector('.review-key');
-    if (keyEl) { keyEl.style.color = ''; }
-    if (valEl) valEl.innerHTML = `<span style="font-size:.78rem;font-weight:500;color:var(--green)">${esc(v)} ✓</span>`;
+    row.style.borderColor = 'rgba(74,222,128,.3)';
+    const lbl = row.querySelector('.rf-label');
+    if (lbl) lbl.style.color = 'rgba(74,222,128,.8)';
+    const inp = row.querySelector('input,select,textarea');
+    if (inp) inp.style.borderColor = 'rgba(74,222,128,.5)';
+  } else {
+    row.dataset.rf = 'missing';
+    row.style.background = 'rgba(240,180,41,.06)';
+    row.style.borderColor = 'rgba(240,180,41,.25)';
   }
 
-  // Actualizar barra de progreso dinámicamente
-  const allRows = [...document.querySelectorAll('.review-row[data-rf]')];
+  // Actualizar barra de progreso
+  const allRows = [...document.querySelectorAll('[data-rf]')];
   const nowFilled = allRows.filter(r => r.dataset.rf === 'filled').length;
   const total = allRows.length;
   const pct = total > 0 ? Math.round((nowFilled / total) * 100) : 0;
@@ -1414,7 +1419,7 @@ function saveRF(ctx, fieldId, value, uid) {
   if (barEl) { barEl.style.width = pct + '%'; barEl.style.background = pc; }
   if (msgEl) {
     const miss = total - nowFilled;
-    msgEl.textContent = `${nowFilled} campos completados · ${miss > 0 ? miss + ' pendientes' : 'Perfil completo'}`;
+    msgEl.textContent = `${nowFilled} completados · ${miss > 0 ? miss + ' pendientes' : 'Perfil completo'}`;
   }
 }
 
@@ -1423,137 +1428,164 @@ function renderReview() {
   const sd = S.shared;
   let total = 0, filled = 0;
 
-  // rf: renderiza campo. Si falta, muestra input inline editable.
-  function rf(label, value, fieldId, ctx, inputType, inputOptions) {
-    total++;
-    const ok = value && String(value).trim() && value !== '—';
-    if (ok) filled++;
+  // Estilo base para inputs de revision
+  const INP = 'width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(240,180,41,.5);border-radius:6px;color:#fff;font-family:var(--sans);font-size:.85rem;padding:8px 11px;box-sizing:border-box;transition:border-color .2s,background .2s;';
 
-    if (ok) {
-      return `<div class="review-row" data-rf="filled">
-        <div class="review-key">${label}</div>
-        <div class="review-val">${String(value)}</div>
-      </div>`;
-    }
-
-    // Campo faltante — input inline
-    const uid = fieldId + '_' + ctx;
-    const bs = 'background:rgba(255,255,255,.06);border:1px solid rgba(240,180,41,.4);border-radius:5px;color:#fff;font-family:var(--sans);font-size:.8rem;padding:5px 9px;outline:none;box-sizing:border-box;';
-    let inp = '';
-
-    if (inputType === 'yesno') {
-      inp = `<div style="display:flex;gap:5px">
-        <button onclick="saveRF('${ctx}','${fieldId}','si','${uid}')" style="${bs}padding:4px 10px;cursor:pointer;flex:1;border-radius:5px">Si</button>
-        <button onclick="saveRF('${ctx}','${fieldId}','no','${uid}')" style="${bs}padding:4px 10px;cursor:pointer;flex:1;border-radius:5px;border-color:rgba(255,255,255,.2)">No</button>
-      </div>`;
-    } else if (inputType === 'select' && inputOptions && inputOptions.length) {
-      const opts = inputOptions.map(o => `<option value="${esc(o)}">${o}</option>`).join('');
-      inp = `<select id="${uid}" onchange="saveRF('${ctx}','${fieldId}',this.value,'${uid}')" style="${bs}width:100%;"><option value="">Seleccionar...</option>${opts}</select>`;
-    } else if (inputType === 'date') {
-      inp = `<input type="date" id="${uid}" onchange="saveRF('${ctx}','${fieldId}',this.value,'${uid}')" style="${bs}width:100%;">`;
-    } else if (inputType === 'textarea') {
-      inp = `<textarea id="${uid}" rows="2" onblur="saveRF('${ctx}','${fieldId}',this.value,'${uid}')" placeholder="${label}..." style="${bs}width:100%;resize:vertical;"></textarea>`;
-    } else {
-      inp = `<input type="${inputType === 'number' ? 'number' : 'text'}" id="${uid}" onblur="saveRF('${ctx}','${fieldId}',this.value,'${uid}')" onkeydown="if(event.key==='Enter')this.blur()" placeholder="${label}..." style="${bs}width:100%;">`;
-    }
-
-    return `<div class="review-row" id="rfrow_${uid}" data-rf="missing" style="background:rgba(240,180,41,.06)">
-      <div class="review-key" style="color:var(--gold)">${label}</div>
-      <div class="review-val" id="rfval_${uid}">${inp}</div>
+  // Fila de campo completado (compacta)
+  function rowFilled(label, value) {
+    return `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)" data-rf="filled">
+      <span style="font-size:.67rem;color:rgba(255,255,255,.45);flex-shrink:0;margin-right:8px">${label}</span>
+      <span style="font-size:.78rem;font-weight:500;text-align:right;word-break:break-word">${String(value)}</span>
     </div>`;
   }
 
-  // ── Datos del viaje (shared) ──────────────────────────
-  const sharedHtml = `
-    <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin:14px 0 6px">DATOS DEL VIAJE</div>
-    <div class="review-rows">
-      ${rf('Llegada USA',    sd.intendedArrival ? fmtDate(sd.intendedArrival) : '', 'intendedArrival', 'shared', 'date')}
-      ${rf('Dias estancia',  sd.lengthOfStayDays,  'lengthOfStayDays',  'shared', 'number')}
-      ${rf('Proposito',      sd.purposeNote ? sd.purposeNote.substring(0,60) : '', 'purposeNote', 'shared', 'textarea')}
-      ${rf('Alojamiento',    sd.usStayName,    'usStayName',    'shared', 'text')}
-      ${rf('Ciudad USA',     sd.usStayCity,    'usStayCity',    'shared', 'text')}
-      ${rf('Estado USA',     sd.usStayState,   'usStayState',   'shared', 'select', US_STATES)}
-      ${rf('Quien paga',     sd.whoIsPaying,   'whoIsPaying',   'shared', 'select', ['Yo mismo (viajero principal)','Otra persona','Una empresa u organizacion'])}
-      ${rf('Contacto USA',   sd.usContactName, 'usContactName', 'shared', 'text')}
-      ${rf('Tel. contacto',  sd.usContactPhone,'usContactPhone','shared', 'text')}
-    </div>`;
+  // Campo pendiente — input editable a ancho completo
+  function rowMissing(label, fieldId, ctx, inputType, inputOptions) {
+    const uid = fieldId + '_' + ctx;
+    let inp = '';
 
-  // ── Por viajero ───────────────────────────────────────
+    if (inputType === 'yesno') {
+      inp = `<div style="display:flex;gap:8px;margin-top:5px">
+        <button type="button" onclick="saveRF('${ctx}','${fieldId}','si','${uid}')"
+          style="${INP}flex:1;cursor:pointer;font-weight:700;font-size:.85rem;padding:7px;border-radius:6px">Si</button>
+        <button type="button" onclick="saveRF('${ctx}','${fieldId}','no','${uid}')"
+          style="${INP}flex:1;cursor:pointer;font-weight:700;font-size:.85rem;padding:7px;border-radius:6px;border-color:rgba(255,255,255,.2)">No</button>
+      </div>`;
+    } else if (inputType === 'select' && inputOptions && inputOptions.length) {
+      const opts = inputOptions.map(o => `<option value="${esc(o)}">${o}</option>`).join('');
+      inp = `<select oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
+        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        style="${INP}margin-top:5px"><option value="">Seleccionar...</option>${opts}</select>`;
+    } else if (inputType === 'date') {
+      inp = `<input type="date"
+        oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
+        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        style="${INP}margin-top:5px">`;
+    } else if (inputType === 'textarea') {
+      inp = `<textarea rows="2"
+        oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
+        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        placeholder="Escribir aqui..." style="${INP}margin-top:5px;resize:vertical;"></textarea>`;
+    } else {
+      inp = `<input type="${inputType === 'number' ? 'number' : 'text'}"
+        oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
+        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        placeholder="Escribir aqui..." style="${INP}margin-top:5px">`;
+    }
+
+    return `<div id="rfrow_${uid}" data-rf="missing"
+      style="padding:8px 10px;border-radius:7px;border:1px solid rgba(240,180,41,.25);background:rgba(240,180,41,.06);margin-bottom:6px">
+      <div class="rf-label" style="font-size:.67rem;font-weight:700;color:var(--gold);letter-spacing:.04em">${label}</div>
+      ${inp}
+    </div>`;
+  }
+
+  // rf: decide si mostrar campo completado o editable
+  function rf(label, value, fieldId, ctx, inputType, inputOptions) {
+    total++;
+    const ok = value && String(value).trim() && value !== '—';
+    if (ok) { filled++; return rowFilled(label, value); }
+    return rowMissing(label, fieldId, ctx, inputType, inputOptions);
+  }
+
+  // ── Sección: Datos del Viaje ──────────────────────────
+  const sharedHtml = `
+  <div style="margin-bottom:16px">
+    <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:6px 0;border-bottom:1px solid rgba(240,180,41,.2);margin-bottom:10px">Datos del Viaje — comunes a todos</div>
+    ${rf('Llegada estimada a USA',  sd.intendedArrival ? fmtDate(sd.intendedArrival) : '', 'intendedArrival','shared','date')}
+    ${rf('Dias de estancia',        sd.lengthOfStayDays,  'lengthOfStayDays', 'shared','number')}
+    ${rf('Proposito del viaje',     sd.purposeNote ? sd.purposeNote.substring(0,80) : '', 'purposeNote','shared','textarea')}
+    ${rf('Nombre alojamiento USA',  sd.usStayName,    'usStayName',   'shared','text')}
+    ${rf('Ciudad en USA',           sd.usStayCity,    'usStayCity',   'shared','text')}
+    ${rf('Estado en USA',           sd.usStayState,   'usStayState',  'shared','select',US_STATES)}
+    ${rf('Quien paga el viaje',     sd.whoIsPaying,   'whoIsPaying',  'shared','select',['Yo mismo (viajero principal)','Otra persona','Una empresa u organizacion'])}
+    ${rf('Contacto en USA',         sd.usContactName, 'usContactName','shared','text')}
+    ${rf('Telefono contacto USA',   sd.usContactPhone,'usContactPhone','shared','text')}
+  </div>`;
+
+  // ── Sección: Por viajero ──────────────────────────────
   const personsHtml = S.travelers.map((t, i) => {
-    const d = S.perTraveler[i] || {};
-    const ci = String(i); // ctx index como string
+    const d   = S.perTraveler[i] || {};
+    const ci  = String(i);
     const minor = isMinor(i) || getAge(i) < 18;
     const dobVal = d.dob ? fmtDate(d.dob) : (t.dob ? fmtDate(t.dob) : '');
 
-    const personalHtml = `
-      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">DATOS PERSONALES</div>
-      <div class="review-rows">
-        ${rf('Apellido(s)',   d.surnames,     'surnames',     ci, 'text')}
-        ${rf('Nombre(s)',     d.givenNames,   'givenNames',   ci, 'text')}
-        ${rf('Sexo',          d.sex,          'sex',          ci, 'select', ['Masculino','Femenino'])}
-        ${rf('Estado civil',  d.maritalStatus,'maritalStatus',ci, 'select', ['Soltero/a','Casado/a','Union de hecho','Divorciado/a','Separado/a','Viudo/a'])}
-        ${rf('Fecha nac.',    dobVal,         'dob',          ci, 'date')}
-        ${rf('Ciudad nac.',   d.cityOfBirth,  'cityOfBirth',  ci, 'text')}
-        ${rf('Cedula',        d.nationalId,   'nationalId',   ci, 'text')}
-        ${rf('Telefono',      d.primaryPhone, 'primaryPhone', ci, 'text')}
-        ${rf('Email',         d.email,        'email',        ci, 'text')}
-        ${rf('Ciudad res.',   d.homeCity,     'homeCity',     ci, 'text')}
+    return `<div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:14px">
+
+      <!-- Cabecera viajero -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:var(--gold);flex-shrink:0">${initial(t.name)}</div>
+        <div>
+          <div style="font-size:.95rem;font-weight:700">${t.name}</div>
+          <div style="font-size:.7rem;color:var(--muted)">${t.role}${minor?' · Menor':''}</div>
+        </div>
+        <button type="button" onclick="editTraveler(${i})" style="margin-left:auto;font-size:.7rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;cursor:pointer;flex-shrink:0">Editar pasos</button>
       </div>
-      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">PASAPORTE</div>
-      <div class="review-rows">
-        ${rf('N. Pasaporte',  d.passportNumber,   'passportNumber',   ci, 'text')}
-        ${rf('Emision',       d.passportIssueDate ? fmtDate(d.passportIssueDate) : '', 'passportIssueDate', ci, 'date')}
-        ${rf('Vencimiento',   d.passportExpiry    ? fmtDate(d.passportExpiry)    : '', 'passportExpiry',    ci, 'date')}
-      </div>`;
 
-    const workHtml = minor ? '' : `
-      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">EMPLEO</div>
-      <div class="review-rows">
-        ${rf('Situacion',    d.employmentStatus,    'employmentStatus',    ci, 'select', ['Empleado (relacion de dependencia)','Independiente / Empresa propia','Estudiante','Jubilado/a','Ama/Amo de casa','Sin empleo actualmente'])}
-        ${rf('Cargo',        d.currentOccupation,   'currentOccupation',   ci, 'text')}
-        ${rf('Empleador',    d.currentEmployerName, 'currentEmployerName', ci, 'text')}
-        ${rf('Salario/mes',  d.monthlySalary,       'monthlySalary',       ci, 'number')}
-      </div>`;
+      <!-- Datos personales -->
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px">Datos Personales</div>
+      ${rf('Apellido(s)',  d.surnames,      'surnames',     ci,'text')}
+      ${rf('Nombre(s)',    d.givenNames,    'givenNames',   ci,'text')}
+      ${rf('Sexo',         d.sex,           'sex',          ci,'select',['Masculino','Femenino'])}
+      ${rf('Estado civil', d.maritalStatus, 'maritalStatus',ci,'select',['Soltero/a','Casado/a','Union de hecho','Divorciado/a','Separado/a','Viudo/a'])}
+      ${rf('Fecha de nacimiento', dobVal,   'dob',          ci,'date')}
+      ${rf('Ciudad de nacimiento',d.cityOfBirth,'cityOfBirth',ci,'text')}
+      ${rf('Cedula',       d.nationalId,    'nationalId',   ci,'text')}
+      ${rf('Telefono',     d.primaryPhone,  'primaryPhone', ci,'text')}
+      ${rf('Email',        d.email,         'email',        ci,'text')}
+      ${rf('Ciudad de residencia',d.homeCity,'homeCity',    ci,'text')}
 
-    const travelHtml = `
-      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">HISTORIAL DE VIAJES</div>
-      <div class="review-rows">
-        ${rf('Estuvo en USA',   d.hasBeenInUS,          'hasBeenInUS',          ci, 'yesno')}
-        ${rf('Visa USA previa', d.hasHadUSVisa,         'hasHadUSVisa',         ci, 'yesno')}
-        ${rf('Rechazo previo',  d.hasBeenRefused,       'hasBeenRefused',       ci, 'yesno')}
-        ${rf('Paises (5 anos)', d.countriesVisited5Years,'countriesVisited5Years',ci,'textarea')}
-      </div>`;
+      <!-- Pasaporte -->
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:12px 0 8px">Pasaporte</div>
+      ${rf('Numero de pasaporte', d.passportNumber,  'passportNumber', ci,'text')}
+      ${rf('Fecha de emision',    d.passportIssueDate ? fmtDate(d.passportIssueDate) : '','passportIssueDate',ci,'date')}
+      ${rf('Fecha de vencimiento',d.passportExpiry    ? fmtDate(d.passportExpiry)    : '','passportExpiry',   ci,'date')}
 
-    return `<div class="review-person">
-      <div class="review-person-header">
-        <div class="review-avatar">${initial(t.name)}</div>
-        <div><div class="review-name">${t.name}</div><div class="review-role">${t.role}${minor?' · Menor':''}</div></div>
-        <button type="button" onclick="editTraveler(${i})" style="margin-left:auto;font-size:.72rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;cursor:pointer">Editar pasos</button>
-      </div>
-      ${personalHtml}${workHtml}${travelHtml}
+      ${minor ? '' : `
+      <!-- Empleo -->
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:12px 0 8px">Empleo</div>
+      ${rf('Situacion laboral', d.employmentStatus,   'employmentStatus',   ci,'select',['Empleado (relacion de dependencia)','Independiente / Empresa propia','Estudiante','Jubilado/a','Ama/Amo de casa','Sin empleo actualmente'])}
+      ${rf('Cargo',             d.currentOccupation,  'currentOccupation',  ci,'text')}
+      ${rf('Empresa',           d.currentEmployerName,'currentEmployerName',ci,'text')}
+      ${rf('Salario USD/mes',   d.monthlySalary,      'monthlySalary',      ci,'number')}
+      `}
+
+      <!-- Historial de viajes -->
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:12px 0 8px">Historial de Viajes</div>
+      ${rf('Ha estado en USA antes',  d.hasBeenInUS,          'hasBeenInUS',          ci,'yesno')}
+      ${rf('Tiene/tuvo visa USA',     d.hasHadUSVisa,         'hasHadUSVisa',         ci,'yesno')}
+      ${rf('Le han negado visa USA',  d.hasBeenRefused,       'hasBeenRefused',       ci,'yesno')}
+      ${rf('Paises visitados (5 anos)',d.countriesVisited5Years,'countriesVisited5Years',ci,'textarea')}
+
     </div>`;
   }).join('');
 
   const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
-  const missingCount = total - filled;
+  const miss = total - filled;
   const pctColor = pct >= 80 ? '#4ade80' : pct >= 50 ? '#F0B429' : '#f87171';
 
   return `<div class="phase-label">Revision Final</div>
   <div class="card">
-    <div class="card-title">Resumen de la solicitud</div>
-    <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px;line-height:1.5">Los campos en dorado estan pendientes. Toca cualquiera para llenarlo directamente aqui.</div>
+    <div class="card-title">Resumen del expediente</div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6">
+      Los campos <strong style="color:var(--gold)">en dorado</strong> estan pendientes — toca el campo y escribe directamente aqui para llenarlo.
+    </div>
 
-    <!-- BARRA DE COMPLETITUD -->
-    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:20px">
+    <!-- PROGRESO -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:22px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <span style="font-size:.78rem;font-weight:700">Completitud</span>
-        <span id="review_pct" style="font-size:1.3rem;font-weight:700;color:${pctColor}">${pct}%</span>
+        <span id="review_pct" style="font-size:1.4rem;font-weight:700;color:${pctColor}">${pct}%</span>
       </div>
-      <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden">
-        <div id="review_bar" style="height:100%;width:${pct}%;background:${pctColor};border-radius:3px;transition:width .4s"></div>
+      <div style="height:7px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden">
+        <div id="review_bar" style="height:100%;width:${pct}%;background:${pctColor};border-radius:4px;transition:width .5s"></div>
       </div>
       <div id="review_msg" style="font-size:.7rem;color:var(--muted);margin-top:6px">
-        ${filled} campos completados · ${missingCount > 0 ? missingCount + ' pendientes — toca para llenar' : 'Perfil completo'}
+        ${filled} completados · ${miss > 0 ? miss + ' pendientes — toca para llenar' : 'Perfil completo'}
       </div>
     </div>
 
@@ -1565,12 +1597,12 @@ function renderReview() {
     <!-- BOTON ASESOR -->
     <div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);padding:14px;margin-bottom:16px">
       <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:3px">Para el asesor — Roberto</div>
-      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Genera el analisis IA con los datos actuales. Los campos pendientes apareceran en el informe como items a solicitar al cliente.</div>
-      <button onclick="regenerarInforme(this)" style="width:100%;padding:11px;border-radius:var(--rs);background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.4);color:var(--gold);font-family:var(--sans);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s">Enviar analisis con datos actuales</button>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Genera el analisis IA ahora con los datos actuales. Los campos en dorado apareceran como pendientes en el informe.</div>
+      <button onclick="regenerarInforme(this)" style="width:100%;padding:12px;border-radius:var(--rs);background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.4);color:var(--gold);font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s">Enviar analisis con datos actuales</button>
     </div>
 
     <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px">
-      Al enviar la solicitud final, su asesor recibira todos los datos y se pondra en contacto en menos de 24 horas.
+      Al enviar la solicitud final, Roberto recibira todos los datos y se pondra en contacto en menos de 24 horas.
     </div>
   </div>`;
 }
@@ -1882,8 +1914,9 @@ async function init() {
     banner.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:200;background:rgba(240,180,41,.15);border-bottom:1px solid rgba(240,180,41,.25);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;gap:12px';
 
     if (S.phase === 'review') {
-      banner.innerHTML = `<span style="color:var(--white)">Datos de <strong style="color:var(--gold)">${S.travelers[0]?.name?.split(' ')[0] || 'cliente'}</strong> cargados desde ${source} — resumen completo</span>
+      banner.innerHTML = `<span style="color:var(--white)">Datos de <strong style="color:var(--gold)">${S.travelers[0]?.name?.split(' ')[0] || 'cliente'}</strong> cargados desde ${source}</span>
         <button onclick="this.closest('div').remove()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">OK</button>`;
+      setTimeout(() => { try { banner.remove(); } catch(e) {} }, 3000);
     } else {
       const pasoActual = S.phase === 'shared'
         ? `Datos del viaje (paso ${S.sharedStep + 1})`
@@ -1903,7 +1936,9 @@ async function init() {
 
 // Keyboard: Enter = Next (except textarea)
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'SELECT') {
+  const tag = document.activeElement.tagName;
+  // No interferir con inputs inline de la pantalla de revision
+  if (e.key === 'Enter' && tag !== 'TEXTAREA' && tag !== 'SELECT' && tag !== 'INPUT') {
     e.preventDefault(); goNext();
   }
 });
