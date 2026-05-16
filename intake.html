@@ -1344,41 +1344,126 @@ function confirmSecNone(travelerIdx) {
 // ── REVIEW ───────────────────────────────────────────────
 function renderReview() {
   const sd = S.shared;
-  const persons = S.travelers.map((t, i) => {
+  let total = 0, filled = 0;
+
+  function rf(label, value) {
+    total++;
+    const ok = value && String(value).trim() && value !== '—';
+    if (ok) filled++;
+    const rowBg = ok ? '' : 'background:rgba(240,180,41,.06)';
+    const valColor = ok ? '' : 'color:var(--gold);font-style:italic';
+    const keyColor = ok ? '' : 'color:var(--gold)';
+    return `<div class="review-row" style="${rowBg}">
+      <div class="review-key" style="${keyColor}">${label}</div>
+      <div class="review-val" style="${valColor}">${ok ? String(value) : 'Falta'}</div>
+    </div>`;
+  }
+
+  // Shared data
+  const sharedHtml = `
+    <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin:14px 0 6px">DATOS DEL VIAJE</div>
+    <div class="review-rows">
+      ${rf('Llegada USA', sd.intendedArrival ? fmtDate(sd.intendedArrival) : '')}
+      ${rf('Dias estancia', sd.lengthOfStayDays)}
+      ${rf('Proposito', sd.purposeNote ? sd.purposeNote.substring(0,50) : '')}
+      ${rf('Alojamiento', sd.usStayName)}
+      ${rf('Ciudad', sd.usStayCity)}
+      ${rf('Estado', sd.usStayState)}
+      ${rf('Quien paga', sd.whoIsPaying)}
+      ${rf('Contacto USA', sd.usContactName)}
+      ${rf('Tel. contacto', sd.usContactPhone)}
+    </div>`;
+
+  // Per-traveler data
+  const personsHtml = S.travelers.map((t, i) => {
     const d = S.perTraveler[i] || {};
+    const minor = isMinor(i) || getAge(i) < 18;
+
+    const personalHtml = `
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">DATOS PERSONALES</div>
+      <div class="review-rows">
+        ${rf('Apellido(s)', d.surnames)}
+        ${rf('Nombre(s)', d.givenNames)}
+        ${rf('Sexo', d.sex)}
+        ${rf('Estado civil', d.maritalStatus)}
+        ${rf('Fecha nac.', d.dob ? fmtDate(d.dob) : (t.dob ? fmtDate(t.dob) : ''))}
+        ${rf('Ciudad nac.', d.cityOfBirth)}
+        ${rf('Cedula', d.nationalId)}
+        ${rf('Telefono', d.primaryPhone)}
+        ${rf('Email', d.email)}
+        ${rf('Ciudad', d.homeCity)}
+      </div>
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">PASAPORTE</div>
+      <div class="review-rows">
+        ${rf('N. Pasaporte', d.passportNumber)}
+        ${rf('Emision', d.passportIssueDate ? fmtDate(d.passportIssueDate) : '')}
+        ${rf('Vencimiento', d.passportExpiry ? fmtDate(d.passportExpiry) : '')}
+      </div>`;
+
+    const workHtml = minor ? '' : `
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">EMPLEO</div>
+      <div class="review-rows">
+        ${rf('Situacion laboral', d.employmentStatus)}
+        ${rf('Cargo', d.currentOccupation)}
+        ${rf('Empleador', d.currentEmployerName)}
+        ${rf('Salario USD/mes', d.monthlySalary)}
+      </div>`;
+
+    const travelHtml = `
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:10px 0 4px">HISTORIAL DE VIAJES</div>
+      <div class="review-rows">
+        ${rf('Estuvo en USA', d.hasBeenInUS)}
+        ${rf('Visa USA previa', d.hasHadUSVisa)}
+        ${rf('Rechazo previo', d.hasBeenRefused)}
+        ${rf('Paises (5 anos)', d.countriesVisited5Years)}
+      </div>`;
+
     return `<div class="review-person">
       <div class="review-person-header">
         <div class="review-avatar">${initial(t.name)}</div>
-        <div>
-          <div class="review-name">${t.name}</div>
-          <div class="review-role">${t.role} · ${fmtDate(t.dob||d.dob)}</div>
-        </div>
+        <div><div class="review-name">${t.name}</div><div class="review-role">${t.role}${minor?' · Menor':''}</div></div>
         <button type="button" onclick="editTraveler(${i})" style="margin-left:auto;font-size:.72rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;cursor:pointer">Editar</button>
       </div>
-      <div class="review-rows">
-        <div class="review-row"><div class="review-key">Apellido(s)</div><div class="review-val">${d.surnames||'—'}</div></div>
-        <div class="review-row"><div class="review-key">Nombre(s)</div><div class="review-val">${d.givenNames||'—'}</div></div>
-        <div class="review-row"><div class="review-key">Pasaporte</div><div class="review-val">${d.passportNumber||'—'}</div></div>
-        <div class="review-row"><div class="review-key">Vence</div><div class="review-val">${fmtDate(d.passportExpiry)}</div></div>
-        <div class="review-row"><div class="review-key">Telefono</div><div class="review-val">${d.primaryPhone||'—'}</div></div>
-        <div class="review-row"><div class="review-key">Email</div><div class="review-val">${d.email||'—'}</div></div>
-      </div>
+      ${personalHtml}${workHtml}${travelHtml}
     </div>`;
   }).join('');
 
+  const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+  const missingCount = total - filled;
+  const pctColor = pct >= 80 ? '#4ade80' : pct >= 50 ? '#F0B429' : '#f87171';
+
   return `<div class="phase-label">Revision Final</div>
   <div class="card">
-    <div class="card-title">Revise su solicitud</div>
-    <div class="card-sub">Verifique que todo este correcto antes de enviar. Una vez enviado, su asesor recibira los datos y se pondra en contacto.</div>
-    <div style="background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);padding:12px 14px;margin-bottom:20px;font-size:.82rem;line-height:1.6">
-      <strong style="color:var(--gold)">Viaje:</strong> Llegada aprox. ${fmtDate(sd.intendedArrival)} · ${sd.lengthOfStayDays||'?'} dias · ${sd.usStayCity||'?'}, ${sd.usStayState||'?'}<br>
-      <strong style="color:var(--gold)">Alojamiento:</strong> ${sd.usStayName||'—'}<br>
-      <strong style="color:var(--gold)">Contacto USA:</strong> ${sd.usContactName||'—'}
+    <div class="card-title">Resumen de la solicitud</div>
+
+    <!-- BARRA DE COMPLETITUD -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:.78rem;font-weight:700">Completitud del formulario</span>
+        <span style="font-size:1.3rem;font-weight:700;color:${pctColor}">${pct}%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${pctColor};border-radius:3px;transition:width .4s"></div>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted);margin-top:6px">
+        ${filled} campos completados · ${missingCount > 0 ? missingCount + ' campos en dorado estan pendientes' : 'Perfil completo'}
+      </div>
     </div>
-    ${persons}
+
+    ${sharedHtml}
+    ${personsHtml}
+
     <div class="divider"></div>
-    <div style="font-size:.78rem;color:var(--muted);line-height:1.6">
-      Al enviar, su asesor recibira todos los datos de forma segura y se pondra en contacto en menos de 24 horas para confirmar los proximos pasos.
+
+    <!-- BOTON ASESOR: enviar análisis sin finalizar -->
+    <div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);padding:14px;margin-bottom:16px">
+      <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:3px">Para el asesor — Roberto</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Genera el analisis IA con los datos actuales sin finalizar el formulario. Los campos pendientes apareceran en el informe.</div>
+      <button onclick="regenerarInforme(this)" style="width:100%;padding:11px;border-radius:var(--rs);background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.4);color:var(--gold);font-family:var(--sans);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s">Enviar analisis con datos actuales</button>
+    </div>
+
+    <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px">
+      Al enviar la solicitud final, su asesor recibira todos los datos y se pondra en contacto en menos de 24 horas.
     </div>
   </div>`;
 }
@@ -1605,6 +1690,51 @@ async function submitForm() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// REGENERAR INFORME (sin finalizar formulario)
+// ═══════════════════════════════════════════════════════════
+async function regenerarInforme(btn) {
+  const orig = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Enviando analisis...';
+
+  const urlRef = new URLSearchParams(window.location.search).get('ref');
+  const refId  = urlRef || CLIENT_REF || ('VG-' + Date.now().toString().slice(-6));
+  const personas = S.travelers.map((t, i) => ({
+    nombre: t.name,
+    rol: t.role,
+    fecha_nacimiento: t.dob,
+    datos: S.perTraveler[i] || {},
+    banderas_seguridad: S.securityFlags[i] || []
+  }));
+
+  const payload = {
+    tipo_visa: 'USA DS-160',
+    subtipo: 'intake_familiar',
+    ref: refId,
+    fecha_envio: new Date().toISOString(),
+    shared: S.shared,
+    num_viajeros: S.travelers.length,
+    personas
+  };
+
+  try {
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+    btn.textContent = 'Analisis enviado a nanotiendaec@gmail.com';
+    btn.style.background = 'rgba(74,222,128,.15)';
+    btn.style.borderColor = 'rgba(74,222,128,.4)';
+    btn.style.color = 'var(--green)';
+  } catch(e) {
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 async function init() {
@@ -1624,28 +1754,40 @@ async function init() {
   //    al primer paso incompleto en lugar de quedarse en setup
   if (S.travelers.length > 0 && S.phase !== 'done') {
     const todosConNombre = S.travelers.every(t => t.name && t.name.trim().length > 1);
+    const tieneDataSustancial = S.perTraveler.some(d =>
+      d && Object.keys(d).filter(k => !k.startsWith('_')).length >= 4
+    );
 
-    if (todosConNombre && S.phase === 'setup') {
-      // Avanzar automáticamente a shared si ya pasaron el setup
+    if (todosConNombre && tieneDataSustancial) {
+      // Ya hay datos sustanciales — saltar directo a revision
+      applyExtractedData();
+      S.phase = 'review';
+    } else if (todosConNombre && S.phase === 'setup') {
+      // Solo tiene nombres — avanzar a shared
       applyExtractedData();
       S.phase = 'shared';
       S.sharedStep = S.sharedStep || 0;
     }
 
-    const source = fromCloud ? '☁️ nube' : 'este dispositivo';
-    const pasoActual = S.phase === 'shared'
-      ? `Datos del viaje (paso ${S.sharedStep + 1})`
-      : S.phase === 'traveler'
-      ? `${S.travelers[S.travelerIdx]?.name || 'Viajero'} — paso ${S.travelerStep + 1}`
-      : 'Configuración inicial';
-
+    const source = fromCloud ? 'nube' : 'este dispositivo';
     const banner = document.createElement('div');
     banner.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:200;background:rgba(240,180,41,.15);border-bottom:1px solid rgba(240,180,41,.25);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;gap:12px';
-    banner.innerHTML = `<span style="color:var(--white)">Progreso restaurado (${source}) — continuando en: <strong style="color:var(--gold)">${pasoActual}</strong></span>
-      <div style="display:flex;gap:8px;flex-shrink:0">
-        <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">Continuar</button>
-        <button onclick="localStorage.removeItem('${CLOUD_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar de nuevo</button>
-      </div>`;
+
+    if (S.phase === 'review') {
+      banner.innerHTML = `<span style="color:var(--white)">Datos de <strong style="color:var(--gold)">${S.travelers[0]?.name?.split(' ')[0] || 'cliente'}</strong> cargados desde ${source} — resumen completo</span>
+        <button onclick="this.closest('div').remove()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">OK</button>`;
+    } else {
+      const pasoActual = S.phase === 'shared'
+        ? `Datos del viaje (paso ${S.sharedStep + 1})`
+        : S.phase === 'traveler'
+        ? `${S.travelers[S.travelerIdx]?.name || 'Viajero'} — paso ${S.travelerStep + 1}`
+        : 'Configuracion inicial';
+      banner.innerHTML = `<span style="color:var(--white)">Progreso restaurado (${source}) — continuando en: <strong style="color:var(--gold)">${pasoActual}</strong></span>
+        <div style="display:flex;gap:8px;flex-shrink:0">
+          <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">Continuar</button>
+          <button onclick="localStorage.removeItem('${CLOUD_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar de nuevo</button>
+        </div>`;
+    }
     document.body.appendChild(banner);
   }
   renderScreen();
