@@ -117,8 +117,10 @@ function manejarIntakeFamiliar(payload) {
   // 1. Guardar detalle completo en hoja "Intake DS-160 Detalle"
   const sheetDet = getOrCreateSheet(ss, 'Intake DS-160 Detalle',
     ['Ref ID','Fecha','Viajero','Rol','Campo','Respuesta']);
+  const CAMPOS_INTERNOS = ['_pendientes']; // campos del sistema, no guardar en Sheets
   // Shared info
   Object.entries(shared).forEach(([campo, valor]) => {
+    if (CAMPOS_INTERNOS.includes(campo)) return;
     if (valor && String(valor).trim()) {
       sheetDet.appendRow([refId, fecha, 'COMPARTIDO', '—', campo, String(valor)]);
     }
@@ -127,6 +129,7 @@ function manejarIntakeFamiliar(payload) {
   personas.forEach(p => {
     const datos = p.datos || {};
     Object.entries(datos).forEach(([campo, valor]) => {
+      if (CAMPOS_INTERNOS.includes(campo)) return;
       if (valor && String(valor).trim() && String(valor) !== 'N/A') {
         sheetDet.appendRow([refId, fecha, p.nombre, p.rol, campo, String(valor)]);
       }
@@ -714,25 +717,48 @@ Responde en JSON exacto sin markdown:
 
 // ── Llamar a Claude ───────────────────────────────────────────────
 function llamarClaudeIA(prompt) {
-  const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': ANTHROPIC_KEY,
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
-    },
-    payload: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-    muteHttpExceptions: true,
-  });
+  try {
+    const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+      },
+      payload: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 2500,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+      muteHttpExceptions: true,
+    });
 
-  const json = JSON.parse(resp.getContentText());
-  const text = json.content?.[0]?.text || '{}';
-  const clean = text.replace(/```json|```/g, '').trim();
-  return JSON.parse(clean);
+    const raw  = resp.getContentText();
+    const json = JSON.parse(raw);
+    if (json.error) throw new Error('Claude API error: ' + JSON.stringify(json.error));
+
+    const text  = (json.content?.[0]?.text || '').trim();
+    const clean = text.replace(/```json|```/g, '').trim();
+
+    // Extraer el primer bloque JSON válido del texto
+    const match = clean.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('No JSON found in Claude response');
+
+    return JSON.parse(match[0]);
+  } catch(err) {
+    console.error('llamarClaudeIA error:', err.toString());
+    // Devolver objeto seguro con valores vacíos para que el email no rompa
+    return {
+      probabilidad: 'Pendiente', probabilidad_sin_estrategia: '—',
+      paquete: 'Por definir', razon_paquete: '—',
+      fuertes: 'Analisis pendiente', debiles: '—',
+      estrategia: 'Requiere revision manual. Error: ' + err.toString(),
+      documentos_exactos: '—', guion_entrevista: '—',
+      proximos_pasos: '1. Verificar que la ANTHROPIC_KEY este configurada en Script Properties',
+      alerta_principal: 'Error en analisis IA — revisar configuracion',
+      campos_faltantes: 'PERFIL COMPLETO'
+    };
+  }
 }
 
 // ── Construir perfil para el prompt ──────────────────────────────
@@ -1018,10 +1044,11 @@ ${pdfText.substring(0, 6000)}`;
       muteHttpExceptions: true,
     });
 
-    const json     = JSON.parse(resp.getContentText());
-    const text     = json.content?.[0]?.text || '{}';
-    const clean    = text.replace(/```json|```/g, '').trim();
-    const extracted = JSON.parse(clean);
+    const json  = JSON.parse(resp.getContentText());
+    const text  = (json.content?.[0]?.text || '{}').trim();
+    const clean = text.replace(/```json|```/g, '').trim();
+    const match = clean.match(/\{[\s\S]*\}/);
+    const extracted = match ? JSON.parse(match[0]) : {};
 
     // Save to Extractions sheet
     const ss    = SpreadsheetApp.openById(SS_ID);

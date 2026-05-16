@@ -446,6 +446,8 @@ function showSyncBadge(status, text) {
 async function saveToCloud() {
   if (!CLIENT_REF) return;
   showSyncBadge('saving', 'Guardando...');
+  // no-cors no devuelve respuesta — asumimos OK si no lanza excepcion
+  // El verdadero error se detecta en loadFromCloud (si no hay datos en nube = fallo silencioso)
   try {
     await fetch(WEBHOOK, {
       method: 'POST',
@@ -453,9 +455,10 @@ async function saveToCloud() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ subtipo: 'save_draft', ref: CLIENT_REF, data: { S, ts: Date.now() } })
     });
-    showSyncBadge('saved', 'Guardado en la nube ✓');
+    showSyncBadge('saved', 'Sincronizado ✓');
   } catch(e) {
-    showSyncBadge('local', 'Guardado en dispositivo');
+    // Red caída o bloqueado — datos siguen en localStorage
+    showSyncBadge('local', 'Sin conexión — guardado localmente');
   }
 }
 
@@ -1494,24 +1497,26 @@ function validateAndContinue() {
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════
 function goNext() {
-  // Save any loose inputs
+  // 1. Recoger valores de inputs al contexto actual
   document.querySelectorAll('input,select,textarea').forEach(el => {
     if (el.id) { const ctx = getCurrentDataCtx(); if (ctx !== null) ctx[el.id] = el.value; }
   });
-  save();
 
   if (S.phase === 'setup') {
     if (!validateSetup()) { alert('Por favor complete el nombre, tipo y fecha de nacimiento de cada viajero.'); return; }
-    applyExtractedData(); // Pre-fill form with any extracted DS-160 data
+    applyExtractedData();
     S.phase = 'shared'; S.sharedStep = 0;
+    save(); // guardar después de setup
   } else if (S.phase === 'shared') {
-    validateAndContinue(); // registra pendientes pero no bloquea
+    validateAndContinue(); // registra _pendientes en ctx ANTES de save
+    save(); // ahora sí persiste con _pendientes incluidos
     if (S.sharedStep < 4) { S.sharedStep++; }
     else { S.phase = 'traveler'; S.travelerIdx = 0; S.travelerStep = 0; }
   } else if (S.phase === 'traveler') {
-    validateAndContinue(); // registra pendientes pero no bloquea
+    validateAndContinue(); // registra _pendientes en ctx ANTES de save
+    save(); // persiste con _pendientes
     const i = S.travelerIdx;
-    const minor = isMinor(i) || getAge(i) < 14;
+    const minor = isMinor(i) || getAge(i) < 18; // corregido: menor es < 18, no < 14
     const maxStep = minor ? 6 : 7;
     if (S.travelerStep < maxStep) {
       S.travelerStep++;
