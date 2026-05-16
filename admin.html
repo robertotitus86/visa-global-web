@@ -372,10 +372,17 @@ async function syncCases() {
       showToast(data.error === 'PIN incorrecto' ? 'PIN incorrecto' : 'Error al sincronizar: ' + data.error, 'error');
       if (data.error === 'PIN incorrecto') showPinError();
     } else {
-      CASES = (data.cases || []).filter(c => c['Estado'] !== 'ELIMINADO');
+      const fromServer = (data.cases || []).filter(c => c['Estado'] !== 'ELIMINADO');
+      // MERGE: conservar casos locales que no llegaron del servidor (creados offline)
+      const serverRefs = new Set(fromServer.map(c => c['Ref ID'] || c['refId']));
+      const onlyLocal  = CASES.filter(c => {
+        const ref = c['Ref ID'] || c['refId'];
+        return ref && !serverRefs.has(ref);
+      });
+      CASES = [...fromServer, ...onlyLocal];
       saveLocal();
       renderKanban();
-      showToast('Sincronizado — ' + CASES.length + ' casos', 'success');
+      showToast('Sincronizado — ' + CASES.length + ' casos' + (onlyLocal.length ? ' (' + onlyLocal.length + ' solo locales)' : ''), 'success');
     }
   } catch(e) {
     showToast('Sin conexion. Usando datos locales.', 'error');

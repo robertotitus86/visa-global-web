@@ -1208,6 +1208,42 @@ function adminNewCase(e) {
       '—', paquete, '—', '—', 'Pendiente', 'Por agendar', '', intakeUrl
     ]);
     formatearCabecera(sheet, 1);
+
+    // Notificar por email
+    try {
+      const waLink = tel ? 'https://wa.me/593' + tel.replace(/^0/,'').replace(/\D/g,'') : '';
+      MailApp.sendEmail({
+        to: EMAIL_ROBERTO,
+        subject: '📋 Nuevo caso creado — ' + nombre + ' [' + refId + ']',
+        htmlBody: `
+          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+            <div style="background:#060E1F;padding:20px 24px;border-radius:8px 8px 0 0">
+              <h2 style="color:#F0B429;margin:0;font-size:1.1rem">Nuevo caso creado en el CRM</h2>
+            </div>
+            <div style="background:#f8faff;padding:24px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px">
+              <table style="width:100%;border-collapse:collapse;font-size:.9rem">
+                <tr><td style="padding:6px 0;color:#718096;width:140px">Referencia</td><td style="padding:6px 0;font-weight:700;color:#060E1F">${refId}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Cliente</td><td style="padding:6px 0;color:#060E1F">${nombre}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Tipo visa</td><td style="padding:6px 0;color:#060E1F">${tipo}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Viajeros</td><td style="padding:6px 0;color:#060E1F">${viaj}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Teléfono</td><td style="padding:6px 0;color:#060E1F">${tel || '—'}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Email</td><td style="padding:6px 0;color:#060E1F">${email || '—'}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Paquete</td><td style="padding:6px 0;color:#060E1F">${paquete}</td></tr>
+                <tr><td style="padding:6px 0;color:#718096">Creado</td><td style="padding:6px 0;color:#060E1F">${fecha}</td></tr>
+              </table>
+              <div style="margin-top:20px;padding:14px;background:#fffbeb;border:1px solid #f0b429;border-radius:6px">
+                <div style="font-size:.8rem;color:#78350f;margin-bottom:6px">Link del formulario para el cliente:</div>
+                <a href="${intakeUrl}" style="color:#060E1F;font-weight:700;font-size:.85rem">${intakeUrl}</a>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:10px">
+                ${waLink ? `<a href="${waLink}?text=${encodeURIComponent('Hola '+nombre.split(' ')[0]+', le comparto el link para completar su formulario de visa: '+intakeUrl)}" style="display:inline-block;background:#25D366;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:.85rem">Abrir WhatsApp</a>` : ''}
+                <a href="https://www.asesoriadevisadosglobal.com/admin.html" style="display:inline-block;background:#060E1F;color:#F0B429;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:.85rem">Ir al CRM</a>
+              </div>
+            </div>
+          </div>`
+      });
+    } catch(mailErr) { console.log('Email error:', mailErr.toString()); }
+
     return ContentService.createTextOutput(JSON.stringify({status:'ok', refId, intakeUrl})).setMimeType(ContentService.MimeType.JSON);
   } catch(err) {
     return ContentService.createTextOutput(JSON.stringify({error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
