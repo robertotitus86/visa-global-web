@@ -36,12 +36,64 @@ const COL_RESUMEN = [
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
+    if (payload.subtipo === 'save_draft')      return saveDraftAction(payload);
     if (payload.subtipo === 'intake_familiar') return manejarIntakeFamiliar(payload);
     if (payload.subtipo === 'extractDS160')    return extractarDS160(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
     return ok({ error: err.toString() });
+  }
+}
+
+// ── BORRADORES EN LA NUBE (para intake.html cross-device) ─────────
+function getDraftAction(e) {
+  const ref = (e.parameter.ref || '').trim();
+  if (!ref) return ok({ ok: false, msg: 'no_ref' });
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    const sh = ss.getSheetByName('Borradores');
+    if (!sh) return ok({ ok: false, msg: 'no_sheet' });
+    const rows = sh.getDataRange().getValues();
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]).trim() === ref) {
+        return ContentService
+          .createTextOutput(rows[i][1])
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+    return ok({ ok: false, msg: 'not_found' });
+  } catch(err) {
+    return ok({ ok: false, msg: err.toString() });
+  }
+}
+
+function saveDraftAction(payload) {
+  const ref  = (payload.ref  || '').trim();
+  const data = payload.data  || {};
+  if (!ref) return ok({ ok: false, msg: 'no_ref' });
+  try {
+    const ss  = SpreadsheetApp.openById(SS_ID);
+    let sh    = ss.getSheetByName('Borradores');
+    if (!sh) {
+      sh = ss.insertSheet('Borradores');
+      sh.appendRow(['Ref', 'Datos JSON', 'Actualizado', 'Paso']);
+      formatearCabecera(sh, 1);
+    }
+    const now  = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    const json = JSON.stringify(data);
+    const paso = data.currentStep || 1;
+    const rows = sh.getDataRange().getValues();
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]).trim() === ref) {
+        sh.getRange(i + 1, 2, 1, 3).setValues([[json, now, paso]]);
+        return ok({ ok: true });
+      }
+    }
+    sh.appendRow([ref, json, now, paso]);
+    return ok({ ok: true });
+  } catch(err) {
+    return ok({ ok: false, msg: err.toString() });
   }
 }
 
@@ -554,6 +606,7 @@ function doGet(e) {
   if (action === 'getExtraction')      return getExtraction(e);
   if (action === 'reanalizar')         return reanalizar(e);
   if (action === 'buscarPorTelefono')  return buscarPorTelefono(e);
+  if (action === 'get_draft')          return getDraftAction(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';

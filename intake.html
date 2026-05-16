@@ -330,8 +330,11 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 // ═══════════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════════
-const WEBHOOK = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
-const LS_KEY  = 'visa_intake_v1';
+const WEBHOOK   = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const LS_KEY    = 'visa_intake_v1';
+const CLIENT_REF = new URLSearchParams(location.search).get('ref') || null;
+const CLOUD_KEY  = CLIENT_REF ? 'visa_intake_' + CLIENT_REF : LS_KEY;
+let   cloudSaveTimer = null;
 
 // ═══════════════════════════════════════════════════════════
 // STATE
@@ -404,17 +407,73 @@ function getAge(idx) {
 function initial(name) { return (name||'?')[0].toUpperCase(); }
 function fmtDate(d) { if(!d) return '—'; const p=d.split('-'); return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:d; }
 
+// ── LOCAL SAVE ────────────────────────────────────────────────────
 function save() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify({S, ts: Date.now()})); } catch(e) {}
+  try { localStorage.setItem(CLOUD_KEY, JSON.stringify({S, ts: Date.now()})); } catch(e) {}
+  // Trigger cloud save (debounced 2s para no saturar)
+  clearTimeout(cloudSaveTimer);
+  cloudSaveTimer = setTimeout(saveToCloud, 2000);
 }
+
 function load() {
   try {
-    const raw = localStorage.getItem(LS_KEY);
+    const raw = localStorage.getItem(CLOUD_KEY);
     if (!raw) return false;
     const {S: saved} = JSON.parse(raw);
     Object.assign(S, saved);
     return true;
   } catch(e) { return false; }
+}
+
+// ── CLOUD SAVE / LOAD ─────────────────────────────────────────────
+function showSyncBadge(status, text) {
+  let badge = document.getElementById('_sync_badge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.id = '_sync_badge';
+    badge.style.cssText = 'position:fixed;top:14px;right:16px;z-index:300;display:flex;align-items:center;gap:6px;font-size:.7rem;font-weight:500;padding:4px 11px;border-radius:99px;border:1px solid transparent;transition:.3s;pointer-events:none';
+    document.body.appendChild(badge);
+  }
+  const styles = {
+    saving: 'border-color:rgba(240,180,41,.35);color:#F0B429;background:rgba(240,180,41,.1)',
+    saved:  'border-color:rgba(22,163,74,.4);color:#4ade80;background:rgba(22,163,74,.1)',
+    local:  'border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)',
+  };
+  badge.style.cssText += ';' + (styles[status] || styles.local);
+  badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>' + text;
+}
+
+async function saveToCloud() {
+  if (!CLIENT_REF) return;
+  showSyncBadge('saving', 'Guardando...');
+  try {
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ subtipo: 'save_draft', ref: CLIENT_REF, data: { S, ts: Date.now() } })
+    });
+    showSyncBadge('saved', 'Guardado en la nube ✓');
+  } catch(e) {
+    showSyncBadge('local', 'Guardado en dispositivo');
+  }
+}
+
+async function loadFromCloud() {
+  if (!CLIENT_REF) return false;
+  try {
+    const res = await fetch(WEBHOOK + '?action=get_draft&ref=' + encodeURIComponent(CLIENT_REF));
+    if (!res.ok) return false;
+    const json = await res.json();
+    if (!json || json.ok === false) return false;
+    const saved = (json.S || json.data?.S);
+    if (!saved) return false;
+    Object.assign(S, saved);
+    showSyncBadge('saved', 'Restaurado desde la nube ✓');
+    return true;
+  } catch(e) {
+    return false;
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1504,8 +1563,12 @@ async function submitForm() {
     });
   } catch(e) { /* no-cors swallows errors */ }
 
-  // Clear localStorage
-  localStorage.removeItem(LS_KEY);
+  // Limpiar borradores local y nube
+  localStorage.removeItem(CLOUD_KEY);
+  if (CLIENT_REF) {
+    fetch(WEBHOOK, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ subtipo:'save_draft', ref: CLIENT_REF, data: { S: { phase:'done' }, ts: Date.now() } }) });
+  }
   S.phase = 'done';
   renderScreen();
 }
@@ -1513,16 +1576,28 @@ async function submitForm() {
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
-function init() {
-  const restored = load();
-  if (restored && S.travelers.length > 0 && S.phase !== 'done') {
-    // Show resume prompt
+async function init() {
+  // 1. Intentar cargar desde la nube (tiene ref en URL)
+  let fromCloud = false;
+  if (CLIENT_REF) {
+    renderScreen(); // mostrar pantalla inicial mientras carga
+    fromCloud = await loadFromCloud();
+  }
+
+  // 2. Si no hay datos en la nube, intentar localStorage
+  if (!fromCloud) {
+    load();
+  }
+
+  // 3. Mostrar banner de continuación si hay datos guardados
+  if (S.travelers.length > 0 && S.phase !== 'done') {
+    const source = fromCloud ? '☁️ nube' : 'este dispositivo';
     const banner = document.createElement('div');
     banner.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:200;background:rgba(240,180,41,.15);border-bottom:1px solid rgba(240,180,41,.25);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem';
-    banner.innerHTML = `<span style="color:var(--white)">Tiene un formulario en progreso guardado.</span>
+    banner.innerHTML = `<span style="color:var(--white)">Progreso guardado encontrado (${source}). ¿Continuar donde lo dejó?</span>
       <div style="display:flex;gap:8px">
         <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">Continuar</button>
-        <button onclick="localStorage.removeItem('${LS_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar nuevo</button>
+        <button onclick="localStorage.removeItem('${CLOUD_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar de nuevo</button>
       </div>`;
     document.body.appendChild(banner);
   }
