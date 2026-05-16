@@ -1321,12 +1321,124 @@ const STEPS = {
 // Track current step per tab
 const currentStep = { usa: 1, schengen: 1, uk: 1, rechazo: 1 };
 
+// ── AUTO-SAVE (localStorage keyed by ?ref=) ───────────────────────
+const CLIENT_REF = new URLSearchParams(window.location.search).get('ref') || null;
+const SAVE_KEY   = CLIENT_REF ? 'vg_draft_' + CLIENT_REF : null;
+
+function saveDraft() {
+  if (!SAVE_KEY) return;
+  const draft = { tabs: {}, activeTab: null, savedAt: new Date().toISOString() };
+  ['usa','schengen','uk','rechazo'].forEach(tab => {
+    const form = document.getElementById('form-' + tab);
+    if (!form) return;
+    const fields = {};
+    form.querySelectorAll('input:not([type=file]),textarea,select').forEach(el => {
+      if (el.name) fields[el.name] = el.value;
+    });
+    // radio buttons (custom UI — stored in hidden input)
+    form.querySelectorAll('.radio-btn.selected').forEach(btn => {
+      const grp = btn.closest('.radio-group');
+      const inp = grp && grp.previousElementSibling;
+      if (inp && inp.name) fields[inp.name] = btn.textContent.trim();
+    });
+    draft.tabs[tab] = { fields, step: currentStep[tab] };
+  });
+  const activeBtn = document.querySelector('.tab-btn.active');
+  if (activeBtn) {
+    const m = activeBtn.getAttribute('onclick')?.match(/'(\w+)'/);
+    draft.activeTab = m ? m[1] : 'usa';
+  }
+  localStorage.setItem(SAVE_KEY, JSON.stringify(draft));
+}
+
+function loadDraft() {
+  if (!SAVE_KEY) return;
+  const raw = localStorage.getItem(SAVE_KEY);
+  if (!raw) return;
+  let draft;
+  try { draft = JSON.parse(raw); } catch(e) { return; }
+
+  ['usa','schengen','uk','rechazo'].forEach(tab => {
+    const td = draft.tabs?.[tab];
+    if (!td) return;
+    const form = document.getElementById('form-' + tab);
+    if (!form) return;
+
+    // Restore field values
+    Object.entries(td.fields || {}).forEach(([name, value]) => {
+      const el = form.querySelector(`[name="${name}"]`);
+      if (el && el.type !== 'file') el.value = value;
+      // Restore radio UI
+      const inp = form.querySelector(`input[name="${name}"]`);
+      if (inp) {
+        const grp = inp.nextElementSibling;
+        if (grp && grp.classList.contains('radio-group')) {
+          grp.querySelectorAll('.radio-btn').forEach(btn => {
+            btn.classList.toggle('selected', btn.textContent.trim() === value);
+          });
+        }
+      }
+    });
+
+    // Restore step
+    const step = td.step || 1;
+    if (step > 1) {
+      form.querySelectorAll('.form-step').forEach((s, i) => {
+        s.classList.toggle('active', i + 1 === step);
+      });
+      currentStep[tab] = step;
+      refreshProgress(tab);
+      updateNav(tab);
+    }
+  });
+
+  // Restore active tab
+  if (draft.activeTab) {
+    const btn = document.querySelector(`.tab-btn[onclick*="'${draft.activeTab}'"]`);
+    if (btn) switchTab(draft.activeTab, btn);
+  }
+
+  // Show resume banner
+  const d = new Date(draft.savedAt);
+  const fecha = d.toLocaleDateString('es-EC', { day:'2-digit', month:'short' }) +
+                ' ' + d.toLocaleTimeString('es-EC', { hour:'2-digit', minute:'2-digit' });
+  const banner = document.createElement('div');
+  banner.id = 'resume-banner';
+  banner.innerHTML =
+    '<span style="color:#F0B429;font-size:1.1rem">&#10003;</span>' +
+    '<span>Progreso restaurado &mdash; guardado el ' + fecha + '</span>' +
+    '<button onclick="this.parentElement.remove()" style="background:none;border:none;' +
+    'color:rgba(255,255,255,.5);cursor:pointer;font-size:1.2rem;line-height:1;padding:0 2px">&times;</button>';
+  Object.assign(banner.style, {
+    position:'fixed', bottom:'24px', left:'50%', transform:'translateX(-50%)',
+    background:'#0d1a30', border:'1px solid rgba(240,180,41,.4)', color:'#fff',
+    padding:'12px 20px', borderRadius:'12px', fontSize:'.85rem',
+    zIndex:'9999', display:'flex', alignItems:'center', gap:'12px',
+    boxShadow:'0 4px 24px rgba(0,0,0,.5)', whiteSpace:'nowrap'
+  });
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 6000);
+}
+
+function clearDraft() {
+  if (SAVE_KEY) localStorage.removeItem(SAVE_KEY);
+}
+
 // ── INIT ──────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   ['usa', 'schengen', 'uk', 'rechazo'].forEach(tab => {
     buildProgress(tab);
     updateNav(tab);
+    // Auto-save on any input change
+    const form = document.getElementById('form-' + tab);
+    if (form) {
+      form.addEventListener('input', saveDraft);
+      form.addEventListener('change', saveDraft);
+    }
   });
+
+  // Restore saved draft (must run after buildProgress)
+  loadDraft();
 
   // Auto-open tab from URL param: ?visa=schengen
   const param = new URLSearchParams(window.location.search).get('visa');
@@ -1433,6 +1545,7 @@ function changeStep(tab, dir) {
   currentStep[tab] = next;
   refreshProgress(tab);
   updateNav(tab);
+  saveDraft();
 
   document.getElementById('panel-' + tab).scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1494,6 +1607,7 @@ async function submitForm(tab) {
   formWrap.style.display = 'none';
   if (refEl) refEl.textContent = 'Referencia: ' + refId;
   successPanel.classList.add('active');
+  clearDraft();
 }
 
 // ── RADIO BUTTONS ─────────────────────────────────────────────────
