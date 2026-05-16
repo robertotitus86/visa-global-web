@@ -1147,24 +1147,51 @@ function reconstructFromDetalle(e) {
     if (!ref) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'no_ref'})).setMimeType(ContentService.MimeType.JSON);
 
     const ss = SpreadsheetApp.openById(SS_ID);
-    const sh = ss.getSheetByName('Intake DS-160 Detalle');
-    if (!sh) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'no_sheet'})).setMimeType(ContentService.MimeType.JSON);
 
-    const rows = sh.getDataRange().getValues();
-    // Columnas: Ref ID | Fecha | Viajero | Rol | Campo | Respuesta
+    // ── Intento 1: Borrador guardado (formulario en progreso) ────────
+    const shBorr = ss.getSheetByName('Borradores');
+    if (shBorr) {
+      const bRows = shBorr.getDataRange().getValues();
+      // Columnas: Ref | Datos JSON | Actualizado | Paso
+      for (let i = 1; i < bRows.length; i++) {
+        if (String(bRows[i][0]).trim() !== ref) continue;
+        const jsonStr = String(bRows[i][1]).trim();
+        if (!jsonStr || jsonStr === '{}') continue;
+        try {
+          const parsed = JSON.parse(jsonStr);
+          const savedS = parsed.S || parsed;
+          // Solo usar si tiene viajeros con nombre
+          if (savedS.travelers && savedS.travelers.length > 0 &&
+              savedS.travelers.some(t => t.name && t.name.trim())) {
+            const state = Object.assign({}, savedS, {
+              phase: 'review',
+              submitted: savedS.submitted || false
+            });
+            return ContentService
+              .createTextOutput(JSON.stringify({ ok: true, S: state, source: 'borrador' }))
+              .setMimeType(ContentService.MimeType.JSON);
+          }
+        } catch(parseErr) {}
+      }
+    }
+
+    // ── Intento 2: Formulario enviado (Intake DS-160 Detalle) ────────
+    const shDet = ss.getSheetByName('Intake DS-160 Detalle');
+    if (!shDet) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'sin_datos'})).setMimeType(ContentService.MimeType.JSON);
+
+    const rows = shDet.getDataRange().getValues();
     const refRows = rows.filter((r, i) => i > 0 && String(r[0]).trim() === ref);
     if (!refRows.length) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'not_found'})).setMimeType(ContentService.MimeType.JSON);
 
     const shared = {};
-    const travelerMap = {}; // nombre -> { datos, rol }
-    const travelerOrder = []; // mantener orden de inserción
+    const travelerMap = {};
+    const travelerOrder = [];
 
     refRows.forEach(r => {
       const viajero = String(r[2]).trim();
       const rol     = String(r[3]).trim();
       const campo   = String(r[4]).trim();
       const valor   = String(r[5]).trim();
-
       if (viajero === 'COMPARTIDO') {
         shared[campo] = valor;
       } else {
@@ -1172,21 +1199,15 @@ function reconstructFromDetalle(e) {
           travelerMap[viajero] = { datos: {}, rol: rol };
           travelerOrder.push(viajero);
         }
-        if (campo !== 'BANDERAS_SEGURIDAD') {
-          travelerMap[viajero].datos[campo] = valor;
-        }
+        if (campo !== 'BANDERAS_SEGURIDAD') travelerMap[viajero].datos[campo] = valor;
       }
     });
 
-    const travelers    = [];
-    const perTraveler  = [];
-    const securityFlags = {};
-
+    const travelers = [], perTraveler = [], securityFlags = {};
     travelerOrder.forEach((nombre, i) => {
       const info = travelerMap[nombre];
       travelers.push({ name: nombre, role: info.rol, dob: info.datos.dob || '' });
       perTraveler.push(info.datos);
-      // Recuperar banderas de seguridad
       const flagRow = refRows.find(r => String(r[2]).trim() === nombre && String(r[4]).trim() === 'BANDERAS_SEGURIDAD');
       if (flagRow) {
         const flags = String(flagRow[5]).split(',').map(s => s.trim()).filter(Boolean);
@@ -1195,20 +1216,15 @@ function reconstructFromDetalle(e) {
     });
 
     const state = {
-      phase: 'review',
-      submitted: true,
-      sharedStep: 0,
-      travelerIdx: 0,
-      travelerStep: 0,
-      travelers,
-      shared,
-      perTraveler,
-      securityFlags
+      phase: 'review', submitted: true,
+      sharedStep: 0, travelerIdx: 0, travelerStep: 0,
+      travelers, shared, perTraveler, securityFlags
     };
 
     return ContentService
-      .createTextOutput(JSON.stringify({ ok: true, S: state }))
+      .createTextOutput(JSON.stringify({ ok: true, S: state, source: 'detalle' }))
       .setMimeType(ContentService.MimeType.JSON);
+
   } catch(err) {
     console.error('reconstructFromDetalle error:', err.toString());
     return ContentService.createTextOutput(JSON.stringify({ok:false,msg:err.toString()})).setMimeType(ContentService.MimeType.JSON);
