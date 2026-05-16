@@ -531,7 +531,9 @@ function openDetail(refId) {
   const estado   = c['Estado']           || 'Formulario Enviado';
   const fecha    = c['Fecha']            || '';
   const url      = c['Ver Expediente']   || '';
-  const intakeLink = `${INTAKE_URL}?ref=${refId}`;
+  // Usar el link guardado en 'Ver Expediente' si apunta a intake.html, si no construir desde refId
+  const storedUrl  = c['Ver Expediente'] || '';
+  const intakeLink = storedUrl.includes('intake.html') ? storedUrl : `${INTAKE_URL}?ref=${refId}`;
 
   document.getElementById('det_title').textContent = nombre + ' — ' + refId;
 
