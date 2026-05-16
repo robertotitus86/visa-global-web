@@ -632,6 +632,7 @@ function doGet(e) {
   if (action === 'reanalizar')         return reanalizar(e);
   if (action === 'buscarPorTelefono')  return buscarPorTelefono(e);
   if (action === 'get_draft')          return getDraftAction(e);
+  if (action === 'reconstruct')        return reconstructFromDetalle(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -1135,6 +1136,82 @@ ${pdfText.substring(0, 7000)}`;
   } catch(err) {
     console.error('extractarDS160 error:', err.toString());
     return ok({ error: err.toString() });
+  }
+}
+
+// ── Reconstruir estado del formulario desde Intake DS-160 Detalle ─
+// Usado cuando el draft fue borrado al enviar pero los datos están en Sheets
+function reconstructFromDetalle(e) {
+  try {
+    const ref = (e.parameter.ref || '').trim();
+    if (!ref) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'no_ref'})).setMimeType(ContentService.MimeType.JSON);
+
+    const ss = SpreadsheetApp.openById(SS_ID);
+    const sh = ss.getSheetByName('Intake DS-160 Detalle');
+    if (!sh) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'no_sheet'})).setMimeType(ContentService.MimeType.JSON);
+
+    const rows = sh.getDataRange().getValues();
+    // Columnas: Ref ID | Fecha | Viajero | Rol | Campo | Respuesta
+    const refRows = rows.filter((r, i) => i > 0 && String(r[0]).trim() === ref);
+    if (!refRows.length) return ContentService.createTextOutput(JSON.stringify({ok:false,msg:'not_found'})).setMimeType(ContentService.MimeType.JSON);
+
+    const shared = {};
+    const travelerMap = {}; // nombre -> { datos, rol }
+    const travelerOrder = []; // mantener orden de inserción
+
+    refRows.forEach(r => {
+      const viajero = String(r[2]).trim();
+      const rol     = String(r[3]).trim();
+      const campo   = String(r[4]).trim();
+      const valor   = String(r[5]).trim();
+
+      if (viajero === 'COMPARTIDO') {
+        shared[campo] = valor;
+      } else {
+        if (!travelerMap[viajero]) {
+          travelerMap[viajero] = { datos: {}, rol: rol };
+          travelerOrder.push(viajero);
+        }
+        if (campo !== 'BANDERAS_SEGURIDAD') {
+          travelerMap[viajero].datos[campo] = valor;
+        }
+      }
+    });
+
+    const travelers    = [];
+    const perTraveler  = [];
+    const securityFlags = {};
+
+    travelerOrder.forEach((nombre, i) => {
+      const info = travelerMap[nombre];
+      travelers.push({ name: nombre, role: info.rol, dob: info.datos.dob || '' });
+      perTraveler.push(info.datos);
+      // Recuperar banderas de seguridad
+      const flagRow = refRows.find(r => String(r[2]).trim() === nombre && String(r[4]).trim() === 'BANDERAS_SEGURIDAD');
+      if (flagRow) {
+        const flags = String(flagRow[5]).split(',').map(s => s.trim()).filter(Boolean);
+        if (flags.length) securityFlags[i] = flags;
+      }
+    });
+
+    const state = {
+      phase: 'review',
+      submitted: true,
+      sharedStep: 0,
+      travelerIdx: 0,
+      travelerStep: 0,
+      travelers,
+      shared,
+      perTraveler,
+      securityFlags
+    };
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true, S: state }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    console.error('reconstructFromDetalle error:', err.toString());
+    return ContentService.createTextOutput(JSON.stringify({ok:false,msg:err.toString()})).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
