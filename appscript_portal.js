@@ -1148,7 +1148,7 @@ Responde en JSON exacto sin markdown:
     const resp2 = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      payload: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 4000, messages: [{ role: 'user', content: analysisPrompt }] }),
+      payload: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 6000, messages: [{ role: 'user', content: analysisPrompt }] }),
       muteHttpExceptions: true
     });
     const j2  = JSON.parse(resp2.getContentText());
@@ -1168,119 +1168,225 @@ Responde en JSON exacto sin markdown:
 
 function enviarEmailAnalizador(ref, caseName, fecha, perfiles, a) {
   try {
-    const b = (color, border, title, content) =>
-      `<div style="background:${color};border:1px solid ${border};border-radius:10px;padding:16px;margin-bottom:12px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1A2940;opacity:.65;margin-bottom:8px">${title}</div>
-        <div style="font-size:12px;color:#1A2940;line-height:1.9">${content}</div>
+    // Helper: bloque de sección
+    const blk = (color, border, title, content) =>
+      `<div style="background:${color};border:1px solid ${border};border-radius:10px;padding:16px;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1A2940;opacity:.7;margin-bottom:10px">${title}</div>
+        <div style="font-size:12px;color:#1A2940;line-height:1.95">${content}</div>
       </div>`;
 
-    const datosTabla = perfiles.map((p, i) => {
+    // Helper: fila DS-160
+    const fila = (label, valor, falta) => {
+      const ok = valor && String(valor).trim() && valor !== 'null' && valor !== 'undefined';
+      const bg = ok ? '' : 'background:#FFF5F5;';
+      const txt = ok ? `<span style="color:#1A2940;font-weight:500">${String(valor)}</span>`
+                     : `<span style="color:#DC2626;font-weight:700">⚠ FALTA${falta?' — '+falta:''}</span>`;
+      return `<tr style="${bg}">
+        <td style="padding:5px 8px;color:#64748B;font-size:11px;width:38%;vertical-align:top;border-bottom:1px solid #F1F5F9">${label}</td>
+        <td style="padding:5px 8px;font-size:11px;vertical-align:top;border-bottom:1px solid #F1F5F9">${txt}</td>
+      </tr>`;
+    };
+
+    // Ficha DS-160 completa por persona
+    const fichas = perfiles.map((p, i) => {
       const d = p.datos;
-      const campos = Object.values(d).filter(v => v && String(v).trim() && v !== 'null').length;
-      return `<div style="border:1px solid #E2E8F0;border-radius:8px;padding:14px;margin-bottom:10px;background:#FAFBFC">
-        <div style="font-weight:700;font-size:14px;color:#1A2940;margin-bottom:10px">${i+1}. ${p.nombre}</div>
+      const ok  = v => v && String(v).trim() && v !== 'null';
+      const llenos  = Object.values(d).filter(v => ok(v)).length;
+      const totales = Object.keys(d).length;
+
+      return `
+      <div style="border:2px solid #E2E8F0;border-radius:12px;margin-bottom:20px;overflow:hidden">
+        <div style="background:#1E293B;padding:12px 18px;display:flex;align-items:center;justify-content:space-between">
+          <div style="color:white;font-weight:700;font-size:15px">${i+1}. ${p.nombre}</div>
+          <div style="background:rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.8)">${llenos} / ${totales} campos extraidos</div>
+        </div>
+
         <table style="width:100%;border-collapse:collapse;font-size:11px">
-          ${[
-            ['Nombre completo', `${d.apellidos||'—'}, ${d.nombres||'—'}`],
-            ['Fecha nacimiento', d.fecha_nacimiento||'—'],
-            ['Cedula', d.cedula||'—'],
-            ['Pasaporte', d.numero_pasaporte||'—'],
-            ['Vencimiento pasaporte', d.fecha_vencimiento_pasaporte||'—'],
-            ['Empleo', d.cargo ? `${d.cargo} en ${d.empleador||'?'}` : '—'],
-            ['Salario', d.salario_mensual ? `$${d.salario_mensual}/mes` : '—'],
-            ['Ciudad residencia', d.ciudad_residencia||'—'],
-            ['Telefono', d.telefono||'—'],
-            ['Email', d.email||'—'],
-            ['Ha estado en USA', d.ha_estado_en_usa||'—'],
-            ['Visa anterior', d.ha_tenido_visa_usa||'—'],
-            ['Negacion previa', d.le_han_negado_visa||'—'],
-            ['Detalle negacion', d.detalle_negacion||'Ninguno'],
-            ['Estado civil', d.estado_civil||'—'],
-            ['Padre en USA', d.padre_en_usa||'—'],
-            ['Madre en USA', d.madre_en_usa||'—'],
-          ].map(([k,v]) => `<tr><td style="padding:4px 6px 4px 0;color:#64748B;width:40%;vertical-align:top">${k}</td><td style="padding:4px 0;font-weight:500;color:#1A2940">${v}</td></tr>`).join('')}
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">INFORMACION PERSONAL</td></tr>
+          ${fila('Apellidos (como en pasaporte)', d.apellidos, 'apellidos exactos del pasaporte')}
+          ${fila('Nombres (como en pasaporte)', d.nombres, 'nombres exactos del pasaporte')}
+          ${fila('Fecha de nacimiento', d.fecha_nacimiento, 'DD/MM/AAAA')}
+          ${fila('Sexo', d.sexo, 'Masculino o Femenino')}
+          ${fila('Estado civil', d.estado_civil, 'Soltero/Casado/Union de hecho/Divorciado/Viudo')}
+          ${fila('Cedula de identidad', d.cedula, 'numero de cedula ecuatoriana')}
+          ${fila('Ciudad de nacimiento', d.ciudad_nacimiento, 'ciudad donde nacio')}
+          ${fila('Provincia de nacimiento', d.provincia_nacimiento, '')}
+          ${fila('Pais de nacimiento', d.pais_nacimiento || 'Ecuador', '')}
+          ${fila('Nacionalidad', d.nacionalidad || 'Ecuador', '')}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">PASAPORTE</td></tr>
+          ${fila('Numero de pasaporte', d.numero_pasaporte, 'numero exacto del pasaporte vigente')}
+          ${fila('Tipo de pasaporte', d.tipo_pasaporte || 'Ordinario', '')}
+          ${fila('Fecha de emision', d.fecha_emision_pasaporte, 'DD/MM/AAAA')}
+          ${fila('Fecha de vencimiento', d.fecha_vencimiento_pasaporte, 'DD/MM/AAAA — debe tener 6+ meses')}
+          ${fila('Ciudad de emision', d.ciudad_emision_pasaporte, 'ciudad donde fue emitido')}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">CONTACTO Y RESIDENCIA</td></tr>
+          ${fila('Direccion de residencia', d.direccion, 'calle y numero')}
+          ${fila('Ciudad de residencia', d.ciudad_residencia, 'ciudad donde vive')}
+          ${fila('Provincia de residencia', d.provincia_residencia, '')}
+          ${fila('Telefono principal', d.telefono, '+593 ... con codigo de pais')}
+          ${fila('Email', d.email, 'correo electronico')}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">FAMILIA</td></tr>
+          ${fila('Apellidos del padre', d.apellidos_padre, 'apellidos del padre')}
+          ${fila('Nombres del padre', d.nombre_padre, 'nombres del padre')}
+          ${fila('Fecha de nac. del padre', d.fecha_nac_padre, 'si se conoce')}
+          ${fila('Padre en USA', d.padre_en_usa || 'No', '')}
+          ${fila('Apellidos de la madre', d.apellidos_madre, 'apellidos de la madre')}
+          ${fila('Nombres de la madre', d.nombre_madre, 'nombres de la madre')}
+          ${fila('Fecha de nac. de la madre', d.fecha_nac_madre, 'si se conoce')}
+          ${fila('Madre en USA', d.madre_en_usa || 'No', '')}
+          ${ok(d.nombre_conyuge) || ok(d.apellidos_conyuge) ? `
+          ${fila('Apellidos del conyuge', d.apellidos_conyuge, '')}
+          ${fila('Nombres del conyuge', d.nombre_conyuge, '')}
+          ${fila('Fecha de nac. del conyuge', d.fecha_nac_conyuge, '')}
+          ${fila('Nacionalidad del conyuge', d.nacionalidad_conyuge || 'Ecuador', '')}` : ''}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">TRABAJO Y EDUCACION</td></tr>
+          ${fila('Situacion laboral', d.situacion_laboral, 'Empleado/Independiente/Estudiante/Jubilado/etc')}
+          ${fila('Cargo / Titulo profesional', d.cargo, 'cargo exacto')}
+          ${fila('Nombre del empleador', d.empleador, 'nombre completo de la empresa')}
+          ${fila('Direccion del empleador', d.direccion_empleador, 'calle y numero')}
+          ${fila('Ciudad del empleador', d.ciudad_empleador, '')}
+          ${fila('Telefono del empleador', d.telefono_empleador, 'con codigo de area')}
+          ${fila('Fecha de inicio en empleo actual', d.fecha_inicio_empleo, 'DD/MM/AAAA')}
+          ${fila('Salario mensual (USD)', d.salario_mensual, 'monto en dolares')}
+          ${fila('Descripcion de funciones', d.funciones, 'que hace en su trabajo')}
+          ${fila('Nivel de educacion', d.nivel_educacion, 'maximo nivel alcanzado')}
+          ${d.empleos_anteriores && d.empleos_anteriores.length ?
+            d.empleos_anteriores.map((e,j) => `
+            ${fila(`Empleo anterior ${j+1} — Empresa`, e.empresa||e.name, '')}
+            ${fila(`Empleo anterior ${j+1} — Cargo`, e.cargo||e.title, '')}
+            ${fila(`Empleo anterior ${j+1} — Periodo`, `${e.desde||e.from||'?'} a ${e.hasta||e.to||'?'}`, '')}
+            ${fila(`Empleo anterior ${j+1} — Razon salida`, e.razon_salida||e.reason, '')}
+            `).join('') : ''}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">HISTORIAL DE VIAJES Y VISAS</td></tr>
+          ${fila('Ha estado en USA antes', d.ha_estado_en_usa || 'No', '')}
+          ${fila('Detalle visitas anteriores a USA', d.detalle_visitas_usa, 'cuando, cuanto tiempo, proposito')}
+          ${fila('Ha tenido visa USA antes', d.ha_tenido_visa_usa || 'No', '')}
+          ${fila('Numero de visa anterior', d.numero_visa_anterior, 'si aplica')}
+          ${fila('Fecha emision visa anterior', d.fecha_emision_visa_anterior, 'si aplica')}
+          ${fila('Tipo de visa anterior', d.tipo_visa_anterior, 'B1/B2, F1, etc')}
+          ${fila('Le han negado visa o entrada a USA', d.le_han_negado_visa || 'No', '')}
+          ${fila('Detalle de la negacion', d.detalle_negacion, 'CRITICO — cuando, motivo exacto, que ha cambiado')}
+          ${fila('Paises visitados ultimos 5 anos', d.paises_visitados_5_anos, 'paises y fechas aproximadas')}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">VIAJE ANTERIOR (del DS-160 anterior)</td></tr>
+          ${fila('Proposito declarado antes', d.proposito_viaje_anterior, '')}
+          ${fila('Destino anterior', d.destino_anterior, '')}
+          ${fila('Duracion anterior', d.duracion_anterior, '')}
+          ${fila('Contacto USA (anterior)', d.contacto_usa_nombre, 'nombre del contacto')}
+          ${fila('Relacion contacto USA', d.contacto_usa_relacion, '')}
+          ${fila('Telefono contacto USA', d.contacto_usa_telefono, '')}
+          ${fila('Alojamiento USA', d.alojamiento_usa, 'hotel o direccion')}
+          ${fila('Ciudad destino USA', d.ciudad_destino_usa, '')}
+          ${fila('Estado destino USA', d.estado_destino_usa, '')}
+
+          <tr><td colspan="2" style="padding:8px 18px 4px;background:#F8FAFC;font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em">OTROS</td></tr>
+          ${fila('Idiomas que habla', d.idiomas || 'Espanol', '')}
+          ${fila('Organizaciones a las que pertenece', d.organizaciones, 'si aplica')}
+          ${fila('Servicio militar', d.tiene_servicio_militar || 'No', '')}
+          ${d.redes_sociales && d.redes_sociales.length ? fila('Redes sociales', d.redes_sociales.map(r=>`${r.plataforma}: ${r.usuario}`).join(' | '), '') : ''}
         </table>
-        <div style="margin-top:8px;font-size:11px;color:#64748B">${campos} campos extraidos del DS-160 anterior</div>
       </div>`;
     }).join('');
 
-    const html = `<div style="font-family:Calibri,Arial,sans-serif;max-width:750px;margin:0 auto;background:#F4F6F9;padding:20px">
+    const html = `<div style="font-family:Calibri,Arial,sans-serif;max-width:800px;margin:0 auto;background:#F4F6F9;padding:20px">
 
+  <!-- CABECERA -->
   <div style="background:#060E1F;padding:22px 28px;border-radius:12px 12px 0 0;border-bottom:3px solid #F0B429">
-    <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ANALISIS DS-160 ANTERIORES — VISA GLOBAL</div>
-    <h1 style="font-size:22px;font-weight:700;color:white;margin:0 0 4px">${caseName || ref}</h1>
-    <div style="font-size:13px;color:#F0B429">${perfiles.length} viajero${perfiles.length>1?'s':''} analizados · ${fecha} · Ref: ${ref}</div>
-    <div style="margin-top:12px;background:rgba(255,255,255,.12);border-radius:8px;padding:10px 16px;display:inline-block">
-      <span style="font-size:24px;font-weight:700;color:#4ade80">${a.probabilidad_con_estrategia||'—'}</span>
-      <span style="font-size:13px;color:rgba(255,255,255,.7);margin-left:8px">con estrategia aplicada</span>
-      <span style="font-size:13px;color:rgba(255,255,255,.4);margin:0 8px">vs</span>
-      <span style="font-size:18px;font-weight:700;color:#f87171">${a.probabilidad_actual||'—'}</span>
-      <span style="font-size:13px;color:rgba(255,255,255,.4)">sin preparacion</span>
+    <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ANALISIS COMPLETO DS-160 — VISA GLOBAL</div>
+    <h1 style="font-size:22px;font-weight:700;color:white;margin:0 0 6px">${caseName || ref}</h1>
+    <div style="font-size:13px;color:#F0B429">${perfiles.length} viajero${perfiles.length>1?'s':''} · ${fecha} · Ref: ${ref}</div>
+    <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+      <div style="background:rgba(74,222,128,.2);border:1px solid rgba(74,222,128,.4);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:#4ade80">${a.probabilidad_con_estrategia||'—'}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase">Con estrategia</div>
+      </div>
+      <div style="background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:#f87171">${a.probabilidad_actual||'—'}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase">Sin preparacion</div>
+      </div>
+      <div style="background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.3);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:14px;font-weight:700;color:#F0B429">${a.paquete||'—'}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase">Paquete</div>
+      </div>
     </div>
   </div>
 
   <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:24px 28px">
 
     ${a.alerta_principal && !a.alerta_principal.includes('LIMPIO') ? `
-    <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:18px">
-      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">ALERTA CRITICA</div>
-      <div style="font-size:13px;color:#7F1D1D">${a.alerta_principal}</div>
-    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:#166534;font-weight:600">Perfil limpio — sin alertas criticas detectadas</div>`}
+    <div style="background:#FEF2F2;border:2px solid #DC2626;border-radius:10px;padding:16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">ALERTA CRITICA — ATENDER PRIMERO</div>
+      <div style="font-size:13px;color:#7F1D1D;line-height:1.7">${a.alerta_principal}</div>
+    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:12px;color:#166534;font-weight:600">Sin alertas criticas — perfil viable</div>`}
 
-    <div style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Paquete recomendado: ${a.paquete||'—'}</div>
+    <!-- PREGUNTAS PARA LLAMAR AL CLIENTE -->
+    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:18px;margin-bottom:20px">
+      <div style="font-size:12px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px">PREGUNTAS EXACTAS PARA LLAMAR AL CLIENTE AHORA</div>
+      <div style="font-size:13px;color:#78350F;line-height:2.1">${(a.preguntas_para_cliente||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#92400E">$1</strong>')}</div>
+    </div>
 
-    <!-- DATOS EXTRAIDOS -->
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1E40AF;margin-bottom:10px">DATOS EXTRAIDOS DE LOS DS-160 ANTERIORES</div>
-    ${datosTabla}
+    <!-- FICHAS DS-160 COMPLETAS -->
+    <div style="font-size:12px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px">FICHAS COMPLETAS DS-160 POR VIAJERO — LISTOS PARA LLENAR</div>
+    <div style="font-size:11px;color:#64748B;margin-bottom:14px">Los campos en rojo (⚠ FALTA) son los que debes preguntar al cliente. Los demas ya puedes copiarlos directamente al DS-160.</div>
+    ${fichas}
 
-    <!-- PREGUNTAS PARA EL CLIENTE -->
-    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">PREGUNTAS EXACTAS PARA LLAMAR AL CLIENTE</div>
-      <div style="font-size:13px;color:#78350F;line-height:2">${(a.preguntas_para_cliente||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    <!-- TEXTO EXACTO PURPOSE OF TRIP -->
+    <div style="background:#F0FDF4;border:2px solid #22c55e;border-radius:10px;padding:18px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">TEXTO EXACTO — COPIAR EN "PURPOSE OF TRIP" DEL DS-160 NUEVO</div>
+      <div style="font-size:14px;color:#166534;font-style:italic;line-height:1.8;border-left:3px solid #22c55e;padding-left:12px">"${a.motivo_ds160_nuevo||'—'}"</div>
+      <div style="font-size:11px;color:#166534;margin-top:8px">Usar este texto para todos los adultos del grupo.</div>
     </div>
 
     <!-- ERRORES FORMULARIOS ANTERIORES -->
-    ${b('#FEF2F2','#FCA5A5','ERRORES Y DEBILIDADES EN LOS DS-160 ANTERIORES — QUE CORREGIR',(a.errores_formularios_anteriores||'—'))}
-
-    <!-- MOTIVO DS-160 -->
-    <div style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">TEXTO EXACTO — CAMPO "PURPOSE OF TRIP" DS-160 NUEVO</div>
-      <div style="font-size:13px;color:#166534;font-style:italic;line-height:1.7">"${a.motivo_ds160_nuevo||'—'}"</div>
-    </div>
+    ${blk('#FEF2F2','#FCA5A5','ERRORES Y RIESGOS EN LOS DS-160 ANTERIORES — QUE CORREGIR',(a.errores_formularios_anteriores||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
 
     <!-- QUE CAMBIAR -->
-    ${b('#EFF6FF','#93C5FD','QUE CAMBIAR VS LOS FORMULARIOS ANTERIORES',(a.que_cambiar_vs_anterior||'—').replace(/\n/g,'<br>'))}
+    ${blk('#FFF7ED','#FCD34D','QUE CAMBIAR EN LOS NUEVOS DS-160 VS LOS ANTERIORES',(a.que_cambiar_vs_anterior||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#92400E">$1</strong>'))}
 
-    <!-- GUIA LLENADO DS-160 -->
-    ${b('#F8F9FF','#C7D2FE','GUIA DE LLENADO — CAMPOS CRITICOS DEL DS-160 NUEVO',(a.guia_llenado_ds160||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
+    <!-- GUIA DE LLENADO -->
+    ${blk('#F8F9FF','#C7D2FE','GUIA DE LLENADO — INSTRUCCIONES PARA CAMPOS CRITICOS DEL DS-160',(a.guia_llenado_ds160||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#3730A3">$1</strong>'))}
 
     <!-- ESTRATEGIA -->
-    ${b('#EFF6FF','#93C5FD','ESTRATEGIA COMPLETA',(a.estrategia_completa||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
+    ${blk('#EFF6FF','#93C5FD','ESTRATEGIA COMPLETA PARA MAXIMIZAR APROBACION',(a.estrategia_completa||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
 
-    <!-- CONSULADO Y FECHAS -->
-    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">LOGISTICA</div>
+    <!-- ANALISIS POR PERSONA -->
+    ${blk('#F8FAFC','#E2E8F0','ANALISIS DE RIESGO POR VIAJERO',(a.analisis_por_viajero||'—').replace(/\|/g,'<br><br>').replace(/\n/g,'<br>'))}
+
+    <!-- LOGISTICA -->
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">LOGISTICA — CONSULADO Y FECHAS</div>
       <table style="width:100%;font-size:12px;border-collapse:collapse">
-        <tr><td style="padding:5px 0;color:#64748B;width:35%">Consulado</td><td style="font-weight:600">${a.consulado||'—'}</td></tr>
-        <tr><td style="padding:5px 0;color:#64748B">Fecha viaje ideal</td><td>${a.fecha_viaje_ideal||'—'}</td></tr>
-        <tr><td style="padding:5px 0;color:#64748B">Reservar cita</td><td>${a.fecha_cita_sugerida||'—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#64748B;width:38%;vertical-align:top">Consulado recomendado</td><td style="font-weight:600;color:#1A2940">${a.consulado||'—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#64748B;vertical-align:top">Fecha de viaje ideal</td><td style="color:#1A2940">${a.fecha_viaje_ideal||'—'}</td></tr>
+        <tr><td style="padding:6px 0;color:#64748B;vertical-align:top">Cuando reservar la cita</td><td style="color:#1A2940">${a.fecha_cita_sugerida||'—'}</td></tr>
       </table>
     </div>
 
     <!-- DOCUMENTOS -->
-    ${b('#FEF9EE','#FCD34D','DOCUMENTOS EXACTOS A PREPARAR',(a.documentos_exactos||'—').split(';').map((s,i)=>`<div style="padding:5px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join(''))}
+    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">DOCUMENTOS EXACTOS A PREPARAR</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.9">${(a.documentos_exactos||'—').split(';').map((s,i)=>`<div style="padding:6px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join('')}</div>
+    </div>
 
-    <!-- CHECKLIST -->
-    ${b('#F8F9FF','#C7D2FE','CHECKLIST PRE-CITA',(a.checklist_pre_cita||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
+    <!-- CHECKLIST PRE-CITA -->
+    ${blk('#F8F9FF','#C7D2FE','CHECKLIST — LO QUE DEBEN LLEVAR AL CONSULADO',(a.checklist_pre_cita||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
 
-    <!-- GUION -->
-    ${b('#F0FDF4','#86EFAC','GUION DE ENTREVISTA',(a.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>'))}
+    <!-- GUION ENTREVISTA -->
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">GUION DE ENTREVISTA</div>
+      <div style="font-size:12px;color:#1A2940;line-height:2">${(a.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>')}</div>
+    </div>
 
     <!-- PROXIMOS PASOS -->
-    ${b('#EFF6FF','#93C5FD','PROXIMOS PASOS ESTA SEMANA',(a.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
+    ${blk('#EFF6FF','#93C5FD','PROXIMOS PASOS ESTA SEMANA — EN ORDEN DE URGENCIA',(a.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
 
   </div>
-  <div style="text-align:center;padding:12px;font-size:11px;color:#94A3B8">Asesoria Visa Global · ${fecha} · Analizador DS-160 · Ref: ${ref}</div>
+  <div style="text-align:center;padding:14px;font-size:11px;color:#94A3B8">Asesoria Visa Global · ${fecha} · Ref: ${ref}</div>
 </div>`;
 
     MailApp.sendEmail({ to: EMAIL_ROBERTO, subject: `ANALISIS DS-160 — ${caseName||ref} — ${perfiles.length} viajero${perfiles.length>1?'s':''} [${ref}]`, htmlBody: html });
