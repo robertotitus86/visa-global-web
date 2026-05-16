@@ -1023,11 +1023,87 @@ function extractarDS160(payload) {
     const travelerIdx = payload.travelerIdx || 0;
     const pdfText     = payload.pdfText || '';
 
-    const prompt = `Eres un experto en formularios DS-160 de visa USA para Ecuador. Analiza este texto extraido de un DS-160 completado anteriormente y extrae TODOS los datos que puedas identificar. Devuelve SOLO un JSON valido sin markdown con estos campos (null si no encuentras el dato):
-{"surnames":"apellidos en mayusculas como en pasaporte","givenNames":"nombres en mayusculas","dob":"YYYY-MM-DD","cityOfBirth":"ciudad","stateOfBirth":"provincia","countryOfBirth":"Ecuador","sex":"Masculino o Femenino","maritalStatus":"estado civil","nationality":"Ecuador","nationalId":"cedula 10 digitos","passportNumber":"numero pasaporte","passportType":"Ordinario","passportCountry":"Ecuador","passportIssueDate":"YYYY-MM-DD","passportExpiry":"YYYY-MM-DD","homeStreet":"direccion","homeCity":"ciudad residencia","homeProvince":"provincia residencia","primaryPhone":"telefono con codigo","email":"correo@email.com","employmentStatus":"situacion laboral","currentOccupation":"cargo","currentEmployerName":"empresa","currentEmployerCity":"ciudad empresa","monthlySalary":"salario USD","hasBeenInUS":"si o no","usVisitDetails":"detalles visita anterior","hasHadUSVisa":"si o no","previousVisaNumber":"numero visa anterior","previousVisaIssueDate":"YYYY-MM-DD","hasBeenRefused":"si o no","refusalDetails":"motivo rechazo","fatherSurname":"apellido padre","fatherGivenName":"nombre padre","motherSurname":"apellido madre","motherGivenName":"nombre madre","languages":"Espanol","organizations":"Ninguna","countriesVisited5Years":"paises visitados"}
+    const prompt = `Eres un experto en formularios DS-160 de visa USA. Analiza este texto extraido de un DS-160 completado anteriormente y extrae TODOS los datos que puedas identificar. Devuelve SOLO un JSON valido sin markdown ni texto extra. Usa null SOLO si el dato definitivamente no aparece en el texto. No inventes datos.
+
+JSON a completar (null = no encontrado):
+{
+  "surnames":"apellidos MAYUSCULAS como en pasaporte",
+  "givenNames":"nombres MAYUSCULAS como en pasaporte",
+  "dob":"YYYY-MM-DD fecha de nacimiento",
+  "sex":"Masculino o Femenino",
+  "maritalStatus":"Soltero/a | Casado/a | Union de hecho | Divorciado/a | Viudo/a",
+  "hasOtherNames":"si o no",
+  "otherNames":"otros nombres usados si aplica",
+  "cityOfBirth":"ciudad de nacimiento",
+  "stateOfBirth":"provincia de nacimiento",
+  "countryOfBirth":"pais de nacimiento",
+  "nationality":"nacionalidad principal",
+  "hasSecondNationality":"si o no",
+  "secondNationality":"segunda nacionalidad si aplica",
+  "nationalId":"cedula de identidad 10 digitos",
+  "passportNumber":"numero de pasaporte",
+  "passportType":"Ordinario",
+  "passportCountry":"pais que emitio el pasaporte",
+  "passportCity":"ciudad donde fue emitido",
+  "passportIssueDate":"YYYY-MM-DD fecha de emision",
+  "passportExpiry":"YYYY-MM-DD fecha de vencimiento",
+  "hadLostPassport":"si o no",
+  "lostPassportNumber":"numero del pasaporte perdido o robado si aplica",
+  "lostPassportCountry":"pais que emitio el pasaporte perdido si aplica",
+  "homeStreet":"direccion de residencia calle y numero",
+  "homeCity":"ciudad de residencia",
+  "homeProvince":"provincia de residencia",
+  "homeCountry":"pais de residencia",
+  "primaryPhone":"telefono principal con codigo de pais",
+  "secondaryPhone":"telefono secundario si hay",
+  "email":"correo electronico",
+  "fatherSurname":"apellidos del padre",
+  "fatherGivenName":"nombres del padre",
+  "fatherDob":"YYYY-MM-DD fecha nacimiento padre",
+  "fatherInUS":"No | Si — Ciudadano americano | Si — Residente permanente (green card) | Si — Visa temporal | No lo se",
+  "motherSurname":"apellidos de la madre",
+  "motherGivenName":"nombres de la madre",
+  "motherDob":"YYYY-MM-DD fecha nacimiento madre",
+  "motherInUS":"No | Si — Ciudadana americana | Si — Residente permanente (green card) | Si — Visa temporal | No lo se",
+  "hasRelativesInUS":"si o no",
+  "relativesInUSDetails":"descripcion de familiares en USA aparte de padres",
+  "isMarried":"si o no",
+  "spouseSurname":"apellidos del conyuge si aplica",
+  "spouseGivenName":"nombres del conyuge si aplica",
+  "spouseDob":"YYYY-MM-DD fecha nacimiento conyuge",
+  "spouseNationality":"nacionalidad del conyuge",
+  "spouseCountryBirth":"pais de nacimiento del conyuge",
+  "employmentStatus":"Empleado (relacion de dependencia) | Independiente / Empresa propia | Estudiante | Jubilado/a | Ama/Amo de casa | Sin empleo actualmente",
+  "currentOccupation":"cargo o titulo profesional actual",
+  "currentEmployerName":"nombre de la empresa actual",
+  "currentEmployerStreet":"direccion de la empresa actual",
+  "currentEmployerCity":"ciudad de la empresa actual",
+  "currentEmployerPhone":"telefono de la empresa",
+  "currentStartDate":"YYYY-MM-DD fecha de inicio en el empleo actual",
+  "monthlySalary":"salario mensual en USD",
+  "jobDuties":"descripcion de las funciones laborales",
+  "hasPreviousEmployers":"si o no tuvo empleos anteriores en ultimos 5 anos",
+  "previousEmployers":[{"name":"empresa","title":"cargo","city":"ciudad","from":"YYYY-MM-DD","to":"YYYY-MM-DD","reason":"razon de salida"}],
+  "schoolName":"nombre de institucion educativa si es estudiante",
+  "schoolCity":"ciudad de la institucion",
+  "schoolCourse":"carrera o programa de estudios",
+  "educationSummary":"resumen de educacion desde los 16 anos colegios y universidades con fechas",
+  "hasBeenInUS":"si o no ha estado en USA antes",
+  "usVisitDetails":"cuando fue y cuanto tiempo se quedo en USA",
+  "hasHadUSVisa":"si o no ha tenido visa americana",
+  "previousVisaNumber":"numero de la visa americana anterior",
+  "previousVisaIssueDate":"YYYY-MM-DD fecha de emision de la visa anterior",
+  "previousVisaType":"B1/B2 Turismo | F-1 Estudiante | H-1B Trabajo | Otro",
+  "hasBeenRefused":"si o no le han negado visa o entrada a USA",
+  "refusalDetails":"cuando y por que razon fue rechazado",
+  "countriesVisited5Years":"paises visitados en los ultimos 5 anos excepto Ecuador y USA con fechas aproximadas",
+  "languages":"idiomas que habla",
+  "organizations":"organizaciones o grupos a los que pertenece",
+  "hasMilitaryService":"si o no ha prestado servicio militar"
+}
 
 TEXTO DEL DS-160:
-${pdfText.substring(0, 6000)}`;
+${pdfText.substring(0, 7000)}`;
 
     const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -1038,7 +1114,7 @@ ${pdfText.substring(0, 6000)}`;
       },
       payload: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1500,
+        max_tokens: 2500,
         messages: [{ role: 'user', content: prompt }],
       }),
       muteHttpExceptions: true,

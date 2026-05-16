@@ -779,23 +779,38 @@ async function handlePDFUpload(idx, input) {
     if (result) {
       EXTRACTED[idx] = result;
 
-      // Guardar inmediatamente en S para que no se pierda si refresca
+      // Filtrar nulls/vacíos para NO sobreescribir datos existentes con null
+      const cleaned = Object.fromEntries(
+        Object.entries(result).filter(([k, v]) =>
+          v !== null && v !== undefined && v !== '' &&
+          !(Array.isArray(v) && v.length === 0)
+        )
+      );
+
       if (!S.perTraveler[idx]) S.perTraveler[idx] = {};
-      Object.assign(S.perTraveler[idx], result);
+      // Merge: solo aplicar si el campo existente está vacío o el nuevo es mejor
+      Object.entries(cleaned).forEach(([k, v]) => {
+        if (!S.perTraveler[idx][k] || S.perTraveler[idx][k] === '' || S.perTraveler[idx][k] === null) {
+          S.perTraveler[idx][k] = v;
+        }
+      });
+
+      const camposExtraidos = Object.keys(cleaned).filter(k => k !== 'previousEmployers').length
+        + (cleaned.previousEmployers?.length ? cleaned.previousEmployers.length : 0);
 
       slot.classList.remove('processing');
       slot.classList.add('loaded');
       const nombre = result.surnames && result.givenNames
         ? `${result.givenNames} ${result.surnames}`.trim()
         : file.name.replace('.pdf','');
-      statusEl.innerHTML = `<span style="color:var(--green)">Extraido: ${nombre}</span>`;
-      // Pre-fill traveler name if detected
+      statusEl.innerHTML = `<span style="color:var(--green)">Extraido: ${nombre} — ${camposExtraidos} campos pre-llenados</span>`;
+
+      // Pre-fill traveler name/dob en el setup
       if (result.surnames || result.givenNames) {
         const fullName = `${result.givenNames||''} ${result.surnames||''}`.trim();
         if (!S.travelers[idx]) S.travelers[idx] = {name:'',role:'Adulto',dob:''};
         if (!S.travelers[idx].name) S.travelers[idx].name = fullName;
         if (result.dob && !S.travelers[idx].dob) S.travelers[idx].dob = result.dob;
-        // Update traveler row input if visible
         const nameInput = document.getElementById(`tname_${idx}`);
         if (nameInput && !nameInput.value) nameInput.value = fullName;
       }
