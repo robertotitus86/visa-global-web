@@ -555,15 +555,48 @@ function openDetail(refId) {
     </div>
 
     <!-- DATOS -->
-    <div class="section-title" style="margin-top:16px">Datos del cliente</div>
+    <div class="section-title" style="margin-top:16px">Datos del cliente <span style="font-size:.68rem;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">— haz clic en cualquier campo para editar</span></div>
+    <div class="grid-2">
+      <div class="field">
+        <label class="field-label">Nombre completo</label>
+        <input type="text" value="${nombre}" onblur="updateCaseField('${refId}','Nombre Principal',this.value)" placeholder="Nombre del cliente">
+      </div>
+      <div class="field">
+        <label class="field-label">Tipo de visa</label>
+        <select class="status-select" style="width:100%" onchange="updateCaseField('${refId}','Tipo Visa',this.value)">
+          ${['USA DS-160','Schengen','Reino Unido','Caso de Rechazo'].map(s=>`<option ${s===tipo?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Telefono (WhatsApp)</label>
+        <input type="text" value="${tel}" onblur="updateCaseField('${refId}','Telefono',this.value)" placeholder="09xxxxxxxx">
+      </div>
+      <div class="field">
+        <label class="field-label">Email</label>
+        <input type="text" value="${email}" onblur="updateCaseField('${refId}','Email',this.value)" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="field">
+        <label class="field-label">Num. viajeros</label>
+        <select class="status-select" style="width:100%" onchange="updateCaseField('${refId}','Num Viajeros',this.value)">
+          ${['1','2','3','4','5','6'].map(s=>`<option ${s===viaj?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Paquete</label>
+        <select class="status-select" style="width:100%" onchange="updateCaseField('${refId}','Paquete',this.value)">
+          ${['Por definir','Esencial ($97)','Profesional ($197)','VIP ($397)'].map(s=>`<option ${s===paquete?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Llegada USA (aprox.)</label>
+        <input type="text" value="${llegada==='—'?'':llegada}" onblur="updateCaseField('${refId}','Llegada USA',this.value)" placeholder="ej. julio 2025">
+      </div>
+      <div class="field">
+        <label class="field-label">Dias de estancia</label>
+        <input type="text" value="${dias==='—'?'':dias}" onblur="updateCaseField('${refId}','Dias Estancia',this.value)" placeholder="ej. 14">
+      </div>
+    </div>
     <div class="detail-row"><span class="detail-key">Referencia</span><span class="detail-val">${refId}</span></div>
-    <div class="detail-row"><span class="detail-key">Tipo visa</span><span class="detail-val">${tipo}</span></div>
-    <div class="detail-row"><span class="detail-key">Viajeros</span><span class="detail-val">${viaj}</span></div>
-    <div class="detail-row"><span class="detail-key">Telefono</span><span class="detail-val">${tel||'—'}</span></div>
-    <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${email||'—'}</span></div>
-    <div class="detail-row"><span class="detail-key">Llegada USA</span><span class="detail-val">${llegada}</span></div>
-    <div class="detail-row"><span class="detail-key">Duracion</span><span class="detail-val">${dias} dias</span></div>
-    <div class="detail-row"><span class="detail-key">Paquete</span><span class="detail-val">${paquete}</span></div>
     <div class="detail-row"><span class="detail-key">Probabilidad IA</span><span class="detail-val">${prob}</span></div>
     <div class="detail-row"><span class="detail-key">Ingresado</span><span class="detail-val">${fecha}</span></div>
 
