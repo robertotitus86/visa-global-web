@@ -306,14 +306,20 @@ Responde en JSON exacto sin markdown ni bloques de codigo:
   "probabilidad_sin_estrategia": "probabilidad actual sin preparacion adicional",
   "paquete": "ESENCIAL $97 o PROFESIONAL $197 o VIP $397",
   "razon_paquete": "una linea explicando por que ese paquete segun la complejidad del caso",
-  "fuertes": "3-5 puntos fuertes del perfil que el consul vera positivamente, separados por punto y coma",
-  "debiles": "2-4 debilidades reales del perfil que pueden causar rechazo, separados por punto y coma",
-  "estrategia": "plan CONCRETO de 7-10 pasos numerados para llevar este caso al 80-100%. Cada paso debe ser especifico para ESTE caso, no generico. Incluir: que documentos preparar exactamente, como presentarlos, que decir en la entrevista sobre cada punto debil, que enfatizar.",
-  "documentos_exactos": "lista de 5-8 documentos especificos con descripcion de como deben estar (ej: 'Carta laboral en papel membretado con cargo, salario y fecha de inicio, firmada por RRHH o gerente general' — NO solo 'carta laboral'), separados por punto y coma",
-  "guion_entrevista": "3-5 preguntas que el consul hara SEGURO a este perfil y la respuesta ideal para cada una. Formato: PREGUNTA: [pregunta] | RESPUESTA IDEAL: [respuesta]",
-  "proximos_pasos": "5 acciones especificas que el asesor debe hacer esta semana con este cliente, en orden de urgencia, numeradas",
-  "alerta_principal": "el riesgo mas critico de este caso especifico y como neutralizarlo. Si no hay riesgo critico, escribir PERFIL LIMPIO",
-  "campos_faltantes": "lista de preguntas ESPECIFICAS que el asesor debe hacerle al cliente porque no estan en el formulario y son necesarias para completar el perfil. Formato: '1. [PERSONA] — [PREGUNTA EXACTA A HACERLE]'. Si el perfil esta completo, escribir PERFIL COMPLETO. Ejemplos: '1. Carlos — Cuanto lleva en su empleo actual y cuanto gana mensualmente. 2. Sofia — Tiene la autorizacion notariada del padre para viajar.'"
+  "consulado": "GUAYAQUIL o QUITO — razon concreta para este perfil (ciudad de residencia, disponibilidad de citas, historial del consulado con este tipo de caso)",
+  "motivo_ds160": "texto EXACTO en espanol para poner en el campo purpose of trip del DS-160 — 2-3 oraciones especificas, con actividades concretas y fechas. NO usar 'turismo' a secas. Ejemplo: 'Visita turistica familiar para conocer Orlando (parques Disney y Universal) y Miami Beach del [fecha] al [fecha]. El grupo incluye menores de edad que desean conocer los parques tematicos. Regresamos a Ecuador donde los ninos continuan sus estudios.'",
+  "fecha_viaje_ideal": "mejor epoca del ano para ESTE perfil especifico y por que (considerar: temporada de menor rechazo en el consulado, costos de vuelo, actividad en destinos mencionados, edad de menores si aplica)",
+  "fecha_cita_sugerida": "cuando reservar la cita consular — dia/semana especifica si es posible — cuanto tiempo antes del viaje ideal — y por que ese timing le da margen para reunir documentos",
+  "tiempo_preparacion": "cuantas semanas necesita este caso especifico desde hoy hasta estar listo para la cita, paso a paso: semana 1 hacer X, semana 2 hacer Y...",
+  "fuertes": "3-5 puntos fuertes del perfil separados por punto y coma",
+  "debiles": "2-4 debilidades reales que pueden causar rechazo separadas por punto y coma",
+  "estrategia": "plan CONCRETO de 8-12 pasos numerados para llevar este caso al 80-100%. Especifico para ESTE caso: que documentos preparar exactamente, como presentarlos, que argumentar para cada punto debil, que enfatizar del perfil",
+  "documentos_exactos": "lista de 6-10 documentos especificos con descripcion exacta de como deben estar preparados (formato, quien firma, que debe decir, que NO debe decir), separados por punto y coma",
+  "checklist_pre_cita": "lista de 10-15 items que deben estar listos ANTES de ir al consulado, en orden de urgencia. Incluir: documentos fisicos, copias, fotos, comprobantes, DS-160 impreso, confirmacion de cita, etc.",
+  "guion_entrevista": "4-6 preguntas que el consul hara SEGURO a ESTE perfil especifico y la respuesta ideal para cada una. Formato: PREGUNTA: [pregunta] | RESPUESTA IDEAL: [respuesta exacta de 1-3 frases]",
+  "proximos_pasos": "5-7 acciones concretas que el asesor debe hacer ESTA SEMANA con este cliente, en orden de urgencia, numeradas",
+  "alerta_principal": "el riesgo mas critico de este caso y como neutralizarlo. Si no hay riesgo critico escribir PERFIL LIMPIO",
+  "campos_faltantes": "preguntas ESPECIFICAS que el asesor debe hacerle al cliente porque no estan en el formulario. Formato: '1. [PERSONA] — [PREGUNTA EXACTA]'. Si el perfil esta completo escribir PERFIL COMPLETO"
 }`;
 }
 
@@ -323,132 +329,150 @@ function notificarRobertoIntakeFamiliar(refId, fecha, nombre, numViaj, tel, emai
     const esAlerta = analisis.alerta_principal && !analisis.alerta_principal.includes('LIMPIO');
     const colorAlerta = esAlerta ? '#7C3AED' : '#060E1F';
 
-    const viajerosList = personas.map((p, i) =>
-      `<tr><td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9">${i+1}. ${p.nombre}</td>
-       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9;color:#64748B">${p.rol}</td>
-       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9;color:#64748B">${(p.datos||{}).employmentStatus||'—'}</td>
-       <td style="padding:5px 8px;font-size:12px;border-bottom:1px solid #F4F6F9">${(p.banderas_seguridad||[]).length?'<span style="color:#ef4444">'+p.banderas_seguridad.length+' flag(s)</span>':'<span style="color:#22c55e">Limpio</span>'}</td></tr>`
-    ).join('');
+    const viajerosList = personas.map((p, i) => {
+      const d = p.datos || {};
+      return `<tr>
+        <td style="padding:6px 8px;font-size:12px;border-bottom:1px solid #F4F6F9;font-weight:600">${p.nombre}</td>
+        <td style="padding:6px 8px;font-size:11px;border-bottom:1px solid #F4F6F9;color:#64748B">${p.rol}</td>
+        <td style="padding:6px 8px;font-size:11px;border-bottom:1px solid #F4F6F9;color:#64748B">${d.passportNumber||'Sin pasaporte'}</td>
+        <td style="padding:6px 8px;font-size:11px;border-bottom:1px solid #F4F6F9;color:#64748B">${d.employmentStatus||'—'}</td>
+        <td style="padding:6px 8px;font-size:11px;border-bottom:1px solid #F4F6F9">${(p.banderas_seguridad||[]).length?'<span style="color:#ef4444;font-weight:700">'+p.banderas_seguridad.length+' alerta(s)</span>':'<span style="color:#22c55e">Limpio</span>'}</td>
+      </tr>`;
+    }).join('');
+
+    const blk = (color,label,content) =>
+      `<div style="background:${color};border-radius:10px;padding:14px;margin-bottom:12px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1A2940;margin-bottom:8px;opacity:.7">${label}</div>
+        <div style="font-size:12px;color:#1A2940;line-height:1.85">${content}</div>
+      </div>`;
 
     const html = `
 <div style="font-family:Calibri,Arial,sans-serif;max-width:720px;margin:0 auto;background:#F4F6F9;padding:20px">
 
+  <!-- CABECERA -->
   <div style="background:${colorAlerta};color:white;padding:22px 28px;border-radius:12px 12px 0 0">
-    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:6px">
-      INTAKE FAMILIAR — USA TURISMO B1/B2
-    </div>
-    <h1 style="font-size:20px;font-weight:700;margin:0 0 4px">Nuevo caso — ${nombre}</h1>
-    <div style="font-size:13px;opacity:.8">${numViaj} viajero${numViaj>1?'s':''} · Llegada aprox: ${shared.intendedArrival||'—'} · ${shared.lengthOfStayDays||'—'} dias · ${shared.usStayCity||'?'}</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:6px">EXPEDIENTE VISA USA B1/B2 — FAMILIA</div>
+    <h1 style="font-size:22px;font-weight:700;margin:0 0 6px">${nombre} + ${numViaj-1} acompañante${numViaj-1!==1?'s':''}</h1>
+    <div style="font-size:13px;opacity:.8">Ref: ${refId} · Llegada: ${shared.intendedArrival||'por definir'} · ${shared.lengthOfStayDays||'?'} dias · ${shared.usStayCity||'?'}, ${shared.usStayState||'?'}</div>
+    <div style="margin-top:12px;display:inline-block;background:rgba(255,255,255,.15);border-radius:6px;padding:6px 14px;font-size:18px;font-weight:700">${analisis.probabilidad||'—'} aprobacion &nbsp;→&nbsp; ${analisis.paquete||'—'}</div>
   </div>
 
-  <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:22px 28px">
+  <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:24px 28px">
 
-    <!-- ALERTA si hay bandera roja -->
-    ${esAlerta ? `<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:18px">
-      <div style="font-size:10px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">ALERTA — REVISAR</div>
-      <div style="font-size:13px;color:#7F1D1D">${analisis.alerta_principal||''}</div>
-    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:#166534;font-weight:600">
-      Perfil limpio — sin banderas criticas detectadas
-    </div>`}
-
-    <!-- DATOS RÁPIDOS -->
-    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px">
-      <tr><td style="padding:6px 0;color:#64748B;width:38%">Referencia</td><td style="font-weight:700">${refId}</td></tr>
-      <tr><td style="padding:6px 0;color:#64748B">Nombre principal</td><td style="font-weight:700">${nombre}</td></tr>
-      <tr><td style="padding:6px 0;color:#64748B">Telefono</td><td>${tel||'—'}</td></tr>
-      <tr><td style="padding:6px 0;color:#64748B">Email</td><td>${email||'—'}</td></tr>
-      <tr><td style="padding:6px 0;color:#64748B">Alojamiento USA</td><td>${shared.usStayName||'—'}, ${shared.usStayCity||'—'}, ${shared.usStayState||'—'}</td></tr>
-      <tr><td style="padding:6px 0;color:#64748B">Quien paga</td><td>${shared.whoIsPaying||'—'}</td></tr>
-    </table>
+    <!-- ALERTA -->
+    ${esAlerta ? `<div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:18px">
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">ALERTA CRITICA — ATENDER PRIMERO</div>
+      <div style="font-size:13px;color:#7F1D1D;line-height:1.6">${analisis.alerta_principal||''}</div>
+    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:#166534;font-weight:600">Perfil limpio — sin alertas criticas</div>`}
 
     <!-- VIAJEROS -->
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#64748B;margin-bottom:8px">Viajeros</div>
-    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;background:#F8FAFC;border-radius:8px;overflow:hidden">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#64748B;margin-bottom:8px">Viajeros del grupo</div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12px;background:#F8FAFC;border-radius:8px;overflow:hidden">
       <tr style="background:#E2E8F0">
-        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">#</td>
-        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Rol</td>
-        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Empleo</td>
-        <td style="padding:6px 8px;font-size:11px;font-weight:700;color:#1A2940">Seguridad</td>
+        <td style="padding:6px 8px;font-weight:700;color:#1A2940">Nombre</td>
+        <td style="padding:6px 8px;font-weight:700;color:#1A2940">Rol</td>
+        <td style="padding:6px 8px;font-weight:700;color:#1A2940">Pasaporte</td>
+        <td style="padding:6px 8px;font-weight:700;color:#1A2940">Empleo</td>
+        <td style="padding:6px 8px;font-weight:700;color:#1A2940">Seguridad</td>
       </tr>
       ${viajerosList}
     </table>
 
-    <!-- ANÁLISIS IA -->
+    <!-- BLOQUE 1: CONSULADO Y LOGISTICA -->
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">CONSULADO Y LOGISTICA</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <tr><td style="padding:5px 0;color:#64748B;width:35%;vertical-align:top">Consulado recomendado</td><td style="padding:5px 0;font-weight:600;color:#1A2940">${analisis.consulado||'—'}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B;vertical-align:top">Fecha viaje ideal</td><td style="padding:5px 0;font-weight:600;color:#1A2940">${analisis.fecha_viaje_ideal||'—'}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B;vertical-align:top">Cuando reservar cita</td><td style="padding:5px 0;font-weight:600;color:#1A2940">${analisis.fecha_cita_sugerida||'—'}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B;vertical-align:top">Tiempo de preparacion</td><td style="padding:5px 0;color:#1A2940">${analisis.tiempo_preparacion||'—'}</td></tr>
+      </table>
+    </div>
+
+    <!-- BLOQUE 2: MOTIVO EXACTO DS-160 -->
+    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">TEXTO EXACTO PARA DS-160 — CAMPO "PURPOSE OF TRIP"</div>
+      <div style="font-size:13px;color:#78350F;line-height:1.7;font-style:italic;">"${analisis.motivo_ds160||'—'}"</div>
+      <div style="font-size:11px;color:#92400E;margin-top:8px">Copiar este texto exactamente en el DS-160 de cada adulto del grupo.</div>
+    </div>
+
+    <!-- BLOQUE 3: PROBABILIDAD -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div style="text-align:center;background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px">
+        <div style="font-size:28px;font-weight:700;color:#166534">${analisis.probabilidad||'—'}</div>
+        <div style="font-size:10px;color:#166534;font-weight:700;text-transform:uppercase">Con estrategia aplicada</div>
+      </div>
+      <div style="text-align:center;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:14px">
+        <div style="font-size:28px;font-weight:700;color:#991B1B">${analisis.probabilidad_sin_estrategia||'—'}</div>
+        <div style="font-size:10px;color:#991B1B;font-weight:700;text-transform:uppercase">Sin preparacion</div>
+      </div>
+    </div>
+
+    <!-- BLOQUE 4: PUNTOS FUERTES Y DEBILES -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      ${blk('#F0FDF4','Puntos fuertes del perfil',(analisis.fuertes||'—').split(';').map(s=>'<div style="padding:3px 0;border-bottom:1px solid #DCFCE7">✓ '+s.trim()+'</div>').join(''))}
+      ${blk('#FEF2F2','Puntos debiles a neutralizar',(analisis.debiles||'—').split(';').map(s=>'<div style="padding:3px 0;border-bottom:1px solid #FEE2E2;color:#991B1B">✗ '+s.trim()+'</div>').join(''))}
+    </div>
+
+    <!-- BLOQUE 5: ESTRATEGIA COMPLETA -->
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">ESTRATEGIA COMPLETA — PLAN DE ACCION</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.9">${(analisis.estrategia||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
+    </div>
+
+    <!-- BLOQUE 6: DOCUMENTOS EXACTOS -->
+    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">DOCUMENTOS EXACTOS A PREPARAR</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_exactos||analisis.documentos_clave||'—').split(';').map((s,i)=>`<div style="padding:6px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join('')}</div>
+    </div>
+
+    <!-- BLOQUE 7: CHECKLIST PRE-CITA -->
+    <div style="background:#F8F9FF;border:1px solid #C7D2FE;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#3730A3;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">CHECKLIST — LO QUE DEBEN LLEVAR EL DIA DE LA CITA</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.9">${(analisis.checklist_pre_cita||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#3730A3">$1</strong>')}</div>
+    </div>
+
+    <!-- BLOQUE 8: GUION ENTREVISTA -->
     <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#166534;margin-bottom:10px">
-        ANALISIS IA — ${analisis.probabilidad||'—'} probabilidad — ${analisis.paquete||'—'}
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div>
-          <div style="font-size:10px;font-weight:700;color:#166534;margin-bottom:5px">PUNTOS FUERTES</div>
-          <div style="font-size:12px;color:#1A2940;line-height:1.6">${(analisis.fuertes||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
-        </div>
-        <div>
-          <div style="font-size:10px;font-weight:700;color:#991B1B;margin-bottom:5px">PUNTOS DEBILES</div>
-          <div style="font-size:12px;color:#1A2940;line-height:1.6">${(analisis.debiles||'—').split(';').map(s=>'• '+s.trim()).join('<br>')}</div>
-        </div>
-      </div>
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">GUION DE ENTREVISTA — PREGUNTAS Y RESPUESTAS IDEALES</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.9">${(analisis.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>')}</div>
     </div>
 
-    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">ESTRATEGIA RECOMENDADA</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.estrategia||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    <!-- BLOQUE 9: PROXIMOS PASOS -->
+    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:16px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">PROXIMOS PASOS — ESTA SEMANA (EN ORDEN DE URGENCIA)</div>
+      <div style="font-size:12px;color:#1A2940;line-height:1.9">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
     </div>
 
-    <div style="background:#FEF9EE;border:1px solid #FCD34D;border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">DOCUMENTOS EXACTOS A PREPARAR</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.documentos_exactos||analisis.documentos_clave||'—').split(';').map((s,i)=>`<div style="padding:5px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join('')}</div>
-    </div>
-
-    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">GUION DE ENTREVISTA — PREGUNTAS Y RESPUESTAS IDEALES</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>')}</div>
-    </div>
-
-    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROBABILIDAD — CON ESTRATEGIA VS SIN PREPARAR</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="text-align:center;background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px">
-          <div style="font-size:22px;font-weight:700;color:#166534">${analisis.probabilidad||'—'}</div>
-          <div style="font-size:10px;color:#166534;font-weight:600">CON ESTRATEGIA APLICADA</div>
-        </div>
-        <div style="text-align:center;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:8px;padding:10px">
-          <div style="font-size:22px;font-weight:700;color:#991B1B">${analisis.probabilidad_sin_estrategia||'—'}</div>
-          <div style="font-size:10px;color:#991B1B;font-weight:600">SIN PREPARACION</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:10px;padding:14px;margin-bottom:24px">
-      <div style="font-size:10px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">PROXIMOS PASOS — ESTA SEMANA (EN ORDEN DE URGENCIA)</div>
-      <div style="font-size:12px;color:#1A2940;line-height:1.8">${(analisis.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>')}</div>
-    </div>
-
+    <!-- CAMPOS FALTANTES -->
     ${analisis.campos_faltantes_formulario ? `
-    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:16px">
-      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">⚠ CAMPOS NO LLENADOS EN EL FORMULARIO — SOLICITAR AL CLIENTE</div>
+    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">INFORMACION PENDIENTE — SOLICITAR AL CLIENTE</div>
       <div style="font-size:12px;color:#78350F;line-height:1.9">${analisis.campos_faltantes_formulario.replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
     </div>` : ''}
-
     ${analisis.campos_faltantes && !analisis.campos_faltantes.includes('COMPLETO') ? `
-    <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:16px;margin-bottom:20px">
-      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">INFORMACION ADICIONAL IDENTIFICADA POR IA — PREGUNTAR AL CLIENTE</div>
-      <div style="font-size:13px;color:#7F1D1D;line-height:1.9">${(analisis.campos_faltantes||'').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
-      <div style="margin-top:12px">
-        <a href="${reporteUrl.replace('/exec?','/exec?action=verFormAdmin&')}&ref=${refId}&pin=admin" style="display:inline-block;background:#991B1B;color:white;padding:9px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:12px">Completar datos faltantes en el admin</a>
-      </div>
-    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 14px;margin-bottom:20px;font-size:12px;color:#166534;font-weight:600">Perfil completo — no faltan datos criticos</div>`}
+    <div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">DATOS ADICIONALES IDENTIFICADOS POR IA</div>
+      <div style="font-size:12px;color:#7F1D1D;line-height:1.9">${(analisis.campos_faltantes||'').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    </div>` : ''}
 
+    <!-- BOTONES -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
     <a href="${reporteUrl}" style="display:inline-block;background:#060E1F;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;margin-right:10px">
       Ver expediente completo
     </a>
-    <a href="https://wa.me/${(tel||'').replace(/\D/g,'')}" style="display:inline-block;background:#22c55e;color:white;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
+    <a href="https://wa.me/${(tel||'').replace(/\D/g,'')}" style="display:inline-block;background:#22c55e;color:white;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
       WhatsApp cliente
     </a>
+    <a href="${WEBHOOK}?action=reconstruct&ref=${refId}" style="display:inline-block;background:#F0B429;color:#060E1F;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px">
+      Ver formulario completo
+    </a>
+    </div>
+
   </div>
 
   <div style="text-align:center;padding:14px;font-size:11px;color:#94A3B8">
-    Asesoria Visa Global — ${fecha} — Sistema automatico intake.html
+    Asesoria Visa Global · ${fecha} · Ref: ${refId}
   </div>
 </div>`;
 

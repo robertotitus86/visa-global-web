@@ -1984,7 +1984,8 @@ async function init() {
 
     const source = fromCloud ? 'nube' : 'este dispositivo';
     const banner = document.createElement('div');
-    banner.style.cssText = 'position:fixed;top:60px;left:0;right:0;z-index:200;background:rgba(240,180,41,.15);border-bottom:1px solid rgba(240,180,41,.25);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;gap:12px';
+    // top:62px = justo debajo del header (60px) sin tapar el logo Visa Global
+    banner.style.cssText = 'position:fixed;top:62px;left:0;right:0;z-index:150;background:rgba(6,14,31,.95);border-bottom:1px solid rgba(240,180,41,.25);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.78rem;gap:12px;backdrop-filter:blur(8px)';
 
     if (S.phase === 'review') {
       banner.innerHTML = `<span style="color:var(--white)">Datos de <strong style="color:var(--gold)">${S.travelers[0]?.name?.split(' ')[0] || 'cliente'}</strong> cargados desde ${source}</span>
@@ -1996,13 +1997,15 @@ async function init() {
         : S.phase === 'traveler'
         ? `${S.travelers[S.travelerIdx]?.name || 'Viajero'} — paso ${S.travelerStep + 1}`
         : 'Configuracion inicial';
-      banner.innerHTML = `<span style="color:var(--white)">Progreso restaurado (${source}) — continuando en: <strong style="color:var(--gold)">${pasoActual}</strong></span>
+      banner.innerHTML = `<span style="color:rgba(255,255,255,.8)">Progreso restaurado (${source}) — <strong style="color:var(--gold)">${pasoActual}</strong></span>
         <div style="display:flex;gap:8px;flex-shrink:0">
-          <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:5px 14px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans)">Continuar</button>
-          <button onclick="localStorage.removeItem('${CLOUD_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:var(--sans)">Empezar de nuevo</button>
+          <button onclick="this.closest('div').remove();renderScreen()" style="background:var(--gold);color:var(--navy);border:none;padding:4px 12px;border-radius:5px;font-weight:700;cursor:pointer;font-family:var(--sans);font-size:.75rem">Continuar</button>
+          <button onclick="localStorage.removeItem('${CLOUD_KEY}');Object.assign(S,{phase:'setup',sharedStep:0,travelerIdx:0,travelerStep:0,travelers:[],shared:{},perTraveler:[],securityFlags:{}});this.closest('div').remove();renderScreen()" style="background:transparent;color:var(--muted);border:1px solid var(--border);padding:4px 12px;border-radius:5px;cursor:pointer;font-family:var(--sans);font-size:.75rem">Nuevo</button>
         </div>`;
     }
     document.body.appendChild(banner);
+    // Auto-cerrar en 5 segundos si es review, 8 si es otro paso
+    setTimeout(() => { try { banner.remove(); } catch(e) {} }, S.phase === 'review' ? 4000 : 8000);
   }
   renderScreen();
   startAutoSave(); // auto-guardado cada 60 seg aunque no haya actividad
