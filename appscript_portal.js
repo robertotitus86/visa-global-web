@@ -36,9 +36,10 @@ const COL_RESUMEN = [
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
-    if (payload.subtipo === 'save_draft')      return saveDraftAction(payload);
-    if (payload.subtipo === 'intake_familiar') return manejarIntakeFamiliar(payload);
-    if (payload.subtipo === 'extractDS160')    return extractarDS160(payload);
+    if (payload.subtipo === 'save_draft')               return saveDraftAction(payload);
+    if (payload.subtipo === 'intake_familiar')          return manejarIntakeFamiliar(payload);
+    if (payload.subtipo === 'extractDS160')             return extractarDS160(payload);
+    if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160Anteriores(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
@@ -1042,6 +1043,252 @@ Con esta informacion completa, genera un nuevo analisis. Responde en JSON exacto
 }
 
 // ── Extraer datos de DS-160 PDF ───────────────────────────────────
+// ── ANALIZADOR DE DS-160 ANTERIORES ─────────────────────────────
+// Recibe PDFs de formularios anteriores, extrae todo y genera estrategia completa
+function analizarDs160Anteriores(payload) {
+  try {
+    const ref      = payload.ref      || ('DS-' + Date.now().toString().slice(-6));
+    const caseName = payload.caseName || '';
+    const personas = payload.personas || [];
+    const fecha    = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    if (!personas.length) return ok({ error: 'Sin personas' });
+
+    // 1. Extraer datos de cada PDF con Claude
+    const perfiles = personas.map(p => {
+      const extractPrompt = `Eres un experto en formularios DS-160 de visa USA. Extrae TODOS los datos de este formulario DS-160 anterior. Devuelve JSON exacto sin markdown:
+{
+  "apellidos":"","nombres":"","fecha_nacimiento":"YYYY-MM-DD","sexo":"Masculino o Femenino",
+  "estado_civil":"","ciudad_nacimiento":"","provincia_nacimiento":"","pais_nacimiento":"",
+  "nacionalidad":"","cedula":"","numero_pasaporte":"","tipo_pasaporte":"Ordinario",
+  "fecha_emision_pasaporte":"YYYY-MM-DD","fecha_vencimiento_pasaporte":"YYYY-MM-DD",
+  "ciudad_emision_pasaporte":"","direccion":"","ciudad_residencia":"","provincia_residencia":"",
+  "telefono":"","email":"","situacion_laboral":"","cargo":"","empleador":"",
+  "direccion_empleador":"","ciudad_empleador":"","telefono_empleador":"","fecha_inicio_empleo":"YYYY-MM-DD",
+  "salario_mensual":"","funciones":"","empleos_anteriores":[{"empresa":"","cargo":"","ciudad":"","desde":"","hasta":"","razon_salida":""}],
+  "nombre_padre":"","apellidos_padre":"","fecha_nac_padre":"","padre_en_usa":"",
+  "nombre_madre":"","apellidos_madre":"","fecha_nac_madre":"","madre_en_usa":"",
+  "nombre_conyuge":"","apellidos_conyuge":"","fecha_nac_conyuge":"","nacionalidad_conyuge":"",
+  "ha_estado_en_usa":"si o no","detalle_visitas_usa":"","ha_tenido_visa_usa":"si o no",
+  "numero_visa_anterior":"","fecha_emision_visa_anterior":"","tipo_visa_anterior":"",
+  "le_han_negado_visa":"si o no","detalle_negacion":"",
+  "paises_visitados_5_anos":"","idiomas":"","organizaciones":"",
+  "redes_sociales":[{"plataforma":"","usuario":""}],
+  "proposito_viaje_anterior":"","destino_anterior":"","duracion_anterior":"",
+  "contacto_usa_nombre":"","contacto_usa_relacion":"","contacto_usa_telefono":"","contacto_usa_direccion":"",
+  "alojamiento_usa":"","ciudad_destino_usa":"","estado_destino_usa":"",
+  "quienpaga":"","tiene_servicio_militar":"","nivel_educacion":""
+}
+TEXTO DEL DS-160:
+${(p.pdfText || '').substring(0, 8000)}`;
+
+      try {
+        const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+          payload: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 2000, messages: [{ role: 'user', content: extractPrompt }] }),
+          muteHttpExceptions: true
+        });
+        const j = JSON.parse(resp.getContentText());
+        const txt = (j.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+        const m = txt.match(/\{[\s\S]*\}/);
+        return { nombre: p.nombre, datos: m ? JSON.parse(m[0]) : {}, hayTexto: (p.pdfText||'').length > 100 };
+      } catch(e) {
+        return { nombre: p.nombre, datos: {}, hayTexto: false };
+      }
+    });
+
+    // 2. Análisis experto completo de toda la familia
+    const resumenPerfiles = perfiles.map((p, i) => {
+      const d = p.datos;
+      return `VIAJERO ${i+1}: ${p.nombre}
+  Datos personales: ${d.apellidos||'?'}, ${d.nombres||'?'} | Nac: ${d.fecha_nacimiento||'?'} | ${d.sexo||'?'} | ${d.estado_civil||'?'}
+  Pasaporte: ${d.numero_pasaporte||'?'} vence ${d.fecha_vencimiento_pasaporte||'?'}
+  Empleo: ${d.situacion_laboral||'?'} — ${d.cargo||'?'} en ${d.empleador||'?'} — salario ${d.salario_mensual||'?'} USD/mes
+  Historial USA: estuvo antes=${d.ha_estado_en_usa||'?'} | visa anterior=${d.ha_tenido_visa_usa||'?'} | negacion=${d.le_han_negado_visa||'?'}
+  Detalle negacion: ${d.detalle_negacion||'ninguno'}
+  Destino anterior: ${d.ciudad_destino_usa||'?'}, ${d.estado_destino_usa||'?'} | Proposito anterior: ${d.proposito_viaje_anterior||'?'}
+  Familiares en USA: padre=${d.padre_en_usa||'?'} | madre=${d.madre_en_usa||'?'}
+  Paises visitados: ${d.paises_visitados_5_anos||'ninguno'}`;
+    }).join('\n\n');
+
+    const analysisPrompt = `Eres el mejor asesor de visas B1/B2 para Ecuador del mundo, con 20 años de experiencia. Conoces exactamente como piensan los consules en Guayaquil y Quito.
+
+Analiza estos formularios DS-160 ANTERIORES de esta familia y dame TODO lo que el asesor Roberto necesita para:
+1. Llenar los DS-160 NUEVOS correctamente
+2. Maximizar la probabilidad de aprobacion
+3. Saber exactamente que preguntar/decirle al cliente
+
+PERFILES EXTRAIDOS DE LOS DS-160 ANTERIORES:
+${resumenPerfiles}
+
+Responde en JSON exacto sin markdown:
+{
+  "probabilidad_actual": "% sin cambios",
+  "probabilidad_con_estrategia": "% aplicando la estrategia",
+  "paquete": "ESENCIAL $97 o PROFESIONAL $197 o VIP $397",
+  "razon_paquete": "por que ese paquete",
+  "consulado": "GUAYAQUIL o QUITO — razon especifica",
+  "analisis_grupo": "evaluacion del grupo como unidad familiar — quien es el perfil fuerte, quien es el debil, como el consul evaluara al grupo",
+  "analisis_por_viajero": "analisis de riesgo individual de cada viajero separado por | entre personas",
+  "errores_formularios_anteriores": "que errores o debilidades detectas en los DS-160 anteriores que pueden haber causado problemas o que hay que corregir ahora",
+  "motivo_ds160_nuevo": "texto EXACTO en espanol para el campo purpose of trip de los nuevos DS-160 — 3-4 oraciones especificas con actividades, fechas aproximadas y motivo real. NO generico.",
+  "que_cambiar_vs_anterior": "que debe ser diferente en los nuevos DS-160 respecto a los anteriores — cambios concretos por campo",
+  "estrategia_completa": "plan de 10-12 pasos especificos para llevar este caso al 80-100%. Incluir: como presentar el perfil de cada viajero, como manejar puntos debiles, que enfatizar",
+  "guia_llenado_ds160": "instrucciones especificas para Roberto de como llenar los campos CRITICOS del DS-160 para esta familia — que poner exactamente en empleo, proposito, lazos con Ecuador, etc.",
+  "documentos_exactos": "lista de 8-10 documentos con descripcion exacta de como deben estar redactados",
+  "preguntas_para_cliente": "lista numerada de preguntas EXACTAS que Roberto debe hacerle al cliente para completar la informacion que falta. Estas preguntas son lo que Roberto les dira cuando los llame. Formato: 1. [PERSONA] — [pregunta exacta concreta]. Minimo 5 preguntas.",
+  "fecha_viaje_ideal": "cuando viajar y por que",
+  "fecha_cita_sugerida": "cuando reservar la cita y cuanto tiempo de preparacion necesitan",
+  "checklist_pre_cita": "lista de 12-15 items exactos que deben tener listos antes de ir al consulado",
+  "guion_entrevista": "5-7 preguntas que el consul hara SEGURO a ESTE perfil y la respuesta ideal. PREGUNTA: [...] | RESPUESTA IDEAL: [...]",
+  "alerta_principal": "el riesgo mas critico y como neutralizarlo — si no hay escribir PERFIL LIMPIO",
+  "proximos_pasos": "7-8 acciones que Roberto debe hacer esta semana en orden de urgencia"
+}`;
+
+    const resp2 = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      payload: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 4000, messages: [{ role: 'user', content: analysisPrompt }] }),
+      muteHttpExceptions: true
+    });
+    const j2  = JSON.parse(resp2.getContentText());
+    const txt2 = (j2.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+    const m2  = txt2.match(/\{[\s\S]*\}/);
+    const analisis = m2 ? JSON.parse(m2[0]) : {};
+
+    // 3. Enviar email a Roberto
+    enviarEmailAnalizador(ref, caseName, fecha, perfiles, analisis);
+
+    return ok({ ok: true, ref });
+  } catch(err) {
+    console.error('analizarDs160Anteriores error:', err.toString());
+    return ok({ error: err.toString() });
+  }
+}
+
+function enviarEmailAnalizador(ref, caseName, fecha, perfiles, a) {
+  try {
+    const b = (color, border, title, content) =>
+      `<div style="background:${color};border:1px solid ${border};border-radius:10px;padding:16px;margin-bottom:12px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1A2940;opacity:.65;margin-bottom:8px">${title}</div>
+        <div style="font-size:12px;color:#1A2940;line-height:1.9">${content}</div>
+      </div>`;
+
+    const datosTabla = perfiles.map((p, i) => {
+      const d = p.datos;
+      const campos = Object.values(d).filter(v => v && String(v).trim() && v !== 'null').length;
+      return `<div style="border:1px solid #E2E8F0;border-radius:8px;padding:14px;margin-bottom:10px;background:#FAFBFC">
+        <div style="font-weight:700;font-size:14px;color:#1A2940;margin-bottom:10px">${i+1}. ${p.nombre}</div>
+        <table style="width:100%;border-collapse:collapse;font-size:11px">
+          ${[
+            ['Nombre completo', `${d.apellidos||'—'}, ${d.nombres||'—'}`],
+            ['Fecha nacimiento', d.fecha_nacimiento||'—'],
+            ['Cedula', d.cedula||'—'],
+            ['Pasaporte', d.numero_pasaporte||'—'],
+            ['Vencimiento pasaporte', d.fecha_vencimiento_pasaporte||'—'],
+            ['Empleo', d.cargo ? `${d.cargo} en ${d.empleador||'?'}` : '—'],
+            ['Salario', d.salario_mensual ? `$${d.salario_mensual}/mes` : '—'],
+            ['Ciudad residencia', d.ciudad_residencia||'—'],
+            ['Telefono', d.telefono||'—'],
+            ['Email', d.email||'—'],
+            ['Ha estado en USA', d.ha_estado_en_usa||'—'],
+            ['Visa anterior', d.ha_tenido_visa_usa||'—'],
+            ['Negacion previa', d.le_han_negado_visa||'—'],
+            ['Detalle negacion', d.detalle_negacion||'Ninguno'],
+            ['Estado civil', d.estado_civil||'—'],
+            ['Padre en USA', d.padre_en_usa||'—'],
+            ['Madre en USA', d.madre_en_usa||'—'],
+          ].map(([k,v]) => `<tr><td style="padding:4px 6px 4px 0;color:#64748B;width:40%;vertical-align:top">${k}</td><td style="padding:4px 0;font-weight:500;color:#1A2940">${v}</td></tr>`).join('')}
+        </table>
+        <div style="margin-top:8px;font-size:11px;color:#64748B">${campos} campos extraidos del DS-160 anterior</div>
+      </div>`;
+    }).join('');
+
+    const html = `<div style="font-family:Calibri,Arial,sans-serif;max-width:750px;margin:0 auto;background:#F4F6F9;padding:20px">
+
+  <div style="background:#060E1F;padding:22px 28px;border-radius:12px 12px 0 0;border-bottom:3px solid #F0B429">
+    <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">ANALISIS DS-160 ANTERIORES — VISA GLOBAL</div>
+    <h1 style="font-size:22px;font-weight:700;color:white;margin:0 0 4px">${caseName || ref}</h1>
+    <div style="font-size:13px;color:#F0B429">${perfiles.length} viajero${perfiles.length>1?'s':''} analizados · ${fecha} · Ref: ${ref}</div>
+    <div style="margin-top:12px;background:rgba(255,255,255,.12);border-radius:8px;padding:10px 16px;display:inline-block">
+      <span style="font-size:24px;font-weight:700;color:#4ade80">${a.probabilidad_con_estrategia||'—'}</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.7);margin-left:8px">con estrategia aplicada</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.4);margin:0 8px">vs</span>
+      <span style="font-size:18px;font-weight:700;color:#f87171">${a.probabilidad_actual||'—'}</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.4)">sin preparacion</span>
+    </div>
+  </div>
+
+  <div style="background:white;border:1px solid #E2E8F0;border-top:none;padding:24px 28px">
+
+    ${a.alerta_principal && !a.alerta_principal.includes('LIMPIO') ? `
+    <div style="background:#FEF2F2;border:2px solid #FCA5A5;border-radius:10px;padding:14px;margin-bottom:18px">
+      <div style="font-size:11px;font-weight:700;color:#991B1B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">ALERTA CRITICA</div>
+      <div style="font-size:13px;color:#7F1D1D">${a.alerta_principal}</div>
+    </div>` : `<div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:#166534;font-weight:600">Perfil limpio — sin alertas criticas detectadas</div>`}
+
+    <div style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Paquete recomendado: ${a.paquete||'—'}</div>
+
+    <!-- DATOS EXTRAIDOS -->
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1E40AF;margin-bottom:10px">DATOS EXTRAIDOS DE LOS DS-160 ANTERIORES</div>
+    ${datosTabla}
+
+    <!-- PREGUNTAS PARA EL CLIENTE -->
+    <div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">PREGUNTAS EXACTAS PARA LLAMAR AL CLIENTE</div>
+      <div style="font-size:13px;color:#78350F;line-height:2">${(a.preguntas_para_cliente||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>')}</div>
+    </div>
+
+    <!-- ERRORES FORMULARIOS ANTERIORES -->
+    ${b('#FEF2F2','#FCA5A5','ERRORES Y DEBILIDADES EN LOS DS-160 ANTERIORES — QUE CORREGIR',(a.errores_formularios_anteriores||'—'))}
+
+    <!-- MOTIVO DS-160 -->
+    <div style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">TEXTO EXACTO — CAMPO "PURPOSE OF TRIP" DS-160 NUEVO</div>
+      <div style="font-size:13px;color:#166534;font-style:italic;line-height:1.7">"${a.motivo_ds160_nuevo||'—'}"</div>
+    </div>
+
+    <!-- QUE CAMBIAR -->
+    ${b('#EFF6FF','#93C5FD','QUE CAMBIAR VS LOS FORMULARIOS ANTERIORES',(a.que_cambiar_vs_anterior||'—').replace(/\n/g,'<br>'))}
+
+    <!-- GUIA LLENADO DS-160 -->
+    ${b('#F8F9FF','#C7D2FE','GUIA DE LLENADO — CAMPOS CRITICOS DEL DS-160 NUEVO',(a.guia_llenado_ds160||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
+
+    <!-- ESTRATEGIA -->
+    ${b('#EFF6FF','#93C5FD','ESTRATEGIA COMPLETA',(a.estrategia_completa||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
+
+    <!-- CONSULADO Y FECHAS -->
+    <div style="background:#F4F6F9;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">LOGISTICA</div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr><td style="padding:5px 0;color:#64748B;width:35%">Consulado</td><td style="font-weight:600">${a.consulado||'—'}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B">Fecha viaje ideal</td><td>${a.fecha_viaje_ideal||'—'}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B">Reservar cita</td><td>${a.fecha_cita_sugerida||'—'}</td></tr>
+      </table>
+    </div>
+
+    <!-- DOCUMENTOS -->
+    ${b('#FEF9EE','#FCD34D','DOCUMENTOS EXACTOS A PREPARAR',(a.documentos_exactos||'—').split(';').map((s,i)=>`<div style="padding:5px 0;border-bottom:1px solid #FEF3C7"><strong style="color:#92400E">${i+1}.</strong> ${s.trim()}</div>`).join(''))}
+
+    <!-- CHECKLIST -->
+    ${b('#F8F9FF','#C7D2FE','CHECKLIST PRE-CITA',(a.checklist_pre_cita||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong>$1</strong>'))}
+
+    <!-- GUION -->
+    ${b('#F0FDF4','#86EFAC','GUION DE ENTREVISTA',(a.guion_entrevista||'—').replace(/PREGUNTA:/g,'<br><strong style="color:#166534">PREGUNTA:</strong>').replace(/RESPUESTA IDEAL:/g,'<strong style="color:#1E40AF">RESPUESTA IDEAL:</strong>'))}
+
+    <!-- PROXIMOS PASOS -->
+    ${b('#EFF6FF','#93C5FD','PROXIMOS PASOS ESTA SEMANA',(a.proximos_pasos||'—').replace(/\n/g,'<br>').replace(/(\d+\.\s)/g,'<strong style="color:#1E40AF">$1</strong>'))}
+
+  </div>
+  <div style="text-align:center;padding:12px;font-size:11px;color:#94A3B8">Asesoria Visa Global · ${fecha} · Analizador DS-160 · Ref: ${ref}</div>
+</div>`;
+
+    MailApp.sendEmail({ to: EMAIL_ROBERTO, subject: `ANALISIS DS-160 — ${caseName||ref} — ${perfiles.length} viajero${perfiles.length>1?'s':''} [${ref}]`, htmlBody: html });
+  } catch(e) {
+    console.error('enviarEmailAnalizador error:', e.toString());
+  }
+}
+
 function extractarDS160(payload) {
   try {
     const extractId   = payload.extractId;

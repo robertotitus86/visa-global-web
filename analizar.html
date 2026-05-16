@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analizador DS-160 — Visa Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{--navy:#060E1F;--gold:#F0B429;--gold-dim:rgba(240,180,41,.13);--white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);--green:#4ade80;--red:#f87171;--sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif;--r:14px;--rs:8px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 90% 50% at 10% 0%,rgba(240,180,41,.07) 0%,transparent 55%),var(--navy)}
+.wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:40px 20px 80px}
+
+/* HEADER */
+.logo{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:8px}
+.logo em{color:var(--gold);font-style:italic}
+.page-title{font-family:var(--serif);font-size:1.6rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.page-sub{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:32px}
+
+/* CARD */
+.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;margin-bottom:16px}
+.card-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+
+/* REF */
+.ref-row{display:flex;gap:10px;align-items:center;margin-bottom:20px}
+.ref-row input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.9rem;padding:10px 14px;outline:none;transition:border-color .2s}
+.ref-row input:focus{border-color:rgba(240,180,41,.5)}
+.ref-row input::placeholder{color:rgba(255,255,255,.25)}
+
+/* COUNT */
+.count-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.count-btn{width:44px;height:44px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);background:transparent;color:var(--muted);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.count-btn:hover{border-color:rgba(240,180,41,.4);color:var(--white)}
+.count-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+
+/* VIAJERO SLOT */
+.traveler-slot{border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:10px;transition:border-color .3s}
+.traveler-slot.ready{border-color:rgba(74,222,128,.35);background:rgba(74,222,128,.04)}
+.traveler-slot.processing{border-color:rgba(240,180,41,.4);background:var(--gold-dim)}
+.slot-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.slot-num{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.slot-name{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);font-family:var(--sans);font-size:.85rem;padding:7px 11px;outline:none}
+.slot-name:focus{border-color:rgba(240,180,41,.4)}
+.slot-name::placeholder{color:rgba(255,255,255,.25)}
+.upload-area{border:1.5px dashed rgba(255,255,255,.15);border-radius:var(--rs);padding:14px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.upload-area:hover{border-color:rgba(240,180,41,.4);background:var(--gold-dim)}
+.upload-area.loaded{border-color:rgba(74,222,128,.4);border-style:solid;background:rgba(74,222,128,.06)}
+.upload-area.processing{border-color:rgba(240,180,41,.5);border-style:solid}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-label{font-size:.78rem;color:var(--muted)}
+.upload-status{font-size:.72rem;margin-top:4px}
+
+/* STATUS FIELDS */
+.extracted-summary{margin-top:10px;padding:8px 10px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:6px;font-size:.72rem;color:var(--green);line-height:1.6}
+
+/* SPINNER */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(240,180,41,.2);border-top-color:var(--gold);border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* BOTÓN PRINCIPAL */
+.btn-main{width:100%;padding:15px;border-radius:var(--rs);background:var(--gold);border:none;color:var(--navy);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(240,180,41,.3)}
+.btn-main:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* PROGRESO */
+.progress-box{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-top:16px;display:none}
+.progress-box.visible{display:block}
+.progress-step{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.85rem;color:var(--muted)}
+.progress-step.active{color:var(--white)}
+.progress-step.done{color:var(--green)}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0}
+.progress-step.active .step-dot{background:var(--gold)}
+.progress-step.done .step-dot{background:var(--green)}
+
+/* DONE */
+.done-box{display:none;text-align:center;padding:32px 20px}
+.done-box.visible{display:block}
+.done-icon{width:64px;height:64px;border-radius:50%;background:rgba(74,222,128,.15);border:2px solid rgba(74,222,128,.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px}
+.done-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px}
+.done-sub{font-size:.85rem;color:var(--muted);line-height:1.7}
+
+.hint{font-size:.72rem;color:var(--muted);margin-top:6px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="wrap">
+  <div class="logo">Visa <em>Global</em></div>
+  <div class="page-title">Analizador de DS-160</div>
+  <div class="page-sub">Sube los formularios DS-160 anteriores del cliente. Claude los analiza como experto y te envía el informe completo con todos los datos y la estrategia para los nuevos formularios.</div>
+
+  <!-- REF DEL CASO -->
+  <div class="card">
+    <div class="card-title">Caso</div>
+    <div class="ref-row">
+      <input type="text" id="caseRef" placeholder="Ref del caso — ej: VG-887029" value="">
+      <input type="text" id="caseName" placeholder="Nombre del cliente" style="flex:1.5;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.9rem;padding:10px 14px;outline:none;transition:border-color .2s">
+    </div>
+
+    <div class="card-title">Cuantos viajeros tienen DS-160 anterior?</div>
+    <div class="count-row" id="countRow">
+      <button class="count-btn" onclick="setCount(1)">1</button>
+      <button class="count-btn" onclick="setCount(2)">2</button>
+      <button class="count-btn" onclick="setCount(3)">3</button>
+      <button class="count-btn" onclick="setCount(4)">4</button>
+      <button class="count-btn" onclick="setCount(5)">5</button>
+      <button class="count-btn" onclick="setCount(6)">6</button>
+    </div>
+    <div class="hint">Si algun viajero no tiene DS-160 anterior, no lo incluyas aqui — el analisis funciona igual con los que si tienen.</div>
+  </div>
+
+  <!-- SLOTS DE VIAJEROS -->
+  <div id="slotsWrap"></div>
+
+  <!-- BOTÓN ANALIZAR -->
+  <div id="btnWrap" style="display:none">
+    <button class="btn-main" id="btnAnalizar" onclick="analizar()">Analizar y generar estrategia completa</button>
+    <div class="hint" style="text-align:center;margin-top:10px">El informe llegara a nanotiendaec@gmail.com en 1-2 minutos</div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div class="progress-box" id="progressBox">
+    <div style="font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:.07em">Procesando...</div>
+    <div class="progress-step" id="step1"><div class="step-dot"></div>Extrayendo texto de los PDFs</div>
+    <div class="progress-step" id="step2"><div class="step-dot"></div>Analizando datos con IA experta</div>
+    <div class="progress-step" id="step3"><div class="step-dot"></div>Generando estrategia completa</div>
+    <div class="progress-step" id="step4"><div class="step-dot"></div>Enviando informe a Roberto</div>
+  </div>
+
+  <!-- DONE -->
+  <div class="done-box" id="doneBox">
+    <div class="done-icon">&#10003;</div>
+    <div class="done-title">Informe <em style="color:var(--gold)">enviado</em></div>
+    <div class="done-sub" id="doneSub">El analisis completo con datos y estrategia fue enviado a nanotiendaec@gmail.com</div>
+    <button onclick="resetForm()" style="margin-top:20px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--sans);font-size:.85rem;padding:10px 24px;border-radius:var(--rs);cursor:pointer">Analizar otro caso</button>
+  </div>
+</div>
+
+<script>
+const WEBHOOK = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let count = 0;
+const pdfTexts = {}; // idx -> {nombre, text, pages}
+
+function setCount(n) {
+  count = n;
+  document.querySelectorAll('.count-btn').forEach((b,i) => b.classList.toggle('sel', i+1===n));
+  renderSlots();
+  document.getElementById('btnWrap').style.display = n > 0 ? 'block' : 'none';
+}
+
+function renderSlots() {
+  const wrap = document.getElementById('slotsWrap');
+  wrap.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'traveler-slot';
+    slot.id = 'slot_' + i;
+    slot.innerHTML = `
+      <div class="slot-header">
+        <div class="slot-num">${i+1}</div>
+        <input class="slot-name" id="nombre_${i}" placeholder="Nombre del viajero" oninput="updateSlotName(${i},this.value)">
+      </div>
+      <div class="upload-area" id="upload_${i}">
+        <input type="file" accept="application/pdf,.pdf" onchange="handlePDF(${i},this)">
+        <div class="upload-label">Toca para subir el DS-160 en PDF</div>
+        <div class="upload-status" id="status_${i}" style="color:var(--muted)"></div>
+      </div>`;
+    wrap.appendChild(slot);
+  }
+}
+
+function updateSlotName(idx, val) {
+  if (pdfTexts[idx]) pdfTexts[idx].nombre = val;
+}
+
+async function handlePDF(idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const slot = document.getElementById('slot_' + idx);
+  const upload = document.getElementById('upload_' + idx);
+  const status = document.getElementById('status_' + idx);
+
+  slot.className = 'traveler-slot processing';
+  upload.className = 'upload-area processing';
+  status.innerHTML = '<span class="spin"></span>Extrayendo texto...';
+
+  try {
+    const ab = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data: ab}).promise;
+    let text = '';
+    const maxPages = Math.min(pdf.numPages, 20);
+    for (let p = 1; p <= maxPages; p++) {
+      const page = await pdf.getPage(p);
+      const content = await page.getTextContent();
+      text += content.items.map(item => item.str).join(' ') + '\n';
+    }
+
+    const nombre = document.getElementById('nombre_' + idx).value || `Viajero ${idx+1}`;
+    pdfTexts[idx] = { nombre, text: text.trim(), pages: pdf.numPages, fileName: file.name };
+
+    const hasText = text.trim().length > 100;
+    slot.className = 'traveler-slot ready';
+    upload.className = 'upload-area loaded';
+    status.innerHTML = hasText
+      ? `<span style="color:var(--green)">Listo — ${pdf.numPages} paginas · ${Math.round(text.length/1000)}k caracteres extraidos</span>`
+      : `<span style="color:#fbbf24">PDF sin texto extraible (imagen escaneada) — se analizara igual</span>`;
+
+    // Auto-nombre si el PDF tiene el nombre
+    if (!document.getElementById('nombre_' + idx).value) {
+      const nameMatch = text.match(/(?:SURNAMES?|APELLIDOS?)[:\s]+([A-Z\s]+)/i);
+      if (nameMatch) document.getElementById('nombre_' + idx).value = nameMatch[1].trim().substring(0,30);
+    }
+
+  } catch(e) {
+    slot.className = 'traveler-slot';
+    upload.className = 'upload-area';
+    status.innerHTML = `<span style="color:var(--red)">Error al leer el PDF — intenta de nuevo</span>`;
+  }
+}
+
+function setStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('step' + i);
+    if (i < n) { el.className = 'progress-step done'; el.querySelector('.step-dot').style.background='var(--green)'; }
+    else if (i === n) { el.className = 'progress-step active'; el.querySelector('.step-dot').style.background='var(--gold)'; }
+    else { el.className = 'progress-step'; el.querySelector('.step-dot').style.background=''; }
+  }
+}
+
+async function analizar() {
+  const ref  = document.getElementById('caseRef').value.trim() || ('DS-' + Date.now().toString().slice(-6));
+  const name = document.getElementById('caseName').value.trim();
+
+  if (Object.keys(pdfTexts).length === 0) {
+    alert('Sube al menos un PDF antes de analizar.');
+    return;
+  }
+
+  // Mostrar progreso
+  document.getElementById('btnWrap').style.display = 'none';
+  document.getElementById('progressBox').className = 'progress-box visible';
+  setStep(1);
+
+  await new Promise(r => setTimeout(r, 800));
+  setStep(2);
+
+  const personas = Object.entries(pdfTexts).map(([idx, p]) => ({
+    idx: parseInt(idx),
+    nombre: p.nombre || `Viajero ${parseInt(idx)+1}`,
+    pdfText: p.text,
+    fileName: p.fileName,
+    pages: p.pages
+  }));
+
+  setStep(3);
+
+  try {
+    // Enviar al Apps Script para análisis experto
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        subtipo: 'analizar_ds160_anteriores',
+        ref,
+        caseName: name,
+        personas,
+        fecha: new Date().toISOString()
+      })
+    });
+
+    setStep(4);
+    await new Promise(r => setTimeout(r, 1500));
+
+    // Mostrar done
+    document.getElementById('progressBox').className = 'progress-box';
+    document.getElementById('doneBox').className = 'done-box visible';
+    document.getElementById('doneSub').textContent =
+      `El analisis completo de ${personas.length} viajero${personas.length>1?'s':''} fue enviado a nanotiendaec@gmail.com. Revisa tu correo en 1-2 minutos.`;
+
+  } catch(e) {
+    document.getElementById('progressBox').className = 'progress-box';
+    alert('Error de conexion. Intenta de nuevo.');
+    document.getElementById('btnWrap').style.display = 'block';
+  }
+}
+
+function resetForm() {
+  count = 0;
+  Object.keys(pdfTexts).forEach(k => delete pdfTexts[k]);
+  document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('sel'));
+  document.getElementById('slotsWrap').innerHTML = '';
+  document.getElementById('btnWrap').style.display = 'none';
+  document.getElementById('doneBox').className = 'done-box';
+  document.getElementById('caseRef').value = '';
+  document.getElementById('caseName').value = '';
+}
+</script>
+</body>
+</html>
