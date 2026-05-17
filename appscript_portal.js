@@ -5,9 +5,11 @@
 //         + intake_familiar (nuevo intake.html multi-viajero DS-160)
 // ═══════════════════════════════════════════════════════════════════════
 
-// IMPORTANTE: configurar en Google Apps Script → Configuracion del proyecto → Propiedades del script
-// Nombre: ANTHROPIC_KEY  Valor: sk-ant-api03-...
+// ANTHROPIC: reservado SOLO para el bot WhatsApp. No gastar aqui.
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
+// GEMINI: gratis. Usar para todos los analisis del portal.
+const GEMINI_KEY = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY')
+  || 'AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8';
 const ADMIN_PIN    = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
 const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
 const SS_ID        = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
@@ -744,47 +746,41 @@ Responde en JSON exacto sin markdown:
   }
 }
 
-// ── Llamar a Claude ───────────────────────────────────────────────
+// ── Llamar a Gemini (gratis) ──────────────────────────────────────
 function llamarClaudeIA(prompt) {
+  // Usa Gemini en lugar de Anthropic — gratis, sin consumir creditos pagos
   try {
-    const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+    const resp = UrlFetchApp.fetch(url, {
       method: 'POST',
-      headers: {
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       payload: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 4000,
-        messages: [{ role: 'user', content: prompt }],
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 4000, temperature: 0.3 }
       }),
-      muteHttpExceptions: true,
+      muteHttpExceptions: true
     });
 
     const raw  = resp.getContentText();
     const json = JSON.parse(raw);
-    if (json.error) throw new Error('Claude API error: ' + JSON.stringify(json.error));
+    if (json.error) throw new Error('Gemini error: ' + JSON.stringify(json.error));
 
-    const text  = (json.content?.[0]?.text || '').trim();
+    const text  = (json.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
     const clean = text.replace(/```json|```/g, '').trim();
-
-    // Extraer el primer bloque JSON válido del texto
     const match = clean.match(/\{[\s\S]*\}/);
-    if (!match) throw new Error('No JSON found in Claude response');
+    if (!match) throw new Error('No JSON en respuesta Gemini');
 
     return JSON.parse(match[0]);
   } catch(err) {
-    console.error('llamarClaudeIA error:', err.toString());
-    // Devolver objeto seguro con valores vacíos para que el email no rompa
+    console.error('llamarGemini error:', err.toString());
     return {
       probabilidad: 'Pendiente', probabilidad_sin_estrategia: '—',
       paquete: 'Por definir', razon_paquete: '—',
       fuertes: 'Analisis pendiente', debiles: '—',
-      estrategia: 'Requiere revision manual. Error: ' + err.toString(),
+      estrategia: 'Error: ' + err.toString(),
       documentos_exactos: '—', guion_entrevista: '—',
-      proximos_pasos: '1. Verificar que la ANTHROPIC_KEY este configurada en Script Properties',
-      alerta_principal: 'Error en analisis IA — revisar configuracion',
+      proximos_pasos: 'Verificar configuracion de Gemini en Script Properties',
+      alerta_principal: 'Error en analisis — revisar logs',
       campos_faltantes: 'PERFIL COMPLETO'
     };
   }
@@ -1118,14 +1114,15 @@ TEXTO DEL DS-160:
 ${(p.pdfText || '').substring(0, 8000)}`;
 
       try {
-        const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+        const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+        const resp = UrlFetchApp.fetch(gUrl, {
           method: 'POST',
-          headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-          payload: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 2000, messages: [{ role: 'user', content: extractPrompt }] }),
+          headers: { 'Content-Type': 'application/json' },
+          payload: JSON.stringify({ contents:[{parts:[{text: extractPrompt}]}], generationConfig:{maxOutputTokens:2000,temperature:0.2} }),
           muteHttpExceptions: true
         });
         const j = JSON.parse(resp.getContentText());
-        const txt = (j.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+        const txt = (j.candidates?.[0]?.content?.parts?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
         const m = txt.match(/\{[\s\S]*\}/);
         return { nombre: p.nombre, datos: m ? JSON.parse(m[0]) : {}, hayTexto: (p.pdfText||'').length > 100 };
       } catch(e) {
@@ -1181,15 +1178,16 @@ Responde en JSON exacto sin markdown:
   "proximos_pasos": "7-8 acciones que Roberto debe hacer esta semana en orden de urgencia"
 }`;
 
-    const resp2 = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+    const gUrl2 = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+    const resp2 = UrlFetchApp.fetch(gUrl2, {
       method: 'POST',
-      headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      payload: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 6000, messages: [{ role: 'user', content: analysisPrompt }] }),
+      headers: { 'Content-Type': 'application/json' },
+      payload: JSON.stringify({ contents:[{parts:[{text: analysisPrompt}]}], generationConfig:{maxOutputTokens:6000,temperature:0.3} }),
       muteHttpExceptions: true
     });
-    const j2  = JSON.parse(resp2.getContentText());
-    const txt2 = (j2.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
-    const m2  = txt2.match(/\{[\s\S]*\}/);
+    const j2   = JSON.parse(resp2.getContentText());
+    const txt2 = (j2.candidates?.[0]?.content?.parts?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+    const m2   = txt2.match(/\{[\s\S]*\}/);
     const analisis = m2 ? JSON.parse(m2[0]) : {};
 
     // 3. Enviar email a Roberto
@@ -1519,23 +1517,19 @@ JSON a completar (null = no encontrado):
 TEXTO DEL DS-160:
 ${pdfText.substring(0, 7000)}`;
 
-    const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+    const gUrl3 = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+    const resp = UrlFetchApp.fetch(gUrl3, {
       method: 'POST',
-      headers: {
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       payload: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2500,
-        messages: [{ role: 'user', content: prompt }],
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 2500, temperature: 0.2 }
       }),
       muteHttpExceptions: true,
     });
 
     const json  = JSON.parse(resp.getContentText());
-    const text  = (json.content?.[0]?.text || '{}').trim();
+    const text  = (json.candidates?.[0]?.content?.parts?.[0]?.text || '{}').trim();
     const clean = text.replace(/```json|```/g, '').trim();
     const match = clean.match(/\{[\s\S]*\}/);
     const extracted = match ? JSON.parse(match[0]) : {};
