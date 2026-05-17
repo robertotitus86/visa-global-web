@@ -13,125 +13,116 @@
   .hdr-title{color:white;font-size:21px;font-weight:700;margin:14px 0 4px}
   .hdr-info{color:rgba(255,255,255,.5);font-size:12px}
   .strip{display:flex;flex-wrap:wrap;border-bottom:1px solid #e8e0d4}
-  .strip-item{flex:1;min-width:120px;padding:12px 16px;border-right:1px solid #e8e0d4;text-align:center}
-  .strip-item:last-child{border-right:none}
-  .strip-val{font-size:18px;font-weight:700;margin-bottom:2px}
-  .strip-bar{height:3px;background:#e8e0d4;border-radius:2px;margin:4px 0}
-  .strip-bar-fill{height:100%;border-radius:2px}
-  .strip-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999}
-  .strip-note{font-size:9px;color:#dc2626;margin-top:2px}
+  .si{flex:1;min-width:120px;padding:12px 16px;border-right:1px solid #e8e0d4;text-align:center}
+  .si:last-child{border-right:none}
+  .sv{font-size:18px;font-weight:700;margin-bottom:2px}
+  .sb{height:3px;background:#e8e0d4;border-radius:2px;margin:4px 0}
+  .sl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999}
+  .sn{font-size:9px;color:#dc2626;margin-top:2px}
   .body{padding:38px 40px}
   p{margin:0 0 16px;line-height:1.8;font-size:14px;color:#2d2d2d}
   h3{color:#060E1F;font-size:14px;font-weight:700;border-bottom:2px solid #F0B429;padding-bottom:6px;margin:26px 0 12px}
   ul,ol{margin:0 0 16px;padding-left:20px}
   li{margin-bottom:9px;font-size:13px;line-height:1.65}
   strong{color:#060E1F}
-  .fase-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-  .fase-box{border-radius:9px;padding:18px}
-  .fase-1{background:#FFFBF0;border:2px solid #F0B429}
-  .fase-2{background:#EFF6FF;border:2px solid #3B82F6}
-  .fase-roberto{background:#F0FDF4;border:2px solid #22c55e}
-  .fase-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-  .fase-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
-  .fase-list{margin:0;padding-left:16px;font-size:12px;color:#444;line-height:1.7}
-  .cronograma{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px}
-  .cronograma th{background:#F8F5F0;padding:9px 12px;text-align:left;font-weight:700;border-bottom:2px solid #e8e0d4;color:#444;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-  .cronograma td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:top}
-  .cronograma tr:last-child td{border-bottom:none}
-  .cronograma .etapa{color:#64748B;font-size:12px;font-weight:600}
-  .doc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0ece4}
-  .doc-num{min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-  .doc-content-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px}
-  .doc-content-detail{font-size:12px;color:#555;line-height:1.5}
+  .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+  .fb{border-radius:9px;padding:18px}
+  .f1{background:#FFFBF0;border:2px solid #F0B429}
+  .f2{background:#EFF6FF;border:2px solid #3B82F6}
+  .fr{background:#F0FDF4;border:2px solid #22c55e}
+  .ft{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+  .fn{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+  .fl{margin:0;padding-left:16px;font-size:12px;color:#444;line-height:1.7}
+  table.cr{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px}
+  table.cr th{background:#F8F5F0;padding:9px 12px;text-align:left;font-weight:700;border-bottom:2px solid #e8e0d4;color:#444;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  table.cr td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:top}
+  table.cr tr:last-child td{border-bottom:none}
+  .et{color:#64748B;font-size:12px;font-weight:600}
+  .di{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0ece4}
+  .dn{min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .dt{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px}
+  .dd{font-size:12px;color:#555;line-height:1.5}
+  .cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px;padding:4px 0;border-bottom:1px solid #e8e0d4}
   .ftr{background:#060E1F;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-  .ftr-name{color:#F0B429;font-weight:700;font-size:14px}
-  .ftr-info{color:rgba(255,255,255,.5);font-size:12px;line-height:1.7}
-  .ftr a{color:#F0B429;text-decoration:none}
-  @media(max-width:600px){.fase-grid{grid-template-columns:1fr}.strip-item{min-width:50%}.hdr,.body,.ftr{padding:24px 20px}}
+  .fn2{color:#F0B429;font-weight:700;font-size:14px}
+  .fi{color:rgba(255,255,255,.5);font-size:12px;line-height:1.7}
+  .fi a{color:#F0B429;text-decoration:none}
+  @media(max-width:600px){.fg{grid-template-columns:1fr}.si{min-width:50%}.hdr,.body,.ftr{padding:24px 20px}}
   @media print{body{background:white;padding:0}}
 </style>
 </head>
 <body>
 <div class="doc">
 
-  <!-- CABECERA -->
   <div class="hdr">
     <div class="hdr-logo">Asesoria Visa Global</div>
-    <div class="hdr-sub">Informe de Expediente · Visa USA B1/B2 · Confidencial</div>
+    <div class="hdr-sub">Informe de Expediente &middot; Visa USA B1/B2 &middot; Confidencial</div>
     <div class="hdr-title">Sr. Paul Fernando Rodriguez Narvaez</div>
-    <div class="hdr-info">Expediente VG-887029 &nbsp;·&nbsp; 16 de mayo de 2026 &nbsp;·&nbsp; Familia Rodriguez Masache · 4 viajeros</div>
+    <div class="hdr-info">Expediente VG-887029 &middot; 16 de mayo de 2026 &middot; Familia Rodriguez Masache &middot; 4 viajeros</div>
   </div>
 
-  <!-- TIRA EJECUTIVA -->
   <div class="strip">
-    <div class="strip-item">
-      <div class="strip-val" style="color:#16a34a">72-80%</div>
-      <div class="strip-bar"><div class="strip-bar-fill" style="width:76%;background:#16a34a"></div></div>
-      <div class="strip-lbl">Aprobacion estimada</div>
+    <div class="si">
+      <div class="sv" style="color:#16a34a">72-80%</div>
+      <div class="sb"><div style="height:100%;width:76%;background:#16a34a;border-radius:2px"></div></div>
+      <div class="sl">Aprobacion estimada</div>
     </div>
-    <div class="strip-item">
-      <div class="strip-val" style="color:#1E40AF;font-size:15px">GUAYAQUIL</div>
-      <div class="strip-lbl">Consulado recomendado</div>
-      <div class="strip-note">Rechazo previo fue en Quito</div>
+    <div class="si">
+      <div class="sv" style="color:#1E40AF;font-size:15px">GUAYAQUIL</div>
+      <div class="sl">Consulado recomendado</div>
+      <div class="sn">Rechazo previo fue en Quito</div>
     </div>
-    <div class="strip-item">
-      <div class="strip-val" style="color:#92400E;font-size:14px">Dic. 2026</div>
-      <div class="strip-lbl">Viaje propuesto</div>
+    <div class="si">
+      <div class="sv" style="color:#92400E;font-size:14px">Dic. 2026</div>
+      <div class="sl">Viaje propuesto</div>
     </div>
-    <div class="strip-item">
-      <div class="strip-val" style="color:#1a1a1a;font-size:14px">4 viajeros</div>
-      <div class="strip-lbl">Ref: VG-887029</div>
+    <div class="si">
+      <div class="sv" style="color:#1a1a1a;font-size:14px">4 viajeros</div>
+      <div class="sl">Ref: VG-887029</div>
     </div>
   </div>
 
-  <!-- CUERPO -->
   <div class="body">
 
     <p>Estimado Sr. Rodriguez,</p>
 
-    <p>He completado el analisis de su expediente y he revisado los cuatro formularios DS-160 que presentaron en noviembre de 2025 en el Consulado de Quito. A continuacion le presento mis conclusiones y el plan de trabajo para llevar el caso a una aprobacion exitosa.</p>
+    <p>He completado el analisis de su expediente y he revisado en detalle los cuatro formularios DS-160 que presentaron en noviembre de 2025 en el Consulado de Quito. A continuacion le presento las conclusiones y el plan de trabajo.</p>
 
     <h3>Lo que hemos trabajado hasta ahora</h3>
 
-    <p>Durante estas semanas hemos realizado el analisis completo de su expediente. Revisamos en detalle los cuatro formularios DS-160 que presentaron en noviembre de 2025, identificamos los errores que causaron el rechazo, y definimos la estrategia correcta para la nueva solicitud. A continuacion le presento las conclusiones y el plan a seguir.</p>
+    <p>Durante estas semanas analizamos a fondo los formularios anteriores, identificamos los errores que causaron el rechazo y definimos la estrategia correcta para la nueva solicitud. El caso tiene base solida y es recuperable con la preparacion adecuada.</p>
 
     <h3>Por que fueron negados en noviembre</h3>
 
-    <p>La negacion no fue por el perfil de su familia — fue por errores tecnicos en la presentacion de los formularios. Identificamos el problema principal: cada viajero declaro una fecha de llegada diferente. Usted puso el 8 de abril, su pareja Jenny puso el 16 de marzo, y Mileidy puso el 16 de mayo. El oficial del consulado vio tres fechas distintas en cuatro formularios de una misma familia — esto genera desconfianza inmediata sobre si realmente viajan juntos y es motivo suficiente para negar en ventanilla sin entrevista.</p>
+    <p>La negacion no fue por el perfil de su familia sino por errores tecnicos en la presentacion de los formularios. El problema principal: cada viajero declaro una fecha de llegada diferente. Usted puso el 8 de abril, su pareja el 16 de marzo y Mileidy el 16 de mayo. El oficial del consulado vio tres fechas distintas en una misma familia, lo que genera desconfianza inmediata. Adicionalmente, el campo de contacto en USA aparecia como "DO NOT KNOW" en varios formularios, sin ningun referente confirmado en el pais de destino.</p>
 
-    <p>Adicionalmente, el campo de contacto en USA aparecia como "DO NOT KNOW" en el formulario de usted, lo que significa que no habia nadie conocido ni hotel confirmado como referencia en el pais de destino.</p>
+    <p>Su perfil tiene puntos muy solidos: usted es Alcalde en ejercicio del Canton Paquisha con cargo de eleccion popular verificable y salario de funcionario publico documentado. Tiene ademas 15 anos de carrera en la Policia Nacional. Su pareja Jenny dirige el Patronato Municipal de Accion Social. Paul Smith, de 11 anos, estudia en Paquisha y es el argumento de retorno mas fuerte del grupo: un hijo en edad escolar obliga a toda la familia a volver. Mileidy, con 18 anos, ya es Bachiller de la Republica con su vida en Ecuador. Ambos pasaportes de los adultos estan vigentes hasta 2032 y 2033. Estos son los elementos que el consul necesita ver, presentados con la documentacion correcta.</p>
 
-    <p>Su perfil tiene puntos muy solidos que trabajaremos a su favor. Usted es Alcalde en ejercicio del Canton Paquisha con cargo de eleccion popular verificable, salario documentado y un mandato que concluye en 2027 — esto solo ya es una prueba solida de que regresa al Ecuador. Su pareja Jenny dirige el Patronato Municipal de Accion Social desde 2023. Tienen un hijo en comun, Paul Smith, de 11 anos, que estudia actualmente en Paquisha — y eso es quiza el argumento mas fuerte de retorno: un menor en edad escolar cuya educacion depende de que ambos padres esten presentes en Ecuador. Mileidy, con 18 anos, es Bachiller de la Republica con su vida y futuro aqui. Los pasaportes de los adultos estan vigentes hasta 2032 y 2033. Todos estos son elementos que el consul valora positivamente cuando se presentan de manera organizada y documentada.</p>
+    <p>Para el destino, recomendamos <strong>Washington D.C. y Nueva York (tentativo)</strong> como viaje turistico y cultural familiar. Washington D.C. cuenta con los museos Smithsonian, el National Mall, el Lincoln Memorial y el Capitolio &mdash; atracciones que toda la familia, incluyendo Paul Smith de 11 anos, puede disfrutar. Nueva York complementa con la Estatua de la Libertad, Central Park y Times Square. Este destino, ademas de ser una experiencia autentica para la familia, resulta coherente con el perfil de usted como autoridad municipal que conoce de primera mano la capital del sistema de gobierno que le sirve de referencia. Confirmaremos el itinerario en los proximos dias.</p>
 
-    <p>En cuanto al destino, hemos analizado las opciones estrategicamente y recomendamos orientar el viaje hacia <strong>Washington D.C. y Nueva York (tentativo)</strong>. La capital federal es el destino mas coherente con su cargo: un Alcalde visitando las instituciones de gobierno de Estados Unidos es una narrativa que el consul comprende de inmediato y que refuerza su perfil de funcionario publico con arraigo institucional. Nueva York complementa el viaje con el componente cultural y familiar. Confirmaremos el itinerario exacto en los proximos dias.</p>
-
-    <p>Recomendamos presentar la nueva solicitud en el <strong>Consulado de Guayaquil</strong>, que es el consulado que corresponde jurisdiccionalmente a la provincia de Zamora Chinchipe y donde no tienen antecedentes de rechazo.</p>
+    <p>La nueva solicitud se presentara en el <strong>Consulado de Guayaquil</strong>, que corresponde jurisdiccionalmente a la provincia de Zamora Chinchipe y donde no tienen antecedentes de rechazo.</p>
 
     <h3>Lo que necesito de usted para completar los formularios</h3>
 
-    <p>Para poder llenar correctamente los cuatro DS-160 nuevos, necesito que me confirme esta informacion por WhatsApp:</p>
-
     <ol>
-      <li><strong>Detalles del rechazo de noviembre</strong> — que pregunto el oficial en ventanilla y que respondieron. Es importante para saber como declarar correctamente el rechazo anterior en el nuevo formulario.</li>
-      <li><strong>Remuneracion de Jenny</strong> en el Patronato Municipal de Accion Social — monto mensual.</li>
-      <li><strong>Datos del padre de Mileidy</strong> — el DS-160 exige el nombre completo, fecha de nacimiento y si esta en USA. Si no se tiene ese dato, existe una opcion en el formulario para declararlo. Necesito saber que informacion tienen disponible sobre el padre biologico de Mileidy.</li>
-      <li><strong>Actividad actual de Mileidy</strong> — ya es Bachiller de la Republica. Necesito saber si actualmente trabaja, estudia en la universidad u otra situacion, para declararlo correctamente en su DS-160.</li>
-      <li><strong>Usuarios de redes sociales</strong> — en el formulario anterior su cuenta de Facebook e Instagram aparecia como "PABLO RODRIGUEZ". Los usuarios deben estar correctamente declarados en el nuevo DS-160.</li>
+      <li><strong>Detalles del rechazo de noviembre</strong> &mdash; que pregunto el oficial y que respondieron. Necesario para declarar correctamente el antecedente en el nuevo DS-160.</li>
+      <li><strong>Remuneracion de Jenny</strong> en el Patronato Municipal &mdash; monto mensual exacto.</li>
+      <li><strong>Datos del padre biologico de Mileidy</strong> &mdash; nombre completo y fecha de nacimiento si se dispone. Si no se conocen, existe opcion en el formulario para declararlo.</li>
+      <li><strong>Actividad actual de Mileidy</strong> &mdash; ya es bachiller. Si trabaja, estudia en la universidad u otra situacion, para declararlo correctamente.</li>
     </ol>
 
     <h3>Lo que me encargo yo como parte del servicio</h3>
 
-    <div class="fase-grid" style="grid-template-columns:1fr">
-      <div class="fase-box fase-roberto">
-        <div class="fase-tag" style="color:#166534">Gestion completa — Roberto Acosta</div>
-        <div class="fase-title">Esto lo resuelvo yo, usted no tiene que preocuparse</div>
-        <ul class="fase-list" style="columns:2;gap:20px">
-          <li>Fechas optimas del viaje (le propongo las mejores)</li>
-          <li>Reserva del hotel en Orlando</li>
-          <li>Reserva del hotel en Miami</li>
-          <li>Boletos de avion (busqueda y reserva)</li>
+    <div class="fg" style="grid-template-columns:1fr">
+      <div class="fb fr">
+        <div class="ft" style="color:#166534">Gestion completa &mdash; Roberto Acosta</div>
+        <div class="fn">Esto lo resuelvo yo, usted no tiene que preocuparse</div>
+        <ul class="fl" style="columns:2;gap:20px">
+          <li>Fechas del viaje (propuesta y confirmacion)</li>
+          <li>Reservas de hotel en Washington D.C. y Nueva York</li>
+          <li>Boletos de avion ida y vuelta para los 4</li>
           <li>Seguro de viaje para los 4 viajeros</li>
-          <li>Llenado de los 4 formularios DS-160</li>
+          <li>Llenado correcto de los 4 formularios DS-160</li>
           <li>Estrategia para declarar el rechazo previo</li>
           <li>Preparacion para la entrevista consular</li>
           <li>Revision completa del expediente antes de la cita</li>
@@ -141,128 +132,121 @@
 
     <h3>Documentos que necesita reunir su familia</h3>
 
-    <div class="doc-item">
-      <div class="doc-num">1</div>
-      <div>
-        <div class="doc-content-title">Nombramiento como Alcalde del Canton Paquisha</div>
-        <div class="doc-content-detail">Emitido por el Consejo Nacional Electoral (CNE). Original o copia notariada. Confirma el cargo de eleccion popular y la vigencia hasta 2027.</div>
-      </div>
-    </div>
+    <p style="font-size:12px;color:#64748B;margin-bottom:6px">Presente originales en la entrevista con copia de cada uno.</p>
 
-    <div class="doc-item">
-      <div class="doc-num">2</div>
-      <div>
-        <div class="doc-content-title">Carta laboral del GAD Municipal de Paquisha</div>
-        <div class="doc-content-detail">En papel membretado, firmada por el Secretario Municipal. Debe indicar: cargo (Alcalde), fecha de inicio (enero 2023), salario mensual ($4,508 USD), periodo de gestion (2023-2027) y que la ausencia para el viaje esta autorizada.</div>
-      </div>
-    </div>
+    <div class="cat" style="color:#1E40AF">Paul Fernando Rodriguez &mdash; Empleo y Finanzas</div>
 
-    <div class="doc-item">
-      <div class="doc-num">3</div>
-      <div>
-        <div class="doc-content-title">Estados de cuenta bancarios — 3 meses recientes</div>
-        <div class="doc-content-detail">Cuenta a nombre de Paul Fernando Rodriguez Narvaez. Ultimos 3 meses. Deben reflejar el deposito mensual de sueldo. Sellados por el banco.</div>
-      </div>
-    </div>
+    <div class="di"><div class="dn">1</div><div>
+      <div class="dt">Nombramiento como Alcalde &mdash; Consejo Nacional Electoral (CNE)</div>
+      <div class="dd">Original o copia notariada. Acredita el cargo de eleccion popular con vigencia hasta 2027. Documento de arraigo institucional mas solido del expediente.</div>
+    </div></div>
 
-    <div class="doc-item">
-      <div class="doc-num">4</div>
-      <div>
-        <div class="doc-content-title">Carta del Patronato Municipal de Accion Social para Jenny</div>
-        <div class="doc-content-detail">Confirmando su cargo como Presidenta, fecha de inicio y remuneracion mensual. En papel membretado, firmada por autoridad competente del Municipio.</div>
-      </div>
-    </div>
+    <div class="di"><div class="dn">2</div><div>
+      <div class="dt">Carta laboral del GAD Municipal de Paquisha &mdash; papel membretado</div>
+      <div class="dd">Firmada por el Secretario Municipal. Debe indicar: cargo (Alcalde), fecha de inicio enero 2023, salario mensual $4,508 USD, periodo de gestion 2023-2027, y autorizacion del Concejo para el viaje.</div>
+    </div></div>
 
-    <div class="doc-item">
-      <div class="doc-num">5</div>
-      <div>
-        <div class="doc-content-title">Acta o certificado de union de hecho</div>
-        <div class="doc-content-detail">Documento notariado o del Registro Civil que acredite la union de hecho de Paul Fernando y Jenny Enid. Aclara la composicion familiar ante el consul.</div>
-      </div>
-    </div>
+    <div class="di"><div class="dn">3</div><div>
+      <div class="dt">Estados de cuenta bancarios de Paul Fernando &mdash; ultimos 3 meses</div>
+      <div class="dd">Cuenta personal donde se deposite el salario. Sellados por el banco. Demuestran solvencia economica para costear el viaje de los 4 viajeros.</div>
+    </div></div>
 
-    <div class="doc-item">
-      <div class="doc-num">6</div>
-      <div>
-        <div class="doc-content-title">Documento que acredite la actividad actual de Mileidy</div>
-        <div class="doc-content-detail">Segun lo que este haciendo actualmente — certificado universitario, carta de trabajo, o cualquier documento que muestre su situacion en Ecuador y sus lazos con el pais.</div>
-      </div>
-    </div>
+    <div class="di"><div class="dn">4</div><div>
+      <div class="dt">Certificado de servicio en la Policia Nacional del Ecuador</div>
+      <div class="dd">Acreditando los 15 anos de carrera como Cabo Primero (2003-2019). Demuestra trayectoria institucional y arraigo al Estado ecuatoriano. Solicitarlo al Comando General de la Policia Nacional.</div>
+    </div></div>
 
-    <div class="doc-item">
-      <div class="doc-num">7</div>
-      <div>
-        <div class="doc-content-title">Certificado de matriculacion de Paul Smith Rodriguez (11 anos)</div>
-        <div class="doc-content-detail">De la escuela donde estudia en Paquisha. Es el documento de arraigo mas fuerte del grupo: un hijo de 11 anos en edad escolar obliga a ambos padres a regresar. El consul lo interpreta como la razon principal por la que toda la familia vuelve a Ecuador. Debe mostrar el ano lectivo en curso, firmado por la institucion educativa.</div>
-      </div>
-    </div>
+    <div class="cat" style="color:#1E40AF">Jenny Enid Masache &mdash; Empleo y Finanzas</div>
 
-    <div class="doc-item">
-      <div class="doc-num">8</div>
-      <div>
-        <div class="doc-content-title">Fotografia de visa tamano USA para cada viajero</div>
-        <div class="doc-content-detail">Fondo blanco liso, 5x5 cm, frente a la camara, expresion neutral, sin lentes ni accesorios. Foto reciente (menos de 6 meses). Una por persona — cuatro en total.</div>
-      </div>
-    </div>
+    <div class="di"><div class="dn">5</div><div>
+      <div class="dt">Carta del Patronato Municipal de Accion Social &mdash; papel membretado</div>
+      <div class="dd">Confirmando cargo de Presidenta, fecha de inicio enero 2023 y remuneracion mensual exacta. Firmada por el Alcalde o Secretario Municipal.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">6</div><div>
+      <div class="dt">Estados de cuenta bancarios de Jenny Masache &mdash; ultimos 3 meses</div>
+      <div class="dd">Cuenta personal donde se deposite su salario. Sellados por el banco. El consul necesita ver que ambos adultos tienen ingresos propios, no solo el titular.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">7</div><div>
+      <div class="dt">Titulo de Tecnologo en Enfermeria &mdash; Instituto Tecnologico Sudamericano, Loja</div>
+      <div class="dd">Copia del titulo obtenido (2012-2015). Refuerza el perfil profesional de Jenny y su formacion en Ecuador.</div>
+    </div></div>
+
+    <div class="cat" style="color:#1E40AF">Documentos del Nucleo Familiar</div>
+
+    <div class="di"><div class="dn">8</div><div>
+      <div class="dt">Acta de Union de Hecho &mdash; Registro Civil o notariada</div>
+      <div class="dd">Acredita la union de Paul Fernando y Jenny Enid. Fundamental para que el consul comprenda la composicion familiar. Sin este documento la relacion de pareja no tiene respaldo documental.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">9</div><div>
+      <div class="dt">Acta de nacimiento de Paul Smith Rodriguez Masache</div>
+      <div class="dd">Prueba que es hijo biologico de ambos adultos. Es el documento de arraigo mas contundente: un hijo de 11 anos en escuela ecuatoriana es la razon concreta por la que toda la familia regresa a Ecuador.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">10</div><div>
+      <div class="dt">Acta de nacimiento de Mileidy Maily Masache Yaruqui</div>
+      <div class="dd">Prueba que es hija de Jenny Masache. Aclara al consul por que tiene apellido diferente al titular y viaja con su madre y la pareja de su madre.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">11</div><div>
+      <div class="dt">Certificado de matriculacion de Paul Smith &mdash; ano lectivo en curso</div>
+      <div class="dd">De la escuela donde estudia en Paquisha. El consul lo interpreta como la razon concreta de retorno de toda la familia. Firmado por la institucion educativa.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">12</div><div>
+      <div class="dt">Documento que acredite la actividad actual de Mileidy (18 anos)</div>
+      <div class="dd">Certificado universitario, carta de trabajo u otro segun su situacion actual. Acredita que su vida activa esta en Ecuador.</div>
+    </div></div>
+
+    <div class="cat" style="color:#166534">Documentos del Viaje &mdash; Gestionados por Roberto</div>
+
+    <div class="di"><div class="dn">13</div><div>
+      <div class="dt">Reservas de hotel confirmadas (Washington D.C. y Nueva York, tentativo)</div>
+      <div class="dd">A nombre del titular. Roberto gestiona las reservas. Las direcciones exactas se ingresan en los DS-160.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">14</div><div>
+      <div class="dt">Boletos de avion ida y vuelta para los 4 viajeros</div>
+      <div class="dd">Roberto coordina busqueda y reserva. El boleto de retorno demuestra la intencion de regresar a Ecuador.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">15</div><div>
+      <div class="dt">Seguro de viaje para los 4 &mdash; cobertura medica minimo $30,000 USD por persona</div>
+      <div class="dd">Vigente para los dias del viaje. Roberto coordina la contratacion.</div>
+    </div></div>
+
+    <div class="di"><div class="dn">16</div><div>
+      <div class="dt">Fotografia de visa tamano USA &mdash; una por viajero (4 en total)</div>
+      <div class="dd">Fondo blanco liso, 5x5 cm, frente a la camara, sin lentes ni accesorios. Foto reciente menos de 6 meses.</div>
+    </div></div>
 
     <h3>Cronograma del proceso</h3>
 
-    <table class="cronograma">
-      <tr>
-        <th>Etapa</th>
-        <th>Responsable</th>
-        <th>Plazo</th>
-      </tr>
-      <tr>
-        <td class="etapa">Confirmacion de datos</td>
-        <td>Usted me envia la informacion de los 4 puntos</td>
-        <td>Esta semana</td>
-      </tr>
-      <tr>
-        <td class="etapa">Propuesta de viaje</td>
-        <td>Roberto propone fechas, hoteles, vuelos y seguro</td>
-        <td>Esta semana</td>
-      </tr>
-      <tr>
-        <td class="etapa">DS-160 nuevos</td>
-        <td>Roberto llena los 4 formularios correctamente</td>
-        <td>Semana 2</td>
-      </tr>
-      <tr>
-        <td class="etapa">Documentos de respaldo</td>
-        <td>Su familia reune los 8 documentos de la lista</td>
-        <td>Semanas 2-4</td>
-      </tr>
-      <tr>
-        <td class="etapa">Preparacion entrevista</td>
-        <td>Roberto — simulacro con preguntas del consul para su perfil</td>
-        <td>Semana 4-5</td>
-      </tr>
-      <tr>
-        <td class="etapa">Cita consular</td>
-        <td>Consulado de Guayaquil — entrevista con el oficial consular</td>
-        <td><strong>Agosto 2026</strong></td>
-      </tr>
-      <tr>
-        <td class="etapa">Viaje a USA</td>
-        <td>Washington D.C. + Nueva York (tentativo) — vuelos, hoteles y seguro gestionados por Roberto</td>
-        <td><strong>Diciembre 2026</strong></td>
-      </tr>
+    <table class="cr">
+      <tr><th>Etapa</th><th>Responsable</th><th>Plazo</th></tr>
+      <tr><td class="et">Confirmacion de datos</td><td>Usted confirma los 4 puntos solicitados</td><td>Esta semana</td></tr>
+      <tr><td class="et">Propuesta de viaje</td><td>Roberto propone fechas, hoteles, vuelos y seguro</td><td>Esta semana</td></tr>
+      <tr><td class="et">DS-160 nuevos</td><td>Roberto llena los 4 formularios correctamente</td><td>Semana 2</td></tr>
+      <tr><td class="et">Documentos de respaldo</td><td>Su familia reune los documentos 1 al 12</td><td>Semanas 2-4</td></tr>
+      <tr><td class="et">Preparacion entrevista</td><td>Roberto &mdash; simulacro con preguntas del consul</td><td>Semana 4-5</td></tr>
+      <tr><td class="et">Cita consular</td><td>Consulado de Guayaquil</td><td><strong>Agosto 2026</strong></td></tr>
+      <tr><td class="et">Viaje a USA</td><td>Washington D.C. + Nueva York (tentativo) &mdash; vuelos, hoteles y seguro gestionados por Roberto</td><td><strong>Diciembre 2026</strong></td></tr>
     </table>
 
-    <p>Quedo a su disposicion para cualquier consulta. En cuanto tenga los datos de los cuatro puntos indicados, procedo de inmediato con los formularios.</p>
+    <p>Quedo a su disposicion para cualquier consulta. En cuanto tenga los datos de los cuatro puntos, procedo de inmediato con los formularios.</p>
 
     <p>Atentamente,<br><strong>Roberto Acosta</strong></p>
 
   </div>
 
-  <!-- PIE -->
   <div class="ftr">
     <div>
-      <div class="ftr-name">Roberto Acosta</div>
-      <div class="ftr-info">Asesor en Visas B1/B2 USA · Agencia de Viajes</div>
+      <div class="fn2">Roberto Acosta</div>
+      <div class="fi">Asesor en Visas B1/B2 USA &middot; Agencia de Viajes</div>
     </div>
-    <div class="ftr-info" style="text-align:right">
+    <div class="fi" style="text-align:right">
       WhatsApp: <a href="https://wa.me/593987846751">0987846751</a><br>
       info@asesoriadevisadosglobal.com<br>
       <a href="https://www.asesoriadevisadosglobal.com">asesoriadevisadosglobal.com</a>
