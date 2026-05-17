@@ -3,35 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Informe de Expediente — PAUL FERNANDO RODRIGUEZ NARVAEZ — Asesoria Visa Global</title>
+<title>Informe de Expediente — Rodriguez Masache — Asesoria Visa Global</title>
 <style>
   body{font-family:'Segoe UI',Arial,sans-serif;background:#f0ece4;margin:0;padding:30px 16px;color:#1a1a1a}
   .doc{max-width:760px;margin:0 auto;background:white;box-shadow:0 6px 32px rgba(0,0,0,.12);overflow:hidden}
   .hdr{background:#060E1F;padding:32px 40px}
   .hdr-logo{color:#F0B429;font-size:18px;font-weight:700;letter-spacing:.02em;margin-bottom:2px}
   .hdr-sub{color:rgba(255,255,255,.4);font-size:10px;text-transform:uppercase;letter-spacing:.12em}
-  .hdr-title{color:white;font-size:20px;font-weight:700;margin:16px 0 4px}
-  .hdr-info{color:rgba(255,255,255,.55);font-size:12px}
-  .body{padding:36px 40px}
-  .section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#060E1F;border-bottom:2px solid #F0B429;padding-bottom:6px;margin:28px 0 14px}
-  p{margin:0 0 16px;line-height:1.75;font-size:14px;color:#2d2d2d}
-  h3{color:#060E1F;font-size:14px;margin:20px 0 8px}
-  ul{margin:0 0 16px;padding-left:18px}
-  li{margin-bottom:8px;font-size:14px;line-height:1.6}
-  .stat-row{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
-  .stat{flex:1;min-width:120px;background:#F8F5F0;border-radius:6px;padding:10px 12px;text-align:center;border:1px solid #e8e0d4}
-  .stat-val{font-size:18px;font-weight:700;margin-bottom:2px}
-  .stat-label{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#888}
-  .prob-bar-bg{background:#e8e0d4;border-radius:3px;height:6px;margin:4px 0}
-  .prob-bar-fill{height:100%;border-radius:3px;transition:width .5s}
-  .badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-  .badge-gold{background:#FFF3CD;color:#92400E;border:1px solid #F0B429}
-  .badge-green{background:#DCFCE7;color:#166534;border:1px solid #86EFAC}
-  .badge-red{background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5}
-  .ftr{background:#060E1F;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .hdr-title{color:white;font-size:21px;font-weight:700;margin:14px 0 4px}
+  .hdr-info{color:rgba(255,255,255,.5);font-size:12px}
+  .strip{display:flex;flex-wrap:wrap;border-bottom:1px solid #e8e0d4}
+  .strip-item{flex:1;min-width:120px;padding:12px 16px;border-right:1px solid #e8e0d4;text-align:center}
+  .strip-item:last-child{border-right:none}
+  .strip-val{font-size:18px;font-weight:700;margin-bottom:2px}
+  .strip-bar{height:3px;background:#e8e0d4;border-radius:2px;margin:4px 0}
+  .strip-bar-fill{height:100%;border-radius:2px}
+  .strip-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999}
+  .strip-note{font-size:9px;color:#dc2626;margin-top:2px}
+  .body{padding:38px 40px}
+  p{margin:0 0 16px;line-height:1.8;font-size:14px;color:#2d2d2d}
+  h3{color:#060E1F;font-size:14px;font-weight:700;border-bottom:2px solid #F0B429;padding-bottom:6px;margin:26px 0 12px}
+  ul,ol{margin:0 0 16px;padding-left:20px}
+  li{margin-bottom:9px;font-size:13px;line-height:1.65}
+  strong{color:#060E1F}
+  .fase-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+  .fase-box{border-radius:9px;padding:18px}
+  .fase-1{background:#FFFBF0;border:2px solid #F0B429}
+  .fase-2{background:#EFF6FF;border:2px solid #3B82F6}
+  .fase-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+  .fase-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+  .fase-list{margin:0;padding-left:16px;font-size:12px;color:#444;line-height:1.7}
+  .cronograma{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px}
+  .cronograma th{background:#F8F5F0;padding:9px 12px;text-align:left;font-weight:700;border-bottom:2px solid #e8e0d4;color:#444;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .cronograma td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:top}
+  .cronograma tr:last-child td{border-bottom:none}
+  .cronograma .etapa{color:#64748B;font-size:12px;font-weight:600}
+  .doc-list{counter-reset:doc}
+  .doc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0ece4}
+  .doc-num{min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .doc-content-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px}
+  .doc-content-detail{font-size:12px;color:#555;line-height:1.5}
+  .ftr{background:#060E1F;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   .ftr-name{color:#F0B429;font-weight:700;font-size:14px}
   .ftr-info{color:rgba(255,255,255,.5);font-size:12px;line-height:1.7}
   .ftr a{color:#F0B429;text-decoration:none}
+  @media(max-width:600px){.fase-grid{grid-template-columns:1fr}.strip-item{min-width:50%}.hdr{padding:24px 20px}.body{padding:24px 20px}.ftr{padding:18px 20px}}
   @media print{body{background:white;padding:0}}
 </style>
 </head>
@@ -41,150 +57,239 @@
   <!-- CABECERA -->
   <div class="hdr">
     <div class="hdr-logo">Asesoria Visa Global</div>
-    <div class="hdr-sub">Análisis de Expediente · Visa USA B1/B2</div>
-    <div class="hdr-title">Informe de Caso — PAUL FERNANDO RODRIGUEZ NARVAEZ</div>
-    <div class="hdr-info">Ref: VG-887029 &nbsp;·&nbsp; 16 de May de 2026 &nbsp;·&nbsp; Confidencial</div>
+    <div class="hdr-sub">Analisis de Expediente · Visa USA B1/B2 · Confidencial</div>
+    <div class="hdr-title">Sr. Paul Fernando Rodriguez Narvaez</div>
+    <div class="hdr-info">Expediente VG-887029 &nbsp;·&nbsp; 16 de mayo de 2026 &nbsp;·&nbsp; Familia Rodriguez Masache</div>
   </div>
 
+  <!-- TIRA EJECUTIVA -->
+  <div class="strip">
+    <div class="strip-item">
+      <div class="strip-val" style="color:#16a34a">72-80%</div>
+      <div class="strip-bar"><div class="strip-bar-fill" style="width:76%;background:#16a34a"></div></div>
+      <div class="strip-lbl">Aprobacion estimada</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-val" style="color:#1E40AF;font-size:15px">GUAYAQUIL</div>
+      <div class="strip-lbl">Consulado recomendado</div>
+      <div class="strip-note">Rechazo previo fue en Quito</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-val" style="color:#92400E;font-size:14px">9-12 meses</div>
+      <div class="strip-lbl">Espera para cita</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-val" style="color:#1a1a1a;font-size:14px">4 viajeros</div>
+      <div class="strip-lbl">Ref: VG-887029</div>
+    </div>
+  </div>
+
+  <!-- CUERPO -->
   <div class="body">
 
-    <!-- TIRA EJECUTIVA DE RESUMEN -->
-    <div style="display:flex;flex-wrap:wrap;border:1px solid #e8e0d4;border-radius:7px;overflow:hidden;margin-bottom:24px;font-family:sans-serif">
-      <div style="flex:1;min-width:110px;padding:12px 14px;border-right:1px solid #e8e0d4;text-align:center">
-        <div style="font-size:20px;font-weight:700;color:#16a34a">72-78%</div>
-        <div style="height:3px;background:#e8e0d4;border-radius:2px;margin:4px 0"><div style="height:100%;width:78%;background:#16a34a;border-radius:2px"></div></div>
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#999">Aprobacion estimada</div>
-      </div>
-      <div style="flex:1;min-width:110px;padding:12px 14px;border-right:1px solid #e8e0d4;text-align:center">
-        <div style="font-size:14px;font-weight:700;color:#1E40AF">GUAYAQUIL</div>
-        <div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-top:3px">Consulado recomendado</div>
-        <div style="font-size:9px;color:#dc2626;margin-top:2px">Rechazo previo fue en Quito</div>
-      </div>
-      <div style="flex:1;min-width:110px;padding:12px 14px;border-right:1px solid #e8e0d4;text-align:center">
-        <div style="font-size:14px;font-weight:700;color:#92400E">9-12 meses</div>
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#999;margin-top:3px">Espera para cita</div>
-      </div>
-      <div style="flex:1;min-width:110px;padding:12px 14px;text-align:center">
-        <div style="font-size:14px;font-weight:700;color:#1a1a1a">15 viajeros</div>
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#999;margin-top:3px">Ref: VG-887029</div>
-      </div>
-    </div>
+    <p>Estimado Sr. Rodriguez,</p>
 
-    <!-- ANALISIS PRINCIPAL -->
-    <div class="section-title">Análisis de su Caso</div>
-    <p>Estimado señor Paul,</p>
+    <p>He completado el analisis inicial del expediente de su familia y revisado los cuatro formularios DS-160 que presentaron en el Consulado de Quito en noviembre de 2025. A continuacion le presento mis conclusiones y el plan de trabajo para los nuevos formularios.</p>
 
-<p>He completado el análisis inicial del expediente de su familia —los cuatro viajeros— y quiero compartirle mis conclusiones de forma directa. A continuación encontrará lo que identifiqué como causa probable del rechazo anterior, los puntos sólidos con los que contamos, y lo que necesito de usted esta semana para avanzar con paso firme.</p>
+    <h3>Lo que encontramos en el analisis</h3>
 
-<h3>Qué encontramos en el análisis</h3>
+    <p>La negacion de noviembre no fue por el perfil de su familia — fue por errores tecnicos en como se presentaron los formularios. El principal problema que identificamos es que cada miembro del grupo declaro una fecha de viaje diferente: usted puso el 8 de abril, su esposa el 16 de marzo, y Mileidy el 16 de mayo. El consul vio cuatro formularios de una misma familia con fechas que no coinciden, lo que genera desconfianza inmediata sobre si realmente viajan juntos. Ademas, el campo de contacto en USA aparecia como "DO NOT KNOW" — es decir, sin nadie conocido ni hotel confirmado como referencia.</p>
 
-<p>La negación del 25 de noviembre en el consulado de Quito no refleja que su familia no califique para la visa. Lo más probable es que el caso se presentó sin una narrativa estructurada que conectara el propósito del viaje con los arraigos concretos de cada integrante. Cuando se viaja en grupo familiar no convencional —con una menor cuya filiación paterna no está vinculada al solicitante principal y con una pareja en unión de hecho— el consulado evalúa con más rigor los lazos de cada persona con Ecuador. Si esos vínculos no se explicaron con documentación de respaldo desde el inicio, el oficial tiene margen para dudar. A eso se suma que una negativa previa obliga a declararla en el nuevo DS-160, lo que exige que la nueva presentación sea notablemente más sólida y ordenada que la anterior.</p>
+    <p>El perfil de su familia tiene puntos muy solidos: usted es Alcalde en ejercicio del Canton Paquisha con un cargo de eleccion popular verificable y un salario de funcionario publico documentado. Su esposa dirige el Patronato Municipal de Accion Social. Ambos tienen pasaportes vigentes hasta 2032-2033. Estos son exactamente los elementos de arraigo que el consul necesita ver. Lo que hay que hacer es presentarlos correctamente.</p>
 
-<p>Dicho eso, este expediente tiene argumentos reales a su favor. Usted es Alcalde en funciones del cantón Paquisha desde enero de 2023, cargo de elección popular con responsabilidades institucionales verificables que generan un arraigo político y administrativo difícil de ignorar. Antes de eso, sirvió dieciséis años en la Policía Nacional, lo cual construye una trayectoria de servicio público consistente. Su ingreso mensual de cuatro mil quinientos ocho dólares es significativamente superior al promedio ecuatoriano y cubre holgadamente los costos de un viaje de catorce días. Jenny ejerce como Presidenta del Patronato de Acción Social, un cargo con visibilidad institucional dentro del cantón. Paul Smith tiene once años y Mileidy está próxima a graduarse del bachillerato, ambos con razones académicas concretas para regresar. Los cuatro pasaportes vencen entre 2032 y 2033, lo que indica proyección y planificación. Con una presentación bien armada, este caso es defendible.</p>
+    <p>Para la nueva solicitud recomendamos presentarla en el <strong>Consulado de Guayaquil</strong>, que es el consulado que corresponde jurisdiccionalmente a la provincia de Zamora Chinchipe — el que siempre debieron usar. El tiempo de espera para cita en 2026 es de 9 a 12 meses, lo que les da tiempo suficiente para preparar el expediente completo.</p>
 
-<h3>Fase 1 — Lo que necesito para llenar correctamente los DS-160</h3>
+    <h3>Fase 1 — Lo que necesitamos esta semana para los DS-160</h3>
 
-<p>Para completar los cuatro formularios DS-160 de manera precisa y coherente entre sí, necesito que me confirmen los siguientes datos esta semana:</p>
+    <p>Antes de completar los cuatro formularios DS-160, necesito que me confirme los siguientes datos por WhatsApp o email:</p>
 
-<ul>
-<li><strong>Detalles exactos del rechazo de noviembre:</strong> nombre del consulado donde se presentaron (presumimos Quito), qué preguntas hizo el oficial durante la entrevista, qué respondieron, y si conservan algún documento o comprobante del trámite anterior.</li>
-<li><strong>Nombre del hotel en Orlando:</strong> necesito el nombre completo del alojamiento donde se hospedarán, dirección y fechas de reserva confirmadas. Si aún no está reservado, coordínelo esta semana antes de llenar los formularios.</li>
-<li><strong>Fechas exactas de viaje:</strong> fecha de salida desde Ecuador y fecha de retorno, para que los cuatro DS-160 queden alineados con el mismo itinerario.</li>
-<li><strong>Salario o compensación mensual de Jenny en el Patronato:</strong> necesito saber si percibe remuneración formal, honorarios o si el cargo es ad honorem, ya que esto cambia cómo se declara su situación laboral en el formulario.</li>
-<li><strong>Nombre completo del padre biológico de Mileidy Masache Yaruqui:</strong> el DS-160 de ella requiere los datos de ambos padres biológicos. En el expediente no figura el nombre del padre. Necesito nombre completo y si está o no en Estados Unidos.</li>
-<li><strong>Nivel educativo de Paul Fernando:</strong> necesito saber si usted tiene título universitario, tecnológico o de bachillerato, y el nombre de la institución, para completar la sección de educación del DS-160.</li>
-<li><strong>Contacto en Estados Unidos:</strong> el formulario solicita si conocen a alguien en ese país. Si no tienen contacto directo, se declara así, pero necesito confirmarlo expresamente.</li>
-<li><strong>Viajes anteriores de Paul Fernando:</strong> además del viaje a Perú registrado para Jenny y Mileidy, ¿ha viajado usted fuera de Ecuador en los últimos diez años? Cualquier país, incluso Colombia, debe declararse.</li>
-</ul>
+    <ol>
+      <li><strong>Fechas del viaje</strong> — fecha exacta de llegada a USA y cuantos dias planean quedarse. Todos los formularios deben llevar la misma fecha.</li>
+      <li><strong>La abuela</strong> — en los DS-160 de noviembre aparece NARVAEZ VICENTE, MARIA EDILMA (su madre) como viajera adicional. ¿Va ella en esta nueva solicitud o no?</li>
+      <li><strong>Detalles del rechazo</strong> — que le pregunto el oficial en ventanilla y que respondio. Mientras mas detalle tenga, mejor podemos preparar la estrategia para declarar el rechazo anterior en el nuevo formulario.</li>
+      <li><strong>Salario de Jenny</strong> — cual es su remuneracion mensual como Presidenta del Patronato Municipal.</li>
+      <li><strong>Redes sociales</strong> — en el formulario anterior usted aparece como "PABLO RODRIGUEZ" en Facebook e Instagram. El nombre correcto del usuario debe coincidir o ser explicado. ¿Cuales son sus usuarios exactos?</li>
+      <li><strong>Situacion actual de Mileidy</strong> — ya tiene 18 anos y esta proxima a graduarse del bachillerato. ¿Se gradua en julio 2026? ¿Tiene planes concretos de universidad? Esta informacion refuerza su lazo con Ecuador.</li>
+    </ol>
 
-<h3>Fase 2 — Documentos para construir el caso ante el consulado</h3>
-
-<p>Una vez completados los DS-160, necesitaremos reunir los siguientes documentos de respaldo para presentar un expediente sólido y coherente ante el oficial consular:</p>
-
-<ul>
-<li><strong>Carta oficial del GAD Municipal del cantón Paquisha:</strong> en papel membretado institucional, firmada por el Concejo Municipal o el Secretario General, que certifique su cargo como Alcalde, fecha de inicio de funciones, salario y que se le concede permiso para ausentarse durante las fechas del viaje con compromiso de retorno.</li>
-<li><strong>Estados de cuenta bancarios de los últimos tres meses:</strong> de la cuenta personal de usted, que reflejen los depósitos de nómina de cuatro mil quinientos ocho dólares mensuales y un saldo suficiente para costear el viaje familiar.</li>
-<li><strong>Roles de pago o certificado de ingresos:</strong> emitido por el GAD Municipal, que acredite su remuneración mensual de forma oficial.</li>
-<li><strong>Nombramiento o resolución del cargo de Jenny en el Patronato de Acción Social:</strong> documento oficial que certifique su cargo como Presidenta, fecha de inicio y, si aplica, su remuneración o naturaleza del cargo.</li>
-<li><strong>Acta de unión de hecho legalizada:</strong> documento notarial o del Registro Civil que acredite la relación de convivencia entre usted y Jenny, fundamental para presentarlos como núcleo familiar ante el consulado.</li>
-<li><strong>Certificado de matrícula y promedio de notas de Mileidy:</strong> emitido por la Unidad Educativa Soberanía Nacional, que confirme que está inscrita en el bachillerato y tiene pendiente su graduación, lo que justifica su retorno obligatorio a Ecuador.</li>
-<li><strong>Certificado de matrícula escolar de Paul Smith:</strong> que acredite que el menor está cursando estudios en Ecuador y debe regresar antes del inicio del siguiente período lectivo.</li>
-<li><strong>Itinerario de viaje detallado:</strong> confirmación de vuelos de ida y vuelta, reservas de hotel en Orlando y, si aplica, en Miami, y un resumen del plan de actividades —Disney World, Universal Studios, Miami Beach— con fechas aproximadas por destino.</li>
-<li><strong>Hoja de vida profesional de Paul Fernando:</strong> que incluya su trayectoria en la Policía Nacional (2003–2018) y su cargo actual como Alcalde, para reforzar visualmente ante el consulado su perfil de servidor público con arraigo institucional.</li>
-<li><strong>Documentos de identidad vigentes de los cuatro viajeros:</strong> copias a color de cédulas y pasaportes, verificando que todos los datos coincidan exactamente con lo declarado en los DS-160.</li>
-</ul>
-
-<p>Le estaré contactando al <strong>0985926007</strong> para coordinar los detalles de la Fase 1 y definir los plazos de entrega de documentos. Si prefiere escribirme primero, puede hacerlo al mismo número por WhatsApp en el horario que le sea más conveniente.</p>
-
-<p>Atentamente,<br><strong>Roberto Acosta</strong><br>Asesor en Visas B1/B2 — Estados Unidos<br>16 de mayo de 2026</p>
-
-    <!-- FASE 1 Y FASE 2 desde el texto del análisis -->
-    <div class="section-title">Plan de Trabajo por Fases</div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
-      <div style="background:#FFF9F0;border:2px solid #F0B429;border-radius:10px;padding:20px">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Fase 1 — Esta Semana</div>
-        <div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px">Completar los DS-160</div>
-        <ul style="margin:0;padding-left:16px;font-size:13px;color:#444;line-height:1.7">
-          <li>Confirmar fechas y destino de viaje</li>
-          <li>Detalles del rechazo de noviembre 2025</li>
+    <div class="fase-grid">
+      <div class="fase-box fase-1">
+        <div class="fase-tag" style="color:#92400E">Fase 1 — Esta semana</div>
+        <div class="fase-title">Confirmar datos para los DS-160</div>
+        <ul class="fase-list">
+          <li>Fechas del viaje (todos la misma)</li>
+          <li>Si la abuela va o no</li>
+          <li>Detalles del rechazo de noviembre</li>
           <li>Salario de Jenny en el Patronato</li>
-          <li>Datos del padre de Mileidy (para su DS-160)</li>
-          <li>Hotel o contacto en USA</li>
+          <li>Usuarios reales de redes sociales</li>
+          <li>Situacion actual de Mileidy</li>
         </ul>
       </div>
-      <div style="background:#F0F5FF;border:2px solid #3B82F6;border-radius:10px;padding:20px">
-        <div style="font-size:11px;font-weight:700;color:#1E40AF;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Fase 2 — Documentación</div>
-        <div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px">Construir el expediente sólido</div>
-        <ul style="margin:0;padding-left:16px;font-size:13px;color:#444;line-height:1.7">
-          <li>Carta laboral de Paul como Alcalde</li>
-          <li>Estados de cuenta bancarios 3 meses</li>
-          <li>Documentación de Jenny en el Patronato</li>
-          <li>Acta de unión de hecho</li>
-          <li>Documentos educativos de Mileidy y Paul Smith</li>
+      <div class="fase-box fase-2">
+        <div class="fase-tag" style="color:#1E40AF">Fase 2 — Semanas 2-4</div>
+        <div class="fase-title">Documentos para la entrevista</div>
+        <ul class="fase-list">
+          <li>Carta laboral del Alcalde (membretada)</li>
+          <li>Estados de cuenta 3 meses</li>
+          <li>Documentacion de Jenny (Patronato)</li>
+          <li>Acta de union de hecho</li>
+          <li>Certificados educativos de los menores</li>
+          <li>Reservas de hotel y vuelo</li>
+          <li>Seguro de viaje para los 4</li>
         </ul>
       </div>
     </div>
 
-    <!-- DOCUMENTOS DETALLADOS -->
-    <div class="section-title">Lista Detallada de Documentos Fase 2</div>
-    <div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">### LISTA COMPLETA DE DOCUMENTOS — FAMILIA RODRIGUEZ-MASACHE</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">> Todos los documentos en español deben acompañarse de traducción al inglés (no necesariamente oficial/apostillada, pero sí clara). Los documentos de carácter oficial deben tener membrete institucional, sello y firma. Ningún documento requiere apostilla para visa de turismo B2, salvo que el cónsul lo solicite expresamente.</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">--</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">DOCUMENTOS INDIVIDUALES — PAUL FERNANDO RODRIGUEZ NARVAEZ</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">PASAPORTE ORIGINAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Registro Civil Ecuador</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Original vigente (vence 2033-05-23). Verificar que las páginas estén en buen estado. Llevar también pasaportes anteriores si los tiene.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">CREDENCIAL DE ALCALDE / NOMBRAMIENTO OFICIAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Consejo Nacional Electoral (CNE) o el propio GAD Municipal</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Original o copia certificada. Debe mostrar nombre completo, cargo ALCALDE, cantón Paquisha, período 2023-2027. Con sello del CNE o del GAD. En membrete oficial.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">CARTA DE PRESENTACIÓN INSTITUCIONAL DEL GAD PAQUISHA</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Secretaría General del GAD Municipal del Cantón Paquisha, firmada por el Vicealcalde o Secretario General (NO por el mismo Paul Fernando)</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: En membrete oficial del GAD, sello institucional, firma del funcionario emisor. Debe indicar: nombre completo, cargo, fecha de inicio, salario mensual ($4,508), que el Sr. Rodríguez tiene autorización de viaje del 14 días y que retornará a cumplir sus funciones. En español con traducción al inglés.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">ROLES DE PAGO / NÓMINA DE LOS ÚLTIMOS 6 MESES</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Departamento Financiero del GAD Municipal</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Impresos o descargados del sistema de nómina pública, firmados y sellados. Deben mostrar $4,508/mes o el monto real. Si hay bono o componentes salariales, desglosarlos.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">6</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">CERTIFICADO DE VOTACIÓN VIGENTE (últimas elecciones)</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: CNE Ecuador</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Original o copia clara. Demuestra radicación y participación cívica en Ecuador.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">7</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">TÍTULO MILITAR/POLICIAL — HOJA DE VIDA POLICIAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Policía Nacional del Ecuador</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Certificado de servicio honroso como Cabo Primero, fechas 2003-2018, razón de salida (retiro voluntario). Con sello y firma de la unidad policial. Este documento FORTALECE credibilidad: 15 años de servicio público demuestran estabilidad y raíces.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">8</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">ESTADOS DE CUENTA BANCARIOS — 6 MESES</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Banco donde tenga cuenta (Banco del Estado, Banco Pichincha, BanEcuador, cooperativa, etc.)</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Originales o impresos con membrete bancario, últimos 6 meses. Deben mostrar saldo promedio suficiente para cubrir el viaje (mínimo $3,000–$5,000 recomendados). Si tiene ahorros en más de una cuenta, incluir todas.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">9</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">ESCRITURAS DE PROPIEDAD O CERTIFICADO DEL REGISTRO DE LA PROPIEDAD</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Registro de la Propiedad del cantón correspondiente</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Copia certificada de bienes inmuebles a su nombre. Si no tiene propiedad, incluir contrato de arrendamiento. Demuestra arraigo territorial.</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">--</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">DOCUMENTOS INDIVIDUALES — JENNY ENID MASACHE YARUQUI</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">10</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">PASAPORTE ORIGINAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Registro Civil Ecuador</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Original vigente (A9692850, vence 2032-05-22). ⚠️ Verificar que el pasaporte esté en perfectas condiciones.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">11</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">NOMBRAMIENTO / RESOLUCIÓN DE PRESIDENTA DEL PATRONATO DE ACCIÓN SOCIAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Directorio del Patronato o GAD Municipal de Paquisha</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Resolución oficial nombrándola como Presidenta, con fecha de inicio 2023, membrete del GAD o del Patronato, sello y firma de autoridad competente. Indica período del cargo (vinculado al período del Alcalde 2023-2027).</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">12</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">CARTA DE FUNCIONES DEL PATRONATO</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: La misma Jenny Masache o el GAD, firmada por el Alcalde (o en su defecto, por el Vicealcalde para evitar conflicto de interés)</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Carta en membrete del Patronato describiendo sus funciones: asistencia social a personas vulnerables, personas con discapacidad, adultos mayores y niños. Debe indicar que su cargo es vigente y que retornará a sus funciones tras el viaje.</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">13</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">DIPLOMA O TÍTULO DEL INSTITUTO TECNOLÓGICO SUDAMERICANO</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Instituto Tecnológico Sudamericano</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Copia del título obtenido. Demuestra nivel educativo. Si tiene título superior, incluirlo.</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">--</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">DOCUMENTOS INDIVIDUALES — MILEIDY MAILY MASACHE YARUQUI</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">14</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">PASAPORTE ORIGINAL</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: Registro Civil Ecuador</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Original vigente (vence 2033-05-22).</span></div></div></div><div style="padding:11px 0;border-bottom:1px solid #f0ece4"><div style="display:flex;align-items:flex-start;gap:10px"><div style="min-width:24px;height:24px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">15</div><div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px">MATRÍCULA Y CERTIFICADO DE ESTUDIOS — BACHILLERATO VIGENTE</div><span style="display:block;color:#555;font-size:12px;line-height:1.6">Emite: UNIDAD EDUCATIVA SOBERANIA NACIONAL</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">Preparación: Certificado de matrícula activa, firmado por el rector/a, sellado con membrete de la institución. Debe indicar: nombre de la estudiante, año de bachillerato en curso, fecha estimada de graduación. ⚠️ Este es su vínculo más importante: si está próxima a graduarse, incluir carta de que continuará estudios universitarios en Ecuador.</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">--</span><span style="display:block;color:#555;font-size:12px;line-height:1.6">DOCUMENTOS DE PAUL SMITH RODRÍGUEZ MASACHE (MENOR, 11 AÑOS)</span></div></div></div>
+    <h3>Fase 2 — Documentos para construir el caso ante el consulado</h3>
 
-    <!-- CRONOGRAMA -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-      <div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 1</div>
-        <div style="font-size:13px;color:#1a1a1a">Confirmar datos faltantes para los DS-160 (Fase 1)</div>
-      </div><div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 2</div>
-        <div style="font-size:13px;color:#1a1a1a">Llenar y revisar los 4 formularios DS-160</div>
-      </div><div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 3</div>
-        <div style="font-size:13px;color:#1a1a1a">Recopilar documentos de respaldo (Fase 2)</div>
-      </div><div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 4</div>
-        <div style="font-size:13px;color:#1a1a1a">Preparar estrategia específica para el rechazo previo</div>
-      </div><div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 5</div>
-        <div style="font-size:13px;color:#1a1a1a">Simulacro de entrevista consular personalizado</div>
-      </div><div style="background:#F8F5F0;border-radius:8px;padding:14px;border-left:3px solid #F0B429">
-        <div style="font-size:11px;font-weight:700;color:#F0B429;margin-bottom:4px">PASO 6</div>
-        <div style="font-size:13px;color:#1a1a1a">Revision final y presentacion en Consulado de Guayaquil (jurisdiccion natural de Zamora Chinchipe)</div>
+    <div class="doc-list">
+
+      <div class="doc-item">
+        <div class="doc-num">1</div>
+        <div>
+          <div class="doc-content-title">Nombramiento como Alcalde del Canton Paquisha</div>
+          <div class="doc-content-detail">Emite el Consejo Nacional Electoral (CNE). Debe ser el documento original o copia notariada. Confirma el cargo de eleccion popular y la vigencia hasta 2027.</div>
+        </div>
       </div>
+
+      <div class="doc-item">
+        <div class="doc-num">2</div>
+        <div>
+          <div class="doc-content-title">Carta del GAD Municipal de Paquisha en papel membretado</div>
+          <div class="doc-content-detail">Firmada por el Secretario Municipal. Debe indicar: cargo (Alcalde), fecha de inicio (enero 2023), salario mensual ($4,508 USD), periodo de gestion (2023-2027) y que la ausencia durante el viaje esta autorizada por el Concejo Municipal.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">3</div>
+        <div>
+          <div class="doc-content-title">Estados de cuenta bancarios — 3 meses recientes</div>
+          <div class="doc-content-detail">Cuenta bancaria a nombre de Paul Fernando Rodriguez Narvaez. Los ultimos 3 meses. Deben mostrar el deposito mensual de $4,508 USD o equivalente. Apostillados o con sello del banco.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">4</div>
+        <div>
+          <div class="doc-content-title">Documentacion de Jenny Masache en el Patronato Municipal</div>
+          <div class="doc-content-detail">Carta del Municipio confirmando su cargo como Presidenta del Patronato de Accion Social, fecha de inicio y remuneracion mensual. En papel membretado con firma del Alcalde o Secretario Municipal.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">5</div>
+        <div>
+          <div class="doc-content-title">Acta o certificado de union de hecho</div>
+          <div class="doc-content-detail">Documento notariado o registrado en el Registro Civil que acredite la union de hecho de Paul Fernando y Jenny Enid. Este documento explica la composicion familiar al consul y elimina ambiguedad sobre la relacion.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">6</div>
+        <div>
+          <div class="doc-content-title">Certificado de matriculacion y notas de Mileidy</div>
+          <div class="doc-content-detail">De la Unidad Educativa Soberania Nacional, Paquisha. Debe indicar que es estudiante de bachillerato activa. Si ya se gradua en julio 2026, incluir tambien el acta de grado. Refuerza su lazo con Ecuador (continuara en la universidad).</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">7</div>
+        <div>
+          <div class="doc-content-title">Certificado de matriculacion de Paul Smith</div>
+          <div class="doc-content-detail">De la escuela en Paquisha donde estudia. Indica que el menor tiene clases en Ecuador — lazo directo que justifica el regreso al pais.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">8</div>
+        <div>
+          <div class="doc-content-title">Reserva del hotel en Orlando (The Grove Resort)</div>
+          <div class="doc-content-detail">Reserva confirmada a nombre de Paul Fernando Rodriguez. Este hotel ya aparecia en los DS-160 de noviembre — es un dato correcto. La reserva confirma el alojamiento y la direccion que va en el formulario.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">9</div>
+        <div>
+          <div class="doc-content-title">Reserva del hotel en Miami</div>
+          <div class="doc-content-detail">El Holiday Inn Miami Beach aparecia en los DS-160 anteriores. Confirmar si es el mismo destino o cambia. La reserva debe estar a nombre del titular.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">10</div>
+        <div>
+          <div class="doc-content-title">Itinerario detallado del viaje</div>
+          <div class="doc-content-detail">Documento que muestre dia por dia: fecha de llegada, dias en Orlando (Disney World, Universal Studios), dias en Miami, fecha de regreso. No es un requisito obligatorio pero elimina cualquier duda sobre el proposito del viaje.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">11</div>
+        <div>
+          <div class="doc-content-title">Seguro de viaje para los 4 viajeros</div>
+          <div class="doc-content-detail">Con cobertura medica en USA de minimo $30,000 por persona. Vigente para los dias del viaje. Yo les ayudo a conseguirlo como parte del servicio.</div>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <div class="doc-num">12</div>
+        <div>
+          <div class="doc-content-title">Fotografia de visa tamano USA para los 4 viajeros</div>
+          <div class="doc-content-detail">Fondo blanco liso, 5x5 cm, frente a la camara, expresion neutral, sin lentes, sin accesorios en la cabeza. Foto reciente (menos de 6 meses). Una foto por persona.</div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- FECHAS SUGERIDAS -->
-    <div class="section-title">Cronograma Sugerido</div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <tr style="background:#F8F5F0">
-        <td style="padding:10px 12px;font-weight:700;border-bottom:1px solid #e8e0d4">Fase</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #e8e0d4">Acción</td>
+    <h3>Cronograma del proceso</h3>
+
+    <table class="cronograma">
+      <tr>
+        <th>Etapa</th>
+        <th>Acciones</th>
+        <th>Tiempo estimado</th>
       </tr>
-      <tr><td style="padding:9px 12px;color:#888;border-bottom:1px solid #f0ece4">Esta semana</td><td style="padding:9px 12px;border-bottom:1px solid #f0ece4">Reunión de trabajo + recopilacion de documentos</td></tr>
-      <tr><td style="padding:9px 12px;color:#888;border-bottom:1px solid #f0ece4">Semanas 2-3</td><td style="padding:9px 12px;border-bottom:1px solid #f0ece4">Revision DS-160, preparacion documentacion, simulacro entrevista</td></tr>
-      <tr><td style="padding:9px 12px;color:#888;border-bottom:1px solid #f0ece4">Semana 4</td><td style="padding:9px 12px;border-bottom:1px solid #f0ece4">Revision final del expediente y presentacion de la solicitud</td></tr>
-      <tr><td style="padding:9px 12px;color:#888">Fecha viaje</td><td style="padding:9px 12px">A definir segun disponibilidad del consulado</td></tr>
+      <tr>
+        <td class="etapa">Fase 1</td>
+        <td>Confirmar fechas, datos faltantes y situacion de cada viajero</td>
+        <td>Esta semana</td>
+      </tr>
+      <tr>
+        <td class="etapa">Fase 2</td>
+        <td>Llenar los 4 DS-160 correctamente, revisar y validar cada campo</td>
+        <td>Semana 2</td>
+      </tr>
+      <tr>
+        <td class="etapa">Fase 3</td>
+        <td>Recopilar toda la documentacion de respaldo de la lista anterior</td>
+        <td>Semanas 2-4</td>
+      </tr>
+      <tr>
+        <td class="etapa">Fase 4</td>
+        <td>Preparacion de entrevista — simulacro con preguntas del consul para su perfil</td>
+        <td>Semana 4-5</td>
+      </tr>
+      <tr>
+        <td class="etapa">Reservar cita</td>
+        <td>Agendar cita en el Consulado de Guayaquil una vez el expediente este completo</td>
+        <td>Mayo-junio 2026</td>
+      </tr>
+      <tr>
+        <td class="etapa">Entrevista</td>
+        <td>Cita en el Consulado de Guayaquil</td>
+        <td>Feb-mayo 2027 (espera actual: 9-12 meses)</td>
+      </tr>
+      <tr>
+        <td class="etapa">Viaje</td>
+        <td>Orlando (The Grove Resort + Disney World, Universal) + Miami</td>
+        <td>Verano-otono 2027</td>
+      </tr>
     </table>
+
+    <p>El proximo paso es que me contacte por WhatsApp al <strong>0987846751</strong> para confirmar los datos de la Fase 1. Con esa informacion puedo comenzar a llenar los nuevos DS-160 esta misma semana.</p>
+
+    <p>Atentamente,<br><strong>Roberto Acosta</strong></p>
 
   </div>
 
