@@ -220,6 +220,14 @@ function manejarIntakeFamiliar(payload) {
     notificarClienteIntake(emailCliente, nombrePrincipal, refId, numViaj, shared);
   }
 
+  // AUTO: Generar y guardar guía DS-160
+  try {
+    const guiaDS160 = generarDS160PreFill(personas, shared, analisis);
+    guardarGuiaDS160(refId, guiaDS160, analisis);
+  } catch(e) {
+    console.error('Error generando guia DS-160:', e.toString());
+  }
+
   return ok({ refId, status: 'ok', analisis: analisis.probabilidad });
 }
 
@@ -663,6 +671,9 @@ function doGet(e) {
   if (action === 'get_draft')          return getDraftAction(e);
   if (action === 'reconstruct')        return reconstructFromDetalle(e);
   if (action === 'test')              return testSistema(e);
+  if (e.parameter.action === 'ds160guide') {
+    return servirGuiaDS160(e.parameter.ref || '', e.parameter.pin || '');
+  }
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -1904,4 +1915,252 @@ function ok(data) {
   return ContentService
     .createTextOutput(JSON.stringify({ status: 'ok', ...data }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// AUTOMATIZACIÓN DS-160 — Generación automática por caso
+// ═══════════════════════════════════════════════════════════════════
+
+// Mapea datos de intake → campos exactos DS-160
+function generarDS160PreFill(personas, shared, analisis) {
+  const guia = {
+    ref: shared.ref || '',
+    fecha_generado: new Date().toISOString(),
+    datos_coordinados: {
+      fecha_llegada: shared.intendedArrival || 'PENDIENTE',
+      duracion: (shared.lengthOfStayDays || 14) + ' DAYS',
+      hotel_nombre: shared.usStayName || 'PENDIENTE',
+      hotel_address: (shared.usStayAddress || '') + ', ' + (shared.usStayCity || '') + ', ' + (shared.usStayState || '') + ' ' + (shared.usStayZip || ''),
+      contacto_usa_org: shared.usStayName || 'PENDIENTE',
+      rechazo_previo: shared.hayRechazo === 'si' ? 'YES — ' + (shared.rechazoDetalles || 'Indicar fecha y consulado') : 'NO',
+      consulado_recomendado: (analisis && analisis.consulado) || 'PENDIENTE'
+    },
+    viajeros: personas.map((p, idx) => {
+      const d = p.datos || {};
+      const nombres = (p.nombre || '').split(',');
+      const apellido = nombres[0] ? nombres[0].trim().toUpperCase() : '';
+      const nombre   = nombres[1] ? nombres[1].trim().toUpperCase() : p.nombre.toUpperCase();
+      const esAdulto = p.rol && !p.rol.includes('Menor');
+      const pagador  = idx === 0 ? 'SELF' : ('OTHER PERSON — ' + (personas[0].nombre || '').toUpperCase() + ' — ' + (personas[0].datos.primaryPhone || ''));
+
+      return {
+        viajero_num: idx + 1,
+        rol: p.rol || 'Adulto',
+        campos: {
+          // Información personal
+          surname: apellido || 'REVISAR',
+          given_names: nombre || 'REVISAR',
+          full_name_native: 'NO APLICA',
+          other_names: 'NO',
+          sex: d.sex || (p.rol && p.rol.includes('Menor') ? 'MASCULINO' : 'PENDIENTE'),
+          marital_status: d.maritalStatus || 'PENDIENTE',
+          date_of_birth: d.dateOfBirth || 'PENDIENTE',
+          place_of_birth: (d.birthCity || 'PENDIENTE') + ', ECUADOR',
+          nationality: d.nationality || 'ECUADOR',
+          national_id: d.nationalId || d.passportNumber || 'PENDIENTE',
+          us_social_security: 'NO APLICA',
+          us_tax_id: 'NO APLICA',
+          // Dirección
+          home_address: (d.homeAddress || d.homeCity || 'PENDIENTE') + ', ECUADOR',
+          same_mailing: 'YES',
+          primary_phone: d.primaryPhone || 'PENDIENTE',
+          work_phone: d.workPhone || (esAdulto ? 'PENDIENTE' : 'NO APLICA'),
+          email: d.email || 'PENDIENTE',
+          social_media_1_platform: d.socialMedia1 || (esAdulto ? 'Facebook' : 'Ninguno'),
+          social_media_1_handle: d.socialHandle1 || 'PENDIENTE — verificar nombre real del perfil',
+          // Pasaporte
+          passport_type: 'REGULAR',
+          passport_number: d.passportNumber || 'PENDIENTE',
+          book_number: d.bookNumber || 'PENDIENTE',
+          passport_issued_by: 'ECUADOR',
+          passport_city: d.passportCity || 'PENDIENTE',
+          passport_state: d.passportState || 'PENDIENTE',
+          passport_issue_date: d.passportIssueDate || 'PENDIENTE',
+          passport_expiry: d.passportExpiry || 'PENDIENTE',
+          lost_stolen: 'NO',
+          // Viaje
+          purpose: 'B1/B2 — BUSINESS OR TOURISM (TEMPORARY VISITOR)',
+          specific_plans: 'YES',
+          intended_arrival: shared.intendedArrival || 'PENDIENTE',
+          length_of_stay: (shared.lengthOfStayDays || 14) + ' DAYS',
+          us_address: (shared.usStayName || '') + ', ' + (shared.usStayAddress || '') + ', ' + (shared.usStayCity || '') + ', ' + (shared.usStayState || ''),
+          who_pays: idx === 0 ? 'SELF' : pagador,
+          // Familia
+          father_surnames: d.fatherSurname || 'PENDIENTE',
+          father_given: d.fatherGiven || 'PENDIENTE',
+          father_dob: d.fatherDOB || 'DO NOT KNOW',
+          father_in_us: d.fatherInUS || 'NO',
+          mother_surnames: d.motherSurname || 'PENDIENTE',
+          mother_given: d.motherGiven || 'PENDIENTE',
+          mother_dob: d.motherDOB || 'DO NOT KNOW',
+          mother_in_us: d.motherInUS || 'NO',
+          relatives_us: d.hasRelativesInUS === 'si' ? 'YES — ' + (d.relativesInUSDetails || 'ESPECIFICAR') : 'NO',
+          // Empleo
+          occupation: d.employmentStatus === 'empleado' ? 'EMPLOYED' : (d.employmentStatus === 'gobierno' ? 'GOVERNMENT' : (d.employmentStatus === 'independiente' ? 'SELF EMPLOYED' : (esAdulto ? 'PENDIENTE' : 'STUDENT'))),
+          employer_name: d.currentEmployerName || (esAdulto ? 'PENDIENTE' : d.schoolName || 'PENDIENTE'),
+          employer_address: d.currentEmployerAddress || 'PENDIENTE',
+          monthly_salary: d.monthlySalary || (esAdulto ? 'PENDIENTE' : 'DOES NOT APPLY'),
+          duties: d.jobDescription || (esAdulto ? 'PENDIENTE — describir cargo en inglés mayúsculas, 2-3 oraciones' : 'ESTUDIANTE — ' + (d.schoolName || 'PENDIENTE')),
+          previously_employed: d.previousEmployer ? 'YES — ' + d.previousEmployer : 'NO',
+          education_secondary_above: d.educationLevel ? 'YES — ' + d.educationLevel : 'PENDIENTE',
+          // Historial
+          been_in_us: d.hasBeenInUS === 'si' ? 'YES' : 'NO',
+          us_visa_issued: d.hasHadUSVisa === 'si' ? 'YES' : 'NO',
+          visa_refused: (d.hasBeenRefused === 'si' || shared.hayRechazo === 'si') ? 'YES — ' + (d.refusalDetails || shared.rechazoDetalles || 'INDICAR FECHA Y CONSULADO') : 'NO',
+          immigrant_petition: 'NO',
+          // Seguridad
+          communicable_disease: 'NO',
+          mental_disorder: 'NO',
+          drug_abuser: 'NO',
+          arrested: 'NO',
+          controlled_substances: 'NO',
+          prostitution: 'NO',
+          money_laundering: 'NO',
+          human_trafficking: 'NO',
+          terrorist: 'NO',
+          genocide: 'NO',
+          torturer: 'NO',
+          child_soldier: 'NO',
+          religious_freedom: 'NO',
+          population_controls: 'NO',
+          transplant: 'NO'
+        }
+      };
+    })
+  };
+  return guia;
+}
+
+// Guarda la guía DS-160 en la hoja "Guias DS-160" de Sheets
+function guardarGuiaDS160(refId, guiaJSON, analisis) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    const sh = getOrCreateSheet(ss, 'Guias DS-160',
+      ['Ref ID','Fecha','Num Viajeros','DS160_JSON','Probabilidad','Paquete','Consulado','Estado']);
+
+    const rows = sh.getDataRange().getValues();
+    const refCol = 0;
+    const existingIdx = rows.findIndex((r, i) => i > 0 && String(r[refCol]) === refId);
+
+    const rowData = [
+      refId,
+      Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm'),
+      guiaJSON.viajeros ? guiaJSON.viajeros.length : 0,
+      JSON.stringify(guiaJSON),
+      (analisis && analisis.probabilidad) || '—',
+      (analisis && analisis.paquete) || '—',
+      (analisis && analisis.consulado) || '—',
+      'Generado'
+    ];
+
+    if (existingIdx > 0) {
+      sh.getRange(existingIdx + 1, 1, 1, rowData.length).setValues([rowData]);
+    } else {
+      sh.appendRow(rowData);
+    }
+    formatearCabecera(sh, 1);
+    return true;
+  } catch(e) {
+    console.error('guardarGuiaDS160 error:', e.toString());
+    return false;
+  }
+}
+
+// Genera HTML de la guía DS-160 para un caso
+function generarHTMLGuiaDS160(guia, analisis) {
+  const colores = { ok: '#F0FDF4', pendiente: '#EFF6FF' };
+
+  function fila(campo, valor, tipo) {
+    const bg = tipo === 'pendiente' ? colores.pendiente : colores.ok;
+    const prefijo = tipo === 'pendiente' ? '? ' : '✓ ';
+    const color = tipo === 'pendiente' ? '#1E40AF' : '#166534';
+    return `<tr>
+      <td style="padding:6px 10px;font-size:11px;font-weight:600;color:#555;border-bottom:1px solid #eee;width:35%">${campo}</td>
+      <td style="padding:6px 10px;font-size:11px;font-weight:700;color:${color};background:${bg};border-bottom:1px solid #eee">${prefijo}${valor}</td>
+    </tr>`;
+  }
+
+  function tabla(campos) {
+    return '<table style="width:100%;border-collapse:collapse;margin-bottom:14px">' +
+      Object.entries(campos).map(([k, v]) => {
+        const isPend = String(v).includes('PENDIENTE') || String(v).includes('DO NOT KNOW') || String(v).includes('REVISAR');
+        return fila(k.replace(/_/g,' ').toUpperCase(), v, isPend ? 'pendiente' : 'ok');
+      }).join('') + '</table>';
+  }
+
+  const viajerosSections = (guia.viajeros || []).map(v => {
+    const c = v.campos;
+    return `
+    <div style="margin-bottom:24px;border:1px solid #e8e0d4;border-radius:8px;overflow:hidden">
+      <div style="background:#060E1F;padding:12px 20px;color:white">
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:#F0B429">Viajero ${v.viajero_num} — ${v.rol}</span>
+      </div>
+      <div style="padding:16px 20px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">INFORMACIÓN PERSONAL</div>
+        ${tabla({surname: c.surname, 'given names': c.given_names, 'full name native': c.full_name_native, sex: c.sex, 'marital status': c.marital_status, 'date of birth': c.date_of_birth, 'place of birth': c.place_of_birth, nationality: c.nationality, 'national ID': c.national_id})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">DIRECCIÓN Y CONTACTO</div>
+        ${tabla({'home address': c.home_address, 'primary phone': c.primary_phone, 'work phone': c.work_phone, email: c.email, 'social media 1 — platform': c.social_media_1_platform, 'social media 1 — handle': c.social_media_1_handle})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">PASAPORTE</div>
+        ${tabla({type: c.passport_type, number: c.passport_number, 'book number': c.book_number, 'issued by': c.passport_issued_by, city: c.passport_city, 'issue date': c.passport_issue_date, expiry: c.passport_expiry, 'lost or stolen': c.lost_stolen})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">INFORMACIÓN DE VIAJE</div>
+        ${tabla({purpose: c.purpose, 'intended arrival': c.intended_arrival, 'length of stay': c.length_of_stay, 'us address': c.us_address, 'who pays': c.who_pays})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">FAMILIA</div>
+        ${tabla({'father surnames': c.father_surnames, 'father given names': c.father_given, 'father dob': c.father_dob, 'father in us': c.father_in_us, 'mother surnames': c.mother_surnames, 'mother given names': c.mother_given, 'mother dob': c.mother_dob, 'relatives in us': c.relatives_us})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">EMPLEO / EDUCACIÓN</div>
+        ${tabla({'primary occupation': c.occupation, 'employer name': c.employer_name, 'employer address': c.employer_address, 'monthly salary': c.monthly_salary, duties: c.duties, 'previously employed': c.previously_employed, education: c.education_secondary_above})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">HISTORIAL</div>
+        ${tabla({'been in us': c.been_in_us, 'us visa issued': c.us_visa_issued, 'visa refused': c.visa_refused, 'immigrant petition': c.immigrant_petition})}
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#999;margin:10px 0 5px">PREGUNTAS DE SEGURIDAD — TODAS:</div>
+        <p style="font-size:11px;color:#166534;font-weight:700;margin:0">✓ NO — en todas las preguntas de seguridad</p>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Guia DS-160 — ${guia.ref}</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;background:#F0EDE8;margin:0;padding:20px;font-size:12px}
+.doc{max-width:860px;margin:0 auto;background:white;border-radius:8px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+</style></head><body><div class="doc">
+<div style="background:#060E1F;padding:24px 32px;color:white">
+  <div style="color:#F0B429;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Guia DS-160 — Uso Interno — Asesoría Visa Global</div>
+  <h1 style="margin:0 0 4px;font-size:18px">Campos exactos para los nuevos DS-160</h1>
+  <p style="margin:0;color:rgba(255,255,255,.5);font-size:11px">Expediente ${guia.ref} · Generado ${guia.fecha_generado} · ${(guia.viajeros||[]).length} viajeros</p>
+</div>
+<div style="padding:24px 32px">
+  <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+    <div style="padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:#F0FDF4;border:1px solid #86EFAC;color:#166534">✓ Verde — copiar exactamente</div>
+    <div style="padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:#EFF6FF;border:1px solid #93C5FD;color:#1E40AF">? Azul — confirmar con cliente primero</div>
+  </div>
+  <div style="background:#F8F5F0;border-left:3px solid #F0B429;padding:10px 14px;margin-bottom:20px;font-size:11px">
+    <strong>Datos coordinados — idénticos en los 4 formularios:</strong><br>
+    Llegada: ${guia.datos_coordinados.fecha_llegada} | Duración: ${guia.datos_coordinados.duracion} |
+    Hotel: ${guia.datos_coordinados.hotel_nombre} | Rechazo previo: ${guia.datos_coordinados.rechazo_previo}
+  </div>
+  ${viajerosSections}
+</div>
+<div style="background:#060E1F;padding:16px 32px;color:rgba(255,255,255,.4);font-size:11px">Asesoría Visa Global · Roberto Acosta · nanotiendaec@gmail.com</div>
+</div></body></html>`;
+}
+
+// Endpoint público para ver la guía DS-160 de un caso — llamar con ?action=ds160guide&ref=VG-XXXXX&pin=visa2026
+function servirGuiaDS160(ref, pin) {
+  if (pin !== (ADMIN_PIN || 'visa2026')) {
+    return HtmlService.createHtmlOutput('<p>Acceso denegado</p>');
+  }
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    const sh = ss.getSheetByName('Guias DS-160');
+    if (!sh) return HtmlService.createHtmlOutput('<p>No hay guias generadas aún</p>');
+    const rows = sh.getDataRange().getValues();
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]).trim() === ref) {
+        const guia = JSON.parse(rows[i][3]);
+        const html = generarHTMLGuiaDS160(guia, { probabilidad: rows[i][4], paquete: rows[i][5], consulado: rows[i][6] });
+        return HtmlService.createHtmlOutput(html).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+      }
+    }
+    return HtmlService.createHtmlOutput('<p>Caso ' + ref + ' no encontrado</p>');
+  } catch(e) {
+    return HtmlService.createHtmlOutput('<p>Error: ' + e.toString() + '</p>');
+  }
 }

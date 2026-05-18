@@ -629,15 +629,54 @@ function openDetail(refId) {
     <div id="reanalizar_status" style="font-size:.72rem;color:var(--muted);margin-top:8px"></div>
     <div class="divider"></div>
 
-    <!-- LINKS -->
-    <div class="section-title">Links rapidos</div>
-    <div style="font-size:.72rem;color:var(--muted);margin-bottom:5px">Link formulario (enviar al cliente)</div>
-    <div class="link-box" onclick="copyLink('${intakeLink}')" title="Clic para copiar">${intakeLink}</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-      <button class="btn-primary" onclick="copyLink('${intakeLink}')">Copiar link</button>
-      ${tel ? `<a href="https://wa.me/${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Hola '+nombre.split(' ')[0]+', le comparto el link para completar su formulario de visa: '+intakeLink)}" target="_blank" class="btn-secondary" style="text-decoration:none;padding:9px 16px;border-radius:6px;font-size:.85rem;font-weight:600;display:inline-block">Enviar por WhatsApp</a>` : ''}
-      ${url && url!=='—' ? `<a href="${url}" target="_blank" class="btn-secondary" style="text-decoration:none;padding:9px 16px;border-radius:6px;font-size:.85rem;font-weight:600;display:inline-block">Ver expediente</a>` : ''}
+    <!-- ANALISIS IA -->
+    <div class="section-title" style="margin-top:16px">Analisis IA del perfil</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">Probabilidad aprobacion</div>
+        <div style="font-size:1.6rem;font-weight:700;color:${parseFloat(prob)>=70?'#4ade80':parseFloat(prob)>=50?'#fbbf24':'#f87171'}">${prob}</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">Paquete recomendado</div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--gold)">${paquete}</div>
+      </div>
     </div>
+
+    <!-- DOCUMENTOS DEL CASO -->
+    <div class="section-title">Documentos y acciones</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Formulario del cliente</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button onclick="copyLink('${intakeLink}')" class="btn-secondary" style="font-size:.72rem;padding:5px 10px">Copiar link</button>
+          ${tel ? `<a href="https://wa.me/${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Hola '+nombre.split(' ')[0]+', le comparto el link para completar su formulario: '+intakeLink)}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">WhatsApp</a>` : ''}
+        </div>
+      </div>
+
+      <div style="background:rgba(240,180,41,.06);border:1px solid rgba(240,180,41,.2);border-radius:8px;padding:11px">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--gold);letter-spacing:.07em;margin-bottom:5px">Guia DS-160</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Campos exactos a copiar en cada formulario</div>
+        <a href="https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec?action=ds160guide&ref=${refId}&pin=visa2026" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#F0B429;color:#060E1F;text-decoration:none">Ver guia DS-160</a>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Expediente completo</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Datos enviados por el cliente</div>
+        ${url && url!=='—' ? `<a href="${url}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver expediente</a>` : '<span style="font-size:.7rem;color:var(--muted)">Pendiente de recibir</span>'}
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Analizar DS-160 anteriores</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Subir PDFs de rechazos previos</div>
+        <a href="/analizar.html?ref=${refId}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Abrir analizador</a>
+      </div>
+
+    </div>
+
+    <!-- LINK FORMULARIO CLIENTE -->
+    <div style="font-size:.68rem;color:var(--muted);margin-bottom:4px">Link del formulario (clic para copiar)</div>
+    <div class="link-box" onclick="copyLink('${intakeLink}')" title="Clic para copiar" style="margin-bottom:16px">${intakeLink}</div>
   `;
 
   openModal('modalDetail');
