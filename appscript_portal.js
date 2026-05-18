@@ -43,7 +43,7 @@ function doPost(e) {
     if (payload.subtipo === 'save_draft')               return saveDraftAction(payload);
     if (payload.subtipo === 'intake_familiar')          return manejarIntakeFamiliar(payload);
     if (payload.subtipo === 'extractDS160')             return extractarDS160(payload);
-    if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160Anteriores(payload);
+    if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
@@ -226,6 +226,14 @@ function manejarIntakeFamiliar(payload) {
     guardarGuiaDS160(refId, guiaDS160, analisis);
   } catch(e) {
     console.error('Error generando guia DS-160:', e.toString());
+  }
+
+  // AUTO: Generar y guardar carta del cliente
+  try {
+    const cartaHTML = generarCartaHTML(refId, personas, shared, analisis);
+    guardarCarta(refId, cartaHTML);
+  } catch(e) {
+    console.error('Error generando carta:', e.toString());
   }
 
   return ok({ refId, status: 'ok', analisis: analisis.probabilidad });
@@ -671,9 +679,8 @@ function doGet(e) {
   if (action === 'get_draft')          return getDraftAction(e);
   if (action === 'reconstruct')        return reconstructFromDetalle(e);
   if (action === 'test')              return testSistema(e);
-  if (e.parameter.action === 'ds160guide') {
-    return servirGuiaDS160(e.parameter.ref || '', e.parameter.pin || '');
-  }
+  if (action === 'ds160guide') return servirGuiaDS160(e.parameter.ref || '', e.parameter.pin || '');
+  if (action === 'carta')     return servirCarta(e.parameter.ref || '', e.parameter.pin || '');
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -2162,5 +2169,294 @@ function servirGuiaDS160(ref, pin) {
     return HtmlService.createHtmlOutput('<p>Caso ' + ref + ' no encontrado</p>');
   } catch(e) {
     return HtmlService.createHtmlOutput('<p>Error: ' + e.toString() + '</p>');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// AUTO-CARTA: Genera la carta del cliente automáticamente
+// Acceso: ?action=carta&ref=VG-XXXXX&pin=visa2026
+// ═══════════════════════════════════════════════════════════════════
+
+// ── Analiza DS-160 anteriores enviados desde admin (textos ya extraidos por bot) ──
+function analizarDs160AnterioresAuto(payload) {
+  try {
+    const ref         = payload.ref || '';
+    const textosPdfs  = payload.textos_pdfs || '';
+    const numArchivos = payload.num_archivos || 1;
+    const fecha       = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+
+    if (!textosPdfs) return ok({ error: 'Sin texto de PDFs' });
+
+    // Leer datos actuales del caso desde Sheets
+    const ss  = SpreadsheetApp.openById(SS_ID);
+    const crm = ss.getSheetByName('CASOS CRM');
+    let datosActuales = 'No disponibles';
+    if (crm) {
+      const rows = crm.getDataRange().getValues();
+      const idx  = rows.findIndex((r, i) => i > 0 && String(r[0]) === ref);
+      if (idx > 0) datosActuales = JSON.stringify(rows[idx]);
+    }
+
+    // Analisis con Gemini
+    const prompt = `Eres el mejor asesor de visas B1/B2 USA para Ecuador. Analiza estos DS-160 anteriores que fueron rechazados y genera un analisis completo de correcciones.
+
+TEXTOS DE DS-160 ANTERIORES (${numArchivos} formularios):
+${textosPdfs.substring(0, 12000)}
+
+DATOS ACTUALES DEL CASO EN CRM:
+${datosActuales}
+
+Genera en HTML limpio (sin backticks, sin markdown) usando estas secciones exactas:
+
+<h3>Lo que declararon en los DS-160 anteriores</h3>
+[tabla: Viajero | Ocupacion declarada | Fecha llegada | Duracion | Quien paga]
+
+<h3>Inconsistencias detectadas entre formularios</h3>
+[lista de inconsistencias criticas entre los formularios del grupo]
+
+<h3>Errores que causaron el rechazo</h3>
+[lista numerada ordenada por gravedad, con explicacion de por que cada error es problema]
+
+<h3>Correcciones obligatorias en los nuevos DS-160</h3>
+[tabla: Campo | Valor anterior (incorrecto) | Valor correcto a usar]
+
+<h3>Datos a confirmar con el cliente antes de llenar</h3>
+[lista de preguntas especificas que el asesor debe hacer]`;
+
+    let analisisHtml = '';
+    try {
+      const gUrl  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`;
+      const gResp = UrlFetchApp.fetch(gUrl, {
+        method: 'POST',
+        contentType: 'application/json',
+        payload: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { maxOutputTokens: 3000, temperature: 0.2 }
+        }),
+        muteHttpExceptions: true
+      });
+      const gData = JSON.parse(gResp.getContentText());
+      analisisHtml = (gData.candidates || [])[0]?.content?.parts?.[0]?.text || '';
+      analisisHtml = analisisHtml.replace(/```html?\s*/g, '').replace(/```\s*/g, '').trim();
+    } catch(e) {
+      analisisHtml = '<p>Error en analisis IA: ' + e.toString() + '</p>';
+    }
+
+    // Guardar analisis en hoja "DS160 Anteriores"
+    const shAnt = getOrCreateSheet(ss, 'DS160 Anteriores',
+      ['Ref ID', 'Fecha', 'Num PDFs', 'Analisis HTML']);
+    const rows  = shAnt.getDataRange().getValues();
+    const idx   = rows.findIndex((r, i) => i > 0 && String(r[0]) === ref);
+    const row   = [ref, fecha, numArchivos, analisisHtml];
+    if (idx > 0) { shAnt.getRange(idx + 1, 1, 1, row.length).setValues([row]); }
+    else         { shAnt.appendRow(row); }
+    formatearCabecera(shAnt, 1);
+
+    // Notificar a Roberto por email
+    try {
+      MailApp.sendEmail({
+        to: EMAIL_ROBERTO,
+        subject: `DS-160 anteriores analizados — ${ref}`,
+        htmlBody: `<div style="font-family:sans-serif;max-width:700px;margin:0 auto">
+          <div style="background:#060E1F;color:white;padding:20px 24px;border-radius:8px 8px 0 0">
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px">Asesoria Visa Global — Analisis Automatico</div>
+            <h2 style="margin:0;font-size:18px">DS-160 anteriores analizados — ${ref}</h2>
+            <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">${numArchivos} PDF(s) procesados el ${fecha}</div>
+          </div>
+          <div style="background:white;border:1px solid #e2e8f0;padding:24px;border-radius:0 0 8px 8px">
+            ${analisisHtml}
+          </div>
+        </div>`
+      });
+    } catch(e) { console.error('Email DS160 error:', e.toString()); }
+
+    return ok({ ok: true, ref, analisis: 'generado', fecha });
+  } catch(e) {
+    return ok({ error: e.toString() });
+  }
+}
+
+function generarCartaHTML(refId, personas, shared, analisis) {
+  const fecha          = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy');
+  const nombrePrincipal = personas[0] ? (personas[0].nombre || 'Cliente').split(' ')[0] : 'Cliente';
+  const numViaj        = personas.length;
+  const prob           = analisis.probabilidad || '—';
+  const probNum        = parseFloat(prob) || 0;
+  const colorProb      = probNum >= 70 ? '#16a34a' : probNum >= 50 ? '#D97706' : '#DC2626';
+  const consulado      = (analisis.consulado || '—').split('—')[0].trim();
+  const paquete        = analisis.paquete || '—';
+
+  // Viajeros chips
+  const viajList = personas.map(p =>
+    `<span style="display:inline-block;background:#F0FDF4;border:1px solid #86EFAC;color:#166534;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px">${p.nombre} (${p.rol})</span>`
+  ).join(' ');
+
+  // Documentos — lista numerada
+  const docs = (analisis.documentos_exactos || '').split(';').map(d => d.trim()).filter(Boolean);
+  const docsHTML = docs.map((d, i) =>
+    `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f0ece4">
+       <div style="min-width:21px;height:21px;border-radius:50%;background:#F0B429;color:#060E1F;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+       <div style="font-size:12px;color:#444;line-height:1.5">${d}</div>
+     </div>`
+  ).join('');
+
+  // Estrategia — pasos numerados
+  const pasosEstrategia = (analisis.estrategia || '').split(/\d+\./).filter(s => s.trim()).map((s, i) =>
+    `<div style="display:flex;gap:8px;margin-bottom:7px">
+       <div style="min-width:20px;height:20px;border-radius:50%;background:#060E1F;color:#F0B429;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+       <div style="font-size:12px;color:#2d2d2d;line-height:1.6">${s.trim()}</div>
+     </div>`
+  ).join('');
+
+  // Próximos pasos
+  const pasosProximos = (analisis.proximos_pasos || '').split(/\d+\./).filter(s => s.trim()).map((s, i) =>
+    `<div style="font-size:12px;color:#2d2d2d;line-height:1.6;margin-bottom:5px"><strong>${i+1}.</strong> ${s.trim()}</div>`
+  ).join('');
+
+  // Alerta crítica
+  const alertaHTML = analisis.alerta_principal && !analisis.alerta_principal.includes('LIMPIO') && !analisis.alerta_principal.includes('limpio')
+    ? `<div style="background:#FEF2F2;border-left:3px solid #DC2626;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#7F1D1D"><strong>Punto critico a resolver antes de la cita:</strong> ${analisis.alerta_principal}</div>`
+    : `<div style="background:#F0FDF4;border-left:3px solid #16a34a;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#166534">Perfil sin alertas criticas — caso manejable con la preparacion adecuada.</div>`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Informe — ${refId} — ${nombrePrincipal}</title>
+<style>
+@page{margin:11mm 13mm}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0ece4;margin:0;padding:20px 16px;color:#1a1a1a}
+.doc{max-width:760px;margin:0 auto;background:white;box-shadow:0 6px 32px rgba(0,0,0,.12);overflow:hidden}
+p{margin:0 0 10px;line-height:1.65;font-size:13px;color:#2d2d2d}
+h3{color:#060E1F;font-size:13px;font-weight:700;border-bottom:2px solid #F0B429;padding-bottom:4px;margin:18px 0 9px}
+strong{color:#060E1F}
+@media print{body{background:white;padding:0}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- HEADER -->
+<div style="background:#060E1F;padding:22px 32px">
+  <div style="color:#F0B429;font-size:16px;font-weight:700;margin-bottom:2px">Asesoria Visa Global</div>
+  <div style="color:rgba(255,255,255,.4);font-size:9px;text-transform:uppercase;letter-spacing:.12em">Informe de Expediente &middot; Visa USA B1/B2 &middot; Confidencial</div>
+  <div style="color:white;font-size:18px;font-weight:700;margin:10px 0 3px">${personas[0] ? personas[0].nombre : 'Cliente'}</div>
+  <div style="color:rgba(255,255,255,.5);font-size:11px">Expediente ${refId} &middot; ${fecha} &middot; ${numViaj} viajero${numViaj>1?'s':''}</div>
+</div>
+
+<!-- STRIP -->
+<div style="display:flex;flex-wrap:wrap;border-bottom:1px solid #e8e0d4">
+  <div style="flex:1;min-width:100px;padding:10px 14px;border-right:1px solid #e8e0d4;text-align:center">
+    <div style="font-size:18px;font-weight:700;color:${colorProb};margin-bottom:1px">${prob}</div>
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999">Aprobacion estimada</div>
+  </div>
+  <div style="flex:1;min-width:100px;padding:10px 14px;border-right:1px solid #e8e0d4;text-align:center">
+    <div style="font-size:13px;font-weight:700;color:#1E40AF;margin-bottom:1px">${consulado}</div>
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999">Consulado</div>
+  </div>
+  <div style="flex:1;min-width:100px;padding:10px 14px;border-right:1px solid #e8e0d4;text-align:center">
+    <div style="font-size:12px;font-weight:700;color:#92400E;margin-bottom:1px">${analisis.fecha_viaje_ideal ? analisis.fecha_viaje_ideal.split(' ').slice(0,3).join(' ') : '—'}</div>
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999">Fecha viaje ideal</div>
+  </div>
+  <div style="flex:1;min-width:100px;padding:10px 14px;text-align:center">
+    <div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:1px">${numViaj} viajero${numViaj>1?'s':''}</div>
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#999">Ref: ${refId}</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div style="padding:24px 32px">
+
+<p>Estimado/a <strong>${nombrePrincipal}</strong>,</p>
+<p>He revisado su expediente en detalle. A continuacion encontrara el plan de trabajo personalizado, los documentos requeridos y la estrategia para maximizar las probabilidades de aprobacion de su visa USA B1/B2.</p>
+
+<div style="background:#FFF9F0;border-left:3px solid #F0B429;padding:10px 14px;margin-bottom:14px;font-size:12px">
+  <strong>Grupo que viaja:</strong><br>${viajList}
+</div>
+
+${alertaHTML}
+
+<h3>Fortalezas del perfil</h3>
+<p>${(analisis.fuertes||'Sin datos').split(';').map(f=>`<strong>+</strong> ${f.trim()}`).join('<br>')}</p>
+
+${analisis.debiles ? `<h3>Puntos a reforzar antes de la cita</h3>
+<p>${analisis.debiles.split(';').map(d=>`<strong>&minus;</strong> ${d.trim()}`).join('<br>')}</p>` : ''}
+
+<h3>Estrategia del caso — plan de trabajo</h3>
+${pasosEstrategia || `<p>${analisis.estrategia||'—'}</p>`}
+
+<h3>Texto exacto para el DS-160 — campo "Purpose of Trip"</h3>
+<div style="background:#FFF7ED;border:2px solid #F0B429;border-radius:8px;padding:14px;margin-bottom:10px;font-size:13px;color:#78350F;font-style:italic;line-height:1.7">
+  &ldquo;${analisis.motivo_ds160||'—'}&rdquo;
+</div>
+<p style="font-size:11px;color:#666">Copiar este texto exactamente en el DS-160 de cada adulto del grupo.</p>
+
+<h3>Documentos requeridos para el expediente</h3>
+${docsHTML || `<p>${analisis.documentos_exactos||'—'}</p>`}
+
+${analisis.checklist_pre_cita ? `<h3>Checklist antes de la cita consular</h3>
+<p style="font-size:12px;color:#2d2d2d;line-height:1.8">${analisis.checklist_pre_cita.split(';').map((c,i)=>`${i+1}. ${c.trim()}`).join('<br>')}</p>` : ''}
+
+${analisis.tiempo_preparacion ? `<h3>Tiempo de preparacion estimado</h3>
+<p style="font-size:12px;color:#2d2d2d;line-height:1.8">${analisis.tiempo_preparacion}</p>` : ''}
+
+${pasosProximos ? `<h3>Proximos pasos — esta semana</h3>${pasosProximos}` : ''}
+
+<p style="margin-top:20px">Quedo a su disposicion para cualquier consulta. Escribame directamente por WhatsApp con su numero de expediente <strong>${refId}</strong> para respuesta inmediata.</p>
+<p>Atentamente,<br><strong>Roberto Acosta</strong></p>
+
+</div>
+
+<!-- FOOTER -->
+<div style="background:#060E1F;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+  <div>
+    <div style="color:#F0B429;font-weight:700;font-size:13px">Roberto Acosta</div>
+    <div style="color:rgba(255,255,255,.5);font-size:11px">Asesor en Visas B1/B2 USA</div>
+  </div>
+  <div style="color:rgba(255,255,255,.5);font-size:11px;text-align:right">
+    WhatsApp: <span style="color:#F0B429">+593 98 784 6751</span><br>
+    info@asesoriadevisadosglobal.com<br>
+    asesoriadevisadosglobal.com
+  </div>
+</div>
+
+</div>
+</body>
+</html>`;
+}
+
+function guardarCarta(refId, cartaHTML) {
+  try {
+    const ss  = SpreadsheetApp.openById(SS_ID);
+    const sh  = getOrCreateSheet(ss, 'Cartas', ['Ref ID','Fecha','HTML','Estado']);
+    const rows = sh.getDataRange().getValues();
+    const idx  = rows.findIndex((r, i) => i > 0 && String(r[0]) === refId);
+    const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    const row  = [refId, fecha, cartaHTML, 'Generada'];
+    if (idx > 0) { sh.getRange(idx + 1, 1, 1, row.length).setValues([row]); }
+    else         { sh.appendRow(row); }
+    formatearCabecera(sh, 1);
+    return true;
+  } catch(e) { console.error('guardarCarta:', e.toString()); return false; }
+}
+
+function servirCarta(ref, pin) {
+  if (pin !== (ADMIN_PIN || 'visa2026'))
+    return HtmlService.createHtmlOutput('<p style="font-family:sans-serif;padding:30px;color:#991B1B">Acceso denegado</p>');
+  try {
+    const ss  = SpreadsheetApp.openById(SS_ID);
+    const sh  = ss.getSheetByName('Cartas');
+    if (!sh) return HtmlService.createHtmlOutput('<p style="padding:20px">No hay cartas generadas aun. Espera a que un cliente envie el formulario.</p>');
+    const rows = sh.getDataRange().getValues();
+    for (let i = 1; i < rows.length; i++) {
+      if (String(rows[i][0]).trim() === ref) {
+        return HtmlService.createHtmlOutput(rows[i][2])
+          .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+      }
+    }
+    return HtmlService.createHtmlOutput('<p style="padding:20px">Caso ' + ref + ' sin carta generada todavia.</p>');
+  } catch(e) {
+    return HtmlService.createHtmlOutput('<p style="padding:20px;color:red">Error: ' + e.toString() + '</p>');
   }
 }
