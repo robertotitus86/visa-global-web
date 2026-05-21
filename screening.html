@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación de Perfil — Asesoría Visa Global</title>
+<meta name="description" content="Evalúa gratis tus posibilidades de obtener la visa. Responde 5 preguntas y recibe un diagnóstico personalizado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #060E1F;
+  --bg2:   #0A1628;
+  --gold:  #F0B429;
+  --gold2: #C8880A;
+  --text:  #C8D0E0;
+  --white: #F0EDE8;
+  --serif: 'Playfair Display', serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+  --green: #25D366;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
+
+/* ── HEADER ── */
+.hdr { display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid rgba(255,255,255,.06); }
+.hdr-brand { font-family:var(--serif); font-size:1.1rem; color:var(--gold); font-weight:700; }
+.hdr-sub   { font-size:.7rem; color:rgba(255,255,255,.35); letter-spacing:.2em; text-transform:uppercase; margin-top:2px; }
+.hdr-safe  { font-size:.8rem; color:rgba(255,255,255,.4); display:flex; align-items:center; gap:6px; }
+.hdr-safe::before { content:'🔒'; font-size:.9rem; }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap { background:rgba(255,255,255,.06); height:4px; }
+.progress-bar  { height:4px; background:linear-gradient(90deg,var(--gold2),var(--gold)); transition:width .5s cubic-bezier(.4,0,.2,1); }
+
+/* ── FORM CONTAINER ── */
+.form-wrap {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  padding:48px 20px 80px; max-width:680px; margin:0 auto; width:100%;
+}
+
+/* ── STEPS ── */
+.step { display:none; flex-direction:column; gap:28px; width:100%; animation:fadeUp .4s ease; }
+.step.active { display:flex; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+.step-num  { font-size:.75rem; font-weight:700; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); }
+.step-q    { font-family:var(--serif); font-size:clamp(1.6rem,4vw,2.2rem); font-weight:900; color:var(--white); line-height:1.15; }
+.step-hint { font-size:.9rem; color:rgba(255,255,255,.45); line-height:1.5; }
+
+/* ── OPTIONS GRID ── */
+.opts { display:flex; flex-direction:column; gap:12px; }
+.opt {
+  background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.10);
+  border-radius:12px; padding:18px 22px; cursor:pointer;
+  display:flex; align-items:flex-start; gap:16px;
+  transition:border-color .2s, background .2s;
+}
+.opt:hover { border-color:rgba(240,180,41,.4); background:rgba(240,180,41,.06); }
+.opt.selected { border-color:var(--gold); background:rgba(240,180,41,.10); }
+.opt-radio { width:20px; height:20px; border-radius:50%; border:2px solid rgba(255,255,255,.3); flex-shrink:0; margin-top:2px; transition:all .2s; display:flex; align-items:center; justify-content:center; }
+.opt.selected .opt-radio { border-color:var(--gold); background:var(--gold); }
+.opt.selected .opt-radio::after { content:''; width:8px; height:8px; border-radius:50%; background:#060E1F; }
+.opt-text { flex:1; }
+.opt-label { font-size:1rem; font-weight:500; color:var(--white); line-height:1.3; }
+.opt-sublabel { font-size:.82rem; color:rgba(255,255,255,.45); margin-top:3px; line-height:1.4; }
+
+/* ── INPUT FIELDS ── */
+.fields { display:flex; flex-direction:column; gap:16px; }
+.field-group { display:flex; flex-direction:column; gap:8px; }
+.field-label { font-size:.82rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.field-input {
+  background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.10);
+  border-radius:10px; padding:14px 18px; font-family:var(--sans); font-size:1rem;
+  color:var(--white); outline:none; transition:border-color .2s; width:100%;
+}
+.field-input:focus { border-color:var(--gold); }
+.field-input::placeholder { color:rgba(255,255,255,.25); }
+
+/* ── CHECKBOX GROUP ── */
+.checks { display:flex; flex-direction:column; gap:10px; }
+.chk {
+  background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.10);
+  border-radius:10px; padding:14px 18px; cursor:pointer;
+  display:flex; align-items:center; gap:14px;
+  transition:border-color .2s, background .2s;
+}
+.chk:hover { border-color:rgba(240,180,41,.4); }
+.chk.selected { border-color:var(--gold); background:rgba(240,180,41,.08); }
+.chk-box {
+  width:20px; height:20px; border-radius:5px; border:2px solid rgba(255,255,255,.3);
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  transition:all .2s;
+}
+.chk.selected .chk-box { border-color:var(--gold); background:var(--gold); }
+.chk.selected .chk-box::after { content:'✓'; font-size:.75rem; color:#060E1F; font-weight:800; }
+.chk-label { font-size:.95rem; font-weight:500; color:var(--white); }
+
+/* ── NAVIGATION ── */
+.nav { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-back {
+  padding:14px 28px; border-radius:50px; border:1.5px solid rgba(255,255,255,.15);
+  background:transparent; color:rgba(255,255,255,.6); font-family:var(--sans); font-size:.95rem;
+  cursor:pointer; transition:all .2s;
+}
+.btn-back:hover { border-color:rgba(255,255,255,.3); color:var(--white); }
+.btn-next {
+  padding:14px 40px; border-radius:50px; border:none;
+  background:var(--gold); color:#060E1F; font-family:var(--sans); font-size:1rem; font-weight:800;
+  cursor:pointer; transition:all .2s; flex:1;
+}
+.btn-next:hover:not(:disabled) { background:#FCD97D; transform:translateY(-1px); }
+.btn-next:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+
+/* ── RESULT SCREEN ── */
+#result { display:none; flex-direction:column; align-items:center; text-align:center; gap:28px; width:100%; animation:fadeUp .5s ease; padding:20px 0; }
+#result.active { display:flex; }
+.result-icon { width:90px; height:90px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.4rem; }
+.result-icon.A { background:rgba(239,68,68,.12); border:2px solid rgba(239,68,68,.3); }
+.result-icon.B { background:rgba(240,180,41,.12); border:2px solid rgba(240,180,41,.3); }
+.result-icon.C { background:rgba(34,197,94,.12); border:2px solid rgba(34,197,94,.3); }
+.result-title { font-family:var(--serif); font-size:clamp(1.8rem,5vw,2.6rem); font-weight:900; color:var(--white); line-height:1.1; }
+.result-score-wrap { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:24px 32px; width:100%; max-width:480px; }
+.result-score-label { font-size:.8rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:8px; }
+.result-score-bar-bg { background:rgba(255,255,255,.08); border-radius:99px; height:10px; overflow:hidden; margin-bottom:8px; }
+.result-score-bar { height:10px; border-radius:99px; transition:width 1s cubic-bezier(.4,0,.2,1); }
+.result-score-num { font-family:var(--serif); font-size:2rem; font-weight:900; }
+.result-msg { font-size:1.05rem; color:var(--text); line-height:1.65; max-width:540px; }
+.result-msg strong { color:var(--white); }
+.btn-wa {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  background:var(--green); color:#fff; font-family:var(--sans); font-size:1.1rem; font-weight:800;
+  padding:18px 40px; border-radius:50px; border:none; cursor:pointer;
+  text-decoration:none; transition:all .2s; width:100%; max-width:420px;
+}
+.btn-wa:hover { filter:brightness(1.1); transform:translateY(-2px); }
+.btn-wa svg { width:24px; height:24px; fill:white; flex-shrink:0; }
+.result-disclaimer { font-size:.78rem; color:rgba(255,255,255,.3); max-width:480px; line-height:1.5; }
+
+/* ── LOADING ── */
+.loading { display:none; flex-direction:column; align-items:center; gap:20px; }
+.loading.active { display:flex; }
+.spinner { width:48px; height:48px; border:3px solid rgba(240,180,41,.2); border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:1rem; color:var(--text); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div>
+    <div class="hdr-brand">Asesoría Visa Global</div>
+    <div class="hdr-sub">Ecuador</div>
+  </div>
+  <div class="hdr-safe">Evaluación confidencial</div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar" id="progressBar" style="width:0%"></div>
+</div>
+
+<!-- FORM -->
+<main class="form-wrap">
+
+  <!-- STEP 0: Datos personales + tipo de visa -->
+  <div class="step active" id="step-0">
+    <div>
+      <div class="step-num">Paso 1 de 5</div>
+      <div class="step-q">¿A dónde quieres viajar?</div>
+      <div class="step-hint">Cuéntanos un poco sobre ti para personalizar tu evaluación.</div>
+    </div>
+    <div class="fields">
+      <div class="field-group">
+        <div class="field-label">Tu nombre completo</div>
+        <input class="field-input" id="nombre" type="text" placeholder="Ej: María García" autocomplete="name" />
+      </div>
+      <div class="field-group">
+        <div class="field-label">WhatsApp (con código de país)</div>
+        <input class="field-input" id="whatsapp" type="tel" placeholder="+593 98 784 6751" autocomplete="tel" />
+      </div>
+      <div class="field-group">
+        <div class="field-label">Email</div>
+        <input class="field-input" id="email" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
+      </div>
+    </div>
+    <div class="opts">
+      <label class="opt" data-field="visa_tipo" data-value="USA_B1B2" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Visa USA Turismo (B1/B2)</div>
+          <div class="opt-sublabel">Para visitar Estados Unidos por turismo o negocios</div>
+        </div>
+      </label>
+      <label class="opt" data-field="visa_tipo" data-value="SCHENGEN" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Visa Schengen — Europa</div>
+          <div class="opt-sublabel">Para visitar los 27 países del espacio Schengen</div>
+        </div>
+      </label>
+    </div>
+    <div class="nav">
+      <button class="btn-next" id="next-0" disabled>Continuar →</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Situación laboral -->
+  <div class="step" id="step-1">
+    <div>
+      <div class="step-num">Paso 2 de 5 — Arraigo Laboral</div>
+      <div class="step-q">¿Cuál es tu situación laboral actual?</div>
+      <div class="step-hint">Este es el factor más determinante para el oficial consular.</div>
+    </div>
+    <div class="opts">
+      <label class="opt" data-field="situacion_laboral" data-value="empleado_publico" data-score="35">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Empleado del sector público</div>
+          <div class="opt-sublabel">Gobierno, municipio, institución del Estado, IESS, fuerzas armadas</div>
+        </div>
+      </label>
+      <label class="opt" data-field="situacion_laboral" data-value="empleado_privado_plus2" data-score="30">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Empleado empresa privada — más de 2 años</div>
+          <div class="opt-sublabel">Con contrato estable y rol de responsabilidad</div>
+        </div>
+      </label>
+      <label class="opt" data-field="situacion_laboral" data-value="negocio_propio_plus3" data-score="28">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Negocio propio establecido — más de 3 años</div>
+          <div class="opt-sublabel">Con RUC activo y actividad económica demostrable</div>
+        </div>
+      </label>
+      <label class="opt" data-field="situacion_laboral" data-value="empleado_privado_menos2" data-score="15">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Empleado empresa privada — menos de 2 años</div>
+          <div class="opt-sublabel">Trabajo reciente o en período de prueba</div>
+        </div>
+      </label>
+      <label class="opt" data-field="situacion_laboral" data-value="negocio_propio_menos1" data-score="10">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Negocio propio — menos de 1 año</div>
+          <div class="opt-sublabel">Emprendimiento reciente, actividad informal</div>
+        </div>
+      </label>
+      <label class="opt" data-field="situacion_laboral" data-value="desempleado" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Sin empleo actualmente / Ama de casa</div>
+          <div class="opt-sublabel">Sin ingresos propios demostrables</div>
+        </div>
+      </label>
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="goStep(0)">← Atrás</button>
+      <button class="btn-next" id="next-1" disabled>Continuar →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Arraigo financiero -->
+  <div class="step" id="step-2">
+    <div>
+      <div class="step-num">Paso 3 de 5 — Arraigo Financiero</div>
+      <div class="step-q">¿Qué bienes tienes a tu nombre en Ecuador?</div>
+      <div class="step-hint">La propiedad de bienes demuestra que tienes razones concretas para regresar.</div>
+    </div>
+    <div class="opts" id="bienes-opts">
+      <label class="opt" data-field="bien_principal" data-value="casa" data-score="15">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Casa o apartamento propio</div>
+          <div class="opt-sublabel">A mi nombre o de mi cónyuge — con escritura</div>
+        </div>
+      </label>
+      <label class="opt" data-field="bien_principal" data-value="terreno" data-score="12">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Terreno o local comercial</div>
+          <div class="opt-sublabel">Propiedad inmueble registrada en Ecuador</div>
+        </div>
+      </label>
+      <label class="opt" data-field="bien_principal" data-value="vehiculo" data-score="5">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Solo vehículo / otros bienes menores</div>
+          <div class="opt-sublabel">Sin propiedad inmueble a mi nombre</div>
+        </div>
+      </label>
+      <label class="opt" data-field="bien_principal" data-value="ninguno" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">No tengo bienes a mi nombre</div>
+          <div class="opt-sublabel">Vivo en casa arrendada o de familiares</div>
+        </div>
+      </label>
+    </div>
+
+    <div>
+      <div class="step-q" style="font-size:1.3rem;margin-bottom:16px">Ingresos mensuales demostrables</div>
+      <div class="opts">
+        <label class="opt" data-field="ingresos_rango" data-value="mas_2000" data-score="10">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">Más de $2.000 / mes</div></div>
+        </label>
+        <label class="opt" data-field="ingresos_rango" data-value="1000_2000" data-score="7">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">$1.000 – $2.000 / mes</div></div>
+        </label>
+        <label class="opt" data-field="ingresos_rango" data-value="500_999" data-score="3">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">$500 – $999 / mes</div></div>
+        </label>
+        <label class="opt" data-field="ingresos_rango" data-value="menos_500" data-score="0">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">Menos de $500 / mes</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <div class="step-q" style="font-size:1.3rem;margin-bottom:16px">¿Tienes crédito activo en banco o cooperativa?</div>
+      <div class="checks" id="credito-checks">
+        <label class="chk" data-field="credito_activo" data-value="si_hipotecario" data-score="10">
+          <div class="chk-box"></div>
+          <div class="chk-label">Sí — hipotecario o productivo (vínculo fuerte)</div>
+        </label>
+        <label class="chk" data-field="credito_activo" data-value="si_consumo" data-score="5">
+          <div class="chk-box"></div>
+          <div class="chk-label">Sí — crédito de consumo o tarjeta</div>
+        </label>
+        <label class="chk" data-field="credito_activo" data-value="no" data-score="0">
+          <div class="chk-box"></div>
+          <div class="chk-label">No tengo créditos activos</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn-back" onclick="goStep(1)">← Atrás</button>
+      <button class="btn-next" id="next-2" disabled>Continuar →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Arraigo familiar -->
+  <div class="step" id="step-3">
+    <div>
+      <div class="step-num">Paso 4 de 5 — Arraigo Familiar</div>
+      <div class="step-q">¿Cuál es tu situación familiar?</div>
+      <div class="step-hint">Los vínculos familiares en Ecuador demuestran que tienes razones para regresar.</div>
+    </div>
+    <div class="opts">
+      <label class="opt" data-field="estado_civil" data-value="casado" data-score="10">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Casado/a — cónyuge vive en Ecuador</div>
+          <div class="opt-sublabel">Vínculo familiar sólido y verificable</div>
+        </div>
+      </label>
+      <label class="opt" data-field="estado_civil" data-value="union_hecho" data-score="8">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Unión de hecho estable</div>
+          <div class="opt-sublabel">Convivencia estable demostrable en Ecuador</div>
+        </div>
+      </label>
+      <label class="opt" data-field="estado_civil" data-value="divorciado_hijos" data-score="6">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Divorciado/a — con hijos en Ecuador</div>
+          <div class="opt-sublabel">Responsabilidad parental que requiere presencia</div>
+        </div>
+      </label>
+      <label class="opt" data-field="estado_civil" data-value="soltero" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Soltero/a — sin dependientes directos</div>
+          <div class="opt-sublabel">Sin vínculo conyugal ni responsabilidades parentales</div>
+        </div>
+      </label>
+    </div>
+
+    <div>
+      <div class="step-q" style="font-size:1.3rem;margin-bottom:16px">¿Tienes hijos menores de 18 años en Ecuador?</div>
+      <div class="opts">
+        <label class="opt" data-field="hijos_ecuador" data-value="dos_o_mas" data-score="10">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">Sí, dos o más hijos</div></div>
+        </label>
+        <label class="opt" data-field="hijos_ecuador" data-value="uno" data-score="7">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">Sí, un hijo</div></div>
+        </label>
+        <label class="opt" data-field="hijos_ecuador" data-value="ninguno" data-score="0">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">No tengo hijos en Ecuador</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn-back" onclick="goStep(2)">← Atrás</button>
+      <button class="btn-next" id="next-3" disabled>Continuar →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Historial de viajes y rechazos -->
+  <div class="step" id="step-4">
+    <div>
+      <div class="step-num">Paso 5 de 5 — Historial de Viajes</div>
+      <div class="step-q">¿Has viajado al exterior antes?</div>
+      <div class="step-hint">El historial de viajes es el predictor más fuerte de aprobación.</div>
+    </div>
+    <div class="opts">
+      <label class="opt" data-field="viajes_previos" data-value="sello_entrada" data-score="20">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Sí — tengo sellos de entrada en mi pasaporte</div>
+          <div class="opt-sublabel">He viajado a EE.UU., Europa, Canadá, UK u otro país desarrollado</div>
+        </div>
+      </label>
+      <label class="opt" data-field="viajes_previos" data-value="visa_sin_viajar" data-score="10">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">Tuve visa pero no viajé / Pasaporte anterior sellado</div>
+          <div class="opt-sublabel">He tenido visa aprobada en el pasado</div>
+        </div>
+      </label>
+      <label class="opt" data-field="viajes_previos" data-value="ninguno" data-score="0">
+        <div class="opt-radio"></div>
+        <div class="opt-text">
+          <div class="opt-label">No — es mi primera solicitud</div>
+          <div class="opt-sublabel">Pasaporte en blanco, sin historial internacional</div>
+        </div>
+      </label>
+    </div>
+
+    <div>
+      <div class="step-q" style="font-size:1.3rem;margin-bottom:16px">¿Te han negado una visa anteriormente?</div>
+      <div class="opts">
+        <label class="opt" data-field="historial_rechazos" data-value="nunca" data-score="10">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">No, nunca me han negado</div></div>
+        </label>
+        <label class="opt" data-field="historial_rechazos" data-value="mas_3_anos" data-score="5">
+          <div class="opt-radio"></div>
+          <div class="opt-text">
+            <div class="opt-label">Sí — hace más de 3 años</div>
+            <div class="opt-sublabel">Mi situación ha mejorado desde entonces</div>
+          </div>
+        </label>
+        <label class="opt" data-field="historial_rechazos" data-value="menos_1_ano" data-score="-5">
+          <div class="opt-radio"></div>
+          <div class="opt-text">
+            <div class="opt-label">Sí — en el último año</div>
+            <div class="opt-sublabel">Rechazo reciente sin cambios materiales en el perfil</div>
+          </div>
+        </label>
+        <label class="opt" data-field="historial_rechazos" data-value="dos_o_mas" data-score="-15">
+          <div class="opt-radio"></div>
+          <div class="opt-text">
+            <div class="opt-label">Sí — dos o más veces</div>
+            <div class="opt-sublabel">Múltiples rechazos acumulados</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <div class="step-q" style="font-size:1.3rem;margin-bottom:16px">¿Tienes familiares directos en EE.UU. sin documentos?</div>
+      <div class="opts">
+        <label class="opt" data-field="familiares_indocumentados" data-value="no" data-score="0">
+          <div class="opt-radio"></div>
+          <div class="opt-text"><div class="opt-label">No</div></div>
+        </label>
+        <label class="opt" data-field="familiares_indocumentados" data-value="si" data-score="-10">
+          <div class="opt-radio"></div>
+          <div class="opt-text">
+            <div class="opt-label">Sí (cónyuge, hijos, hermanos)</div>
+            <div class="opt-sublabel">Factor de riesgo adicional para el oficial consular</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn-back" onclick="goStep(3)">← Atrás</button>
+      <button class="btn-next" id="next-4" onclick="submitForm()">Ver mi evaluación →</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Analizando tu perfil con criterios consulares...</div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result">
+    <div class="result-icon" id="result-icon"></div>
+    <div class="result-title" id="result-title"></div>
+    <div class="result-score-wrap">
+      <div class="result-score-label">Score de viabilidad consular</div>
+      <div class="result-score-bar-bg">
+        <div class="result-score-bar" id="score-bar" style="width:0%"></div>
+      </div>
+      <div class="result-score-num" id="score-num"></div>
+    </div>
+    <div class="result-msg" id="result-msg"></div>
+    <a class="btn-wa" id="result-wa" href="#" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="wa-btn-text">Escribir ahora</span>
+    </a>
+    <div class="result-disclaimer" id="result-disclaimer"></div>
+  </div>
+
+</main>
+
+<script>
+// ── CONFIGURACIÓN ──────────────────────────────────────────────
+const N8N_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const WA_NUMBER   = '593987846751';             // sin + ni espacios
+// ───────────────────────────────────────────────────────────────
+
+const STEPS = 5;
+let currentStep = 0;
+let formData    = {};
+let scores      = {};
+
+// Mapeo de campos requeridos por step (para habilitar botón Continuar)
+const REQUIRED = {
+  0: ['visa_tipo'],
+  1: ['situacion_laboral'],
+  2: ['bien_principal', 'ingresos_rango', 'credito_activo'],
+  3: ['estado_civil', 'hijos_ecuador'],
+  4: ['viajes_previos', 'historial_rechazos', 'familiares_indocumentados']
+};
+
+// Scoring weights por campo
+const SCORE_MAP = {};
+
+function goStep(n) {
+  document.getElementById(`step-${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step-${currentStep}`).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const pct = ((currentStep) / STEPS) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function checkStepReady(step) {
+  const required = REQUIRED[step] || [];
+  const ready = required.every(f => formData[f] !== undefined);
+  const btn = document.getElementById(`next-${step}`);
+  if (btn) btn.disabled = !ready;
+  // also check text fields for step 0
+  if (step === 0) {
+    const nombre   = document.getElementById('nombre')?.value?.trim();
+    const whatsapp = document.getElementById('whatsapp')?.value?.trim();
+    const email    = document.getElementById('email')?.value?.trim();
+    btn.disabled = !(nombre && whatsapp && email && formData['visa_tipo']);
+  }
+}
+
+// Bind option clicks (radio-style)
+document.querySelectorAll('.opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    const field = opt.dataset.field;
+    const value = opt.dataset.value;
+    const score = parseInt(opt.dataset.score, 10);
+    // Deselect siblings in same field group
+    document.querySelectorAll(`.opt[data-field="${field}"]`).forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    formData[field] = value;
+    scores[field]   = score;
+    checkStepReady(currentStep);
+  });
+});
+
+// Bind checkbox clicks (single-select within group)
+document.querySelectorAll('.chk').forEach(chk => {
+  chk.addEventListener('click', () => {
+    const field = chk.dataset.field;
+    document.querySelectorAll(`.chk[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+    chk.classList.add('selected');
+    formData[field] = chk.dataset.value;
+    scores[field]   = parseInt(chk.dataset.score, 10);
+    checkStepReady(currentStep);
+  });
+});
+
+// Text inputs for step 0
+['nombre','whatsapp','email'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', () => checkStepReady(0));
+});
+
+// Next buttons
+[0,1,2,3].forEach(i => {
+  document.getElementById(`next-${i}`)?.addEventListener('click', () => {
+    if (i === 0) {
+      formData.nombre   = document.getElementById('nombre').value.trim();
+      formData.whatsapp = document.getElementById('whatsapp').value.trim();
+      formData.email    = document.getElementById('email').value.trim();
+    }
+    goStep(i + 1);
+  });
+});
+
+// ── SUBMIT & SCORE ──────────────────────────────────────────────
+async function submitForm() {
+  // Collect remaining text fields
+  formData.nombre   = document.getElementById('nombre').value.trim();
+  formData.whatsapp = document.getElementById('whatsapp').value.trim();
+  formData.email    = document.getElementById('email').value.trim();
+
+  // Calculate score
+  const scoreLaboral    = scores['situacion_laboral']       || 0;
+  const scoreBien       = scores['bien_principal']          || 0;
+  const scoreIngresos   = scores['ingresos_rango']          || 0;
+  const scoreCredito    = scores['credito_activo']          || 0;
+  const scoreFamiliar   = (scores['estado_civil'] || 0) + (scores['hijos_ecuador'] || 0);
+  const scoreViajes     = scores['viajes_previos']          || 0;
+  const scoreRechazos   = scores['historial_rechazos']      || 0;
+  const scoreFamIndo    = scores['familiares_indocumentados'] || 0;
+
+  const scoreFinanciero = scoreBien + scoreIngresos + scoreCredito;
+  const scoreHistorial  = scoreViajes + scoreRechazos + scoreFamIndo;
+  const scoreTotal      = scoreLaboral + scoreFinanciero + scoreFamiliar + scoreHistorial;
+
+  // Normalize to 0–100
+  const MAX = 100; // laboral 35 + fin 25(15+10) + fam 20(10+10) + hist 30(20+10) = 100
+  const scoreNorm = Math.max(0, Math.min(100, Math.round((scoreTotal / MAX) * 100)));
+
+  // Route
+  let ruta, riesgo214b;
+  if (scoreNorm >= 70)      { ruta = 'C'; riesgo214b = 'BAJO'; }
+  else if (scoreNorm >= 40) { ruta = 'B'; riesgo214b = 'MEDIO'; }
+  else                       { ruta = 'A'; riesgo214b = 'ALTO'; }
+
+  // Build payload
+  const payload = {
+    subtipo:     'submit_screening',
+    timestamp:   new Date().toISOString(),
+    fuente:      'screening-form',
+    utm_ref:     new URLSearchParams(window.location.search).get('ref') || 'directo',
+    // Contacto
+    nombre:      formData.nombre,
+    whatsapp:    formData.whatsapp,
+    email:       formData.email,
+    // Visa
+    visa_tipo:   formData.visa_tipo,
+    // Laboral
+    situacion_laboral: formData.situacion_laboral,
+    score_laboral:     scoreLaboral,
+    // Financiero
+    bien_principal: formData.bien_principal,
+    ingresos_rango: formData.ingresos_rango,
+    credito_activo: formData.credito_activo,
+    score_financiero: scoreFinanciero,
+    // Familiar
+    estado_civil:   formData.estado_civil,
+    hijos_ecuador:  formData.hijos_ecuador,
+    score_familiar: scoreFamiliar,
+    // Historial
+    viajes_previos:           formData.viajes_previos,
+    historial_rechazos:       formData.historial_rechazos,
+    familiares_indocumentados: formData.familiares_indocumentados,
+    score_historial:           scoreHistorial,
+    // Resultado
+    score_raw:   scoreTotal,
+    score_total: scoreNorm,
+    ruta:        ruta,
+    riesgo_214b: riesgo214b
+  };
+
+  // Show loading
+  document.getElementById(`step-4`).classList.remove('active');
+  document.getElementById('loading').classList.add('active');
+
+  // POST to n8n (non-blocking)
+  try {
+    await fetch(N8N_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    // Continúa aunque falle la red — el resultado igual se muestra
+    console.warn('Webhook error:', e);
+  }
+
+  // Show result
+  setTimeout(() => showResult(payload), 1200);
+}
+
+function showResult(p) {
+  document.getElementById('loading').classList.remove('active');
+
+  const icon  = document.getElementById('result-icon');
+  const title = document.getElementById('result-title');
+  const msg   = document.getElementById('result-msg');
+  const bar   = document.getElementById('score-bar');
+  const num   = document.getElementById('score-num');
+  const waBtn = document.getElementById('result-wa');
+  const waTxt = document.getElementById('wa-btn-text');
+  const disc  = document.getElementById('result-disclaimer');
+
+  num.textContent = p.score_total + ' / 100';
+
+  const MSGS = {
+    A: {
+      icon:  '⚠️',
+      title: 'Tu perfil tiene riesgo alto de rechazo.',
+      color: '#ef4444',
+      barColor: '#ef4444',
+      msg:   `<strong>${p.nombre}</strong>, basado en tu perfil actual existe un riesgo elevado bajo la Sección 214(b). Aplicar sin preparación implica gastar la tasa consular (~$185) con alta probabilidad de rechazo.<br><br>Lo bueno: <strong>este riesgo se puede reducir</strong>. Existen acciones concretas para fortalecer tu arraigo antes de aplicar.`,
+      waMsg: `Hola, completé la evaluación de perfil en su web. Mi score es ${p.score_total}/100. Me dijeron que tengo riesgo alto. Quiero saber qué puedo mejorar antes de aplicar.`,
+      btnTxt: 'Hablar con un asesor — es gratis',
+      disc:   'No gastarás la tasa consular sin tener un perfil sólido. Esa es nuestra promesa.'
+    },
+    B: {
+      icon:  '📋',
+      title: 'Tu caso tiene viabilidad — pero necesita estrategia.',
+      color: '#F0B429',
+      barColor: '#F0B429',
+      msg:   `<strong>${p.nombre}</strong>, tu perfil tiene puntos fuertes pero también vulnerabilidades que un oficial consular puede usar para negarte. Los casos como el tuyo no se aprueban solos — <strong>requieren un expediente bien estructurado</strong> y preparación para la entrevista.`,
+      waMsg: `Hola, hice la evaluación en su web. Mi score es ${p.score_total}/100. Me dijeron que necesito estrategia. ¿Pueden revisar mi caso?`,
+      btnTxt: 'Agendar consulta de estrategia',
+      disc:   'Tu primera consulta es completamente gratuita. Sin compromiso.'
+    },
+    C: {
+      icon:  '✅',
+      title: '¡Tu perfil está listo para aplicar!',
+      color: '#22c55e',
+      barColor: '#22c55e',
+      msg:   `<strong>${p.nombre}</strong>, tienes un perfil de arraigo sólido que cumple con los criterios consulares. Los tiempos de espera para citas están aumentando — <strong>conviene iniciar el proceso ahora</strong> para asegurar tu fecha de entrevista.`,
+      waMsg: `Hola, hice la evaluación de perfil y obtuve ${p.score_total}/100. Me dijeron que mi perfil está listo. Quiero iniciar mi trámite de visa ${p.visa_tipo === 'USA_B1B2' ? 'USA' : 'Schengen'}.`,
+      btnTxt: 'Iniciar mi trámite ahora',
+      disc:   'Primera consulta gratis. Empezamos hoy mismo si tu agenda lo permite.'
+    }
+  };
+
+  const m = MSGS[p.ruta];
+  icon.textContent = m.icon;
+  icon.className   = `result-icon ${p.ruta}`;
+  title.textContent = m.title;
+  msg.innerHTML     = m.msg;
+  disc.textContent  = m.disc;
+  waTxt.textContent = m.btnTxt;
+
+  bar.style.background = m.barColor;
+  num.style.color      = m.barColor;
+
+  const waMsg = encodeURIComponent(m.waMsg);
+  waBtn.href  = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+
+  setTimeout(() => { bar.style.width = p.score_total + '%'; }, 100);
+
+  document.getElementById('result').classList.add('active');
+  updateProgress();
+  document.getElementById('progressBar').style.width = '100%';
+}
+</script>
+</body>
+</html>

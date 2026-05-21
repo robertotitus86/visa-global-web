@@ -44,11 +44,187 @@ function doPost(e) {
     if (payload.subtipo === 'intake_familiar')          return manejarIntakeFamiliar(payload);
     if (payload.subtipo === 'extractDS160')             return extractarDS160(payload);
     if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
+    if (payload.subtipo === 'submit_screening')         return manejarScreening(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
     return ok({ error: err.toString() });
   }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SCREENING — Formulario de calificación de prospectos
+// Recibe el payload del screening.html, guarda en Sheets y envía emails
+// ═══════════════════════════════════════════════════════════════════════
+function manejarScreening(payload) {
+  const ss    = SpreadsheetApp.openById(SS_ID);
+  const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+
+  // ── 1. RECALCULAR SCORE (verificación servidor) ──────────────────
+  const LABORAL = {
+    empleado_publico: 35, empleado_privado_plus2: 30, negocio_propio_plus3: 28,
+    empleado_privado_menos2: 15, negocio_propio_menos1: 10, desempleado: 0
+  };
+  const BIEN     = { casa: 15, terreno: 12, vehiculo: 5, ninguno: 0 };
+  const INGRESOS = { mas_2000: 10, '1000_2000': 7, '500_999': 3, menos_500: 0 };
+  const CREDITO  = { si_hipotecario: 10, si_consumo: 5, no: 0 };
+  const CIVIL    = { casado: 10, union_hecho: 8, divorciado_hijos: 6, soltero: 0 };
+  const HIJOS    = { dos_o_mas: 10, uno: 7, ninguno: 0 };
+  const VIAJES   = { sello_entrada: 20, visa_sin_viajar: 10, ninguno: 0 };
+  const RECHAZOS = { nunca: 10, mas_3_anos: 5, menos_1_ano: -5, dos_o_mas: -15 };
+  const FAM_IND  = { no: 0, si: -10 };
+
+  const sLab = LABORAL[payload.situacion_laboral] || 0;
+  const sFin = (BIEN[payload.bien_principal] || 0)
+             + (INGRESOS[payload.ingresos_rango] || 0)
+             + (CREDITO[payload.credito_activo] || 0);
+  const sFam = (CIVIL[payload.estado_civil] || 0)
+             + (HIJOS[payload.hijos_ecuador] || 0);
+  const sHis = (VIAJES[payload.viajes_previos] || 0)
+             + (RECHAZOS[payload.historial_rechazos] || 0)
+             + (FAM_IND[payload.familiares_indocumentados] || 0);
+
+  const scoreRaw   = sLab + sFin + sFam + sHis;
+  const scoreTotal = Math.max(0, Math.min(100, Math.round((scoreRaw / 100) * 100)));
+
+  let ruta, riesgo, prioridad;
+  if      (scoreTotal >= 70) { ruta = 'C'; riesgo = 'BAJO';  prioridad = 'HOT';     }
+  else if (scoreTotal >= 40) { ruta = 'B'; riesgo = 'MEDIO'; prioridad = 'WARM';    }
+  else                       { ruta = 'A'; riesgo = 'ALTO';  prioridad = 'NURTURE'; }
+
+  // ── 2. GUARDAR EN HOJA "Prospectos Screening" ────────────────────
+  const COLS = [
+    'Fecha','Nombre','WhatsApp','Email','Visa','Laboral','Bien','Ingresos',
+    'Crédito','Civil','Hijos','Viajes','Rechazos','Fam Indoc',
+    'Score Laboral','Score Financiero','Score Familiar','Score Historial',
+    'Score Total','Ruta','Riesgo 214b','Prioridad','Fuente','Estado'
+  ];
+  let sh = ss.getSheetByName('Prospectos Screening');
+  if (!sh) {
+    sh = ss.insertSheet('Prospectos Screening');
+    sh.appendRow(COLS);
+    sh.getRange(1, 1, 1, COLS.length)
+      .setBackground('#060E1F').setFontColor('#F0B429').setFontWeight('bold');
+    sh.setFrozenRows(1);
+  }
+  sh.appendRow([
+    fecha,
+    payload.nombre   || '',
+    payload.whatsapp || '',
+    payload.email    || '',
+    payload.visa_tipo || '',
+    payload.situacion_laboral || '',
+    payload.bien_principal    || '',
+    payload.ingresos_rango    || '',
+    payload.credito_activo    || '',
+    payload.estado_civil      || '',
+    payload.hijos_ecuador     || '',
+    payload.viajes_previos    || '',
+    payload.historial_rechazos || '',
+    payload.familiares_indocumentados || '',
+    sLab, sFin, sFam, sHis,
+    scoreTotal, ruta, riesgo, prioridad,
+    payload.utm_ref || 'directo',
+    'Nuevo'
+  ]);
+
+  // ── 3. EMAIL A ROBERTO (alerta de nuevo prospecto) ───────────────
+  const visaNombre = payload.visa_tipo === 'USA_B1B2' ? 'USA (B1/B2)' : 'Schengen';
+  const emojiRuta  = ruta === 'C' ? '🟢' : ruta === 'B' ? '🟡' : '🔴';
+  const asuntoRob  = `${emojiRuta} Nuevo prospecto ${ruta} — ${payload.nombre || 'sin nombre'} — Score ${scoreTotal}/100`;
+  const cuerpoRob  =
+    `Nuevo lead calificado desde el formulario de screening.\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `NOMBRE:   ${payload.nombre}\n` +
+    `WHATSAPP: ${payload.whatsapp}\n` +
+    `EMAIL:    ${payload.email}\n` +
+    `VISA:     ${visaNombre}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `SCORE TOTAL:  ${scoreTotal}/100\n` +
+    `RUTA:         ${ruta} (${prioridad})\n` +
+    `RIESGO 214b:  ${riesgo}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `DESGLOSE:\n` +
+    `  Laboral:    ${sLab} pts  (${payload.situacion_laboral})\n` +
+    `  Financiero: ${sFin} pts  (bien: ${payload.bien_principal} / ingresos: ${payload.ingresos_rango})\n` +
+    `  Familiar:   ${sFam} pts  (${payload.estado_civil} / hijos: ${payload.hijos_ecuador})\n` +
+    `  Historial:  ${sHis} pts  (viajes: ${payload.viajes_previos} / rechazos: ${payload.historial_rechazos})\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `ACCIÓN RECOMENDADA:\n` +
+    (ruta === 'C'
+      ? '→ CIERRE DIRECTO. Escríbele hoy mismo — perfil ideal, tiempo es dinero.'
+      : ruta === 'B'
+      ? '→ VENDER CONSULTA ESTRATÉGICA. Tiene viabilidad pero necesita armado de expediente.'
+      : '→ NUTRIR. Enviar guía de mejora de perfil. No gastar tiempo de asesoría.') +
+    `\n\nVer todos los prospectos en Google Sheets → Hoja "Prospectos Screening"`;
+
+  try {
+    GmailApp.sendEmail(EMAIL_ROBERTO, asuntoRob, cuerpoRob);
+  } catch(e) {
+    console.error('Error email Roberto:', e.toString());
+  }
+
+  // ── 4. EMAIL AL PROSPECTO ─────────────────────────────────────────
+  const emailProspecto = payload.email || '';
+  if (emailProspecto) {
+    const EMAILS = {
+      A: {
+        asunto: `Tu evaluación de perfil — pasos para fortalecer tu arraigo`,
+        cuerpo: `Hola ${payload.nombre || ''},\n\n` +
+          `Revisamos tu perfil para la ${visaNombre} y tu score de viabilidad es ${scoreTotal}/100.\n\n` +
+          `Tu perfil tiene un riesgo elevado de rechazo bajo la Sección 214(b) en este momento. ` +
+          `Esto no significa que no puedas obtener la visa — significa que necesitas fortalecer ` +
+          `tu arraigo antes de aplicar para no desperdiciar la tasa consular ($185).\n\n` +
+          `Hay acciones concretas que puedes tomar para mejorar tu perfil:\n\n` +
+          `• Fortalecer tu historial laboral documentado (mínimo 1 año continuo)\n` +
+          `• Demostrar vínculos financieros sólidos (cuentas, propiedades, créditos)\n` +
+          `• Consolidar vínculos familiares verificables en Ecuador\n\n` +
+          `Cuando tu perfil esté más sólido, contáctanos para una evaluación completa. ` +
+          `Tu primera consulta siempre será gratis.\n\n` +
+          `WhatsApp: +593 98 784 6751\n` +
+          `Web: asesoriadevisadosglobal.com\n\n` +
+          `— Asesoría Visa Global`
+      },
+      B: {
+        asunto: `Tu perfil tiene viabilidad — necesitamos estructurar tu expediente`,
+        cuerpo: `Hola ${payload.nombre || ''},\n\n` +
+          `Analizamos tu perfil para la ${visaNombre} y tu score de viabilidad es ${scoreTotal}/100.\n\n` +
+          `Tu caso tiene puntos fuertes pero también vulnerabilidades que un oficial consular ` +
+          `puede usar en tu contra. Los casos como el tuyo no se aprueban solos — ` +
+          `requieren una estrategia de expediente bien estructurada y preparación específica.\n\n` +
+          `Podemos trabajar en eso juntos. La primera consulta es completamente gratis.\n\n` +
+          `Escríbenos por WhatsApp para agendar:\n` +
+          `→ wa.me/593987846751\n\n` +
+          `O visítanos en: asesoriadevisadosglobal.com\n\n` +
+          `— Asesoría Visa Global`
+      },
+      C: {
+        asunto: `Tu perfil está listo para aplicar — iniciemos tu trámite`,
+        cuerpo: `Hola ${payload.nombre || ''},\n\n` +
+          `Excelente noticia: tu score de viabilidad es ${scoreTotal}/100 para la ${visaNombre}.\n\n` +
+          `Tu perfil de arraigo cumple con los criterios que evalúan los consulados. ` +
+          `Los tiempos de espera para citas consulares están aumentando — ` +
+          `te conviene iniciar el proceso cuanto antes para asegurar tu fecha.\n\n` +
+          `Podemos iniciar esta semana. Escríbenos:\n\n` +
+          `WhatsApp: wa.me/593987846751\n` +
+          `Email: info@asesoriadevisadosglobal.com\n\n` +
+          `Primera consulta gratis. Empezamos cuando tú quieras.\n\n` +
+          `— Asesoría Visa Global`
+      }
+    };
+
+    try {
+      const em = EMAILS[ruta];
+      GmailApp.sendEmail(emailProspecto, em.asunto, em.cuerpo, {
+        name: 'Asesoría Visa Global',
+        replyTo: 'info@asesoriadevisadosglobal.com'
+      });
+    } catch(e) {
+      console.error('Error email prospecto:', e.toString());
+    }
+  }
+
+  return ok({ ok: true, ruta, score: scoreTotal, riesgo });
 }
 
 // ── BORRADORES EN LA NUBE (para intake.html cross-device) ─────────
