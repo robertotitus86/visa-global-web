@@ -2681,14 +2681,13 @@ function payphonePrepare(e) {
     const nombre = e.parameter.nombre || 'Cliente';
     const email  = e.parameter.email  || '';
     const body = {
-      amount: 5000, amountWithTax: 0, tax: 0, service: 0, tip: 0,
+      amount: 5000, amountWithTax: 0, amountWithoutTax: 5000, tax: 0, service: 0, tip: 0,
       currency: 'USD', clientTransactionId: ref,
-      storeId: PAYPHONE_STORE_ID || null,
       responseUrl:     SITE_URL + '/diagnostico.html',
       cancellationUrl: SITE_URL + '/diagnostico.html?cancelled=true',
       reference: 'Diagnostico Visa Global — ' + nombre, lang: 'es'
     };
-    const resp = UrlFetchApp.fetch('https://pay.payphone.app/api/button/Prepare', {
+    const resp = UrlFetchApp.fetch('https://pay.payphonetodoesposible.com/api/button/Prepare', {
       method: 'post', contentType: 'application/json',
       headers: { Authorization: 'Bearer ' + PAYPHONE_TOKEN },
       payload: JSON.stringify(body), muteHttpExceptions: true
@@ -2707,7 +2706,7 @@ function payphoneVerify(e) {
     if (!PAYPHONE_TOKEN) return ok({ approved: false, error: 'Token no configurado' });
     const id = parseInt(e.parameter.id);
     const ct = e.parameter.clientTransactionId;
-    const resp = UrlFetchApp.fetch('https://pay.payphone.app/api/button/V2/Confirm', {
+    const resp = UrlFetchApp.fetch('https://pay.payphonetodoesposible.com/api/button/V2/Confirm', {
       method: 'post', contentType: 'application/json',
       headers: { Authorization: 'Bearer ' + PAYPHONE_TOKEN },
       payload: JSON.stringify({ id, clientTransactionId: ct }), muteHttpExceptions: true
