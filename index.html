@@ -637,6 +637,107 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 .lm-success a { color:var(--gold-lt); font-weight:600; }
 @media(max-width:900px){ .lm-grid { grid-template-columns:1fr; gap:48px; } .lm-right { order:-1; } .lm-preview { width:260px; } }
 @media(max-width:640px){ .lm-row { grid-template-columns:1fr; } }
+
+/* ═══ ROBERTO AUTHORITY SECTION ══════════════════════ */
+.author-section { background:var(--bg2); position:relative; overflow:hidden; }
+.author-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,136,10,.06), transparent);
+  pointer-events:none;
+}
+.author-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:80px; align-items:center; }
+.author-img-wrap { position:relative; }
+.author-img-frame {
+  width:100%; aspect-ratio:4/5; border-radius:16px; overflow:hidden;
+  background:var(--bg3); border:1px solid var(--line2);
+  display:flex; align-items:center; justify-content:center;
+}
+.author-img-frame img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+.author-img-placeholder {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; color:var(--muted);
+}
+.author-img-placeholder p { font-size:.75rem; text-align:center; max-width:160px; line-height:1.5; }
+.author-credentials {
+  position:absolute; bottom:-20px; right:-20px;
+  background:var(--gold-lt); color:var(--bg); border-radius:12px;
+  padding:20px 24px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+.author-cred-num { font-family:var(--serif); font-size:2.4rem; font-weight:900; line-height:1; }
+.author-cred-label { font-size:.625rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-top:2px; }
+.author-right {}
+.author-eyebrow { font-size:.625rem; font-weight:600; text-transform:uppercase; letter-spacing:.22em; color:var(--gold); margin-bottom:20px; }
+.author-name { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.5rem); font-weight:900; color:var(--white); line-height:1.05; letter-spacing:-.02em; margin-bottom:8px; }
+.author-title { font-size:1rem; color:var(--muted); margin-bottom:28px; font-weight:300; }
+.author-quote {
+  font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--white);
+  line-height:1.55; margin-bottom:36px; padding-left:24px;
+  border-left:3px solid var(--gold-lt);
+}
+.author-facts { display:flex; flex-direction:column; gap:16px; margin-bottom:36px; }
+.author-fact { display:flex; align-items:flex-start; gap:16px; }
+.af-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:7px; }
+.af-text { font-size:.9375rem; color:rgba(200,208,224,.75); line-height:1.55; }
+.af-text strong { color:var(--white); font-weight:600; }
+.author-stats { display:flex; gap:32px; padding:24px 0; border-top:1px solid var(--line); }
+.author-stat-n { font-family:var(--serif); font-size:2rem; font-weight:700; color:var(--gold-lt); line-height:1; }
+.author-stat-l { font-size:.625rem; text-transform:uppercase; letter-spacing:.15em; color:var(--muted); margin-top:4px; }
+@media(max-width:900px){ .author-layout { grid-template-columns:1fr; } .author-img-wrap { max-width:360px; } }
+
+/* ═══ PRICING SECTION ════════════════════════════════ */
+.pricing-section { background:var(--bg); }
+.pricing-header { text-align:center; margin-bottom:64px; }
+.pricing-header .label { display:block; text-align:center; margin-bottom:16px; }
+.pricing-note { font-size:.9375rem; color:var(--muted); margin-top:12px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6; }
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.price-card {
+  background:var(--bg2); border:1px solid var(--line2); border-radius:20px;
+  padding:40px 32px; position:relative; overflow:hidden;
+  transition:border-color .25s, transform .25s;
+  display:flex; flex-direction:column;
+}
+.price-card:hover { border-color:rgba(240,180,41,.25); transform:translateY(-4px); }
+.price-card.featured {
+  border:2px solid var(--gold-lt);
+  background: linear-gradient(160deg, rgba(200,136,10,.08), var(--bg2));
+}
+.price-badge {
+  position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:var(--gold-lt); color:var(--bg);
+  font-size:.5625rem; font-weight:800; text-transform:uppercase; letter-spacing:.18em;
+  padding:5px 18px; border-radius:0 0 8px 8px; white-space:nowrap;
+}
+.price-tier { font-size:.625rem; font-weight:600; text-transform:uppercase; letter-spacing:.2em; color:var(--gold); margin-bottom:12px; }
+.price-name { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--white); margin-bottom:4px; }
+.price-ideal { font-size:.75rem; color:var(--muted); margin-bottom:24px; }
+.price-amount {
+  display:flex; align-items:flex-start; gap:4px; margin-bottom:8px;
+}
+.price-currency { font-size:1.2rem; font-weight:700; color:var(--gold-lt); margin-top:6px; }
+.price-num { font-family:var(--serif); font-size:4rem; font-weight:900; color:var(--white); line-height:1; }
+.price-period { font-size:.8125rem; color:var(--muted); margin-top:12px; }
+.price-divider { height:1px; background:var(--line); margin:24px 0; }
+.price-features { display:flex; flex-direction:column; gap:12px; flex:1; }
+.pf-item { display:flex; align-items:flex-start; gap:10px; font-size:.875rem; color:rgba(200,208,224,.8); line-height:1.45; }
+.pf-check { color:var(--gold-lt); font-weight:700; flex-shrink:0; margin-top:1px; }
+.pf-check.grey { color:var(--muted); }
+.price-cta {
+  display:block; text-align:center; margin-top:28px;
+  padding:14px; border-radius:8px; font-family:var(--sans); font-size:.9375rem; font-weight:700;
+  text-decoration:none; transition:all .2s;
+}
+.price-card.featured .price-cta { background:var(--gold-lt); color:var(--bg); }
+.price-card:not(.featured) .price-cta { background:rgba(255,255,255,.05); color:var(--white); border:1px solid var(--line2); }
+.price-card:not(.featured) .price-cta:hover { background:rgba(255,255,255,.1); }
+.pricing-free {
+  margin-top:40px; text-align:center; padding:28px;
+  background:rgba(37,211,102,.05); border:1px solid rgba(37,211,102,.15); border-radius:12px;
+}
+.pricing-free p { font-size:1rem; color:rgba(200,208,224,.75); line-height:1.6; }
+.pricing-free strong { color:var(--white); }
+.pricing-free a { color:var(--green); font-weight:600; }
+@media(max-width:900px){ .pricing-grid { grid-template-columns:1fr; max-width:420px; margin:0 auto; } }
+@media(max-width:640px){ .price-card { padding:32px 24px; } }
 </style>
 </head>
 <body>
@@ -664,6 +765,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </a>
   <div class="nav-right">
     <a class="nav-a" href="#servicios">Servicios</a>
+    <a class="nav-a" href="#precios">Precios</a>
     <a class="nav-a" href="#proceso">Proceso</a>
     <a class="nav-a" href="#faq">FAQ</a>
     <a class="nav-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">Consulta gratuita</a>
@@ -677,11 +779,11 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> La firma migratoria #1 del Ecuador</div>
     <h1>
-      <span class="line"><span class="word word-1">Tu</span> <span class="word word-2">visa.</span></span>
-      <span class="line"><span class="word word-3">Nuestra</span></span>
-      <span class="line"><span class="word word-4">obse</span><span class="word word-5">sión.</span></span>
+      <span class="line"><span class="word word-1">El cónsul</span></span>
+      <span class="line"><span class="word word-2">no rechaza</span></span>
+      <span class="line"><span class="word word-3">perso</span><span class="word word-4">nas.</span></span>
     </h1>
-    <p class="hero-sub">Especialistas en procesos de visado con 15 años transformando sueños en visas aprobadas para familias ecuatorianas.</p>
+    <p class="hero-sub">Rechaza expedientes mal preparados. Los nuestros nunca lo están — 98% de aprobación en 500+ familias ecuatorianas lo confirman.</p>
     <div class="hero-actions">
       <a class="btn-gold" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita%20para%20tramitar%20mi%20visa" target="_blank">
         Evalúa mi caso gratis ahora
@@ -789,6 +891,62 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </div>
 </section>
 
+<!-- ROBERTO AUTHORITY -->
+<section class="sec author-section">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="author-layout">
+        <div class="author-img-wrap" data-r>
+          <div class="author-img-frame">
+            <img src="roberto-acosta.jpg" alt="Roberto Acosta" onerror="this.parentElement.innerHTML='<div class=\'author-img-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><circle cx=\'12\' cy=\'8\' r=\'4\'/><path d=\'M4 20c0-4 3.6-7 8-7s8 3 8 7\'/></svg><p>Foto de Roberto (agrega roberto-acosta.jpg al repo)</p></div>'">
+          </div>
+          <div class="author-credentials">
+            <div class="author-cred-num">15</div>
+            <div class="author-cred-label">Años en visas</div>
+          </div>
+        </div>
+
+        <div class="author-right">
+          <div class="author-eyebrow" data-r>El asesor detrás de cada caso</div>
+          <div class="author-name" data-r>Roberto Acosta</div>
+          <div class="author-title" data-r>Asesor de visas · Español en Ecuador · 15 años de experiencia</div>
+          <blockquote class="author-quote" data-r>
+            "Soy español. Crecí entendiendo cómo funciona el sistema consular desde adentro. Eso no se aprende en un curso."
+          </blockquote>
+          <div class="author-facts" data-r>
+            <div class="author-fact">
+              <div class="af-dot"></div>
+              <div class="af-text"><strong>Conozco el Consulado de España en Ecuador</strong> desde la perspectiva de alguien que es ciudadano — qué buscan, qué rechazan, cómo leen un expediente.</div>
+            </div>
+            <div class="author-fact">
+              <div class="af-dot"></div>
+              <div class="af-text"><strong>Cada caso lo reviso yo personalmente.</strong> No hay un equipo de personas sin experiencia procesando tu expediente. Tu caso tiene mi nombre.</div>
+            </div>
+            <div class="author-fact">
+              <div class="af-dot"></div>
+              <div class="af-text"><strong>Si no veo posibilidades reales en tu caso, te lo digo.</strong> No acepto casos que no puedo resolver bien. El 98% de mis clientes aprueba porque elijo trabajar solo con casos en los que confío.</div>
+            </div>
+          </div>
+          <div class="author-stats" data-r>
+            <div>
+              <div class="author-stat-n" data-counter data-target="500" data-suffix="+">500+</div>
+              <div class="author-stat-l">Casos resueltos</div>
+            </div>
+            <div>
+              <div class="author-stat-n">98%</div>
+              <div class="author-stat-l">Tasa de aprobación</div>
+            </div>
+            <div>
+              <div class="author-stat-n">4</div>
+              <div class="author-stat-l">Destinos cubiertos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- WHATSAPP SECTION -->
 <section class="sec wa-section">
   <div class="wrap">
@@ -835,6 +993,97 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
             Escribir ahora — consulta gratis →
           </a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec pricing-section" id="precios">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="pricing-header" data-r>
+        <div class="label">Inversión</div>
+        <h2 class="display">Transparencia total.<br>Sin sorpresas al final.</h2>
+        <p class="pricing-note">Cada paquete incluye desde la primera consulta hasta la preparación completa para tu entrevista. Elige según la complejidad de tu caso.</p>
+      </div>
+
+      <div class="pricing-grid" data-r>
+
+        <!-- ESENCIAL -->
+        <div class="price-card">
+          <div class="price-tier">Paquete 01</div>
+          <div class="price-name">Esencial</div>
+          <div class="price-ideal">Perfil sólido · Primera solicitud</div>
+          <div class="price-amount">
+            <span class="price-currency">$</span>
+            <span class="price-num">97</span>
+          </div>
+          <div class="price-period">pago único · sin cargos adicionales</div>
+          <div class="price-divider"></div>
+          <div class="price-features">
+            <div class="pf-item"><span class="pf-check">+</span>Evaluación completa de tu caso</div>
+            <div class="pf-item"><span class="pf-check">+</span>Checklist personalizado de documentos</div>
+            <div class="pf-item"><span class="pf-check">+</span>Revisión del formulario DS-160 o equivalente</div>
+            <div class="pf-item"><span class="pf-check">+</span>1 sesión de preguntas y respuestas por WhatsApp</div>
+            <div class="pf-item"><span class="pf-check">+</span>Guía de preparación para la entrevista</div>
+            <div class="pf-item"><span class="pf-check grey">—</span><span style="color:var(--muted)">Simulacro de entrevista consular</span></div>
+            <div class="pf-item"><span class="pf-check grey">—</span><span style="color:var(--muted)">Acompañamiento hasta la entrevista</span></div>
+          </div>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Esencial%20($97)" target="_blank">Empezar con Esencial</a>
+        </div>
+
+        <!-- PROFESIONAL -->
+        <div class="price-card featured">
+          <div class="price-badge">El mas elegido</div>
+          <div class="price-tier">Paquete 02</div>
+          <div class="price-name">Profesional</div>
+          <div class="price-ideal">La mayoria de los casos · Recomendado</div>
+          <div class="price-amount">
+            <span class="price-currency">$</span>
+            <span class="price-num">197</span>
+          </div>
+          <div class="price-period">pago único · sin cargos adicionales</div>
+          <div class="price-divider"></div>
+          <div class="price-features">
+            <div class="pf-item"><span class="pf-check">+</span>Todo lo del paquete Esencial</div>
+            <div class="pf-item"><span class="pf-check">+</span>Construccion completa del expediente</div>
+            <div class="pf-item"><span class="pf-check">+</span>Revision de todos los documentos financieros</div>
+            <div class="pf-item"><span class="pf-check">+</span>Simulacro de entrevista consular completo</div>
+            <div class="pf-item"><span class="pf-check">+</span>Acompañamiento hasta el dia de la entrevista</div>
+            <div class="pf-item"><span class="pf-check">+</span>Estrategia de presentacion del caso</div>
+            <div class="pf-item"><span class="pf-check">+</span>Soporte por WhatsApp hasta la decision</div>
+          </div>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Profesional%20($197)" target="_blank">Empezar con Profesional</a>
+        </div>
+
+        <!-- VIP -->
+        <div class="price-card">
+          <div class="price-tier">Paquete 03</div>
+          <div class="price-name">VIP</div>
+          <div class="price-ideal">Rechazos previos · Casos complejos · Familias</div>
+          <div class="price-amount">
+            <span class="price-currency">$</span>
+            <span class="price-num">397</span>
+          </div>
+          <div class="price-period">pago único · sin cargos adicionales</div>
+          <div class="price-divider"></div>
+          <div class="price-features">
+            <div class="pf-item"><span class="pf-check">+</span>Todo lo del paquete Profesional</div>
+            <div class="pf-item"><span class="pf-check">+</span>Analisis forense del rechazo anterior</div>
+            <div class="pf-item"><span class="pf-check">+</span>Estrategia de reconversion del caso</div>
+            <div class="pf-item"><span class="pf-check">+</span>Carta de presentacion personalizada</div>
+            <div class="pf-item"><span class="pf-check">+</span>Sesiones ilimitadas hasta la aprobacion</div>
+            <div class="pf-item"><span class="pf-check">+</span>Gestion para grupos familiares completos</div>
+            <div class="pf-item"><span class="pf-check">+</span>Prioridad de atencion y respuesta en 2 horas</div>
+          </div>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20VIP%20($397)" target="_blank">Empezar con VIP</a>
+        </div>
+
+      </div>
+
+      <div class="pricing-free" data-r>
+        <p><strong>¿No sabes qué paquete necesitas?</strong> La <strong>evaluación inicial es completamente gratuita.</strong> Roberto revisa tu caso y te dice exactamente qué paquete conviene — sin compromiso y sin venderte lo que no necesitas. <a href="https://wa.me/593994442512?text=Hola,%20quiero%20una%20evaluacion%20gratuita%20para%20saber%20que%20paquete%20necesito" target="_blank">Evalúa mi caso gratis →</a></p>
       </div>
     </div>
   </div>
@@ -975,7 +1224,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <div class="faq-list" data-r>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Cuánto cuesta la asesoría?<div class="faq-ico">+</div></button>
-            <div class="faq-ans">La primera consulta es completamente gratuita. El costo de la asesoría completa se define según el tipo de visa y la complejidad del caso — siempre después de la evaluación inicial y sin compromiso.</div>
+            <div class="faq-ans">La primera consulta es completamente gratuita. Los paquetes de asesoría son: Esencial $97 (casos simples, primera solicitud), Profesional $197 (el más elegido, incluye simulacro de entrevista y acompañamiento completo), y VIP $397 (rechazos previos y casos complejos, sesiones ilimitadas). No hay cargos ocultos ni comisiones adicionales.</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Garantizan que aprueben mi visa?<div class="faq-ico">+</div></button>
