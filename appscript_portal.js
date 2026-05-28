@@ -45,11 +45,38 @@ function doPost(e) {
     if (payload.subtipo === 'extractDS160')             return extractarDS160(payload);
     if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
     if (payload.subtipo === 'submit_screening')         return manejarScreening(payload);
+    if (payload.action === 'lead_magnet')               return guardarLeadMagnet(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
     return ok({ error: err.toString() });
   }
+}
+
+// ── Lead Magnet — captura de email/WA desde checklist ────────────
+function guardarLeadMagnet(payload) {
+  const ss = SpreadsheetApp.openById(SS_ID);
+  let sh;
+  try { sh = ss.getSheetByName('Leads Checklist'); } catch(_){}
+  if (!sh) {
+    sh = ss.insertSheet('Leads Checklist');
+    sh.appendRow(['Fecha','Nombre','WhatsApp','Fuente']);
+  }
+  sh.appendRow([
+    new Date().toLocaleString('es-EC'),
+    payload.nombre || '',
+    payload.whatsapp || '',
+    'checklist-landing'
+  ]);
+  // Notificar a Roberto por email
+  try {
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: 'Nuevo lead checklist: ' + (payload.nombre || 'Sin nombre'),
+      body: 'Nombre: ' + (payload.nombre || '') + '\nWhatsApp: ' + (payload.whatsapp || '') + '\nFecha: ' + new Date().toLocaleString('es-EC')
+    });
+  } catch(_){}
+  return ok({ ok: true });
 }
 
 // ═══════════════════════════════════════════════════════════════════════

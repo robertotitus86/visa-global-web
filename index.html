@@ -552,6 +552,91 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   .toast { max-width:240px; }
   #urgency { letter-spacing:.03em; }
 }
+
+/* ═══ LEAD MAGNET ════════════════════════════════════ */
+.lm-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.lm-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(200,136,10,.05), transparent);
+  pointer-events:none;
+}
+.lm-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.lm-left {}
+.lm-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(240,180,41,.1); border:1px solid rgba(240,180,41,.25);
+  border-radius:4px; padding:6px 14px; margin-bottom:24px;
+}
+.lm-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--gold-lt); animation:blink 2s infinite; }
+.lm-badge-txt { font-size:.6875rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--gold-lt); }
+.lm-title {
+  font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:900; color:var(--white); line-height:1.05; letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.lm-title em { color:var(--gold-lt); font-style:italic; }
+.lm-sub { font-size:1rem; color:var(--muted); line-height:1.7; margin-bottom:36px; max-width:460px; }
+.lm-form { display:flex; flex-direction:column; gap:14px; max-width:440px; }
+.lm-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.lm-input {
+  width:100%; padding:14px 18px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+  border-radius:8px; color:var(--white); font-family:var(--sans); font-size:.9375rem;
+  outline:none; transition:border-color .2s;
+}
+.lm-input::placeholder { color:var(--muted); }
+.lm-input:focus { border-color:rgba(240,180,41,.5); }
+.lm-submit {
+  background:var(--gold-lt); color:var(--bg); border:none;
+  font-family:var(--sans); font-size:1rem; font-weight:700;
+  padding:16px 32px; border-radius:8px; cursor:pointer;
+  transition:all .2s; width:100%;
+}
+.lm-submit:hover { opacity:.9; transform:translateY(-1px); }
+.lm-privacy { font-size:.6875rem; color:var(--muted); margin-top:4px; }
+.lm-right { display:flex; justify-content:center; align-items:center; }
+.lm-preview {
+  width:320px; background:var(--bg);
+  border:1px solid rgba(240,180,41,.2); border-radius:16px;
+  overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,.4);
+  transform:rotate(-2deg);
+  transition:transform .3s;
+}
+.lm-preview:hover { transform:rotate(0deg) scale(1.02); }
+.lm-prev-cover {
+  background:var(--bg); padding:32px 28px;
+  border-bottom:3px solid var(--gold-lt);
+}
+.lm-prev-tag {
+  font-size:.5625rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-lt); margin-bottom:16px;
+}
+.lm-prev-num {
+  font-family:var(--serif); font-size:5rem; font-weight:900;
+  color:rgba(240,180,41,.15); line-height:1; margin-bottom:4px;
+}
+.lm-prev-title {
+  font-family:var(--serif); font-size:1.1rem; font-weight:700;
+  color:var(--white); line-height:1.25;
+}
+.lm-prev-footer { padding:16px 28px; display:flex; justify-content:space-between; align-items:center; }
+.lm-prev-auth { font-size:.75rem; color:var(--muted); }
+.lm-prev-pages { font-size:.625rem; color:var(--gold); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.lm-success {
+  display:none; text-align:center; padding:32px;
+  background:rgba(37,211,102,.06); border:1px solid rgba(37,211,102,.2);
+  border-radius:12px;
+}
+.lm-success h3 { font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:8px; }
+.lm-success p { font-size:.9375rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.lm-success a { color:var(--gold-lt); font-weight:600; }
+@media(max-width:900px){ .lm-grid { grid-template-columns:1fr; gap:48px; } .lm-right { order:-1; } .lm-preview { width:260px; } }
+@media(max-width:640px){ .lm-row { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -915,6 +1000,57 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </div>
 </section>
 
+<!-- LEAD MAGNET -->
+<section class="sec lm-section">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="lm-grid">
+        <div class="lm-left">
+          <div class="lm-badge" data-r>
+            <div class="lm-badge-dot"></div>
+            <div class="lm-badge-txt">Descarga gratuita</div>
+          </div>
+          <h2 class="lm-title" data-r>
+            El checklist que usan<br>quienes <em>aprueban</em><br>su visa.
+          </h2>
+          <p class="lm-sub" data-r>27 cosas que debes tener listas antes de tu entrevista consular. Documentos, preparacion personal y los errores que comete el 80% de los solicitantes.</p>
+
+          <div id="lm-form-wrap">
+            <form class="lm-form" id="lm-form" data-r>
+              <div class="lm-row">
+                <input class="lm-input" type="text" id="lm-name" name="nombre" placeholder="Tu nombre" required autocomplete="given-name">
+                <input class="lm-input" type="tel" id="lm-phone" name="whatsapp" placeholder="Tu WhatsApp" required autocomplete="tel">
+              </div>
+              <button type="submit" class="lm-submit" id="lm-btn">Enviarme el checklist gratis</button>
+              <p class="lm-privacy">Sin spam. Tu numero solo se usa para enviarte el PDF por WhatsApp.</p>
+            </form>
+          </div>
+
+          <div class="lm-success" id="lm-success">
+            <h3>Listo, en camino.</h3>
+            <p>Abrir WhatsApp para recibir tu checklist. Si en 24 horas no llega, escribeme directamente al <strong style="color:var(--white)">0994442512</strong>.</p>
+            <a href="checklist-entrevista.pdf" target="_blank">O descargalo aqui directamente</a>
+          </div>
+        </div>
+
+        <div class="lm-right" data-r>
+          <div class="lm-preview">
+            <div class="lm-prev-cover">
+              <div class="lm-prev-tag">Checklist Oficial · Asesoria Visa Global</div>
+              <div class="lm-prev-num">27</div>
+              <div class="lm-prev-title">Cosas que debes tener listas antes de tu entrevista consular</div>
+            </div>
+            <div class="lm-prev-footer">
+              <div class="lm-prev-auth">Roberto Acosta · Asesor de Visas</div>
+              <div class="lm-prev-pages">4 paginas · PDF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -1107,6 +1243,35 @@ style.textContent=`
 @keyframes typing-dot{0%,60%{opacity:1;transform:translateY(0)}30%{opacity:.4;transform:translateY(-4px)}60%,100%{opacity:.2;transform:translateY(0)}}
 `;
 document.head.appendChild(style);
+
+/* ── LEAD MAGNET FORM ── */
+const lmForm = document.getElementById('lm-form');
+if(lmForm){
+  lmForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('lm-name').value.trim();
+    const phone = document.getElementById('lm-phone').value.trim();
+    const btn = document.getElementById('lm-btn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    // Guardar en Apps Script
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ action:'lead_magnet', nombre:name, whatsapp:phone, fecha:new Date().toISOString() })
+      });
+    } catch(_){}
+
+    // Mostrar éxito + abrir WA con mensaje personalizado
+    document.getElementById('lm-form-wrap').style.display='none';
+    document.getElementById('lm-success').style.display='block';
+    const msg = encodeURIComponent(`Hola Roberto, soy ${name}. Quiero el checklist de la entrevista consular.`);
+    setTimeout(()=>{ window.open(`https://wa.me/593994442512?text=${msg}`, '_blank'); }, 800);
+  });
+}
 </script>
 </body>
 </html>
