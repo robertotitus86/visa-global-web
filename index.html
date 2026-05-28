@@ -733,6 +733,130 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 .pricing-free a { color:var(--green); font-weight:600; }
 @media(max-width:900px){ .pricing-grid { grid-template-columns:1fr; max-width:420px; margin:0 auto; } }
 @media(max-width:640px){ .price-card { padding:32px 24px; } }
+
+/* ═══ PULSE CTA ══════════════════════════════════════ */
+@keyframes cta-pulse {
+  0%,100%  { box-shadow: 0 0 0 0 rgba(240,180,41,.5), 0 0 40px rgba(240,180,41,.2); }
+  50%      { box-shadow: 0 0 0 12px rgba(240,180,41,0), 0 0 40px rgba(240,180,41,.2); }
+}
+.pulse-cta { animation: cta-pulse 3s ease-in-out 8s infinite; }
+
+/* ═══ DIAGNÓSTICO IA SECTION ════════════════════════ */
+.diag-section {
+  background: linear-gradient(160deg, var(--bg3) 0%, var(--bg) 60%);
+  position:relative; overflow:hidden;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.diag-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 70% at 60% 50%, rgba(200,136,10,.09), transparent);
+  pointer-events:none;
+}
+.diag-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.diag-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(240,180,41,.12); border:1px solid rgba(240,180,41,.3);
+  border-radius:4px; padding:6px 14px; margin-bottom:24px;
+}
+.diag-badge-pulse { width:6px; height:6px; border-radius:50%; background:var(--gold-lt); animation:blink 1.6s infinite; }
+.diag-badge-txt { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.16em; color:var(--gold-lt); }
+.diag-title {
+  font-family:var(--serif); font-size:clamp(2.4rem,4.5vw,3.8rem);
+  font-weight:900; color:var(--white); line-height:1.0; letter-spacing:-.025em;
+  margin-bottom:20px;
+}
+.diag-title em { color:var(--gold-lt); font-style:italic; }
+.diag-sub { font-size:1rem; color:var(--muted); line-height:1.75; margin-bottom:32px; max-width:460px; }
+.diag-features { display:flex; flex-direction:column; gap:14px; margin-bottom:40px; }
+.diag-feat { display:flex; gap:14px; align-items:flex-start; }
+.diag-feat-dot {
+  width:22px; height:22px; border-radius:50%; flex-shrink:0; margin-top:2px;
+  background:rgba(240,180,41,.15); border:1px solid rgba(240,180,41,.35);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.625rem; font-weight:800; color:var(--gold-lt);
+}
+.diag-feat-text h4 { font-size:.9375rem; font-weight:600; color:var(--white); margin-bottom:2px; }
+.diag-feat-text p { font-size:.8125rem; color:var(--muted); line-height:1.55; }
+.diag-price-row { display:flex; align-items:center; gap:20px; margin-bottom:28px; flex-wrap:wrap; }
+.diag-price {
+  display:flex; align-items:flex-start; gap:4px;
+}
+.diag-price-curr { font-family:var(--serif); font-size:1.4rem; font-weight:700; color:var(--gold-lt); margin-top:6px; }
+.diag-price-num { font-family:var(--serif); font-size:4.5rem; font-weight:900; color:var(--white); line-height:1; }
+.diag-price-note { font-size:.8125rem; color:var(--muted); line-height:1.5; }
+.diag-price-note strong { color:var(--white); display:block; }
+.diag-ctas { display:flex; gap:14px; flex-wrap:wrap; }
+.diag-cta-primary {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--gold-lt); color:var(--bg);
+  font-family:var(--sans); font-size:.9375rem; font-weight:700;
+  padding:16px 32px; border-radius:8px; text-decoration:none;
+  transition:all .25s; box-shadow:0 6px 30px rgba(240,180,41,.25);
+}
+.diag-cta-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(240,180,41,.4); }
+.diag-cta-sec {
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid rgba(240,180,41,.25); color:rgba(200,208,224,.7);
+  font-size:.9375rem; font-weight:400; padding:16px 24px;
+  border-radius:8px; text-decoration:none; transition:all .2s;
+}
+.diag-cta-sec:hover { border-color:rgba(240,180,41,.5); color:var(--gold-lt); }
+
+/* Right: terminal mockup */
+.diag-terminal {
+  background:#07111E; border:1px solid rgba(240,180,41,.15);
+  border-radius:16px; overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+  position:relative;
+}
+.diag-term-bar {
+  background:#0F1E30; padding:12px 18px;
+  display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.dt-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.dt-title { font-size:.6875rem; color:var(--muted); margin-left:auto; letter-spacing:.05em; font-weight:500; }
+.diag-term-body { padding:24px; min-height:340px; }
+.dt-line {
+  display:flex; gap:12px; margin-bottom:16px; opacity:0;
+  transition:opacity .5s ease;
+}
+.dt-line.visible { opacity:1; }
+.dt-step-num {
+  width:24px; height:24px; border-radius:6px; flex-shrink:0;
+  background:rgba(240,180,41,.12); border:1px solid rgba(240,180,41,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.6875rem; font-weight:700; color:var(--gold-lt);
+}
+.dt-step-content {}
+.dt-step-label { font-size:.6875rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:3px; }
+.dt-step-text { font-size:.875rem; color:var(--white); font-weight:500; }
+.dt-step-sub { font-size:.75rem; color:var(--muted); margin-top:2px; line-height:1.5; }
+.dt-progress-bar { background:rgba(255,255,255,.05); border-radius:4px; height:3px; margin-top:8px; overflow:hidden; }
+.dt-progress-fill {
+  height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-lt));
+  border-radius:4px; width:0%; transition:width 1.5s ease;
+}
+.dt-result {
+  margin-top:20px; background:rgba(37,211,102,.07);
+  border:1px solid rgba(37,211,102,.2); border-radius:10px;
+  padding:16px 18px; opacity:0; transition:opacity .6s ease;
+}
+.dt-result.visible { opacity:1; }
+.dt-result-label { font-size:.625rem; text-transform:uppercase; letter-spacing:.14em; color:#4ade80; margin-bottom:6px; font-weight:600; }
+.dt-result-text { font-size:.875rem; color:var(--white); font-weight:600; line-height:1.45; }
+.diag-trust { display:flex; gap:24px; margin-top:16px; padding:0 0 4px; }
+.diag-trust-item { font-size:.6875rem; color:var(--muted); display:flex; align-items:center; gap:5px; }
+.diag-trust-item::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--gold-lt); flex-shrink:0; }
+
+@media(max-width:960px){
+  .diag-layout { grid-template-columns:1fr; gap:48px; }
+  .diag-terminal { max-width:480px; }
+}
+@media(max-width:640px){
+  .diag-ctas { flex-direction:column; }
+  .diag-cta-primary,.diag-cta-sec { text-align:center; justify-content:center; }
+}
 </style>
 </head>
 <body>
@@ -742,7 +866,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 <div id="cur-ring"></div>
 
 <!-- URGENCY BAR -->
-<div id="urgency">Solo quedan 4 cupos disponibles esta semana · Primera consulta 100% GRATIS · +593 99 444 2512</div>
+<div id="urgency">Nuevo: Diagnóstico IA $50 — Descubre si te aprueban antes de gastar $185 en la cita · <a href="/diagnostico.html" style="color:var(--bg);font-weight:700;text-decoration:underline">Ver ahora →</a></div>
 
 <!-- LOADING -->
 <div id="loader">
@@ -763,7 +887,8 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
     <a class="nav-a" href="#precios">Precios</a>
     <a class="nav-a" href="#proceso">Proceso</a>
     <a class="nav-a" href="#faq">FAQ</a>
-    <a class="nav-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">Consulta gratuita</a>
+    <a class="nav-a" href="/diagnostico.html" style="color:var(--gold-lt);font-weight:600">Diagnóstico $50</a>
+    <a class="nav-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20consulta%20gratuita%20de%20visa" target="_blank">Consulta gratuita</a>
   </div>
 </nav>
 
@@ -780,10 +905,10 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
     </h1>
     <p class="hero-sub">Cada expediente que entregamos tiene la arquitectura exacta que cada consulado necesita ver. Por eso el 98% de nuestros clientes aprueba — y no lo intentan dos veces.</p>
     <div class="hero-actions">
-      <a class="btn-gold" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita%20para%20tramitar%20mi%20visa" target="_blank">
-        Evalúa mi caso gratis — es gratis
+      <a class="btn-gold pulse-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20consulta%20gratuita%20de%20visa" target="_blank">
+        Evalúa mi caso — es gratis
       </a>
-      <a class="btn-outline-light" href="#lm-form-wrap" onclick="document.getElementById('lm-name')?.focus()">Descarga el checklist gratis →</a>
+      <a class="btn-outline-light" href="/diagnostico.html">Diagnóstico IA por $50 →</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -976,6 +1101,114 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </div>
 </section>
 
+<!-- DIAGNÓSTICO IA -->
+<section class="sec diag-section" id="diagnostico">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="diag-layout">
+
+        <div data-r>
+          <div class="diag-badge">
+            <div class="diag-badge-pulse"></div>
+            <div class="diag-badge-txt">Nuevo · Inteligencia Artificial</div>
+          </div>
+          <h2 class="diag-title">
+            Descubre si te<br>aprueban <em>antes</em><br>de gastar $185.
+          </h2>
+          <p class="diag-sub">El consulado decide tu caso en los primeros 90 segundos. Nuestra IA analiza tu perfil exactamente como lo haría un cónsul — y te dice qué te puede costar la visa antes de que vayas.</p>
+          <div class="diag-features">
+            <div class="diag-feat">
+              <div class="diag-feat-dot">1</div>
+              <div class="diag-feat-text">
+                <h4>Responde 15 preguntas sobre tu perfil</h4>
+                <p>Empleo, fondos, viajes previos, familia — los mismos factores que evalúa el consulado.</p>
+              </div>
+            </div>
+            <div class="diag-feat">
+              <div class="diag-feat-dot">2</div>
+              <div class="diag-feat-text">
+                <h4>La IA analiza tu caso en segundos</h4>
+                <p>Detecta fortalezas, señales de riesgo y la probabilidad real de aprobación según tu destino.</p>
+              </div>
+            </div>
+            <div class="diag-feat">
+              <div class="diag-feat-dot">3</div>
+              <div class="diag-feat-text">
+                <h4>Recibes tu expediente PDF personalizado</h4>
+                <p>Lista exacta de documentos, puntos a reforzar y recomendación del paquete para tu caso.</p>
+              </div>
+            </div>
+          </div>
+          <div class="diag-price-row">
+            <div class="diag-price">
+              <span class="diag-price-curr">$</span>
+              <span class="diag-price-num">50</span>
+            </div>
+            <div class="diag-price-note">
+              <strong>Pago único · Sin cita</strong>
+              Resultado en menos de 5 minutos.<br>100% online desde Ecuador.
+            </div>
+          </div>
+          <div class="diag-ctas">
+            <a class="diag-cta-primary pulse-cta" href="/diagnostico.html">Hacer mi diagnóstico ahora →</a>
+            <a class="diag-cta-sec" href="https://wa.me/593994442512?text=Hola,%20quiero%20saber%20mas%20sobre%20el%20diagnostico%20de%20visa" target="_blank">Tengo dudas</a>
+          </div>
+          <div class="diag-trust">
+            <div class="diag-trust-item">Sin esperas</div>
+            <div class="diag-trust-item">Sin compromiso</div>
+            <div class="diag-trust-item">Pago seguro</div>
+          </div>
+        </div>
+
+        <div data-r="d2">
+          <div class="diag-terminal" id="diag-term">
+            <div class="diag-term-bar">
+              <div class="dt-dot" style="background:#ff5f56"></div>
+              <div class="dt-dot" style="background:#ffbd2e"></div>
+              <div class="dt-dot" style="background:#27c93f"></div>
+              <div class="dt-title">Diagnóstico IA · Visa Global</div>
+            </div>
+            <div class="diag-term-body">
+              <div class="dt-line" id="dt1">
+                <div class="dt-step-num">01</div>
+                <div class="dt-step-content">
+                  <div class="dt-step-label">Analizando perfil</div>
+                  <div class="dt-step-text">Estabilidad laboral: 4 años · Mismo empleador</div>
+                  <div class="dt-step-sub">Ingresos documentados: $1,400/mes · Extracto 6 meses</div>
+                  <div class="dt-progress-bar"><div class="dt-progress-fill" id="dp1"></div></div>
+                </div>
+              </div>
+              <div class="dt-line" id="dt2">
+                <div class="dt-step-num">02</div>
+                <div class="dt-step-content">
+                  <div class="dt-step-label">Evaluando vínculos de retorno</div>
+                  <div class="dt-step-text">Propiedad en Ecuador · Hijos menores · Cónyuge</div>
+                  <div class="dt-step-sub">Factor de retorno: alto — reduce riesgo de rechazo</div>
+                  <div class="dt-progress-bar"><div class="dt-progress-fill" id="dp2"></div></div>
+                </div>
+              </div>
+              <div class="dt-line" id="dt3">
+                <div class="dt-step-num">03</div>
+                <div class="dt-step-content">
+                  <div class="dt-step-label">Historial de viajes</div>
+                  <div class="dt-step-text">Sin visa previa · Sin rechazos registrados</div>
+                  <div class="dt-step-sub">Perfil limpio — expediente construible desde cero</div>
+                  <div class="dt-progress-bar"><div class="dt-progress-fill" id="dp3"></div></div>
+                </div>
+              </div>
+              <div class="dt-result" id="dt-result">
+                <div class="dt-result-label">✓ Diagnóstico completado · Visa USA B1/B2</div>
+                <div class="dt-result-text">Probabilidad de aprobación: <span style="color:#4ade80;font-size:1.1rem">Alta</span><br>Paquete recomendado: Esencial $197<br>Documentos prioritarios: 7 identificados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="sec pricing-section" id="precios">
   <div class="wrap">
@@ -1008,18 +1241,18 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
             <div class="pf-item"><span class="pf-check grey">—</span><span style="color:var(--muted)">Simulacro de entrevista consular</span></div>
             <div class="pf-item"><span class="pf-check grey">—</span><span style="color:var(--muted)">Acompañamiento hasta la entrevista</span></div>
           </div>
-          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Esencial%20($97)" target="_blank">Empezar con Esencial</a>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Esencial%20($197)" target="_blank">Empezar con Esencial</a>
         </div>
 
         <!-- PROFESIONAL -->
         <div class="price-card featured">
-          <div class="price-badge">El mas elegido</div>
+          <div class="price-badge">El más elegido</div>
           <div class="price-tier">Paquete 02</div>
           <div class="price-name">Profesional</div>
-          <div class="price-ideal">La mayoria de los casos · Recomendado</div>
+          <div class="price-ideal">La mayoría de casos · Primer intento con factores de riesgo</div>
           <div class="price-amount">
             <span class="price-currency">$</span>
-            <span class="price-num">397</span>
+            <span class="price-num">250</span>
           </div>
           <div class="price-period">pago único · sin cargos adicionales</div>
           <div class="price-divider"></div>
@@ -1032,17 +1265,17 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
             <div class="pf-item"><span class="pf-check">+</span>Estrategia de presentacion del caso</div>
             <div class="pf-item"><span class="pf-check">+</span>Soporte por WhatsApp hasta la decision</div>
           </div>
-          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Profesional%20($197)" target="_blank">Empezar con Profesional</a>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20Profesional%20($250)" target="_blank">Empezar con Profesional</a>
         </div>
 
         <!-- VIP -->
         <div class="price-card">
           <div class="price-tier">Paquete 03</div>
           <div class="price-name">VIP</div>
-          <div class="price-ideal">Rechazos previos · Casos complejos · Familias</div>
+          <div class="price-ideal">Rechazos previos · Fondos bajos · Casos complejos</div>
           <div class="price-amount">
             <span class="price-currency">$</span>
-            <span class="price-num">697</span>
+            <span class="price-num">320</span>
           </div>
           <div class="price-period">pago único · sin cargos adicionales</div>
           <div class="price-divider"></div>
@@ -1055,7 +1288,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
             <div class="pf-item"><span class="pf-check">+</span>Gestion para grupos familiares completos</div>
             <div class="pf-item"><span class="pf-check">+</span>Prioridad de atencion y respuesta en 2 horas</div>
           </div>
-          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20VIP%20($397)" target="_blank">Empezar con VIP</a>
+          <a class="price-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20el%20Paquete%20VIP%20($320)" target="_blank">Empezar con VIP</a>
         </div>
 
       </div>
@@ -1201,7 +1434,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <div class="faq-list" data-r>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Cuánto cuesta la asesoría?<div class="faq-ico">+</div></button>
-            <div class="faq-ans">La primera consulta es completamente gratuita. Los paquetes de asesoría son: Esencial $197 (casos simples, primera solicitud), Profesional $397 (el más elegido, incluye simulacro de entrevista y acompañamiento completo), y VIP $697 (rechazos previos y casos complejos, sesiones ilimitadas). No hay cargos ocultos ni comisiones adicionales.</div>
+            <div class="faq-ans">La primera consulta es completamente gratuita. También ofrecemos el Diagnóstico IA por $50 — análisis de tu perfil en 5 minutos sin hablar con nadie. Los paquetes de asesoría completa son: Esencial $197 (casos simples, primera solicitud), Profesional $250 (el más elegido, incluye simulacro de entrevista y acompañamiento completo), y VIP $320 (rechazos previos y casos complejos, sesiones ilimitadas). Sin cargos ocultos.</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Garantizan que aprueben mi visa?<div class="faq-ico">+</div></button>
@@ -1462,6 +1695,44 @@ function showToast(){
   setTimeout(()=>el.classList.remove('show'),4200);
 }
 setTimeout(()=>{showToast();setInterval(showToast,9000);},4000);
+
+/* ── DIAGNÓSTICO TERMINAL ANIMATION ── */
+(function(){
+  const term = document.getElementById('diag-term');
+  if(!term) return;
+  const obs = new IntersectionObserver(es => {
+    if(!es[0].isIntersecting) return;
+    obs.disconnect();
+    function runAnim(){
+      ['dt1','dt2','dt3'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.classList.remove('visible');
+      });
+      const res = document.getElementById('dt-result');
+      if(res) res.classList.remove('visible');
+      ['dp1','dp2','dp3'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.style.width='0%';
+      });
+      setTimeout(()=>{
+        document.getElementById('dt1')?.classList.add('visible');
+        setTimeout(()=>{ const e=document.getElementById('dp1'); if(e) e.style.width='100%'; },200);
+      },400);
+      setTimeout(()=>{
+        document.getElementById('dt2')?.classList.add('visible');
+        setTimeout(()=>{ const e=document.getElementById('dp2'); if(e) e.style.width='100%'; },200);
+      },1600);
+      setTimeout(()=>{
+        document.getElementById('dt3')?.classList.add('visible');
+        setTimeout(()=>{ const e=document.getElementById('dp3'); if(e) e.style.width='100%'; },200);
+      },2800);
+      setTimeout(()=>{ document.getElementById('dt-result')?.classList.add('visible'); },4200);
+      setTimeout(runAnim, 7000);
+    }
+    runAnim();
+  },{threshold:.3});
+  obs.observe(term);
+})();
 
 /* ── MAGNETIC BTNS ── */
 document.querySelectorAll('.btn-gold,.btn-dark,.nav-cta').forEach(btn=>{
