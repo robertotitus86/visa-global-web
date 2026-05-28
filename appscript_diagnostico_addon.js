@@ -13,8 +13,9 @@
 // if (payload.action === 'chat_message')   return chatMessage(payload);
 // ────────────────────────────────────────────────────────────────────────
 
-const PAYPHONE_TOKEN = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
-const SITE_URL       = 'https://www.asesoriadevisadosglobal.com';
+const PAYPHONE_TOKEN    = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
+const PAYPHONE_STORE_ID = PropertiesService.getScriptProperties().getProperty('PAYPHONE_STORE_ID');
+const SITE_URL          = 'https://www.asesoriadevisadosglobal.com';
 
 // ════════════════════════════════════════════════════════════════════════
 // PAYPHONE — Crear transacción
@@ -35,7 +36,7 @@ function payphonePrepare(e) {
       tip:               0,
       currency:          'USD',
       clientTransactionId: ref,
-      storeId:           null,
+      storeId:           PAYPHONE_STORE_ID || null,
       responseUrl:       SITE_URL + '/diagnostico.html',
       cancellationUrl:   SITE_URL + '/diagnostico.html?cancelled=true',
       reference:         'Diagnostico Visa Global — ' + nombre,
