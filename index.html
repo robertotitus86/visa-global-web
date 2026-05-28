@@ -638,51 +638,45 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 @media(max-width:900px){ .lm-grid { grid-template-columns:1fr; gap:48px; } .lm-right { order:-1; } .lm-preview { width:260px; } }
 @media(max-width:640px){ .lm-row { grid-template-columns:1fr; } }
 
-/* ═══ ROBERTO AUTHORITY SECTION ══════════════════════ */
-.author-section { background:var(--bg2); position:relative; overflow:hidden; }
-.author-section::before {
+/* ═══ INSIDER KNOWLEDGE SECTION ═════════════════════ */
+.insider-section { background:var(--bg2); position:relative; overflow:hidden; }
+.insider-section::before {
   content:''; position:absolute; inset:0;
-  background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,136,10,.06), transparent);
+  background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(200,136,10,.05), transparent);
   pointer-events:none;
 }
-.author-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:80px; align-items:center; }
-.author-img-wrap { position:relative; }
-.author-img-frame {
-  width:100%; aspect-ratio:4/5; border-radius:16px; overflow:hidden;
-  background:var(--bg3); border:1px solid var(--line2);
-  display:flex; align-items:center; justify-content:center;
+.insider-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.insider-left { position:sticky; top:100px; }
+.insider-headline {
+  font-family:var(--serif); font-size:clamp(2.4rem,4.5vw,3.8rem);
+  font-weight:900; color:var(--white); line-height:1.0; letter-spacing:-.02em;
+  margin-bottom:24px;
 }
-.author-img-frame img { width:100%; height:100%; object-fit:cover; object-position:center top; }
-.author-img-placeholder {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:12px; color:var(--muted);
+.insider-headline em { color:var(--gold-lt); font-style:italic; }
+.insider-sub { font-size:1.1rem; font-weight:700; color:var(--gold-lt); margin-bottom:16px; line-height:1.4; }
+.insider-desc { font-size:.9375rem; color:var(--muted); line-height:1.75; margin-bottom:40px; max-width:420px; }
+.insider-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--gold-lt); color:var(--bg);
+  font-family:var(--sans); font-size:.9375rem; font-weight:700;
+  padding:15px 30px; border-radius:8px; text-decoration:none;
+  transition:all .2s;
 }
-.author-img-placeholder p { font-size:.75rem; text-align:center; max-width:160px; line-height:1.5; }
-.author-credentials {
-  position:absolute; bottom:-20px; right:-20px;
-  background:var(--gold-lt); color:var(--bg); border-radius:12px;
-  padding:20px 24px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,.3);
+.insider-cta:hover { opacity:.9; transform:translateY(-1px); }
+.insider-right { display:flex; flex-direction:column; gap:16px; }
+.insider-card {
+  background:var(--bg); border:1px solid var(--line2); border-radius:14px;
+  padding:28px; transition:border-color .25s, transform .2s;
 }
-.author-cred-num { font-family:var(--serif); font-size:2.4rem; font-weight:900; line-height:1; }
-.author-cred-label { font-size:.625rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-top:2px; }
-.author-right {}
-.author-eyebrow { font-size:.625rem; font-weight:600; text-transform:uppercase; letter-spacing:.22em; color:var(--gold); margin-bottom:20px; }
-.author-name { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.5rem); font-weight:900; color:var(--white); line-height:1.05; letter-spacing:-.02em; margin-bottom:8px; }
-.author-title { font-size:1rem; color:var(--muted); margin-bottom:28px; font-weight:300; }
-.author-quote {
-  font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--white);
-  line-height:1.55; margin-bottom:36px; padding-left:24px;
-  border-left:3px solid var(--gold-lt);
+.insider-card:hover { border-color:rgba(240,180,41,.3); transform:translateX(4px); }
+.ic-number {
+  font-family:var(--serif); font-size:3rem; font-weight:900;
+  color:rgba(240,180,41,.12); line-height:1; margin-bottom:8px;
 }
-.author-facts { display:flex; flex-direction:column; gap:16px; margin-bottom:36px; }
-.author-fact { display:flex; align-items:flex-start; gap:16px; }
-.af-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:7px; }
-.af-text { font-size:.9375rem; color:rgba(200,208,224,.75); line-height:1.55; }
-.af-text strong { color:var(--white); font-weight:600; }
-.author-stats { display:flex; gap:32px; padding:24px 0; border-top:1px solid var(--line); }
-.author-stat-n { font-family:var(--serif); font-size:2rem; font-weight:700; color:var(--gold-lt); line-height:1; }
-.author-stat-l { font-size:.625rem; text-transform:uppercase; letter-spacing:.15em; color:var(--muted); margin-top:4px; }
-@media(max-width:900px){ .author-layout { grid-template-columns:1fr; } .author-img-wrap { max-width:360px; } }
+.ic-title { font-size:1rem; font-weight:700; color:var(--white); margin-bottom:8px; line-height:1.3; }
+.ic-text { font-size:.875rem; color:var(--muted); line-height:1.7; }
+.ic-text strong { color:rgba(200,208,224,.85); font-weight:600; }
+@media(max-width:960px){ .insider-layout { grid-template-columns:1fr; } .insider-left { position:static; } }
 
 /* ═══ PRICING SECTION ════════════════════════════════ */
 .pricing-section { background:var(--bg); }
@@ -886,6 +880,52 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
           <p>Te evaluamos el caso, te decimos tus probabilidades reales y el camino que recomendamos. Honesto, sin rodeos. Gratis. Después decides si continuamos juntos.</p>
           <span class="svc-arrow">Hablar con un asesor →</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIDER KNOWLEDGE -->
+<section class="sec insider-section">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="insider-layout">
+
+        <div class="insider-left" data-r>
+          <div class="label">Lo que marca la diferencia</div>
+          <h2 class="insider-headline">
+            ¿Sabes qué ven<br>los cónsules cuando<br>abren tu <em>expediente?</em>
+          </h2>
+          <p class="insider-sub">Nosotros sí lo sabemos.<br>Y lo usamos para construir el tuyo.</p>
+          <p class="insider-desc">Hay detalles que solo se aprenden desde adentro del sistema. No están en ningún manual. Son los que deciden si tu visa se aprueba o se rechaza — y son exactamente los que revisamos contigo antes de tu entrevista.</p>
+          <a class="insider-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20saber%20como%20construyen%20mi%20expediente" target="_blank">
+            Ver cómo preparamos tu caso
+          </a>
+        </div>
+
+        <div class="insider-right">
+          <div class="insider-card" data-r>
+            <div class="ic-number">01</div>
+            <div class="ic-title">La decisión se toma antes de que abras la boca</div>
+            <div class="ic-text">El cónsul revisa tu expediente completo antes de llamarte. <strong>Lo que está en el papel es lo que define su postura inicial.</strong> Si los documentos generan dudas, la entrevista es solo una confirmación del rechazo.</div>
+          </div>
+          <div class="insider-card" data-r>
+            <div class="ic-number">02</div>
+            <div class="ic-title">La coherencia entre documentos vale más que cada uno por separado</div>
+            <div class="ic-text">No basta con tener buen extracto bancario. <strong>El extracto tiene que hablar el mismo idioma que tu carta de trabajo, tu declaración de impuestos y tu carta de invitación.</strong> Si no se alinean, generan sospecha.</div>
+          </div>
+          <div class="insider-card" data-r>
+            <div class="ic-number">03</div>
+            <div class="ic-title">La pregunta real no es a dónde vas — es por qué vas a volver</div>
+            <div class="ic-text">La embajada no evalúa si eres buena persona. <strong>Evalúa si tienes razones suficientes para regresar a Ecuador.</strong> Familia, trabajo, propiedad, negocio — cada elemento de tu vida que ancla tu regreso es parte del expediente.</div>
+          </div>
+          <div class="insider-card" data-r>
+            <div class="ic-number">04</div>
+            <div class="ic-title">Un rechazo anterior no te cierra la puerta — lo que presentes sí puede</div>
+            <div class="ic-text">Volver con el mismo expediente es el error más común. <strong>El cónsul ya tiene tu historial — necesita ver algo diferente, no lo mismo mejorado.</strong> La estrategia de reconversión es lo que abre la segunda oportunidad.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
