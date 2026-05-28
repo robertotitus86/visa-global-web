@@ -687,8 +687,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         Evalúa mi caso gratis ahora
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
       </a>
-      <a class="btn-outline-light" href="#proceso">Ver el proceso →</a>
-
+      <a class="btn-outline-light" href="#lm-form-wrap" onclick="document.getElementById('lm-name')?.focus()">Descarga el checklist gratis →</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -1098,6 +1097,23 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </div>
 </div>
 
+<!-- EXIT INTENT POPUP -->
+<div id="ei-popup">
+  <div id="ei-backdrop"></div>
+  <div id="ei-box">
+    <button id="ei-close">×</button>
+    <div class="ei-tag">Antes de irte — descarga gratis</div>
+    <h2 class="ei-title">27 errores que te <em>niegan</em> la visa</h2>
+    <p class="ei-sub">El checklist que usan nuestros clientes antes de su entrevista consular. Sin costo, sin spam.</p>
+    <form class="ei-form" id="ei-form">
+      <input class="ei-input" id="ei-name" type="text" placeholder="Tu nombre" required>
+      <input class="ei-input" id="ei-phone" type="tel" placeholder="Tu WhatsApp" required>
+      <button type="submit" class="ei-btn">Enviarme el checklist gratis</button>
+    </form>
+    <div class="ei-skip">No gracias, prefiero arriesgarme sin preparación</div>
+  </div>
+</div>
+
 <!-- WA FLOAT -->
 <a class="wa-float" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">
   <div class="wa-pulse"></div>
@@ -1241,8 +1257,76 @@ const style=document.createElement('style');
 style.textContent=`
 @keyframes slide-in-msg{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes typing-dot{0%,60%{opacity:1;transform:translateY(0)}30%{opacity:.4;transform:translateY(-4px)}60%,100%{opacity:.2;transform:translateY(0)}}
+#ei-popup{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;}
+#ei-popup.show{opacity:1;visibility:visible;}
+#ei-backdrop{position:absolute;inset:0;background:rgba(2,9,18,.85);backdrop-filter:blur(6px);}
+#ei-box{position:relative;background:#0A1628;border:1px solid rgba(240,180,41,.25);border-radius:20px;padding:52px 48px;max-width:520px;width:90%;box-shadow:0 40px 80px rgba(0,0,0,.6);text-align:center;}
+#ei-close{position:absolute;top:18px;right:22px;background:none;border:none;color:rgba(255,255,255,.35);font-size:1.5rem;cursor:pointer;line-height:1;transition:color .15s;}
+#ei-close:hover{color:#fff;}
+.ei-tag{font-size:.625rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:16px;}
+.ei-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.ei-title em{color:var(--gold-lt);font-style:italic;}
+.ei-sub{font-size:.9375rem;color:rgba(200,208,224,.65);margin-bottom:32px;line-height:1.6;}
+.ei-form{display:flex;flex-direction:column;gap:12px;}
+.ei-input{padding:13px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:.9375rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.ei-input:focus{border-color:rgba(240,180,41,.5);}
+.ei-input::placeholder{color:rgba(200,208,224,.35);}
+.ei-btn{background:var(--gold-lt);color:#060E1F;border:none;padding:15px;border-radius:8px;font-size:1rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:opacity .2s;}
+.ei-btn:hover{opacity:.9;}
+.ei-skip{font-size:.75rem;color:rgba(200,208,224,.35);margin-top:12px;cursor:pointer;text-decoration:underline;}
+.ei-skip:hover{color:rgba(200,208,224,.6);}
 `;
 document.head.appendChild(style);
+
+/* ── EXIT INTENT POPUP ── */
+(function(){
+  if(sessionStorage.getItem('ei_shown')) return;
+  const popup = document.getElementById('ei-popup');
+  if(!popup) return;
+
+  function show(){
+    if(sessionStorage.getItem('ei_shown')) return;
+    sessionStorage.setItem('ei_shown','1');
+    popup.classList.add('show');
+  }
+
+  // Desktop: cursor leaves viewport upward
+  document.addEventListener('mouseleave', e => { if(e.clientY < 10) show(); });
+
+  // Mobile/all: after 45s on page
+  setTimeout(show, 45000);
+
+  // After 70% scroll + pause
+  let scrollFired = false;
+  window.addEventListener('scroll', function(){
+    if(scrollFired) return;
+    const pct = scrollY / (document.body.scrollHeight - innerHeight);
+    if(pct > 0.7){ scrollFired = true; setTimeout(show, 3000); }
+  });
+
+  // Close handlers
+  document.getElementById('ei-backdrop')?.addEventListener('click', ()=>popup.classList.remove('show'));
+  document.getElementById('ei-close')?.addEventListener('click', ()=>popup.classList.remove('show'));
+  document.querySelector('.ei-skip')?.addEventListener('click', ()=>popup.classList.remove('show'));
+
+  // Form submit (reuse same logic as lead magnet)
+  document.getElementById('ei-form')?.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('ei-name').value.trim();
+    const phone = document.getElementById('ei-phone').value.trim();
+    const btn = this.querySelector('.ei-btn');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec',{
+        method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'lead_magnet', nombre:name, whatsapp:phone, fuente:'exit-intent', fecha:new Date().toISOString()})
+      });
+    } catch(_){}
+    popup.classList.remove('show');
+    const msg = encodeURIComponent(`Hola Roberto, soy ${name}. Quiero el checklist de la entrevista consular.`);
+    setTimeout(()=>window.open(`https://wa.me/593994442512?text=${msg}`,'_blank'), 400);
+  });
+})();
 
 /* ── LEAD MAGNET FORM ── */
 const lmForm = document.getElementById('lm-form');
