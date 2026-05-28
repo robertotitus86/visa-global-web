@@ -10,9 +10,12 @@ const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHR
 // GEMINI: gratis. Usar para todos los analisis del portal.
 const GEMINI_KEY = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY')
   || 'AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8';
-const ADMIN_PIN    = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
-const EMAIL_ROBERTO = 'nanotiendaec@gmail.com';
-const SS_ID        = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
+const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
+const PAYPHONE_TOKEN    = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
+const PAYPHONE_STORE_ID = PropertiesService.getScriptProperties().getProperty('PAYPHONE_STORE_ID');
+const SITE_URL          = 'https://www.asesoriadevisadosglobal.com';
+const EMAIL_ROBERTO     = 'nanotiendaec@gmail.com';
+const SS_ID             = '19yHZ5HJH5eWyFXej8ffGBT2_sttXDZtvNaCoNEzjIOU';
 
 // Columnas del CRM de casos
 const COL_CRM = [
@@ -46,6 +49,8 @@ function doPost(e) {
     if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
     if (payload.subtipo === 'submit_screening')         return manejarScreening(payload);
     if (payload.action === 'lead_magnet')               return guardarLeadMagnet(payload);
+    if (payload.action === 'run_diagnostic')            return runDiagnostico(payload);
+    if (payload.action === 'chat_message')              return chatMessage(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
@@ -882,8 +887,10 @@ function doGet(e) {
   if (action === 'get_draft')          return getDraftAction(e);
   if (action === 'reconstruct')        return reconstructFromDetalle(e);
   if (action === 'test')              return testSistema(e);
-  if (action === 'ds160guide') return servirGuiaDS160(e.parameter.ref || '', e.parameter.pin || '');
-  if (action === 'carta')     return servirCarta(e.parameter.ref || '', e.parameter.pin || '');
+  if (action === 'ds160guide')       return servirGuiaDS160(e.parameter.ref || '', e.parameter.pin || '');
+  if (action === 'carta')           return servirCarta(e.parameter.ref || '', e.parameter.pin || '');
+  if (action === 'payphone_prepare') return payphonePrepare(e);
+  if (action === 'payphone_verify')  return payphoneVerify(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -2662,4 +2669,265 @@ function servirCarta(ref, pin) {
   } catch(e) {
     return HtmlService.createHtmlOutput('<p style="padding:20px;color:red">Error: ' + e.toString() + '</p>');
   }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// PAYPHONE — Crear transacción $50
+// ════════════════════════════════════════════════════════════════════════
+function payphonePrepare(e) {
+  try {
+    if (!PAYPHONE_TOKEN) return ok({ error: 'PAYPHONE_TOKEN no configurado en Script Properties' });
+    const ref    = e.parameter.ref    || 'DIAG-000000';
+    const nombre = e.parameter.nombre || 'Cliente';
+    const email  = e.parameter.email  || '';
+    const body = {
+      amount: 5000, amountWithTax: 0, tax: 0, service: 0, tip: 0,
+      currency: 'USD', clientTransactionId: ref,
+      storeId: PAYPHONE_STORE_ID || null,
+      responseUrl:     SITE_URL + '/diagnostico.html',
+      cancellationUrl: SITE_URL + '/diagnostico.html?cancelled=true',
+      reference: 'Diagnostico Visa Global — ' + nombre, lang: 'es'
+    };
+    const resp = UrlFetchApp.fetch('https://pay.payphone.com/api/button/Prepare', {
+      method: 'post', contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + PAYPHONE_TOKEN },
+      payload: JSON.stringify(body), muteHttpExceptions: true
+    });
+    const data = JSON.parse(resp.getContentText());
+    if (data.payWithCard) {
+      guardarIntentoPayphone(ref, nombre, email, 'pendiente');
+      return ok({ url: data.payWithCard });
+    }
+    return ok({ error: 'Payphone error: ' + JSON.stringify(data) });
+  } catch(err) { return ok({ error: err.toString() }); }
+}
+
+function payphoneVerify(e) {
+  try {
+    if (!PAYPHONE_TOKEN) return ok({ approved: false, error: 'Token no configurado' });
+    const id = parseInt(e.parameter.id);
+    const ct = e.parameter.clientTransactionId;
+    const resp = UrlFetchApp.fetch('https://pay.payphone.com/api/button/V2/Confirm', {
+      method: 'post', contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + PAYPHONE_TOKEN },
+      payload: JSON.stringify({ id, clientTransactionId: ct }), muteHttpExceptions: true
+    });
+    const data     = JSON.parse(resp.getContentText());
+    const aprobado = data.transactionStatus === 'Approved';
+    if (aprobado) guardarIntentoPayphone(ct, '', '', 'pagado', id);
+    return ok({ approved: aprobado, status: data.transactionStatus });
+  } catch(err) { return ok({ approved: false, error: err.toString() }); }
+}
+
+function guardarIntentoPayphone(ref, nombre, email, estado, ppId) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Pagos Diagnostico');
+    if (!sh) {
+      sh = ss.insertSheet('Pagos Diagnostico');
+      sh.appendRow(['Fecha','Ref','Nombre','Email','Estado','PP_ID','Monto']);
+      sh.getRange(1,1,1,7).setBackground('#060E1F').setFontColor('#F0B429').setFontWeight('bold');
+      sh.setFrozenRows(1);
+    }
+    const rows = sh.getDataRange().getValues();
+    const row  = rows.findIndex(r => r[1] === ref);
+    const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    if (row > 0) {
+      sh.getRange(row + 1, 5).setValue(estado);
+      if (ppId) sh.getRange(row + 1, 6).setValue(ppId);
+    } else {
+      sh.appendRow([fecha, ref, nombre || '', email || '', estado, ppId || '', '$50.00']);
+    }
+  } catch(e) { console.error('guardarIntentoPayphone:', e); }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// DIAGNÓSTICO — Analizar perfil con Gemini
+// ════════════════════════════════════════════════════════════════════════
+function runDiagnostico(payload) {
+  try {
+    const client  = payload.client  || {};
+    const answers = payload.answers || {};
+    const prompt  = buildDiagnosticoPrompt(client, answers);
+    const raw     = callGeminiDiag(prompt);
+    const report  = parseDiagnosticoJSON(raw);
+    guardarDiagnostico(client, answers, report);
+    enviarEmailDiagnostico(client, answers, report);
+    alertarRobertoDiagnostico(client, answers, report);
+    return ok({ ok: true, report });
+  } catch(err) {
+    console.error('runDiagnostico:', err);
+    return ok({ ok: false, error: err.toString() });
+  }
+}
+
+function buildDiagnosticoPrompt(client, a) {
+  return 'Eres experto en visas con 20 años de experiencia en el consulado americano de Ecuador. ' +
+  'Analiza este perfil y devuelve SOLO JSON sin markdown.\n\n' +
+  'PERFIL:\n' +
+  '- Nombre: ' + (client.name||'No indicado') + '\n' +
+  '- Destino: ' + (a.destino||'-') + '\n' +
+  '- Urgencia: ' + (a.urgencia||'-') + '\n' +
+  '- Edad: ' + (a.edad||'-') + '\n' +
+  '- Estado civil: ' + (a.civil||'-') + '\n' +
+  '- Hijos menores en Ecuador: ' + (a.hijos||'-') + '\n' +
+  '- Empleo: ' + (a.empleo||'-') + '\n' +
+  '- Antiguedad: ' + (a.antiguedad||'-') + '\n' +
+  '- Ingresos: ' + (a.ingresos||'-') + '\n' +
+  '- Bienes: ' + (a.bienes||'-') + '\n' +
+  '- Historial visa: ' + (a.historial||'-') + '\n' +
+  '- Visas vigentes: ' + (a.visa_otra||'-') + '\n' +
+  '- Viajes recientes: ' + (a.viajes||'-') + '\n' +
+  '- Familiares en USA/Europa: ' + (a.familiares||'-') + '\n' +
+  '- Banco: ' + (a.banco||'-') + '\n' +
+  '- Motivo: ' + (a.motivo||'-') + '\n\n' +
+  'Contexto: Ecuador 42% tasa rechazo USA 2025. Consulado busca arraigo.\n\n' +
+  'JSON requerido:\n' +
+  '{"fortalezas":["..."],"riesgos":["..."],"documentos":["..."],' +
+  '"analisis":"parrafo 3-4 oraciones directo y honesto",' +
+  '"riesgo_label":"RIESGO ALTO|RIESGO MEDIO|RIESGO BAJO",' +
+  '"riesgo_nivel":"alto|medio|bajo",' +
+  '"paquete":"esencial|profesional|vip",' +
+  '"paquete_razon":"una oracion"}\n\n' +
+  'Reglas: rechazo previo→paquete=vip. Familiares sin docs en USA→riesgo=alto. Se honesto.';
+}
+
+function parseDiagnosticoJSON(raw) {
+  try {
+    const match = raw.replace(/```json|```/g,'').trim().match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Sin JSON');
+    return JSON.parse(match[0]);
+  } catch(e) {
+    return {
+      fortalezas: ['Perfil recibido'], riesgos: ['Revision manual pendiente'],
+      documentos: ['Pasaporte vigente','Estados de cuenta 3 meses','Carta de empleo','Comprobante de bienes','Fotos recientes'],
+      analisis: 'Roberto revisara tu expediente y te contactara pronto.',
+      riesgo_label: 'EN REVISION', riesgo_nivel: 'medio',
+      paquete: 'profesional', paquete_razon: 'Recomendacion pendiente.'
+    };
+  }
+}
+
+function guardarDiagnostico(client, answers, report) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Diagnosticos');
+    if (!sh) {
+      sh = ss.insertSheet('Diagnosticos');
+      sh.appendRow(['Fecha','Ref','Nombre','Email','WhatsApp','Destino','Riesgo','Paquete','Fortalezas','Riesgos','Documentos','Analisis']);
+      sh.getRange(1,1,1,12).setBackground('#060E1F').setFontColor('#F0B429').setFontWeight('bold');
+      sh.setFrozenRows(1);
+    }
+    const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    sh.appendRow([fecha, client.ref||'', client.name||'', client.email||'', client.phone||'',
+      answers.destino||'', report.riesgo_label||'', report.paquete||'',
+      (report.fortalezas||[]).join(' | '), (report.riesgos||[]).join(' | '),
+      (report.documentos||[]).join(' | '), report.analisis||'']);
+  } catch(e) { console.error('guardarDiagnostico:', e); }
+}
+
+function enviarEmailDiagnostico(client, answers, report) {
+  try {
+    if (!client.email) return;
+    const pkgs = { esencial:'Esencial ($197)', profesional:'Profesional ($250)', vip:'VIP Rechazo ($320)' };
+    const pNombre = pkgs[report.paquete] || 'Profesional ($250)';
+    const rColor  = report.riesgo_nivel === 'alto' ? '#dc2626' : report.riesgo_nivel === 'bajo' ? '#059669' : '#d97706';
+    const waText  = encodeURIComponent('Hola Roberto, recibi mi diagnostico (ref: ' + (client.ref||'') + ') y quiero contratar el ' + pNombre);
+    const html =
+      '<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">' +
+      '<div style="background:#060E1F;padding:2rem;text-align:center">' +
+      '<h1 style="color:#fff;font-size:1.4rem;margin:0">Expediente de Diagnostico</h1>' +
+      '<p style="color:rgba(255,255,255,0.6);margin:0.25rem 0 0;font-size:0.85rem">Asesoria Visa Global</p></div>' +
+      '<div style="background:#fff;padding:1.75rem;border:1px solid #f3f4f6">' +
+      '<p>Hola <strong>' + (client.name||'') + '</strong>, aqui esta tu analisis para <strong>' + (answers.destino||'visa') + '</strong>.</p>' +
+      '<div style="text-align:center;margin:1rem 0"><span style="background:' + rColor + ';color:#fff;padding:0.25rem 1rem;border-radius:999px;font-size:0.8rem;font-weight:700">' + (report.riesgo_label||'') + '</span></div>' +
+      '<h3 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af">Fortalezas</h3>' +
+      '<ul>' + (report.fortalezas||[]).map(function(f){return '<li>'+f+'</li>';}).join('') + '</ul>' +
+      '<h3 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af">Factores de riesgo</h3>' +
+      '<ul>' + (report.riesgos||[]).map(function(r){return '<li>'+r+'</li>';}).join('') + '</ul>' +
+      '<h3 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af">Documentos prioritarios</h3>' +
+      '<ul>' + (report.documentos||[]).map(function(d){return '<li>'+d+'</li>';}).join('') + '</ul>' +
+      '<blockquote style="border-left:3px solid #F0B429;padding:0.75rem 1rem;background:#f9fafb;margin:1rem 0">' + (report.analisis||'') + '</blockquote>' +
+      '<div style="background:#060E1F;border-radius:0.5rem;padding:1.5rem;text-align:center;margin-top:1.5rem">' +
+      '<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:0 0 0.25rem">Paquete recomendado</p>' +
+      '<p style="color:#F0B429;font-size:1.35rem;font-weight:700;margin:0 0 0.25rem">' + pNombre + '</p>' +
+      '<p style="color:rgba(255,255,255,0.55);font-size:0.8rem;margin:0 0 1rem">' + (report.paquete_razon||'') + '</p>' +
+      '<a href="https://wa.me/593994442512?text=' + waText + '" style="background:#25D366;color:#fff;padding:0.65rem 1.75rem;border-radius:0.5rem;text-decoration:none;font-weight:700;font-size:0.9rem">Contratar por WhatsApp</a></div>' +
+      '<p style="font-size:0.75rem;color:#9ca3af;text-align:center;margin-top:1rem">Ref: ' + (client.ref||'') + ' · asesoriadevisadosglobal.com</p>' +
+      '</div></div>';
+    MailApp.sendEmail({ to: client.email, subject: 'Tu expediente de diagnostico — Asesoria Visa Global', htmlBody: html });
+  } catch(e) { console.error('enviarEmailDiagnostico:', e); }
+}
+
+function alertarRobertoDiagnostico(client, answers, report) {
+  try {
+    const emoji = report.riesgo_nivel === 'bajo' ? '🟢' : report.riesgo_nivel === 'alto' ? '🔴' : '🟡';
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: emoji + ' Nuevo diagnostico: ' + (client.name||'Sin nombre') + ' — ' + (report.paquete||'').toUpperCase(),
+      body: 'NUEVO DIAGNOSTICO PAGADO\n\nNombre: ' + (client.name||'') + '\nEmail: ' + (client.email||'') +
+            '\nWhatsApp: ' + (client.phone||'') + '\nRef: ' + (client.ref||'') +
+            '\nDestino: ' + (answers.destino||'') + '\nRiesgo: ' + (report.riesgo_label||'') +
+            '\nPaquete: ' + (report.paquete||'').toUpperCase() + '\n\n' + (report.analisis||'')
+    });
+  } catch(e) {}
+}
+
+function callGeminiDiag(prompt) {
+  const url  = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+  const resp = UrlFetchApp.fetch(url, {
+    method: 'post', contentType: 'application/json',
+    payload: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2, maxOutputTokens: 1500 } }),
+    muteHttpExceptions: true
+  });
+  return JSON.parse(resp.getContentText()).candidates[0].content.parts[0].text;
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// CHAT WIDGET — Fallback Gemini (solo si el bot de Render no responde)
+// ════════════════════════════════════════════════════════════════════════
+function chatMessage(payload) {
+  try {
+    const message = payload.message || '';
+    const hist    = (payload.history || []).slice(-6);
+    const system  = 'Eres el asistente de Asesoria Visa Global (Roberto Acosta, espanol, experto en visas Ecuador). ' +
+      'Precios: Diagnostico $50 | Esencial $197 | Profesional $250 | VIP Rechazo $320 por persona. ' +
+      'Responde en espanol, corto (max 3 oraciones), calido y directo. Sin emojis. ' +
+      'Despues de 3-4 intercambios ofrece el diagnostico: <a href="/diagnostico.html" class="vg-cta-btn">Obtener diagnostico — $50</a>. ' +
+      'Devuelve JSON: {"reply":"texto","quick_replies":["op1","op2"]}';
+    const contents = hist.map(function(h) {
+      return { role: h.role === 'assistant' ? 'model' : 'user', parts: [{ text: h.content || '' }] };
+    });
+    contents.push({ role: 'user', parts: [{ text: message }] });
+    const url  = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+    const resp = UrlFetchApp.fetch(url, {
+      method: 'post', contentType: 'application/json',
+      payload: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: contents, generationConfig: { temperature: 0.5, maxOutputTokens: 350 } }),
+      muteHttpExceptions: true
+    });
+    const raw = JSON.parse(resp.getContentText()).candidates[0].content.parts[0].text;
+    let parsed;
+    try {
+      const m = raw.replace(/```json|```/g,'').trim().match(/\{[\s\S]*\}/);
+      parsed = m ? JSON.parse(m[0]) : { reply: raw, quick_replies: [] };
+    } catch(_) { parsed = { reply: raw, quick_replies: [] }; }
+    guardarChatLog(payload.session || '', message, parsed.reply);
+    return ok({ reply: parsed.reply, quick_replies: parsed.quick_replies || [] });
+  } catch(err) {
+    return ok({ reply: 'Disculpa el inconveniente. Escribe al WhatsApp: <a href="https://wa.me/593994442512">+593 99 444 2512</a>', quick_replies: [] });
+  }
+}
+
+function guardarChatLog(session, userMsg, botReply) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Chat Logs');
+    if (!sh) {
+      sh = ss.insertSheet('Chat Logs');
+      sh.appendRow(['Fecha','Session','Usuario','Bot']);
+      sh.getRange(1,1,1,4).setBackground('#060E1F').setFontColor('#F0B429').setFontWeight('bold');
+      sh.setFrozenRows(1);
+    }
+    sh.appendRow([Utilities.formatDate(new Date(),'America/Guayaquil','dd/MM/yyyy HH:mm'), session, userMsg, botReply]);
+  } catch(e) {}
 }
