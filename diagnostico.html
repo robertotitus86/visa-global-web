@@ -304,6 +304,7 @@
         <p style="font-size:0.78rem; color:#6b7280;">Envia el comprobante por WhatsApp al <strong>+593 98 784 6751</strong> con tu nombre y te activamos el diagnostico de inmediato.</p>
       </div>
       <p class="pay-note">Pago con tarjeta procesado por Payphone. Seras redirigido y regresaras automaticamente una vez confirmado.</p>
+      <div id="pay-error" style="display:none;margin-top:1rem;background:#fef3c7;border:1px solid #f59e0b;border-radius:0.5rem;padding:0.85rem 1rem;font-size:0.83rem;color:#92400e;line-height:1.5;"></div>
     </div>
   </div>
 </div>
@@ -474,18 +475,45 @@ function submitModal() {
 
 // ═══ PAYPHONE ═════════════════════════════════════════════════════════
 async function redirectPayphone() {
-  const btn = document.getElementById('pay-btn');
+  const btn     = document.getElementById('pay-btn');
+  const errArea = document.getElementById('pay-error');
   btn.textContent = 'Generando link de pago...';
   btn.disabled = true;
+  if (errArea) errArea.style.display = 'none';
   try {
-    const res  = await fetch(GAS_URL + '?action=payphone_prepare&ref=' + encodeURIComponent(client.ref) + '&nombre=' + encodeURIComponent(client.name) + '&email=' + encodeURIComponent(client.email) + '&amount=37');
+    const res  = await fetch(GAS_URL + '?action=payphone_prepare&ref=' + encodeURIComponent(client.ref) + '&nombre=' + encodeURIComponent(client.name) + '&email=' + encodeURIComponent(client.email) + '&amount=37', { mode: 'cors' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    if (data.url) { window.location.href = data.url; }
-    else          { throw new Error(data.error || 'Sin URL'); }
+    if (data.url) {
+      // Intentar redirect inmediato
+      const win = window.open(data.url, '_self');
+      if (!win) {
+        // Popup bloqueado — mostrar link directo
+        showPayLink(data.url);
+      }
+    } else {
+      throw new Error(data.error || 'Sin URL de pago');
+    }
   } catch(e) {
-    btn.textContent = 'Pagar con Payphone';
+    console.error('[PayPhone]', e);
+    btn.textContent = 'Reintentar';
     btn.disabled = false;
-    alert('Error generando el pago. Intenta de nuevo o escribe al WhatsApp.');
+    if (errArea) {
+      errArea.innerHTML = 'No se pudo generar el link automaticamente. <a href="https://wa.me/593987846751?text=Quiero%20hacer%20el%20Diagnostico%20de%20Visa" target="_blank" style="color:#F0B429;font-weight:700;">Escríbenos por WhatsApp</a> y te enviamos el link de pago directamente.';
+      errArea.style.display = 'block';
+    }
+  }
+}
+
+function showPayLink(url) {
+  const errArea = document.getElementById('pay-error');
+  const btn = document.getElementById('pay-btn');
+  btn.textContent = 'Ir al pago →';
+  btn.disabled = false;
+  btn.onclick = () => window.location.href = url;
+  if (errArea) {
+    errArea.innerHTML = 'Tu link de pago está listo. <strong>Haz clic en el botón "Ir al pago"</strong> de arriba para continuar.';
+    errArea.style.display = 'block';
   }
 }
 
