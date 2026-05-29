@@ -54,6 +54,25 @@
     }
     .price-badge .amount { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; }
     .price-badge .label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.75; margin-top: 0.2rem; }
+    .price-badge .original { font-size: 0.9rem; font-weight: 600; text-decoration: line-through; opacity: 0.55; margin-top: 0.15rem; }
+    .oferta-badge {
+      display: inline-block; background: #dc2626; color: #fff;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 2rem; margin-bottom: 1rem;
+      animation: pulseRed 2s ease-in-out infinite;
+    }
+    @keyframes pulseRed {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.5); }
+      50%       { box-shadow: 0 0 0 7px rgba(220,38,38,0); }
+    }
+    .countdown-wrap {
+      display: inline-flex; gap: 0.75rem; align-items: center; margin-bottom: 1.75rem;
+      background: rgba(255,255,255,0.08); padding: 0.6rem 1.25rem; border-radius: 0.65rem;
+    }
+    .cd-unit { text-align: center; }
+    .cd-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .cd-lbl { font-size: 0.62rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+    .cd-sep { font-size: 1.3rem; color: var(--gold); opacity: 0.5; margin-bottom: 0.8rem; }
 
     .includes { background: var(--white); padding: 4rem 2rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; text-align: center; margin-bottom: 0.65rem; color: var(--navy); }
@@ -185,12 +204,20 @@
     <div class="hero-tag">Paso 1 — Conoce tu perfil antes de aplicar</div>
     <h1>Descubre si tienes lo que el consulado busca <em>antes de gastar $185</em></h1>
     <p>Respondas 15 preguntas. La inteligencia artificial analiza tu caso y te entrega un expediente personalizado con tus fortalezas, riesgos y documentos exactos.</p>
+    <div class="oferta-badge">Oferta solo por hoy — 26% de descuento</div>
     <div class="price-badge">
-      <span class="amount">$50</span>
+      <span class="amount">$37</span>
       <span class="label">pago unico — entrega en minutos</span>
+      <span class="original">Precio normal: $50</span>
     </div>
-    <br>
-    <button class="btn-primary" onclick="openModal()">Obtener mi diagnostico ahora</button>
+    <div class="countdown-wrap" id="countdown-wrap">
+      <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">horas</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">min</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">seg</div></div>
+    </div>
+    <button class="btn-primary" onclick="openModal()">Obtener mi diagnostico ahora — $37</button>
   </section>
 
   <section class="includes">
@@ -226,8 +253,8 @@
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Pagas $50</h3>
-        <p>Pago seguro con Payphone. Se procesa en segundos.</p>
+        <h3>Pagas $37</h3>
+        <p>Pago seguro con tarjeta via Payphone, o transferencia bancaria directa.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -245,7 +272,7 @@
   <section class="cta-bottom">
     <h2>Tu visa empieza por saber donde estas</h2>
     <p>El diagnostico te da claridad. La asesoria te da la visa.</p>
-    <button class="btn-primary" onclick="openModal()">Obtener mi diagnostico — $50</button>
+    <button class="btn-primary" onclick="openModal()">Obtener mi diagnostico — $37 solo hoy</button>
   </section>
 </div>
 
@@ -256,13 +283,27 @@
       <h2>Completa tu pago</h2>
       <p class="pay-name" id="pay-name-tag"></p>
       <div class="pay-summary">
-        <span class="item">Diagnostico de perfil visa</span>
-        <span class="total">$50.00</span>
+        <span class="item">Diagnostico de perfil visa <span style="font-size:0.75rem; color:#dc2626; font-weight:700;">(oferta hoy)</span></span>
+        <span class="total" style="display:flex; flex-direction:column; align-items:flex-end;">
+          <span style="font-size:0.85rem; text-decoration:line-through; color:#9ca3af;">$50.00</span>
+          <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#060E1F;">$37.00</span>
+        </span>
       </div>
       <button class="btn-primary" id="pay-btn" style="width:100%; font-size:1rem; padding:1rem;" onclick="redirectPayphone()">
-        Pagar con Payphone
+        Pagar con tarjeta — Payphone
       </button>
-      <p class="pay-note">Pago seguro procesado por Payphone. Seras redirigido y regresaras automaticamente una vez confirmado.</p>
+      <div style="margin: 1.25rem 0; display:flex; align-items:center; gap:0.75rem;">
+        <div style="flex:1; height:1px; background:#e5e7eb;"></div>
+        <span style="font-size:0.78rem; color:#6b7280;">o paga por transferencia</span>
+        <div style="flex:1; height:1px; background:#e5e7eb;"></div>
+      </div>
+      <div style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:0.65rem; padding:1rem 1.25rem; text-align:left; margin-bottom:1rem;">
+        <p style="font-size:0.78rem; font-weight:700; color:#374151; margin-bottom:0.4rem; text-transform:uppercase; letter-spacing:0.05em;">Banco Pichincha — Cuenta de Ahorros</p>
+        <p style="font-size:0.88rem; color:#111827; margin-bottom:0.2rem;">Titular: Roberto Acosta</p>
+        <p style="font-size:0.88rem; color:#111827; margin-bottom:0.65rem;">Numero: <strong>2200449871</strong></p>
+        <p style="font-size:0.78rem; color:#6b7280;">Envia el comprobante por WhatsApp al <strong>+593 98 784 6751</strong> con tu nombre y te activamos el diagnostico de inmediato.</p>
+      </div>
+      <p class="pay-note">Pago con tarjeta procesado por Payphone. Seras redirigido y regresaras automaticamente una vez confirmado.</p>
     </div>
   </div>
 </div>
@@ -414,13 +455,30 @@ function submitModal() {
   show('payment');
 }
 
+// ═══ COUNTDOWN ════════════════════════════════════════════════════════
+(function startCountdown() {
+  function tick() {
+    const now       = new Date();
+    const midnight  = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const diff      = Math.max(0, Math.floor((midnight - now) / 1000));
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
 // ═══ PAYPHONE ═════════════════════════════════════════════════════════
 async function redirectPayphone() {
   const btn = document.getElementById('pay-btn');
   btn.textContent = 'Generando link de pago...';
   btn.disabled = true;
   try {
-    const res  = await fetch(GAS_URL + '?action=payphone_prepare&ref=' + encodeURIComponent(client.ref) + '&nombre=' + encodeURIComponent(client.name) + '&email=' + encodeURIComponent(client.email));
+    const res  = await fetch(GAS_URL + '?action=payphone_prepare&ref=' + encodeURIComponent(client.ref) + '&nombre=' + encodeURIComponent(client.name) + '&email=' + encodeURIComponent(client.email) + '&amount=37');
     const data = await res.json();
     if (data.url) { window.location.href = data.url; }
     else          { throw new Error(data.error || 'Sin URL'); }
@@ -554,7 +612,10 @@ function renderReport(r) {
       <h4>${p.label}</h4>
       <div class="pkg-price">${p.precio}</div>
       <div class="pkg-per">${p.per}</div>
-      <a href="https://wa.me/${WA}?text=${encodeURIComponent('Hola Roberto, hice mi diagnostico (ref: ' + client.ref + ') y quiero el Paquete ' + p.label + '.')}" target="_blank" class="btn-wa">Contratar</a>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <a href="https://wa.me/${WA}?text=${encodeURIComponent('Hola Roberto, hice mi diagnostico (ref: ' + client.ref + ') y quiero el Paquete ' + p.label + '.')}" target="_blank" class="btn-wa">WhatsApp</a>
+        <a href="https://t.me/VisaGlobalEC_bot" target="_blank" style="display:block;text-align:center;padding:10px 20px;border-radius:8px;background:rgba(36,153,240,.15);border:1px solid rgba(36,153,240,.35);color:#64B5F6;font-weight:600;font-size:.875rem;text-decoration:none">Telegram</a>
+      </div>
     </div>`
   ).join('');
 }
