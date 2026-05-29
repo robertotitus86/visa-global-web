@@ -1029,6 +1029,193 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   </div>
 </section>
 
+<!-- VIAJES OFICIALES -->
+<section id="viajes-oficiales" style="
+  background: linear-gradient(135deg, #07112B 0%, #0d1f42 50%, #071428 100%);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Fondo decorativo: líneas de grilla como documento oficial -->
+  <div style="
+    position:absolute; inset:0;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events:none;
+  "></div>
+  <!-- Sello decorativo fondo -->
+  <div style="
+    position:absolute; right:-80px; top:50%; transform:translateY(-50%);
+    width:480px; height:480px;
+    border: 2px solid rgba(99,130,255,0.08);
+    border-radius:50%;
+    pointer-events:none;
+  "></div>
+  <div style="
+    position:absolute; right:-50px; top:50%; transform:translateY(-50%);
+    width:360px; height:360px;
+    border: 1px solid rgba(99,130,255,0.06);
+    border-radius:50%;
+    pointer-events:none;
+  "></div>
+
+  <div class="wrap" style="position:relative;z-index:1;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; max-width:1100px; margin:0 auto;">
+
+      <!-- Columna izquierda: copy -->
+      <div>
+        <div style="
+          display:inline-flex; align-items:center; gap:0.5rem;
+          background: rgba(99,130,255,0.12); border: 1px solid rgba(99,130,255,0.25);
+          color: #a5b4fc; font-size:0.72rem; font-weight:700;
+          letter-spacing:0.14em; text-transform:uppercase;
+          padding: 0.4rem 0.9rem; border-radius:2rem; margin-bottom:1.75rem;
+        ">
+          <span style="display:inline-block;width:6px;height:6px;background:#a5b4fc;border-radius:50%;"></span>
+          Especialidad de protocolo oficial
+        </div>
+
+        <h2 style="
+          font-family:'Playfair Display',serif;
+          font-size:clamp(1.8rem, 3.5vw, 2.75rem);
+          color:#fff; line-height:1.18; margin-bottom:1.25rem;
+        ">
+          Alcaldes y concejales:<br>
+          <em style="color:#a5b4fc; font-style:normal;">Europa sin visa.</em><br>
+          Nosotros lo gestionamos.
+        </h2>
+
+        <p style="color:rgba(255,255,255,0.62); font-size:1rem; line-height:1.7; margin-bottom:1rem; max-width:440px;">
+          Con pasaporte oficial ecuatoriano no se necesita visa para ningun pais Schengen. La mayoria de funcionarios no lo sabe — y sigue pagando tasas consulares y esperando meses sin razon.
+        </p>
+        <p style="color:rgba(255,255,255,0.62); font-size:1rem; line-height:1.7; margin-bottom:2.25rem; max-width:440px;">
+          Gestionamos el pasaporte oficial ante Cancilleria, las notas de visa, y el expediente de mision oficial completo. Un proceso que pocos conocen — y que puede ahorrarte meses de tramites.
+        </p>
+
+        <a href="https://wa.me/593987846751?text=Hola,%20soy%20funcionario%20publico%20y%20necesito%20asesoria%20para%20un%20viaje%20oficial%20a%20Europa" target="_blank" style="
+          display:inline-flex; align-items:center; gap:0.6rem;
+          background:#6382ff; color:#fff;
+          font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:700;
+          padding:0.95rem 2rem; border-radius:0.5rem;
+          text-decoration:none; transition:background 0.2s, transform 0.15s;
+        " onmouseover="this.style.background='#4f6aff';this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.background='#6382ff';this.style.transform='translateY(0)'">
+          Consultar mi caso
+          <span style="font-size:1rem;">→</span>
+        </a>
+      </div>
+
+      <!-- Columna derecha: tarjetas de beneficio -->
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+
+        <div style="
+          background:rgba(255,255,255,0.04); border:1px solid rgba(99,130,255,0.2);
+          border-radius:0.85rem; padding:1.5rem 1.75rem;
+          display:flex; gap:1.1rem; align-items:flex-start;
+        ">
+          <div style="
+            flex-shrink:0; width:2.4rem; height:2.4rem;
+            background:rgba(99,130,255,0.15); border-radius:0.5rem;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem;
+          ">🛂</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:0.95rem; margin-bottom:0.25rem;">Sin visa Schengen — 27 paises</div>
+            <div style="color:rgba(255,255,255,0.5); font-size:0.83rem; line-height:1.55;">Con pasaporte oficial ecuatoriano. Acuerdo bilateral Ecuador-Espana 2003, vigente en todo el espacio Schengen.</div>
+          </div>
+        </div>
+
+        <div style="
+          background:rgba(255,255,255,0.04); border:1px solid rgba(99,130,255,0.2);
+          border-radius:0.85rem; padding:1.5rem 1.75rem;
+          display:flex; gap:1.1rem; align-items:flex-start;
+        ">
+          <div style="
+            flex-shrink:0; width:2.4rem; height:2.4rem;
+            background:rgba(99,130,255,0.15); border-radius:0.5rem;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem;
+          ">📋</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:0.95rem; margin-bottom:0.25rem;">Pasaporte oficial ante Cancilleria</div>
+            <div style="color:rgba(255,255,255,0.5); font-size:0.83rem; line-height:1.55;">Gestionamos el tramite completo ante el MREMH. Para alcaldes, concejales y servidores publicos en comision de servicio.</div>
+          </div>
+        </div>
+
+        <div style="
+          background:rgba(255,255,255,0.04); border:1px solid rgba(99,130,255,0.2);
+          border-radius:0.85rem; padding:1.5rem 1.75rem;
+          display:flex; gap:1.1rem; align-items:flex-start;
+        ">
+          <div style="
+            flex-shrink:0; width:2.4rem; height:2.4rem;
+            background:rgba(99,130,255,0.15); border-radius:0.5rem;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem;
+          ">📝</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:0.95rem; margin-bottom:0.25rem;">Notas de visa y expediente de mision</div>
+            <div style="color:rgba(255,255,255,0.5); font-size:0.83rem; line-height:1.55;">Nota diplomatica, resolucion de comision, itinerario oficial y credenciales. El expediente correcto para pasar migracion sin inconvenientes.</div>
+          </div>
+        </div>
+
+        <div style="
+          background:rgba(255,255,255,0.04); border:1px solid rgba(99,130,255,0.2);
+          border-radius:0.85rem; padding:1.5rem 1.75rem;
+          display:flex; gap:1.1rem; align-items:flex-start;
+        ">
+          <div style="
+            flex-shrink:0; width:2.4rem; height:2.4rem;
+            background:rgba(99,130,255,0.15); border-radius:0.5rem;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem;
+          ">🇺🇸</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:0.95rem; margin-bottom:0.25rem;">Viaje oficial a USA — expediente B1/B2</div>
+            <div style="color:rgba(255,255,255,0.5); font-size:0.83rem; line-height:1.55;">Para viajes municipales a EEUU preparamos el expediente con documentacion de mision oficial: comision de servicios, resolucion del cabildo e itinerario.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Barra inferior: dato social proof -->
+    <div style="
+      margin-top:4rem; padding-top:2.5rem;
+      border-top:1px solid rgba(255,255,255,0.07);
+      display:flex; gap:3rem; justify-content:center; flex-wrap:wrap;
+    ">
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#a5b4fc;">27</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Paises sin visa</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#a5b4fc;">$0</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Tasa consular Schengen</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#a5b4fc;">90</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Dias de estadía permitidos</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#a5b4fc;">2003</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Acuerdo bilateral vigente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive -->
+  <style>
+    @media (max-width:768px) {
+      #viajes-oficiales > .wrap > div:first-of-type {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+      }
+    }
+  </style>
+</section>
+
 <!-- INSIDER KNOWLEDGE -->
 <section class="sec insider-section">
   <div class="wrap">
