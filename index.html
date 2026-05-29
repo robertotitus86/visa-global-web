@@ -450,6 +450,16 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 .wa-float:hover { transform:scale(1.06) translateY(-2px); box-shadow:0 14px 40px rgba(37,211,102,.5); }
 .wa-pulse { width:8px; height:8px; border-radius:50%; background:white; animation:wp 1.8s infinite; }
 @keyframes wp { 0%,100%{opacity:1} 50%{opacity:.2} }
+.tg-float {
+  position:fixed; bottom:28px; right:calc(28px + 160px + 12px); z-index:990;
+  background:#2499f0; color:white; border:none;
+  font-family:var(--sans); font-size:.8125rem; font-weight:700;
+  padding:13px 22px; border-radius:50px;
+  text-decoration:none; display:flex; align-items:center; gap:10px;
+  box-shadow:0 8px 30px rgba(36,153,240,.35);
+  transition:all .25s cubic-bezier(.22,.68,0,1.2); cursor:none;
+}
+.tg-float:hover { transform:scale(1.06) translateY(-2px); box-shadow:0 14px 40px rgba(36,153,240,.5); }
 
 /* ═══ URGENCY ════════════════════════════════════════ */
 #urgency {
@@ -548,6 +558,8 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 @media(max-width:600px){
   .wa-float span { display:none; }
   .wa-float { padding:14px; border-radius:50%; width:50px; height:50px; justify-content:center; }
+  .tg-float span { display:none; }
+  .tg-float { padding:14px; border-radius:50%; width:50px; height:50px; justify-content:center; right:calc(28px + 50px + 12px); }
   body { cursor:auto; }
   #cur,#cur-ring { display:none; }
   .toast { max-width:240px; }
@@ -998,6 +1010,13 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
           <p>Un rechazo no es el fin — es información. Analizamos exactamente por qué te dijeron no, corregimos lo que falló y construimos un caso diferente. El 70% lo revierte.</p>
           <span class="svc-arrow" style="color:var(--gold-lt)">Analizar mi caso →</span>
         </div>
+        <div class="svc-card" style="border:1px solid rgba(99,102,241,0.3);background:rgba(99,102,241,0.04)">
+          <div class="svc-code" style="color:rgba(99,102,241,0.5)">GOB</div>
+          <div class="svc-dest" style="color:#818cf8">Alcaldes · Concejales · Funcionarios</div>
+          <h3>Viajes oficiales a Europa: sin visa Schengen</h3>
+          <p>Con pasaporte oficial o diplomático ecuatoriano no necesitas visa para ningún país de Europa. Gestionamos notas de visa, pasaportes de servicio y expedientes de misión oficial para autoridades de gobierno autónomo descentralizado.</p>
+          <a href="https://wa.me/593987846751?text=Hola,%20necesito%20asesoria%20para%20un%20viaje%20oficial%20como%20funcionario%20publico" target="_blank" style="color:#818cf8;text-decoration:none;font-size:.85rem;font-weight:600">Consultar mi caso →</a>
+        </div>
         <div class="svc-card">
           <div class="svc-code">$0</div>
           <div class="svc-dest">Sin pagar nada para empezar</div>
@@ -1092,9 +1111,14 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
               <div><h4>Acompañamiento hasta la aprobación</h4><p class="text-muted">Presentes desde la primera consulta hasta el sello en el pasaporte.</p></div>
             </div>
           </div>
-          <a href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank" data-r="d2" style="display:inline-flex;align-items:center;gap:12px;margin-top:36px;background:#25D366;color:white;font-family:var(--sans);font-size:.9375rem;font-weight:700;padding:16px 32px;border-radius:8px;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.25);transition:all .25s" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 14px 40px rgba(37,211,102,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(37,211,102,.25)'">
-            Escribir ahora — consulta gratis →
-          </a>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px" data-r="d2">
+            <a href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank" style="display:inline-flex;align-items:center;gap:12px;background:#25D366;color:white;font-family:var(--sans);font-size:.9375rem;font-weight:700;padding:16px 32px;border-radius:8px;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.25);transition:all .25s" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 14px 40px rgba(37,211,102,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(37,211,102,.25)'">
+              WhatsApp — consulta gratis →
+            </a>
+            <a href="https://t.me/VisaGlobalEC_bot" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:rgba(41,154,255,.12);border:1px solid rgba(41,154,255,.3);color:#64B5F6;font-family:var(--sans);font-size:.9375rem;font-weight:600;padding:16px 28px;border-radius:8px;text-decoration:none;transition:all .25s" onmouseover="this.style.background='rgba(41,154,255,.2)';this.style.borderColor='rgba(41,154,255,.6)'" onmouseout="this.style.background='rgba(41,154,255,.12)';this.style.borderColor='rgba(41,154,255,.3)'">
+              Telegram →
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -1434,7 +1458,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <div class="faq-list" data-r>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Cuánto cuesta la asesoría?<div class="faq-ico">+</div></button>
-            <div class="faq-ans">La primera consulta es completamente gratuita. También ofrecemos el Diagnóstico IA por $50 — análisis de tu perfil en 5 minutos sin hablar con nadie. Los paquetes de asesoría completa son: Esencial $197 (casos simples, primera solicitud), Profesional $250 (el más elegido, incluye simulacro de entrevista y acompañamiento completo), y VIP $320 (rechazos previos y casos complejos, sesiones ilimitadas). Sin cargos ocultos.</div>
+            <div class="faq-ans">La primera consulta es completamente gratuita. También ofrecemos el Diagnóstico por $37 (oferta limitada) — análisis de tu perfil en 5 minutos sin hablar con nadie, y ese valor se descuenta del plan que elijas. Los paquetes de asesoría completa son: Esencial $197 (casos simples, primera solicitud), Profesional $250 (el más elegido, incluye simulacro de entrevista y acompañamiento completo), y VIP $320 (rechazos previos y casos complejos, sesiones ilimitadas). Sin cargos ocultos.</div>
           </div>
           <div class="faq-item">
             <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Garantizan que aprueben mi visa?<div class="faq-ico">+</div></button>
@@ -1524,6 +1548,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <a href="#servicios">Visa Europa (Schengen)</a>
         <a href="#servicios">Visa Reino Unido</a>
         <a href="#servicios">Rechazos previos</a>
+        <a href="#servicios">Viajes oficiales (alcaldes)</a>
       </div>
       <div class="foot-col">
         <h4>Empresa</h4>
@@ -1536,6 +1561,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <h4>Contacto</h4>
         <a href="https://wa.me/593994442512">+593 99 444 2512</a>
         <a href="https://wa.me/593994442512">WhatsApp</a>
+        <a href="https://t.me/VisaGlobalEC_bot" target="_blank">Telegram</a>
         <a href="#">Ecuador</a>
       </div>
     </div>
@@ -1577,6 +1603,10 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 <a class="wa-float" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">
   <div class="wa-pulse"></div>
   <span>Consulta gratuita</span>
+</a>
+<!-- TG FLOAT -->
+<a class="tg-float" href="https://t.me/VisaGlobalEC_bot" target="_blank">
+  <span>Telegram</span>
 </a>
 
 <script>
