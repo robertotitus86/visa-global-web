@@ -2697,6 +2697,7 @@ function payphonePrepare(e) {
     const body = {
       amount: amountCts, amountWithTax: 0, amountWithoutTax: amountCts, tax: 0, service: 0, tip: 0,
       currency: 'USD', clientTransactionId: ref,
+      storeId: PAYPHONE_STORE_ID || undefined,
       responseUrl:     SITE_URL + (esDiag ? '/diagnostico.html' : '/pago-exitoso.html'),
       cancellationUrl: SITE_URL + (esDiag ? '/diagnostico.html?cancelled=true' : '/pago-cancelado.html'),
       reference: (esDiag ? 'Diagnóstico' : 'Paquete ' + paquete) + ' — Asesoría Visa Global — ' + nombre,
