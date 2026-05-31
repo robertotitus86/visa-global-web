@@ -12,8 +12,7 @@
   .spinner { width: 52px; height: 52px; border: 4px solid #1a2d50; border-top-color: #F0B429; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 24px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   p { color: #a0aec0; font-size: 16px; line-height: 1.6; }
-  .error { color: #fc8181; margin-top: 16px; font-size: 14px; display: none; }
-  .btn { display: inline-block; margin-top: 20px; background: #25D366; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; display: none; }
+  .btn { display: inline-block; margin-top: 20px; background: #25D366; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -21,43 +20,17 @@
   <div class="logo">ASESORÍA VISA GLOBAL</div>
   <div class="spinner" id="spinner"></div>
   <p id="msg">Preparando tu pago seguro...</p>
-  <p class="error" id="err">Hubo un problema al generar el link de pago. Por favor escríbenos directamente.</p>
-  <a href="https://wa.me/593994442512" class="btn" id="btnWa">Escribir al asesor</a>
+  <a href="https://wa.me/593994442512" class="btn" id="btnWa" style="display:none">Escribir al asesor</a>
 </div>
-
 <script>
-const GAS = 'https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
-
-function param(name) {
-  return new URLSearchParams(window.location.search).get(name) || '';
-}
-
-async function init() {
-  const ref     = param('ref')     || ('WEB-' + Date.now());
-  const paquete = param('paquete') || 'PROFESIONAL';
-  const amount  = param('amount')  || '250';
-  const nombre  = param('nombre')  || 'Cliente';
-
-  try {
-    const url = `${GAS}?action=payphone_prepare&ref=${encodeURIComponent(ref)}&amount=${amount}&paquete=${paquete}&nombre=${encodeURIComponent(nombre)}`;
-    const res  = await fetch(url);
-    const data = await res.json();
-
-    if (data.url) {
-      document.getElementById('msg').textContent = 'Redirigiendo a pago seguro...';
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Sin URL');
-    }
-  } catch (e) {
+  const url = new URLSearchParams(window.location.search).get('url');
+  if (url) {
+    setTimeout(() => { window.location.href = decodeURIComponent(url); }, 800);
+  } else {
     document.getElementById('spinner').style.display = 'none';
-    document.getElementById('msg').textContent = 'No pudimos cargar el pago.';
-    document.getElementById('err').style.display = 'block';
+    document.getElementById('msg').textContent = 'Link de pago no válido. Contáctanos por WhatsApp.';
     document.getElementById('btnWa').style.display = 'inline-block';
   }
-}
-
-init();
 </script>
 </body>
 </html>
