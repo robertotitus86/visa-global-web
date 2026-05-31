@@ -876,6 +876,16 @@ function manejarPortalLegacy(payload) {
 
 // ── doGet: reporte HTML del expediente ─────────────────────────────
 function doGet(e) {
+  // Meta webhook verification (Facebook / Instagram)
+  if (e.parameter['hub.mode'] === 'subscribe') {
+    const token = e.parameter['hub.verify_token'];
+    const challenge = e.parameter['hub.challenge'];
+    if (token === 'visaglobal2026') {
+      return ContentService.createTextOutput(challenge).setMimeType(ContentService.MimeType.TEXT);
+    }
+    return ContentService.createTextOutput('Token invalido').setMimeType(ContentService.MimeType.TEXT);
+  }
+
   // Admin endpoints
   const action = e.parameter.action;
   if (action === 'getCases')           return adminGetCases(e);
@@ -2677,15 +2687,20 @@ function servirCarta(ref, pin) {
 function payphonePrepare(e) {
   try {
     if (!PAYPHONE_TOKEN) return ok({ error: 'PAYPHONE_TOKEN no configurado en Script Properties' });
-    const ref    = e.parameter.ref    || 'DIAG-000000';
-    const nombre = e.parameter.nombre || 'Cliente';
-    const email  = e.parameter.email  || '';
+    const ref       = e.parameter.ref     || 'DIAG-000000';
+    const nombre    = e.parameter.nombre  || 'Cliente';
+    const email     = e.parameter.email   || '';
+    const paquete   = e.parameter.paquete || 'DIAGNOSTICO';
+    const amountUSD = parseInt(e.parameter.amount || 50);
+    const amountCts = amountUSD * 100;
+    const esDiag    = paquete === 'DIAGNOSTICO';
     const body = {
-      amount: 5000, amountWithTax: 0, amountWithoutTax: 5000, tax: 0, service: 0, tip: 0,
+      amount: amountCts, amountWithTax: 0, amountWithoutTax: amountCts, tax: 0, service: 0, tip: 0,
       currency: 'USD', clientTransactionId: ref,
-      responseUrl:     SITE_URL + '/diagnostico.html',
-      cancellationUrl: SITE_URL + '/diagnostico.html?cancelled=true',
-      reference: 'Diagnostico Visa Global — ' + nombre, lang: 'es'
+      responseUrl:     SITE_URL + (esDiag ? '/diagnostico.html' : '/pago-exitoso.html'),
+      cancellationUrl: SITE_URL + (esDiag ? '/diagnostico.html?cancelled=true' : '/pago-cancelado.html'),
+      reference: (esDiag ? 'Diagnóstico' : 'Paquete ' + paquete) + ' — Asesoría Visa Global — ' + nombre,
+      lang: 'es'
     };
     const resp = UrlFetchApp.fetch('https://pay.payphonetodoesposible.com/api/button/Prepare', {
       method: 'post', contentType: 'application/json',
