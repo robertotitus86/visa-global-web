@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asesoría Visa Global — Tu Visa. Nuestra Obsesión.</title>
+<meta name="description" content="La firma de asesoría migratoria más reconocida de Ecuador. 500+ visas aprobadas. 98% de éxito. Primera consulta gratuita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══ DESIGN TOKENS ══════════════════════════════════ */
+:root {
+  --bg:       #060E1F;
+  --bg2:      #0A1628;
+  --bg3:      #0F2040;
+  --line:     rgba(255,255,255,.06);
+  --line2:    rgba(255,255,255,.11);
+  --gold:     #C8880A;
+  --gold-lt:  #F0B429;
+  --gold-bg:  rgba(200,136,10,.08);
+  --gold-bdr: rgba(240,180,41,.2);
+  --green:    #25D366;
+  --text:     #C8D0E0;
+  --muted:    #4A5568;
+  --white:    #F0EDE8;
+  --serif:    'Playfair Display', Georgia, serif;
+  --sans:     'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+::selection { background: var(--gold); color: var(--bg); }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(200,136,10,.4); border-radius:10px; }
+
+/* ═══ LOADING ════════════════════════════════════════ */
+#loader {
+  position: fixed; inset:0; z-index:9999;
+  background: var(--bg);
+  display: flex; align-items:center; justify-content:center;
+  transition: opacity .8s ease, visibility .8s ease;
+}
+#loader.done { opacity:0; visibility:hidden; }
+.loader-inner { text-align:center; }
+.loader-logo {
+  font-family: var(--serif); font-size: 1.5rem; font-weight:700;
+  color: var(--white); letter-spacing:.05em;
+  opacity:0; animation: fade-up .8s .3s forwards;
+}
+.loader-logo em { color: var(--gold-lt); font-style:italic; }
+.loader-bar {
+  width:200px; height:1px; background: var(--line2);
+  margin: 20px auto 0; overflow:hidden; border-radius:2px;
+}
+.loader-bar-fill {
+  height:100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  width:0; animation: load-bar 1.4s .5s ease forwards;
+}
+@keyframes load-bar { to { width:100%; } }
+@keyframes fade-up { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+/* ═══ CURSOR ═════════════════════════════════════════ */
+#cur { position:fixed; z-index:9999; pointer-events:none; width:10px; height:10px; background:var(--gold-lt); border-radius:50%; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .2s,height .2s; }
+#cur-ring { position:fixed; z-index:9998; pointer-events:none; width:32px; height:32px; border:1px solid rgba(240,180,41,.35); border-radius:50%; transform:translate(-50%,-50%); transition:width .25s,height .25s,border-color .25s; }
+body.cursor-big #cur { width:5px; height:5px; }
+body.cursor-big #cur-ring { width:48px; height:48px; border-color:rgba(240,180,41,.6); }
+
+/* ═══ NAV ════════════════════════════════════════════ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  padding: 0 40px; height: 68px;
+  display: flex; align-items:center; justify-content:space-between;
+  transition: background .4s, backdrop-filter .4s, border-bottom .4s;
+}
+nav.scrolled {
+  background: rgba(2,9,18,.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-logo {
+  display: flex; align-items:center; gap:12px;
+  text-decoration:none;
+}
+.nav-logo img { width:34px; height:34px; border-radius:50%; object-fit:cover; }
+.nav-brand { font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--white); }
+.nav-brand em { color:var(--gold-lt); font-style:italic; }
+.nav-right { display:flex; align-items:center; gap:6px; }
+.nav-a { font-size:.8125rem; font-weight:500; color:rgba(200,208,224,.6); text-decoration:none; padding:6px 14px; border-radius:6px; transition:color .15s; }
+.nav-a:hover { color:var(--white); }
+.nav-cta {
+  background: var(--gold-lt); color: var(--bg);
+  font-size:.8125rem; font-weight:700; font-family:var(--sans);
+  padding: 9px 22px; border-radius:6px; text-decoration:none;
+  transition: all .2s; border:none; cursor:none;
+}
+.nav-cta:hover { opacity:.9; transform:scale(1.02); }
+
+/* ═══ HERO ═══════════════════════════════════════════ */
+.hero {
+  height: 100vh; min-height: 700px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+.hero-bg {
+  position: absolute; inset:0;
+  background: url('hero-bg.jpg') center/cover no-repeat;
+}
+.hero-overlay {
+  position: absolute; inset:0;
+  background:
+    linear-gradient(to bottom, rgba(2,9,18,.3) 0%, rgba(2,9,18,.85) 70%, var(--bg) 100%),
+    linear-gradient(to right, rgba(2,9,18,.6) 0%, transparent 60%);
+}
+.hero-content {
+  position: relative; z-index:2;
+  max-width: 1160px; margin: 0 auto; padding: 0 40px 100px; width:100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items:center; gap:10px;
+  font-size:.6875rem; font-weight:500; text-transform:uppercase; letter-spacing:.22em;
+  color: var(--gold-lt); margin-bottom:28px;
+  opacity:0; animation: fade-up .8s 1.6s forwards;
+}
+.hero-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:var(--gold-lt); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 900; line-height:.98; letter-spacing:-.03em;
+  color: var(--white); margin-bottom:32px;
+}
+.hero h1 .line { display:block; overflow:hidden; }
+.hero h1 .word {
+  display:inline-block; transform:translateY(110%);
+  animation: word-reveal .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero h1 .word-1 { animation-delay: 1.7s; }
+.hero h1 .word-2 { animation-delay: 1.85s; }
+.hero h1 .word-3 { animation-delay: 2s; color:var(--gold-lt); font-style:italic; }
+.hero h1 .word-4 { animation-delay: 2.15s; }
+.hero h1 .word-5 { animation-delay: 2.3s; }
+@keyframes word-reveal { to { transform:translateY(0); } }
+
+.hero-sub {
+  font-size: clamp(.9375rem, 1.8vw, 1.2rem); font-weight:300;
+  color: rgba(200,208,224,.75); max-width:480px; line-height:1.7;
+  margin-bottom:44px;
+  opacity:0; animation: fade-up .8s 2.5s forwards;
+}
+.hero-actions {
+  display: flex; align-items:center; gap:20px; flex-wrap:wrap;
+  opacity:0; animation: fade-up .8s 2.7s forwards;
+}
+.btn-gold {
+  display: inline-flex; align-items:center; gap:10px;
+  background: var(--gold-lt); color: var(--bg);
+  font-family: var(--sans); font-size:.9375rem; font-weight:700;
+  padding: 16px 34px; border-radius:6px; text-decoration:none;
+  transition: all .25s cubic-bezier(.22,.68,0,1.2);
+  box-shadow: 0 0 40px rgba(240,180,41,.2);
+}
+.btn-gold:hover { transform:scale(1.04) translateY(-1px); box-shadow:0 8px 40px rgba(240,180,41,.35); }
+.btn-outline-light {
+  display: inline-flex; align-items:center; gap:8px;
+  border: 1px solid rgba(240,208,224,.2); color: rgba(240,208,224,.75);
+  font-size:.9375rem; font-weight:400; padding:16px 28px;
+  border-radius:6px; text-decoration:none; transition:all .2s;
+}
+.btn-outline-light:hover { border-color:rgba(240,180,41,.4); color:var(--gold-lt); }
+.hero-stats {
+  position:absolute; bottom:40px; right:40px;
+  display:flex; gap:40px; z-index:2;
+  opacity:0; animation: fade-up .8s 2.9s forwards;
+}
+.hstat { text-align:right; }
+.hstat-n { font-family:var(--serif); font-size:2.2rem; font-weight:700; color:var(--gold-lt); line-height:1; }
+.hstat-l { font-size:.625rem; text-transform:uppercase; letter-spacing:.15em; color:var(--muted); margin-top:4px; }
+
+/* ═══ MARQUEE ════════════════════════════════════════ */
+.marquee {
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  background:var(--bg2); padding:18px 0; overflow:hidden;
+}
+.marquee-track { display:flex; animation:marquee 32s linear infinite; white-space:nowrap; }
+.marquee-item { font-size:.6875rem; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); padding:0 40px; flex-shrink:0; }
+.marquee-item.g { color:var(--gold); }
+@keyframes marquee { to { transform:translateX(-50%); } }
+
+/* ═══ IMPACT STATEMENT ════════════════════════════════ */
+.impact {
+  padding: 120px 40px; text-align:center;
+  border-bottom:1px solid var(--line); position:relative; overflow:hidden;
+}
+.impact::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,136,10,.04), transparent);
+  pointer-events:none;
+}
+.impact-num {
+  font-family: var(--serif); font-size:clamp(6rem,20vw,18rem);
+  font-weight:900; color:var(--bg3); line-height:.85;
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  white-space:nowrap; user-select:none; pointer-events:none;
+  letter-spacing:-.04em;
+}
+.impact-text {
+  font-family: var(--serif); font-size:clamp(2rem,5vw,4.5rem);
+  font-weight:700; color:var(--white); line-height:1.1;
+  max-width:800px; margin:0 auto; position:relative; z-index:1;
+  letter-spacing:-.02em;
+}
+.impact-text em { color:var(--gold-lt); font-style:italic; }
+.impact-sub { font-size:1rem; font-weight:300; color:var(--muted); margin-top:20px; position:relative; z-index:1; }
+
+/* ═══ SECTION UTIL ════════════════════════════════════ */
+.wrap { max-width:1160px; margin:0 auto; padding:0 40px; }
+.sec { border-bottom:1px solid var(--line); }
+.sec-inner { padding:100px 0; }
+.label {
+  display:inline-block; font-size:.625rem; font-weight:500;
+  text-transform:uppercase; letter-spacing:.22em;
+  color:var(--gold); margin-bottom:20px;
+}
+h2.display {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem,4.5vw,4rem);
+  font-weight:700; color:var(--white);
+  line-height:1.08; letter-spacing:-.02em;
+}
+h2.display em { color:var(--gold-lt); font-style:italic; }
+.text-muted { color:var(--muted); font-weight:300; line-height:1.8; }
+
+/* ═══ SERVICES ════════════════════════════════════════ */
+.services-dark { background:var(--bg2); }
+.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:64px; }
+.svc-card {
+  background:var(--bg2); padding:44px 36px;
+  transition: background .2s;
+  position:relative; overflow:hidden;
+}
+.svc-card::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(200,136,10,.04), transparent);
+  opacity:0; transition:opacity .3s;
+}
+.svc-card:hover { background:var(--bg3); }
+.svc-card:hover::after { opacity:1; }
+.svc-code {
+  font-family: var(--serif); font-size:3rem; font-weight:900;
+  color:rgba(255,255,255,.04); line-height:1; margin-bottom:16px;
+  letter-spacing:-.04em; transition:color .3s;
+}
+.svc-card:hover .svc-code { color:rgba(200,136,10,.12); }
+.svc-dest { font-size:.625rem; font-weight:500; text-transform:uppercase; letter-spacing:.2em; color:var(--gold); margin-bottom:12px; }
+.svc-card h3 { font-family:var(--serif); font-size:1.25rem; color:var(--white); margin-bottom:10px; font-weight:700; }
+.svc-card p { font-size:.8125rem; color:var(--muted); line-height:1.7; }
+.svc-arrow { display:block; margin-top:20px; font-size:.8125rem; color:var(--muted); transition:color .2s,transform .2s; }
+.svc-card:hover .svc-arrow { color:var(--gold-lt); transform:translateX(4px); }
+
+/* ═══ WHATSAPP SECTION ═══════════════════════════════ */
+.wa-section { background:var(--bg2); position:relative; overflow:hidden; }
+.wa-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(37,211,102,.04), transparent);
+  pointer-events:none;
+}
+.wa-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.phone-wrap { display:flex; justify-content:center; position:relative; }
+.phone-glow { position:absolute; inset:-40px; background:radial-gradient(ellipse,rgba(37,211,102,.1),transparent 65%); border-radius:50%; animation:pulse-glow 4s infinite; pointer-events:none; }
+@keyframes pulse-glow { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.06)} }
+.phone {
+  width:260px; border-radius:44px; overflow:hidden;
+  background:#0a0a12;
+  box-shadow: 0 40px 100px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.06), inset 0 0 0 1px rgba(255,255,255,.04);
+  animation: float-phone 5s ease-in-out infinite;
+  position:relative; z-index:1;
+}
+@keyframes float-phone { 0%,100%{transform:translateY(0) rotate(-1.5deg)} 50%{transform:translateY(-16px) rotate(1.5deg)} }
+.phone-notch { background:#0a0a12; height:28px; display:flex; align-items:center; justify-content:center; }
+.phone-notch-bar { width:70px; height:4px; border-radius:10px; background:#1a1a2a; }
+.wa-header { background:#075E54; padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.wa-avatar { width:36px; height:36px; border-radius:50%; background:#128C7E; display:flex; align-items:center; justify-content:center; font-size:.6875rem; font-weight:700; color:white; flex-shrink:0; }
+.wa-name { font-size:.75rem; font-weight:700; color:white; }
+.wa-online { font-size:.625rem; color:rgba(255,255,255,.7); }
+.wa-body { background:#0d1117; padding:12px; min-height:380px; display:flex; flex-direction:column; gap:8px; }
+.wa-badge {
+  position:absolute; top:24px; right:-18px; z-index:2;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  border-radius:12px; padding:10px 16px;
+  box-shadow:0 10px 30px rgba(37,211,102,.4);
+  opacity:0; transform:translateX(16px);
+  transition:all .6s cubic-bezier(.22,.68,0,1.1);
+}
+.wa-badge.show { opacity:1; transform:translateX(0); }
+.wa-badge-title { font-size:.625rem; font-weight:500; color:rgba(255,255,255,.8); text-transform:uppercase; letter-spacing:.1em; }
+.wa-badge-val { font-size:1rem; font-weight:700; color:white; }
+.wa-float-stat {
+  position:absolute; bottom:60px; left:-22px; z-index:2;
+  background:rgba(6,15,30,.92); border:1px solid var(--gold-bdr);
+  backdrop-filter:blur(12px); border-radius:10px; padding:12px 16px;
+  animation:float-badge 5s ease-in-out infinite;
+}
+@keyframes float-badge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.ws-n { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--gold-lt); }
+.ws-l { font-size:.625rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-top:2px; }
+.wa-text h2 { margin-bottom:20px; }
+.wa-text p { margin-bottom:36px; font-size:1rem; }
+.wa-features { display:flex; flex-direction:column; gap:0; }
+.wa-feat { display:flex; gap:16px; padding:20px 0; border-bottom:1px solid var(--line); align-items:flex-start; }
+.wa-feat:last-child { border-bottom:none; }
+.wa-feat-icon { width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.wa-feat h4 { font-size:.9375rem; font-weight:600; color:var(--white); margin-bottom:4px; }
+.wa-feat p { font-size:.8125rem; color:var(--muted); line-height:1.6; }
+
+/* ═══ RESULTS ════════════════════════════════════════ */
+.results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:64px; }
+.res-cell { background:var(--bg); padding:60px 48px; transition:background .2s; }
+.res-cell:hover { background:var(--bg2); }
+.res-big { font-family:var(--serif); font-size:5.5rem; font-weight:900; color:var(--gold-lt); line-height:.9; margin-bottom:16px; letter-spacing:-.03em; }
+.res-cell h3 { font-family:var(--serif); font-size:1.1rem; color:var(--white); margin-bottom:10px; }
+.res-cell p { font-size:.8125rem; color:var(--muted); line-height:1.75; }
+
+/* ═══ SUCCESS SPLIT ═══════════════════════════════════ */
+.success-split { display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:600px; }
+.success-img { position:relative; overflow:hidden; }
+.success-img img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.8) saturate(.9); transition:transform 8s ease; }
+.success-img:hover img { transform:scale(1.04); }
+.success-img-overlay { position:absolute; inset:0; background:linear-gradient(to right, transparent 40%, var(--bg) 100%); }
+.success-content {
+  background:var(--bg); padding:80px 64px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.success-content .label { margin-bottom:20px; }
+.success-content h2 { margin-bottom:24px; }
+.success-content p { margin-bottom:40px; font-size:1rem; }
+.testimonials-stack { display:flex; flex-direction:column; gap:16px; }
+.test-mini {
+  background:var(--bg2); border:1px solid var(--line);
+  border-radius:12px; padding:22px 24px;
+  transition:border-color .2s;
+}
+.test-mini:hover { border-color:var(--gold-bdr); }
+.test-mini-stars { display:flex; gap:3px; margin-bottom:10px; }
+.ts { width:11px; height:11px; background:var(--gold); border-radius:2px; }
+.test-mini blockquote { font-family:var(--serif); font-style:italic; font-size:.9375rem; color:var(--text); line-height:1.6; margin-bottom:12px; }
+.test-mini-author { display:flex; align-items:center; gap:10px; }
+.test-mini-photo { width:32px; height:32px; border-radius:50%; object-fit:cover; border:1.5px solid var(--gold-bdr); }
+.test-mini-name { font-size:.8125rem; font-weight:600; color:var(--white); }
+.test-mini-detail { font-size:.6875rem; color:var(--muted); }
+
+/* ═══ CTA SECTION ════════════════════════════════════ */
+.cta-full {
+  background:var(--gold); padding:100px 40px;
+  position:relative; overflow:hidden;
+}
+.cta-full::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 80% 80% at 50% 120%, rgba(0,0,0,.2), transparent);
+}
+.cta-full-inner { max-width:780px; margin:0 auto; text-align:center; position:relative; z-index:1; }
+.cta-full h2 { font-family:var(--serif); font-size:clamp(2.5rem,5vw,4.5rem); font-weight:900; color:var(--bg); line-height:1.05; letter-spacing:-.03em; margin-bottom:20px; }
+.cta-full h2 em { font-style:italic; }
+.cta-full p { font-size:1rem; color:rgba(2,9,18,.65); font-weight:400; margin-bottom:44px; }
+.btn-dark {
+  display:inline-flex; align-items:center; gap:12px;
+  background:var(--bg); color:var(--gold-lt);
+  font-family:var(--sans); font-size:1rem; font-weight:700;
+  padding:18px 40px; border-radius:8px; text-decoration:none;
+  transition:all .25s; box-shadow:0 8px 40px rgba(2,9,18,.4);
+}
+.btn-dark:hover { background:var(--bg2); transform:scale(1.03) translateY(-2px); }
+.cta-trust { display:flex; justify-content:center; gap:40px; margin-top:40px; flex-wrap:wrap; }
+.cta-trust-item { display:flex; align-items:center; gap:8px; font-size:.8125rem; color:rgba(2,9,18,.6); }
+
+/* ═══ PROCESS ════════════════════════════════════════ */
+.process-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.process-img-wrap { border-radius:16px; overflow:hidden; aspect-ratio:4/5; position:sticky; top:80px; }
+.process-img { width:100%; height:100%; object-fit:cover; display:block; }
+.process-steps { display:flex; flex-direction:column; }
+.pstep { display:grid; grid-template-columns:72px 1fr; gap:24px; padding:40px 0; border-bottom:1px solid var(--line); }
+.pstep:last-child { border-bottom:none; }
+.pstep-n { font-family:var(--serif); font-size:3.5rem; font-weight:900; color:var(--gold-lt); opacity:.45; line-height:1; }
+.pstep h3 { font-family:var(--serif); font-size:1.125rem; color:var(--white); margin-bottom:8px; }
+.pstep p { font-size:.875rem; color:var(--muted); line-height:1.8; }
+
+/* ═══ FAQ ════════════════════════════════════════════ */
+.faq-layout { display:grid; grid-template-columns:1fr 1.8fr; gap:80px; }
+.faq-side .label { margin-bottom:16px; }
+.faq-side h2 { margin-bottom:20px; }
+.faq-side p { font-size:.875rem; color:var(--muted); margin-bottom:32px; }
+.faq-contact-box { background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:28px; }
+.faq-contact-box p { font-size:.875rem; color:var(--muted); margin-bottom:14px; }
+.faq-contact-link { display:inline-flex; align-items:center; gap:8px; font-size:.875rem; font-weight:600; color:var(--gold-lt); text-decoration:none; transition:opacity .15s; }
+.faq-contact-link:hover { opacity:.8; }
+.faq-list { display:flex; flex-direction:column; }
+.faq-item { border-bottom:1px solid var(--line); }
+.faq-btn { width:100%; background:none; border:none; cursor:none; display:flex; justify-content:space-between; align-items:center; padding:22px 0; gap:20px; text-align:left; font-family:var(--sans); font-size:.9375rem; font-weight:500; color:var(--text); transition:color .15s; }
+.faq-btn:hover { color:var(--white); }
+.faq-ico { width:22px; height:22px; border-radius:50%; border:1px solid var(--line2); display:flex; align-items:center; justify-content:center; font-size:.875rem; color:var(--muted); flex-shrink:0; transition:all .25s; }
+.faq-item.open .faq-ico { border-color:var(--gold-bdr); color:var(--gold-lt); transform:rotate(45deg); }
+.faq-item.open .faq-btn { color:var(--white); }
+.faq-ans { display:none; padding:0 0 22px; font-size:.875rem; color:var(--muted); line-height:1.8; max-width:540px; }
+.faq-item.open .faq-ans { display:block; }
+
+/* ═══ FOOTER ═════════════════════════════════════════ */
+footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0 32px; }
+.footer-top { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; margin-bottom:56px; }
+.foot-brand a { display:flex; align-items:center; gap:10px; text-decoration:none; margin-bottom:14px; }
+.foot-brand a img { width:30px; height:30px; border-radius:50%; }
+.foot-brand a span { font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--white); }
+.foot-brand a span em { color:var(--gold-lt); font-style:italic; }
+.foot-brand p { font-size:.8125rem; color:var(--muted); line-height:1.7; max-width:220px; }
+.foot-col h4 { font-size:.625rem; font-weight:500; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); margin-bottom:18px; }
+.foot-col a { display:block; font-size:.8125rem; color:var(--muted); text-decoration:none; margin-bottom:10px; transition:color .15s; }
+.foot-col a:hover { color:var(--white); }
+.footer-bottom { border-top:1px solid var(--line); padding-top:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+.footer-bottom p { font-size:.75rem; color:var(--muted); }
+
+/* ═══ SOCIAL PROOF TOAST ═════════════════════════════ */
+#toast {
+  position:fixed; bottom:96px; left:28px; z-index:999;
+  background:rgba(6,15,30,.96); border:1px solid var(--gold-bdr);
+  backdrop-filter:blur(16px); border-radius:14px;
+  padding:14px 18px; display:flex; align-items:center; gap:14px;
+  max-width:290px; box-shadow:0 12px 40px rgba(0,0,0,.5);
+  transform:translateX(-130%); transition:transform .5s cubic-bezier(.22,.68,0,1.1);
+  pointer-events:none;
+}
+#toast.show { transform:translateX(0); }
+
+/* ═══ WA FLOAT ═══════════════════════════════════════ */
+.wa-float {
+  position:fixed; bottom:28px; right:28px; z-index:990;
+  background:var(--green); color:white; border:none;
+  font-family:var(--sans); font-size:.8125rem; font-weight:700;
+  padding:13px 22px; border-radius:50px;
+  text-decoration:none; display:flex; align-items:center; gap:10px;
+  box-shadow:0 8px 30px rgba(37,211,102,.35);
+  transition:all .25s cubic-bezier(.22,.68,0,1.2); cursor:none;
+}
+.wa-float:hover { transform:scale(1.06) translateY(-2px); box-shadow:0 14px 40px rgba(37,211,102,.5); }
+.wa-pulse { width:8px; height:8px; border-radius:50%; background:white; animation:wp 1.8s infinite; }
+@keyframes wp { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ═══ URGENCY ════════════════════════════════════════ */
+#urgency {
+  position:fixed; top:0; left:0; right:0; z-index:501;
+  background:linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold));
+  background-size:200% 100%; animation:gold-shift 3s linear infinite;
+  padding:9px 24px; text-align:center;
+  font-size:.6875rem; font-weight:700; letter-spacing:.08em; color:var(--bg);
+  transform:translateY(-100%); transition:transform .6s cubic-bezier(.22,.68,0,1.1);
+}
+#urgency.show { transform:translateY(0); }
+@keyframes gold-shift { to{ background-position:-200% 0; } }
+
+/* ═══ REVEAL ═════════════════════════════════════════ */
+[data-r] { opacity:0; transform:translateY(20px); transition:opacity .7s ease,transform .7s ease; }
+[data-r].on { opacity:1; transform:none; }
+[data-r="d1"] { transition-delay:.1s; }
+[data-r="d2"] { transition-delay:.2s; }
+[data-r="d3"] { transition-delay:.3s; }
+
+/* ═══ RESPONSIVE ══════════════════════════════════════ */
+@media(max-width:1024px){
+  .svc-grid { grid-template-columns:repeat(2,1fr); }
+  .results-grid { grid-template-columns:repeat(3,1fr); }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+}
+
+@media(max-width:960px){
+  .svc-grid { grid-template-columns:repeat(2,1fr); }
+  .results-grid { grid-template-columns:1fr 1fr; }
+  .wa-layout,.process-grid,.faq-layout { grid-template-columns:1fr; gap:48px; }
+  .success-split { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+  .process-img-wrap { position:relative; top:0; aspect-ratio:16/9; }
+  .success-img { min-height:300px; }
+  .hero-stats { position:static; margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+  .hstat { text-align:left; border-right:1px solid var(--line2); padding-right:20px; }
+  .hstat:last-child { border-right:none; }
+  .hero-content { padding:0 24px 72px; }
+  .nav-right .nav-a { display:none; }
+  .wrap { padding:0 24px; }
+  nav { padding:0 24px; }
+  .success-content { padding:48px 28px; }
+  .phone { width:230px; }
+  .impact { padding:80px 24px; }
+  .cta-full { padding:72px 24px; }
+  .cta-full-inner { max-width:100%; }
+  .wa-float-stat { display:none; }
+}
+
+@media(max-width:640px){
+  .svc-grid { grid-template-columns:1fr; }
+  .results-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; gap:32px; }
+  .hero h1 { font-size:clamp(2.8rem,12vw,4rem); }
+  .hero-stats { grid-template-columns:1fr 1fr; }
+  .hstat-n { font-size:1.6rem; }
+  .impact-text { font-size:clamp(1.6rem,7vw,2.4rem); }
+  .display { font-size:clamp(1.8rem,8vw,2.8rem); }
+  .res-big { font-size:3.5rem; }
+  .res-cell { padding:36px 28px; }
+  .svc-card { padding:32px 24px; }
+  .sec-inner { padding:72px 0; }
+  .pstep { grid-template-columns:52px 1fr; gap:16px; padding:28px 0; }
+  .pstep-n { font-size:2.5rem; }
+  .wa-badge { display:none; }
+  .phone { width:200px; }
+  .phone-wrap { transform:scale(.9); }
+  .test-mini-photo { width:28px; height:28px; }
+  .cta-trust { gap:16px; }
+  .btn-dark { font-size:.875rem; padding:15px 28px; }
+  .hero-sub { font-size:.9375rem; }
+  .hero-eyebrow { font-size:.5625rem; }
+}
+
+@media(max-width:480px){
+  .hero h1 { font-size:clamp(2.4rem,11vw,3rem); }
+  .hero-stats { grid-template-columns:1fr 1fr; }
+  nav { padding:0 16px; }
+  .wrap { padding:0 16px; }
+  .impact { padding:60px 16px; }
+  .svc-code { font-size:2.2rem; }
+  .success-content { padding:36px 20px; }
+  .testimonials-stack { gap:10px; }
+  .test-mini { padding:18px 18px; }
+  .test-mini blockquote { font-size:.875rem; }
+  #urgency { font-size:.5625rem; padding:8px 16px; }
+}
+
+@media(max-width:400px){
+  .hero h1 { font-size:2.2rem; }
+  .btn-gold { font-size:.8125rem; padding:14px 22px; }
+  .hero-actions { flex-direction:column; align-items:flex-start; }
+}
+
+@media(max-width:600px){
+  .wa-float span { display:none; }
+  .wa-float { padding:14px; border-radius:50%; width:50px; height:50px; justify-content:center; }
+  body { cursor:auto; }
+  #cur,#cur-ring { display:none; }
+  .toast { max-width:240px; }
+  #urgency { letter-spacing:.03em; }
+}
+
+/* ═══ LEAD MAGNET ════════════════════════════════════ */
+.lm-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.lm-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(200,136,10,.05), transparent);
+  pointer-events:none;
+}
+.lm-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.lm-left {}
+.lm-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(240,180,41,.1); border:1px solid rgba(240,180,41,.25);
+  border-radius:4px; padding:6px 14px; margin-bottom:24px;
+}
+.lm-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--gold-lt); animation:blink 2s infinite; }
+.lm-badge-txt { font-size:.6875rem; font-weight:600; text-transform:uppercase; letter-spacing:.16em; color:var(--gold-lt); }
+.lm-title {
+  font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:900; color:var(--white); line-height:1.05; letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.lm-title em { color:var(--gold-lt); font-style:italic; }
+.lm-sub { font-size:1rem; color:var(--muted); line-height:1.7; margin-bottom:36px; max-width:460px; }
+.lm-form { display:flex; flex-direction:column; gap:14px; max-width:440px; }
+.lm-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.lm-input {
+  width:100%; padding:14px 18px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+  border-radius:8px; color:var(--white); font-family:var(--sans); font-size:.9375rem;
+  outline:none; transition:border-color .2s;
+}
+.lm-input::placeholder { color:var(--muted); }
+.lm-input:focus { border-color:rgba(240,180,41,.5); }
+.lm-submit {
+  background:var(--gold-lt); color:var(--bg); border:none;
+  font-family:var(--sans); font-size:1rem; font-weight:700;
+  padding:16px 32px; border-radius:8px; cursor:pointer;
+  transition:all .2s; width:100%;
+}
+.lm-submit:hover { opacity:.9; transform:translateY(-1px); }
+.lm-privacy { font-size:.6875rem; color:var(--muted); margin-top:4px; }
+.lm-right { display:flex; justify-content:center; align-items:center; }
+.lm-preview {
+  width:320px; background:var(--bg);
+  border:1px solid rgba(240,180,41,.2); border-radius:16px;
+  overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,.4);
+  transform:rotate(-2deg);
+  transition:transform .3s;
+}
+.lm-preview:hover { transform:rotate(0deg) scale(1.02); }
+.lm-prev-cover {
+  background:var(--bg); padding:32px 28px;
+  border-bottom:3px solid var(--gold-lt);
+}
+.lm-prev-tag {
+  font-size:.5625rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-lt); margin-bottom:16px;
+}
+.lm-prev-num {
+  font-family:var(--serif); font-size:5rem; font-weight:900;
+  color:rgba(240,180,41,.15); line-height:1; margin-bottom:4px;
+}
+.lm-prev-title {
+  font-family:var(--serif); font-size:1.1rem; font-weight:700;
+  color:var(--white); line-height:1.25;
+}
+.lm-prev-footer { padding:16px 28px; display:flex; justify-content:space-between; align-items:center; }
+.lm-prev-auth { font-size:.75rem; color:var(--muted); }
+.lm-prev-pages { font-size:.625rem; color:var(--gold); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.lm-success {
+  display:none; text-align:center; padding:32px;
+  background:rgba(37,211,102,.06); border:1px solid rgba(37,211,102,.2);
+  border-radius:12px;
+}
+.lm-success h3 { font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:8px; }
+.lm-success p { font-size:.9375rem; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.lm-success a { color:var(--gold-lt); font-weight:600; }
+@media(max-width:900px){ .lm-grid { grid-template-columns:1fr; gap:48px; } .lm-right { order:-1; } .lm-preview { width:260px; } }
+@media(max-width:640px){ .lm-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- URGENCY BAR -->
+<div id="urgency">Solo quedan 4 cupos disponibles esta semana · Primera consulta 100% GRATIS · +593 99 444 2512</div>
+
+<!-- LOADING -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">Asesoría <em>Visa</em> Global</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <img src="logo.jpg" alt="Logo">
+    <span class="nav-brand">Asesoría <em>Visa</em> Global</span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-a" href="#servicios">Servicios</a>
+    <a class="nav-a" href="#proceso">Proceso</a>
+    <a class="nav-a" href="#faq">FAQ</a>
+    <a class="nav-cta" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">Consulta gratuita</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> La firma migratoria #1 del Ecuador</div>
+    <h1>
+      <span class="line"><span class="word word-1">Tu</span> <span class="word word-2">visa.</span></span>
+      <span class="line"><span class="word word-3">Nuestra</span></span>
+      <span class="line"><span class="word word-4">obse</span><span class="word word-5">sión.</span></span>
+    </h1>
+    <p class="hero-sub">Especialistas en procesos de visado con 15 años transformando sueños en visas aprobadas para familias ecuatorianas.</p>
+    <div class="hero-actions">
+      <a class="btn-gold" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita%20para%20tramitar%20mi%20visa" target="_blank">
+        Evalúa mi caso gratis ahora
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+      </a>
+      <a class="btn-outline-light" href="#lm-form-wrap" onclick="document.getElementById('lm-name')?.focus()">Descarga el checklist gratis →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n" data-counter data-target="500" data-suffix="+">500+</div><div class="hstat-l">Visas aprobadas</div></div>
+    <div class="hstat"><div class="hstat-n" data-counter data-target="98" data-suffix="%">98%</div><div class="hstat-l">Tasa de éxito</div></div>
+    <div class="hstat"><div class="hstat-n">15</div><div class="hstat-l">Años de experiencia</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item g">500+ Visas Aprobadas</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa USA</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">98% de Éxito</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa España</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Ecuador · 15 años</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa Canadá</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Primera consulta gratis</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa Schengen</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Rechazos revertidos</span><span class="marquee-item">·</span>
+    <span class="marquee-item">WhatsApp 24/7</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">500+ Visas Aprobadas</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa USA</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">98% de Éxito</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa España</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Ecuador · 15 años</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa Canadá</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Primera consulta gratis</span><span class="marquee-item">·</span>
+    <span class="marquee-item">Visa Schengen</span><span class="marquee-item">·</span>
+    <span class="marquee-item g">Rechazos revertidos</span><span class="marquee-item">·</span>
+    <span class="marquee-item">WhatsApp 24/7</span><span class="marquee-item">·</span>
+  </div>
+</div>
+
+<!-- IMPACT -->
+<div class="impact" data-r>
+  <div class="impact-num">98%</div>
+  <div class="impact-text">Cuando el futuro de tu familia<br>está en juego, confías en quien<br>tiene el historial para <em>respaldarlo.</em></div>
+  <div class="impact-sub">500+ familias ecuatorianas ya lo lograron con nosotros.</div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec services-dark" id="servicios">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:0;flex-wrap:wrap">
+        <div>
+          <div class="label" data-r>Servicios</div>
+          <h2 class="display" data-r>Cada destino.<br>Un experto dedicado.</h2>
+        </div>
+        <p class="text-muted" data-r style="max-width:320px;font-size:.9375rem">Cubrimos todos los destinos más solicitados por ecuatorianos con especialistas en cada tipo de visa.</p>
+      </div>
+      <div class="svc-grid" data-r>
+        <div class="svc-card">
+          <div class="svc-code">USA</div>
+          <div class="svc-dest">El destino más deseado</div>
+          <h3>La visa americana, bien hecha</h3>
+          <p>El 42% de ecuatorianos es rechazado en el primer intento. Preparamos tu expediente para que estés en el 58% que sí lo logra — desde la primera vez.</p>
+          <span class="svc-arrow">Evaluar mi caso →</span>
+        </div>
+        <div class="svc-card">
+          <div class="svc-code">ESP</div>
+          <div class="svc-dest">Asesor español en Ecuador</div>
+          <h3>España, por alguien que la conoce por dentro</h3>
+          <p>Soy español. Conozco el Consulado de España en Ecuador desde adentro — qué buscan, qué rechazan y exactamente cómo presentar tu caso para que aprueben.</p>
+          <span class="svc-arrow">Evaluar mi caso →</span>
+        </div>
+        <div class="svc-card">
+          <div class="svc-code">EUR</div>
+          <div class="svc-dest">27 países, una sola visa</div>
+          <h3>Europa de punta a punta</h3>
+          <p>Francia, Italia, Alemania, Portugal, Grecia… Un solo proceso Schengen abre las puertas a toda Europa. Te guiamos para que salga bien a la primera.</p>
+          <span class="svc-arrow">Evaluar mi caso →</span>
+        </div>
+        <div class="svc-card">
+          <div class="svc-code">GBR</div>
+          <div class="svc-dest">Post-Brexit, proceso propio</div>
+          <h3>Londres y el Reino Unido te esperan</h3>
+          <p>Desde el Brexit, UK tiene su propio proceso, más exigente que el Schengen. Con la documentación correcta y la preparación adecuada, se aprueba sin problema.</p>
+          <span class="svc-arrow">Evaluar mi caso →</span>
+        </div>
+        <div class="svc-card" style="border:1px solid var(--gold-bdr);background:rgba(200,136,10,.05)">
+          <div class="svc-code" style="color:rgba(240,180,41,.15)">NO</div>
+          <div class="svc-dest" style="color:var(--gold-lt)">Ya me dijeron que no</div>
+          <h3>Me negaron la visa. ¿Qué hago?</h3>
+          <p>Un rechazo no es el fin — es información. Analizamos exactamente por qué te dijeron no, corregimos lo que falló y construimos un caso diferente. El 70% lo revierte.</p>
+          <span class="svc-arrow" style="color:var(--gold-lt)">Analizar mi caso →</span>
+        </div>
+        <div class="svc-card">
+          <div class="svc-code">$0</div>
+          <div class="svc-dest">Sin pagar nada para empezar</div>
+          <h3>No sé por dónde empezar</h3>
+          <p>Te evaluamos el caso, te decimos tus probabilidades reales y el camino que recomendamos. Honesto, sin rodeos. Gratis. Después decides si continuamos juntos.</p>
+          <span class="svc-arrow">Hablar con un asesor →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHATSAPP SECTION -->
+<section class="sec wa-section">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="wa-layout">
+        <div class="phone-wrap">
+          <div class="phone-glow"></div>
+          <div class="phone" id="phone">
+            <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+            <div class="wa-header">
+              <div class="wa-avatar">AVG</div>
+              <div><div class="wa-name">Dr. Alejandro · Asesoría Visa Global</div><div class="wa-online">en línea ahora</div></div>
+            </div>
+            <div class="wa-body" id="chat-area"></div>
+          </div>
+          <div class="wa-badge" id="wa-badge"><div class="wa-badge-title">Estado actual</div><div class="wa-badge-val">Visa Aprobada ✓</div></div>
+          <div class="wa-float-stat"><div class="ws-n" data-counter data-target="98" data-suffix="%">98%</div><div class="ws-l">Tasa de éxito</div></div>
+        </div>
+        <div class="wa-text">
+          <div class="label" data-r>Así trabajamos</div>
+          <h2 class="display" data-r>Tu caso resuelto.<br>Desde tu WhatsApp.</h2>
+          <p class="text-muted" data-r>Sin oficinas, sin filas. Todo el proceso — evaluación, estrategia, documentos y preparación — se maneja por WhatsApp con respuesta en menos de 24 horas.</p>
+          <div class="wa-features" data-r>
+            <div class="wa-feat">
+              <div class="wa-feat-icon" style="background:rgba(200,136,10,.1);border:1px solid rgba(200,136,10,.2)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B429" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div><h4>Evaluación honesta de tu caso</h4><p class="text-muted">Te decimos la verdad sobre tus probabilidades reales, sin promesas vacías.</p></div>
+            </div>
+            <div class="wa-feat">
+              <div class="wa-feat-icon" style="background:rgba(200,136,10,.1);border:1px solid rgba(200,136,10,.2)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B429" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div><h4>Expediente construido para aprobar</h4><p class="text-muted">Cada documento verificado. Cada formulario revisado. Nada se deja al azar.</p></div>
+            </div>
+            <div class="wa-feat">
+              <div class="wa-feat-icon" style="background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div><h4>Acompañamiento hasta la aprobación</h4><p class="text-muted">Desde la consulta hasta la celebración, presentes en cada paso.</p></div>
+            </div>
+          </div>
+          <a href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank" data-r="d2" style="display:inline-flex;align-items:center;gap:12px;margin-top:36px;background:#25D366;color:white;font-family:var(--sans);font-size:.9375rem;font-weight:700;padding:16px 32px;border-radius:8px;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.25);transition:all .25s" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 14px 40px rgba(37,211,102,.45)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(37,211,102,.25)'">
+            Escribir ahora — consulta gratis →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="label" data-r>Resultados</div>
+      <h2 class="display" data-r>Los números que respaldan<br>cada decisión que tomamos.</h2>
+      <div class="results-grid" data-r>
+        <div class="res-cell">
+          <div class="res-big" data-counter data-target="98" data-suffix="%">98%</div>
+          <h3>Tasa de aprobación</h3>
+          <p>El 98% de los clientes con asesoría completa obtiene su visa aprobada en el primer intento ante cualquier embajada.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-big" data-counter data-target="500" data-suffix="+">500+</div>
+          <h3>Familias asesoradas</h3>
+          <p>Más de quinientas familias ecuatorianas que hoy viven, trabajan o estudian en el exterior con nuestra asesoría.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-big" data-counter data-target="70" data-suffix="%">70%</div>
+          <h3>Rechazos revertidos</h3>
+          <p>De los casos que llegaron con rechazos previos, siete de cada diez lograron aprobación con nuestra nueva estrategia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS SPLIT -->
+<section class="sec">
+  <div class="success-split">
+    <div class="success-img">
+      <img src="success-moment.jpg" alt="Visa aprobada">
+      <div class="success-img-overlay"></div>
+    </div>
+    <div class="success-content">
+      <div class="label" data-r>Historias reales</div>
+      <h2 class="display" data-r>Lo que dicen quienes<br>ya tienen su <em>visa.</em></h2>
+      <p class="text-muted" data-r>Resultados reales de ecuatorianos que confiaron en nosotros cuando más lo necesitaban.</p>
+      <div class="testimonials-stack" data-r>
+        <div class="test-mini">
+          <div class="test-mini-stars"><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span></div>
+          <blockquote>"Me rechazaron dos veces. Con su estrategia preparé el expediente correcto y fui aprobada al primer intento. No puedo creer que antes lo intenté sola."</blockquote>
+          <div class="test-mini-author">
+            <img class="test-mini-photo" src="testimonio-maria.jpg" alt="María G">
+            <div><div class="test-mini-name">María G.</div><div class="test-mini-detail">Visa USA B1/B2 · Guayaquil</div></div>
+          </div>
+        </div>
+        <div class="test-mini">
+          <div class="test-mini-stars"><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span></div>
+          <blockquote>"En tres semanas tenía la visa Schengen en mano para trabajar en España. El proceso fue claro y me acompañaron en cada paso."</blockquote>
+          <div class="test-mini-author">
+            <img class="test-mini-photo" src="testimonio-carlos.jpg" alt="Carlos P">
+            <div><div class="test-mini-name">Carlos P.</div><div class="test-mini-detail">Visa Schengen · Quito</div></div>
+          </div>
+        </div>
+        <div class="test-mini">
+          <div class="test-mini-stars"><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span><span class="ts"></span></div>
+          <blockquote>"Toda mi familia viajó a Canadá. Pensaba que con mi historial era imposible. Encontraron la forma correcta de presentar el caso."</blockquote>
+          <div class="test-mini-author">
+            <img class="test-mini-photo" src="testimonio-andrea.jpg" alt="Andrea V">
+            <div><div class="test-mini-name">Andrea V.</div><div class="test-mini-detail">Visa Canadá · Cuenca</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FULL -->
+<div class="cta-full">
+  <div class="cta-full-inner" data-r>
+    <h2>No arriesgues tus tasas consulares<br>sin <em>la estrategia correcta.</em></h2>
+    <p>Visa USA: $185 · Visa Schengen: ~$106 · Visa UK: ~$173 — no se devuelven si te niegan. Una evaluación con nosotros cuesta $0 y puede salvarte de un rechazo costoso.</p>
+    <a class="btn-dark" href="https://wa.me/593994442512?text=Hola,%20quiero%20que%20evaluen%20mi%20caso%20de%20visa%20gratis" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#F0B429"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+      Evalúa mi caso — es gratis
+    </a>
+    <div class="cta-trust">
+      <div class="cta-trust-item">Sin compromiso</div>
+      <div class="cta-trust-item">Respuesta hoy mismo</div>
+      <div class="cta-trust-item">500+ casos exitosos</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="sec" id="proceso">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="label" data-r>Proceso</div>
+      <h2 class="display" data-r style="margin-bottom:64px">De la consulta<br>a la visa aprobada.</h2>
+      <div class="process-grid">
+        <div class="process-img-wrap" data-r>
+          <img class="process-img" src="documentos-pasaporte.jpg" alt="Documentos y pasaporte">
+        </div>
+        <div class="process-steps" data-r="d1">
+          <div class="pstep">
+            <div class="pstep-n">01</div>
+            <div><h3>Consulta gratuita por WhatsApp</h3><p class="text-muted">Cuéntanos tu situación — destino, historial de viajes, situación laboral. En menos de 24 horas recibes una evaluación honesta con probabilidades reales y el plan que recomendamos.</p></div>
+          </div>
+          <div class="pstep">
+            <div class="pstep-n">02</div>
+            <div><h3>Estrategia personalizada</h3><p class="text-muted">Diseñamos el plan específico para tu perfil: qué documentos presentar, cómo organizarlos, qué reforzar. No hay dos casos iguales — cada expediente se construye desde cero.</p></div>
+          </div>
+          <div class="pstep">
+            <div class="pstep-n">03</div>
+            <div><h3>Preparación total</h3><p class="text-muted">Formularios, apostillas, cartas, estados de cuenta. Revisamos cada documento antes de que lo presentes. Simulamos la entrevista consular hasta que respondes con total seguridad.</p></div>
+          </div>
+          <div class="pstep">
+            <div class="pstep-n">04</div>
+            <div><h3>Visa aprobada</h3><p class="text-muted">El 98% de los clientes con proceso completo obtiene aprobación en el primer intento. Quedamos disponibles para cualquier consulta adicional después del trámite.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="faq-layout">
+        <div class="faq-side">
+          <div class="label" data-r>FAQ</div>
+          <h2 class="display" data-r>Todo lo que<br>necesitas saber.</h2>
+          <p class="text-muted" data-r>Si tienes una pregunta específica, escríbenos directamente.</p>
+          <div class="faq-contact-box" data-r>
+            <p>¿Duda sobre tu caso específico?</p>
+            <a class="faq-contact-link" href="https://wa.me/593994442512" target="_blank">Preguntar ahora →</a>
+          </div>
+        </div>
+        <div class="faq-list" data-r>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Cuánto cuesta la asesoría?<div class="faq-ico">+</div></button>
+            <div class="faq-ans">La primera consulta es completamente gratuita. El costo de la asesoría completa se define según el tipo de visa y la complejidad del caso — siempre después de la evaluación inicial y sin compromiso.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Garantizan que aprueben mi visa?<div class="faq-ico">+</div></button>
+            <div class="faq-ans">Ninguna agencia puede garantizarlo — la decisión es de la embajada. Lo que garantizamos es que tu expediente estará perfectamente preparado con la estrategia correcta para tu perfil. Nuestra tasa del 98% es la mejor evidencia posible.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">Ya me rechazaron. ¿Pueden ayudarme?<div class="faq-ico">+</div></button>
+            <div class="faq-ans">Sí. Analizamos la causa real del rechazo, corregimos lo que falló y construimos una nueva estrategia. El 70% de nuestros clientes con rechazos previos obtuvieron aprobación con nosotros.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Cuánto tiempo toma el proceso?<div class="faq-ico">+</div></button>
+            <div class="faq-ans">Depende de la visa: USA 4-12 semanas, Schengen 2-4 semanas, Canadá 4-16 semanas. En la consulta gratuita te damos el estimado exacto según la situación actual de citas consulares.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="this.parentElement.classList.toggle('open')">¿Atienden desde cualquier ciudad?<div class="faq-ico">+</div></button>
+            <div class="faq-ans">Sí. Todo el proceso es 100% remoto por WhatsApp y videollamada. No necesitas trasladarte. Atendemos clientes en Quito, Guayaquil, Cuenca y cualquier ciudad del Ecuador.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="sec lm-section">
+  <div class="wrap">
+    <div class="sec-inner">
+      <div class="lm-grid">
+        <div class="lm-left">
+          <div class="lm-badge" data-r>
+            <div class="lm-badge-dot"></div>
+            <div class="lm-badge-txt">Descarga gratuita</div>
+          </div>
+          <h2 class="lm-title" data-r>
+            El checklist que usan<br>quienes <em>aprueban</em><br>su visa.
+          </h2>
+          <p class="lm-sub" data-r>27 cosas que debes tener listas antes de tu entrevista consular. Documentos, preparacion personal y los errores que comete el 80% de los solicitantes.</p>
+
+          <div id="lm-form-wrap">
+            <form class="lm-form" id="lm-form" data-r>
+              <div class="lm-row">
+                <input class="lm-input" type="text" id="lm-name" name="nombre" placeholder="Tu nombre" required autocomplete="given-name">
+                <input class="lm-input" type="tel" id="lm-phone" name="whatsapp" placeholder="Tu WhatsApp" required autocomplete="tel">
+              </div>
+              <button type="submit" class="lm-submit" id="lm-btn">Enviarme el checklist gratis</button>
+              <p class="lm-privacy">Sin spam. Tu numero solo se usa para enviarte el PDF por WhatsApp.</p>
+            </form>
+          </div>
+
+          <div class="lm-success" id="lm-success">
+            <h3>Listo, en camino.</h3>
+            <p>Abrir WhatsApp para recibir tu checklist. Si en 24 horas no llega, escribeme directamente al <strong style="color:var(--white)">0994442512</strong>.</p>
+            <a href="checklist-entrevista.pdf" target="_blank">O descargalo aqui directamente</a>
+          </div>
+        </div>
+
+        <div class="lm-right" data-r>
+          <div class="lm-preview">
+            <div class="lm-prev-cover">
+              <div class="lm-prev-tag">Checklist Oficial · Asesoria Visa Global</div>
+              <div class="lm-prev-num">27</div>
+              <div class="lm-prev-title">Cosas que debes tener listas antes de tu entrevista consular</div>
+            </div>
+            <div class="lm-prev-footer">
+              <div class="lm-prev-auth">Roberto Acosta · Asesor de Visas</div>
+              <div class="lm-prev-pages">4 paginas · PDF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="foot-brand">
+        <a href="#"><img src="logo.jpg" alt="Logo"><span>Asesoría <em>Visa</em> Global</span></a>
+        <p>La firma de asesoría migratoria más reconocida de Ecuador. 500+ visas aprobadas. 98% de tasa de éxito.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Servicios</h4>
+        <a href="#servicios">Visa USA</a>
+        <a href="#servicios">Visa España</a>
+        <a href="#servicios">Visa Europa (Schengen)</a>
+        <a href="#servicios">Visa Reino Unido</a>
+        <a href="#servicios">Rechazos previos</a>
+      </div>
+      <div class="foot-col">
+        <h4>Empresa</h4>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="/privacy.html">Privacidad</a>
+        <a href="/terms.html">Condiciones de servicio</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/593994442512">+593 99 444 2512</a>
+        <a href="https://wa.me/593994442512">WhatsApp</a>
+        <a href="#">Ecuador</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Asesoría Visa Global. Todos los derechos reservados.</p>
+      <p>Hecho en Ecuador · Diseño de nivel mundial</p>
+    </div>
+  </div>
+</footer>
+
+<!-- SOCIAL PROOF TOAST -->
+<div id="toast">
+  <img id="ti" src="testimonio-maria.jpg" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold-bdr);flex-shrink:0">
+  <div>
+    <div id="tn" style="font-size:.8rem;font-weight:600;color:var(--white);margin-bottom:2px">María G. · Guayaquil</div>
+    <div id="tm" style="font-size:.6875rem;color:var(--muted)">acaba de agendar su consulta</div>
+    <div style="display:flex;align-items:center;gap:5px;margin-top:3px"><span style="width:5px;height:5px;border-radius:50%;background:#25D366;display:inline-block"></span><span style="font-size:.625rem;color:rgba(200,136,10,.8)">hace un momento</span></div>
+  </div>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="ei-popup">
+  <div id="ei-backdrop"></div>
+  <div id="ei-box">
+    <button id="ei-close">×</button>
+    <div class="ei-tag">Antes de irte — descarga gratis</div>
+    <h2 class="ei-title">27 errores que te <em>niegan</em> la visa</h2>
+    <p class="ei-sub">El checklist que usan nuestros clientes antes de su entrevista consular. Sin costo, sin spam.</p>
+    <form class="ei-form" id="ei-form">
+      <input class="ei-input" id="ei-name" type="text" placeholder="Tu nombre" required>
+      <input class="ei-input" id="ei-phone" type="tel" placeholder="Tu WhatsApp" required>
+      <button type="submit" class="ei-btn">Enviarme el checklist gratis</button>
+    </form>
+    <div class="ei-skip">No gracias, prefiero arriesgarme sin preparación</div>
+  </div>
+</div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/593994442512?text=Hola,%20quiero%20mi%20asesoria%20gratuita" target="_blank">
+  <div class="wa-pulse"></div>
+  <span>Consulta gratuita</span>
+</a>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 1600);
+  setTimeout(() => {
+    const urg = document.getElementById('urgency');
+    const nav = document.getElementById('nav');
+    urg.classList.add('show');
+    setTimeout(() => {
+      const h = urg.getBoundingClientRect().height;
+      nav.style.top = h + 'px';
+    }, 650); // esperar que termine la animación
+  }, 3500);
+});
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+  document.getElementById('progress') && (document.getElementById('progress').style.width = (scrollY/(document.body.scrollHeight-innerHeight)*100)+'%');
+});
+
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'), ring=document.getElementById('cur-ring');
+if(cur){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.svc-card,.test-mini').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-big'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-big'));
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('[data-r]').forEach(el=>ro.observe(el));
+
+/* ── COUNTERS ── */
+function animCount(el,target,dur=2000){
+  let s=null;
+  const step=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/dur,1);const e2=1-Math.pow(1-p,3);el.textContent=Math.round(e2*target)+(el.dataset.suffix||'');if(p<1)requestAnimationFrame(step);};
+  requestAnimationFrame(step);
+}
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animCount(e.target,parseInt(e.target.dataset.target));co.unobserve(e.target);}}),{threshold:.5});
+document.querySelectorAll('[data-counter]').forEach(el=>co.observe(el));
+
+/* ── WHATSAPP CHAT ── */
+const chatArea=document.getElementById('chat-area');
+const waBadge=document.getElementById('wa-badge');
+const msgs=[
+  {t:'r',tx:'Hola, me rechazaron la visa USA una vez 😟',d:1200},
+  {t:'typing',d:2400},
+  {t:'s',tx:'Entiendo. Un rechazo no es el fin — el 70% son reversibles con la estrategia correcta. ¿Recuerdas el motivo del rechazo?',d:3200},
+  {t:'r',tx:'Dijeron que mis fondos eran insuficientes',d:4600},
+  {t:'typing',d:5600},
+  {t:'s',tx:'Eso tiene solución. Con documentación de garantes y carta notariada lo resolvemos. ¿Tienes trabajo estable actualmente?',d:6400},
+  {t:'r',tx:'Sí, 4 años en la misma empresa',d:7800},
+  {t:'typing',d:8600},
+  {t:'s',tx:'Perfecto. Tu perfil es sólido. Te armo un plan personalizado. Primera consulta es 100% gratis — ¿empezamos? 📋',d:9400},
+  {t:'r',tx:'Sí, quiero empezar',d:10800},
+  {t:'approved',tx:'✅ VISA APROBADA — ¡Felicitaciones!',d:12000},
+];
+function mkBubble(m){
+  const d=document.createElement('div');
+  const styles={
+    r:'align-self:flex-start;background:#1a2332;color:#C0C8E0;border-radius:14px 14px 14px 4px;',
+    s:'align-self:flex-end;background:#075E54;color:white;border-radius:14px 14px 4px 14px;margin-left:auto;',
+    approved:'align-self:center;background:linear-gradient(135deg,#25D366,#128C7E);color:white;font-weight:700;text-align:center;border-radius:10px;padding:12px 18px;',
+  };
+  d.style.cssText=`max-width:88%;padding:9px 13px;font-size:.6875rem;line-height:1.55;animation:slide-in-msg .4s ease;${styles[m.t]||styles.r}`;
+  d.textContent=m.tx;
+  return d;
+}
+function mkTyping(){
+  const t=document.createElement('div');
+  t.id='typing-ind';
+  t.style.cssText='display:flex;gap:4px;padding:10px 14px;background:#1a2332;border-radius:14px 14px 14px 4px;align-self:flex-start;width:50px';
+  for(let i=0;i<3;i++){const d=document.createElement('div');d.style.cssText=`width:5px;height:5px;border-radius:50%;background:#444;animation:typing-dot .9s ${i*.2}s infinite`;t.appendChild(d);}
+  return t;
+}
+if(chatArea){
+  const obs=new IntersectionObserver(es=>{
+    if(!es[0].isIntersecting)return; obs.disconnect();
+    function run(){
+      chatArea.innerHTML=''; if(waBadge)waBadge.classList.remove('show');
+      msgs.forEach(m=>{
+        if(m.t==='typing'){setTimeout(()=>{chatArea.appendChild(mkTyping());chatArea.scrollTop=9999;},m.d);}
+        else if(m.t==='approved'){setTimeout(()=>{document.getElementById('typing-ind')?.remove();chatArea.appendChild(mkBubble(m));chatArea.scrollTop=9999;if(waBadge)waBadge.classList.add('show');},m.d);}
+        else{setTimeout(()=>{document.getElementById('typing-ind')?.remove();chatArea.appendChild(mkBubble(m));chatArea.scrollTop=9999;},m.d);}
+      });
+      setTimeout(run,msgs[msgs.length-1].d+3500);
+    }
+    run();
+  },{threshold:.3});
+  obs.observe(chatArea);
+}
+
+/* ── SOCIAL PROOF TOASTS ── */
+const toasts=[
+  {name:'María G. · Guayaquil',msg:'obtuvo su visa USA aprobada hoy',img:'testimonio-maria.jpg'},
+  {name:'Carlos P. · Quito',msg:'acaba de agendar su consulta gratuita',img:'testimonio-carlos.jpg'},
+  {name:'Andrea V. · Cuenca',msg:'su visa Canadá fue aprobada',img:'testimonio-andrea.jpg'},
+  {name:'Roberto S. · Manta',msg:'reservó consulta para visa España',img:'testimonio-maria.jpg'},
+  {name:'Valeria M. · Loja',msg:'acaba de completar su proceso',img:'testimonio-andrea.jpg'},
+];
+let ti=0;
+function showToast(){
+  const t=toasts[ti%toasts.length];ti++;
+  const el=document.getElementById('toast');
+  document.getElementById('ti').src=t.img;
+  document.getElementById('tn').textContent=t.name;
+  document.getElementById('tm').textContent=t.msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),4200);
+}
+setTimeout(()=>{showToast();setInterval(showToast,9000);},4000);
+
+/* ── MAGNETIC BTNS ── */
+document.querySelectorAll('.btn-gold,.btn-dark,.nav-cta').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.12}px)`;});
+  btn.addEventListener('mouseleave',()=>btn.style.transform='');
+});
+
+/* ── PARALLAX ── */
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('.success-img img,.process-img').forEach(img=>{
+    const r=img.closest('div').getBoundingClientRect();
+    const p=(r.top+r.height/2)/innerHeight-.5;
+    img.style.transform=`translateY(${p*18}px) scale(1.04)`;
+  });
+});
+
+/* ── TYPING ANIMATION CSS ── */
+const style=document.createElement('style');
+style.textContent=`
+@keyframes slide-in-msg{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes typing-dot{0%,60%{opacity:1;transform:translateY(0)}30%{opacity:.4;transform:translateY(-4px)}60%,100%{opacity:.2;transform:translateY(0)}}
+#ei-popup{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;}
+#ei-popup.show{opacity:1;visibility:visible;}
+#ei-backdrop{position:absolute;inset:0;background:rgba(2,9,18,.85);backdrop-filter:blur(6px);}
+#ei-box{position:relative;background:#0A1628;border:1px solid rgba(240,180,41,.25);border-radius:20px;padding:52px 48px;max-width:520px;width:90%;box-shadow:0 40px 80px rgba(0,0,0,.6);text-align:center;}
+#ei-close{position:absolute;top:18px;right:22px;background:none;border:none;color:rgba(255,255,255,.35);font-size:1.5rem;cursor:pointer;line-height:1;transition:color .15s;}
+#ei-close:hover{color:#fff;}
+.ei-tag{font-size:.625rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:16px;}
+.ei-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.ei-title em{color:var(--gold-lt);font-style:italic;}
+.ei-sub{font-size:.9375rem;color:rgba(200,208,224,.65);margin-bottom:32px;line-height:1.6;}
+.ei-form{display:flex;flex-direction:column;gap:12px;}
+.ei-input{padding:13px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:.9375rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.ei-input:focus{border-color:rgba(240,180,41,.5);}
+.ei-input::placeholder{color:rgba(200,208,224,.35);}
+.ei-btn{background:var(--gold-lt);color:#060E1F;border:none;padding:15px;border-radius:8px;font-size:1rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:opacity .2s;}
+.ei-btn:hover{opacity:.9;}
+.ei-skip{font-size:.75rem;color:rgba(200,208,224,.35);margin-top:12px;cursor:pointer;text-decoration:underline;}
+.ei-skip:hover{color:rgba(200,208,224,.6);}
+`;
+document.head.appendChild(style);
+
+/* ── EXIT INTENT POPUP ── */
+(function(){
+  if(sessionStorage.getItem('ei_shown')) return;
+  const popup = document.getElementById('ei-popup');
+  if(!popup) return;
+
+  function show(){
+    if(sessionStorage.getItem('ei_shown')) return;
+    sessionStorage.setItem('ei_shown','1');
+    popup.classList.add('show');
+  }
+
+  // Desktop: cursor leaves viewport upward
+  document.addEventListener('mouseleave', e => { if(e.clientY < 10) show(); });
+
+  // Mobile/all: after 45s on page
+  setTimeout(show, 45000);
+
+  // After 70% scroll + pause
+  let scrollFired = false;
+  window.addEventListener('scroll', function(){
+    if(scrollFired) return;
+    const pct = scrollY / (document.body.scrollHeight - innerHeight);
+    if(pct > 0.7){ scrollFired = true; setTimeout(show, 3000); }
+  });
+
+  // Close handlers
+  document.getElementById('ei-backdrop')?.addEventListener('click', ()=>popup.classList.remove('show'));
+  document.getElementById('ei-close')?.addEventListener('click', ()=>popup.classList.remove('show'));
+  document.querySelector('.ei-skip')?.addEventListener('click', ()=>popup.classList.remove('show'));
+
+  // Form submit (reuse same logic as lead magnet)
+  document.getElementById('ei-form')?.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('ei-name').value.trim();
+    const phone = document.getElementById('ei-phone').value.trim();
+    const btn = this.querySelector('.ei-btn');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec',{
+        method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'lead_magnet', nombre:name, whatsapp:phone, fuente:'exit-intent', fecha:new Date().toISOString()})
+      });
+    } catch(_){}
+    popup.classList.remove('show');
+    const msg = encodeURIComponent(`Hola Roberto, soy ${name}. Quiero el checklist de la entrevista consular.`);
+    setTimeout(()=>window.open(`https://wa.me/593994442512?text=${msg}`,'_blank'), 400);
+  });
+})();
+
+/* ── LEAD MAGNET FORM ── */
+const lmForm = document.getElementById('lm-form');
+if(lmForm){
+  lmForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('lm-name').value.trim();
+    const phone = document.getElementById('lm-phone').value.trim();
+    const btn = document.getElementById('lm-btn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    // Guardar en Apps Script
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ action:'lead_magnet', nombre:name, whatsapp:phone, fecha:new Date().toISOString() })
+      });
+    } catch(_){}
+
+    // Mostrar éxito + abrir WA con mensaje personalizado
+    document.getElementById('lm-form-wrap').style.display='none';
+    document.getElementById('lm-success').style.display='block';
+    const msg = encodeURIComponent(`Hola Roberto, soy ${name}. Quiero el checklist de la entrevista consular.`);
+    setTimeout(()=>{ window.open(`https://wa.me/593994442512?text=${msg}`, '_blank'); }, 800);
+  });
+}
+</script>
+</body>
+</html>
