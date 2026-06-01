@@ -1,21 +1,507 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Política de Privacidad — Asesoría Visa Global</title>
-<style>body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:40px 20px;color:#333;line-height:1.7}h1,h2{color:#0d2240}h2{margin-top:30px}a{color:#0d2240}</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,"script",
+"https://connect.facebook.net/en_US/fbevents.js");
+fbq("init", "1713317820112908");
+fbq("track", "PageView");
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta name="description" content="Política de privacidad y tratamiento de datos personales de Asesoría Visa Global.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #060E1F;
+  --bg2:     #0A1628;
+  --bg3:     #0F2040;
+  --line:    rgba(255,255,255,.06);
+  --line2:   rgba(255,255,255,.11);
+  --gold:    #C8880A;
+  --gold-lt: #F0B429;
+  --gold-bg: rgba(200,136,10,.08);
+  --gold-bdr:rgba(240,180,41,.2);
+  --text:    #C8D0E0;
+  --muted:   #6B7A99;
+  --white:   #F0EDE8;
+  --serif:   'Playfair Display', Georgia, serif;
+  --sans:    'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(200,136,10,.4); border-radius:10px; }
+
+/* ── FONDO ── */
+.bg-mesh {
+  position: fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(200,136,10,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 100%, rgba(15,32,64,.9) 0%, transparent 60%),
+    var(--bg);
+}
+.bg-grid {
+  position: fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(240,180,41,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,180,41,.018) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 100%);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 0 40px; height:68px;
+  display: flex; align-items:center; justify-content:space-between;
+  background: rgba(6,14,31,.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-brand {
+  font-family: var(--serif); font-size:1rem; font-weight:700;
+  color: var(--white); text-decoration:none; letter-spacing:.02em;
+}
+.nav-brand em { color: var(--gold-lt); font-style:italic; }
+.nav-back {
+  font-size:.8rem; font-weight:500; color: var(--muted);
+  text-decoration:none; letter-spacing:.04em;
+  transition: color .2s;
+  display: flex; align-items:center; gap:6px;
+}
+.nav-back:hover { color: var(--gold-lt); }
+.nav-back::before { content:"←"; }
+
+/* ── MAIN ── */
+main {
+  position: relative; z-index:1;
+  max-width: 820px; margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+
+/* ── HERO ── */
+.page-hero {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--line2);
+}
+.page-tag {
+  display: inline-block;
+  font-size:.65rem; font-weight:600; letter-spacing:.14em;
+  text-transform: uppercase; color: var(--gold-lt);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-bdr);
+  padding: 5px 14px; border-radius:99px;
+  margin-bottom: 20px;
+}
+.page-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.page-title em { color: var(--gold-lt); font-style:italic; }
+.page-meta {
+  font-size:.85rem; color: var(--muted);
+}
+
+/* ── ÍNDICE ── */
+.toc {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+.toc-title {
+  font-size:.7rem; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color: var(--gold-lt);
+  margin-bottom: 16px;
+}
+.toc ol {
+  list-style:none; counter-reset: toc;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px;
+}
+@media(max-width:560px){ .toc ol { grid-template-columns:1fr; } }
+.toc li { counter-increment:toc; }
+.toc a {
+  font-size:.875rem; color: var(--text);
+  text-decoration:none; display:flex; align-items:center; gap:8px;
+  transition: color .2s;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size:.7rem; color: var(--gold);
+  font-weight:600; flex-shrink:0;
+}
+.toc a:hover { color: var(--gold-lt); }
+
+/* ── SECCIONES ── */
+.section {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+.section:last-of-type { border-bottom:none; }
+.section-num {
+  font-size:.65rem; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color: var(--gold);
+  margin-bottom: 10px;
+  display:block;
+}
+.section h2 {
+  font-family: var(--serif);
+  font-size: 1.4rem; font-weight:700;
+  color: var(--white); margin-bottom: 20px;
+  line-height:1.25;
+}
+.section p {
+  font-size:.9375rem; line-height:1.75;
+  color: var(--text); margin-bottom: 16px;
+}
+.section p:last-child { margin-bottom:0; }
+.section ul, .section ol {
+  padding-left: 0; list-style:none;
+  margin-bottom: 16px;
+}
+.section li {
+  font-size:.9375rem; line-height:1.7;
+  color: var(--text); padding: 6px 0 6px 20px;
+  position:relative;
+}
+.section li::before {
+  content:"";
+  position:absolute; left:0; top:14px;
+  width:5px; height:5px;
+  border-radius:50%; background: var(--gold);
+}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight {
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-bdr);
+  border-left: 3px solid var(--gold-lt);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.highlight p {
+  font-size:.875rem; color: var(--white);
+  margin:0; line-height:1.65;
+}
+
+/* ── TABLA ── */
+.data-table {
+  width:100%; border-collapse:collapse;
+  margin: 20px 0;
+  font-size:.875rem;
+}
+.data-table th {
+  text-align:left; padding:12px 16px;
+  background: rgba(255,255,255,.04);
+  color: var(--gold-lt); font-weight:600;
+  font-size:.75rem; letter-spacing:.06em; text-transform:uppercase;
+  border-bottom: 1px solid var(--line2);
+}
+.data-table td {
+  padding:12px 16px; color: var(--text);
+  border-bottom: 1px solid var(--line);
+  vertical-align:top; line-height:1.55;
+}
+.data-table tr:last-child td { border-bottom:none; }
+
+/* ── CONTACTO BOX ── */
+.contact-box {
+  background: var(--bg2);
+  border: 1px solid var(--line2);
+  border-radius:12px; padding:28px 32px;
+  display:flex; flex-wrap:wrap; gap:24px;
+  align-items:flex-start;
+  margin-top: 40px;
+}
+.contact-box-title {
+  font-family: var(--serif); font-size:1.1rem; font-weight:700;
+  color: var(--white); margin-bottom:12px; width:100%;
+}
+.contact-item { flex:1; min-width:180px; }
+.contact-label {
+  font-size:.7rem; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color: var(--gold);
+  margin-bottom:4px;
+}
+.contact-value {
+  font-size:.9rem; color: var(--text); line-height:1.5;
+}
+.contact-value a { color: var(--gold-lt); text-decoration:none; }
+.contact-value a:hover { text-decoration:underline; }
+
+/* ── FOOTER ── */
+footer {
+  position:relative; z-index:1;
+  border-top: 1px solid var(--line);
+  padding: 32px 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px;
+}
+.footer-text { font-size:.8rem; color: var(--muted); }
+.footer-link {
+  font-size:.8rem; color: var(--muted);
+  text-decoration:none; transition:color .2s;
+}
+.footer-link:hover { color: var(--gold-lt); }
+
+/* ── ANIMACIÓN ── */
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:none; }
+}
+main { animation: fade-up .5s ease both; }
+</style>
 </head>
 <body>
-<h1>Política de Privacidad</h1>
-<p><strong>Última actualización:</strong> 1 de junio de 2026</p>
-<p>Asesoría Visa Global opera el sitio asesoriadevisadosglobal.com y herramientas de gestión de contenido en redes sociales.</p>
-<h2>1. Información que recopilamos</h2>
-<p>Recopilamos nombre, correo, teléfono y detalles del proceso de visa cuando usa nuestros servicios.</p>
-<h2>2. Uso de la información</h2>
-<ul><li>Prestar servicios de asesoría migratoria</li><li>Comunicarnos sobre su proceso</li><li>Publicar contenido educativo en redes sociales</li></ul>
-<h2>3. TikTok y redes sociales</h2>
-<p>Usamos la API de TikTok para publicar contenido informativo. No recopilamos datos de usuarios de TikTok. El contenido es educativo sobre procesos migratorios.</p>
-<h2>4. Contacto</h2>
-<p>info@asesoriadevisadosglobal.com | WhatsApp: +593 99 444 2512</p>
-</body></html>
+
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+
+<nav>
+  <a href="/" class="nav-brand">Asesoría <em>Visa</em> Global</a>
+  <a href="/" class="nav-back">Volver al inicio</a>
+</nav>
+
+<main>
+
+  <div class="page-hero">
+    <span class="page-tag">Documento legal</span>
+    <h1 class="page-title">Política de <em>Privacidad</em></h1>
+    <p class="page-meta">Última actualización: mayo 2026 &nbsp;·&nbsp; Vigente para Ecuador y clientes internacionales</p>
+  </div>
+
+  <nav class="toc" aria-label="Índice de contenidos">
+    <div class="toc-title">Contenido</div>
+    <ol>
+      <li><a href="#responsable">Responsable del tratamiento</a></li>
+      <li><a href="#datos">Datos que recopilamos</a></li>
+      <li><a href="#finalidad">Finalidad del tratamiento</a></li>
+      <li><a href="#base">Base legal</a></li>
+      <li><a href="#whatsapp">Comunicación por WhatsApp</a></li>
+      <li><a href="#terceros">Terceros y proveedores</a></li>
+      <li><a href="#conservacion">Conservación de datos</a></li>
+      <li><a href="#derechos">Tus derechos</a></li>
+      <li><a href="#seguridad">Seguridad</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ol>
+  </nav>
+
+  <section class="section" id="responsable">
+    <span class="section-num">01</span>
+    <h2>Responsable del tratamiento</h2>
+    <p>El responsable del tratamiento de tus datos personales es:</p>
+    <div class="highlight">
+      <p>Asesoría Visa Global &nbsp;·&nbsp; Roberto Acosta &nbsp;·&nbsp; Quito, Ecuador<br>
+      Correo: info@asesoriadevisadosglobal.com &nbsp;·&nbsp; WhatsApp: +593 99 444 2512</p>
+    </div>
+    <p>Esta política aplica a todos los servicios ofrecidos a través del sitio web asesoriadevisadosglobal.com, el formulario de solicitud, el bot de WhatsApp y cualquier comunicación directa con nuestro equipo.</p>
+  </section>
+
+  <section class="section" id="datos">
+    <span class="section-num">02</span>
+    <h2>Datos que recopilamos</h2>
+    <p>Recopilamos únicamente los datos necesarios para prestar el servicio de asesoría migratoria. Estos incluyen:</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Datos específicos</th>
+          <th>Origen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Identificación</td>
+          <td>Nombres, apellidos, fecha y lugar de nacimiento, nacionalidad, número de cédula</td>
+          <td>Formulario web / WhatsApp</td>
+        </tr>
+        <tr>
+          <td>Pasaporte</td>
+          <td>Número, fechas de emisión y vencimiento, país emisor</td>
+          <td>Formulario web</td>
+        </tr>
+        <tr>
+          <td>Contacto</td>
+          <td>Teléfono celular, correo electrónico, dirección en Ecuador</td>
+          <td>Formulario web / WhatsApp</td>
+        </tr>
+        <tr>
+          <td>Laboral y económica</td>
+          <td>Empleador, cargo, ingreso mensual, extractos bancarios</td>
+          <td>Formulario web / documentos adjuntos</td>
+        </tr>
+        <tr>
+          <td>Historial migratorio</td>
+          <td>Visas anteriores, rechazos previos, viajes internacionales</td>
+          <td>Formulario web</td>
+        </tr>
+        <tr>
+          <td>Técnicos</td>
+          <td>Dirección IP, navegador, páginas visitadas (analytics)</td>
+          <td>Automático al navegar el sitio</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>No recopilamos datos especialmente sensibles como información médica, creencias religiosas, orientación sexual ni afiliación política.</p>
+  </section>
+
+  <section class="section" id="finalidad">
+    <span class="section-num">03</span>
+    <h2>Finalidad del tratamiento</h2>
+    <p>Tus datos se utilizan exclusivamente para:</p>
+    <ul>
+      <li>Evaluar tu perfil migratorio y diseñar la estrategia de visa más adecuada para tu caso</li>
+      <li>Completar los formularios consulares requeridos (DS-160, formularios Schengen, etc.)</li>
+      <li>Enviarte comunicaciones sobre el avance de tu expediente</li>
+      <li>Procesar el pago del servicio contratado</li>
+      <li>Enviarte recordatorios y seguimiento relacionado con tu proceso de visa</li>
+      <li>Cumplir con obligaciones legales aplicables en Ecuador</li>
+    </ul>
+    <p>No utilizamos tus datos para publicidad de terceros, ventas a otras empresas ni ningún fin distinto al servicio contratado.</p>
+  </section>
+
+  <section class="section" id="base">
+    <span class="section-num">04</span>
+    <h2>Base legal del tratamiento</h2>
+    <p>El tratamiento de tus datos se sustenta en las siguientes bases legales, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (LOPDP) y estándares internacionales:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Consentimiento:</strong> al completar el formulario de solicitud y/o iniciar comunicación por WhatsApp, otorgas tu consentimiento expreso para el tratamiento descrito en esta política.</li>
+      <li><strong style="color:var(--white)">Ejecución de contrato:</strong> el tratamiento es necesario para prestarte el servicio de asesoría que has solicitado.</li>
+      <li><strong style="color:var(--white)">Obligación legal:</strong> ciertos datos deben ser procesados para cumplir requerimientos de las embajadas y consulados correspondientes.</li>
+      <li><strong style="color:var(--white)">Interés legítimo:</strong> para el seguimiento post-servicio y la mejora continua de nuestra atención.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="whatsapp">
+    <span class="section-num">05</span>
+    <h2>Comunicación por WhatsApp</h2>
+    <p>Asesoría Visa Global utiliza la plataforma WhatsApp Business para atender consultas, enviar información sobre el servicio y dar seguimiento a tu caso. Al iniciar una conversación con nuestro número de WhatsApp (+593 99 444 2512) aceptas las siguientes condiciones:</p>
+    <ul>
+      <li>Las conversaciones pueden ser procesadas parcialmente por un asistente automatizado con inteligencia artificial para agilizar la atención inicial.</li>
+      <li>Los mensajes de seguimiento automáticos (recordatorios, actualizaciones del proceso) son enviados únicamente a personas que han iniciado contacto voluntariamente.</li>
+      <li>Puedes escribir DETENER en cualquier momento para cesar toda comunicación automatizada.</li>
+      <li>El historial de conversación se almacena en nuestros sistemas por el tiempo indicado en la sección de conservación de datos.</li>
+    </ul>
+    <div class="highlight">
+      <p>El uso de WhatsApp está sujeto adicionalmente a la Política de Privacidad de Meta Platforms, Inc. Te recomendamos revisarla en whatsapp.com/legal/privacy-policy.</p>
+    </div>
+  </section>
+
+  <section class="section" id="terceros">
+    <span class="section-num">06</span>
+    <h2>Terceros y proveedores de servicio</h2>
+    <p>Para operar nuestros servicios, compartimos datos con los siguientes proveedores, quienes actúan como encargados del tratamiento bajo acuerdos de confidencialidad:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Anthropic (Claude AI):</strong> procesamiento de texto para asistencia automatizada en WhatsApp.</li>
+      <li><strong style="color:var(--white)">Google (Workspace / Sheets):</strong> almacenamiento del expediente del cliente.</li>
+      <li><strong style="color:var(--white)">PayPal:</strong> procesamiento de pagos. No almacenamos datos de tarjetas de crédito.</li>
+      <li><strong style="color:var(--white)">Meta (WhatsApp Business API):</strong> canal de comunicación.</li>
+      <li><strong style="color:var(--white)">Render / GitHub:</strong> infraestructura tecnológica del sitio y bot.</li>
+    </ul>
+    <p>No vendemos, arrendamos ni cedemos tus datos personales a terceros con fines comerciales propios.</p>
+  </section>
+
+  <section class="section" id="conservacion">
+    <span class="section-num">07</span>
+    <h2>Conservación de los datos</h2>
+    <p>Conservamos tus datos durante los siguientes plazos:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Expediente de cliente activo:</strong> durante toda la vigencia del servicio contratado más 5 años adicionales, por razones de referencia legal.</li>
+      <li><strong style="color:var(--white)">Consultas no convertidas en servicio:</strong> máximo 1 año desde el último contacto.</li>
+      <li><strong style="color:var(--white)">Datos de navegación web:</strong> máximo 12 meses.</li>
+    </ul>
+    <p>Transcurridos estos plazos, los datos son eliminados de forma segura o anonimizados de manera irreversible.</p>
+  </section>
+
+  <section class="section" id="derechos">
+    <span class="section-num">08</span>
+    <h2>Tus derechos</h2>
+    <p>Conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (LOPDP), tienes derecho a:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Acceso:</strong> conocer qué datos personales tenemos sobre ti.</li>
+      <li><strong style="color:var(--white)">Rectificación:</strong> corregir datos inexactos o desactualizados.</li>
+      <li><strong style="color:var(--white)">Eliminación:</strong> solicitar la supresión de tus datos cuando ya no sean necesarios.</li>
+      <li><strong style="color:var(--white)">Oposición:</strong> oponerte al tratamiento en determinadas circunstancias.</li>
+      <li><strong style="color:var(--white)">Portabilidad:</strong> recibir tus datos en formato estructurado y de uso común.</li>
+      <li><strong style="color:var(--white)">Revocación del consentimiento:</strong> retirar tu consentimiento en cualquier momento, sin que ello afecte la licitud del tratamiento anterior.</li>
+    </ul>
+    <p>Para ejercer cualquiera de estos derechos, escríbenos a info@asesoriadevisadosglobal.com con el asunto "Derechos LOPDP". Responderemos en un plazo máximo de 15 días hábiles.</p>
+  </section>
+
+  <section class="section" id="seguridad">
+    <span class="section-num">09</span>
+    <h2>Seguridad de los datos</h2>
+    <p>Implementamos medidas técnicas y organizativas apropiadas para proteger tus datos frente a accesos no autorizados, pérdida o destrucción accidental:</p>
+    <ul>
+      <li>Comunicaciones cifradas mediante HTTPS/TLS en todo el sitio y las APIs.</li>
+      <li>Acceso restringido a los datos exclusivamente al personal autorizado.</li>
+      <li>Almacenamiento en plataformas con certificaciones de seguridad reconocidas (Google Cloud, AWS).</li>
+      <li>No almacenamos contraseñas en texto plano ni datos de pago completos.</li>
+    </ul>
+    <p>En caso de una brecha de seguridad que pueda afectar tus derechos, te notificaremos en el plazo legalmente establecido.</p>
+  </section>
+
+  <section class="section" id="contacto">
+    <span class="section-num">10</span>
+    <h2>Contacto y reclamaciones</h2>
+    <p>Para cualquier consulta sobre esta política o el tratamiento de tus datos, puedes contactarnos por cualquiera de estos medios:</p>
+    <div class="contact-box">
+      <div class="contact-box-title">Asesoría Visa Global — Responsable de Datos</div>
+      <div class="contact-item">
+        <div class="contact-label">Correo</div>
+        <div class="contact-value"><a href="mailto:info@asesoriadevisadosglobal.com">info@asesoriadevisadosglobal.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">WhatsApp</div>
+        <div class="contact-value"><a href="https://wa.me/593987846751">+593 99 444 2512</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Ubicación</div>
+        <div class="contact-value">Quito, Ecuador</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Autoridad de control</div>
+        <div class="contact-value">Superintendencia de Protección de Datos Personales — Ecuador</div>
+      </div>
+    </div>
+    <p style="margin-top:20px">Si consideras que el tratamiento de tus datos no se ajusta a la normativa vigente, tienes derecho a presentar una reclamación ante la Superintendencia de Protección de Datos Personales del Ecuador.</p>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-text">© 2026 Asesoría Visa Global. Todos los derechos reservados.</span>
+  <a href="/" class="footer-link">Volver al inicio</a>
+</footer>
+
+</body>
+</html>
