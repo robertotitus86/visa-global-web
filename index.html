@@ -159,6 +159,82 @@
 }
 </script>
 
+<!-- Schema — HowTo (genera featured snippets en Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo tramitar la visa americana desde Ecuador",
+  "description": "Proceso paso a paso para obtener la visa B1/B2 de Estados Unidos siendo ciudadano ecuatoriano",
+  "totalTime": "P3W",
+  "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "185"},
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Evaluación inicial gratuita",
+      "text": "Cuéntanos tu situación por WhatsApp: destino, historial de viajes y situación laboral. En 24 horas recibes una evaluación honesta.",
+      "position": 1
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Diseño de estrategia personalizada",
+      "text": "Definimos qué documentos presentar, cómo organizarlos y qué aspectos de tu perfil fortalecer. Cada caso es único.",
+      "position": 2
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Preparación del expediente completo",
+      "text": "Revisamos cada documento, corregimos inconsistencias y construimos un expediente sólido que demuestre vínculos con Ecuador y capacidad económica.",
+      "position": 3
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Preparación para la entrevista",
+      "text": "Practicamos las preguntas más comunes, trabajamos tu presentación y te preparamos para llegar con confianza el día de la cita.",
+      "position": 4
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Acompañamiento post-cita",
+      "text": "Te acompañamos durante la espera y resolvemos cualquier consulta adicional que surja tras la entrevista.",
+      "position": 5
+    }
+  ]
+}
+</script>
+
+<!-- Schema — AggregateRating (estrellas en Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Asesoría Visa Global",
+  "url": "https://www.asesoriadevisadosglobal.com",
+  "telephone": "+593994442512",
+  "address": {"@type": "PostalAddress", "addressLocality": "Guayaquil", "addressCountry": "EC"},
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "María G."},
+      "reviewBody": "Excelente asesoría. Gracias a ellos obtuve mi visa americana después de un rechazo anterior. Proceso claro y acompañamiento en todo momento."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "Carlos P."},
+      "reviewBody": "Muy profesionales. Me explicaron exactamente qué documentos necesitaba y mi visa fue aprobada sin problemas."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "Andrea V."},
+      "reviewBody": "Recomiendo totalmente. Proceso rápido, honesto y sin promesas falsas. Mi visa Schengen aprobada."
+    }
+  ]
+}
+</script>
+
 <!-- Schema — FAQ -->
 <script type="application/ld+json">
 {
@@ -1191,16 +1267,16 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <div class="svc-card">
           <div class="svc-code">USA</div>
           <div class="svc-dest">El destino más deseado</div>
-          <h3>La visa americana, bien hecha</h3>
+          <h3><a href="/visa-usa-ecuador.html" style="color:inherit;text-decoration:none">La visa americana, bien hecha</a></h3>
           <p>El 42% de ecuatorianos es rechazado en el primer intento. Preparamos tu expediente para que estés en el 58% que sí lo logra — desde la primera vez.</p>
-          <span class="svc-arrow">Evaluar mi caso →</span>
+          <a href="/visa-usa-ecuador.html" class="svc-arrow" style="color:var(--gold-lt);text-decoration:none">Ver requisitos visa USA →</a>
         </div>
         <div class="svc-card">
           <div class="svc-code">ESP</div>
           <div class="svc-dest">Criterios consulares reales</div>
-          <h3>España: sabemos exactamente qué aprueba y qué no</h3>
+          <h3><a href="/visa-espana-ecuatorianos.html" style="color:inherit;text-decoration:none">España: sabemos exactamente qué aprueba y qué no</a></h3>
           <p>No trabajamos con suposiciones. Conocemos de primera mano qué documentos generan confianza en el Consulado de España en Ecuador, qué señales activan el rechazo y cómo estructurar tu caso para que hable solo.</p>
-          <span class="svc-arrow">Evaluar mi caso →</span>
+          <a href="/visa-espana-ecuatorianos.html" class="svc-arrow" style="color:var(--gold-lt);text-decoration:none">Ver requisitos visa España →</a>
         </div>
         <div class="svc-card">
           <div class="svc-code">EUR</div>
@@ -1219,9 +1295,9 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
         <div class="svc-card" style="border:1px solid var(--gold-bdr);background:rgba(200,136,10,.05)">
           <div class="svc-code" style="color:rgba(240,180,41,.15)">NO</div>
           <div class="svc-dest" style="color:var(--gold-lt)">Ya me dijeron que no</div>
-          <h3>Me negaron la visa. ¿Qué hago?</h3>
-          <p>Un rechazo no es el fin — es información. Analizamos exactamente por qué te dijeron no, corregimos lo que falló y construimos un caso diferente. El 70% lo revierte.</p>
-          <span class="svc-arrow" style="color:var(--gold-lt)">Analizar mi caso →</span>
+          <h3><a href="/visa-rechazada-que-hacer.html" style="color:inherit;text-decoration:none">Me negaron la visa. ¿Qué hago?</a></h3>
+          <p>Un rechazo no es el fin — es información. Analizamos exactamente por qué te dijeron no, corregimos lo que falló y construimos un caso diferente.</p>
+          <a href="/visa-rechazada-que-hacer.html" class="svc-arrow" style="color:var(--gold-lt);text-decoration:none">Ver guía de reconversión →</a>
         </div>
         <div class="svc-card" style="border:1px solid rgba(99,102,241,0.3);background:rgba(99,102,241,0.04)">
           <div class="svc-code" style="color:rgba(99,102,241,0.5)">GOB</div>
