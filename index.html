@@ -1171,6 +1171,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
     linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  pointer-events: none;
 }
 
 /* Grain texture */
@@ -1254,8 +1255,9 @@ nav { backdrop-filter: blur(20px) saturate(180%); }
   letter-spacing: .15em;
 }
 
-/* Cursor premium en botones */
-a, button { cursor: pointer; }
+/* Cursor estándar */
+* { cursor: default; }
+a[href], button, [onclick], label, select, input[type="submit"], input[type="button"], .nav-cta, .btn-gold, .btn-dark, .wa-float, .svc-arrow { cursor: pointer; }
 
 /* Service cards — hover lift */
 .svc-card {
