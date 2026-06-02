@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /pagar.html
+
+Sitemap: https://www.asesoriadevisadosglobal.com/sitemap.xml
