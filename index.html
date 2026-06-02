@@ -341,7 +341,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  cursor: none;
+  cursor: pointer;
 }
 ::selection { background: var(--gold); color: var(--bg); }
 ::-webkit-scrollbar { width:3px; }
@@ -378,8 +378,6 @@ body {
 /* ═══ CURSOR ═════════════════════════════════════════ */
 #cur { position:fixed; z-index:9999; pointer-events:none; width:10px; height:10px; background:var(--gold-lt); border-radius:50%; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .2s,height .2s; }
 #cur-ring { position:fixed; z-index:9998; pointer-events:none; width:32px; height:32px; border:1px solid rgba(240,180,41,.35); border-radius:50%; transform:translate(-50%,-50%); transition:width .25s,height .25s,border-color .25s; }
-body.cursor-big #cur { width:5px; height:5px; }
-body.cursor-big #cur-ring { width:48px; height:48px; border-color:rgba(240,180,41,.6); }
 
 /* ═══ NAV ════════════════════════════════════════════ */
 nav {
@@ -407,7 +405,7 @@ nav.scrolled {
   background: var(--gold-lt); color: var(--bg);
   font-size:.8125rem; font-weight:700; font-family:var(--sans);
   padding: 9px 22px; border-radius:6px; text-decoration:none;
-  transition: all .2s; border:none; cursor:none;
+  transition: all .2s; border:none; cursor:pointer;
 }
 .nav-cta:hover { opacity:.9; transform:scale(1.02); }
 
@@ -713,7 +711,7 @@ h2.display em { color:var(--gold-lt); font-style:italic; }
 .faq-contact-link:hover { opacity:.8; }
 .faq-list { display:flex; flex-direction:column; }
 .faq-item { border-bottom:1px solid var(--line); }
-.faq-btn { width:100%; background:none; border:none; cursor:none; display:flex; justify-content:space-between; align-items:center; padding:22px 0; gap:20px; text-align:left; font-family:var(--sans); font-size:.9375rem; font-weight:500; color:var(--text); transition:color .15s; }
+.faq-btn { width:100%; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:22px 0; gap:20px; text-align:left; font-family:var(--sans); font-size:.9375rem; font-weight:500; color:var(--text); transition:color .15s; }
 .faq-btn:hover { color:var(--white); }
 .faq-ico { width:22px; height:22px; border-radius:50%; border:1px solid var(--line2); display:flex; align-items:center; justify-content:center; font-size:.875rem; color:var(--muted); flex-shrink:0; transition:all .25s; }
 .faq-item.open .faq-ico { border-color:var(--gold-bdr); color:var(--gold-lt); transform:rotate(45deg); }
@@ -755,7 +753,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   padding:13px 22px; border-radius:50px;
   text-decoration:none; display:flex; align-items:center; gap:10px;
   box-shadow:0 8px 30px rgba(37,211,102,.35);
-  transition:all .25s cubic-bezier(.22,.68,0,1.2); cursor:none;
+  transition:all .25s cubic-bezier(.22,.68,0,1.2); cursor:pointer;
 }
 .wa-float:hover { transform:scale(1.06) translateY(-2px); box-shadow:0 14px 40px rgba(37,211,102,.5); }
 .wa-pulse { width:8px; height:8px; border-radius:50%; background:white; animation:wp 1.8s infinite; }
