@@ -849,6 +849,76 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
   .diag-ctas { flex-direction:column; }
   .diag-cta-primary,.diag-cta-sec { text-align:center; justify-content:center; }
 }
+
+/* ═══ LIGHT THEME OVERRIDES ══════════════════════════════ */
+/* Todos los títulos y textos de secciones con fondo claro */
+.display, .sec h2, .sec h3, .sec h4,
+.price-name, .price-num, .price-period,
+.ic-title, .ic-desc,
+.pstep h3,
+.lm-title, .lm-sub,
+.lm-success h3,
+.diag-title, .diag-sub,
+.diag-feat-text h4, .diag-feat-text p,
+.diag-price-num, .diag-price-note,
+.dt-step-text, .dt-result-text,
+.insider-title, .insider-sub,
+.test-name, .test-role,
+.cta-full h2, .cta-full p,
+.label,
+.wa-text h2, .wa-text p,
+.res-cell p, .res-cell h3 { color: var(--navy) !important; }
+
+/* Textos secundarios en secciones claras */
+.text-muted { color: var(--muted) !important; }
+
+/* Botón dark: ahora es navy sólido con texto blanco */
+.btn-dark {
+  background: var(--navy) !important;
+  color: var(--white) !important;
+  box-shadow: 0 8px 32px rgba(11,30,59,.2) !important;
+}
+.btn-dark:hover { background: var(--navy2) !important; }
+
+/* Formulario lead magnet: inputs claros */
+.lm-input {
+  background: var(--white) !important;
+  border: 1.5px solid var(--line2) !important;
+  color: var(--navy) !important;
+}
+.lm-input::placeholder { color: var(--muted) !important; }
+.lm-input:focus { border-color: var(--sky) !important; }
+
+/* Precios: fondo claro con borde */
+.price-card {
+  background: var(--white) !important;
+  border: 1.5px solid var(--line2) !important;
+}
+.price-card.featured {
+  background: var(--navy) !important;
+  border-color: var(--navy) !important;
+}
+.price-card.featured .price-name,
+.price-card.featured .price-num,
+.price-card.featured .price-period,
+.price-card.featured li { color: var(--white) !important; }
+
+/* FAQ items */
+.faq-item { border-color: var(--line) !important; }
+
+/* Sección CTA oscura (se mantiene navy) */
+.cta-full { background: var(--navy) !important; }
+.cta-full h2, .cta-full p { color: var(--white) !important; }
+
+/* Footer se mantiene oscuro */
+footer { background: var(--navy) !important; }
+footer * { color: rgba(255,255,255,.65); }
+footer h4, .foot-brand a span { color: var(--white) !important; }
+footer a:hover { color: var(--white) !important; }
+
+/* Hero stats y eyebrow: blanco sobre foto oscura */
+.hero-stats .hstat-n, .hero-stats .hstat-l { color: var(--white) !important; }
+.hero-eyebrow { color: var(--gold-lt) !important; }
 </style>
 </head>
 <body>
