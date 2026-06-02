@@ -308,8 +308,8 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://connect.facebook.net">
 <link rel="dns-prefetch" href="https://wa.me">
 
-<!-- Fuentes con display=swap para no bloquear render -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Fuentes premium -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Preload de imagen hero (LCP) -->
 <link rel="preload" as="image" href="hero-bg.jpg" fetchpriority="high">
@@ -317,21 +317,22 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 <style>
 /* ═══ DESIGN TOKENS ══════════════════════════════════ */
 :root {
-  --bg:       #060E1F;
-  --bg2:      #0A1628;
-  --bg3:      #0F2040;
-  --line:     rgba(255,255,255,.06);
-  --line2:    rgba(255,255,255,.11);
-  --gold:     #C8880A;
-  --gold-lt:  #F0B429;
-  --gold-bg:  rgba(200,136,10,.08);
-  --gold-bdr: rgba(240,180,41,.2);
-  --green:    #25D366;
-  --text:     #C8D0E0;
-  --muted:    #4A5568;
-  --white:    #F0EDE8;
+  --bg:       #05080F;
+  --bg2:      #080D1A;
+  --bg3:      #0C1525;
+  --line:     rgba(255,255,255,.07);
+  --line2:    rgba(255,255,255,.13);
+  --gold:     #D4952A;
+  --gold-lt:  #F5C842;
+  --gold-bg:  rgba(212,149,42,.09);
+  --gold-bdr: rgba(245,200,66,.22);
+  --green:    #22C55E;
+  --text:     #CBD5E1;
+  --muted:    #64748B;
+  --white:    #F1EEE8;
+  --sky:      #38BDF8;
   --serif:    'Playfair Display', Georgia, serif;
-  --sans:     'DM Sans', system-ui, sans-serif;
+  --sans:     'Space Grotesk', 'DM Sans', system-ui, sans-serif;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { font-size:16px; }
@@ -441,9 +442,10 @@ nav.scrolled {
 
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 8vw, 8rem);
-  font-weight: 900; line-height:.98; letter-spacing:-.03em;
-  color: var(--white); margin-bottom:32px;
+  font-size: clamp(4rem, 9vw, 9.5rem);
+  font-weight: 900; line-height:.95; letter-spacing:-.04em;
+  color: var(--white); margin-bottom:36px;
+  text-shadow: 0 4px 40px rgba(0,0,0,.4);
 }
 .hero h1 .line { display:block; overflow:hidden; padding-bottom:.18em; margin-bottom:-.18em; }
 .hero h1 .word {
@@ -1168,6 +1170,97 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 
 /* ═══ PREMIUM UPGRADES ══════════════════════════════════ */
 
+/* Grid pattern en hero */
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+/* Grain texture */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: .4;
+}
+
+/* Decorative floating badge en hero */
+.hero-badge {
+  position: absolute; top: 28%; right: 8%;
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 1px solid rgba(245,200,66,.15);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; backdrop-filter: blur(12px);
+  background: rgba(5,8,15,.4);
+  animation: badge-float 6s ease-in-out infinite;
+  z-index: 3;
+}
+.hero-badge-num { font-family: var(--serif); font-size: 2.8rem; font-weight: 900; color: var(--gold-lt); line-height: 1; }
+.hero-badge-label { font-size: .6rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-16px) rotate(-4deg); }
+}
+@media(max-width:768px) { .hero-badge { display: none; } }
+
+/* Separadores curvos entre secciones */
+.sec::before {
+  content: ''; display: block; height: 60px; margin-top: -60px;
+  background: inherit;
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+/* Nav más premium - blur más agresivo */
+nav { backdrop-filter: blur(20px) saturate(180%); }
+
+/* Urgency bar con dot animado */
+#urgency::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bg); margin-right: 8px;
+  animation: dot-pulse .8s ease-in-out infinite alternate;
+  vertical-align: middle;
+}
+@keyframes dot-pulse { from { opacity: .3; transform: scale(.8); } to { opacity: 1; transform: scale(1.2); } }
+
+/* Svc cards con borde top glow */
+.svc-card::before {
+  content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,200,66,.4), transparent);
+  transition: left .3s, right .3s;
+}
+.svc-card { position: relative; }
+.svc-card:hover::before { left: 5%; right: 5%; }
+
+/* Impact section — número decorativo gigante */
+.impact-num {
+  font-size: clamp(14rem, 35vw, 26rem) !important;
+  color: rgba(245,200,66,.03) !important;
+  font-weight: 900;
+}
+
+/* Stats hero más grandes */
+.hstat-n {
+  font-size: clamp(1.4rem, 3vw, 2.2rem) !important;
+  font-weight: 900;
+}
+
+/* Better label style */
+.label {
+  background: rgba(245,200,66,.08);
+  border: 1px solid rgba(245,200,66,.2);
+  color: var(--gold-lt) !important;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+
 /* Cursor premium en botones */
 a, button { cursor: pointer; }
 
@@ -1312,6 +1405,12 @@ a, button { cursor: pointer; }
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <!-- Badge flotante decorativo -->
+  <div class="hero-badge">
+    <div class="hero-badge-num">3+</div>
+    <div class="hero-badge-label">años de</div>
+    <div class="hero-badge-label">experiencia</div>
+  </div>
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> Ecuatorianos que ya viajan con su visa</div>
     <!-- H1 SEO oculto para Google -->
