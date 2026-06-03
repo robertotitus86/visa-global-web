@@ -768,7 +768,7 @@ footer { background:var(--bg2); border-top:1px solid var(--line); padding:64px 0
 @keyframes gold-shift { to{ background-position:-200% 0; } }
 
 /* ═══ REVEAL ═════════════════════════════════════════ */
-[data-r] { opacity:0; transform:translateY(20px); transition:opacity .7s ease,transform .7s ease; }
+[data-r] { opacity:1; transform:none; }
 [data-r].on { opacity:1; transform:none; }
 [data-r="d1"] { transition-delay:.1s; }
 [data-r="d2"] { transition-delay:.2s; }
@@ -1201,12 +1201,6 @@ body::before {
 }
 @media(max-width:768px) { .hero-badge { display: none; } }
 
-/* Separadores curvos entre secciones */
-.sec::before {
-  content: ''; display: block; height: 60px; margin-top: -60px;
-  background: inherit;
-  clip-path: ellipse(60% 100% at 50% 100%);
-}
 
 /* Nav más premium - blur más agresivo */
 nav { backdrop-filter: blur(20px) saturate(180%); }
@@ -2494,82 +2488,31 @@ gsap.registerPlugin(ScrollTrigger);
 /* ── HERO PARALLAX ── */
 gsap.to('.hero-bg', {
   scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
-  y: '28%', ease: 'none'
+  y: '25%', ease: 'none'
 });
 
-/* ── HERO OVERLAY FADE ── */
-gsap.to('.hero-overlay', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: '60% top', scrub: true },
-  opacity: 1.4, ease: 'none'
-});
-
-/* ── SERVICE CARDS STAGGER ── */
-gsap.utils.toArray('.svc-card').forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
-    y: 50, opacity: 0, duration: 0.7,
-    delay: (i % 3) * 0.1,
-    ease: 'power3.out'
-  });
-});
-
-/* ── HEADINGS PREMIUM REVEAL ── */
-gsap.utils.toArray('.display').forEach(el => {
-  gsap.from(el, {
-    scrollTrigger: { trigger: el, start: 'top 82%' },
-    y: 60, opacity: 0, duration: 1,
-    ease: 'power4.out'
-  });
-});
-
-/* ── PROCESS STEPS SEQUENTIAL ── */
-gsap.utils.toArray('.pstep').forEach((step, i) => {
-  gsap.from(step, {
-    scrollTrigger: { trigger: step, start: 'top 85%' },
-    x: -40, opacity: 0, duration: 0.7, delay: i * 0.15,
-    ease: 'power3.out'
-  });
-});
-
-/* ── PRICING CARDS ── */
-gsap.utils.toArray('.price-card').forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: { trigger: card, start: 'top 85%' },
-    y: 60, opacity: 0, scale: 0.96, duration: 0.8, delay: i * 0.12,
-    ease: 'power3.out'
-  });
-});
-
-/* ── TESTIMONIALS ── */
-gsap.utils.toArray('.test-mini').forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: { trigger: card, start: 'top 88%' },
-    y: 40, opacity: 0, duration: 0.6, delay: i * 0.1,
-    ease: 'power3.out'
-  });
-});
-
-/* ── IMPACT TEXT CINEMATIC ── */
-const impactText = document.querySelector('.impact-text');
-if (impactText) {
-  gsap.from(impactText, {
-    scrollTrigger: { trigger: impactText, start: 'top 70%' },
-    y: 80, opacity: 0, duration: 1.2, ease: 'power4.out'
+/* ── ANIMACIONES SOLO PARA ELEMENTOS BAJO EL FOLD ── */
+/* Usamos once:true y solo animamos elementos que están below viewport */
+function animateOnScroll(selector, props, stagger) {
+  gsap.utils.toArray(selector).forEach((el, i) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight) {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+        ...props,
+        delay: stagger ? i * stagger : 0,
+        ease: props.ease || 'power3.out'
+      });
+    }
   });
 }
 
-/* ── STATS COUNTER SMOOTH ── */
-gsap.utils.toArray('[data-counter]').forEach(el => {
-  const target = parseInt(el.dataset.target) || 3;
-  const suffix = el.dataset.suffix || '';
-  ScrollTrigger.create({
-    trigger: el, start: 'top 80%', once: true,
-    onEnter: () => gsap.to({ val: 0 }, {
-      val: target, duration: 2, ease: 'power2.out',
-      onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + suffix; }
-    })
-  });
-});
+animateOnScroll('.svc-card', { y: 40, opacity: 0, duration: 0.6 }, 0.08);
+animateOnScroll('.display', { y: 50, opacity: 0, duration: 0.9 }, 0);
+animateOnScroll('.pstep', { x: -30, opacity: 0, duration: 0.6 }, 0.12);
+animateOnScroll('.price-card', { y: 50, opacity: 0, duration: 0.7 }, 0.1);
+animateOnScroll('.test-mini', { y: 30, opacity: 0, duration: 0.5 }, 0.08);
+animateOnScroll('.impact-text', { y: 60, opacity: 0, duration: 1.0 }, 0);
 
 /* ── FAQ ACCORDION SMOOTH ── */
 document.querySelectorAll('.faq-btn').forEach(btn => {
