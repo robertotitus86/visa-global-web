@@ -546,12 +546,9 @@ h2.display em { color:var(--gold-lt); font-style:italic; }
 .services-dark { background:var(--bg2); }
 .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:64px; }
 .svc-card {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.09);
-  padding:44px 36px;
-  transition: background .3s, border-color .3s, transform .3s, box-shadow .3s;
+  background:var(--bg2); padding:44px 36px;
+  transition: background .2s;
   position:relative; overflow:hidden;
-  backdrop-filter: blur(4px);
 }
 .svc-card::after {
   content:''; position:absolute; inset:0;
@@ -567,8 +564,8 @@ h2.display em { color:var(--gold-lt); font-style:italic; }
 }
 .svc-card:hover .svc-code { color:rgba(245,200,66,.35); }
 .svc-dest { font-size:.625rem; font-weight:500; text-transform:uppercase; letter-spacing:.2em; color:var(--gold); margin-bottom:12px; }
-.svc-card h3 { font-family:var(--serif); font-size:1.25rem; color:#FFFFFF; margin-bottom:10px; font-weight:700; }
-.svc-card p { font-size:.8125rem; color:rgba(255,255,255,.72); line-height:1.7; }
+.svc-card h3 { font-family:var(--serif); font-size:1.25rem; color:var(--navy); margin-bottom:10px; font-weight:700; }
+.svc-card p { font-size:.8125rem; color:var(--muted); line-height:1.7; }
 .svc-arrow { display:block; margin-top:20px; font-size:.8125rem; color:var(--muted); transition:color .2s,transform .2s; }
 .svc-card:hover .svc-arrow { color:var(--gold-lt); transform:translateX(4px); }
 
@@ -1265,9 +1262,7 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
 }
 .svc-card:hover {
   transform: translateY(-6px) scale(1.01);
-  background: rgba(255,255,255,.1);
-  border-color: rgba(245,200,66,.25);
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
 }
 
 /* Botones — hover premium */
