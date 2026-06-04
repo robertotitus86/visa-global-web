@@ -83,9 +83,9 @@ nav.scrolled {
   border-radius: 100px !important;
 }
 
-/* ── HERO ────────────────────────────────────────────────────── */
+/* ── HERO — forzar visibilidad completa ──────────────────────── */
 .hero {
-  background: #060E1C !important; /* fallback si imagen no carga */
+  background: #060E1C !important;
 }
 
 .hero-bg {
@@ -96,6 +96,22 @@ nav.scrolled {
   background:
     linear-gradient(to right, rgba(6,14,28,.88) 0%, rgba(6,14,28,.55) 55%, rgba(6,14,28,.25) 100%),
     linear-gradient(to bottom, rgba(6,14,28,.15) 0%, rgba(6,14,28,.5) 60%, #060E1C 100%) !important;
+}
+
+/* Forzar visibilidad del contenido del hero sin depender de animaciones */
+.hero h1 .word {
+  transform: none !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.hero-eyebrow,
+.hero-sub,
+.hero-actions,
+.hero-stats {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
 }
 
 /* ── HERO BADGE — ocultar, causaba caja oscura ───────────────── */
