@@ -2,353 +2,623 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Preparación Visa USA — Familia Seas Guamán</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Familia Seas Guamán — Preparación Visa USA 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#06101E;--bg2:#0A1829;--bg3:#0F2035;
-  --navy:#0B1E3B;--gold:#F5C842;--gold2:#C8861A;
+  --bg:#05101D;--s1:#081828;--s2:#0C2035;--s3:#102540;
+  --gold:#F5C842;--gold2:#C8861A;--gold3:rgba(245,200,66,.12);
   --blue:#3B82F6;--purple:#7C3AED;--green:#10B981;--red:#EF4444;
-  --border:rgba(255,255,255,.07);--muted:rgba(255,255,255,.4);
-  --sans:'Space Grotesk',sans-serif;--serif:'Playfair Display',serif;
+  --w:rgba(255,255,255,.06);--b:rgba(255,255,255,.1);
+  --muted:rgba(255,255,255,.45);--text:#CBD5E1;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--sans);background:var(--bg);color:#E2E8F0;min-height:100vh;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%}
+a{text-decoration:none;color:inherit}
 
-/* ── BACKGROUND ── */
-body::before{content:'';position:fixed;inset:0;z-index:-1;
+/* ════════════ NOISE + MESH BG ════════════ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
   background:
-    radial-gradient(ellipse 70% 50% at 10% -5%,rgba(245,200,66,.07),transparent),
-    radial-gradient(ellipse 50% 40% at 90% 100%,rgba(59,130,246,.06),transparent),
-    radial-gradient(ellipse 40% 30% at 50% 50%,rgba(59,130,246,.02),transparent)}
+    radial-gradient(ellipse 90% 60% at 5% -10%,rgba(245,200,66,.08),transparent 55%),
+    radial-gradient(ellipse 60% 50% at 95% 110%,rgba(59,130,246,.07),transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,rgba(59,130,246,.025),transparent);
+}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;
-  background:rgba(6,16,30,.92);backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.nav-logo{font-family:var(--serif);font-size:.9rem;font-weight:700;color:#E2E8F0}
+/* ════════════ NAV ════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;transition:all .4s;
+}
+#nav.scrolled{
+  background:rgba(5,16,29,.94);backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid var(--w);
+}
+.nav-logo{font-family:var(--serif);font-size:.95rem;font-weight:700;
+  color:rgba(255,255,255,.9);letter-spacing:.01em}
 .nav-logo em{color:var(--gold);font-style:italic}
-.nav-badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--gold);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);
-  padding:3px 10px;border-radius:99px;display:flex;align-items:center;gap:5px}
-.nav-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);
-  animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* ── HERO ── */
-.hero{padding:100px 24px 60px;max-width:900px;margin:0 auto;text-align:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:.7rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:20px}
-.hero-tag span{width:20px;height:1px;background:var(--border)}
-.hero-title{font-family:var(--serif);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;
-  line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
-.hero-title em{color:var(--gold);font-style:italic}
-.hero-sub{font-size:1rem;color:var(--muted);line-height:1.7;max-width:520px;
-  margin:0 auto 36px;font-weight:300}
-.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-.chip{font-size:.72rem;font-weight:600;padding:5px 14px;border-radius:99px;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.65)}
-.chip.gold{background:rgba(245,200,66,.08);border-color:rgba(245,200,66,.2);color:var(--gold)}
-
-/* ── MAIN CTA ── */
-.cta-main{display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,#F5C842,#C8861A);
-  color:#06101E;font-weight:800;font-size:1rem;
-  padding:18px 40px;border-radius:100px;text-decoration:none;
-  box-shadow:0 8px 40px rgba(245,200,66,.3);transition:all .3s cubic-bezier(.22,.68,0,1.2);
-  margin-bottom:12px;display:inline-flex}
-.cta-main:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 20px 60px rgba(245,200,66,.4)}
-.cta-main-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:60px}
-.cta-secondary{font-size:.8rem;color:var(--muted)}
-.cta-secondary a{color:rgba(255,255,255,.6);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2)}
-
-/* ── SECTION ── */
-.section{max-width:900px;margin:0 auto;padding:0 24px 64px}
-.section-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;
-  color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* ── MIEMBROS ── */
-.members-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
-@media(max-width:640px){.members-grid{grid-template-columns:1fr 1fr}}
-.member-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
-  padding:18px;text-decoration:none;color:#E2E8F0;
-  transition:all .25s cubic-bezier(.22,.68,0,1.2);cursor:pointer}
-.member-card:hover{border-color:rgba(245,200,66,.35);transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(0,0,0,.4);background:rgba(245,200,66,.05)}
-.member-role{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--gold);margin-bottom:8px}
-.member-name{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:4px;line-height:1.2}
-.member-info{font-size:.7rem;color:var(--muted);line-height:1.4;margin-bottom:10px}
-.member-go{font-size:.68rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:4px}
-.member-tag{display:inline-block;font-size:.58rem;font-weight:700;padding:2px 8px;
-  border-radius:99px;margin-bottom:8px}
-.t-g{background:rgba(16,185,129,.12);color:#34D399;border:1px solid rgba(16,185,129,.2)}
-.t-b{background:rgba(59,130,246,.12);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
-
-/* ── RECURSOS ── */
-.recursos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:640px){.recursos-grid{grid-template-columns:1fr}}
-.recurso-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
-  padding:22px;text-decoration:none;color:#E2E8F0;
-  transition:all .25s cubic-bezier(.22,.68,0,1.2);display:flex;flex-direction:column;gap:12px}
-.recurso-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-3px);
-  box-shadow:0 12px 40px rgba(0,0,0,.3)}
-.recurso-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
-  justify-content:center;font-size:1.3rem;flex-shrink:0}
-.ri-1{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2)}
-.ri-2{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2)}
-.ri-3{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2)}
-.recurso-name{font-weight:700;font-size:.9rem;margin-bottom:3px}
-.recurso-desc{font-size:.75rem;color:var(--muted);line-height:1.5}
-.recurso-arrow{margin-top:auto;font-size:.75rem;font-weight:700;
-  color:rgba(255,255,255,.3);display:flex;align-items:center;gap:4px}
-.recurso-card:hover .recurso-arrow{color:var(--blue)}
-
-/* ── ZOOM SESSIONS ── */
-.zoom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.zoom-grid{grid-template-columns:1fr}}
-.zoom-card{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(124,58,237,.05));
-  border:1px solid rgba(124,58,237,.25);border-radius:16px;padding:22px;
-  transition:all .2s}
-.zoom-card:hover{border-color:rgba(124,58,237,.45);transform:translateY(-2px)}
-.zoom-num-badge{display:inline-flex;align-items:center;justify-content:center;
-  width:28px;height:28px;border-radius:50%;background:#7C3AED;
-  font-size:.75rem;font-weight:800;color:white;margin-bottom:14px}
-.zoom-date{font-family:var(--serif);font-size:1.05rem;font-weight:700;margin-bottom:4px}
-.zoom-time{font-size:.85rem;font-weight:700;color:#A78BFA;margin-bottom:10px;
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-pill{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  padding:5px 14px;border-radius:99px;background:var(--gold3);
+  border:1px solid rgba(245,200,66,.2);color:var(--gold);
   display:flex;align-items:center;gap:6px}
-.zoom-time::before{content:'🕖';font-size:.8rem}
-.zoom-desc{font-size:.78rem;color:var(--muted);line-height:1.55}
-.zoom-reminder{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07);
-  font-size:.7rem;color:rgba(124,58,237,.8);display:flex;align-items:center;gap:5px}
+.nav-pill::before{content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--gold);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.nav-cta{font-size:.8rem;font-weight:700;padding:9px 22px;border-radius:99px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#05101D;transition:all .25s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,200,66,.3)}
+@media(max-width:600px){#nav{padding:0 20px}.nav-pill{display:none}}
 
-/* ── RECORDATORIOS ── */
-.reminder-box{background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
-  border:1px solid rgba(245,200,66,.2);border-radius:16px;padding:22px;
-  display:grid;grid-template-columns:48px 1fr;gap:16px;align-items:start}
-.reminder-icon{width:48px;height:48px;border-radius:12px;
-  background:rgba(245,200,66,.12);border:1px solid rgba(245,200,66,.2);
-  display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-.reminder-title{font-weight:700;font-size:.9rem;margin-bottom:5px}
-.reminder-desc{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:8px}
-.reminder-emails{display:flex;gap:8px;flex-wrap:wrap}
-.email-chip{font-size:.68rem;padding:3px 10px;border-radius:99px;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.5)}
+/* ════════════ HERO ════════════ */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 40px 80px;text-align:center;position:relative;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;
+  color:var(--muted);margin-bottom:28px;
+}
+.hero-eyebrow span{width:32px;height:1px;background:var(--w)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(3rem,9vw,7rem);
+  font-weight:900;line-height:1.0;letter-spacing:-.04em;
+  color:#F1F5F9;margin-bottom:8px;
+}
+.hero-h1 em{color:var(--gold);font-style:italic}
+.hero-h2{
+  font-family:var(--serif);
+  font-size:clamp(1.2rem,3vw,2.2rem);
+  font-weight:700;color:rgba(255,255,255,.4);
+  letter-spacing:-.02em;margin-bottom:32px;
+}
+.hero-desc{
+  font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--muted);
+  max-width:560px;margin:0 auto 48px;font-weight:300;line-height:1.75;
+}
+.hero-chips{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:52px;
+}
+.hchip{
+  font-size:.72rem;font-weight:500;padding:6px 16px;border-radius:99px;
+  background:rgba(255,255,255,.04);border:1px solid var(--w);color:var(--muted);
+  backdrop-filter:blur(8px);
+}
+.hchip.gold{background:rgba(245,200,66,.08);border-color:rgba(245,200,66,.2);
+  color:var(--gold);font-weight:600}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#F5C842 0%,#C8861A 100%);
+  color:#05101D;font-weight:800;font-size:1rem;
+  padding:18px 44px;border-radius:100px;
+  box-shadow:0 0 60px rgba(245,200,66,.2);
+  transition:all .3s cubic-bezier(.22,.68,0,1.2);
+}
+.btn-gold:hover{transform:translateY(-4px) scale(1.02);
+  box-shadow:0 20px 60px rgba(245,200,66,.35)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);
+  font-weight:500;font-size:.9rem;padding:18px 32px;border-radius:100px;
+  transition:all .2s;backdrop-filter:blur(8px);
+}
+.btn-outline:hover{border-color:rgba(245,200,66,.4);color:var(--gold)}
+/* Scroll indicator */
+.scroll-ind{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--w));
+  animation:scrollline 2s ease-in-out infinite}
+@keyframes scrollline{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
 
-/* ── VIAJE ── */
-.viaje-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:640px){.viaje-grid{grid-template-columns:1fr 1fr}}
-.viaje-stat{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px}
-.viaje-stat-label{font-size:.6rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:.1em;color:var(--muted);margin-bottom:6px}
-.viaje-stat-val{font-family:var(--serif);font-size:1rem;font-weight:700;line-height:1.3}
-.viaje-stat-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
+/* ════════════ SECTIONS WRAPPER ════════════ */
+.sec{padding:100px 40px;max-width:1120px;margin:0 auto}
+@media(max-width:768px){.sec{padding:72px 24px}}
+.sec-label{
+  font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+  color:var(--muted);margin-bottom:48px;display:flex;align-items:center;gap:16px;
+}
+.sec-label::before{content:'';width:32px;height:1px;background:rgba(255,255,255,.15)}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--w)}
+.sec-title{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:900;letter-spacing:-.03em;color:#F1F5F9;
+  line-height:1.1;margin-bottom:16px;
+}
+.sec-title em{color:var(--gold);font-style:italic}
+.sec-sub{font-size:1rem;color:var(--muted);max-width:520px;line-height:1.7;
+  font-weight:300;margin-bottom:56px}
 
-/* ── CONTACT ── */
-.contact-section{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.04));
-  border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:28px;
-  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.contact-left strong{font-family:var(--serif);font-size:1.2rem;display:block;margin-bottom:4px}
-.contact-left p{font-size:.82rem;color:var(--muted);line-height:1.5}
-.contact-btn{display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,#25D366,#128C7E);color:white;
-  font-weight:700;font-size:.875rem;padding:14px 28px;border-radius:100px;
-  text-decoration:none;transition:all .25s;white-space:nowrap;
-  box-shadow:0 8px 30px rgba(37,211,102,.25)}
-.contact-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(37,211,102,.35)}
+/* ════════════ MIEMBROS ════════════ */
+#miembros{background:linear-gradient(to bottom,var(--bg),var(--s1))}
+.members-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.members-row{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.members-row{grid-template-columns:1fr}}
+.mcard{
+  background:rgba(255,255,255,.03);border:1px solid var(--w);
+  border-radius:20px;padding:28px;cursor:pointer;
+  transition:all .3s cubic-bezier(.22,.68,0,1.2);
+  display:flex;flex-direction:column;gap:0;
+  text-decoration:none;color:inherit;
+}
+.mcard:hover{
+  background:rgba(245,200,66,.05);
+  border-color:rgba(245,200,66,.3);
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 24px 64px rgba(0,0,0,.4),0 0 0 1px rgba(245,200,66,.15);
+}
+.mcard-avatar{
+  width:52px;height:52px;border-radius:14px;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.3rem;font-weight:900;
+  background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.05));
+  border:1px solid rgba(245,200,66,.2);color:var(--gold);
+}
+.mcard-role{font-size:.6rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--muted);margin-bottom:8px}
+.mcard-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;
+  color:#F1F5F9;line-height:1.2;margin-bottom:6px}
+.mcard-info{font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:16px;flex:1}
+.mcard-tag{
+  display:inline-block;font-size:.62rem;font-weight:700;padding:3px 10px;
+  border-radius:99px;margin-bottom:16px;
+}
+.tag-g{background:rgba(16,185,129,.12);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.tag-b{background:rgba(59,130,246,.12);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
+.mcard-go{
+  font-size:.72rem;font-weight:700;color:rgba(245,200,66,.5);
+  display:flex;align-items:center;gap:6px;
+  transition:color .2s;margin-top:auto;
+}
+.mcard:hover .mcard-go{color:var(--gold)}
 
-/* ── FOOTER ── */
-footer{text-align:center;padding:32px 24px 48px;border-top:1px solid var(--border);
-  margin-top:20px}
-footer .logo{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:6px}
-footer .logo em{color:var(--gold);font-style:italic}
-footer p{font-size:.75rem;color:rgba(255,255,255,.2);line-height:1.6}
+/* ════════════ SIMULADOR FEATURE ════════════ */
+#simulador{background:linear-gradient(160deg,var(--s1) 0%,var(--s2) 100%)}
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:768px){.sim-layout{grid-template-columns:1fr;gap:48px}}
+.sim-modules{display:flex;flex-direction:column;gap:8px}
+.sim-mod{
+  display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:rgba(255,255,255,.03);border:1px solid var(--w);
+  border-radius:12px;transition:all .2s;
+}
+.sim-mod:hover{background:rgba(255,255,255,.06);border-color:var(--b)}
+.sim-mod-num{
+  font-family:var(--serif);font-size:1.1rem;font-weight:900;
+  color:rgba(245,200,66,.25);width:32px;flex-shrink:0;text-align:center;
+}
+.sim-mod-info .title{font-size:.85rem;font-weight:600;color:#E2E8F0;margin-bottom:2px}
+.sim-mod-info .sub{font-size:.72rem;color:var(--muted)}
+.sim-mod-type{
+  margin-left:auto;font-size:.58rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;padding:2px 8px;border-radius:99px;flex-shrink:0;
+}
+.type-learn{background:rgba(59,130,246,.12);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
+.type-review{background:rgba(124,58,237,.12);color:#A78BFA;border:1px solid rgba(124,58,237,.2)}
+.type-practice{background:rgba(16,185,129,.12);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.sim-cta-wrap{margin-top:36px}
 
-/* ── DIVIDER ── */
-.hdivider{height:1px;background:var(--border);margin:8px 0 32px}
+/* ════════════ RECURSOS ════════════ */
+#recursos{background:var(--bg)}
+.recursos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.recursos-grid{grid-template-columns:1fr}}
+.rcard{
+  background:rgba(255,255,255,.03);border:1px solid var(--w);
+  border-radius:20px;padding:32px;
+  transition:all .3s cubic-bezier(.22,.68,0,1.2);
+  display:flex;flex-direction:column;gap:20px;text-decoration:none;color:inherit;
+}
+.rcard:hover{
+  border-color:rgba(59,130,246,.35);transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);background:rgba(59,130,246,.04);
+}
+.rcard-icon{
+  width:56px;height:56px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+}
+.ri-a{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2)}
+.ri-b{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
+.ri-c{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)}
+.rcard-name{font-size:1.05rem;font-weight:700;color:#F1F5F9}
+.rcard-desc{font-size:.82rem;color:var(--muted);line-height:1.65;flex:1}
+.rcard-dl{
+  display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;
+  color:rgba(255,255,255,.3);transition:color .2s;margin-top:auto;
+}
+.rcard:hover .rcard-dl{color:var(--blue)}
+
+/* ════════════ ZOOM ════════════ */
+#zoom{background:linear-gradient(160deg,var(--s2),var(--s3))}
+.zoom-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+@media(max-width:640px){.zoom-grid{grid-template-columns:1fr}}
+.zcard{
+  border-radius:20px;padding:32px;border:1px solid rgba(124,58,237,.2);
+  background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(124,58,237,.04));
+  transition:all .25s;
+}
+.zcard:hover{border-color:rgba(124,58,237,.4);transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(124,58,237,.12)}
+.zcard-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:50%;
+  background:#7C3AED;color:white;font-weight:800;font-size:.85rem;
+  margin-bottom:20px;
+}
+.zcard-date{font-family:var(--serif);font-size:1.15rem;font-weight:700;
+  color:#F1F5F9;margin-bottom:4px}
+.zcard-time{font-size:.9rem;font-weight:700;color:#A78BFA;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px}
+.zcard-time::before{content:'🕖';font-size:.85rem}
+.zcard-desc{font-size:.82rem;color:var(--muted);line-height:1.65}
+.zcard-note{margin-top:16px;padding-top:14px;border-top:1px solid var(--w);
+  font-size:.72rem;color:rgba(124,58,237,.7);display:flex;align-items:flex-start;gap:6px}
+
+/* ════════════ RECORDATORIOS ════════════ */
+#recordatorios{background:var(--bg)}
+.rem-box{
+  background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
+  border:1px solid rgba(245,200,66,.2);border-radius:24px;
+  padding:48px;display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center;
+}
+@media(max-width:768px){.rem-box{grid-template-columns:1fr;padding:32px;gap:28px}}
+.rem-left{text-align:center}
+.rem-icon-wrap{
+  width:80px;height:80px;border-radius:24px;margin:0 auto 20px;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);
+  display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+}
+.rem-left h3{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:#F1F5F9;margin-bottom:6px}
+.rem-left p{font-size:.82rem;color:var(--muted)}
+.rem-right .rem-title{font-size:1rem;font-weight:700;color:#F1F5F9;margin-bottom:10px}
+.rem-right .rem-desc{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.rem-emails{display:flex;flex-direction:column;gap:8px}
+.rem-email{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  background:rgba(255,255,255,.03);border:1px solid var(--w);border-radius:10px;
+  font-size:.82rem;color:rgba(255,255,255,.6);
+}
+.rem-email strong{color:#E2E8F0;margin-right:4px}
+
+/* ════════════ TIMELINE ════════════ */
+#fechas{background:var(--s1)}
+.timeline{position:relative;padding-left:32px;margin-top:8px}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent,rgba(245,200,66,.3),transparent)}
+.titem{position:relative;padding:0 0 40px 32px}
+.titem:last-child{padding-bottom:0}
+.titem::before{content:'';position:absolute;left:-5px;top:6px;
+  width:10px;height:10px;border-radius:50%;border:2px solid var(--gold);
+  background:var(--bg);transition:all .2s}
+.titem:hover::before{background:var(--gold);box-shadow:0 0 16px rgba(245,200,66,.4)}
+.titem-date{font-size:.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--gold);margin-bottom:6px}
+.titem-title{font-size:1rem;font-weight:700;color:#F1F5F9;margin-bottom:4px}
+.titem-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
+.titem-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:3px 10px;
+  border-radius:99px;margin-top:8px}
+.tb-zoom{background:rgba(124,58,237,.12);color:#A78BFA;border:1px solid rgba(124,58,237,.2)}
+.tb-viaje{background:rgba(59,130,246,.12);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
+.tb-regreso{background:rgba(16,185,129,.12);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+
+/* ════════════ CONTACTO ════════════ */
+#contacto{background:linear-gradient(to bottom,var(--s2),var(--bg))}
+.contact-inner{
+  text-align:center;max-width:600px;margin:0 auto;
+}
+.contact-inner .sec-title{margin-bottom:12px}
+.contact-inner .sec-sub{margin:0 auto 44px}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:white;font-weight:700;font-size:1.05rem;
+  padding:20px 48px;border-radius:100px;
+  box-shadow:0 8px 40px rgba(37,211,102,.25);
+  transition:all .3s cubic-bezier(.22,.68,0,1.2);margin-bottom:16px;
+}
+.wa-btn:hover{transform:translateY(-4px) scale(1.02);
+  box-shadow:0 20px 60px rgba(37,211,102,.35)}
+.contact-sub{font-size:.82rem;color:var(--muted)}
+
+/* ════════════ FOOTER ════════════ */
+footer{
+  padding:48px 40px;border-top:1px solid var(--w);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+@media(max-width:600px){footer{flex-direction:column;text-align:center}}
+.foot-logo{font-family:var(--serif);font-size:.9rem;font-weight:700;color:rgba(255,255,255,.5)}
+.foot-logo em{color:var(--gold);font-style:italic}
+footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:1.6}
+
+/* ════════════ REVEAL ════════════ */
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+[data-reveal].visible{opacity:1;transform:none}
+[data-reveal="delay1"]{transition-delay:.1s}
+[data-reveal="delay2"]{transition-delay:.2s}
+[data-reveal="delay3"]{transition-delay:.3s}
+[data-reveal="delay4"]{transition-delay:.4s}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
   <div class="nav-logo">Asesoría <em>Visa</em> Global</div>
-  <div class="nav-badge">Familia Seas Guamán</div>
+  <div class="nav-right">
+    <div class="nav-pill">Familia Seas Guamán</div>
+    <a class="nav-cta" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
+      Abrir simulador
+    </a>
+  </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-tag"><span></span>Preparación entrevista consular USA<span></span></div>
-  <h1 class="hero-title">Su portal de<br>preparación para<br><em>la visa USA</em></h1>
-  <p class="hero-sub">Todo lo que necesitan para llegar seguros y bien preparados a su entrevista consular. Materiales exclusivos preparados con base en sus expedientes DS-160.</p>
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-eyebrow"><span></span>Preparación entrevista consular USA · 2027<span></span></div>
+  <h1 class="hero-h1">Familia<br><em>Seas Guamán</em></h1>
+  <h2 class="hero-h2">Su portal de preparación para la visa B1/B2</h2>
+  <p class="hero-desc">Todo lo que necesitan para llegar seguros y bien preparados a su entrevista consular. Materiales exclusivos preparados con base en sus cuatro expedientes DS-160.</p>
   <div class="hero-chips">
-    <span class="chip gold">Orlando · 20–28 marzo 2027</span>
-    <span class="chip">4 miembros · Visa B1/B2</span>
-    <span class="chip">Hotel Monreale Express</span>
-    <span class="chip">Sin rechazos previos</span>
+    <span class="hchip gold">Orlando · 20–28 marzo 2027</span>
+    <span class="hchip">4 miembros · Visa B1/B2</span>
+    <span class="hchip">Hotel Monreale Express</span>
+    <span class="hchip">Sin rechazos previos</span>
+    <span class="hchip">35 preguntas personalizadas</span>
   </div>
-  <div class="cta-main-wrap">
-    <a class="cta-main" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
+  <div class="hero-actions">
+    <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
       Abrir simulador de entrevista →
     </a>
-    <span class="cta-secondary">35 preguntas personalizadas · evaluación automática · <a href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">asesoriadevisadosglobal.com/familia-seas-guaman.html</a></span>
+    <a class="btn-outline" href="#miembros">Ver mi perfil ↓</a>
   </div>
-</div>
-
-<!-- MIEMBROS -->
-<div class="section">
-  <div class="section-label">Seleccione un miembro para ir directo a su práctica</div>
-  <div class="members-grid">
-    <a class="member-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
-      <span class="member-tag t-g">Alcalde electo</span>
-      <div class="member-role">Titular principal</div>
-      <div class="member-name">Luis Alfonso<br>Seas Quezada</div>
-      <div class="member-info">GAD Cantón Yacuambi<br>$3.250/mes · Médico</div>
-      <div class="member-go">Ir a práctica →</div>
-    </a>
-    <a class="member-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
-      <span class="member-tag t-b">Negocio propio</span>
-      <div class="member-role">Cónyuge</div>
-      <div class="member-name">Zoila Inés<br>Guamán González</div>
-      <div class="member-info">Farmacia Familiar<br>Yacuambi · $1.500/mes</div>
-      <div class="member-go">Ir a práctica →</div>
-    </a>
-    <a class="member-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
-      <span class="member-tag t-b">Menor · 14 años</span>
-      <div class="member-role">Hija</div>
-      <div class="member-name">Zoe Scarlett<br>Seas Guamán</div>
-      <div class="member-info">Estudiante · Loja<br>Pasaporte B0356388</div>
-      <div class="member-go">Ir a práctica →</div>
-    </a>
-    <a class="member-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
-      <span class="member-tag t-b">Menor · 16 años</span>
-      <div class="member-role">Hijo</div>
-      <div class="member-name">Luis Deoniel<br>Seas Guamán</div>
-      <div class="member-info">1° Bachillerato · San Gerardo<br>Pasaporte B0356393</div>
-      <div class="member-go">Ir a práctica →</div>
-    </a>
+  <div class="scroll-ind">
+    <span>Desplazar</span>
+    <div class="scroll-line"></div>
   </div>
-</div>
+</section>
 
-<!-- RECURSOS -->
-<div class="section">
-  <div class="section-label">Documentos de preparación</div>
-  <div class="recursos-grid">
-    <a class="recurso-card" href="https://www.asesoriadevisadosglobal.com/guia-simulador-seas.pdf" target="_blank" download>
-      <div class="recurso-icon ri-3">📋</div>
-      <div>
-        <div class="recurso-name">Guía del Simulador</div>
-        <div class="recurso-desc">Cómo empezar, estructura de módulos y plan diario de práctica recomendado.</div>
-      </div>
-      <div class="recurso-arrow">Descargar PDF ↓</div>
-    </a>
-    <a class="recurso-card" href="https://www.asesoriadevisadosglobal.com/plan-seas-guaman.pdf" target="_blank" download>
-      <div class="recurso-icon ri-1">📅</div>
-      <div>
-        <div class="recurso-name">Plan de Acción</div>
-        <div class="recurso-desc">Qué hacer cada semana antes de la entrevista. Respuestas modelo para las preguntas clave.</div>
-      </div>
-      <div class="recurso-arrow">Descargar PDF ↓</div>
-    </a>
-    <a class="recurso-card" href="https://www.asesoriadevisadosglobal.com/checklist-seas-guaman.pdf" target="_blank" download>
-      <div class="recurso-icon ri-2">✅</div>
-      <div>
-        <div class="recurso-name">Checklist de Documentos</div>
-        <div class="recurso-desc">Lista completa con casillas de verificación, organizada por miembro de la familia.</div>
-      </div>
-      <div class="recurso-arrow">Descargar PDF ↓</div>
-    </a>
-  </div>
-</div>
-
-<!-- ZOOM -->
-<div class="section">
-  <div class="section-label">Sesiones de preparación en vivo</div>
-  <div class="zoom-grid">
-    <div class="zoom-card">
-      <div class="zoom-num-badge">1</div>
-      <div class="zoom-date">Domingo 15 de junio 2026</div>
-      <div class="zoom-time">7:00 PM hora Ecuador</div>
-      <div class="zoom-desc">Sesión de repaso personalizado. Roberto revisará sus respuestas del simulador y hará correcciones en tiempo real. <strong style="color:#E2E8F0">Deben haber completado el simulador antes.</strong></div>
-      <div class="zoom-reminder">📧 Recordatorio automático 3 días antes y el día anterior</div>
-    </div>
-    <div class="zoom-card">
-      <div class="zoom-num-badge">2</div>
-      <div class="zoom-date">Lunes 29 de junio 2026</div>
-      <div class="zoom-time">7:00 PM hora Ecuador</div>
-      <div class="zoom-desc">Simulacro final de entrevista. Roberto actuará como oficial consular y realizará la entrevista completa en tiempo real. Es la preparación definitiva. <strong style="color:#E2E8F0">Obligatoria para los 4 miembros.</strong></div>
-      <div class="zoom-reminder">📧 Recordatorio automático 3 días antes y el día anterior</div>
+<!-- ══════════ MIEMBROS ══════════ -->
+<section id="miembros">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Miembros de la familia</div>
+    <h2 class="sec-title" data-reveal>Seleccione su perfil<br><em>para practicar</em></h2>
+    <p class="sec-sub" data-reveal>Cada miembro tiene su propio módulo con el resumen de su DS-160 y preguntas específicas para su situación.</p>
+    <div class="members-row">
+      <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html" data-reveal="delay1">
+        <div class="mcard-avatar">L</div>
+        <span class="mcard-tag tag-g">Alcalde electo · Reelección</span>
+        <div class="mcard-role">Titular principal</div>
+        <div class="mcard-name">Luis Alfonso<br>Seas Quezada</div>
+        <div class="mcard-info">Alcalde GAD Cantón Yacuambi · $3.250/mes<br>Médico · 4 países visitados<br>Pasaporte A4200335</div>
+        <div class="mcard-go">Ver DS-160 + 15 preguntas →</div>
+      </a>
+      <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html" data-reveal="delay2">
+        <div class="mcard-avatar">Z</div>
+        <span class="mcard-tag tag-b">Negocio propio</span>
+        <div class="mcard-role">Cónyuge</div>
+        <div class="mcard-name">Zoila Inés<br>Guamán González</div>
+        <div class="mcard-info">Farmacia Familiar · Yacuambi<br>$1.500/mes · Contadora<br>Pasaporte B0181624</div>
+        <div class="mcard-go">Ver DS-160 + 5 preguntas →</div>
+      </a>
+      <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html" data-reveal="delay3">
+        <div class="mcard-avatar">Z</div>
+        <span class="mcard-tag tag-b">14 años · Menor</span>
+        <div class="mcard-role">Hija</div>
+        <div class="mcard-name">Zoe Scarlett<br>Seas Guamán</div>
+        <div class="mcard-info">Estudiante · Loja<br>Primera vez viajando<br>Pasaporte B0356388</div>
+        <div class="mcard-go">Ver DS-160 + 5 preguntas →</div>
+      </a>
+      <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html" data-reveal="delay4">
+        <div class="mcard-avatar">D</div>
+        <span class="mcard-tag tag-b">16 años · Menor</span>
+        <div class="mcard-role">Hijo</div>
+        <div class="mcard-name">Luis Deoniel<br>Seas Guamán</div>
+        <div class="mcard-info">1° Bachillerato · San Gerardo<br>Practica inglés incluida<br>Pasaporte B0356393</div>
+        <div class="mcard-go">Ver DS-160 + 5 preguntas →</div>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- RECORDATORIOS -->
-<div class="section">
-  <div class="section-label">Sistema de recordatorios automáticos</div>
-  <div class="reminder-box">
-    <div class="reminder-icon">📧</div>
-    <div>
-      <div class="reminder-title">Recibirán un correo electrónico todos los días</div>
-      <div class="reminder-desc">El sistema enviará automáticamente un recordatorio diario para practicar el simulador. Además recibirán avisos especiales antes de cada sesión Zoom. Revisen su bandeja de entrada cada mañana.</div>
-      <div class="reminder-emails">
-        <span class="email-chip">siul_2386@hotmail.com (Luis)</span>
-        <span class="email-chip">zoilyss_@hotmail.es (Zoila)</span>
+<!-- ══════════ SIMULADOR ══════════ -->
+<section id="simulador">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Herramienta principal</div>
+    <div class="sim-layout">
+      <div data-reveal>
+        <h2 class="sec-title">El simulador<br><em>personalizado</em></h2>
+        <p class="sec-sub" style="margin-bottom:36px">35 preguntas organizadas por niveles de dificultad creciente. Cada respuesta es evaluada automáticamente con retroalimentación específica para su caso.</p>
+        <div class="sim-cta-wrap">
+          <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">
+            Abrir simulador →
+          </a>
+          <p style="margin-top:12px;font-size:.75rem;color:var(--muted)">asesoriadevisadosglobal.com/familia-seas-guaman.html</p>
+        </div>
+      </div>
+      <div class="sim-modules" data-reveal="delay2">
+        <div class="sim-mod"><div class="sim-mod-num">01</div><div class="sim-mod-info"><div class="title">Lo que evalúa el oficial consular</div><div class="sub">3 criterios principales de evaluación</div></div><span class="sim-mod-type type-learn">Aprender</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">02</div><div class="sim-mod-info"><div class="title">Fortalezas de la familia</div><div class="sub">Alcalde, farmacia, historial de viajes</div></div><span class="sim-mod-type type-learn">Aprender</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">03</div><div class="sim-mod-info"><div class="title">DS-160 de Luis Alfonso</div><div class="sub">Todo lo declarado en su expediente</div></div><span class="sim-mod-type type-review">DS-160</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">04–06</div><div class="sim-mod-info"><div class="title">Práctica Luis · 3 niveles</div><div class="sub">Básicas → Trabajo → Difíciles</div></div><span class="sim-mod-type type-practice">15 preguntas</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">07–08</div><div class="sim-mod-info"><div class="title">DS-160 + Práctica Zoila</div><div class="sub">Farmacia, finanzas y regreso</div></div><span class="sim-mod-type type-practice">5 preguntas</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">09–10</div><div class="sim-mod-info"><div class="title">Zoe Scarlett y Luis Deoniel</div><div class="sub">DS-160 + preguntas para menores + inglés</div></div><span class="sim-mod-type type-practice">10 preguntas</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">11–12</div><div class="sim-mod-info"><div class="title">Familia · Preguntas difíciles</div><div class="sub">Viaje + preguntas trampa</div></div><span class="sim-mod-type type-practice">7 preguntas</span></div>
+        <div class="sim-mod"><div class="sim-mod-num">13</div><div class="sim-mod-info"><div class="title">Protocolo del día de la entrevista</div><div class="sub">Embajada, qué llevar, cómo vestir</div></div><span class="sim-mod-type type-learn">Protocolo</span></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- VIAJE -->
-<div class="section">
-  <div class="section-label">Detalles del viaje</div>
-  <div class="viaje-grid">
-    <div class="viaje-stat">
-      <div class="viaje-stat-label">Llegada USA</div>
-      <div class="viaje-stat-val">20 marzo</div>
-      <div class="viaje-stat-sub">2027 · Orlando, FL</div>
-    </div>
-    <div class="viaje-stat">
-      <div class="viaje-stat-label">Regreso Ecuador</div>
-      <div class="viaje-stat-val">28 marzo</div>
-      <div class="viaje-stat-sub">2027 · 8 días en USA</div>
-    </div>
-    <div class="viaje-stat">
-      <div class="viaje-stat-label">Alojamiento</div>
-      <div class="viaje-stat-val" style="font-size:.85rem">Monreale Express</div>
-      <div class="viaje-stat-sub">8300 Jamaican Ct, Orlando</div>
-    </div>
-    <div class="viaje-stat" style="border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05)">
-      <div class="viaje-stat-label" style="color:#34D399">Clases hijos</div>
-      <div class="viaje-stat-val" style="color:#34D399">29 marzo</div>
-      <div class="viaje-stat-sub">San Gerardo · Loja</div>
+<!-- ══════════ RECURSOS ══════════ -->
+<section id="recursos">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Documentos de preparación</div>
+    <h2 class="sec-title" data-reveal>Materiales<br><em>descargables</em></h2>
+    <p class="sec-sub" data-reveal>Tres documentos preparados específicamente para su caso. Descárguelos e impriman los que necesiten.</p>
+    <div class="recursos-grid">
+      <a class="rcard" href="https://www.asesoriadevisadosglobal.com/guia-simulador-seas.pdf" target="_blank" data-reveal="delay1">
+        <div class="rcard-icon ri-a">📋</div>
+        <div class="rcard-name">Guía del Simulador</div>
+        <div class="rcard-desc">Cómo empezar, qué hay en cada módulo y el plan diario de práctica recomendado para toda la familia.</div>
+        <div class="rcard-dl">↓ Descargar PDF</div>
+      </a>
+      <a class="rcard" href="https://www.asesoriadevisadosglobal.com/plan-seas-guaman.pdf" target="_blank" data-reveal="delay2">
+        <div class="rcard-icon ri-b">📅</div>
+        <div class="rcard-name">Plan de Acción</div>
+        <div class="rcard-desc">Qué hacer cada semana antes de la entrevista. Respuestas modelo para las preguntas más importantes de Luis.</div>
+        <div class="rcard-dl">↓ Descargar PDF</div>
+      </a>
+      <a class="rcard" href="https://www.asesoriadevisadosglobal.com/checklist-seas-guaman.pdf" target="_blank" data-reveal="delay3">
+        <div class="rcard-icon ri-c">✅</div>
+        <div class="rcard-name">Checklist de Documentos</div>
+        <div class="rcard-desc">Lista completa con casillas de verificación de todos los documentos requeridos, organizada por miembro.</div>
+        <div class="rcard-dl">↓ Descargar PDF</div>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- CONTACT -->
-<div class="section">
-  <div class="contact-section">
-    <div class="contact-left">
-      <strong>¿Tienen preguntas? Escriban a Roberto</strong>
-      <p>Su asesor está disponible por WhatsApp para cualquier consulta sobre el proceso, los documentos o las sesiones Zoom.</p>
+<!-- ══════════ ZOOM ══════════ -->
+<section id="zoom">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Sesiones en vivo</div>
+    <h2 class="sec-title" data-reveal>Preparación<br><em>con Roberto</em></h2>
+    <p class="sec-sub" data-reveal>Dos sesiones obligatorias por Zoom. Recibirán recordatorio por correo 3 días antes y el día anterior a cada sesión.</p>
+    <div class="zoom-grid">
+      <div class="zcard" data-reveal="delay1">
+        <div class="zcard-num">1</div>
+        <div class="zcard-date">Domingo 15 de junio 2026</div>
+        <div class="zcard-time">7:00 PM · hora Ecuador</div>
+        <div class="zcard-desc">Sesión de repaso personalizado. Roberto revisará sus respuestas del simulador y realizará correcciones en tiempo real. <strong style="color:#E2E8F0">Deben tener el simulador completado antes de esta sesión.</strong></div>
+        <div class="zcard-note">📧 Recordatorio automático 3 días antes y el día anterior</div>
+      </div>
+      <div class="zcard" data-reveal="delay2">
+        <div class="zcard-num">2</div>
+        <div class="zcard-date">Lunes 29 de junio 2026</div>
+        <div class="zcard-time">7:00 PM · hora Ecuador</div>
+        <div class="zcard-desc">Simulacro final de entrevista. Roberto actuará como oficial consular y realizará la entrevista completa en tiempo real. <strong style="color:#E2E8F0">Obligatoria para los 4 miembros de la familia.</strong></div>
+        <div class="zcard-note">📧 Recordatorio automático 3 días antes y el día anterior</div>
+      </div>
     </div>
-    <a class="contact-btn" href="https://wa.me/593994442512?text=Hola+Roberto%2C+soy+de+la+familia+Seas+Guaman.+Tengo+una+consulta." target="_blank">
-      💬 WhatsApp · +593 99 444 2512
-    </a>
   </div>
-</div>
+</section>
 
-<!-- FOOTER -->
+<!-- ══════════ RECORDATORIOS ══════════ -->
+<section id="recordatorios">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Sistema automático</div>
+    <h2 class="sec-title" data-reveal>Recordatorios<br><em>diarios</em></h2>
+    <p class="sec-sub" data-reveal>Para garantizar una preparación constante, el sistema envía recordatorios automáticos todos los días.</p>
+    <div class="rem-box" data-reveal>
+      <div class="rem-left">
+        <div class="rem-icon-wrap">📧</div>
+        <h3>Todos los días</h3>
+        <p>Un correo cada mañana recordándoles practicar el simulador</p>
+      </div>
+      <div class="rem-right">
+        <div class="rem-title">¿Qué recibirán?</div>
+        <div class="rem-desc">Un correo electrónico diario con el link al simulador, el tip del día y la cuenta regresiva hacia las sesiones Zoom. Además, avisos especiales 3 días antes y el día anterior a cada sesión con Roberto.</div>
+        <div class="rem-emails">
+          <div class="rem-email"><span>📩</span><div><strong>Luis:</strong> siul_2386@hotmail.com</div></div>
+          <div class="rem-email"><span>📩</span><div><strong>Zoila:</strong> zoilyss_@hotmail.es</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FECHAS ══════════ -->
+<section id="fechas">
+  <div class="sec">
+    <div class="sec-label" data-reveal>Línea de tiempo</div>
+    <h2 class="sec-title" data-reveal>Fechas<br><em>importantes</em></h2>
+    <p class="sec-sub" style="margin-bottom:48px" data-reveal>Todas las fechas clave del proceso de preparación y el viaje.</p>
+    <div class="timeline" data-reveal>
+      <div class="titem">
+        <div class="titem-date">Hoy · junio 2026</div>
+        <div class="titem-title">Comenzar el simulador</div>
+        <div class="titem-desc">Abrir el simulador y completar el recorrido completo. Los adultos deben hacer al menos 2 recorridos esta semana.</div>
+      </div>
+      <div class="titem">
+        <div class="titem-date">15 de junio 2026 · 7:00 PM</div>
+        <div class="titem-title">Sesión Zoom 1 con Roberto</div>
+        <div class="titem-desc">Repaso personalizado. Traigan preguntas y los resultados del simulador. Roberto revisará y corregirá sus respuestas en tiempo real.</div>
+        <span class="titem-badge tb-zoom">Zoom obligatorio</span>
+      </div>
+      <div class="titem">
+        <div class="titem-date">29 de junio 2026 · 7:00 PM</div>
+        <div class="titem-title">Sesión Zoom 2 con Roberto — Simulacro final</div>
+        <div class="titem-desc">Roberto actuará como oficial consular. Entrevista completa en tiempo real. Toda la familia debe estar presente.</div>
+        <span class="titem-badge tb-zoom">Zoom obligatorio</span>
+      </div>
+      <div class="titem">
+        <div class="titem-date">20 de marzo 2027</div>
+        <div class="titem-title">Llegada a Orlando, Florida</div>
+        <div class="titem-desc">Llegada a Orlando. Alojamiento en Hotel Monreale Express & Studios, 8300 Jamaican Court, Orlando, FL 32819.</div>
+        <span class="titem-badge tb-viaje">Inicio del viaje</span>
+      </div>
+      <div class="titem">
+        <div class="titem-date">28 de marzo 2027</div>
+        <div class="titem-title">Regreso a Ecuador</div>
+        <div class="titem-desc">Regreso el 28 de marzo. Zoe y Deoniel tienen clases el 29 de marzo en Loja. Este es el ancla de regreso más importante para la familia.</div>
+        <span class="titem-badge tb-regreso">Regreso confirmado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACTO ══════════ -->
+<section id="contacto">
+  <div class="sec">
+    <div class="contact-inner">
+      <div class="sec-label" data-reveal style="justify-content:center">Soporte directo</div>
+      <h2 class="sec-title" data-reveal>¿Tienen<br><em>preguntas?</em></h2>
+      <p class="sec-sub" data-reveal>Roberto está disponible por WhatsApp para cualquier consulta sobre el proceso, los documentos o las sesiones Zoom. No duden en escribir.</p>
+      <a class="wa-btn" href="https://wa.me/593994442512?text=Hola+Roberto%2C+soy+de+la+familia+Seas+Guaman.+Tengo+una+consulta." target="_blank" data-reveal>
+        💬 Escribir a Roberto por WhatsApp
+      </a>
+      <div class="contact-sub" data-reveal>+593 99 444 2512 · Respuesta en menos de 24 horas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="logo">Asesoría <em>Visa</em> Global</div>
-  <p>Material preparado exclusivamente para la Familia Seas Guamán · Confidencial<br>
-  asesoriadevisadosglobal.com · info@asesoriadevisadosglobal.com</p>
+  <div>
+    <div class="foot-logo">Asesoría <em>Visa</em> Global</div>
+    <p>Material exclusivo para la Familia Seas Guamán · Confidencial</p>
+  </div>
+  <p style="text-align:right">asesoriadevisadosglobal.com<br>info@asesoriadevisadosglobal.com</p>
 </footer>
 
+<script>
+// Nav scroll effect
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>40);
+},{passive:true});
+
+// Reveal on scroll
+const reveals=document.querySelectorAll('[data-reveal]');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}
+  });
+},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
