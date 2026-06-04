@@ -328,6 +328,21 @@ h2.display em { color: #F5C842 !important; font-style: italic !important; }
 .pstep h3 { color: #E2E8F0 !important; }
 .pstep p { color: #94A3B8 !important; }
 
+/* ── FAQ — fix acordeón ──────────────────────────────────────── */
+.faq-ans {
+  display: none !important;
+  height: auto !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+
+.faq-item.open .faq-ans {
+  display: block !important;
+  height: auto !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+
 /* ── FAQ ─────────────────────────────────────────────────────── */
 .faq-contact-box {
   background: #0D1930 !important;
