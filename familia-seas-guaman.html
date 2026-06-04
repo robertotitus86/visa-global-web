@@ -996,6 +996,31 @@ if(miembro){
   const idx = mapa[miembro.toLowerCase()];
   if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
 }
+
+// Bienvenida personalizada por miembro URL
+(function(){
+  var _p=new URLSearchParams(location.search).get('miembro');
+  if(!_p) return;
+  var _pf={
+    luis:{idx:3,nombre:'Luis Alfonso',cargo:'Alcalde del Canton Yacuambi',mods:'DS-160 + 15 preguntas en 3 niveles'},
+    zoila:{idx:7,nombre:'Zoila Ines',cargo:'Propietaria Farmacia Familiar, Yacuambi',mods:'DS-160 + 5 preguntas'},
+    zoe:{idx:9,nombre:'Zoe Scarlett',cargo:'Estudiante, 14 anos, Loja, Ecuador',mods:'DS-160 + 5 preguntas'},
+    deoniel:{idx:10,nombre:'Luis Deoniel',cargo:'1er Bachillerato, San Gerardo, 16 anos',mods:'DS-160 + 5 preguntas + ingles'}
+  };
+  var pr=_pf[_p.toLowerCase()];
+  if(!pr) return;
+  document.title='Preparacion de '+pr.nombre;
+  document.getElementById('wrap').innerHTML=
+    '<div class="screen" style="text-align:center;padding:12px 0">'
+    +'<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.8);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">Preparacion personalizada</div>'
+    +'<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">Hola,<br><em style=\"color:var(--gold);font-style:italic\">'+pr.nombre+'</em></h1>'
+    +'<p style="font-size:.85rem;color:var(--muted);margin-bottom:4px">'+pr.cargo+'</p>'
+    +'<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">'+pr.mods+'</p>'
+    +'<button onclick="jumpTo('+pr.idx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans)">Comenzar mi preparacion &rarr;</button>'
+    +'<div style="margin-top:14px"><button onclick="cur=0;render()" style="font-size:.75rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans)">Ver preparacion completa de la familia</button></div>'
+    +'</div>';
+})();
+
 </script>
 </body>
 </html>
