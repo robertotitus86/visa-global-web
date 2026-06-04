@@ -497,40 +497,56 @@ section.sec:nth-child(even):not(.services-dark):not(.wa-section) {
   border: 1px solid rgba(245,200,66,.2) !important;
 }
 
-/* ── SELECTOR PREFIJO TELÉFONO ───────────────────────────────── */
-.lm-phone-row {
-  display: flex !important;
-  gap: 8px !important;
+/* ── FORMULARIO LEAD MAGNET — 4 campos iguales ───────────────── */
+.lm-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
 }
 
-.lm-prefix {
+/* Campo base — todos idénticos */
+.lm-field {
   background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  border-radius: 8px !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 10px !important;
   color: #E2E8F0 !important;
   font-family: 'Space Grotesk', system-ui, sans-serif !important;
-  font-size: .875rem !important;
-  padding: 12px 10px !important;
-  cursor: pointer !important;
-  flex-shrink: 0 !important;
+  font-size: .9rem !important;
+  padding: 14px 16px !important;
+  outline: none !important;
+  transition: border-color .2s, background .2s !important;
+  width: 100% !important;
   appearance: none !important;
   -webkit-appearance: none !important;
-  outline: none !important;
-  transition: border-color .2s !important;
-  min-width: 110px !important;
+  box-sizing: border-box !important;
 }
 
-.lm-prefix:focus {
+.lm-field::placeholder {
+  color: rgba(255,255,255,.3) !important;
+}
+
+.lm-field:focus {
   border-color: rgba(245,200,66,.4) !important;
+  background: rgba(255,255,255,.09) !important;
 }
 
-.lm-prefix option {
+/* Select específico */
+.lm-field-select {
+  cursor: pointer !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23F5C842' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  padding-right: 36px !important;
+}
+
+.lm-field-select option {
   background: #0F1F38 !important;
   color: #E2E8F0 !important;
 }
 
-.lm-input-phone {
-  flex: 1 !important;
+@media (max-width: 480px) {
+  .lm-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ── ANIMACIONES ─────────────────────────────────────────────── */
