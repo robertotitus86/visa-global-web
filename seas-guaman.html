@@ -247,6 +247,9 @@ a{text-decoration:none;color:inherit}
 .bn-icon{font-size:1.2rem;line-height:1}
 .bn-label{font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 
+@media(max-width:600px){
+  .hero-row{grid-template-columns:1fr!important}
+}
 @media(max-width:768px){
   .tabs{display:none}
   .bottom-nav{display:grid}
@@ -288,45 +291,65 @@ a{text-decoration:none;color:inherit}
 
     <!-- HOME -->
     <div class="page active" id="page-home">
-      <div class="home-hero">
-        <div class="home-eyebrow">Portal de preparación · Visa USA B1/B2</div>
-        <h1 class="home-title">Familia<br><em>Seas Guamán</em></h1>
-        <p class="home-sub">Todo lo que necesitan para llegar seguros a su entrevista consular. Simulador, documentos y sesiones en vivo con Roberto.</p>
-        <div class="home-btns">
-          <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html" target="_blank">Abrir simulador →</a>
-          <a class="btn-ghost" onclick="showPage('zoom')">Ver fechas Zoom</a>
+
+      <!-- HERO: nombre + datos del viaje lado a lado -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="home-hero" style="margin-bottom:0">
+          <div class="home-eyebrow">Portal de preparación · Visa USA B1/B2</div>
+          <h1 class="home-title">Familia<br><em>Seas Guamán</em></h1>
+          <p class="home-sub" style="margin-bottom:20px">Simulador, documentos y sesiones en vivo con Roberto.</p>
+          <div class="home-btns">
+            <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html">Abrir simulador →</a>
+          </div>
+        </div>
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:0">
+          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(59,130,246,.8);margin-bottom:14px">Datos del viaje</div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Destino</span><span style="font-weight:700;color:#F1F5F9">Orlando, Florida</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Llegada</span><span style="font-weight:700;color:#F1F5F9">20 marzo 2027</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Regreso</span><span style="font-weight:700;color:#F1F5F9">28 marzo 2027</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Duración</span><span style="font-weight:700;color:var(--gold)">8 días</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Hotel</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:160px">Monreale Express & Studios</span></div>
         </div>
       </div>
+      @media(max-width:600px){.hero-row{grid-template-columns:1fr!important}}
 
       <div class="stats">
         <div class="stat hi"><div class="stat-val">35</div><div class="stat-label">Preguntas</div></div>
-        <div class="stat"><div class="stat-val">Orlando</div><div class="stat-label">Destino</div></div>
-        <div class="stat"><div class="stat-val">8 días</div><div class="stat-label">Mar 20-28 2027</div></div>
         <div class="stat"><div class="stat-val">4</div><div class="stat-label">Miembros</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-label">PDFs listos</div></div>
+        <div class="stat"><div class="stat-val">2</div><div class="stat-label">Sesiones Zoom</div></div>
       </div>
 
-      <div class="qa-title">Ir directo al perfil de cada miembro</div>
-      <div class="qa-grid">
-        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=luis">
-          <div class="qa-ini">L</div>
-          <div class="qa-name">Luis Alfonso</div>
-          <div class="qa-sub">15 preguntas</div>
-        </a>
-        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=zoila">
-          <div class="qa-ini">Z</div>
-          <div class="qa-name">Zoila Inés</div>
-          <div class="qa-sub">5 preguntas</div>
-        </a>
-        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=zoe">
-          <div class="qa-ini">Z</div>
-          <div class="qa-name">Zoe Scarlett</div>
-          <div class="qa-sub">5 preguntas</div>
-        </a>
-        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=deoniel">
-          <div class="qa-ini">D</div>
-          <div class="qa-name">Luis Deoniel</div>
-          <div class="qa-sub">5 preg. + inglés</div>
-        </a>
+      <!-- PRACTICAR INDIVIDUALMENTE — destacado -->
+      <div style="background:linear-gradient(135deg,rgba(245,200,66,.12),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.3);border-radius:20px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,.08),transparent 70%)"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:p 2s infinite"></div>
+          <span style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--gold)">Practicar individualmente</span>
+        </div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:16px">Toca tu nombre para ver tus preguntas específicas. Primero estudias las respuestas correctas y luego practicas solo.</p>
+        <div class="qa-grid">
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=luis" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">L</div>
+            <div class="qa-name">Luis Alfonso</div>
+            <div class="qa-sub">15 preguntas · 3 niveles</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=zoila" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">Z</div>
+            <div class="qa-name">Zoila Inés</div>
+            <div class="qa-sub">5 preguntas</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=zoe" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">Z</div>
+            <div class="qa-name">Zoe Scarlett</div>
+            <div class="qa-sub">5 preguntas</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=deoniel" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">D</div>
+            <div class="qa-name">Luis Deoniel</div>
+            <div class="qa-sub">5 preg. + inglés</div>
+          </a>
+        </div>
       </div>
 
       <div class="qa-title" style="margin-top:24px">Próximas fechas</div>
