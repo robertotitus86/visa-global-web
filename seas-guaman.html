@@ -292,6 +292,27 @@ a{text-decoration:none;color:inherit}
     <!-- HOME -->
     <div class="page active" id="page-home">
 
+      <!-- BANNER CUENTA REGRESIVA ENTREVISTA -->
+      <div id="banner-cita" style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.05));border:1.5px solid rgba(245,200,66,.4);border-radius:16px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+        <div style="font-size:2rem;flex-shrink:0">🏛️</div>
+        <div style="flex:1">
+          <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.7);margin-bottom:3px">Entrevista Consular Confirmada</div>
+          <div style="font-weight:700;font-size:.95rem;color:#fff">Miércoles 1 de julio 2026 · 7:30 AM</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:2px">Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div id="dias-cita" style="font-size:1.8rem;font-weight:700;color:#F5C842;line-height:1">--</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">días</div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var hoy=new Date(), cita=new Date('2026-07-01');
+        var dias=Math.ceil((cita-hoy)/(1000*60*60*24));
+        document.getElementById('dias-cita').textContent=dias>0?dias:'HOY';
+      })();
+      </script>
+
       <!-- HERO: nombre + datos del viaje lado a lado -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
         <div class="home-hero" style="margin-bottom:0">
@@ -303,12 +324,12 @@ a{text-decoration:none;color:inherit}
           </div>
         </div>
         <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:0">
-          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(59,130,246,.8);margin-bottom:14px">Datos del viaje</div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Destino</span><span style="font-weight:700;color:#F1F5F9">Orlando, Florida</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Llegada</span><span style="font-weight:700;color:#F1F5F9">20 marzo 2027</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Regreso</span><span style="font-weight:700;color:#F1F5F9">28 marzo 2027</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Duración</span><span style="font-weight:700;color:var(--gold)">8 días</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:.82rem"><span style="color:rgba(255,255,255,.4)">Hotel</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:160px">Monreale Express & Studios</span></div>
+          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(59,130,246,.8);margin-bottom:14px">📅 Fechas importantes</div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🇺🇸 Entrevista</span><span style="font-weight:700;color:#F5C842">1 julio 2026 · 7:30 AM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🏛️ Consulado</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:150px">Quito · frente al SOLCA</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">⚠️ Límite reagenda</span><span style="font-weight:700;color:#F59E0B">29 junio 2026</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">✈️ Viaje a USA</span><span style="font-weight:700;color:#F1F5F9">20–28 marzo 2027</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🏨 Hotel</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:140px">Monreale Express Orlando</span></div>
         </div>
       </div>
       <div class="stats">
