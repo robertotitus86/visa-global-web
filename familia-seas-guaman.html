@@ -857,6 +857,34 @@ const MODULES = [
   </div>`}}
 ];
 
+// ─── GUARDAR AVANCE (localStorage) ───────────────────────────────
+function saveProgress(){
+  try {
+    var key = 'avance_' + (_miembro || 'familia');
+    localStorage.setItem(key, JSON.stringify({
+      cur: cur, qIdx: qIdx, answers: answers,
+      miembro: _miembro || null,
+      fecha: new Date().toISOString()
+    }));
+  } catch(e){}
+}
+
+function loadProgress(){
+  try {
+    var key = 'avance_' + (_miembro || 'familia');
+    var saved = localStorage.getItem(key);
+    if(!saved) return null;
+    return JSON.parse(saved);
+  } catch(e){ return null; }
+}
+
+function clearProgress(){
+  try {
+    var key = 'avance_' + (_miembro || 'familia');
+    localStorage.removeItem(key);
+  } catch(e){}
+}
+
 // ─── MODO ESTUDIO ─────────────────────────────────────────────────
 var studyMember = null;
 var studyQIdx = 0;
@@ -952,6 +980,7 @@ function render(){
   if(mod.type==='quiz') renderQuiz(mod);
   else wrap.innerHTML=mod.render();
   window.scrollTo({top:0,behavior:'smooth'});
+  saveProgress();
 }
 
 function renderQuiz(mod){
@@ -1009,7 +1038,7 @@ function nextQ(){
 function next(){if(cur<MODULES.length-1){cur++;render();}}
 function prev(){if(cur>0){qIdx=0;cur--;render();}}
 function jumpTo(idx){qIdx=0;cur=idx;render();}
-function restart(){cur=0;qIdx=0;answers=[];render();}
+function restart(){cur=0;qIdx=0;answers=[];clearProgress();render();}
 
 // Detectar miembro desde URL
 var _miembro = new URLSearchParams(location.search).get('miembro');
@@ -1023,6 +1052,25 @@ var _perfiles = {
 if(_miembro && _perfiles[_miembro.toLowerCase()]){
   var _pr = _perfiles[_miembro.toLowerCase()];
   document.title = 'Preparacion de ' + _pr.n;
+
+  // Verificar si hay avance guardado
+  var _saved = loadProgress();
+  if(_saved && _saved.miembro === _miembro && _saved.cur > 0){
+    var _fecha = new Date(_saved.fecha);
+    var _hace = Math.round((Date.now() - _fecha.getTime()) / 60000);
+    var _hacelabel = _hace < 60 ? 'hace ' + _hace + ' min' : 'hace ' + Math.round(_hace/60) + 'h';
+    document.getElementById('wrap').innerHTML =
+      '<div class="screen" style="text-align:center;padding:8px 0">'
+      + '<div style="font-size:1.8rem;margin-bottom:14px">💾</div>'
+      + '<h2 style="font-family:var(--serif);font-size:1.5rem;font-weight:700;color:#F1F5F9;margin-bottom:8px">Tienes avance guardado</h2>'
+      + '<p style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:6px">Módulo ' + (_saved.cur+1) + ' · ' + _saved.answers.length + ' respuestas completadas</p>'
+      + '<p style="font-size:.75rem;color:rgba(245,200,66,.6);margin-bottom:28px">Guardado ' + _hacelabel + '</p>'
+      + '<button onclick="cur='+_saved.cur+';qIdx='+_saved.qIdx+';answers='+JSON.stringify(_saved.answers)+';render()" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center;margin-bottom:10px">Continuar donde lo dejé</button>'
+      + '<button onclick="clearProgress();location.reload()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.82rem;font-weight:500;padding:12px 24px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Empezar desde el inicio</button>'
+      + '</div>';
+    return;
+  }
+
   // Mostrar bienvenida personalizada con opcion de estudiar primero
   document.getElementById('wrap').innerHTML =
     '<div class="screen" style="text-align:center;padding:8px 0">'
