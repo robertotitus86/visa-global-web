@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -234,14 +234,14 @@ const MODULES = [
       <div class="fam-name">Zoe Scarlett</div>
       <div class="fam-info">14 años · Estudiante</div>
       <span class="tag tag-b">Menor</span>
-      <div class="fam-go">Preguntas del viaje →</div>
+      <div class="fam-go">Ver DS-160 + práctica →</div>
     </div>
-    <div class="fam-card" onclick="jumpTo(9)">
+    <div class="fam-card" onclick="jumpTo(10)">
       <div class="fam-role">Hijo</div>
       <div class="fam-name">Luis Deoniel</div>
       <div class="fam-info">16 años · 1° Bachillerato</div>
       <span class="tag tag-b">Menor</span>
-      <div class="fam-go">Preguntas del viaje →</div>
+      <div class="fam-go">Ver DS-160 + práctica →</div>
     </div>
   </div>
   <div class="mode-box">
@@ -552,7 +552,111 @@ const MODULES = [
      model:'Mis hijos retoman clases el 29 de marzo, un día después de que regresamos. Eso es precisamente por lo que salimos el 28. No podemos quedarnos más tiempo aunque quisiéramos.'},
   ]},
 
-// ─── 9. FAMILIA / VIAJE ──────────────────────────────────────────
+// ─── 9. DS-160 ZOE ───────────────────────────────────────────────
+{id:'ds160-zoe', render(){return `<div class="screen">
+  <span class="mod-tag review">DS-160 · Zoe Scarlett</span>
+  <h2 class="mod-title">Lo que declaraste<br><em>en tu DS-160</em></h2>
+  <p class="mod-sub">Zoe, esto es lo que aparece en tu expediente. El oficial consular lo puede revisar aunque seas menor de edad.</p>
+  <div class="ds-header">
+    <div class="ds-name">SEAS GUAMAN, ZOE SCARLETT</div>
+    <div class="ds-sub">Hija menor de edad · Confirmación AA0FJSB0B</div>
+  </div>
+  <div class="ds-grid">
+    <div class="ds-field">
+      <div class="ds-label">Fecha de nacimiento</div>
+      <div class="ds-value">13 de marzo de 2013 — 14 años al momento del viaje</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Lugar de nacimiento</div>
+      <div class="ds-value">Loja, Loja, Ecuador</div>
+    </div>
+    <div class="ds-field highlight">
+      <div class="ds-label">Ocupación</div>
+      <div class="ds-value">Estudiante — Loja, Ecuador</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Pasaporte</div>
+      <div class="ds-value">B0356388 · Válido hasta 18 nov 2034</div>
+    </div>
+    <div class="ds-field ok">
+      <div class="ds-label">Familiares en USA</div>
+      <div class="ds-value">NINGUNO declarado ✓</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Viajes previos</div>
+      <div class="ds-value">Ninguno — primera vez viajando al exterior</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Paga el viaje</div>
+      <div class="ds-value">Padre: Luis Alfonso Seas Quezada</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Redes sociales declaradas</div>
+      <div class="ds-value">Facebook @ZOECITA SEAS · Instagram @SCARLET.ETT3003</div>
+    </div>
+  </div>
+  <div class="ds-note">
+    <strong>Lo que Zoe debe saber decir si le preguntan:</strong> Soy estudiante en Loja. Viajo con mis padres y mi hermano a Orlando por turismo familiar. Vamos a Disney World y Universal Studios. Regreso el 28 de marzo porque tengo clases el 29.
+  </div>
+  <button class="btn-primary" onclick="next()">Ver DS-160 de Deoniel →</button>
+  <button class="btn-secondary" onclick="prev()">← Anterior</button>
+</div>`}},
+
+// ─── 10. DS-160 DEONIEL ──────────────────────────────────────────
+{id:'ds160-deoniel', render(){return `<div class="screen">
+  <span class="mod-tag review">DS-160 · Luis Deoniel</span>
+  <h2 class="mod-title">Lo que declaraste<br><em>en tu DS-160</em></h2>
+  <p class="mod-sub">Deoniel, aunque seas menor, el oficial puede preguntarte directamente. Conoce tu expediente.</p>
+  <div class="ds-header">
+    <div class="ds-name">SEAS GUAMAN, LUIS DEONIEL</div>
+    <div class="ds-sub">Hijo menor de edad · Confirmación AA0FJSE4P</div>
+  </div>
+  <div class="ds-grid">
+    <div class="ds-field">
+      <div class="ds-label">Fecha de nacimiento</div>
+      <div class="ds-value">24 de agosto de 2010 — 16 años al momento del viaje</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Lugar de nacimiento</div>
+      <div class="ds-value">Loja, Loja, Ecuador</div>
+    </div>
+    <div class="ds-field highlight">
+      <div class="ds-label">Colegio / Ocupación</div>
+      <div class="ds-value">Estudiante 1° Bachillerato — Unidad Educativa Particular San Gerardo, Loja</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Pasaporte</div>
+      <div class="ds-value">B0356393 · Válido hasta 18 nov 2034</div>
+    </div>
+    <div class="ds-field ok">
+      <div class="ds-label">Familiares en USA</div>
+      <div class="ds-value">NINGUNO declarado ✓</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Viajes previos</div>
+      <div class="ds-value">Ninguno — primera vez viajando al exterior</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Paga el viaje</div>
+      <div class="ds-value">Padre: Luis Alfonso Seas Quezada</div>
+    </div>
+    <div class="ds-field">
+      <div class="ds-label">Redes sociales declaradas</div>
+      <div class="ds-value">Facebook @DEONIEL SEAS · Instagram @DEONIEL.14</div>
+    </div>
+  </div>
+  <div class="ds-note">
+    <strong>Lo que Deoniel debe saber decir si le preguntan:</strong> Soy estudiante de primer año de bachillerato en el colegio San Gerardo en Loja. Viajo con mis papás y mi hermana a Orlando por turismo familiar. Vamos a Disney World y Universal Studios. Regreso el 28 de marzo porque tengo clases el 29.
+  </div>
+  <div class="info-card" style="border-color:rgba(245,200,66,.25);background:rgba(245,200,66,.05)">
+    <div class="ic-title" style="color:var(--gold)">Importante para los menores de edad</div>
+    <div class="ic-body">Si el oficial les pregunta directamente: respuestas cortas, claras y sin nervios. No elaboren más de lo necesario. Papá Luis lleva la voz principal de la familia — Zoe y Deoniel solo responden cuando les hablan específicamente a ellos.</div>
+  </div>
+  <button class="btn-primary" onclick="next()">Practicar preguntas del viaje →</button>
+  <button class="btn-secondary" onclick="prev()">← Anterior</button>
+</div>`}},
+
+// ─── 11. FAMILIA / VIAJE ─────────────────────────────────────────
 {id:'viaje-p', type:'quiz', persona:'Familia — cualquier miembro', nivel:'nivel-1', nivelTxt:'El viaje',
   questions:[
     {q:'¿Qué van a hacer durante los 8 días en Orlando?',
@@ -644,7 +748,7 @@ const MODULES = [
     <div class="resp-label">Actitud mental al entrar</div>
     <div class="resp-text">"Somos la familia Seas Guamán. Luis es el Alcalde de Yacuambi. Zoila tiene su farmacia. Nuestros hijos estudian en Loja. Vamos a Orlando 8 días y regresamos el 28 de marzo. Eso es todo."</div>
   </div>
-  <button class="btn-primary" onclick="jumpTo(12)">Ver resultado final →</button>
+  <button class="btn-primary" onclick="jumpTo(14)">Ver resultado final →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
 </div>`}},
 
