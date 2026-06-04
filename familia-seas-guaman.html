@@ -872,6 +872,15 @@ function render(){
   const wrap=document.getElementById('wrap');
   if(mod.type==='quiz') renderQuiz(mod);
   else wrap.innerHTML=mod.render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -923,16 +932,70 @@ function evalQ(){
 
 function nextQ(){
   const mod=MODULES[cur];
-  if(qIdx<mod.questions.length-1){qIdx++;render();}
+  if(qIdx<mod.questions.length-1){qIdx++;render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}}
   else{qIdx=0;next();}
 }
 
-function next(){if(cur<MODULES.length-1){cur++;render();}}
-function prev(){if(cur>0){qIdx=0;cur--;render();}}
-function jumpTo(idx){qIdx=0;cur=idx;render();}
-function restart(){cur=0;qIdx=0;answers=[];render();}
+function next(){if(cur<MODULES.length-1){cur++;render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}}}
+function prev(){if(cur>0){qIdx=0;cur--;render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}}}
+function jumpTo(idx){qIdx=0;cur=idx;render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}}
+function restart(){cur=0;qIdx=0;answers=[];render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}}
 
 render();
+
+// Saltar al miembro correcto si viene por URL
+const params = new URLSearchParams(window.location.search);
+const miembro = params.get('miembro');
+if(miembro){
+  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
+  const idx = mapa[miembro.toLowerCase()];
+  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
+}
 </script>
 </body>
 </html>
