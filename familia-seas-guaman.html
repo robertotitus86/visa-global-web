@@ -598,9 +598,45 @@ const MODULES = [
   <div class="ds-note">
     <strong>Lo que Zoe debe saber decir si le preguntan:</strong> Soy estudiante en Loja. Viajo con mis padres y mi hermano a Orlando por turismo familiar. Vamos a Disney World y Universal Studios. Regreso el 28 de marzo porque tengo clases el 29.
   </div>
-  <button class="btn-primary" onclick="next()">Ver DS-160 de Deoniel →</button>
+  <button class="btn-primary" onclick="next()">Practicar preguntas de Zoe →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
 </div>`}},
+
+// ─── 9b. ZOE PRÁCTICA ────────────────────────────────────────────
+{id:'zoe-p', type:'quiz', persona:'Zoe Scarlett · 14 años', nivel:'nivel-1', nivelTxt:'Preguntas para menores',
+  questions:[
+    {q:'¿Cuál es tu nombre y cuántos años tienes?',
+     tip:'Respuesta simple y directa. Nombre completo y edad exacta en el momento del viaje.',
+     eval(r){const t=r.toLowerCase();
+       if(/zoe/.test(t)&&(/14|catorce/.test(t))) return{s:'bien',m:'Perfecto. Nombre y edad clara.'};
+       if(/zoe/.test(t)) return{s:'mejorar',m:'Bien el nombre. Agrega que tendrás 14 años al momento del viaje (marzo 2027).'};
+       return{s:'riesgo',m:'Di: Me llamo Zoe Scarlett Seas Guamán y tengo 14 años.'};},
+     model:'Me llamo Zoe Scarlett Seas Guamán y tengo 14 años.'},
+    {q:'¿Dónde estudias y en qué grado estás?',
+     tip:'Colegio en Loja. El oficial verifica que estudias en Ecuador y que tienes clases que te hacen regresar.',
+     eval(r){const t=r.toLowerCase();
+       if(/loja/.test(t)&&t.length>10) return{s:'bien',m:'Bien. Confirma que estudias en Ecuador — eso refuerza el regreso.'};
+       return{s:'mejorar',m:'Menciona que estudias en Loja, Ecuador. No necesitas el nombre exacto del colegio si no lo recuerdas, pero sí la ciudad.'};},
+     model:'Estudio en Loja, Ecuador. Estoy en el colegio y regreso a clases el 29 de marzo, un día después de que volvemos del viaje.'},
+    {q:'¿Por qué quieres ir a Estados Unidos? ¿Qué vas a hacer allá?',
+     tip:'Turismo familiar. Disney y Universal. Respuesta genuina y entusiasta pero breve.',
+     eval(r){const t=r.toLowerCase();
+       if(/disney|universal|parque|orlando|familia/.test(t)) return{s:'bien',m:'Respuesta auténtica. El entusiasmo real por los parques es exactamente lo que quiere escuchar el oficial.'};
+       return{s:'mejorar',m:'Menciona Disney World y Universal Studios. Dilo con emoción genuina — llevas tiempo queriendo ir.'};},
+     model:'Voy con mis papás y mi hermano a Orlando por turismo. Siempre he querido conocer Disney World y Universal Studios. Es un viaje que hemos planeado como familia.'},
+    {q:'¿Cuándo regresas y por qué esa fecha?',
+     tip:'Fecha exacta y la razón: clases. Esto ancla el regreso y demuestra que tienes vida activa en Ecuador.',
+     eval(r){const t=r.toLowerCase();
+       if(/28.*marzo|marzo.*28/.test(t)||/29.*clases|clases.*29/.test(t)) return{s:'bien',m:'Perfecto. Fecha de regreso más razón concreta.'};
+       return{s:'mejorar',m:'Di: regresamos el 28 de marzo porque tengo clases el 29. Es clave mencionar las clases.'};},
+     model:'Regresamos el 28 de marzo. Tengo clases al día siguiente, el 29 de marzo, así que no puedo quedarme más tiempo.'},
+    {q:'¿Tienes familia o conocidos en Estados Unidos?',
+     tip:'Declaraste que NO. Respuesta directa y sin dudar.',
+     eval(r){const t=r.toLowerCase();
+       if(/no/.test(t)&&t.length<40) return{s:'bien',m:'Correcto. Simple y directo.'};
+       return{s:'mejorar',m:'Solo di: No, no tengo familia ni conocidos en Estados Unidos.'};},
+     model:'No, no tengo familia ni conocidos en Estados Unidos.'},
+  ]},
 
 // ─── 10. DS-160 DEONIEL ──────────────────────────────────────────
 {id:'ds160-deoniel', render(){return `<div class="screen">
@@ -652,9 +688,45 @@ const MODULES = [
     <div class="ic-title" style="color:var(--gold)">Importante para los menores de edad</div>
     <div class="ic-body">Si el oficial les pregunta directamente: respuestas cortas, claras y sin nervios. No elaboren más de lo necesario. Papá Luis lleva la voz principal de la familia — Zoe y Deoniel solo responden cuando les hablan específicamente a ellos.</div>
   </div>
-  <button class="btn-primary" onclick="next()">Practicar preguntas del viaje →</button>
+  <button class="btn-primary" onclick="next()">Practicar preguntas de Deoniel →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
 </div>`}},
+
+// ─── 10b. DEONIEL PRÁCTICA ───────────────────────────────────────
+{id:'deoniel-p', type:'quiz', persona:'Luis Deoniel · 16 años', nivel:'nivel-1', nivelTxt:'Preguntas para menores',
+  questions:[
+    {q:'¿Cuál es tu nombre, cuántos años tienes y en qué colegio estudias?',
+     tip:'Tres datos en uno. El oficial pregunta esto para verificar que realmente estudia en Ecuador.',
+     eval(r){const t=r.toLowerCase();
+       if(/deoniel/.test(t)&&(/san gerardo|loja|colegio/.test(t))) return{s:'bien',m:'Completo y específico. Excelente.'};
+       if(/deoniel/.test(t)) return{s:'mejorar',m:'Bien el nombre. Agrega el colegio: Unidad Educativa San Gerardo en Loja.'};
+       return{s:'riesgo',m:'Di: Me llamo Luis Deoniel Seas Guamán, tengo 16 años y estudio en la Unidad Educativa San Gerardo en Loja.'};},
+     model:'Me llamo Luis Deoniel Seas Guamán, tengo 16 años y estudio primer año de bachillerato en la Unidad Educativa San Gerardo en Loja, Ecuador.'},
+    {q:'¿Qué quieres ser cuando seas grande? ¿Qué estudias o te gusta?',
+     tip:'El oficial usa esta pregunta para evaluar si el menor tiene vida activa y planes en Ecuador. Respuesta genuina.',
+     eval(r){const t=r.toLowerCase();
+       if(t.length>15) return{s:'bien',m:'Bien. Cualquier respuesta genuina sobre sus intereses funciona. Lo importante es que muestre vida y planes en Ecuador.'};
+       return{s:'mejorar',m:'Responde con algo genuino — carrera que te interesa, deporte que practicas. Muestra que tienes vida y futuro en Ecuador.'};},
+     model:'Me gusta la tecnología y pienso estudiar ingeniería o algo relacionado. Por ahora estoy enfocado en mis estudios en San Gerardo para terminar el bachillerato.'},
+    {q:'¿Por qué van a Orlando y no a otro destino?',
+     tip:'El oficial a veces pregunta esto a los hijos para verificar que el viaje es real. Entusiasmo genuino.',
+     eval(r){const t=r.toLowerCase();
+       if(/disney|universal|parque|orlando/.test(t)) return{s:'bien',m:'Respuesta auténtica. El entusiasmo real convence.'};
+       return{s:'mejorar',m:'Menciona Disney World y/o Universal Studios. Es lo que siempre quisiste visitar.'};},
+     model:'Siempre quise conocer Disney World y Universal Studios. Son los parques que he visto en YouTube y en películas. Mi papá organizó el viaje para que los conozcamos en familia.'},
+    {q:'¿Cuándo regresan? ¿Tienes algo pendiente en Ecuador?',
+     tip:'Clases el 29 de marzo. Este dato ancla el regreso de toda la familia.',
+     eval(r){const t=r.toLowerCase();
+       if(/29|28.*marzo|clases|colegio/.test(t)) return{s:'bien',m:'Perfecto. Las clases son el ancla de regreso más poderosa para un menor.'};
+       return{s:'mejorar',m:'Menciona: regresamos el 28 de marzo y tengo clases el 29. Tu colegio te espera.'};},
+     model:'Regresamos el 28 de marzo. Al día siguiente, el 29, tengo clases en San Gerardo. No puedo perder días de estudio porque estoy en bachillerato.'},
+    {q:'¿El oficial te habla en inglés — puedes responder? (practícalo)',
+     tip:'Ambos declararon hablar inglés en el DS-160. El oficial puede verificarlo. Practica una respuesta básica.',
+     eval(r){const t=r.toLowerCase();
+       if(/yes|orlando|disney|school|study|family|march/.test(t)) return{s:'bien',m:'Bien. Cualquier respuesta en inglés es válida. No necesitas perfección — solo demuestra que tienes base.'};
+       return{s:'mejorar',m:'Intenta en inglés: "Yes, I speak some English. I study in Loja. We are going to Disney World in Orlando with my family. We return on March 28th."'};},
+     model:'Yes, I speak some English. My name is Deoniel, I\'m 16 years old and I study in Loja, Ecuador. We are going to Orlando as a family, to visit Disney World and Universal Studios. We return on March 28th.'},
+  ]},
 
 // ─── 11. FAMILIA / VIAJE ─────────────────────────────────────────
 {id:'viaje-p', type:'quiz', persona:'Familia — cualquier miembro', nivel:'nivel-1', nivelTxt:'El viaje',
