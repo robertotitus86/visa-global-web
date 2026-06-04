@@ -205,7 +205,7 @@ const MODULES = [
 {id:'welcome', render(){return `<div class="screen">
   <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
   <h1 class="welcome-title">Familia<br><em>Seas Guamán</em></h1>
-  <p class="welcome-sub">Este simulador fue preparado exclusivamente con base en los cuatro formularios DS-160 de su familia. Cada pregunta, cada respuesta modelo y cada evaluacion corresponde a su caso real. La estructura avanza de menor a mayor complejidad para una preparacion progresiva y efectiva.</p>
+  <p class="welcome-sub">Luis, Zoila, Zoe, Deoniel — esto lo preparé especialmente para ustedes. Primero van a revisar qué declararon en su DS-160 para que lo tengan fresco. Luego practican las preguntas de menor a mayor dificultad. Tienen un caso muy sólido — confíen en eso.</p>
   <div class="trip-box">
     <div class="trip-ttl">El viaje</div>
     <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">Orlando, Florida</span></div>
@@ -872,15 +872,6 @@ function render(){
   const wrap=document.getElementById('wrap');
   if(mod.type==='quiz') renderQuiz(mod);
   else wrap.innerHTML=mod.render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -932,95 +923,46 @@ function evalQ(){
 
 function nextQ(){
   const mod=MODULES[cur];
-  if(qIdx<mod.questions.length-1){qIdx++;render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}}
+  if(qIdx<mod.questions.length-1){qIdx++;render();}
   else{qIdx=0;next();}
 }
 
-function next(){if(cur<MODULES.length-1){cur++;render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}}}
-function prev(){if(cur>0){qIdx=0;cur--;render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}}}
-function jumpTo(idx){qIdx=0;cur=idx;render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}}
-function restart(){cur=0;qIdx=0;answers=[];render();
-
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}}
+function next(){if(cur<MODULES.length-1){cur++;render();}}
+function prev(){if(cur>0){qIdx=0;cur--;render();}}
+function jumpTo(idx){qIdx=0;cur=idx;render();}
+function restart(){cur=0;qIdx=0;answers=[];render();}
 
 render();
 
-// Saltar al miembro correcto si viene por URL
-const params = new URLSearchParams(window.location.search);
-const miembro = params.get('miembro');
-if(miembro){
-  const mapa = {luis:3, zoila:7, zoe:9, deoniel:10};
-  const idx = mapa[miembro.toLowerCase()];
-  if(idx !== undefined) setTimeout(()=>jumpTo(idx), 100);
-}
-
-// Bienvenida personalizada por miembro URL
+// Bienvenida personalizada cuando viene desde el portal de un miembro específico
 (function(){
-  var _p=new URLSearchParams(location.search).get('miembro');
-  if(!_p) return;
-  var _pf={
-    luis:{idx:3,nombre:'Luis Alfonso',cargo:'Alcalde del Canton Yacuambi',mods:'DS-160 + 15 preguntas en 3 niveles'},
-    zoila:{idx:7,nombre:'Zoila Ines',cargo:'Propietaria Farmacia Familiar, Yacuambi',mods:'DS-160 + 5 preguntas'},
-    zoe:{idx:9,nombre:'Zoe Scarlett',cargo:'Estudiante, 14 anos, Loja, Ecuador',mods:'DS-160 + 5 preguntas'},
-    deoniel:{idx:10,nombre:'Luis Deoniel',cargo:'1er Bachillerato, San Gerardo, 16 anos',mods:'DS-160 + 5 preguntas + ingles'}
+  var m = new URLSearchParams(location.search).get('miembro');
+  if(!m) return;
+  var perfiles = {
+    luis:    {idx:3,  nombre:'Luis Alfonso',  cargo:'Alcalde del Cantón Yacuambi', mods:'DS-160 + 15 preguntas · 3 niveles'},
+    zoila:   {idx:7,  nombre:'Zoila Inés',    cargo:'Propietaria Farmacia Familiar, Yacuambi', mods:'DS-160 + 5 preguntas'},
+    zoe:     {idx:9,  nombre:'Zoe Scarlett',  cargo:'Estudiante, 14 años, Loja', mods:'DS-160 + 5 preguntas'},
+    deoniel: {idx:10, nombre:'Luis Deoniel',  cargo:'1er Bachillerato, San Gerardo, 16 años', mods:'DS-160 + 5 preguntas + inglés'}
   };
-  var pr=_pf[_p.toLowerCase()];
+  var pr = perfiles[m.toLowerCase()];
   if(!pr) return;
-  document.title='Preparacion de '+pr.nombre;
-  document.getElementById('wrap').innerHTML=
-    '<div class="screen" style="text-align:center;padding:12px 0">'
-    +'<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.8);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">Preparacion personalizada</div>'
-    +'<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">Hola,<br><em style=\"color:var(--gold);font-style:italic\">'+pr.nombre+'</em></h1>'
-    +'<p style="font-size:.85rem;color:var(--muted);margin-bottom:4px">'+pr.cargo+'</p>'
-    +'<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">'+pr.mods+'</p>'
-    +'<button onclick="jumpTo('+pr.idx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans)">Comenzar mi preparacion &rarr;</button>'
-    +'<div style="margin-top:14px"><button onclick="cur=0;render()" style="font-size:.75rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans)">Ver preparacion completa de la familia</button></div>'
-    +'</div>';
+  document.title = 'Preparación de ' + pr.nombre;
+  var gold = '#F5C842';
+  document.getElementById('wrap').innerHTML =
+    '<div class="screen" style="text-align:center;padding:8px 0">'
+    + '<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:' + gold + ';background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">'
+    + '&#9679; Preparación personalizada</div>'
+    + '<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">'
+    + 'Hola,<br><em style="color:' + gold + ';font-style:italic">' + pr.nombre + '</em></h1>'
+    + '<p style="font-size:.85rem;color:var(--muted);margin-bottom:6px">' + pr.cargo + '</p>'
+    + '<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">' + pr.mods + '</p>'
+    + '<button onclick="jumpTo(' + pr.idx + ')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans)">'
+    + 'Comenzar mi preparación &#8594;</button>'
+    + '<div style="margin-top:16px">'
+    + '<button onclick="cur=0;render()" style="font-size:.75rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans)">'
+    + 'Ver preparación completa de la familia</button></div>'
+    + '</div>';
 })();
-
 </script>
 </body>
 </html>
