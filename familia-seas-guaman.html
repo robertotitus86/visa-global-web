@@ -187,6 +187,23 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .qc-label{font-size:.75rem;color:var(--muted)}
 .qc-val{font-size:.75rem;font-weight:700;color:var(--gold)}
+
+/* PERFIL CLICKEABLE */
+.fam-card{cursor:pointer;transition:all .25s var(--ease)}
+.fam-card:hover{border-color:rgba(245,200,66,.4);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.fam-card.primary:hover{box-shadow:0 8px 30px rgba(245,200,66,.15)}
+.fam-go{display:block;font-size:.65rem;font-weight:700;color:var(--gold);margin-top:8px;letter-spacing:.05em}
+.fam-card-selected{border-color:var(--gold)!important;background:rgba(245,200,66,.08)!important}
+
+/* SELECTOR MODO */
+.mode-box{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.mode-btn{display:flex;align-items:center;gap:14px;background:var(--card);
+  border:1px solid var(--border);border-radius:var(--r);padding:16px;
+  cursor:pointer;transition:all .2s;text-align:left}
+.mode-btn:hover{border-color:rgba(245,200,66,.35);background:rgba(245,200,66,.04)}
+.mode-icon{font-size:1.5rem;flex-shrink:0}
+.mode-title{font-weight:700;font-size:.9rem;margin-bottom:2px}
+.mode-sub{font-size:.75rem;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -229,44 +246,61 @@ const MODULES = [
         <h1 class="welcome-title">Familia<br><em>Seas Guamán</em></h1>
         <p class="welcome-sub">Luis, Zoila, Zoe, Deoniel — esto lo preparé especialmente para ustedes. He revisado sus expedientes con cuidado y tienen un caso muy sólido. Hagan esto juntos, con calma, y lleguen a la entrevista sintiéndose seguros de lo que son: una familia con raíces profundas en Ecuador.</p>
 
+        <p style="font-size:.72rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Toca un perfil para ir directo a su práctica</p>
         <div class="fam-grid">
-          <div class="fam-card primary">
+          <div class="fam-card primary" onclick="jumpTo(6)">
             <div class="fam-role">Titular principal</div>
             <div class="fam-name">Luis Alfonso</div>
             <div class="fam-info">Alcalde de Yacuambi<br>Zamora Chinchipe</div>
             <span class="fam-tag tag-green">Alcalde electo</span>
+            <span class="fam-go">Practicar preguntas →</span>
           </div>
-          <div class="fam-card">
+          <div class="fam-card" onclick="jumpTo(7)">
             <div class="fam-role">Cónyuge</div>
             <div class="fam-name">Zoila Inés</div>
             <div class="fam-info">Farmacia Familiar<br>Yacuambi</div>
             <span class="fam-tag tag-blue">Negocio propio</span>
+            <span class="fam-go">Practicar preguntas →</span>
           </div>
-          <div class="fam-card">
+          <div class="fam-card" onclick="jumpTo(8)">
             <div class="fam-role">Hija</div>
             <div class="fam-name">Zoe Scarlett</div>
             <div class="fam-info">14 años · Estudiante<br>Loja</div>
             <span class="fam-tag tag-blue">Menor de edad</span>
+            <span class="fam-go">Preguntas del viaje →</span>
           </div>
-          <div class="fam-card">
+          <div class="fam-card" onclick="jumpTo(8)">
             <div class="fam-role">Hijo</div>
             <div class="fam-name">Luis Deoniel</div>
             <div class="fam-info">16 años · 1° Bachillerato<br>San Gerardo, Loja</div>
             <span class="fam-tag tag-blue">Menor de edad</span>
+            <span class="fam-go">Preguntas del viaje →</span>
           </div>
         </div>
 
-        <div class="trip-box">
-          <div class="trip-title">Detalles del viaje</div>
-          <div class="trip-row"><span class="trip-label">Destino</span><span class="trip-val">Orlando, Florida</span></div>
-          <div class="trip-row"><span class="trip-label">Llegada</span><span class="trip-val">20 marzo 2027</span></div>
-          <div class="trip-row"><span class="trip-label">Salida</span><span class="trip-val">28 marzo 2027 (8 días)</span></div>
-          <div class="trip-row"><span class="trip-label">Hotel</span><span class="trip-val">Monreale Express & Studios</span></div>
-          <div class="trip-row"><span class="trip-label">Paga el viaje</span><span class="trip-val">Luis (fondos propios)</span></div>
-          <div class="trip-row"><span class="trip-label">Primera vez en USA</span><span class="trip-val" style="color:var(--amber)">Sí — toda la familia</span></div>
+        <div class="mode-box">
+          <div class="mode-btn" onclick="next()">
+            <span class="mode-icon">📚</span>
+            <div>
+              <div class="mode-title">Recorrido completo — todos los módulos</div>
+              <div class="mode-sub">Aprender + practicar + protocolo + preguntas difíciles (recomendado)</div>
+            </div>
+          </div>
+          <div class="mode-btn" onclick="jumpTo(6)">
+            <span class="mode-icon">⚡</span>
+            <div>
+              <div class="mode-title">Ir directo a la práctica</div>
+              <div class="mode-sub">Solo las preguntas de la entrevista, sin módulos de aprendizaje</div>
+            </div>
+          </div>
+          <div class="mode-btn" onclick="jumpTo(5)">
+            <span class="mode-icon">🏛️</span>
+            <div>
+              <div class="mode-title">El día de la entrevista — protocolo</div>
+              <div class="mode-sub">Dónde ir, qué llevar, cómo vestir, qué esperar</div>
+            </div>
+          </div>
         </div>
-
-        <button class="btn-primary" onclick="next()">Comenzar preparación →</button>
       </div>`
     }
   },
@@ -849,6 +883,12 @@ function prev(){
     qIdx=0;
     cur--;render();
   }
+}
+function jumpTo(idx){
+  qIdx=0;
+  cur=idx;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 function restart(){
   cur=0;qIdx=0;answers=[];render();
