@@ -857,6 +857,85 @@ const MODULES = [
   </div>`}}
 ];
 
+// ─── MODO ESTUDIO ─────────────────────────────────────────────────
+var studyMember = null;
+var studyQIdx = 0;
+var studyQs = [];
+
+var STUDY_QS = {
+  luis: [], zoila: [], zoe: [], deoniel: []
+};
+
+function buildStudyQs(){
+  // Recopilar preguntas de todos los módulos quiz para cada miembro
+  var mapa = {luis:[4,5,6], zoila:[8], zoe:[], deoniel:[]};
+  // Buscar modulos por id
+  MODULES.forEach(function(mod){
+    if(mod.type !== 'quiz') return;
+    var id = mod.id || '';
+    if(id.indexOf('luis-n') === 0) mapa.luis = mapa.luis || [];
+    if(id.indexOf('zoila') >= 0 && id !== 'ds160-zoila') mapa_zoila_ok = true;
+  });
+  // Extraer preguntas directamente de los modules
+  MODULES.forEach(function(mod){
+    if(mod.type !== 'quiz' || !mod.questions) return;
+    var id = mod.id || '';
+    if(/luis-n/.test(id)) STUDY_QS.luis = STUDY_QS.luis.concat(mod.questions);
+    else if(/zoila-p/.test(id)) STUDY_QS.zoila = STUDY_QS.zoila.concat(mod.questions);
+    else if(/zoe-p/.test(id)) STUDY_QS.zoe = STUDY_QS.zoe.concat(mod.questions);
+    else if(/deoniel-p/.test(id)) STUDY_QS.deoniel = STUDY_QS.deoniel.concat(mod.questions);
+    else if(/viaje-p/.test(id)||/dificil-p/.test(id)){
+      STUDY_QS.luis = STUDY_QS.luis.concat(mod.questions);
+      STUDY_QS.zoila = STUDY_QS.zoila.concat(mod.questions);
+      STUDY_QS.zoe = STUDY_QS.zoe.concat(mod.questions);
+      STUDY_QS.deoniel = STUDY_QS.deoniel.concat(mod.questions);
+    }
+  });
+}
+
+function startStudy(member, practiceIdx){
+  buildStudyQs();
+  studyMember = member;
+  studyQIdx = 0;
+  studyQs = STUDY_QS[member] || [];
+  window._practiceIdx = practiceIdx;
+  renderStudyCard();
+}
+
+function renderStudyCard(){
+  const wrap = document.getElementById('wrap');
+  if(studyQIdx >= studyQs.length){
+    // Termino de estudiar — ir a practicar
+    wrap.innerHTML = '<div class="screen" style="text-align:center;padding:12px 0">'
+      + '<div style="font-size:2rem;margin-bottom:16px">🎯</div>'
+      + '<h2 style="font-family:var(--serif);font-size:1.6rem;font-weight:700;color:#F1F5F9;margin-bottom:10px">Ya estudiaste todas las preguntas</h2>'
+      + '<p style="font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:32px">Ahora es tu turno de responder solo. Vamos a ver cuanto recordas.</p>'
+      + '<button onclick="jumpTo('+window._practiceIdx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.95rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center;margin-bottom:10px">Practicar solo ahora</button>'
+      + '<button onclick="studyQIdx=0;renderStudyCard()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.82rem;font-weight:500;padding:12px 24px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Repasar las preguntas otra vez</button>'
+      + '</div>';
+    return;
+  }
+  const q = studyQs[studyQIdx];
+  const total = studyQs.length;
+  const pct = Math.round((studyQIdx/total)*100);
+  wrap.innerHTML = '<div class="screen">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">'
+    + '<span style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(59,130,246,.8);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 12px;border-radius:99px">Modo estudio</span>'
+    + '<span style="font-size:.75rem;color:rgba(255,255,255,.4)">' + (studyQIdx+1) + ' de ' + total + '</span>'
+    + '</div>'
+    + '<div style="height:3px;background:rgba(255,255,255,.06);border-radius:99px;margin-bottom:24px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#3B82F6,#F5C842);border-radius:99px;transition:width .3s"></div></div>'
+    + '<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:10px">Pregunta ' + (studyQIdx+1) + '</div>'
+    + '<div style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:#F1F5F9;line-height:1.45;margin-bottom:20px">' + q.q + '</div>'
+    + '<div style="background:rgba(59,130,246,.06);border-left:3px solid #3B82F6;border-radius:0 12px 12px 0;padding:16px;margin-bottom:28px">'
+    + '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#60A5FA;margin-bottom:8px">Respuesta correcta</div>'
+    + '<div style="font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic">' + q.model + '</div>'
+    + '</div>'
+    + '<button onclick="studyQIdx++;renderStudyCard()" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:15px 32px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;margin-bottom:8px">'
+    + (studyQIdx < total-1 ? 'Lo entendi, siguiente pregunta' : 'Terminar de estudiar') + '</button>'
+    + '<button onclick="jumpTo('+window._practiceIdx+')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:.78rem;font-weight:500;padding:11px 20px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Saltar estudio y practicar ahora</button>'
+    + '</div>';
+}
+
 // ─── ENGINE ───────────────────────────────────────────────────────
 function updateHeader(){
   const total=MODULES.length-1;
@@ -951,10 +1030,10 @@ if(_miembro && _perfiles[_miembro.toLowerCase()]){
     + '<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">Hola,<br><em style="color:#F5C842;font-style:italic">' + _pr.n + '</em></h1>'
     + '<p style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:4px">' + _pr.c + '</p>'
     + '<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">' + _pr.m + '</p>'
-    + '<button onclick="jumpTo(1)" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:10px;width:100%;justify-content:center">'
-    + 'Comenzar desde el inicio (recomendado)</button>'
+    + '<button onclick="startStudy(\''+_miembro.toLowerCase()+'\','+_pr.idx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:10px;width:100%;justify-content:center">'
+    + 'Estudiar preguntas y respuestas primero</button>'
     + '<button onclick="jumpTo(' + _pr.idx + ')" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:.85rem;font-weight:500;padding:14px 28px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center">'
-    + 'Ir directo a mi DS-160</button>'
+    + 'Ir directo a practicar</button>'
     + '<div style="margin-top:14px"><button onclick="cur=0;render()" style="font-size:.72rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;font-family:var(--sans)">Ver preparacion completa de la familia</button></div>'
     + '</div>';
 } else {
