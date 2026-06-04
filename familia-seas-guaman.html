@@ -944,7 +944,19 @@ var _perfiles = {
 if(_miembro && _perfiles[_miembro.toLowerCase()]){
   var _pr = _perfiles[_miembro.toLowerCase()];
   document.title = 'Preparacion de ' + _pr.n;
-  jumpTo(_pr.idx);
+  // Mostrar bienvenida personalizada con opcion de estudiar primero
+  document.getElementById('wrap').innerHTML =
+    '<div class="screen" style="text-align:center;padding:8px 0">'
+    + '<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#F5C842;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">Preparacion personalizada</div>'
+    + '<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">Hola,<br><em style="color:#F5C842;font-style:italic">' + _pr.n + '</em></h1>'
+    + '<p style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:4px">' + _pr.c + '</p>'
+    + '<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">' + _pr.m + '</p>'
+    + '<button onclick="jumpTo(1)" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:10px;width:100%;justify-content:center">'
+    + 'Comenzar desde el inicio (recomendado)</button>'
+    + '<button onclick="jumpTo(' + _pr.idx + ')" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:.85rem;font-weight:500;padding:14px 28px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center">'
+    + 'Ir directo a mi DS-160</button>'
+    + '<div style="margin-top:14px"><button onclick="cur=0;render()" style="font-size:.72rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;font-family:var(--sans)">Ver preparacion completa de la familia</button></div>'
+    + '</div>';
 } else {
   render();
 }
