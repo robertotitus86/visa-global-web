@@ -2091,7 +2091,7 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
 <section class="sec">
   <div class="success-split">
     <div class="success-img">
-      <img src="success-moment.jpg" alt="Ecuatoriana con visa USA aprobada - Asesoría Visa Global" loading="lazy" width="600" height="400">
+      <img src="https://images.unsplash.com/photo-1551135049-8a33b5883817?w=800&q=85&auto=format&fit=crop" alt="Ecuatoriana con visa aprobada - Asesoría Visa Global" loading="lazy" width="600" height="400">
       <div class="success-img-overlay"></div>
     </div>
     <div class="success-content">
@@ -2237,10 +2237,28 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
             <form class="lm-form" id="lm-form" data-r>
               <div class="lm-row">
                 <input class="lm-input" type="text" id="lm-name" name="nombre" placeholder="Tu nombre" required autocomplete="given-name">
-                <input class="lm-input" type="tel" id="lm-phone" name="whatsapp" placeholder="Tu WhatsApp" required autocomplete="tel">
+              </div>
+              <div class="lm-row lm-phone-row">
+                <select class="lm-prefix" id="lm-prefix" name="prefijo">
+                  <option value="+593">🇪🇨 +593</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+34">🇪🇸 +34</option>
+                  <option value="+57">🇨🇴 +57</option>
+                  <option value="+51">🇵🇪 +51</option>
+                  <option value="+56">🇨🇱 +56</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+58">🇻🇪 +58</option>
+                  <option value="+54">🇦🇷 +54</option>
+                  <option value="+55">🇧🇷 +55</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+39">🇮🇹 +39</option>
+                </select>
+                <input class="lm-input lm-input-phone" type="tel" id="lm-phone" name="whatsapp" placeholder="Número WhatsApp" required autocomplete="tel" pattern="[0-9\s]{6,15}">
               </div>
               <button type="submit" class="lm-submit" id="lm-btn">Enviarme el checklist gratis</button>
-              <p class="lm-privacy">Sin spam. Tu numero solo se usa para enviarte el PDF por WhatsApp.</p>
+              <p class="lm-privacy">Sin spam. Solo te enviamos el PDF por WhatsApp.</p>
             </form>
           </div>
 
@@ -2590,25 +2608,27 @@ if(lmForm){
   lmForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const name = document.getElementById('lm-name').value.trim();
-    const phone = document.getElementById('lm-phone').value.trim();
+    const prefix = document.getElementById('lm-prefix').value;
+    const phoneRaw = document.getElementById('lm-phone').value.trim().replace(/\s/g,'');
+    const phoneCompleto = prefix + phoneRaw;
     const btn = document.getElementById('lm-btn');
     btn.textContent = 'Enviando...';
     btn.disabled = true;
 
-    // Guardar en Apps Script
+    // Guardar en Apps Script con número completo
     try {
       await fetch('https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ action:'lead_magnet', nombre:name, whatsapp:phone, fecha:new Date().toISOString() })
+        body: JSON.stringify({ action:'lead_magnet', nombre:name, whatsapp:phoneCompleto, fecha:new Date().toISOString() })
       });
     } catch(_){}
 
-    // Mostrar éxito + abrir WA con mensaje personalizado
+    // Mostrar éxito y abrir WhatsApp con mensaje personalizado
     document.getElementById('lm-form-wrap').style.display='none';
     document.getElementById('lm-success').style.display='block';
-    const msg = encodeURIComponent(`Hola Roberto, soy ${name}. Quiero el checklist de la entrevista consular.`);
+    const msg = encodeURIComponent(`Hola, soy ${name}. Vi tu página y quiero el checklist gratuito de la entrevista consular.`);
     setTimeout(()=>{ window.open(`https://wa.me/593994442512?text=${msg}`, '_blank'); }, 800);
   });
 }

@@ -106,13 +106,15 @@ nav.scrolled {
   backdrop-filter: blur(12px) !important;
 }
 
-/* Eyebrow con efecto live */
+/* Eyebrow — texto limpio sin caja */
 .hero-eyebrow {
-  background: rgba(245,200,66,.08) !important;
-  border: 1px solid rgba(245,200,66,.2) !important;
-  border-radius: 100px !important;
-  padding: 8px 18px !important;
-  backdrop-filter: blur(12px) !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  color: rgba(255,255,255,.6) !important;
+  letter-spacing: .18em !important;
 }
 
 /* Stats — fila limpia */
@@ -495,6 +497,42 @@ section.sec:nth-child(even):not(.services-dark):not(.wa-section) {
 .hero-badge {
   background: rgba(245,200,66,.08) !important;
   border: 1px solid rgba(245,200,66,.2) !important;
+}
+
+/* ── SELECTOR PREFIJO TELÉFONO ───────────────────────────────── */
+.lm-phone-row {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.lm-prefix {
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 8px !important;
+  color: #E2E8F0 !important;
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  font-size: .875rem !important;
+  padding: 12px 10px !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  outline: none !important;
+  transition: border-color .2s !important;
+  min-width: 110px !important;
+}
+
+.lm-prefix:focus {
+  border-color: rgba(245,200,66,.4) !important;
+}
+
+.lm-prefix option {
+  background: #0F1F38 !important;
+  color: #E2E8F0 !important;
+}
+
+.lm-input-phone {
+  flex: 1 !important;
 }
 
 /* ── ANIMACIONES ─────────────────────────────────────────────── */
