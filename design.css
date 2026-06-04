@@ -99,11 +99,9 @@ nav.scrolled {
     linear-gradient(to bottom, rgba(6,14,28,.15) 0%, rgba(6,14,28,.45) 55%, #060E1C 100%) !important;
 }
 
-/* ── HERO BADGE ──────────────────────────────────────────────── */
+/* ── HERO BADGE — ocultar, causaba caja oscura ───────────────── */
 .hero-badge {
-  background: rgba(245,200,66,.08) !important;
-  border: 1px solid rgba(245,200,66,.25) !important;
-  backdrop-filter: blur(12px) !important;
+  display: none !important;
 }
 
 /* Eyebrow — texto limpio sin caja */
