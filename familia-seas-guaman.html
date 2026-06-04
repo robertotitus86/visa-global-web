@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Familia Seas Guamán</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;
+  --gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --white:#fff;--muted:rgba(255,255,255,.5);--muted2:rgba(255,255,255,.2);
+  --border:rgba(255,255,255,.08);--card:rgba(255,255,255,.04);
+  --sans:'Space Grotesk',sans-serif;--serif:'Playfair Display',serif;
+  --ease:cubic-bezier(.22,.68,0,1.2);--r:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* BG */
+.bg-grad{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(245,200,66,.06),transparent 55%),
+             radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,.05),transparent 60%),
+             var(--navy)}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(6,14,31,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0 20px;height:56px;
+  display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-prog{margin-left:auto;font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+
+/* PROGRESS BAR */
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+
+/* MAIN */
+.main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.screen{animation:fadeUp .4s var(--ease) both}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ── WELCOME ── */
+.fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);
+  padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.fam-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.welcome-title{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:28px}
+
+/* Tarjetas de perfil familiar */
+.fam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+@media(max-width:440px){.fam-grid{grid-template-columns:1fr}}
+.fam-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.fam-card.primary{border-color:rgba(245,200,66,.25);background:rgba(245,200,66,.05)}
+.fam-role{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:6px}
+.fam-name{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:3px}
+.fam-info{font-size:.75rem;color:var(--muted);line-height:1.5}
+.fam-tag{display:inline-block;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-top:6px}
+.tag-green{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.tag-amber{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.tag-blue{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+
+/* VIAJE INFO */
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);
+  border-radius:var(--r);padding:18px;margin-bottom:28px}
+.trip-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--blue);margin-bottom:12px}
+.trip-row{display:flex;justify-content:space-between;align-items:center;
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-label{color:var(--muted)}
+.trip-val{font-weight:600;color:var(--white)}
+
+/* BOTONES */
+.btn-primary{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);
+  font-size:.9375rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(245,200,66,.3)}
+.btn-secondary{width:100%;padding:14px;background:transparent;
+  color:var(--muted);border:1px solid var(--border);border-radius:50px;
+  font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-top:10px;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(245,200,66,.3);color:var(--gold)}
+
+/* ── MÓDULOS DE APRENDIZAJE ── */
+.mod-header{margin-bottom:24px}
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.learn{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.mod-tag.warn{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.mod-tag.tip{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2)}
+.mod-title{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2rem);line-height:1.2;margin-bottom:8px}
+.mod-title em{color:var(--gold);font-style:italic}
+.mod-sub{font-size:.875rem;color:var(--muted);line-height:1.6}
+
+/* Info cards */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px;margin-bottom:12px;transition:border-color .2s}
+.info-card:hover{border-color:rgba(245,200,66,.2)}
+.ic-num{font-family:var(--serif);font-size:2rem;font-weight:700;
+  color:rgba(245,200,66,.2);line-height:1;margin-bottom:8px}
+.ic-title{font-weight:700;font-size:.9375rem;margin-bottom:5px}
+.ic-body{font-size:.8125rem;color:rgba(255,255,255,.6);line-height:1.65}
+
+/* Fortaleza/Riesgo cards */
+.strength-card{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.risk-card{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.sc-icon{font-size:1.25rem;flex-shrink:0;margin-top:1px}
+.sc-title{font-weight:700;font-size:.875rem;margin-bottom:3px}
+.sc-body{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55}
+
+/* Respuesta modelo */
+.resp-box{background:rgba(59,130,246,.06);border-left:3px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0;padding:16px;margin:12px 0}
+.resp-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--blue);margin-bottom:8px}
+.resp-text{font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic}
+
+/* ALERTA CRÍTICA */
+.critical-box{background:rgba(239,68,68,.08);border:2px solid rgba(239,68,68,.35);
+  border-radius:var(--r);padding:20px;margin-bottom:20px}
+.critical-title{font-weight:800;font-size:1rem;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.critical-body{font-size:.875rem;color:rgba(255,255,255,.75);line-height:1.7}
+
+/* ── PRÁCTICA ── */
+.q-num{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:8px}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.45;margin-bottom:6px}
+.q-tip{font-size:.75rem;color:var(--muted);font-style:italic;margin-bottom:16px;line-height:1.5}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:10px;padding:14px;color:var(--white);font-family:var(--sans);
+  font-size:.875rem;resize:vertical;min-height:90px;transition:border-color .2s}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4);background:rgba(255,255,255,.07)}
+.q-input::placeholder{color:rgba(255,255,255,.25)}
+.q-btn{width:100%;margin-top:12px;padding:13px;background:var(--navy3);
+  color:var(--white);border:1px solid var(--border);border-radius:50px;
+  font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer;transition:all .2s}
+.q-btn:hover{background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.3)}
+.feedback{display:none;margin-top:14px;border-radius:var(--r);padding:14px}
+.feedback.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.feedback.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.feedback.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-icon{font-size:1.1rem;margin-bottom:6px}
+.fb-msg{font-size:.8125rem;line-height:1.6;color:rgba(255,255,255,.8)}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);
+  font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6}
+.fb-model strong{color:rgba(255,255,255,.75);display:block;margin-bottom:4px;font-size:.75rem;
+  text-transform:uppercase;letter-spacing:.08em}
+
+/* NAV MÓDULOS */
+.mod-nav{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.mod-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);
+  cursor:pointer;transition:all .2s}
+.mod-dot.active{background:var(--gold);transform:scale(1.3)}
+.mod-dot.done{background:rgba(16,185,129,.6)}
+
+/* RESULTADO */
+.score-ring{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  border:3px solid rgba(245,200,66,.3);background:rgba(245,200,66,.08)}
+.score-num{font-family:var(--serif);font-size:2.5rem;font-weight:700;color:var(--gold);line-height:1}
+.score-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.result-msg{font-family:var(--serif);font-size:1.3rem;text-align:center;margin-bottom:8px}
+.result-sub{font-size:.875rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:24px}
+.final-tips{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:20px}
+.ft-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:12px}
+.ft-item{font-size:.8125rem;color:rgba(255,255,255,.7);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.5}
+.ft-item:last-child{border-bottom:none}
+.wa-cta{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.1);
+  border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:14px;
+  text-decoration:none;color:var(--white);font-size:.875rem;font-weight:600;margin-top:8px}
+.wa-cta:hover{background:rgba(16,185,129,.15)}
+
+/* COUNTER */
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-val{font-size:.75rem;font-weight:700;color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="bg-grad"></div>
+
+<header class="hdr">
+  <div class="logo">Asesoría <em>Visa</em> Global</div>
+  <div class="hdr-prog">Módulo <strong id="hdr-mod">1</strong> de 9</div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  DATOS DE LA FAMILIA SEAS GUAMÁN
+// ══════════════════════════════════════════════════════
+const familia = {
+  padre:  { nombre:'Luis Alfonso Seas Quezada', edad:39, cargo:'Alcalde del Cantón Yacuambi', salario:'$3.250/mes', viajes:'Perú, Uruguay, España, Panamá' },
+  madre:  { nombre:'Zoila Inés Guamán González', edad:38, cargo:'Propietaria Farmacia Familiar', salario:'$1.500/mes', viajes:'Panamá' },
+  hija:   { nombre:'Zoe Scarlett Seas Guamán', edad:14, cargo:'Estudiante', colegio:'Loja' },
+  hijo:   { nombre:'Luis Deoniel Seas Guamán', edad:16, cargo:'Estudiante 1° Bachillerato', colegio:'Unidad Educativa San Gerardo, Loja' },
+  hotel:  'Hotel Monreale Express & Studios',
+  direccion:'8300 Jamaican Court, Orlando, FL 32819',
+  llegada: '20 de marzo 2027',
+  salida:  '28 de marzo 2027',
+  dias:    8
+};
+
+// ══════════════════════════════════════════════════════
+//  MÓDULOS
+// ══════════════════════════════════════════════════════
+const MODULES = [
+  // 0 - WELCOME
+  {
+    id:'welcome',
+    render(){ return `
+      <div class="screen">
+        <div class="fam-badge"><span></span>Preparación de entrevista consular</div>
+        <h1 class="welcome-title">Familia<br><em>Seas Guamán</em></h1>
+        <p class="welcome-sub">Este simulador está diseñado específicamente para su caso. Completen los 9 módulos antes de la entrevista. Cuanto más practiquen, más seguros estarán el día de la entrevista.</p>
+
+        <div class="fam-grid">
+          <div class="fam-card primary">
+            <div class="fam-role">Titular principal</div>
+            <div class="fam-name">Luis Alfonso</div>
+            <div class="fam-info">Alcalde de Yacuambi<br>Zamora Chinchipe</div>
+            <span class="fam-tag tag-green">Alcalde electo</span>
+          </div>
+          <div class="fam-card">
+            <div class="fam-role">Cónyuge</div>
+            <div class="fam-name">Zoila Inés</div>
+            <div class="fam-info">Farmacia Familiar<br>Yacuambi</div>
+            <span class="fam-tag tag-blue">Negocio propio</span>
+          </div>
+          <div class="fam-card">
+            <div class="fam-role">Hija</div>
+            <div class="fam-name">Zoe Scarlett</div>
+            <div class="fam-info">14 años · Estudiante<br>Loja</div>
+            <span class="fam-tag tag-blue">Menor de edad</span>
+          </div>
+          <div class="fam-card">
+            <div class="fam-role">Hijo</div>
+            <div class="fam-name">Luis Deoniel</div>
+            <div class="fam-info">16 años · 1° Bachillerato<br>San Gerardo, Loja</div>
+            <span class="fam-tag tag-blue">Menor de edad</span>
+          </div>
+        </div>
+
+        <div class="trip-box">
+          <div class="trip-title">Detalles del viaje</div>
+          <div class="trip-row"><span class="trip-label">Destino</span><span class="trip-val">Orlando, Florida</span></div>
+          <div class="trip-row"><span class="trip-label">Llegada</span><span class="trip-val">20 marzo 2027</span></div>
+          <div class="trip-row"><span class="trip-label">Salida</span><span class="trip-val">28 marzo 2027 (8 días)</span></div>
+          <div class="trip-row"><span class="trip-label">Hotel</span><span class="trip-val">Monreale Express & Studios</span></div>
+          <div class="trip-row"><span class="trip-label">Paga el viaje</span><span class="trip-val">Luis (fondos propios)</span></div>
+          <div class="trip-row"><span class="trip-label">Primera vez en USA</span><span class="trip-val" style="color:var(--amber)">Sí — toda la familia</span></div>
+        </div>
+
+        <button class="btn-primary" onclick="next()">Comenzar preparación →</button>
+      </div>`
+    }
+  },
+
+  // 1 - LO QUE EVALÚA EL CÓNSUL
+  {
+    id:'aprender1',
+    render(){ return `
+      <div class="screen">
+        <div class="mod-header">
+          <span class="mod-tag learn">Módulo 1 · Aprender</span>
+          <h2 class="mod-title">Lo que el cónsul<br><em>realmente evalúa</em></h2>
+          <p class="mod-sub">Antes de practicar, entiende cómo piensa el cónsul. Esto cambia cómo responden todo.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-num">01</div>
+          <div class="ic-title">¿Va a regresar a Ecuador?</div>
+          <div class="ic-body">Esta es LA pregunta central. El cónsul busca vínculos: trabajo, familia, negocio, propiedad. Todo en su expediente apunta aquí. <strong style="color:var(--gold)">Luis como Alcalde electo es el argumento más poderoso posible.</strong></div>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-num">02</div>
+          <div class="ic-title">¿Puede costear el viaje?</div>
+          <div class="ic-body">No busca una cantidad mínima. Busca consistencia: que el dinero exista hace tiempo, que los ingresos sean reales y que el viaje sea proporcional a sus ingresos. Luis gana $3.250 y Zoila $1.500 = $4.750 familiares al mes. El viaje es perfectamente coherente.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-num">03</div>
+          <div class="ic-title">¿El propósito es turismo real?</div>
+          <div class="ic-body">Itinerario concreto, hotel reservado, actividades específicas. Orlando = Disney World, Universal Studios, Kennedy Space Center. La familia debe saber exactamente qué hará cada día.</div>
+        </div>
+
+        <button class="btn-primary" onclick="next()">Siguiente módulo →</button>
+        <button class="btn-secondary" onclick="prev()">← Anterior</button>
+      </div>`
+    }
+  },
+
+  // 2 - SUS FORTALEZAS
+  {
+    id:'aprender2',
+    render(){ return `
+      <div class="screen">
+        <div class="mod-header">
+          <span class="mod-tag learn">Módulo 2 · Sus fortalezas</span>
+          <h2 class="mod-title">Por qué este perfil<br><em>es sólido</em></h2>
+          <p class="mod-sub">Conozcan sus ventajas. Deben usarlas con confianza, no con timidez.</p>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">🏛️</div>
+          <div><div class="sc-title">Luis es Alcalde electo desde 2023</div>
+          <div class="sc-body">El cargo de alcalde es el vínculo con Ecuador más fuerte que existe. Tiene obligaciones legales, constitucionales y con sus ciudadanos. No puede quedarse en USA. El cónsul lo sabe.</div></div>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">💊</div>
+          <div><div class="sc-title">Zoila tiene un negocio que requiere su presencia</div>
+          <div class="sc-body">La Farmacia Familiar en Yacuambi necesita a su dueña. Si Zoila no regresa, pierde el negocio. Este es un lazo económico directo con Ecuador.</div></div>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">✈️</div>
+          <div><div class="sc-title">Luis viajó a 4 países y siempre regresó</div>
+          <div class="sc-body">Perú, Uruguay, España, Panamá — historial limpio de viajero responsable. Esto demuestra patrón de comportamiento: viaja y vuelve.</div></div>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">👨‍👩‍👧‍👦</div>
+          <div><div class="sc-title">Viajan juntos como familia</div>
+          <div class="sc-body">Una familia completa con hijos menores estudiando en Ecuador es un argumento poderoso. Los hijos tienen clases, tienen vida aquí.</div></div>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">🏨</div>
+          <div><div class="sc-title">Hotel ya reservado, viaje planificado</div>
+          <div class="sc-body">Monreale Express & Studios, Orlando. Reserva confirmada. Esto demuestra turismo real y organizado, no improvisado.</div></div>
+        </div>
+
+        <button class="btn-primary" onclick="next()">Siguiente módulo →</button>
+        <button class="btn-secondary" onclick="prev()">← Anterior</button>
+      </div>`
+    }
+  },
+
+  // 3 - HERMANA EN USA (tono empoderador)
+  {
+    id:'critico',
+    render(){ return `
+      <div class="screen">
+        <div class="mod-header">
+          <span class="mod-tag tip">Módulo 3 · Su decisión correcta</span>
+          <h2 class="mod-title">Declararon todo<br><em>con honestidad</em></h2>
+          <p class="mod-sub">Esto habla muy bien de ustedes. Ahora vamos a responder esa pregunta con confianza.</p>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">✅</div>
+          <div><div class="sc-title">Declarar a la hermana fue la decisión correcta</div>
+          <div class="sc-body">Declarar a un familiar en USA en el DS-160 demuestra honestidad y transparencia. El cónsul valora esto. Ocultar información es lo que crea problemas — ustedes hicieron exactamente lo correcto.</div></div>
+        </div>
+
+        <div class="info-card" style="border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.05)">
+          <div class="ic-title" style="color:var(--blue)">El cónsul puede preguntar sobre Alexandra</div>
+          <div class="ic-body">Como la declararon, es posible que el cónsul la mencione. No hay ningún problema con eso. Es una pregunta rutinaria. La respuesta es simple: sí, tiene una hermana allá. Y su vida, su cargo y su familia están aquí en Ecuador.</div>
+        </div>
+
+        <div class="resp-box">
+          <div class="resp-label">Respuesta natural para Luis — sin nervios</div>
+          <div class="resp-text">"Sí, tengo una hermana, Alexandra, que reside en Estados Unidos hace algunos años. Cada familia tiene su historia. Yo vivo y trabajo en Ecuador — soy el Alcalde electo de Yacuambi desde 2023 y tengo responsabilidades con mis ciudadanos. Mi esposa tiene su farmacia. Mis hijos estudian en Loja. Mi vida y mis compromisos están completamente aquí."</div>
+        </div>
+
+        <div class="strength-card">
+          <div class="sc-icon">💪</div>
+          <div><div class="sc-title">Por qué esta respuesta es ganadora</div>
+          <div class="sc-body">Honesta, tranquila y poderosa. El cónsul escucha "Alcalde electo con responsabilidades institucionales" y entiende automáticamente: este señor no se puede quedar. Ese cargo lo ancla a Ecuador más que cualquier otra cosa.</div></div>
+        </div>
+
+        <button class="btn-primary" onclick="next()">Siguiente módulo →</button>
+        <button class="btn-secondary" onclick="prev()">← Anterior</button>
+      </div>`
+    }
+  },
+
+  // 4 - TIPS DE COMUNICACIÓN
+  {
+    id:'tips',
+    render(){ return `
+      <div class="screen">
+        <div class="mod-header">
+          <span class="mod-tag tip">Módulo 4 · Cómo hablar</span>
+          <h2 class="mod-title">El tono y la actitud<br><em>que convencen</em></h2>
+          <p class="mod-sub">No es solo lo que dicen — es cómo lo dicen.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-num">01</div>
+          <div class="ic-title">Confianza, no arrogancia</div>
+          <div class="ic-body">Luis es Alcalde. Debe hablar como la autoridad que es — tranquilo, directo, sin nerviosismo. Zoila tiene su negocio — habla con orgullo de su farmacia.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">02</div>
+          <div class="ic-title">Respuestas cortas y concretas</div>
+          <div class="ic-body">El cónsul no quiere discursos. Pregunta → respuesta en 2-3 oraciones. Si quieren saber más, preguntan. Eviten dar información que no les pidan.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">03</div>
+          <div class="ic-title">Nunca digan "no sé"</div>
+          <div class="ic-body">Deben saber: nombre exacto del hotel, fecha de regreso, qué harán en Orlando, quién cuida la farmacia, quién asume el municipio. Cada "no sé" es una señal roja.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">04</div>
+          <div class="ic-title">Luis habla primero</div>
+          <div class="ic-body">Como titular, Luis lidera la entrevista. Zoila habla cuando le preguntan específicamente a ella. Los hijos solo si les hablan directamente — respuesta corta y honesta.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">05</div>
+          <div class="ic-title">Mencionen el cargo de Luis naturalmente</div>
+          <div class="ic-body">No de forma soberbia, pero sí con naturalidad. "Como alcalde del cantón, tengo sesiones del cabildo el 5 de abril..." — esto ancla el regreso y muestra responsabilidades.</div>
+        </div>
+
+        <button class="btn-primary" onclick="next()">Practicar entrevista →</button>
+        <button class="btn-secondary" onclick="prev()">← Anterior</button>
+      </div>`
+    }
+  },
+
+  // 5 - PRÁCTICA LUIS (PADRE)
+  {
+    id:'practica-luis',
+    type:'quiz',
+    persona:'Luis Alfonso',
+    questions:[
+      {
+        q:'¿Cuál es el propósito de su visita a los Estados Unidos?',
+        tip:'Sea específico: turismo familiar, destino, actividades, duración.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(t.length<20) return {s:'mejorar',m:'Muy corta. Mencione turismo familiar, Orlando, actividades y fechas.'};
+          if(/turismo|tourist|disney|orlando|familia|parque|universal/.test(t)) return {s:'bien',m:'Respuesta bien orientada. Incluya la fecha de regreso si no lo hizo.'};
+          return {s:'mejorar',m:'Mencione específicamente: turismo familiar, Orlando (Disney, Universal), 8 días del 20 al 28 de marzo 2027.'};
+        },
+        model:'Viajamos en familia a Orlando, Florida por turismo. Visitaremos Disney World y Universal Studios con nuestros hijos. Llegamos el 20 de marzo y regresamos el 28 de marzo. Tenemos el hotel Monreale Express & Studios reservado.'
+      },
+      {
+        q:'¿A qué se dedica actualmente?',
+        tip:'Su cargo actual es su argumento más poderoso. Descríbalo con claridad y orgullo.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/alcalde|alcald|yacuambi|municipio|gad|canton/.test(t) && t.length>30) return {s:'bien',m:'Excelente. El cargo de alcalde es su fortaleza principal.'};
+          if(/alcalde|alcald/.test(t)) return {s:'mejorar',m:'Bien que mencionó alcalde. Agregue el cantón, que fue elegido popularmente y sus responsabilidades.'};
+          return {s:'riesgo',m:'CRÍTICO: Debe mencionar que es Alcalde del Cantón Yacuambi, electo popularmente desde 2023. Este es su vínculo más fuerte con Ecuador.'};
+        },
+        model:'Soy el Alcalde del Cantón Yacuambi, provincia de Zamora Chinchipe, elegido popularmente en 2023. Dirijo el Gobierno Autónomo Descentralizado municipal. Tengo obligaciones institucionales con mis ciudadanos y sesiones del cabildo programadas para abril.'
+      },
+      {
+        q:'¿Tiene familiares o personas conocidas en los Estados Unidos?',
+        tip:'PREGUNTA CRÍTICA. Sea honesto. Luis declaró tener una hermana allá.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/no tengo|ninguno|no familia/.test(t)) return {s:'riesgo',m:'⚠️ INCONSISTENCIA GRAVE: Luis declaró en el DS-160 tener una hermana (Alexandra) en USA. Decir "no tengo familia" es mentira y puede causar negativa permanente.'};
+          if((/hermana|alexandra|lupe/.test(t)) && (/ecuador|vivo|trabajo|municipio|alcalde/.test(t))) return {s:'bien',m:'Perfecto. Honesto sobre la hermana y enfatiza sus raíces en Ecuador.'};
+          if(/hermana|alexandra|lupe/.test(t)) return {s:'mejorar',m:'Bien que menciona a su hermana. Debe agregar inmediatamente que SU vida está en Ecuador: cargo de alcalde, esposa con negocio, hijos en colegios.'};
+          return {s:'riesgo',m:'Respuesta incompleta. Confirme que tiene hermana en USA Y explique por qué usted siempre regresa.'};
+        },
+        model:'Sí, tengo una hermana, Alexandra, que reside en Estados Unidos. Ella emigró por su cuenta hace años. Yo vivo y trabajo en Ecuador — soy el Alcalde electo de Yacuambi desde 2023, con responsabilidades institucionales que no puedo abandonar. Mi esposa tiene su farmacia allá, mis hijos estudian en Loja. Mi vida está completamente en Ecuador.'
+      },
+      {
+        q:'¿Quién queda a cargo del municipio durante su ausencia?',
+        tip:'Esta pregunta la pueden hacer porque es Alcalde. Debe tener respuesta preparada.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(t.length<15) return {s:'riesgo',m:'Debe tener esta respuesta preparada. El cónsul puede hacer esta pregunta exactamente.'};
+          if(/vicealcalde|concejal|vice|subrogante|cootad|encargado/.test(t)) return {s:'bien',m:'Respuesta técnicamente correcta. Demuestra que el municipio funciona sin usted y que usted regresa.'};
+          return {s:'mejorar',m:'Mencione al Vicealcalde o Concejal más votado como subrogante, según establece el COOTAD ecuatoriano.'};
+        },
+        model:'Durante mi ausencia, el Vicealcalde asume las funciones ejecutivas del municipio como establece el COOTAD ecuatoriano. He coordinado el viaje en una semana de menor actividad municipal. Tenemos sesiones del cabildo para el 5 de abril, lo que garantiza mi regreso el 28 de marzo.'
+      },
+      {
+        q:'¿Cuándo regresa y por qué esa fecha?',
+        tip:'Debe ser específico. La razón del regreso ancla su vínculo con Ecuador.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/28.*marzo|marzo.*28|28 de marzo/.test(t) && (/cabildo|sesion|alcalde|clases|colegio|trabajo|negocio/.test(t))) return {s:'bien',m:'Excelente. Fecha exacta más razón institucional es la respuesta perfecta.'};
+          if(/28.*marzo|marzo.*28/.test(t)) return {s:'mejorar',m:'Bien la fecha. Agrega la razón: sesiones del cabildo, hijos vuelven a clases, Zoila regresa a la farmacia.'};
+          return {s:'riesgo',m:'Debe mencionar la fecha exacta: 28 de marzo 2027, y las razones: cabildo municipal, hijos a clases, farmacia de Zoila.'};
+        },
+        model:'Regresamos el 28 de marzo 2027. Tengo sesiones del cabildo municipal programadas para el 5 de abril. Además, mis hijos retoman sus clases ese mismo día. Mi esposa debe atender su farmacia en Yacuambi. Tenemos vuelo de regreso confirmado.'
+      }
+    ]
+  },
+
+  // 6 - PRÁCTICA ZOILA
+  {
+    id:'practica-zoila',
+    type:'quiz',
+    persona:'Zoila Inés',
+    questions:[
+      {
+        q:'¿A qué se dedica actualmente, señora?',
+        tip:'Describe tu negocio con orgullo y especificidad.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/farmacia|farmaci/.test(t) && /yacuambi|negocio|propia|propietaria/.test(t)) return {s:'bien',m:'Perfecto. Negocio propio = vínculo con Ecuador.'};
+          if(/farmacia|farmaci/.test(t)) return {s:'mejorar',m:'Bien. Agrega que es propietaria, que está en Yacuambi y que ella la maneja.'};
+          return {s:'riesgo',m:'Debe mencionar su farmacia claramente. Es su argumento principal de vínculo con Ecuador.'};
+        },
+        model:'Soy propietaria de la Farmacia Familiar en Yacuambi, Zamora Chinchipe. La manejo yo directamente. Es un negocio que requiere mi presencia constante. Tengo clientes que dependen de mí y durante mi ausencia de 8 días tengo un familiar que cubre, pero yo retomo el 28 de marzo.'
+      },
+      {
+        q:'¿Tiene familiares en los Estados Unidos?',
+        tip:'Zoila declaró NO tener familiares en USA. Respuesta directa y sin dudar.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/no.*familia|no.*relativ|ninguno|no tengo/.test(t)) return {s:'bien',m:'Correcto. Zoila no tiene familiares en USA según su DS-160.'};
+          return {s:'mejorar',m:'Debe ser directa: No, no tengo familiares en Estados Unidos. Toda mi familia está en Ecuador.'};
+        },
+        model:'No, no tengo familiares en los Estados Unidos. Toda mi familia está en Ecuador. Mis padres viven allá, mi negocio está allá, mis hijos estudian en Loja. No tengo razón ni intención de quedarme.'
+      },
+      {
+        q:'¿Por qué su esposo paga el viaje y no usted con sus propios ingresos?',
+        tip:'No es una trampa — es natural que el Alcalde pague. Explíquelo con calma.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(t.length>20) return {s:'bien',m:'Buena respuesta. Esta pregunta no es trampa — simplemente explique que es un viaje familiar pagado por el jefe del hogar.'};
+          return {s:'mejorar',m:'Explique que Luis tiene mayores ingresos como alcalde y costea los gastos familiares como jefe del hogar. No es inusual.'};
+        },
+        model:'Mi esposo tiene ingresos mayores como alcalde y es quien costea los gastos de la familia. Yo tengo mis propios ingresos de la farmacia, pero es natural que él pague el viaje familiar. Es el jefe del hogar. Ambos tenemos solidez económica en Ecuador.'
+      }
+    ]
+  },
+
+  // 7 - PRÁCTICA FAMILIA / VIAJE
+  {
+    id:'practica-viaje',
+    type:'quiz',
+    persona:'Familia (cualquiera puede preguntar)',
+    questions:[
+      {
+        q:'¿Dónde se van a hospedar?',
+        tip:'Deben conocer el nombre, dirección y ciudad de memoria.',
+        eval(r){
+          const t=r.toLowerCase();
+          if((/monreale|monrreale/.test(t)||/jamaican/i.test(r)) && /orlando/.test(t)) return {s:'bien',m:'Perfecto. Nombre + ciudad es suficiente.'};
+          if(/hotel/.test(t) && /orlando/.test(t)) return {s:'mejorar',m:'Bien. Agregue el nombre exacto: Hotel Monreale Express & Studios, 8300 Jamaican Court, Orlando.'};
+          return {s:'riesgo',m:'Deben memorizar: Hotel Monreale Express & Studios, 8300 Jamaican Court, Orlando, Florida 32819.'};
+        },
+        model:'Nos hospedaremos en el Hotel Monreale Express & Studios, ubicado en 8300 Jamaican Court, Orlando, Florida. Ya tenemos la reserva confirmada.'
+      },
+      {
+        q:'¿Qué van a hacer en Orlando durante los 8 días?',
+        tip:'Itinerario concreto. Los parques, las actividades, los planes familiares.',
+        eval(r){
+          const t=r.toLowerCase();
+          const actividades=[/disney/,/universal/,/kennedy|nasa/,/miami|florida/,/seaworld|busch/];
+          const menciona=actividades.filter(a=>a.test(t)).length;
+          if(menciona>=2 && t.length>40) return {s:'bien',m:'Itinerario creíble con actividades específicas. Bien.'};
+          if(menciona>=1) return {s:'mejorar',m:'Mencione al menos 2-3 atracciones específicas: Disney World, Universal Studios, Kennedy Space Center.'};
+          return {s:'riesgo',m:'Deben tener un itinerario concreto. Ejemplo: Disney World 2 días, Universal Studios 1 día, Kennedy Space Center, tiempo libre en Orlando.'};
+        },
+        model:'Visitaremos Disney World los primeros dos días — es el sueño de nuestros hijos desde hace tiempo. Luego Universal Studios, el Kennedy Space Center y tendremos días libres para explorar Orlando. Es un viaje que hemos planeado durante dos años.'
+      },
+      {
+        q:'¿En qué año fueron a España y por qué regresaron?',
+        tip:'Luis viajó a España — debe poder responder esto sin dudar.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(t.length>20 && (/regres|volv|ecuad|trabajo|familia/.test(t))) return {s:'bien',m:'Bien. Siempre regresó porque su vida está en Ecuador.'};
+          return {s:'mejorar',m:'Responda cuándo fue (no importa el año exacto) y enfatice que regresó porque su trabajo, familia y vida están en Ecuador.'};
+        },
+        model:'Fui a España hace algunos años en un viaje también de turismo. Regresé porque mi trabajo y mi familia están en Ecuador. En ese momento ya era médico en el Ministerio de Salud. Siempre he regresado de todos mis viajes — Perú, Uruguay, Panamá — porque mi vida está aquí.'
+      }
+    ]
+  },
+
+  // 8 - PREGUNTAS DIFÍCILES
+  {
+    id:'practica-dificil',
+    type:'quiz',
+    persona:'Preguntas trampa / difíciles',
+    questions:[
+      {
+        q:'¿Por qué eligen Orlando y no otra ciudad de Estados Unidos?',
+        tip:'Pregunta de verificación de autenticidad del turismo.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/disney|parque|hijos|niños|universal|ocio|diversion/.test(t) && t.length>20) return {s:'bien',m:'Respuesta auténtica. Los parques de Orlando son motivo turístico válido y claro.'};
+          return {s:'mejorar',m:'Explique que es por Disney World y los parques temáticos, que sus hijos siempre han querido ir, y que Orlando tiene todo concentrado en un área.'};
+        },
+        model:'Orlando es el destino familiar por excelencia por sus parques temáticos. Mis hijos llevan años queriendo conocer Disney World y Universal Studios. Todo está concentrado en esa área, lo cual hace el viaje muy práctico para una familia con niños de 14 y 16 años.'
+      },
+      {
+        q:'¿Cómo puede ausentarse 8 días del cantón siendo alcalde?',
+        tip:'Esta pregunta puede hacerla el cónsul para verificar que realmente es alcalde y que regresará.',
+        eval(r){
+          const t=r.toLowerCase();
+          if(/vicealcalde|cootad|concejal|subrogante/.test(t) && t.length>30) return {s:'bien',m:'Respuesta técnica y confiable. Demuestra que usted sabe exactamente cómo funciona el sistema.'};
+          return {s:'mejorar',m:'Mencione el mecanismo legal: el Vicealcalde asume según el COOTAD durante ausencias planificadas. Mencione las fechas de las próximas sesiones del cabildo.'};
+        },
+        model:'El COOTAD ecuatoriano establece que durante ausencias del alcalde, el Vicealcalde asume las funciones ejecutivas. He planificado este viaje en una semana de menor actividad municipal. El cabildo tiene su siguiente sesión ordinaria programada para el 5 de abril, fecha para la cual ya estoy de regreso.'
+      },
+      {
+        q:'¿Qué garantía nos da de que regresarán al término de los 8 días?',
+        tip:'La pregunta más directa. Aquí se resume todo. Confianza y claridad.',
+        eval(r){
+          const t=r.toLowerCase();
+          const puntos=[/alcalde/,/farmacia/,/hijos.*estudi|estudian.*hijos/,/negocio/,/municipio|canton/];
+          const menciona=puntos.filter(p=>p.test(t)).length;
+          if(menciona>=3) return {s:'bien',m:'Respuesta poderosa que menciona múltiples vínculos con Ecuador. Esto es exactamente lo que el cónsul quiere escuchar.'};
+          if(menciona>=2) return {s:'mejorar',m:'Bien pero puede ser más completo. Mencione: cargo de alcalde, farmacia de Zoila, hijos en colegios, próximas sesiones del cabildo.'};
+          return {s:'riesgo',m:'Debe mencionar todos los vínculos: cargo de alcalde con responsabilidades legales, farmacia de Zoila, hijos con clases el 29 de marzo, compromiso institucional con Yacuambi.'};
+        },
+        model:'Tenemos raíces profundas en Ecuador que nos garantizan el regreso. Yo soy el Alcalde electo de Yacuambi con obligaciones constitucionales con mis ciudadanos. Mi esposa tiene su farmacia que no puede cerrar más de una semana. Nuestros hijos tienen clases el 29 de marzo. Tenemos boletos de regreso confirmados para el 28 de marzo. Somos una familia con raíces, negocio y responsabilidades en Ecuador. No tenemos ninguna razón para quedarnos.'
+      }
+    ]
+  },
+
+  // 9 - RESULTADO
+  {
+    id:'resultado',
+    render(){
+      const score=calcScore();
+      const pct=Math.round(score.bien/Math.max(score.total,1)*100);
+      let msg,color;
+      if(pct>=80){msg='¡Están listos para la entrevista!';color='var(--green)'}
+      else if(pct>=60){msg='Buen avance, practiquen un poco más';color='var(--amber)'}
+      else{msg='Necesitan más práctica antes del día';color='var(--red)'}
+      return `
+      <div class="screen">
+        <div style="text-align:center;margin-bottom:24px">
+          <div class="score-ring" style="border-color:${color};background:${color}18">
+            <div class="score-num" style="color:${color}">${pct}%</div>
+            <div class="score-label">Preparados</div>
+          </div>
+          <div class="result-msg">${msg}</div>
+          <div class="result-sub">${score.bien} respuestas sólidas de ${score.total} practicadas</div>
+        </div>
+
+        <div class="final-tips">
+          <div class="ft-title">Para el día de la entrevista</div>
+          <div class="ft-item">📋 Luis lleva: resolución de nombramiento como alcalde, últimas 3 nóminas, pasaporte</div>
+          <div class="ft-item">💊 Zoila lleva: RUC de la farmacia, contrato de arrendamiento del local, cuenta bancaria</div>
+          <div class="ft-item">🏨 Todos llevan: confirmación de reserva del hotel Monreale, itinerario del viaje</div>
+          <div class="ft-item">✈️ Todos llevan: tickets de avión de ida Y regreso confirmados</div>
+          <div class="ft-item">📅 Boletos de regreso: 28 marzo 2027 — ninguno puede viajar sin esto</div>
+          <div class="ft-item">⚠️ Luis: preparar respuesta sobre hermana Alexandra — honesto y con énfasis en cargo</div>
+        </div>
+
+        <a class="wa-cta" href="https://wa.me/593994442512?text=Hola%20Roberto%2C%20la%20familia%20Seas%20Guam%C3%A1n%20completamos%20el%20simulador.%20Tenemos%20preguntas." target="_blank">
+          <span style="font-size:1.3rem">💬</span>
+          <span>Hablar con Roberto — tengo preguntas</span>
+        </a>
+
+        <button class="btn-secondary" onclick="restart()" style="margin-top:10px">Volver a practicar</button>
+      </div>`
+    }
+  }
+];
+
+// ══════════════════════════════════════════════════════
+//  ENGINE
+// ══════════════════════════════════════════════════════
+let cur=0, qIdx=0, answers=[];
+
+function calcScore(){
+  let bien=0;
+  answers.forEach(a=>{ if(a==='bien') bien++; });
+  return {bien,total:answers.length};
+}
+
+function updateProgress(){
+  const total=MODULES.length;
+  const pct=Math.round((cur/total)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('hdr-mod').textContent=cur+1;
+}
+
+function render(){
+  const mod=MODULES[cur];
+  const wrap=document.getElementById('wrap');
+  updateProgress();
+
+  if(mod.type==='quiz'){
+    renderQuiz(mod);
+  } else {
+    wrap.innerHTML=mod.render();
+  }
+}
+
+function renderQuiz(mod){
+  const q=mod.questions[qIdx];
+  const total=mod.questions.length;
+  const wrap=document.getElementById('wrap');
+  wrap.innerHTML=`
+    <div class="screen">
+      <div class="mod-tag practice" style="margin-bottom:16px">Práctica · ${mod.persona}</div>
+      <div class="q-counter">
+        <span class="qc-label">Pregunta ${qIdx+1} de ${total}</span>
+        <span class="qc-val">${Array(total).fill('○').map((x,i)=>i<qIdx?'●':'○').join(' ')}</span>
+      </div>
+      <div class="q-num">Pregunta ${qIdx+1}</div>
+      <div class="q-text">${q.q}</div>
+      <p class="q-tip">${q.tip}</p>
+      <textarea class="q-input" id="q-inp" placeholder="Escribe tu respuesta aquí..."></textarea>
+      <button class="q-btn" onclick="evalQ()">Evaluar respuesta</button>
+      <div class="feedback" id="feedback"></div>
+      <button class="btn-primary hidden" id="btn-next" onclick="nextQ()" style="margin-top:16px">
+        ${qIdx===total-1 ? 'Siguiente módulo →' : 'Siguiente pregunta →'}
+      </button>
+    </div>`;
+}
+
+function evalQ(){
+  const mod=MODULES[cur];
+  const q=mod.questions[qIdx];
+  const inp=document.getElementById('q-inp').value.trim();
+  if(!inp){alert('Escribe tu respuesta primero.');return;}
+
+  const res=q.eval(inp);
+  answers.push(res.s);
+
+  const fb=document.getElementById('feedback');
+  fb.className='feedback '+res.s;
+  const icons={bien:'✅',mejorar:'⚠️',riesgo:'🚨'};
+  const titles={bien:'Respuesta sólida','mejorar':'Puede mejorar',riesgo:'Respuesta de riesgo'};
+  fb.innerHTML=`
+    <div class="fb-icon">${icons[res.s]}</div>
+    <strong style="font-size:.8rem;letter-spacing:.05em">${titles[res.s].toUpperCase()}</strong>
+    <div class="fb-msg" style="margin-top:5px">${res.m}</div>
+    <div class="fb-model"><strong>Respuesta modelo:</strong>${q.model}</div>`;
+  fb.style.display='block';
+
+  document.getElementById('btn-next').classList.remove('hidden');
+  document.getElementById('q-btn').disabled=true;
+  document.getElementById('q-inp').disabled=true;
+}
+
+function nextQ(){
+  const mod=MODULES[cur];
+  if(qIdx<mod.questions.length-1){
+    qIdx++;
+    render();
+  } else {
+    qIdx=0;
+    next();
+  }
+}
+
+function next(){
+  if(cur<MODULES.length-1){cur++;render();}
+}
+function prev(){
+  if(cur>0){
+    qIdx=0;
+    cur--;render();
+  }
+}
+function restart(){
+  cur=0;qIdx=0;answers=[];render();
+}
+
+// Init
+render();
+</script>
+</body>
+</html>
