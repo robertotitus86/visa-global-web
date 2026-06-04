@@ -85,23 +85,70 @@ nav.scrolled {
 
 /* ── HERO ────────────────────────────────────────────────────── */
 .hero-bg {
-  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat !important;
+  background: url('hero-bg.jpg') center/cover no-repeat !important;
+  transform: scale(1.05);
+  transition: transform 12s ease;
 }
+
+.hero:hover .hero-bg { transform: scale(1.08); }
 
 .hero-overlay {
   background:
-    linear-gradient(135deg, rgba(6,14,28,.94) 0%, rgba(10,22,40,.7) 50%, rgba(6,14,28,.9) 100%),
-    linear-gradient(to bottom, rgba(6,14,28,.2) 0%, rgba(6,14,28,.85) 60%, #060E1C 100%) !important;
+    linear-gradient(to right, rgba(6,14,28,.85) 0%, rgba(6,14,28,.4) 60%, rgba(6,14,28,.2) 100%),
+    linear-gradient(to bottom, rgba(6,14,28,.3) 0%, rgba(6,14,28,.5) 50%, #060E1C 100%) !important;
+}
+
+/* ── HERO BADGE ──────────────────────────────────────────────── */
+.hero-badge {
+  background: rgba(245,200,66,.08) !important;
+  border: 1px solid rgba(245,200,66,.25) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* Eyebrow con efecto live */
+.hero-eyebrow {
+  background: rgba(245,200,66,.08) !important;
+  border: 1px solid rgba(245,200,66,.2) !important;
+  border-radius: 100px !important;
+  padding: 8px 18px !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* Stats — fila limpia */
+.hero-stats {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  gap: 40px !important;
+  align-items: flex-end !important;
+}
+
+.hstat { text-align: right !important; }
+.hstat-n {
+  color: #F5C842 !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+.hstat-l {
+  color: rgba(255,255,255,.4) !important;
+  font-size: .625rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: .15em !important;
+  margin-top: 4px !important;
 }
 
 /* ── MARQUEE ─────────────────────────────────────────────────── */
 .marquee {
-  background: #0A1628 !important;
-  border-top: 1px solid rgba(255,255,255,.07) !important;
-  border-bottom: 1px solid rgba(255,255,255,.07) !important;
+  background: rgba(6,14,28,.98) !important;
+  border-top: 1px solid rgba(245,200,66,.1) !important;
+  border-bottom: 1px solid rgba(245,200,66,.1) !important;
+  backdrop-filter: blur(20px) !important;
 }
 
-.marquee-item { color: rgba(255,255,255,.35) !important; }
+.marquee-item { color: rgba(255,255,255,.3) !important; }
 .marquee-item.g { color: #F5C842 !important; }
 
 /* ── IMPACT ──────────────────────────────────────────────────── */
