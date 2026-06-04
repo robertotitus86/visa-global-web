@@ -932,37 +932,22 @@ function prev(){if(cur>0){qIdx=0;cur--;render();}}
 function jumpTo(idx){qIdx=0;cur=idx;render();}
 function restart(){cur=0;qIdx=0;answers=[];render();}
 
-render();
+// Detectar miembro desde URL
+var _miembro = new URLSearchParams(location.search).get('miembro');
+var _perfiles = {
+  luis:    {idx:3,  n:'Luis Alfonso',   c:'Alcalde del Canton Yacuambi',      m:'DS-160 + 15 preguntas en 3 niveles'},
+  zoila:   {idx:7,  n:'Zoila Ines',     c:'Propietaria Farmacia Familiar',    m:'DS-160 + 5 preguntas'},
+  zoe:     {idx:9,  n:'Zoe Scarlett',   c:'Estudiante, 14 anos, Loja',        m:'DS-160 + 5 preguntas'},
+  deoniel: {idx:10, n:'Luis Deoniel',   c:'1er Bachillerato San Gerardo',     m:'DS-160 + 5 preguntas + ingles'}
+};
 
-// Bienvenida personalizada cuando viene desde el portal de un miembro específico
-(function(){
-  var m = new URLSearchParams(location.search).get('miembro');
-  if(!m) return;
-  var perfiles = {
-    luis:    {idx:3,  nombre:'Luis Alfonso',  cargo:'Alcalde del Cantón Yacuambi', mods:'DS-160 + 15 preguntas · 3 niveles'},
-    zoila:   {idx:7,  nombre:'Zoila Inés',    cargo:'Propietaria Farmacia Familiar, Yacuambi', mods:'DS-160 + 5 preguntas'},
-    zoe:     {idx:9,  nombre:'Zoe Scarlett',  cargo:'Estudiante, 14 años, Loja', mods:'DS-160 + 5 preguntas'},
-    deoniel: {idx:10, nombre:'Luis Deoniel',  cargo:'1er Bachillerato, San Gerardo, 16 años', mods:'DS-160 + 5 preguntas + inglés'}
-  };
-  var pr = perfiles[m.toLowerCase()];
-  if(!pr) return;
-  document.title = 'Preparación de ' + pr.nombre;
-  var gold = '#F5C842';
-  document.getElementById('wrap').innerHTML =
-    '<div class="screen" style="text-align:center;padding:8px 0">'
-    + '<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:' + gold + ';background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">'
-    + '&#9679; Preparación personalizada</div>'
-    + '<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">'
-    + 'Hola,<br><em style="color:' + gold + ';font-style:italic">' + pr.nombre + '</em></h1>'
-    + '<p style="font-size:.85rem;color:var(--muted);margin-bottom:6px">' + pr.cargo + '</p>'
-    + '<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">' + pr.mods + '</p>'
-    + '<button onclick="jumpTo(' + pr.idx + ')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans)">'
-    + 'Comenzar mi preparación &#8594;</button>'
-    + '<div style="margin-top:16px">'
-    + '<button onclick="cur=0;render()" style="font-size:.75rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:var(--sans)">'
-    + 'Ver preparación completa de la familia</button></div>'
-    + '</div>';
-})();
+if(_miembro && _perfiles[_miembro.toLowerCase()]){
+  var _pr = _perfiles[_miembro.toLowerCase()];
+  document.title = 'Preparacion de ' + _pr.n;
+  jumpTo(_pr.idx);
+} else {
+  render();
+}
 </script>
 </body>
 </html>
