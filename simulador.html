@@ -72,7 +72,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:28px}
 
 .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
-@media(max-width:440px){.tips-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.tips-grid{grid-template-columns:1fr}}
 .tip-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:14px}
 .tip-num{font-size:.65rem;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
 .tip-text{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.5}
@@ -219,6 +219,26 @@ textarea.answer-input::placeholder{color:rgba(255,255,255,.2)}
   color:var(--muted);border-radius:var(--r);font-family:var(--sans);font-size:.85rem;font-weight:600;
   cursor:pointer;transition:all .2s;margin-top:8px}
 .share-btn:hover{color:var(--white);background:rgba(255,255,255,.1)}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width:520px){
+  .consul-question{font-size:1.1rem}
+  .consul-role{font-size:.6rem;word-break:break-word}
+  .consul-status{font-size:.58rem;padding:3px 7px;white-space:nowrap}
+  .consul-body{padding:14px 12px}
+  .consul-top{padding:10px 12px;gap:8px}
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .report-title{font-size:1.1rem}
+  .nav-row{gap:8px}
+  .btn-skip{padding:13px 12px;font-size:.78rem}
+  .btn-next{font-size:.85rem;padding:13px 10px}
+  .loading-box{padding:32px 12px}
+  .hint-box{font-size:.75rem;padding:10px 12px}
+}
+@media(max-width:380px){
+  .hdr-prog{display:none}
+  .consul-status{display:none}
+}
 </style>
 <link rel="stylesheet" href="/design.css">
 </head>
