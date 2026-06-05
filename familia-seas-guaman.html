@@ -47,7 +47,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .welcome-title em{color:var(--gold);font-style:italic}
 .welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
 .fam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-@media(max-width:440px){.fam-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.fam-grid{grid-template-columns:1fr}}
 .fam-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
   padding:16px;cursor:pointer;transition:all .25s var(--ease)}
 .fam-card:hover,.fam-card:active{border-color:rgba(245,200,66,.4);transform:translateY(-3px);
@@ -83,7 +83,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .ds-name{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:4px}
 .ds-sub{font-size:.8rem;color:rgba(245,200,66,.8);font-weight:600}
 .ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-@media(max-width:440px){.ds-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.ds-grid{grid-template-columns:1fr}}
 .ds-field{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
 .ds-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
 .ds-value{font-size:.875rem;font-weight:600;color:var(--white);line-height:1.4}
@@ -183,6 +183,30 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .wa-cta{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.1);
   border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:14px;
   text-decoration:none;color:var(--white);font-size:.875rem;font-weight:600;margin-top:8px}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width:520px){
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .mod-title{font-size:clamp(1.3rem,6vw,1.8rem)}
+  .hdr-prog{font-size:.6rem}
+  .fam-card{padding:12px}
+  .fam-name{font-size:.9rem}
+  .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
+  .trip-v{text-align:right;flex:1}
+  .ds-field{padding:10px}
+  .ds-value{font-size:.8rem}
+  .btn-primary,.btn-secondary,.btn-next,.q-btn{font-size:.85rem;padding:14px}
+  .mode-btn{padding:12px}
+  .score-ring{width:90px;height:90px}
+  .score-num{font-size:2rem}
+  .q-text{font-size:1rem}
+  .q-input{min-height:70px;font-size:.85rem}
+}
+@media(max-width:380px){
+  .hdr-prog{display:none}
+  .fam-badge{font-size:.58rem;padding:4px 10px}
+  .ds-sub{font-size:.7rem}
+}
 </style>
 </head>
 <body>
@@ -207,19 +231,18 @@ const MODULES = [
   <h1 class="welcome-title">Familia<br><em>Seas Guamán</em></h1>
   <p class="welcome-sub">Luis, Zoila, Zoe, Deoniel — esto lo preparé especialmente para ustedes. Primero van a revisar qué declararon en su DS-160 para que lo tengan fresco. Luego practican las preguntas de menor a mayor dificultad. Tienen un caso muy sólido — confíen en eso.</p>
   <!-- BANNER CITA -->
-  <div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
-    <div style="font-size:1.6rem">🏛️</div>
-    <div style="flex:1">
-      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>
-      <div style="font-weight:700;font-size:.88rem;color:#fff">Miércoles 1 julio 2026 · 7:30 AM</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Consulado Quito · frente al Hospital SOLCA</div>
+  <div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-size:1.4rem;flex-shrink:0">🏛️</div>
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">Miércoles 1 julio 2026 · 7:30 AM</div>
+      <div style="font-size:.68rem;color:rgba(255,255,255,.45);margin-top:2px">Consulado Quito · Hospital SOLCA</div>
     </div>
-    <div style="text-align:center;flex-shrink:0">
-      <div id="dc-sim" style="font-size:1.6rem;font-weight:700;color:#F5C842;line-height:1">--</div>
-      <div style="font-size:.55rem;color:rgba(255,255,255,.35);text-transform:uppercase">días</div>
+    <div style="text-align:center;flex-shrink:0;min-width:44px">
+      <div id="dc-sim" style="font-size:1.5rem;font-weight:700;color:#F5C842;line-height:1">--</div>
+      <div style="font-size:.52rem;color:rgba(255,255,255,.35);text-transform:uppercase">días</div>
     </div>
   </div>
-  <script>(function(){var h=new Date(),c=new Date('2026-07-01');var d=Math.ceil((c-h)/(864e5));document.getElementById('dc-sim').textContent=d>0?d:'HOY'})();</script>
 
   <div class="trip-box">
     <div class="trip-ttl">📋 Datos del viaje</div>
@@ -234,17 +257,17 @@ const MODULES = [
   <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;margin-bottom:16px">
     <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px">Números de confirmación DS-160</div>
     <div style="display:grid;gap:6px">
-      <div style="display:flex;justify-content:space-between;font-size:.78rem;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:8px">
-        <span style="color:rgba(255,255,255,.5)">Luis Alfonso · Pas. A4200335</span><span style="font-family:monospace;color:#F5C842;font-weight:700">AA00FJREPX</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;font-size:.75rem;padding:7px 8px;background:rgba(255,255,255,.03);border-radius:8px">
+        <span style="color:rgba(255,255,255,.5)">Luis Alfonso · A4200335</span><span style="font-family:monospace;color:#F5C842;font-weight:700;flex-shrink:0">AA00FJREPX</span>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:.78rem;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:8px">
-        <span style="color:rgba(255,255,255,.5)">Zoila Inés · Pas. B0181624</span><span style="font-family:monospace;color:#F5C842;font-weight:700">AA00FJS28V</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;font-size:.75rem;padding:7px 8px;background:rgba(255,255,255,.03);border-radius:8px">
+        <span style="color:rgba(255,255,255,.5)">Zoila Inés · B0181624</span><span style="font-family:monospace;color:#F5C842;font-weight:700;flex-shrink:0">AA00FJS28V</span>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:.78rem;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:8px">
-        <span style="color:rgba(255,255,255,.5)">Luis Deoniel · Pas. B0356393</span><span style="font-family:monospace;color:#F5C842;font-weight:700">AA00FJSE4P</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;font-size:.75rem;padding:7px 8px;background:rgba(255,255,255,.03);border-radius:8px">
+        <span style="color:rgba(255,255,255,.5)">Luis Deoniel · B0356393</span><span style="font-family:monospace;color:#F5C842;font-weight:700;flex-shrink:0">AA00FJSE4P</span>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:.78rem;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:8px">
-        <span style="color:rgba(255,255,255,.5)">Zoe Scarlett · Pas. B0356388</span><span style="font-family:monospace;color:#F5C842;font-weight:700">AA00FJSB0B</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;font-size:.75rem;padding:7px 8px;background:rgba(255,255,255,.03);border-radius:8px">
+        <span style="color:rgba(255,255,255,.5)">Zoe Scarlett · B0356388</span><span style="font-family:monospace;color:#F5C842;font-weight:700;flex-shrink:0">AA00FJSB0B</span>
       </div>
     </div>
   </div>
@@ -1014,6 +1037,9 @@ function render(){
   const wrap=document.getElementById('wrap');
   if(mod.type==='quiz') renderQuiz(mod);
   else wrap.innerHTML=mod.render();
+  // Activar contador de días si existe en el módulo recién renderizado
+  var dcEl=document.getElementById('dc-sim');
+  if(dcEl){var d=Math.ceil((new Date('2026-07-01')-new Date())/864e5);dcEl.textContent=d>0?d:'HOY';}
   window.scrollTo({top:0,behavior:'smooth'});
   saveProgress();
 }
@@ -1033,7 +1059,7 @@ function renderQuiz(mod){
     <div class="q-text">${q.q}</div>
     <p class="q-tip">${q.tip}</p>
     <textarea class="q-input" id="q-inp" placeholder="Escribe tu respuesta aquí..."></textarea>
-    <button class="q-btn" onclick="evalQ()">Evaluar respuesta</button>
+    <button class="q-btn" id="q-btn" onclick="evalQ()">Evaluar respuesta</button>
     <div class="feedback" id="feedback"></div>
     <button class="btn-next hidden" id="btn-next" onclick="nextQ()">
       ${qIdx===total-1?'Siguiente módulo →':'Siguiente pregunta →'}
