@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8">
@@ -1552,8 +1552,8 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
     </div>
   </div>
   <div class="hero-stats">
-    <div class="hstat"><div class="hstat-n">4</div><div class="hstat-l">tipos de visa que tramitamos</div></div>
-    <div class="hstat"><div class="hstat-n">3+</div><div class="hstat-l">años acompañando procesos</div></div>
+    <div class="hstat"><div class="hstat-n" data-counter data-target="4">0</div><div class="hstat-l">tipos de visa que tramitamos</div></div>
+    <div class="hstat"><div class="hstat-n" data-counter data-target="3" data-suffix="+">0+</div><div class="hstat-l">años acompañando procesos</div></div>
     <div class="hstat"><div class="hstat-n">24h</div><div class="hstat-l">respuesta a tu consulta gratis</div></div>
   </div>
 </section>
@@ -2393,6 +2393,12 @@ function animCount(el,target,dur=2000){
 }
 const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){animCount(e.target,parseInt(e.target.dataset.target));co.unobserve(e.target);}}),{threshold:.5});
 document.querySelectorAll('[data-counter]').forEach(el=>co.observe(el));
+// Forzar conteo de stats del hero al cargar (siempre visibles)
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.hstat-n[data-counter]').forEach(el=>{
+    animCount(el,parseInt(el.dataset.target));
+  });
+});
 
 /* ── WHATSAPP CHAT ── */
 const chatArea=document.getElementById('chat-area');
