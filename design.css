@@ -94,8 +94,8 @@ nav.scrolled {
 
 .hero-overlay {
   background:
-    linear-gradient(to right, rgba(6,14,28,.88) 0%, rgba(6,14,28,.55) 55%, rgba(6,14,28,.25) 100%),
-    linear-gradient(to bottom, rgba(6,14,28,.15) 0%, rgba(6,14,28,.5) 60%, #060E1C 100%) !important;
+    linear-gradient(to right, rgba(6,14,28,.93) 0%, rgba(6,14,28,.72) 50%, rgba(6,14,28,.45) 100%),
+    linear-gradient(to bottom, rgba(6,14,28,.2) 0%, rgba(6,14,28,.6) 65%, #060E1C 100%) !important;
 }
 
 /* Forzar visibilidad del contenido del hero sin depender de animaciones */
@@ -119,11 +119,27 @@ nav.scrolled {
   transform: none !important;
 }
 
-/* Eyebrow más visible con sombra de texto */
+/* Eyebrow — texto totalmente visible, blanco con sombra fuerte */
 .hero-eyebrow {
-  color: rgba(255,255,255,.85) !important;
-  text-shadow: 0 1px 8px rgba(0,0,0,.6) !important;
-  font-weight: 600 !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 30px rgba(0,0,0,.5) !important;
+  font-weight: 700 !important;
+  font-size: .8rem !important;
+  letter-spacing: .12em !important;
+  opacity: 1 !important;
+}
+
+/* Stats labels — más grandes y visibles */
+.hstat-l {
+  color: rgba(255,255,255,.65) !important;
+  font-size: .8rem !important;
+  letter-spacing: .06em !important;
+  margin-top: 6px !important;
+}
+
+/* Stats números — más grandes */
+.hstat-n {
+  font-size: clamp(2rem, 4vw, 2.8rem) !important;
 }
 
 /* ── HERO BADGE — ocultar, causaba caja oscura ───────────────── */
