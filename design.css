@@ -107,11 +107,23 @@ nav.scrolled {
 
 .hero-eyebrow,
 .hero-sub,
-.hero-actions,
-.hero-stats {
+.hero-actions {
   opacity: 1 !important;
   transform: none !important;
   animation: none !important;
+}
+
+/* Stats: visible pero SIN bloquear la animación de conteo JS */
+.hero-stats {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Eyebrow más visible con sombra de texto */
+.hero-eyebrow {
+  color: rgba(255,255,255,.85) !important;
+  text-shadow: 0 1px 8px rgba(0,0,0,.6) !important;
+  font-weight: 600 !important;
 }
 
 /* ── HERO BADGE — ocultar, causaba caja oscura ───────────────── */
