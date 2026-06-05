@@ -454,7 +454,7 @@ nav.scrolled {
 .hero {
   height: max(100vh, 820px);
   position: relative; overflow: hidden;
-  display: flex; align-items: flex-end;
+  display: flex; align-items: flex-start;
 }
 .hero-bg {
   position: absolute; inset:0;
@@ -469,6 +469,7 @@ nav.scrolled {
 .hero-content {
   position: relative; z-index:2;
   max-width: 1160px; margin: 0 auto; padding: 0 40px 100px; width:100%;
+  padding-top: 90px; /* fallback: cubre nav fijo 68px + respiro */
 }
 .hero-eyebrow {
   display: inline-flex; align-items:center; gap:10px;
@@ -927,11 +928,10 @@ footer::before {
   .footer-top { grid-template-columns:1fr 1fr; }
   .process-img-wrap { position:relative; top:0; aspect-ratio:16/9; }
   .success-img { min-height:300px; }
-  .hero { align-items:flex-start; }
   .hero-stats { position:static; margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
   .hstat { text-align:left; border-right:1px solid var(--line2); padding-right:20px; }
   .hstat:last-child { border-right:none; }
-  .hero-content { padding:84px 24px 56px; }
+  .hero-content { padding-left:24px; padding-right:24px; padding-bottom:56px; }
   .nav-right .nav-a { display:none; }
   .wrap { padding:0 24px; }
   nav { padding:0 24px; }
@@ -2360,8 +2360,18 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
 </a>
 
 <script>
+/* ── HERO PADDING DINÁMICO ── */
+function setHeroPadding() {
+  const nav = document.getElementById('nav');
+  const hero = document.querySelector('.hero-content');
+  if (!nav || !hero) return;
+  const navBottom = parseFloat(nav.style.top || 0) + nav.offsetHeight;
+  hero.style.paddingTop = (navBottom + 20) + 'px';
+}
+
 /* ── LOADER ── */
 window.addEventListener('load', () => {
+  setHeroPadding(); // aplicar al cargar (solo nav, sin urgency)
   setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 1600);
   setTimeout(() => {
     const urg = document.getElementById('urgency');
@@ -2370,7 +2380,8 @@ window.addEventListener('load', () => {
     setTimeout(() => {
       const h = urg.getBoundingClientRect().height;
       nav.style.top = h + 'px';
-    }, 650); // esperar que termine la animación
+      setHeroPadding(); // recalcular con urgency bar incluida
+    }, 650);
   }, 3500);
 });
 

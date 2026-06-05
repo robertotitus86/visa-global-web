@@ -86,6 +86,7 @@ nav.scrolled {
 /* ── HERO — forzar visibilidad completa ──────────────────────── */
 .hero {
   background: #060E1C !important;
+  align-items: flex-start !important;
 }
 
 .hero-bg {
