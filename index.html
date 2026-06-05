@@ -997,6 +997,88 @@ footer::before {
   #urgency { letter-spacing:.03em; }
 }
 
+/* ═══ VIAJES OFICIALES — CSS CLASS ══════════════════════ */
+.viajes-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5rem; align-items:center;
+  max-width:1100px; margin:0 auto;
+}
+@media(max-width:960px){
+  .viajes-grid { grid-template-columns:1fr; gap:2.5rem; }
+  #viajes-oficiales { padding:4rem 1.5rem !important; }
+}
+
+/* ═══ RESPONSIVE COMPLETO MOBILE ════════════════════════ */
+
+/* --- 960px: tabletas --- */
+@media(max-width:960px){
+  .lm-grid { grid-template-columns:1fr; gap:2rem; }
+  .insider-layout { grid-template-columns:1fr; gap:2rem; }
+  .diag-layout { grid-template-columns:1fr; gap:2rem; }
+  .diag-terminal { max-width:100%; }
+  .sec-inner { padding:72px 0; }
+  .pricing-grid { grid-template-columns:1fr; max-width:420px; margin:0 auto; }
+  .pricing-header { margin-bottom:40px; }
+  .testimonials-stack { grid-template-columns:1fr 1fr; gap:10px; }
+  .results-grid { grid-template-columns:1fr 1fr; }
+}
+
+/* --- 640px: móviles --- */
+@media(max-width:640px){
+  /* Secciones */
+  .sec-inner { padding:56px 0; }
+  .lm-right { order:-1; }
+  .lm-preview { width:100%; max-width:280px; margin:0 auto; }
+  .lm-row { grid-template-columns:1fr; }
+  .lm-ctas { flex-direction:column; }
+  .insider-right { gap:10px; }
+  .insider-card { padding:20px; }
+  .diag-features { gap:10px; }
+  .diag-price-num { font-size:3.5rem; }
+  .diag-ctas { flex-direction:column; }
+  .diag-cta-primary,.diag-cta-sec { width:100%; justify-content:center; }
+  .results-grid { grid-template-columns:1fr; }
+  .testimonials-stack { grid-template-columns:1fr; }
+  /* Viajes oficiales */
+  #viajes-oficiales { padding:3rem 1rem !important; }
+  #viajes-oficiales a[style*="padding:16px 36px"] { padding:14px 24px !important; font-size:.875rem !important; }
+  /* Pricing */
+  .pricing-grid { max-width:100%; }
+  .price-num { font-size:3.2rem; }
+  /* Footer */
+  .foot-links { gap:4px 12px; }
+  /* Impact */
+  .impact-text { font-size:clamp(1.4rem,7vw,2rem); }
+  /* Diagnóstico */
+  .diag-section .sec-inner { padding:56px 0; }
+}
+
+/* --- 480px: móviles pequeños --- */
+@media(max-width:480px){
+  .hero-content { padding:110px 16px 48px; }
+  .hero-actions { flex-direction:column; width:100%; }
+  .hero-actions a,.hero-actions button { width:100%; justify-content:center; text-align:center; }
+  .btn-gold { font-size:.875rem; padding:15px 20px; }
+  .btn-outline-light { font-size:.875rem; padding:13px 16px; }
+  .hero-sub { max-width:100%; }
+  .svc-card { padding:28px 20px; }
+  .svc-code { font-size:1.8rem; }
+  .price-card { padding:28px 20px; }
+  .price-num { font-size:2.8rem; }
+  .diag-price-num { font-size:3rem; }
+  .cta-full { padding:56px 16px; }
+  .cta-full h2 { font-size:clamp(2rem,8vw,3rem); }
+  .wrap { padding:0 16px; }
+  .display { font-size:clamp(1.6rem,8vw,2.4rem); }
+  /* Popup */
+  #ei-box { padding:36px 24px !important; }
+  /* Lead magnet form */
+  .lm-grid { gap:1.5rem; }
+  .lm-form { gap:10px; }
+  /* FAQ */
+  .faq-btn { font-size:.875rem; }
+}
+
 /* ═══ LEAD MAGNET ════════════════════════════════════ */
 .lm-section {
   background: var(--bg2);
@@ -1689,7 +1771,7 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
   <div style="position:absolute;right:-70px;top:50%;transform:translateY(-50%);width:360px;height:360px;border:1px solid rgba(240,180,41,0.04);border-radius:50%;pointer-events:none;"></div>
 
   <div class="wrap" style="position:relative;z-index:1;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;">
+    <div class="viajes-grid">
 
       <!-- Columna izquierda: copy -->
       <div>
