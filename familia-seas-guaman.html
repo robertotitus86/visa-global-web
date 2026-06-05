@@ -32,9 +32,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
 .main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
 .wrap{max-width:640px;margin:0 auto}
-.screen{animation:fadeUp .35s var(--ease) both}
+.screen{opacity:1;animation:fadeUp .3s ease-out}
 .hidden{display:none!important}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
 /* WELCOME */
 .fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
@@ -316,7 +316,7 @@ const MODULES = [
       <span class="tag tag-b">Menor</span>
       <div class="fam-go">Ver DS-160 + práctica →</div>
     </div>
-    <div class="fam-card" onclick="jumpTo(10)">
+    <div class="fam-card" onclick="jumpTo(11)">
       <div class="fam-role">Hijo</div>
       <div class="fam-name">Luis Deoniel</div>
       <div class="fam-info">16 años · 1° Bachillerato</div>
@@ -1130,57 +1130,19 @@ var _perfiles = {
   luis:    {idx:3,  n:'Luis Alfonso',   c:'Alcalde del Canton Yacuambi',      m:'DS-160 + 15 preguntas en 3 niveles'},
   zoila:   {idx:7,  n:'Zoila Ines',     c:'Propietaria Farmacia Familiar',    m:'DS-160 + 5 preguntas'},
   zoe:     {idx:9,  n:'Zoe Scarlett',   c:'Estudiante, 14 anos, Loja',        m:'DS-160 + 5 preguntas'},
-  deoniel: {idx:10, n:'Luis Deoniel',   c:'1er Bachillerato San Gerardo',     m:'DS-160 + 5 preguntas + ingles'}
+  deoniel: {idx:11, n:'Luis Deoniel',   c:'1er Bachillerato San Gerardo',     m:'DS-160 + 5 preguntas + ingles'}
 };
-
-// Helper para restaurar progreso guardado (evita JSON.stringify en onclick)
-function _restoreProgress(){
-  if(window._savedProgress){
-    cur=window._savedProgress.cur;
-    qIdx=window._savedProgress.qIdx;
-    answers=window._savedProgress.answers;
-    render();
-  }
-}
 
 if(_miembro && _perfiles[_miembro.toLowerCase()]){
   var _pr = _perfiles[_miembro.toLowerCase()];
-  document.title = 'Preparacion de ' + _pr.n;
-
+  document.title = 'Preparacion ' + _pr.n;
   var _saved = loadProgress();
   if(_saved && _saved.miembro === _miembro && _saved.cur > 0){
-    window._savedProgress = _saved;
-    var _fecha = new Date(_saved.fecha);
-    var _hace = Math.round((Date.now() - _fecha.getTime()) / 60000);
-    var _hacelabel = _hace < 60 ? 'hace ' + _hace + ' min' : 'hace ' + Math.round(_hace/60) + 'h';
-    document.getElementById('wrap').innerHTML =
-      '<div class="screen js-screen-c">'
-      + '<div class="js-icon">💾</div>'
-      + '<h2 class="js-h2">Tienes avance guardado</h2>'
-      + '<p class="js-p">Módulo ' + (_saved.cur+1) + ' · ' + _saved.answers.length + ' respuestas completadas</p>'
-      + '<p class="js-p-gold">Guardado ' + _hacelabel + '</p>'
-      + '<button class="js-btn-gold" onclick="_restoreProgress()">Continuar donde lo dejé</button>'
-      + '<button class="js-btn-ghost" onclick="clearProgress();location.reload()">Empezar desde el inicio</button>'
-      + '</div>';
-    return;
+    cur=_saved.cur; qIdx=_saved.qIdx; answers=_saved.answers;
+  } else {
+    cur=_pr.idx; qIdx=0; answers=[];
   }
-
-  var _mkey = _miembro.toLowerCase();
-  var _pidx = _pr.idx;
-  document.getElementById('wrap').innerHTML =
-    '<div class="screen js-screen-c">'
-    + '<div class="js-badge">Preparacion personalizada</div>'
-    + '<h1 class="js-h1">Hola,<br><em style="color:#F5C842;font-style:italic">' + _pr.n + '</em></h1>'
-    + '<p class="js-p">' + _pr.c + '</p>'
-    + '<p class="js-p-gold">' + _pr.m + '</p>'
-    + '<button class="js-btn-gold" id="btn-study-member">📚 Estudiar preguntas y respuestas primero</button>'
-    + '<button class="js-btn-ghost" id="btn-practice-member">⚡ Ir directo a practicar</button>'
-    + '<button class="js-btn-link" onclick="cur=0;render()">Ver preparacion completa de la familia</button>'
-    + '</div>';
-
-  // Asignar eventos sin strings en onclick (evita problemas con caracteres especiales)
-  document.getElementById('btn-study-member').addEventListener('click', function(){ startStudy(_mkey, _pidx); });
-  document.getElementById('btn-practice-member').addEventListener('click', function(){ jumpTo(_pidx); });
+  render();
 } else {
   render();
 }
