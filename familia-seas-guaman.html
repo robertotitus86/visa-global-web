@@ -184,6 +184,28 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:14px;
   text-decoration:none;color:var(--white);font-size:.875rem;font-weight:600;margin-top:8px}
 
+/* ── JS-GENERATED SCREENS ── */
+.js-screen-c{text-align:center;padding:8px 0}
+.js-icon{font-size:1.8rem;margin-bottom:12px}
+.js-h1{font-family:var(--serif);font-size:clamp(1.5rem,6vw,2.2rem);font-weight:700;line-height:1.2;margin-bottom:10px;color:#F1F5F9}
+.js-h2{font-family:var(--serif);font-size:clamp(1.2rem,5vw,1.6rem);font-weight:700;margin-bottom:10px;color:#F1F5F9}
+.js-p{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:6px}
+.js-p-gold{font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:24px}
+.js-p-sub{font-size:.88rem;color:rgba(255,255,255,.5);margin-bottom:24px;line-height:1.6}
+.js-badge{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#F5C842;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 12px;border-radius:99px;margin-bottom:18px}
+.js-btn-gold{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#060E1F;font-weight:800;font-size:.88rem;padding:15px 20px;border-radius:50px;border:none;cursor:pointer;font-family:var(--sans);width:100%;margin-bottom:10px;line-height:1.35;word-break:break-word;text-align:center;box-sizing:border-box}
+.js-btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.83rem;font-weight:500;padding:13px 20px;border-radius:50px;cursor:pointer;font-family:var(--sans);width:100%;line-height:1.35;word-break:break-word;text-align:center;box-sizing:border-box}
+.js-btn-link{font-size:.72rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;font-family:var(--sans);display:block;width:100%;text-align:center;margin-top:12px;padding:8px 0}
+.js-study-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:8px}
+.js-study-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(59,130,246,.9);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 10px;border-radius:99px;white-space:nowrap;flex-shrink:0}
+.js-study-counter{font-size:.72rem;color:rgba(255,255,255,.4);white-space:nowrap}
+.js-prog{height:3px;background:rgba(255,255,255,.06);border-radius:99px;margin-bottom:20px;overflow:hidden}
+.js-q-num-sm{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px}
+.js-q-text{font-family:var(--serif);font-size:clamp(.9rem,3.5vw,1.1rem);font-weight:700;color:#F1F5F9;line-height:1.45;margin-bottom:18px;overflow-wrap:break-word;word-break:break-word}
+.js-model-box{background:rgba(59,130,246,.06);border-left:3px solid #3B82F6;border-radius:0 12px 12px 0;padding:14px;margin-bottom:24px}
+.js-model-label{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#60A5FA;margin-bottom:7px}
+.js-model-text{font-size:.83rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;overflow-wrap:break-word;word-break:break-word}
+
 /* ── RESPONSIVE MOBILE ── */
 @media(max-width:520px){
   .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
@@ -991,34 +1013,33 @@ function startStudy(member, practiceIdx){
 function renderStudyCard(){
   const wrap = document.getElementById('wrap');
   if(studyQIdx >= studyQs.length){
-    // Termino de estudiar — ir a practicar
-    wrap.innerHTML = '<div class="screen" style="text-align:center;padding:12px 0">'
-      + '<div style="font-size:2rem;margin-bottom:16px">🎯</div>'
-      + '<h2 style="font-family:var(--serif);font-size:1.6rem;font-weight:700;color:#F1F5F9;margin-bottom:10px">Ya estudiaste todas las preguntas</h2>'
-      + '<p style="font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:32px">Ahora es tu turno de responder solo. Vamos a ver cuanto recordas.</p>'
-      + '<button onclick="jumpTo('+window._practiceIdx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.95rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center;margin-bottom:10px">Practicar solo ahora</button>'
-      + '<button onclick="studyQIdx=0;renderStudyCard()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.82rem;font-weight:500;padding:12px 24px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Repasar las preguntas otra vez</button>'
+    wrap.innerHTML = '<div class="screen js-screen-c">'
+      + '<div class="js-icon">🎯</div>'
+      + '<h2 class="js-h2">Ya estudiaste todas las preguntas</h2>'
+      + '<p class="js-p-sub">Ahora es tu turno de responder solo.<br>Vamos a ver cuanto recordas.</p>'
+      + '<button class="js-btn-gold" onclick="jumpTo('+window._practiceIdx+')">Practicar solo ahora</button>'
+      + '<button class="js-btn-ghost" onclick="studyQIdx=0;renderStudyCard()">Repasar las preguntas otra vez</button>'
       + '</div>';
     return;
   }
   const q = studyQs[studyQIdx];
   const total = studyQs.length;
   const pct = Math.round((studyQIdx/total)*100);
+  const btnTxt = studyQIdx < total-1 ? 'Lo entendí, siguiente' : 'Terminar de estudiar';
   wrap.innerHTML = '<div class="screen">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">'
-    + '<span style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(59,130,246,.8);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 12px;border-radius:99px">Modo estudio</span>'
-    + '<span style="font-size:.75rem;color:rgba(255,255,255,.4)">' + (studyQIdx+1) + ' de ' + total + '</span>'
+    + '<div class="js-study-bar">'
+    + '<span class="js-study-tag">Modo estudio</span>'
+    + '<span class="js-study-counter">' + (studyQIdx+1) + ' de ' + total + '</span>'
     + '</div>'
-    + '<div style="height:3px;background:rgba(255,255,255,.06);border-radius:99px;margin-bottom:24px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#3B82F6,#F5C842);border-radius:99px;transition:width .3s"></div></div>'
-    + '<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:10px">Pregunta ' + (studyQIdx+1) + '</div>'
-    + '<div style="font-family:var(--serif);font-size:1.1rem;font-weight:700;color:#F1F5F9;line-height:1.45;margin-bottom:20px">' + q.q + '</div>'
-    + '<div style="background:rgba(59,130,246,.06);border-left:3px solid #3B82F6;border-radius:0 12px 12px 0;padding:16px;margin-bottom:28px">'
-    + '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#60A5FA;margin-bottom:8px">Respuesta correcta</div>'
-    + '<div style="font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic">' + q.model + '</div>'
+    + '<div class="js-prog"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#3B82F6,#F5C842);transition:width .3s"></div></div>'
+    + '<div class="js-q-num-sm">Pregunta ' + (studyQIdx+1) + '</div>'
+    + '<div class="js-q-text">' + q.q + '</div>'
+    + '<div class="js-model-box">'
+    + '<div class="js-model-label">Respuesta correcta</div>'
+    + '<div class="js-model-text">' + q.model + '</div>'
     + '</div>'
-    + '<button onclick="studyQIdx++;renderStudyCard()" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:15px 32px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;margin-bottom:8px">'
-    + (studyQIdx < total-1 ? 'Lo entendi, siguiente pregunta' : 'Terminar de estudiar') + '</button>'
-    + '<button onclick="jumpTo('+window._practiceIdx+')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:.78rem;font-weight:500;padding:11px 20px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Saltar estudio y practicar ahora</button>'
+    + '<button class="js-btn-gold" onclick="studyQIdx++;renderStudyCard()">' + btnTxt + '</button>'
+    + '<button class="js-btn-ghost" onclick="jumpTo('+window._practiceIdx+')">Saltar y practicar ahora</button>'
     + '</div>';
 }
 
@@ -1049,8 +1070,10 @@ function renderQuiz(mod){
   const total=mod.questions.length;
   const dots=mod.questions.map((_,i)=>`<div class="qc-dot ${i<qIdx?'done':i===qIdx?'current':''}"></div>`).join('');
   document.getElementById('wrap').innerHTML=`<div class="screen">
-    <span class="mod-tag practice">${mod.persona}</span>
-    <span class="nivel-badge ${mod.nivel}" style="margin-left:8px">${mod.nivelTxt}</span>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px">
+      <span class="mod-tag practice" style="margin-bottom:0">${mod.persona}</span>
+      <span class="nivel-badge ${mod.nivel}" style="margin-bottom:0">${mod.nivelTxt}</span>
+    </div>
     <div class="q-counter">
       <span class="qc-label">Pregunta ${qIdx+1} de ${total}</span>
       <div class="qc-dots">${dots}</div>
@@ -1110,41 +1133,54 @@ var _perfiles = {
   deoniel: {idx:10, n:'Luis Deoniel',   c:'1er Bachillerato San Gerardo',     m:'DS-160 + 5 preguntas + ingles'}
 };
 
+// Helper para restaurar progreso guardado (evita JSON.stringify en onclick)
+function _restoreProgress(){
+  if(window._savedProgress){
+    cur=window._savedProgress.cur;
+    qIdx=window._savedProgress.qIdx;
+    answers=window._savedProgress.answers;
+    render();
+  }
+}
+
 if(_miembro && _perfiles[_miembro.toLowerCase()]){
   var _pr = _perfiles[_miembro.toLowerCase()];
   document.title = 'Preparacion de ' + _pr.n;
 
-  // Verificar si hay avance guardado
   var _saved = loadProgress();
   if(_saved && _saved.miembro === _miembro && _saved.cur > 0){
+    window._savedProgress = _saved;
     var _fecha = new Date(_saved.fecha);
     var _hace = Math.round((Date.now() - _fecha.getTime()) / 60000);
     var _hacelabel = _hace < 60 ? 'hace ' + _hace + ' min' : 'hace ' + Math.round(_hace/60) + 'h';
     document.getElementById('wrap').innerHTML =
-      '<div class="screen" style="text-align:center;padding:8px 0">'
-      + '<div style="font-size:1.8rem;margin-bottom:14px">💾</div>'
-      + '<h2 style="font-family:var(--serif);font-size:1.5rem;font-weight:700;color:#F1F5F9;margin-bottom:8px">Tienes avance guardado</h2>'
-      + '<p style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:6px">Módulo ' + (_saved.cur+1) + ' · ' + _saved.answers.length + ' respuestas completadas</p>'
-      + '<p style="font-size:.75rem;color:rgba(245,200,66,.6);margin-bottom:28px">Guardado ' + _hacelabel + '</p>'
-      + '<button onclick="cur='+_saved.cur+';qIdx='+_saved.qIdx+';answers='+JSON.stringify(_saved.answers)+';render()" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center;margin-bottom:10px">Continuar donde lo dejé</button>'
-      + '<button onclick="clearProgress();location.reload()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.82rem;font-weight:500;padding:12px 24px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%">Empezar desde el inicio</button>'
+      '<div class="screen js-screen-c">'
+      + '<div class="js-icon">💾</div>'
+      + '<h2 class="js-h2">Tienes avance guardado</h2>'
+      + '<p class="js-p">Módulo ' + (_saved.cur+1) + ' · ' + _saved.answers.length + ' respuestas completadas</p>'
+      + '<p class="js-p-gold">Guardado ' + _hacelabel + '</p>'
+      + '<button class="js-btn-gold" onclick="_restoreProgress()">Continuar donde lo dejé</button>'
+      + '<button class="js-btn-ghost" onclick="clearProgress();location.reload()">Empezar desde el inicio</button>'
       + '</div>';
     return;
   }
 
-  // Mostrar bienvenida personalizada con opcion de estudiar primero
+  var _mkey = _miembro.toLowerCase();
+  var _pidx = _pr.idx;
   document.getElementById('wrap').innerHTML =
-    '<div class="screen" style="text-align:center;padding:8px 0">'
-    + '<div style="display:inline-flex;align-items:center;gap:6px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#F5C842;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px">Preparacion personalizada</div>'
-    + '<h1 style="font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:10px;color:#F1F5F9">Hola,<br><em style="color:#F5C842;font-style:italic">' + _pr.n + '</em></h1>'
-    + '<p style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:4px">' + _pr.c + '</p>'
-    + '<p style="font-size:.78rem;color:rgba(245,200,66,.7);font-weight:600;margin-bottom:32px">' + _pr.m + '</p>'
-    + '<button onclick="startStudy(\''+_miembro.toLowerCase()+'\','+_pr.idx+')" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#06101E;font-weight:800;font-size:.9rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:10px;width:100%;justify-content:center">'
-    + 'Estudiar preguntas y respuestas primero</button>'
-    + '<button onclick="jumpTo(' + _pr.idx + ')" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:.85rem;font-weight:500;padding:14px 28px;border-radius:100px;cursor:pointer;font-family:var(--sans);width:100%;justify-content:center">'
-    + 'Ir directo a practicar</button>'
-    + '<div style="margin-top:14px"><button onclick="cur=0;render()" style="font-size:.72rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;font-family:var(--sans)">Ver preparacion completa de la familia</button></div>'
+    '<div class="screen js-screen-c">'
+    + '<div class="js-badge">Preparacion personalizada</div>'
+    + '<h1 class="js-h1">Hola,<br><em style="color:#F5C842;font-style:italic">' + _pr.n + '</em></h1>'
+    + '<p class="js-p">' + _pr.c + '</p>'
+    + '<p class="js-p-gold">' + _pr.m + '</p>'
+    + '<button class="js-btn-gold" id="btn-study-member">📚 Estudiar preguntas y respuestas primero</button>'
+    + '<button class="js-btn-ghost" id="btn-practice-member">⚡ Ir directo a practicar</button>'
+    + '<button class="js-btn-link" onclick="cur=0;render()">Ver preparacion completa de la familia</button>'
     + '</div>';
+
+  // Asignar eventos sin strings en onclick (evita problemas con caracteres especiales)
+  document.getElementById('btn-study-member').addEventListener('click', function(){ startStudy(_mkey, _pidx); });
+  document.getElementById('btn-practice-member').addEventListener('click', function(){ jumpTo(_pidx); });
 } else {
   render();
 }
