@@ -119,21 +119,23 @@ nav.scrolled {
   transform: none !important;
 }
 
-/* Eyebrow — siempre visible con fondo semitransparente */
+/* Eyebrow — píldora dorada, siempre visible sobre cualquier fondo */
 .hero-eyebrow {
-  color: #FFFFFF !important;
-  background: rgba(6,14,28,.55) !important;
-  border: 1px solid rgba(245,200,66,.25) !important;
-  border-radius: 100px !important;
-  padding: 7px 18px !important;
-  backdrop-filter: blur(8px) !important;
-  font-weight: 700 !important;
-  font-size: .8rem !important;
-  letter-spacing: .1em !important;
-  opacity: 1 !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
+  color: #060E1C !important;
+  background: linear-gradient(135deg, #F5C842, #C8861A) !important;
+  border: none !important;
+  border-radius: 100px !important;
+  padding: 8px 20px !important;
+  font-weight: 800 !important;
+  font-size: .75rem !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  opacity: 1 !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 4px 20px rgba(245,200,66,.3) !important;
 }
 
 /* Stats labels — más grandes y visibles */
