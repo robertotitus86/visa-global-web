@@ -119,14 +119,21 @@ nav.scrolled {
   transform: none !important;
 }
 
-/* Eyebrow — texto totalmente visible, blanco con sombra fuerte */
+/* Eyebrow — siempre visible con fondo semitransparente */
 .hero-eyebrow {
   color: #FFFFFF !important;
-  text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 30px rgba(0,0,0,.5) !important;
+  background: rgba(6,14,28,.55) !important;
+  border: 1px solid rgba(245,200,66,.25) !important;
+  border-radius: 100px !important;
+  padding: 7px 18px !important;
+  backdrop-filter: blur(8px) !important;
   font-weight: 700 !important;
   font-size: .8rem !important;
-  letter-spacing: .12em !important;
+  letter-spacing: .1em !important;
   opacity: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
 /* Stats labels — más grandes y visibles */
@@ -147,16 +154,7 @@ nav.scrolled {
   display: none !important;
 }
 
-/* Eyebrow — texto limpio sin caja */
-.hero-eyebrow {
-  background: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  backdrop-filter: none !important;
-  color: rgba(255,255,255,.6) !important;
-  letter-spacing: .18em !important;
-}
+/* eyebrow — regla unificada arriba */
 
 /* Stats — fila limpia */
 .hero-stats {
