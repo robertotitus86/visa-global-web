@@ -261,8 +261,8 @@ const MODULES = [
     <div style="font-size:1.4rem;flex-shrink:0">🏛️</div>
     <div style="flex:1;min-width:160px">
       <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>
-      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">Mié 15 julio 2026 · 7:30 AM</div>
-      <div style="font-weight:700;font-size:.78rem;color:rgba(245,200,66,.75);line-height:1.4;margin-top:1px">Mié 29 julio 2026 · 7:30 AM</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">Mié 1 julio 2026 · 7:30 AM</div>
+      <div style="font-weight:700;font-size:.78rem;color:rgba(245,200,66,.75);line-height:1.4;margin-top:1px">Zoom: 15 y 29 junio · 7:00 PM</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.45);margin-top:2px">Consulado Quito · Hospital SOLCA</div>
     </div>
     <div style="text-align:center;flex-shrink:0;min-width:44px">
@@ -1065,7 +1065,7 @@ function render(){
   else wrap.innerHTML=mod.render();
   // Activar contador de días si existe en el módulo recién renderizado
   var dcEl=document.getElementById('dc-sim');
-  if(dcEl){var d=Math.ceil((new Date('2026-07-15')-new Date())/864e5);dcEl.textContent=d>0?d:'HOY';}
+  if(dcEl){var d=Math.ceil((new Date('2026-07-01')-new Date())/864e5);dcEl.textContent=d>0?d:'HOY';}
   window.scrollTo({top:0,behavior:'smooth'});
   saveProgress();
 }
