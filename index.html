@@ -1033,6 +1033,7 @@ footer::before {
   .lm-ctas { flex-direction:column; }
   .insider-right { gap:10px; }
   .insider-card { padding:20px; }
+  .insider-cta { display:flex; width:100%; justify-content:center; text-align:center; box-sizing:border-box; }
   .diag-features { gap:10px; }
   .diag-price-num { font-size:3.5rem; }
   .diag-ctas { flex-direction:column; }
@@ -1186,7 +1187,7 @@ footer::before {
   background:var(--gold-lt); color:var(--bg);
   font-family:var(--sans); font-size:.9375rem; font-weight:700;
   padding:15px 30px; border-radius:8px; text-decoration:none;
-  transition:all .2s;
+  transition:all .2s; position:relative; z-index:2;
 }
 .insider-cta:hover { opacity:.9; transform:translateY(-1px); }
 .insider-right { display:flex; flex-direction:column; gap:16px; }
