@@ -50,6 +50,7 @@ function doPost(e) {
     if (payload.action === 'lead_magnet')               return guardarLeadMagnet(payload);
     if (payload.action === 'run_diagnostic')            return runDiagnostico(payload);
     if (payload.action === 'chat_message')              return chatMessage(payload);
+    if (payload.action === 'bot_log')                   return guardarBotLog(payload);
     return manejarPortalLegacy(payload);
   } catch(err) {
     console.error('doPost error:', err.toString());
@@ -900,6 +901,7 @@ function doGet(e) {
   if (action === 'carta')           return servirCarta(e.parameter.ref || '', e.parameter.pin || '');
   if (action === 'payphone_prepare') return payphonePrepare(e);
   if (action === 'payphone_verify')  return payphoneVerify(e);
+  if (action === 'bot_history')      return botHistory(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -2944,4 +2946,45 @@ function guardarChatLog(session, userMsg, botReply) {
     }
     sh.appendRow([Utilities.formatDate(new Date(),'America/Guayaquil','dd/MM/yyyy HH:mm'), session, userMsg, botReply]);
   } catch(e) {}
+}
+
+// ── Bot WhatsApp — persistencia de conversaciones ─────────────────
+function guardarBotLog(payload) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Bot Conversaciones');
+    if (!sh) {
+      sh = ss.insertSheet('Bot Conversaciones');
+      sh.appendRow(['Fecha','Telefono','Mensaje Usuario','Respuesta Bot']);
+      sh.getRange(1,1,1,4).setBackground('#060E1F').setFontColor('#F0B429').setFontWeight('bold');
+      sh.setFrozenRows(1);
+    }
+    const fecha = Utilities.formatDate(new Date(), 'America/Guayaquil', 'dd/MM/yyyy HH:mm');
+    sh.appendRow([fecha, payload.phone || '', payload.user_msg || '', payload.bot_reply || '']);
+    return ok({ status: 'ok' });
+  } catch(e) {
+    return ok({ status: 'error', msg: e.toString() });
+  }
+}
+
+function botHistory(e) {
+  try {
+    const phone = e.parameter.phone || '';
+    const limit = parseInt(e.parameter.limit || '30', 10);
+    if (!phone) return ok({ messages: [] });
+    const ss = SpreadsheetApp.openById(SS_ID);
+    const sh = ss.getSheetByName('Bot Conversaciones');
+    if (!sh) return ok({ messages: [] });
+    const data = sh.getDataRange().getValues();
+    const matches = data.slice(1)
+      .filter(function(r) { return r[1] == phone; })
+      .slice(-limit);
+    const messages = [];
+    matches.forEach(function(r) {
+      messages.push({ ts: r[0], phone: r[1], user: r[2], bot: r[3] });
+    });
+    return ok({ messages: messages });
+  } catch(e) {
+    return ok({ messages: [], error: e.toString() });
+  }
 }
