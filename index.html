@@ -529,13 +529,13 @@ nav.scrolled {
 }
 .btn-outline-light:hover { border-color:rgba(240,180,41,.4); color:var(--gold-lt); }
 .hero-stats {
-  position:absolute; bottom:40px; right:40px;
-  display:flex; gap:40px; z-index:2;
+  position:absolute; bottom:40px; left:0; right:0;
+  display:flex; justify-content:center; gap:48px; z-index:2;
   opacity:0; animation: fade-up .8s 2.9s forwards;
 }
-.hstat { text-align:right; }
+.hstat { text-align:center; }
 .hstat-n { font-family:var(--serif); font-size:2.2rem; font-weight:700; color:var(--gold-lt); line-height:1; }
-.hstat-l { font-size:.625rem; text-transform:uppercase; letter-spacing:.15em; color:var(--muted); margin-top:4px; }
+.hstat-l { font-size:.625rem; text-transform:uppercase; letter-spacing:.15em; color:var(--muted); margin-top:6px; }
 
 /* ═══ MARQUEE ════════════════════════════════════════ */
 .marquee {
@@ -929,8 +929,8 @@ footer::before {
   .footer-top { grid-template-columns:1fr 1fr; }
   .process-img-wrap { position:relative; top:0; aspect-ratio:16/9; }
   .success-img { min-height:300px; }
-  .hero-stats { position:static; margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
-  .hstat { text-align:left; border-right:1px solid var(--line2); padding-right:20px; }
+  .hero-stats { position:static; margin-top:36px; display:flex; justify-content:center; gap:0; }
+  .hstat { text-align:center; border-right:1px solid var(--line2); padding:0 24px; }
   .hstat:last-child { border-right:none; }
   .hero-content { padding:130px 24px 56px; }
   .nav-right .nav-a { display:none; }
@@ -949,7 +949,9 @@ footer::before {
   .results-grid { grid-template-columns:1fr; }
   .footer-top { grid-template-columns:1fr; gap:32px; }
   .hero h1 { font-size:clamp(2.8rem,12vw,4rem); }
-  .hero-stats { grid-template-columns:1fr 1fr; }
+  .hero-stats { flex-wrap:nowrap; justify-content:center; gap:0; }
+  .hstat { flex:1; padding:4px 10px; border-right:1px solid var(--line2); border-bottom:none; }
+  .hstat:last-child { border-right:none; }
   .hstat-n { font-size:1.6rem; }
   .impact-text { font-size:clamp(1.6rem,7vw,2.4rem); }
   .display { font-size:clamp(1.8rem,8vw,2.8rem); }
