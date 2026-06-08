@@ -662,7 +662,7 @@ function openDetail(refId) {
       <div style="background:rgba(240,180,41,.06);border:1px solid rgba(240,180,41,.2);border-radius:8px;padding:11px">
         <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--gold);letter-spacing:.07em;margin-bottom:5px">Guia DS-160</div>
         <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Campos exactos a copiar en cada formulario</div>
-        <a href="https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec?action=ds160guide&ref=${refId}&pin=visa2026" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#F0B429;color:#060E1F;text-decoration:none">Ver guia DS-160</a>
+        <a href="${SCRIPT_URL}?action=ds160guide&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#F0B429;color:#060E1F;text-decoration:none">Ver guia DS-160</a>
       </div>
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
@@ -674,7 +674,7 @@ function openDetail(refId) {
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
         <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Carta del cliente</div>
         <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Generada automaticamente del analisis IA</div>
-        <a href="https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec?action=carta&ref=${refId}&pin=visa2026" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver carta</a>
+        <a href="${SCRIPT_URL}?action=carta&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver carta</a>
       </div>
 
     </div>
@@ -864,7 +864,7 @@ async function procesarPDFs(files, refId) {
     });
     const gasData = await gasRes.json();
 
-    statusEl.innerHTML = '<span style="color:#4ade80">Analisis completado. </span><a href="' + GAS_URL + '?action=ds160guide&ref=' + refId + '&pin=visa2026" target="_blank" style="color:#F0B429;font-size:.72rem">Ver guia DS-160 actualizada →</a>';
+    statusEl.innerHTML = '<span style="color:#4ade80">Analisis completado. </span><a href="' + SCRIPT_URL + '?action=ds160guide&ref=' + refId + '&pin=' + encodeURIComponent(PIN) + '" target="_blank" style="color:#F0B429;font-size:.72rem">Ver guia DS-160 actualizada →</a>';
     showToast('DS-160 anteriores analizados correctamente', 'success');
 
   } catch(e) {

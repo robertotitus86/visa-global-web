@@ -2368,9 +2368,9 @@ function generarHTMLGuiaDS160(guia, analisis) {
 </div></body></html>`;
 }
 
-// Endpoint público para ver la guía DS-160 de un caso — llamar con ?action=ds160guide&ref=VG-XXXXX&pin=visa2026
+// Endpoint para ver la guía DS-160 de un caso — requiere pin configurado en propiedades del script
 function servirGuiaDS160(ref, pin) {
-  if (pin !== (ADMIN_PIN || 'visa2026')) {
+  if (!ADMIN_PIN || pin !== ADMIN_PIN) {
     return HtmlService.createHtmlOutput('<p>Acceso denegado</p>');
   }
   try {
@@ -2393,7 +2393,7 @@ function servirGuiaDS160(ref, pin) {
 
 // ═══════════════════════════════════════════════════════════════════
 // AUTO-CARTA: Genera la carta del cliente automáticamente
-// Acceso: ?action=carta&ref=VG-XXXXX&pin=visa2026
+// Acceso: ?action=carta&ref=VG-XXXXX&pin=[configurar en propiedades del script]
 // ═══════════════════════════════════════════════════════════════════
 
 // ── Analiza DS-160 anteriores enviados desde admin (textos ya extraidos por bot) ──
@@ -2661,7 +2661,7 @@ function guardarCarta(refId, cartaHTML) {
 }
 
 function servirCarta(ref, pin) {
-  if (pin !== (ADMIN_PIN || 'visa2026'))
+  if (!ADMIN_PIN || pin !== ADMIN_PIN)
     return HtmlService.createHtmlOutput('<p style="font-family:sans-serif;padding:30px;color:#991B1B">Acceso denegado</p>');
   try {
     const ss  = SpreadsheetApp.openById(SS_ID);
