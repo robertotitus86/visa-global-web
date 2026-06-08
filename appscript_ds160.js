@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════
 
 // La API key se guarda en: Apps Script → Configuración del proyecto → Propiedades de script
-// Clave: ANTHROPIC_KEY  Valor: sk-ant-api03-AYP5F-...
+// Clave: ANTHROPIC_KEY  (configurar en Apps Script, nunca hardcodear aquí)
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 const SHEET_RESUMEN   = 'Clientes DS-160';
 const SHEET_DETALLE   = 'DS-160 Detalle';

@@ -8,9 +8,8 @@
 // ANTHROPIC: reservado SOLO para el bot WhatsApp. No gastar aqui.
 const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 // GEMINI: gratis. Usar para todos los analisis del portal.
-const GEMINI_KEY = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY')
-  || 'AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8';
-const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'visa2026';
+const GEMINI_KEY        = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY');
+const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN');
 const PAYPHONE_TOKEN    = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
 const PAYPHONE_STORE_ID = PropertiesService.getScriptProperties().getProperty('PAYPHONE_STORE_ID');
 const SITE_URL          = 'https://www.asesoriadevisadosglobal.com';
