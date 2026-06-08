@@ -6,10 +6,12 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 // ANTHROPIC: reservado SOLO para el bot WhatsApp. No gastar aqui.
-const ANTHROPIC_KEY = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
+const ANTHROPIC_KEY     = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 // GEMINI: gratis. Usar para todos los analisis del portal.
 const GEMINI_KEY        = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY');
 const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN');
+// Secreto compartido bot ↔ GAS — mismo valor que FOLLOWUP_SECRET en Render
+const BOT_SECRET        = PropertiesService.getScriptProperties().getProperty('FOLLOWUP_SECRET');
 const PAYPHONE_TOKEN    = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
 const PAYPHONE_STORE_ID = PropertiesService.getScriptProperties().getProperty('PAYPHONE_STORE_ID');
 const SITE_URL          = 'https://www.asesoriadevisadosglobal.com';
@@ -2950,6 +2952,7 @@ function guardarChatLog(session, userMsg, botReply) {
 
 // ── Bot WhatsApp — persistencia de conversaciones ─────────────────
 function guardarBotLog(payload) {
+  if (!BOT_SECRET || payload.secret !== BOT_SECRET) return ok({ status: 'error', msg: 'No autorizado' });
   try {
     const ss = SpreadsheetApp.openById(SS_ID);
     let sh = ss.getSheetByName('Bot Conversaciones');
@@ -2968,6 +2971,8 @@ function guardarBotLog(payload) {
 }
 
 function botHistory(e) {
+  const secret = e.parameter.secret || '';
+  if (!BOT_SECRET || secret !== BOT_SECRET) return ok({ messages: [], error: 'No autorizado' });
   try {
     const phone = e.parameter.phone || '';
     const limit = parseInt(e.parameter.limit || '30', 10);
