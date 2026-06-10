@@ -2974,22 +2974,45 @@ function botHistory(e) {
   const secret = e.parameter.secret || '';
   if (!BOT_SECRET || secret !== BOT_SECRET) return ok({ messages: [], error: 'No autorizado' });
   try {
-    const phone = e.parameter.phone || '';
-    const limit = parseInt(e.parameter.limit || '30', 10);
-    if (!phone) return ok({ messages: [] });
-    const ss = SpreadsheetApp.openById(SS_ID);
-    const sh = ss.getSheetByName('Bot Conversaciones');
+    const phone  = e.parameter.phone || '';
+    const limit  = parseInt(e.parameter.limit || '50', 10);
+    const hours  = parseInt(e.parameter.hours || '48', 10);
+    const ss     = SpreadsheetApp.openById(SS_ID);
+    const sh     = ss.getSheetByName('Bot Conversaciones');
     if (!sh) return ok({ messages: [] });
-    const data = sh.getDataRange().getValues();
+    const data   = sh.getDataRange().getValues();
+
+    function parseTs(raw) {
+      if (raw instanceof Date) return raw;
+      const s = String(raw || '');
+      const m = s.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/);
+      if (m) return new Date(+m[3], +m[2]-1, +m[1], +m[4], +m[5]);
+      return new Date(s);
+    }
+
+    if (phone === 'all_recent') {
+      const cutoff = new Date(Date.now() - hours * 3600 * 1000);
+      const messages = data.slice(1)
+        .filter(function(r) {
+          if (!r[1]) return false;
+          try { return parseTs(r[0]) >= cutoff; } catch(_) { return false; }
+        })
+        .slice(-limit)
+        .map(function(r) {
+          return { ts: String(r[0]), phone: String(r[1]), user: String(r[2] || ''), bot: String(r[3] || '') };
+        });
+      return ok({ messages: messages });
+    }
+
+    if (!phone) return ok({ messages: [] });
     const matches = data.slice(1)
-      .filter(function(r) { return r[1] == phone; })
-      .slice(-limit);
-    const messages = [];
-    matches.forEach(function(r) {
-      messages.push({ ts: r[0], phone: r[1], user: r[2], bot: r[3] });
-    });
-    return ok({ messages: messages });
-  } catch(e) {
-    return ok({ messages: [], error: e.toString() });
+      .filter(function(r) { return String(r[1]) === phone; })
+      .slice(-limit)
+      .map(function(r) {
+        return { ts: String(r[0]), phone: String(r[1]), user: String(r[2] || ''), bot: String(r[3] || '') };
+      });
+    return ok({ messages: matches });
+  } catch(err) {
+    return ok({ messages: [], error: err.toString() });
   }
 }
