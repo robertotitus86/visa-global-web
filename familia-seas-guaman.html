@@ -384,6 +384,10 @@ const MODULES = [
   <div class="resp-box">
     <div class="resp-label">Lo que declararon sobre la hermana de Luis — fue la decisión correcta</div>
     <div class="resp-text">Luis declaró tener una hermana (Alexandra) en USA. Declararlo fue honesto y correcto. El oficial puede preguntar — la respuesta es simple: "Sí, tengo una hermana allá. Yo soy el Alcalde de Yacuambi, mi esposa tiene su farmacia, mis hijos estudian en Loja. Mi vida está en Ecuador."</div></div>
+  <div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05)">
+    <div class="ic-title" style="color:var(--red)">Error común a evitar — no sobre-justificar el regreso</div>
+    <div class="ic-body">No repitan "porque mi vida está en Ecuador" o mencionen alcaldía / farmacia / hijos en TODAS las respuestas. Eso suena ensayado y genera más preguntas. Mencionen sus vínculos SOLO cuando la pregunta lo pida directamente: cuándo regresan y por qué, si tienen familia en USA, o qué garantía dan de que volverán. En el resto de preguntas (propósito del viaje, hotel, quién paga, viajes previos) respondan solo el dato que se pide, de forma natural — por ejemplo: "porque vivo y trabajo aquí, soy alcalde" solo si la pregunta es sobre el regreso.</div>
+  </div>
   <button class="btn-primary" onclick="next()">Siguiente →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
 </div>`}},
@@ -458,10 +462,10 @@ const MODULES = [
     {q:'¿Cuánto tiempo planea quedarse y cuándo regresa?',
      tip:'Fecha exacta de salida y una razón concreta para el regreso.',
      eval(r){const t=r.toLowerCase();
-       if(/28.*marzo|marzo.*28/.test(t)&&(/cabildo|clases|farmacia|trabajo|alcalde/.test(t))) return{s:'bien',m:'Excelente. Fecha exacta más razón institucional.'};
-       if(/28.*marzo|marzo.*28/.test(t)) return{s:'mejorar',m:'Bien la fecha. Agregue la razón: sesiones del cabildo, hijos vuelven a clases, farmacia de Zoila.'};
-       return{s:'riesgo',m:'Fecha exacta: 28 de marzo 2027. Razones: cabildo municipal el 5 de abril, hijos a clases el 29 de marzo.'};},
-     model:'Nos quedamos 8 días, del 20 al 28 de marzo 2027. Regresamos el 28 porque tengo sesiones del cabildo municipal programadas para el 5 de abril y mis hijos retoman clases ese mismo día.'},
+       if(/28.*marzo|marzo.*28/.test(t)&&(/concejo|clases|farmacia|trabajo|alcalde/.test(t))) return{s:'bien',m:'Excelente. Fecha exacta más razón institucional.'};
+       if(/28.*marzo|marzo.*28/.test(t)) return{s:'mejorar',m:'Bien la fecha. Agregue la razón: sesiones del concejo, hijos vuelven a clases, farmacia de Zoila.'};
+       return{s:'riesgo',m:'Fecha exacta: 28 de marzo 2027. Razones: concejo municipal el 5 de abril, hijos a clases el 29 de marzo.'};},
+     model:'Nos quedamos 8 días, del 20 al 28 de marzo 2027. Regresamos el 28 porque tengo sesiones del concejo municipal programadas para el 5 de abril y mis hijos retoman clases ese mismo día.'},
     {q:'¿Quién paga el viaje?',
      tip:'Simple y directo. Fondos propios, sin complicar.',
      eval(r){const t=r.toLowerCase();
@@ -529,14 +533,14 @@ const MODULES = [
      tip:'Respuesta técnica y precisa. Demuestra que el municipio funciona sin usted y que usted regresa.',
      eval(r){const t=r.toLowerCase();
        if(/vicealcalde|cootad|concejal|subrogante|encargado/.test(t)) return{s:'bien',m:'Respuesta técnica y confiable.'};
-       return{s:'mejorar',m:'Mencione al Vicealcalde como subrogante según el COOTAD ecuatoriano y las fechas de las próximas sesiones del cabildo.'};},
-     model:'El Vicealcalde asume las funciones ejecutivas según el COOTAD ecuatoriano durante ausencias planificadas. He coordinado el viaje en una semana de baja actividad municipal. El cabildo tiene su siguiente sesión ordinaria el 5 de abril, fecha para la cual ya estaré de regreso el 28 de marzo.'},
+       return{s:'mejorar',m:'Mencione al Vicealcalde como subrogante según el COOTAD ecuatoriano y las fechas de las próximas sesiones del concejo.'};},
+     model:'El Vicealcalde asume las funciones ejecutivas según el COOTAD ecuatoriano durante ausencias planificadas. He coordinado el viaje en una semana de baja actividad municipal. El concejo tiene su siguiente sesión ordinaria el 5 de abril, fecha para la cual ya estaré de regreso el 28 de marzo.'},
     {q:'¿Está en proceso de reelección? ¿Cómo puede ausentarse ahora?',
      tip:'Esta pregunta demuestra que el oficial sabe que es alcalde. Respóndala con confianza.',
      eval(r){const t=r.toLowerCase();
        if(t.length>30&&(/reelec|campaign|canton|volver|regres/.test(t))) return{s:'bien',m:'Excelente. La reelección es en sí misma un argumento para regresar.'};
        return{s:'mejorar',m:'Explique que la reelección es precisamente una razón más para regresar: necesita estar en Yacuambi para su campaña. Este viaje es solo 8 días en una semana de baja actividad.'};},
-     model:'Sí, estoy en proceso de reelección, lo que es precisamente una razón más para regresar. Necesito estar en Yacuambi para mi campaña. Este viaje es 8 días en una semana de menor actividad del cabildo. Regreso el 28 de marzo sin falta.'},
+     model:'Sí, estoy en proceso de reelección, lo que es precisamente una razón más para regresar. Necesito estar en Yacuambi para mi campaña. Este viaje es 8 días en una semana de menor actividad del concejo. Regreso el 28 de marzo sin falta.'},
     {q:'¿Por qué eligieron Orlando específicamente?',
      tip:'Pregunta de verificación del turismo. Itinerario concreto, orientado a los hijos.',
      eval(r){const t=r.toLowerCase();
@@ -546,12 +550,12 @@ const MODULES = [
     {q:'¿Qué garantía nos da de que regresarán al término de los 8 días?',
      tip:'La pregunta más directa. Resume todo. Mencione todos sus vínculos.',
      eval(r){const t=r.toLowerCase();
-       const v=[/alcalde/,/farmacia/,/hijos.*estudi|estudi.*hijos/,/cabildo|municipio/,/reelec/];
+       const v=[/alcalde/,/farmacia/,/hijos.*estudi|estudi.*hijos/,/concejo|municipio/,/reelec/];
        const n=v.filter(p=>p.test(t)).length;
        if(n>=3) return{s:'bien',m:'Respuesta poderosa con múltiples vínculos. Exactamente lo que el oficial quiere escuchar.'};
-       if(n>=2) return{s:'mejorar',m:'Bien, pero puede ser más completo. Mencione: alcalde + reelección + farmacia de Zoila + hijos en clases el 29 de marzo + cabildo el 5 de abril.'};
-       return{s:'riesgo',m:'Mencione todos los vínculos: alcalde con reelección, farmacia de Zoila, hijos con clases el 29 de marzo, cabildo municipal el 5 de abril, boletos de regreso.'};},
-     model:'Tenemos raíces profundas en Ecuador que garantizan el regreso. Soy el Alcalde electo de Yacuambi en proceso de reelección, con obligaciones constitucionales con mis ciudadanos. Mi esposa tiene su farmacia que no puede cerrar más de una semana. Nuestros hijos tienen clases el 29 de marzo. Tenemos el cabildo el 5 de abril y boletos de regreso confirmados para el 28 de marzo.'},
+       if(n>=2) return{s:'mejorar',m:'Bien, pero puede ser más completo. Mencione: alcalde + reelección + farmacia de Zoila + hijos en clases el 29 de marzo + concejo el 5 de abril.'};
+       return{s:'riesgo',m:'Mencione todos los vínculos: alcalde con reelección, farmacia de Zoila, hijos con clases el 29 de marzo, concejo municipal el 5 de abril, boletos de regreso.'};},
+     model:'Tenemos raíces profundas en Ecuador que garantizan el regreso. Soy el Alcalde electo de Yacuambi en proceso de reelección, con obligaciones constitucionales con mis ciudadanos. Mi esposa tiene su farmacia que no puede cerrar más de una semana. Nuestros hijos tienen clases el 29 de marzo. Tenemos el concejo el 5 de abril y boletos de regreso confirmados para el 28 de marzo.'},
   ]},
 
 // ─── 7. DS-160 ZOILA ─────────────────────────────────────────────
@@ -854,16 +858,16 @@ const MODULES = [
      eval(r){const t=r.toLowerCase();
        if(t.length>30&&(/vacacion|descanso|familia|derecho|permitid|planific/.test(t))) return{s:'bien',m:'Respuesta natural y humana. Los alcaldes también tienen derecho a vacaciones familiares.'};
        return{s:'mejorar',m:'Explique que planificó el viaje en una semana de baja actividad, que el vicealcalde cubre, y que todos los funcionarios tienen derecho a vacaciones familiares.'};},
-     model:'Los alcaldes también tenemos derecho a vacaciones familiares. Planifiqué este viaje en una semana de menor actividad del cabildo. El Vicealcalde cubre mis funciones según el COOTAD. Son 8 días bien coordinados. Regreso el 28 de marzo para las sesiones de abril.'},
+     model:'Los alcaldes también tenemos derecho a vacaciones familiares. Planifiqué este viaje en una semana de menor actividad del concejo. El Vicealcalde cubre mis funciones según el COOTAD. Son 8 días bien coordinados. Regreso el 28 de marzo para las sesiones de abril.'},
     {q:'¿Por qué debería creerle que regresará si tiene una hermana que ya se quedó en USA?',
      tip:'La pregunta más difícil. No se ponga nervioso. Respóndala con confianza.',
      eval(r){const t=r.toLowerCase();
-       const v=[/alcalde/,/reelec/,/farmacia/,/hijos/,/cabildo|municipio/];
+       const v=[/alcalde/,/reelec/,/farmacia/,/hijos/,/concejo|municipio/];
        const n=v.filter(p=>p.test(t)).length;
        if(n>=3) return{s:'bien',m:'Respuesta poderosa. Múltiples vínculos institucionales y familiares.'};
-       if(n>=2) return{s:'mejorar',m:'Bien. Agregue más vínculos: alcalde + reelección + farmacia + hijos en clases + cabildo.'};
-       return{s:'riesgo',m:'Mencione TODOS los vínculos: cargo de alcalde en reelección, farmacia de Zoila, hijos en colegios, cabildo el 5 de abril, boletos de retorno.'};},
-     model:'Mi hermana tomó sus propias decisiones hace años. Mi situación es completamente diferente. Soy el Alcalde electo de Yacuambi, en proceso de reelección. No puedo abandonar ese cargo — tengo obligaciones con mis ciudadanos y una campaña activa. Mi esposa tiene su farmacia. Mis hijos tienen clases el 29 de marzo. Tengo el cabildo el 5 de abril. Todo me ancla a Ecuador.'},
+       if(n>=2) return{s:'mejorar',m:'Bien. Agregue más vínculos: alcalde + reelección + farmacia + hijos en clases + concejo.'};
+       return{s:'riesgo',m:'Mencione TODOS los vínculos: cargo de alcalde en reelección, farmacia de Zoila, hijos en colegios, concejo el 5 de abril, boletos de retorno.'};},
+     model:'Mi hermana tomó sus propias decisiones hace años. Mi situación es completamente diferente. Soy el Alcalde electo de Yacuambi, en proceso de reelección. No puedo abandonar ese cargo — tengo obligaciones con mis ciudadanos y una campaña activa. Mi esposa tiene su farmacia. Mis hijos tienen clases el 29 de marzo. Tengo el concejo el 5 de abril. Todo me ancla a Ecuador.'},
     {q:'¿Qué pasa si les gusta tanto USA que deciden quedarse?',
      tip:'Pregunta provocativa. Respóndala con una sonrisa mental — tienen demasiado en Ecuador.',
      eval(r){const t=r.toLowerCase();
