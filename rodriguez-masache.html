@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Rodríguez Masache — Visa USA 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;height:100%}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:#05101C;
+  color:#CBD5E1;height:100%;overflow:hidden;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+:root{
+  --gold:#F5C842;--gold2:#C8861A;--blue:#3B82F6;
+  --purple:#7C3AED;--green:#10B981;--red:#EF4444;
+  --card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);
+  --muted:rgba(255,255,255,.4);--serif:'Playfair Display',serif;
+  --app-h:100dvh;
+}
+
+/* ═══ APP SHELL ═══ */
+.app{display:flex;flex-direction:column;height:100dvh;max-width:100%;position:relative}
+
+/* ── TOP BAR ── */
+.topbar{
+  flex-shrink:0;height:60px;background:rgba(5,16,28,.98);
+  border-bottom:1px solid var(--border);backdrop-filter:blur(20px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;z-index:50;
+}
+.tb-logo{font-family:var(--serif);font-size:.875rem;font-weight:700;color:#F1F5F9}
+.tb-logo em{color:var(--gold);font-style:italic}
+.tb-pill{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--gold);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);
+  padding:4px 10px;border-radius:99px;display:flex;align-items:center;gap:5px}
+.tb-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);
+  animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* ── TABS BAR (desktop) ── */
+.tabs{
+  flex-shrink:0;height:48px;background:rgba(5,16,28,.95);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:stretch;padding:0 12px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  display:flex;align-items:center;gap:7px;padding:0 16px;
+  font-size:.78rem;font-weight:600;color:var(--muted);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover:not(.active){color:rgba(255,255,255,.65)}
+.tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.td-g{background:var(--green)}
+.td-b{background:var(--blue)}
+.td-p{background:var(--purple)}
+.td-gold{background:var(--gold)}
+.td-r{background:var(--red)}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.page{display:none;padding:20px;max-width:960px;margin:0 auto}
+.page.active{display:block}
+
+/* ══ HOME ══ */
+.home-hero{
+  background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
+  border:1px solid rgba(245,200,66,.15);border-radius:20px;padding:28px;
+  margin-bottom:16px;position:relative;overflow:hidden;
+}
+.home-hero::before{content:'';position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,200,66,.06),transparent 70%)}
+.home-eyebrow{font-size:.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.15em;color:rgba(245,200,66,.6);margin-bottom:10px}
+.home-title{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:700;color:#F1F5F9;line-height:1.15;margin-bottom:8px}
+.home-title em{color:var(--gold);font-style:italic}
+.home-sub{font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:24px;max-width:440px}
+.home-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#05101C;
+  font-weight:800;font-size:.9rem;padding:14px 28px;border-radius:100px;
+  transition:all .25s;box-shadow:0 4px 24px rgba(245,200,66,.2)}
+.btn-gold:hover,.btn-gold:active{transform:scale(1.03);
+  box-shadow:0 8px 32px rgba(245,200,66,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);color:var(--muted);
+  font-size:.85rem;font-weight:500;padding:14px 22px;border-radius:100px;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(245,200,66,.3);color:var(--gold)}
+
+/* Stats row */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.stat-val{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:#F1F5F9;margin-bottom:3px}
+.stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.stat.hi{border-color:rgba(245,200,66,.2);background:rgba(245,200,66,.05)}
+.stat.hi .stat-val{color:var(--gold)}
+
+/* Quick access */
+.qa-title{font-size:.65rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--muted);margin:20px 0 12px;
+  display:flex;align-items:center;gap:8px}
+.qa-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:600px){.qa-grid{grid-template-columns:repeat(4,1fr)}}
+.qa-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:16px;cursor:pointer;transition:all .25s;text-align:center}
+.qa-card:hover,.qa-card:active{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.05);
+  transform:translateY(-3px)}
+.qa-ini{width:40px;height:40px;border-radius:11px;margin:0 auto 10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1rem;font-weight:900;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.18);color:var(--gold)}
+.qa-name{font-size:.82rem;font-weight:700;color:#E2E8F0;margin-bottom:2px}
+.qa-sub{font-size:.65rem;color:var(--muted)}
+
+/* Próximas fechas */
+.events{display:flex;flex-direction:column;gap:8px}
+.event{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:14px 16px;display:flex;align-items:center;gap:14px}
+.event-date{min-width:44px;text-align:center}
+.event-date .day{font-family:var(--serif);font-size:1.4rem;font-weight:900;color:var(--gold);line-height:1}
+.event-date .month{font-size:.55rem;text-transform:uppercase;color:var(--muted);letter-spacing:.1em}
+.event-info .title{font-size:.85rem;font-weight:700;color:#E2E8F0;margin-bottom:2px}
+.event-info .sub{font-size:.72rem;color:var(--muted)}
+.event-badge{margin-left:auto;font-size:.6rem;font-weight:700;padding:3px 9px;
+  border-radius:99px;white-space:nowrap;flex-shrink:0}
+.eb-z{background:rgba(124,58,237,.1);color:#A78BFA;border:1px solid rgba(124,58,237,.2)}
+.eb-v{background:rgba(59,130,246,.1);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
+
+/* ══ MIEMBROS ══ */
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:700px){.m-grid{grid-template-columns:repeat(4,1fr)}}
+.mcard{background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:22px;display:block;transition:all .3s cubic-bezier(.22,.68,0,1.2)}
+.mcard:hover,.mcard:active{background:rgba(245,200,66,.05);
+  border-color:rgba(245,200,66,.28);transform:translateY(-5px);
+  box-shadow:0 16px 48px rgba(0,0,0,.3)}
+.mc-ini{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-family:var(--serif);font-size:1.1rem;font-weight:900;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.18);
+  color:var(--gold);margin-bottom:16px}
+.mc-role{font-size:.55rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.mc-name{font-family:var(--serif);font-size:.9rem;font-weight:700;
+  color:#F1F5F9;line-height:1.2;margin-bottom:6px}
+.mc-tag{display:inline-block;font-size:.55rem;font-weight:700;padding:2px 8px;
+  border-radius:99px;margin-bottom:10px}
+.tg{background:rgba(16,185,129,.1);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.tb{background:rgba(59,130,246,.1);color:#60A5FA;border:1px solid rgba(59,130,246,.2)}
+.mc-info{font-size:.7rem;color:var(--muted);line-height:1.5;margin-bottom:14px}
+.mc-cta{font-size:.68rem;font-weight:700;color:rgba(245,200,66,.45);
+  display:flex;align-items:center;gap:4px;transition:color .15s}
+.mcard:hover .mc-cta{color:var(--gold)}
+
+/* ══ DOCUMENTOS ══ */
+.d-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:600px){.d-grid{grid-template-columns:repeat(3,1fr)}}
+.dcard{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:22px;display:flex;flex-direction:column;gap:12px;
+  transition:all .25s;text-decoration:none;color:inherit}
+.dcard:hover{border-color:rgba(59,130,246,.3);transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.d-icon{width:44px;height:44px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem}
+.da{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.18)}
+.db{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.18)}
+.dc{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.18)}
+.d-name{font-size:.9rem;font-weight:700;color:#F1F5F9}
+.d-desc{font-size:.78rem;color:var(--muted);line-height:1.6;flex:1}
+.d-dl{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.25);
+  display:flex;align-items:center;gap:5px;margin-top:auto;transition:color .15s}
+.dcard:hover .d-dl{color:var(--blue)}
+
+/* ══ ZOOM ══ */
+.z-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.z-grid{grid-template-columns:1fr 1fr}}
+.zcard{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(124,58,237,.04));
+  border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:24px;transition:all .2s}
+.zcard:hover{transform:translateY(-3px);border-color:rgba(124,58,237,.38)}
+.z-num{display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;background:#7C3AED;
+  font-weight:800;font-size:.75rem;color:#fff;margin-bottom:14px}
+.z-date{font-family:var(--serif);font-size:1rem;font-weight:700;color:#F1F5F9;margin-bottom:4px}
+.z-time{font-size:.82rem;font-weight:700;color:#A78BFA;margin-bottom:12px}
+.z-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
+.z-note{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);
+  font-size:.68rem;color:rgba(124,58,237,.6)}
+
+/* Recordatorios */
+.rem-card{background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
+  border:1px solid rgba(245,200,66,.18);border-radius:18px;padding:24px;
+  display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:20px}
+@media(max-width:500px){.rem-card{grid-template-columns:1fr}}
+.rem-ico{width:52px;height:52px;border-radius:14px;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.rem-title{font-size:.9rem;font-weight:700;color:#F1F5F9;margin-bottom:6px}
+.rem-desc{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.rem-emails{display:flex;flex-direction:column;gap:6px}
+.r-email{font-size:.75rem;color:var(--muted);display:flex;gap:8px}
+.r-email b{color:#E2E8F0}
+
+/* ══ CONTACTO ══ */
+.contact-card{background:linear-gradient(135deg,rgba(37,211,102,.1),rgba(37,211,102,.04));
+  border:1px solid rgba(37,211,102,.2);border-radius:18px;padding:28px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;margin-top:16px}
+.contact-info .ctitle{font-family:var(--serif);font-size:1.1rem;font-weight:700;
+  color:#F1F5F9;margin-bottom:6px}
+.contact-info .csub{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:320px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  font-weight:700;font-size:.9rem;padding:14px 28px;border-radius:100px;
+  transition:all .25s;white-space:nowrap;box-shadow:0 4px 24px rgba(37,211,102,.2)}
+.wa-btn:hover,.wa-btn:active{transform:scale(1.04);
+  box-shadow:0 12px 36px rgba(37,211,102,.3)}
+
+/* Page title */
+.page-title{font-family:var(--serif);font-size:clamp(1.4rem,4vw,2rem);
+  font-weight:700;color:#F1F5F9;margin-bottom:6px;padding:4px 0 16px}
+.page-title em{color:var(--gold);font-style:italic}
+
+/* Section divider */
+.sdiv{height:1px;background:var(--border);margin:24px 0}
+
+/* Bottom nav (mobile) */
+.bottom-nav{
+  display:none;flex-shrink:0;height:64px;background:rgba(5,16,28,.98);
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;color:var(--muted);transition:color .2s;padding:8px 0}
+.bn-item.active{color:var(--gold)}
+.bn-icon{font-size:1.2rem;line-height:1}
+.bn-label{font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+
+@media(max-width:600px){
+  .hero-2col{grid-template-columns:1fr!important}
+}
+@media(max-width:768px){
+  .tabs{display:none}
+  .bottom-nav{display:grid}
+  .content{padding-bottom:0}
+  .page{padding:16px}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none}
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh}
+  .content{overflow:visible;height:auto}
+  .page{display:none;min-height:60vh}
+  .page.active{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="tb-logo">Asesoría <em>Visa</em> Global</div>
+    <div class="tb-pill">Familia Rodríguez Masache</div>
+  </div>
+
+  <!-- TABS (desktop) -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-page="home"><span class="tab-dot td-gold"></span>Inicio</div>
+    <div class="tab" data-page="miembros"><span class="tab-dot td-g"></span>Miembros</div>
+    <div class="tab" data-page="simulador"><span class="tab-dot td-b"></span>Simulador</div>
+    <div class="tab" data-page="documentos"><span class="tab-dot td-p"></span>Documentos</div>
+    <div class="tab" data-page="zoom"><span class="tab-dot td-r"></span>Zoom & Recordatorios</div>
+    <div class="tab" data-page="contacto"><span class="tab-dot td-g"></span>Contacto</div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content" id="content">
+
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+
+      <!-- BANNER CUENTA REGRESIVA ENTREVISTA -->
+      <div id="banner-cita" style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.05));border:1.5px solid rgba(245,200,66,.4);border-radius:16px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+        <div style="font-size:2rem;flex-shrink:0">🏛️</div>
+        <div style="flex:1">
+          <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.7);margin-bottom:3px">Entrevista Consular Confirmada</div>
+          <div style="font-weight:700;font-size:.95rem;color:#fff">Viernes 31 de julio 2026 · 8:30 AM</div>
+          <div style="font-weight:600;font-size:.82rem;color:rgba(245,200,66,.75)">Zoom: Domingo 12 y 26 de julio 2026 · 7:00 PM</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:2px">Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div id="dias-cita" style="font-size:1.8rem;font-weight:700;color:#F5C842;line-height:1">--</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">días</div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var hoy=new Date(), cita=new Date('2026-07-31');
+        var dias=Math.ceil((cita-hoy)/(1000*60*60*24));
+        document.getElementById('dias-cita').textContent=dias>0?dias:'HOY';
+      })();
+      </script>
+
+      <!-- HERO: nombre + datos del viaje lado a lado -->
+      <div class="hero-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="home-hero" style="margin-bottom:0">
+          <div class="home-eyebrow">Portal de preparación · Visa USA B1/B2</div>
+          <h1 class="home-title">Familia<br><em>Rodríguez Masache</em></h1>
+          <p class="home-sub" style="margin-bottom:20px">Simulador, documentos y sesiones en vivo con Roberto. Preparación reforzada para esta segunda solicitud.</p>
+          <div class="home-btns">
+            <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html">Abrir simulador →</a>
+          </div>
+        </div>
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:0">
+          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(59,130,246,.8);margin-bottom:14px">📅 Fechas importantes</div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🇺🇸 Entrevista</span><span style="font-weight:700;color:#F5C842">31 julio 2026 · 8:30 AM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">📅 Sesiones Zoom</span><span style="font-weight:700;color:#F5C842">12 y 26 julio · 7:00 PM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🏛️ Consulado</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:150px">Quito · frente al SOLCA</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">⚠️ Límite reagenda</span><span style="font-weight:700;color:#F59E0B">29 julio 2026</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">✈️ Viaje a USA</span><span style="font-weight:700;color:#F1F5F9">21–28 marzo 2027</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🏨 Hotel</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:140px">The Point Hotel & Suites, Orlando</span></div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat hi"><div class="stat-val">36</div><div class="stat-label">Preguntas</div></div>
+        <div class="stat"><div class="stat-val">4</div><div class="stat-label">Miembros</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-label">PDFs listos</div></div>
+        <div class="stat"><div class="stat-val">2</div><div class="stat-label">Sesiones Zoom</div></div>
+      </div>
+
+      <!-- PRACTICAR INDIVIDUALMENTE — destacado -->
+      <div style="background:linear-gradient(135deg,rgba(245,200,66,.12),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.3);border-radius:20px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,.08),transparent 70%)"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:p 2s infinite"></div>
+          <span style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--gold)">Practicar individualmente</span>
+        </div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:16px">Toca tu nombre para ver tus preguntas específicas. Primero estudias las respuestas correctas y luego practicas solo.</p>
+        <div class="qa-grid">
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paul" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">P</div>
+            <div class="qa-name">Paul Fernando</div>
+            <div class="qa-sub">15 preguntas · 3 niveles</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=jenny" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">J</div>
+            <div class="qa-name">Jenny Enid</div>
+            <div class="qa-sub">5 preguntas</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=mileidy" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">M</div>
+            <div class="qa-name">Mileidy Maily</div>
+            <div class="qa-sub">5 preguntas</div>
+          </a>
+          <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paulsmith" style="border-color:rgba(245,200,66,.2)">
+            <div class="qa-ini">PS</div>
+            <div class="qa-name">Paul Smith</div>
+            <div class="qa-sub">5 preguntas</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="qa-title" style="margin-top:24px">Próximas fechas</div>
+      <div class="events">
+        <div class="event">
+          <div class="event-date"><div class="day">12</div><div class="month">jul</div></div>
+          <div class="event-info"><div class="title">Sesión Zoom 1 con Roberto</div><div class="sub">7:00 PM hora Ecuador · Repaso personalizado</div></div>
+          <span class="event-badge eb-z">Zoom</span>
+        </div>
+        <div class="event">
+          <div class="event-date"><div class="day">26</div><div class="month">jul</div></div>
+          <div class="event-info"><div class="title">Sesión Zoom 2 — Simulacro final</div><div class="sub">7:00 PM hora Ecuador · Los 4 miembros</div></div>
+          <span class="event-badge eb-z">Zoom</span>
+        </div>
+        <div class="event">
+          <div class="event-date"><div class="day">21</div><div class="month">mar</div></div>
+          <div class="event-info"><div class="title">Llegada a Orlando, Florida</div><div class="sub">The Point Hotel & Suites · 2027</div></div>
+          <span class="event-badge eb-v">Viaje</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIEMBROS -->
+    <div class="page" id="page-miembros">
+      <div class="page-title">Perfiles de la <em>familia</em></div>
+      <div class="m-grid">
+        <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paul">
+          <div class="mc-ini">P</div>
+          <div class="mc-role">Titular principal</div>
+          <div class="mc-name">Paul Fernando Rodríguez Narváez</div>
+          <span class="mc-tag tg">Alcalde de Paquisha</span>
+          <div class="mc-info">GAD Municipal Paquisha · $4.508/mes<br>Pasaporte A9692851 · Ex-policía 15 años · Viajes: España, Perú</div>
+          <div class="mc-cta">DS-160 + 15 preguntas →</div>
+        </a>
+        <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=jenny">
+          <div class="mc-ini">J</div>
+          <div class="mc-role">Pareja / Conviviente</div>
+          <div class="mc-name">Jenny Enid Masache Yaruqui</div>
+          <span class="mc-tag tb">Granja + Patronato</span>
+          <div class="mc-info">Granja Familiar "El Piolín" · Presidenta Patronato Paquisha · $1.500/mes<br>Pasaporte A9692850 · Sin familiares USA ✓</div>
+          <div class="mc-cta">DS-160 + 5 preguntas →</div>
+        </a>
+        <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=mileidy">
+          <div class="mc-ini">M</div>
+          <div class="mc-role">Hija · 19 años</div>
+          <div class="mc-name">Mileidy Maily Masache Yaruqui</div>
+          <span class="mc-tag tb">Estudiante · Bachillerato</span>
+          <div class="mc-info">Unidad Educativa Soberanía Nacional, Paquisha<br>Pasaporte A9692847 · Sin familiares en USA ✓</div>
+          <div class="mc-cta">DS-160 + 5 preguntas →</div>
+        </a>
+        <a class="mcard" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paulsmith">
+          <div class="mc-ini">PS</div>
+          <div class="mc-role">Hijo · 12 años</div>
+          <div class="mc-name">Paul Smith Rodríguez Masache</div>
+          <span class="mc-tag tb">Menor · viaja con ambos padres</span>
+          <div class="mc-info">Pasaporte A9692848<br>Sin familiares en USA ✓</div>
+          <div class="mc-cta">DS-160 + 5 preguntas →</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- SIMULADOR -->
+    <div class="page" id="page-simulador">
+      <div class="page-title">Simulador de <em>entrevista</em></div>
+      <div class="home-hero" style="margin-bottom:20px">
+        <p style="font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:20px">
+          36 preguntas organizadas de menor a mayor complejidad. Evaluación automática con respuesta modelo en cada pregunta. Incluye DS-160 de cada miembro para repasar antes de practicar, y un módulo especial sobre la negativa anterior y qué ha cambiado desde entonces.
+        </p>
+        <a class="btn-gold" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html" target="_blank">Abrir simulador completo →</a>
+      </div>
+      <div class="qa-title">Acceso directo por miembro</div>
+      <div class="qa-grid" style="margin-bottom:20px">
+        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paul">
+          <div class="qa-ini">P</div><div class="qa-name">Paul Fernando</div><div class="qa-sub">15 preguntas</div>
+        </a>
+        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=jenny">
+          <div class="qa-ini">J</div><div class="qa-name">Jenny</div><div class="qa-sub">5 preguntas</div>
+        </a>
+        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=mileidy">
+          <div class="qa-ini">M</div><div class="qa-name">Mileidy</div><div class="qa-sub">5 preguntas</div>
+        </a>
+        <a class="qa-card" href="https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=paulsmith">
+          <div class="qa-ini">PS</div><div class="qa-name">Paul Smith</div><div class="qa-sub">5 preguntas</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- DOCUMENTOS -->
+    <div class="page" id="page-documentos">
+      <div class="page-title"><em>Documentos</em> descargables</div>
+      <div class="d-grid">
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/guia-simulador-rodriguez.pdf" target="_blank">
+          <div class="d-icon da">📋</div>
+          <div class="d-name">Guía del Simulador</div>
+          <div class="d-desc">Cómo empezar, qué hay en cada módulo y el plan diario de práctica recomendado.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/plan-rodriguez-masache.pdf" target="_blank">
+          <div class="d-icon db">📅</div>
+          <div class="d-name">Plan de Acción</div>
+          <div class="d-desc">Qué hacer cada semana antes de la entrevista con respuestas modelo.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/checklist-rodriguez-masache.pdf" target="_blank">
+          <div class="d-icon dc">✅</div>
+          <div class="d-name">Checklist de Documentos</div>
+          <div class="d-desc">Lista completa con casillas de verificación, organizada por miembro.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ZOOM -->
+    <div class="page" id="page-zoom">
+      <div class="page-title">Sesiones <em>Zoom</em></div>
+      <div class="z-grid">
+        <div class="zcard">
+          <div class="z-num">1</div>
+          <div class="z-date">Domingo 12 de julio 2026</div>
+          <div class="z-time">🕖 7:00 PM · hora Ecuador</div>
+          <div class="z-desc">Sesión de repaso personalizado. Roberto revisará sus respuestas del simulador y reforzará los argumentos sobre la negativa anterior. <strong style="color:#E2E8F0">Completar el simulador antes.</strong></div>
+          <div class="z-note">📧 Recordatorio 3 días antes y el día anterior</div>
+        </div>
+        <div class="zcard">
+          <div class="z-num">2</div>
+          <div class="z-date">Domingo 26 de julio 2026</div>
+          <div class="z-time">🕖 7:00 PM · hora Ecuador</div>
+          <div class="z-desc">Simulacro final. Roberto actuará como oficial consular. <strong style="color:#E2E8F0">Obligatoria para los 4 miembros.</strong></div>
+          <div class="z-note">📧 Recordatorio 3 días antes y el día anterior</div>
+        </div>
+      </div>
+      <div class="rem-card">
+        <div class="rem-ico">📧</div>
+        <div>
+          <div class="rem-title">Recordatorios automáticos diarios</div>
+          <div class="rem-desc">Recibirán un correo todos los días con el link al simulador y el tip del día. Además, avisos especiales antes de cada sesión Zoom.</div>
+          <div class="rem-emails">
+            <div class="r-email">📩 <b>Paul Fernando:</b> 0985926007</div>
+            <div class="r-email">📩 <b>Jenny:</b> 0991468488</div>
+            <div class="r-email">📩 <b>Mileidy:</b> 0979521411</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="page" id="page-contacto">
+      <div class="page-title">¿Tienen <em>preguntas?</em></div>
+      <p style="font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:8px">Roberto está disponible por WhatsApp para cualquier consulta sobre el proceso, los documentos o las sesiones Zoom.</p>
+      <div class="contact-card">
+        <div class="contact-info">
+          <div class="ctitle">Escribir a Roberto</div>
+          <div class="csub">Respuesta en menos de 24 horas · +593 99 444 2512</div>
+        </div>
+        <a class="wa-btn" href="https://wa.me/593994442512?text=Hola+Roberto%2C+soy+de+la+familia+Rodriguez+Masache.+Tengo+una+consulta." target="_blank">
+          💬 WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- BOTTOM NAV (mobile) -->
+  <div class="bottom-nav" id="bnav">
+    <div class="bn-item active" data-page="home"><div class="bn-icon">🏠</div><div class="bn-label">Inicio</div></div>
+    <div class="bn-item" data-page="miembros"><div class="bn-icon">👥</div><div class="bn-label">Miembros</div></div>
+    <div class="bn-item" data-page="simulador"><div class="bn-icon">🎯</div><div class="bn-label">Simulador</div></div>
+    <div class="bn-item" data-page="documentos"><div class="bn-icon">📄</div><div class="bn-label">Docs</div></div>
+    <div class="bn-item" data-page="zoom"><div class="bn-icon">📅</div><div class="bn-label">Zoom</div></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+// Si viene con ?miembro=X, ir directo al simulador personalizado
+(function(){
+  var m = new URLSearchParams(location.search).get('miembro');
+  if(m) location.href = 'familia-rodriguez-masache.html?miembro=' + m;
+})();
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab,.bn-item').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg){pg.classList.add('active');document.getElementById('content').scrollTop=0}
+  document.querySelectorAll('[data-page="'+id+'"]').forEach(t=>t.classList.add('active'));
+}
+document.querySelectorAll('.tab,.bn-item').forEach(el=>{
+  el.addEventListener('click',()=>showPage(el.dataset.page));
+});
+</script>
+</body>
+</html>
