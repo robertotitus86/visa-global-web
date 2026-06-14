@@ -359,7 +359,7 @@ const MODULES = [
     <div class="ic-body">Hotel reservado, itinerario concreto, actividades específicas. Orlando = Disney World, Universal Studios, Kennedy Space Center. Deben saberlo de memoria.</div></div>
   <div class="info-card" style="border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05)"><div class="ic-num" style="color:rgba(245,158,11,.3)">04</div>
     <div class="ic-title" style="color:var(--amber)">¿Qué cambió desde la negativa de noviembre 2025?</div>
-    <div class="ic-body">El oficial puede ver el historial de solicitudes. No se sorprendan ni se pongan nerviosos — es normal que pregunten. Lo importante es mostrar con calma que su situación se ha fortalecido: Paul Fernando ahora está en plena campaña de reelección y Jenny asumió la presidencia del Patronato de Acción Social de Paquisha. Más adelante practicarán esta respuesta varias veces.</div></div>
+    <div class="ic-body">El oficial puede ver el historial de solicitudes. No se sorprendan ni se pongan nerviosos — es normal que pregunten. Lo importante es mostrar con calma que su situación se ha fortalecido: Paul Fernando ahora está en plena campaña de reelección, y Jenny —Presidenta del Patronato de Acción Social de Paquisha desde 2023— sigue ejerciendo ese cargo, reforzando sus vínculos con Ecuador. Más adelante practicarán esta respuesta varias veces.</div></div>
   <button class="btn-primary" onclick="next()">Siguiente →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
 </div>`}},
@@ -377,7 +377,7 @@ const MODULES = [
     <div class="sc-body">Granja porcina familiar en Paquisha que requiere su presencia constante. Vínculo económico directo con Ecuador.</div></div></div>
   <div class="strength-card"><div class="sc-icon">🤝</div><div>
     <div class="sc-title">Jenny es Presidenta del Patronato de Acción Social de Paquisha</div>
-    <div class="sc-body">Cargo honorífico de responsabilidad social que asumió después de la negativa anterior. Otro vínculo institucional nuevo y verificable.</div></div></div>
+    <div class="sc-body">Cargo honorífico de responsabilidad social que ejerce desde 2023, el mismo año en que Paul Fernando fue elegido Alcalde. Vínculo institucional consolidado y verificable.</div></div></div>
   <div class="strength-card"><div class="sc-icon">✈️</div><div>
     <div class="sc-title">Paul Fernando viajó a España y Perú, siempre regresó</div>
     <div class="sc-body">Historial de viajero responsable, con 15 años previos como Cabo Primero de la Policía Nacional (2003-2018). Demuestra estabilidad y patrón de regreso.</div></div></div>
@@ -389,7 +389,7 @@ const MODULES = [
     <div class="sc-body">The Point Hotel & Suites, 7389 Universal Boulevard, Orlando. Reserva confirmada. Turismo real y organizado.</div></div></div>
   <div class="resp-box">
     <div class="resp-label">Sobre la negativa de noviembre 2025 — la decisión correcta es ser honestos</div>
-    <div class="resp-text">A los 4 les negaron la visa en noviembre de 2025 bajo la sección 214(b) — significa que el oficial de turno no quedó convencido de los vínculos con Ecuador en ese momento, no que hayan hecho algo malo. Si preguntan, la respuesta es simple y tranquila: "Sí, solicitamos antes y no fue aprobada. Desde entonces mi situación se ha reforzado: sigo siendo Alcalde de Paquisha y ahora estoy en plena campaña de reelección, y mi esposa asumió la presidencia del Patronato de Acción Social del cantón."</div></div>
+    <div class="resp-text">A los 4 les negaron la visa en noviembre de 2025 bajo la sección 214(b) — significa que el oficial de turno no quedó convencido de los vínculos con Ecuador en ese momento, no que hayan hecho algo malo. Si preguntan, la respuesta es simple y tranquila: "Sí, solicitamos antes y no fue aprobada. Desde entonces mi situación se ha reforzado: sigo siendo Alcalde de Paquisha y ahora estoy en plena campaña de reelección, y mi esposa, Presidenta del Patronato de Acción Social del cantón desde 2023, sigue ejerciendo ese cargo."</div></div>
   <div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05)">
     <div class="ic-title" style="color:var(--red)">Error común a evitar — no sobre-justificar el regreso</div>
     <div class="ic-body">No repitan "porque mi vida está en Ecuador" o mencionen alcaldía / granja / Patronato / hijos en TODAS las respuestas. Eso suena ensayado y genera más preguntas. Mencionen sus vínculos SOLO cuando la pregunta lo pida directamente: cuándo regresan y por qué, qué cambió desde la negativa, o qué garantía dan de que volverán. En el resto de preguntas (propósito del viaje, hotel, quién paga, viajes previos) respondan solo el dato que se pide, de forma natural.</div>
@@ -537,8 +537,8 @@ const MODULES = [
        if(/no.*solicit|primera vez|nunca/.test(t)) return{s:'riesgo',m:'⚠️ Inconsistencia grave: el sistema muestra la solicitud anterior de noviembre 2025. Negarlo puede causar negativa permanente.'};
        if((/reelec|patronato/.test(t))&&t.length>30) return{s:'bien',m:'Excelente. Reconoce la solicitud anterior con calma y muestra cambios concretos y verificables.'};
        if(/negativ|antes|anterior/.test(t)) return{s:'mejorar',m:'Bien que lo reconoce. Agregue qué cambió: ahora está en campaña de reelección y su esposa es Presidenta del Patronato de Acción Social de Paquisha.'};
-       return{s:'riesgo',m:'Debe reconocer la solicitud anterior con calma y explicar el cambio: campaña de reelección de Paul Fernando + nuevo cargo de Jenny en el Patronato.'};},
-     model:'Sí, solicitamos la visa antes y en noviembre de 2025 no fue aprobada. Lo entendemos, y desde entonces nuestra situación se ha fortalecido. Sigo siendo el Alcalde de Paquisha y ahora estoy en plena campaña de reelección para febrero de 2027, lo cual me ata aún más a mi cantón. Además mi esposa Jenny asumió la presidencia del Patronato de Acción Social de Paquisha, un nuevo compromiso institucional. Seguimos siendo la misma familia, con vínculos más fuertes con Ecuador que antes.'},
+       return{s:'riesgo',m:'Debe reconocer la solicitud anterior con calma y explicar el cambio: campaña de reelección de Paul Fernando + el cargo de Jenny como Presidenta del Patronato desde 2023.'};},
+     model:'Sí, solicitamos la visa antes y en noviembre de 2025 no fue aprobada. Lo entendemos, y desde entonces nuestra situación se ha fortalecido. Sigo siendo el Alcalde de Paquisha y ahora estoy en plena campaña de reelección para febrero de 2027, lo cual me ata aún más a mi cantón. Además mi esposa Jenny es Presidenta del Patronato de Acción Social de Paquisha desde 2023, el mismo cargo que ya ejercía antes de nuestra solicitud anterior. Seguimos siendo la misma familia, con vínculos más fuertes con Ecuador que antes.'},
     {q:'¿Quién queda a cargo del municipio durante su ausencia?',
      tip:'Respuesta técnica y precisa. Demuestra que el municipio funciona sin usted y que usted regresa.',
      eval(r){const t=r.toLowerCase();
@@ -615,7 +615,7 @@ const MODULES = [
   </div>
   <div class="ds-field warn" style="margin-bottom:14px">
     <div class="ds-label">⚠️ Antecedente — Solicitud anterior</div>
-    <div class="ds-value">Negativa 214(b) en noviembre de 2025. Desde entonces asumió la presidencia del Patronato — un cargo nuevo y verificable.</div>
+    <div class="ds-value">Negativa 214(b) en noviembre de 2025. Es Presidenta del Patronato de Acción Social de Paquisha desde 2023, cargo que ya ejercía al momento de la negativa — vínculo institucional verificable.</div>
   </div>
   <button class="btn-primary" onclick="next()">Practicar preguntas →</button>
   <button class="btn-secondary" onclick="prev()">← Anterior</button>
@@ -630,7 +630,7 @@ const MODULES = [
        if(/granja|piolin/.test(t)&&/patronato|paquisha/.test(t)) return{s:'bien',m:'Perfecto. Granja + Patronato = doble vínculo con Ecuador.'};
        if(/granja|piolin/.test(t)) return{s:'mejorar',m:'Bien la granja. Agregue que también es Presidenta del Patronato de Acción Social de Paquisha.'};
        return{s:'riesgo',m:'Debe mencionar la Granja Familiar "El Piolín" y su cargo como Presidenta del Patronato de Acción Social de Paquisha.'};},
-     model:'Administro la Granja Familiar "El Piolín" en Paquisha, una granja porcina que requiere mi presencia constante. Además soy Presidenta del Patronato de Acción Social del Cantón Paquisha, un cargo social que asumí hace poco.'},
+     model:'Administro la Granja Familiar "El Piolín" en Paquisha, una granja porcina que requiere mi presencia constante. Además soy Presidenta del Patronato de Acción Social del Cantón Paquisha, un cargo social que ejerzo desde 2023.'},
     {q:'¿Tiene familiares en los Estados Unidos?',
      tip:'Declaró que NO. Respuesta directa y sin dudar.',
      eval(r){const t=r.toLowerCase();
@@ -877,9 +877,9 @@ const MODULES = [
        const v=[/reelec/,/patronato/,/alcalde/,/granja|piolin/,/cambio|cambi/];
        const n=v.filter(p=>p.test(t)).length;
        if(n>=3) return{s:'bien',m:'Respuesta poderosa. Reconoce la negativa con calma y muestra cambios concretos y verificables.'};
-       if(n>=2) return{s:'mejorar',m:'Bien. Agregue más detalle sobre la campaña de reelección de Paul Fernando y el nuevo cargo de Jenny en el Patronato.'};
-       return{s:'riesgo',m:'Reconozca la negativa anterior con calma. Mencione: sigue siendo alcalde y ahora está en campaña de reelección, Jenny ahora es Presidenta del Patronato, la granja sigue funcionando. Son la misma familia con vínculos más fuertes.'};},
-     model:'Entendemos y respetamos esa decisión anterior. Desde noviembre de 2025 nuestra situación con Ecuador se ha fortalecido: sigo siendo el Alcalde de Paquisha y ahora estoy en plena campaña de reelección para febrero de 2027. Mi esposa Jenny asumió la presidencia del Patronato de Acción Social del cantón, además de seguir administrando nuestra granja familiar. Seguimos siendo la misma familia, con responsabilidades cada vez mayores en Ecuador, y este viaje es el mismo plan de turismo familiar de siempre.'},
+       if(n>=2) return{s:'mejorar',m:'Bien. Agregue más detalle sobre la campaña de reelección de Paul Fernando y el cargo de Jenny como Presidenta del Patronato desde 2023.'};
+       return{s:'riesgo',m:'Reconozca la negativa anterior con calma. Mencione: sigue siendo alcalde y ahora está en campaña de reelección, Jenny es Presidenta del Patronato desde 2023, la granja sigue funcionando. Son la misma familia con vínculos más fuertes.'};},
+     model:'Entendemos y respetamos esa decisión anterior. Desde noviembre de 2025 nuestra situación con Ecuador se ha fortalecido: sigo siendo el Alcalde de Paquisha y ahora estoy en plena campaña de reelección para febrero de 2027. Mi esposa Jenny es Presidenta del Patronato de Acción Social del cantón desde 2023, además de seguir administrando nuestra granja familiar. Seguimos siendo la misma familia, con responsabilidades cada vez mayores en Ecuador, y este viaje es el mismo plan de turismo familiar de siempre.'},
     {q:'¿Cómo explica que siendo alcalde y en campaña tenga tiempo para viajes de turismo?',
      tip:'No es una crítica — es verificación de autenticidad. Respóndala con calma.',
      eval(r){const t=r.toLowerCase();
