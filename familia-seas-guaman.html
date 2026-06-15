@@ -529,6 +529,76 @@ const MODULES = [
        if(/hermana|alexandra/.test(t)) return{s:'mejorar',m:'Bien que menciona a su hermana. Agregue inmediatamente que SU vida está en Ecuador: alcalde, farmacia de Zoila, hijos en colegios.'};
        return{s:'riesgo',m:'Debe confirmar que tiene hermana en USA Y explicar por qué usted siempre regresa.'};},
      model:'Sí, tengo una hermana, Alexandra, que emigró a Estados Unidos hace algunos años. Cada familia tiene su historia. Yo soy el Alcalde electo de Yacuambi desde 2023, en proceso de reelección. Mi esposa tiene su farmacia. Mis hijos estudian en Loja. Mi vida y responsabilidades están completamente en Ecuador.'},
+    {q:'¿Quién es tu hermana? ¿Cómo se llama y dónde vive?',
+     tip:'Nombre exacto y ubicación. Simple y directo.',
+     eval(r){const t=r.toLowerCase();
+       if(/lupe|alexandra/.test(t)&&/florida/.test(t)) return{s:'bien',m:'Perfecto. Nombre y ubicación claros.'};
+       if(/lupe|alexandra/.test(t)) return{s:'mejorar',m:'Bien el nombre. Agregue dónde vive: Florida.'};
+       return{s:'mejorar',m:'Di: Se llama Lupe Alexandra Seas Quezada y vive en Florida.'};},
+     model:'Se llama Lupe Alexandra Seas Quezada. Emigró a Estados Unidos hace varios años y vive en Florida.'},
+    {q:'¿Cuál es el estatus migratorio de tu hermana? ¿Tiene visa, Green Card, es ciudadana?',
+     tip:'No necesitas saber exacto. Honestidad es mejor que adivinar.',
+     eval(r){const t=r.toLowerCase();
+       if(/no.*sé|no.*exacto|desconozco|supongo/.test(t)) return{s:'bien',m:'Honesto. No es vergüenza no saber el estatus exacto de tu hermana.'};
+       return{s:'mejorar',m:'Responde: No sé exactamente cuál es su estatus. Emigró hace años. Supongo que tiene residencia o ciudadanía.'};},
+     model:'No sé exactamente cuál es su estatus. Emigró hace años. Supongo que tiene residencia o ciudadanía, pero no es algo de lo que hablamos.'},
+    {q:'¿Con qué frecuencia hablas con tu hermana?',
+     tip:'Honestidad: no muy frecuente. Así explicas por qué no irás a visitarla.',
+     eval(r){const t=r.toLowerCase();
+       if(/pocas|poco|raramente|ocasional|navidad|cumple|meses/.test(t)) return{s:'bien',m:'Respuesta creíble sobre la distancia emocional.'};
+       return{s:'mejorar',m:'Di: Muy ocasionalmente. Quizás un par de veces al año, en navidades o cumpleaños. Hace meses que no hablamos.'};},
+     model:'No muy frecuentemente. Quizás un par de veces al año, en navidades o cumpleaños. Honestamente, hace meses que no hablamos.'},
+    {q:'¿Tu hermana sabe que vas a viajar a Estados Unidos?',
+     tip:'Es probable, pero no es algo planeado con ella.',
+     eval(r){const t=r.toLowerCase();
+       if(/posible|probablemente|no.*sé|quizás/.test(t)) return{s:'bien',m:'Respuesta honesta. No necesita ser una confirmación.'};
+       return{s:'mejorar',m:'Di: Posiblemente sabe. Si me escribiera le avisaría. Pero el viaje es turismo familiar, no visita a ella.'};},
+     model:'Posiblemente. Si me escribiera le avisaría. Pero el viaje es turismo familiar a Orlando con mis hijos, no una visita a verla.'},
+    {q:'¿Tu hermana te invitó a visitarla mientras estés en Estados Unidos?',
+     tip:'CRÍTICA: La respuesta debe ser NO. Claro y firme.',
+     eval(r){const t=r.toLowerCase();
+       if(/\bno\b/.test(t)&&t.length<50) return{s:'bien',m:'Perfecto. Claro y firme.'};
+       if(/no/.test(t)) return{s:'bien',m:'Bien, pero más corto. Responde: No, no me invitó.'};
+       return{s:'riesgo',m:'CRÍTICO: Debe ser NO. Si dices que te invitó o que sí la visitarás = RECHAZO automático.'};},
+     model:'No. No me invitó. Ella sabe que es un viaje de turismo familiar. No tenemos planes de vernos.'},
+    {q:'¿Vas a intentar visitar a tu hermana durante los 8 días?',
+     tip:'PREGUNTA DECISIVA. Respuesta: NO, definitivamente no.',
+     eval(r){const t=r.toLowerCase();
+       if(/\bno\b/.test(t)&&/definitivamente|turismo|orlando|parques/.test(t)) return{s:'bien',m:'Excelente. Claro, firme y orientado al turismo.'};
+       if(/\bno\b/.test(t)) return{s:'mejorar',m:'Bien. Agregue razón: el viaje es turismo, Orlando, Disney, Universal. 8 días cortos.'};
+       return{s:'riesgo',m:'DEBE SER NO. Responde: No, definitivamente no. El viaje es turismo. Orlando. Disney, Universal. Punto.'};},
+     model:'No, definitivamente no. El propósito del viaje es turismo familiar. Vamos a Orlando con mi esposa e hijos. Disney World, Universal Studios. Es un viaje de 8 días. No hay planes de visitarla. Punto.'},
+    {q:'¿Cuándo fue la última vez que viste a tu hermana en persona?',
+     tip:'Fecha aproximada. Demuestra que no son cercanos actualmente.',
+     eval(r){const t=r.toLowerCase();
+       if(/año|tiempo|mucho/.test(t)&&t.length>10) return{s:'bien',m:'Bien. Demuestra la distancia.'};
+       return{s:'mejorar',m:'Di: Hace muchos años, posiblemente 5-7 años o más. No la he visto en persona desde que se fue.'};},
+     model:'Hace muchos años. Desde que se fue a Estados Unidos, probablemente hace 5-7 años o más. No la he visto en persona.'},
+    {q:'¿Tu hermana te está esperando en Florida? ¿Tiene algún plan para verte?',
+     tip:'Simple: No. Ella no espera tu visita.',
+     eval(r){const t=r.toLowerCase();
+       if(/\bno\b/.test(t)&&/espera|plan|turismo/.test(t)) return{s:'bien',m:'Perfecto. Claro y bien justificado.'};
+       if(/\bno\b/.test(t)) return{s:'mejorar',m:'Bien. Agregue: Ella no espera mi visita. Ella sabe que es turismo.'};
+       return{s:'riesgo',m:'Debe ser NO. Ella no te está esperando ni hay planes de verte.'};},
+     model:'No. Ella no me está esperando. Ella sabe que es un viaje de turismo familiar. No hay planes de vernos.'},
+    {q:'¿Cuál es tu relación con tu hermana? ¿Son cercanos?',
+     tip:'Honestidad: no somos cercanos. Esto explica todo.',
+     eval(r){const t=r.toLowerCase();
+       if(/no.*cercano|distancia|cada.*vida|vida.*propia/.test(t)) return{s:'bien',m:'Respuesta realista y honesta.'};
+       return{s:'mejorar',m:'Di: No somos muy cercanos. Ella se fue hace años. Hemos perdido contacto. Cada uno tiene su vida.'};},
+     model:'No somos muy cercanos. Ella se fue cuando yo era joven. Hemos perdido contacto con el tiempo. Cada uno está en su vida: ella en Estados Unidos, yo aquí como Alcalde de Yacuambi.'},
+    {q:'¿Cuánto tiempo crees que podrías quedarte visitando a tu hermana?',
+     tip:'Tramposa: tu respuesta es CERO tiempo. Nada de visitas.',
+     eval(r){const t=r.toLowerCase();
+       if(/cero|nada|no.*puedo|no.*hay/.test(t)) return{s:'bien',m:'Perfecta respuesta. Ningún tiempo para visitas.'};
+       return{s:'mejorar',m:'Responde: Nada de tiempo. El viaje es turismo. 8 días. Orlando. Disney, Universal. Regreso el 28.'};},
+     model:'Cero tiempo. El viaje es 8 días en Orlando haciendo turismo. Regresamos el 28 de marzo. No hay tiempo ni planes de visitas.'},
+    {q:'¿Algún otro familiar en Estados Unidos además de tu hermana?',
+     tip:'Solo ella. Confirma que la única familia en USA es Lupe.',
+     eval(r){const t=r.toLowerCase();
+       if(/solo|ninguno|lupe/.test(t)&&t.length<40) return{s:'bien',m:'Correcto y conciso.'};
+       return{s:'mejorar',m:'Di: No. Solo mi hermana Lupe. Es la única familia que tengo en Estados Unidos.'};},
+     model:'No. Solo mi hermana Lupe Alexandra. Es la única familia que tengo en Estados Unidos.'},
     {q:'¿Quién queda a cargo del municipio durante su ausencia?',
      tip:'Respuesta técnica y precisa. Demuestra que el municipio funciona sin usted y que usted regresa.',
      eval(r){const t=r.toLowerCase();
