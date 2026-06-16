@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Familia Rodríguez Masache</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;
+  --gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.04);--sans:'Space Grotesk',sans-serif;
+  --serif:'Playfair Display',serif;--ease:cubic-bezier(.22,.68,0,1.2);--r:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(245,200,66,.06),transparent 55%),
+             radial-gradient(ellipse 60% 40% at 85% 100%,rgba(59,130,246,.05),transparent 60%),var(--navy)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+.main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.screen{opacity:1;animation:fadeUp .3s ease-out}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);
+  padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.fam-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.welcome-title{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.fam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+@media(max-width:520px){.fam-grid{grid-template-columns:1fr}}
+.fam-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;cursor:pointer;transition:all .25s var(--ease)}
+.fam-card:hover,.fam-card:active{border-color:rgba(245,200,66,.4);transform:translateY(-3px);
+  box-shadow:0 8px 30px rgba(0,0,0,.3);background:rgba(245,200,66,.05)}
+.fam-card.primary{border-color:rgba(245,200,66,.25);background:rgba(245,200,66,.05)}
+.fam-role{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:5px}
+.fam-name{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:3px}
+.fam-info{font-size:.75rem;color:var(--muted);line-height:1.4;margin-bottom:8px}
+.fam-go{font-size:.65rem;font-weight:700;color:var(--gold);letter-spacing:.05em}
+.tag{display:inline-block;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:4px}
+.tag-g{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.tag-b{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);
+  font-size:.9375rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(245,200,66,.3)}
+
+@media(max-width:520px){
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .fam-card{padding:12px}
+  .fam-name{font-size:.9rem}
+  .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
+  .trip-v{text-align:right;flex:1}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <div class="logo">Asesoría <em>Visa</em> Global</div>
+  <div class="hdr-right">
+    <span class="hdr-prog">Familia <strong>Rodríguez Masache</strong></span>
+  </div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+const familia={
+  nombre:'Rodríguez Masache',
+  cita:'31 julio 2026',
+  hora:'08:30 AM',
+  ubicacion:'Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA, Quito',
+  viaje:{
+    destino:'Orlando, Florida',
+    fechas:'21-28 marzo 2027',
+    hotel:'The Point Hotel & Suites',
+    propósito:'Turismo familiar B1/B2'
+  },
+  miembros:[
+    {nombre:'Paul Fernando Rodriguez Narvaez',rol:'Padre/Titular',ocupacion:'Alcalde del Cantón Paquisha',tag:'Alcalde electo',pasaporte:'A9692851',ds160:'AA00FLUP4V'},
+    {nombre:'Jenny Enid Masache',rol:'Madre',ocupacion:'Presidenta Patronato de Acción Social (desde 2023) + Granja Familiar El Piolín',tag:'Empresaria',pasaporte:'A9692850',ds160:'AA00FLUXD3'},
+    {nombre:'Mileidy Maily Masache',rol:'Hija',ocupacion:'Estudiante bachillerato',tag:'Estudiante',pasaporte:'A9692847',ds160:'AA00FLUZDN'},
+    {nombre:'Paul Smith Rodriguez Masache',rol:'Hijo',ocupacion:'Estudiante primaria',tag:'Menor',pasaporte:'A9692848',ds160:'AA00FLUYSP'}
+  ]
+};
+
+document.getElementById('wrap').innerHTML=`
+<div class="screen">
+  <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
+  <h1 class="welcome-title">Familia<br><em>Rodríguez Masache</em></h1>
+  <p class="welcome-sub">Paul Fernando, Jenny, Mileidy, Paul Smith — esto lo preparé especialmente para ustedes. Aquí está toda la información crítica para la entrevista. Recuerden: Paul es Alcalde desde 2023, Jenny es Presidenta del Patronato desde 2023, y sus razones de regreso son sólidas.</p>
+
+  <!-- BANNER CITA -->
+  <div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-size:1.4rem;flex-shrink:0">🏛️</div>
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">${familia.cita} · ${familia.hora}</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">${familia.ubicacion}</div>
+      <div style="font-size:.65rem;color:rgba(245,200,66,.75);margin-top:6px">⚠️ Límite para reagendar: 29 julio 2026</div>
+    </div>
+  </div>
+
+  <div class="trip-box">
+    <div class="trip-ttl">📋 Datos del viaje (pendiente confirmación)</div>
+    <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">${familia.viaje.destino}</span></div>
+    <div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">${familia.viaje.fechas}</span></div>
+    <div class="trip-row"><span class="trip-l">Hotel</span><span class="trip-v">${familia.viaje.hotel}</span></div>
+    <div class="trip-row"><span class="trip-l">Propósito</span><span class="trip-v">${familia.viaje.propósito}</span></div>
+  </div>
+
+  <!-- DS-160 POR MIEMBRO -->
+  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;margin-bottom:16px">
+    <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px">Números de confirmación DS-160</div>
+    <div style="display:grid;gap:6px">
+      ${familia.miembros.map(m=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;font-size:.75rem;padding:7px 8px;background:rgba(255,255,255,.03);border-radius:8px">
+        <span style="color:rgba(255,255,255,.5)">${m.nombre.split(' ').slice(0,2).join(' ')}</span><span style="font-family:monospace;color:#F5C842;font-weight:700;flex-shrink:0">${m.ds160}</span>
+      </div>
+      `).join('')}
+    </div>
+  </div>
+
+  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Ir directo a un miembro</p>
+  <div class="fam-grid">
+    ${familia.miembros.map((m,i)=>`
+    <div class="fam-card${i===0?' primary':''}">
+      <div class="fam-role">${m.rol}</div>
+      <div class="fam-name">${m.nombre.split(' ')[0]}</div>
+      <div class="fam-info">${m.ocupacion}</div>
+      <span class="tag tag-${i===1 || i===2?'b':'g'}">${m.tag}</span>
+    </div>
+    `).join('')}
+  </div>
+
+  <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:14px;margin-bottom:16px;margin-top:20px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠️ CRÍTICO: Cambios desde la negación de noviembre 2025</div>
+    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
+      <li><strong>Paul Fernando:</strong> Ahora es ALCALDE EN FUNCIONES (no solo electo), desde mayo 2023 hasta 2027</li>
+      <li><strong>Jenny:</strong> Presidenta del Patronato de Acción Social DE PAQUISHA desde 2023 + Granja Familiar El Piolín</li>
+      <li><strong>Mileidy:</strong> Email propio + planes universitarios claros en Ecuador</li>
+      <li><strong>Paul Smith:</strong> Acompañado por ambos padres (garantía de retorno)</li>
+    </ul>
+  </div>
+
+  <button class="btn-primary" onclick="alert('En construcción — próximamente más módulos de aprendizaje y práctica. Contacte a Roberto para acceso a la versión completa.')">Ver análisis completo →</button>
+</div>
+`;
+</script>
+</body>
+</html>
