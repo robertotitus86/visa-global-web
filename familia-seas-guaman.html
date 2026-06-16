@@ -605,12 +605,13 @@ const MODULES = [
        if(/vicealcalde|cootad|concejal|subrogante|encargado/.test(t)) return{s:'bien',m:'Respuesta técnica y confiable.'};
        return{s:'mejorar',m:'Mencione al Vicealcalde como subrogante según el COOTAD ecuatoriano y las fechas de las próximas sesiones del concejo.'};},
      model:'El Vicealcalde asume las funciones ejecutivas según el COOTAD ecuatoriano durante ausencias planificadas. He coordinado el viaje en una semana de baja actividad municipal. El concejo tiene su siguiente sesión ordinaria el 5 de abril, fecha para la cual ya estaré de regreso el 28 de marzo.'},
-    {q:'¿Está en proceso de reelección? ¿Cómo puede ausentarse ahora?',
-     tip:'Esta pregunta demuestra que el oficial sabe que es alcalde. Respóndala con confianza.',
+    {q:'¿Cómo explica que siendo alcalde tenga tiempo para un viaje de 8 días siendo que la reelección se aproxima?',
+     tip:'Pregunta sobre múltiples responsabilidades. Respóndala sin defensiva — los alcaldes también tienen derecho a descanso familiar.',
      eval(r){const t=r.toLowerCase();
-       if(t.length>30&&(/reelec|campaign|canton|volver|regres/.test(t))) return{s:'bien',m:'Excelente. La reelección es en sí misma un argumento para regresar.'};
-       return{s:'mejorar',m:'Explique que la reelección es precisamente una razón más para regresar: necesita estar en Yacuambi para su campaña. Este viaje es solo 8 días en una semana de baja actividad.'};},
-     model:'Sí, estoy en proceso de reelección, lo que es precisamente una razón más para regresar. Necesito estar en Yacuambi para mi campaña. Este viaje es 8 días en una semana de menor actividad del concejo. Regreso el 28 de marzo sin falta.'},
+       if(t.length>40&&(/planific|vicealcalde|derecho|familia|vacacion|baja.*actividad|cootad/.test(t))) return{s:'bien',m:'Respuesta profesional y equilibrada. Muestra que todo está coordinado.'};
+       if(t.length>20&&(/regresar|28.*marzo/.test(t))) return{s:'mejorar',m:'Bien el enfoque. Agregue que planificó en baja actividad del concejo y el vicealcalde cubre.'};
+       return{s:'mejorar',m:'Explique: planificación en baja actividad, vicealcalde lo cubre (COOTAD), los alcaldes tienen derecho a vacaciones con familia, regresa el 28 para sesiones de abril.'};},
+     model:'Planifiqué este viaje cuidadosamente. Lo coordiné en una semana de menor actividad del concejo. El Vicealcalde asume las funciones ejecutivas según el COOTAD ecuatoriano — es un procedimiento estándar. Los alcaldes también tenemos derecho a vacaciones familiares. Además, regresamos el 28 de marzo para estar en las sesiones de abril. Todo está bien coordinado.'},
     {q:'¿Por qué eligieron Orlando específicamente?',
      tip:'Pregunta de verificación del turismo. Itinerario concreto, orientado a los hijos.',
      eval(r){const t=r.toLowerCase();
