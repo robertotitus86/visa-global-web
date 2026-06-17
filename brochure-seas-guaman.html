@@ -4,762 +4,491 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Su Viaje a Orlando — Familia Seas Guamán</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --navy:#080f1e;
-  --navy2:#0e1a2e;
-  --navy3:#15253f;
-  --gold:#e8b84b;
-  --gold2:#c49a2a;
-  --white:#fff;
-  --muted:rgba(255,255,255,.5);
-  --border:rgba(255,255,255,.08);
+  --navy:#080f1e;--navy2:#0e1a2e;--navy3:#162540;
+  --gold:#e8b84b;--gold-dim:rgba(232,184,75,.12);
+  --w:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);
   --serif:'Playfair Display',Georgia,serif;
   --sans:'Inter',system-ui,sans-serif;
+  --r:14px;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--navy);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* ─── HERO ─── */
-.hero{
-  min-height:100vh;position:relative;display:flex;align-items:flex-end;
-  background:#080f1e;overflow:hidden;
-}
-.hero-img{
+.hero{min-height:100svh;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{
   position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?w=1400&q=75&fit=crop') center/cover no-repeat;
+  background:url('https://images.unsplash.com/photo-1575318634028-6a0cfcb60c59?w=1400&q=75&fit=crop') center/cover no-repeat;
 }
-.hero-img::after{
+.hero-bg::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(8,15,30,1) 0%,rgba(8,15,30,.7) 40%,rgba(8,15,30,.3) 100%);
+  background:linear-gradient(to top,rgba(8,15,30,1) 0%,rgba(8,15,30,.75) 50%,rgba(8,15,30,.2) 100%);
 }
-.hero-content{
-  position:relative;z-index:2;width:100%;
-  padding:60px 24px 56px;max-width:900px;margin:0 auto;
-}
+.hero-inner{position:relative;z-index:2;width:100%;padding:40px 20px 52px;max-width:860px;margin:0 auto}
 .hero-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(232,184,75,.15);border:1px solid rgba(232,184,75,.3);
-  color:var(--gold);font-size:.65rem;font-weight:600;letter-spacing:.14em;
-  text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:22px;
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:20px;
+  background:rgba(232,184,75,.13);border:1px solid rgba(232,184,75,.28);
+  color:var(--gold);font-size:.62rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;padding:5px 14px;border-radius:99px;
 }
-.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.3)}}
 .hero-title{
-  font-family:var(--serif);
-  font-size:clamp(2.6rem,7vw,5rem);
-  line-height:1.05;font-weight:700;
-  margin-bottom:18px;
+  font-family:var(--serif);font-size:clamp(2.2rem,8vw,4.8rem);
+  line-height:1.05;font-weight:700;margin-bottom:16px;
 }
-.hero-title span{color:var(--gold);display:block;font-style:italic}
-.hero-sub{
-  font-size:1rem;color:rgba(255,255,255,.65);
-  line-height:1.7;max-width:500px;margin-bottom:36px;
+.hero-title em{color:var(--gold);font-style:italic;display:block}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.75;max-width:480px;margin-bottom:32px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);
+  border-radius:99px;padding:7px 16px;font-size:.8rem;font-weight:500;
 }
-.hero-meta{
-  display:flex;flex-wrap:wrap;gap:12px;
-}
-.hero-tag{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-  border-radius:99px;padding:8px 18px;font-size:.82rem;font-weight:500;
-}
-.hero-tag-icon{font-size:1rem}
+.chip svg{width:15px;height:15px;opacity:.7;flex-shrink:0}
 
-/* ─── GLOBAL ─── */
-.section{padding:80px 24px}
-.wrap{max-width:900px;margin:0 auto}
-.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.h2{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3rem);line-height:1.15;font-weight:700;margin-bottom:14px}
+/* ─── SECCIÓN BASE ─── */
+.s{padding:72px 20px}
+.s+.s{padding-top:0}
+.wrap{max-width:860px;margin:0 auto}
+.ey{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.h2{font-family:var(--serif);font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.12;font-weight:700;margin-bottom:12px}
 .h2 em{color:var(--gold);font-style:italic}
-.lead{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:560px;margin-bottom:44px}
+.lead{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:540px;margin-bottom:40px}
 
-/* ─── HOTEL ─── */
-.hotel-layout{display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:18px;overflow:hidden;margin-bottom:32px}
-@media(max-width:680px){.hotel-layout{grid-template-columns:1fr}}
-.hotel-main-photo{
-  grid-row:1/3;
-  background:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=75&fit=crop') center/cover no-repeat var(--navy3);
-  min-height:380px;position:relative;
-}
-.hotel-side-photo-1{
-  background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=75&fit=crop') center/cover no-repeat var(--navy3);
-  min-height:188px;
-}
-.hotel-side-photo-2{
-  background:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&q=75&fit=crop') center/cover no-repeat var(--navy3);
-  min-height:188px;
-}
-.hotel-photo-badge{
+/* ─── HOTEL FOTOS ─── */
+.hotel-mosaic{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:220px 220px;gap:4px;border-radius:18px;overflow:hidden;margin-bottom:28px}
+.h-p1{background:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=900&q=75&fit=crop') center/cover no-repeat var(--navy3);grid-row:1/3;position:relative}
+.h-p2{background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=75&fit=crop') center/cover no-repeat var(--navy3)}
+.h-p3{background:url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=75&fit=crop') center/cover no-repeat var(--navy3)}
+.h-badge{
   position:absolute;bottom:14px;left:14px;
-  background:rgba(8,15,30,.85);backdrop-filter:blur(8px);
+  background:rgba(8,15,30,.82);backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.12);border-radius:10px;
-  padding:8px 14px;font-size:.75rem;font-weight:600;
+  padding:7px 13px;font-size:.73rem;font-weight:600;
+}
+@media(max-width:600px){
+  .hotel-mosaic{grid-template-columns:1fr;grid-template-rows:220px 160px 160px}
+  .h-p1{grid-row:auto}
 }
 
-.hotel-info-row{
-  display:grid;grid-template-columns:1fr 1fr;gap:16px;
-}
-@media(max-width:680px){.hotel-info-row{grid-template-columns:1fr}}
-.hotel-info-card{
-  background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:22px;
-}
-.hotel-name{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:4px}
-.hotel-addr{font-size:.78rem;color:var(--muted);margin-bottom:18px}
-.amenities{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.amenity{
-  display:flex;align-items:center;gap:8px;
-  font-size:.76rem;color:rgba(255,255,255,.7);
-}
-.amenity::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
-.hotel-note{
-  background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:22px;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.hotel-note-title{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.hotel-note-text{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.75}
-.hotel-note-text strong{color:var(--white)}
+.hotel-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.hotel-2col{grid-template-columns:1fr}}
+.hcard{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.hcard-name{font-family:var(--serif);font-size:1.35rem;font-weight:700;margin-bottom:4px}
+.hcard-addr{font-size:.76rem;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:5px}
+.amenities{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.am{font-size:.76rem;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:6px}
+.am svg{width:13px;height:13px;color:var(--gold);flex-shrink:0}
+.hcard-note{font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.75}
+.hcard-note strong{color:var(--w)}
 
-/* ─── ESTADÍSTICAS ORLANDO ─── */
-.stats-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:48px}
-@media(max-width:640px){.stats-4{grid-template-columns:1fr 1fr}}
-.stat{
-  background:var(--navy2);padding:28px 20px;text-align:center;
-}
-.stat:first-child{border-radius:14px 0 0 14px}
-.stat:last-child{border-radius:0 14px 14px 0}
-@media(max-width:640px){
-  .stat:first-child{border-radius:14px 14px 0 0}
-  .stat:nth-child(2){border-radius:0}
-  .stat:nth-child(3){border-radius:0}
-  .stat:last-child{border-radius:0 0 14px 14px}
-}
-.stat-n{font-family:var(--serif);font-size:2.4rem;font-weight:700;color:var(--gold);line-height:1}
-.stat-u{font-size:.8rem;color:var(--gold);font-weight:600}
-.stat-l{font-size:.7rem;color:var(--muted);margin-top:6px;line-height:1.4}
+/* ─── STATS ─── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:44px}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}}
+.stat{padding:26px 16px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+@media(max-width:600px){.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--border)}.stat:nth-child(4){border-top:1px solid var(--border);border-right:none}}
+.stat-n{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1}
+.stat-u{font-size:.75rem;color:var(--gold);font-weight:600}
+.stat-l{font-size:.68rem;color:var(--muted);margin-top:5px;line-height:1.4}
 
-/* ─── PARQUES (foto real) ─── */
-.parks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:720px){.parks-grid{grid-template-columns:1fr}}
-.park-card{border-radius:16px;overflow:hidden;background:var(--navy2)}
-.park-photo{
-  width:100%;height:200px;
-  background-size:cover;background-position:center;
-  position:relative;
-}
-.park-photo-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(8,15,30,.9) 0%,transparent 60%);
-  display:flex;align-items:flex-end;padding:16px;
-}
-.park-photo-day{
-  font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  background:var(--gold);color:var(--navy);padding:3px 10px;border-radius:99px;
-}
-.park-body{padding:16px 18px 20px}
-.park-title{font-weight:700;font-size:.95rem;margin-bottom:6px}
-.park-text{font-size:.78rem;color:var(--muted);line-height:1.6}
+/* ─── PARQUES ─── */
+.parks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.parks{grid-template-columns:1fr}}
+.pk{background:var(--navy2);border-radius:var(--r);overflow:hidden}
+.pk-photo{width:100%;height:190px;background-size:cover;background-position:center;position:relative}
+.pk-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,15,30,.85) 0%,transparent 55%)}
+.pk-day{position:absolute;bottom:12px;left:12px;z-index:1;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:3px 10px;border-radius:99px}
+.pk-body{padding:16px 18px 20px}
+.pk-title{font-weight:700;font-size:.92rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.pk-title svg{width:16px;height:16px;color:var(--gold);flex-shrink:0}
+.pk-text{font-size:.77rem;color:var(--muted);line-height:1.62}
 
 /* ─── DISTANCIAS ─── */
-.dist-grid{display:flex;flex-direction:column;gap:10px}
-.dist-row{
-  display:grid;grid-template-columns:48px 1fr 100px;align-items:center;gap:16px;
-  background:var(--navy2);border:1px solid var(--border);border-radius:14px;
-  padding:16px 18px;
+.dists{display:flex;flex-direction:column;gap:8px}
+.dist-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:6px 0 2px}
+.dist{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:14px;background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px}
+@media(max-width:520px){
+  .dist{grid-template-columns:40px 1fr;gap:10px;padding:14px}
+  .dist-badge{display:none}
+  .dist-name::after{content:attr(data-time);display:block;font-size:.72rem;color:var(--gold);font-weight:700;margin-top:2px}
 }
-.dist-icon-box{
+.dist-ico{
   width:48px;height:48px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;flex-shrink:0;
-  background:rgba(255,255,255,.05);
+  background:var(--gold-dim);border:1px solid rgba(232,184,75,.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.dist-name{font-weight:600;font-size:.88rem;margin-bottom:3px}
-.dist-desc{font-size:.74rem;color:var(--muted);line-height:1.4}
-.dist-time-wrap{text-align:right}
-.dist-time{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--gold)}
-.dist-km{font-size:.68rem;color:var(--muted)}
-.dist-section-label{
-  font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.3);padding:4px 0 2px;
-}
+.dist-ico svg{width:22px;height:22px;color:var(--gold)}
+@media(max-width:520px){.dist-ico{width:40px;height:40px;border-radius:10px}.dist-ico svg{width:19px;height:19px}}
+.dist-name{font-weight:600;font-size:.87rem;margin-bottom:3px}
+.dist-desc{font-size:.73rem;color:var(--muted);line-height:1.4}
+.dist-badge{text-align:right;flex-shrink:0}
+.dist-time{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--gold)}
+.dist-km{font-size:.66rem;color:var(--muted)}
 
 /* ─── ITINERARIO ─── */
-.itinerary{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:680px){.itinerary{grid-template-columns:1fr}}
-.day{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:20px 22px}
-.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
-.day-date{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.day-name{font-weight:700;font-size:.95rem}
-.day-emoji{font-size:1.8rem;flex-shrink:0}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.days{grid-template-columns:1fr}}
+.day{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.day-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px}
+.day-date{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.day-name{font-weight:700;font-size:.93rem}
+.day-ico{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:var(--gold-dim);border:1px solid rgba(232,184,75,.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.day-ico svg{width:20px;height:20px;color:var(--gold)}
 .day-list{list-style:none}
-.day-list li{
-  font-size:.78rem;color:rgba(255,255,255,.6);
-  padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);
-  padding-left:14px;position:relative;line-height:1.45;
-}
-.day-list li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
+.day-list li{font-size:.77rem;color:rgba(255,255,255,.58);padding:5px 0 5px 13px;border-bottom:1px solid rgba(255,255,255,.04);position:relative;line-height:1.45}
 .day-list li:last-child{border-bottom:none}
-.day-tip{
-  margin-top:12px;font-size:.72rem;
-  color:rgba(232,184,75,.65);font-style:italic;line-height:1.5;
-  border-top:1px solid rgba(232,184,75,.12);padding-top:10px;
-}
+.day-list li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
+.day-tip{margin-top:10px;font-size:.71rem;color:rgba(232,184,75,.6);font-style:italic;line-height:1.5;border-top:1px solid rgba(232,184,75,.1);padding-top:10px}
 
 /* ─── CLIMA ─── */
-.clima-band{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--navy2);border:1px solid var(--border);border-radius:16px;overflow:hidden;
-}
-@media(max-width:640px){.clima-band{grid-template-columns:1fr 1fr}}
-.clima-item{
-  padding:26px 16px;text-align:center;
-  border-right:1px solid var(--border);
-}
-.clima-item:last-child{border-right:none}
-.clima-emoji{font-size:2rem;margin-bottom:8px;display:block}
-.clima-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}
-.clima-val{font-size:1.05rem;font-weight:700}
-.clima-note{font-size:.68rem;color:var(--muted);margin-top:3px}
+.clima{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+@media(max-width:600px){.clima{grid-template-columns:1fr 1fr}}
+.cl{padding:24px 14px;text-align:center;border-right:1px solid var(--border)}
+.cl:last-child{border-right:none}
+@media(max-width:600px){.cl:nth-child(2){border-right:none}.cl:nth-child(3){border-top:1px solid var(--border)}.cl:nth-child(4){border-top:1px solid var(--border);border-right:none}}
+.cl-ico{width:40px;height:40px;border-radius:10px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.cl-ico svg{width:20px;height:20px;color:var(--gold)}
+.cl-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.cl-val{font-size:1rem;font-weight:700}
+.cl-note{font-size:.66rem;color:var(--muted);margin-top:3px}
 
 /* ─── TIPS ─── */
-.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:680px){.tips-grid{grid-template-columns:1fr}}
-.tip{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:22px}
-.tip-icon{font-size:1.6rem;margin-bottom:10px;display:block}
-.tip-title{font-weight:700;font-size:.9rem;margin-bottom:8px}
-.tip-text{font-size:.78rem;color:var(--muted);line-height:1.75}
-.tip-text strong{color:var(--white)}
+.tips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.tips{grid-template-columns:1fr}}
+.tip{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.tip-ico{width:42px;height:42px;border-radius:11px;background:var(--gold-dim);border:1px solid rgba(232,184,75,.15);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.tip-ico svg{width:20px;height:20px;color:var(--gold)}
+.tip-title{font-weight:700;font-size:.88rem;margin-bottom:8px}
+.tip-text{font-size:.77rem;color:var(--muted);line-height:1.75}
+.tip-text strong{color:var(--w)}
 
 /* ─── FOOTER ─── */
-.footer{
-  background:var(--navy2);border-top:1px solid var(--border);
-  padding:48px 24px;text-align:center;
-}
-.footer-logo{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 20px;text-align:center}
+.footer-logo{font-family:var(--serif);font-size:1.25rem;font-weight:700;margin-bottom:8px}
 .footer-logo em{color:var(--gold);font-style:italic}
-.footer-sub{font-size:.78rem;color:var(--muted);margin-bottom:20px;line-height:1.6}
-.wa-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  background:#25D366;color:#fff;font-weight:700;font-size:.88rem;
-  padding:12px 28px;border-radius:99px;text-decoration:none;
-}
+.footer-sub{font-size:.77rem;color:var(--muted);margin-bottom:22px;line-height:1.7}
+.wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff;font-weight:700;font-size:.86rem;padding:12px 26px;border-radius:99px;text-decoration:none}
+.wa svg{width:18px;height:18px}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-img"></div>
-  <div class="hero-content">
-    <div class="hero-pill"><span class="hero-pill-dot"></span>Preparado por Asesoría Visa Global</div>
-    <h1 class="hero-title">
-      Familia Seas Guamán
-      <span>Orlando, Florida</span>
-    </h1>
-    <p class="hero-sub">Todo lo que necesitan conocer sobre su destino, su hotel y cada atracción — para que lleguen sintiéndose en casa.</p>
-    <div class="hero-meta">
-      <div class="hero-tag"><span class="hero-tag-icon">✈️</span> 20 – 28 Marzo 2027</div>
-      <div class="hero-tag"><span class="hero-tag-icon">🏨</span> Monreale Express & Studios</div>
-      <div class="hero-tag"><span class="hero-tag-icon">👨‍👩‍👧‍👦</span> 4 viajeros · 8 días</div>
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-pill"><span class="hero-dot"></span>Asesoría Visa Global — Documento de viaje</div>
+    <h1 class="hero-title">Familia Seas Guamán<em>Orlando, Florida</em></h1>
+    <p class="hero-sub">Todo lo que necesitan conocer sobre su destino, su hotel y las atracciones más icónicas del mundo.</p>
+    <div class="hero-chips">
+      <div class="chip">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 3c-1.2-.6-2.4-.3-3.5.7L12 7 3.8 5.2C3 5 2 5.5 2 6.5v1c0 .8.5 1.5 1.2 1.7L7 10.4l-2 2.5-2 .5c-.6.2-1 .7-1 1.4v.5c0 .8.7 1.4 1.5 1.2l4-1 2 2 1 4c.2.8.9 1.2 1.6 1H14c.7-.1 1.2-.7 1.2-1.4L14 17l2 .8.3 1.4c.2.7.8 1.2 1.5 1.2h.5c.8 0 1.4-.7 1.3-1.4z"/></svg>
+        20 – 28 Marzo 2027
+      </div>
+      <div class="chip">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Monreale Express & Studios
+      </div>
+      <div class="chip">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        4 viajeros · 8 días
+      </div>
     </div>
   </div>
 </section>
 
-<!-- HOTEL -->
-<section class="section">
+<!-- ══ HOTEL ═════════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">Su alojamiento</div>
+    <div class="ey">Su alojamiento</div>
     <h2 class="h2">Hotel Monreale<br><em>Express & Studios</em></h2>
-    <p class="lead">Ubicado en la zona turística de Sand Lake, a minutos de Universal Studios y con fácil acceso a Disney World y SeaWorld.</p>
-
-    <div class="hotel-layout">
-      <div class="hotel-main-photo">
-        <div class="hotel-photo-badge">🏊 Piscina exterior · Área familiar</div>
-      </div>
-      <div class="hotel-side-photo-1"></div>
-      <div class="hotel-side-photo-2"></div>
+    <p class="lead">Zona Sand Lake / International Drive — rodeado de restaurantes, tiendas y a minutos de los parques más famosos del mundo.</p>
+    <div class="hotel-mosaic">
+      <div class="h-p1"><div class="h-badge">Piscina exterior · Área familiar</div></div>
+      <div class="h-p2"></div>
+      <div class="h-p3"></div>
     </div>
-
-    <div class="hotel-info-row">
-      <div class="hotel-info-card">
-        <div class="hotel-name">Monreale Express & Studios</div>
-        <div class="hotel-addr">📍 8300 Jamaican Court, Orlando, FL 32819</div>
+    <div class="hotel-2col">
+      <div class="hcard">
+        <div class="hcard-name">Monreale Express & Studios</div>
+        <div class="hcard-addr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          8300 Jamaican Court, Orlando, FL 32819
+        </div>
         <div class="amenities">
-          <div class="amenity">Piscina exterior</div>
-          <div class="amenity">Suite con cocineta</div>
-          <div class="amenity">WiFi gratuito</div>
-          <div class="amenity">Estacionamiento gratis</div>
-          <div class="amenity">Aire acondicionado</div>
-          <div class="amenity">Lavandería en sitio</div>
-          <div class="amenity">Tiendas a pie</div>
-          <div class="amenity">Buses a parques</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M2 12c0 5.523 4.477 10 10 10s10-4.477 10-10M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10M12 2v4m0 16v-4"/></svg>Piscina exterior</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M3 9V7a2 2 0 0 1 2-2h2v4M9 7V5h6v2"/></svg>Suite con cocineta</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>WiFi gratuito</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Estacionamiento gratis</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m0 14v-6M4.93 4.93l4.24 4.24m5.66 5.66 4.24 4.24M2 12h6m14 0h-6M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24"/></svg>Aire acondicionado</div>
+          <div class="am"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>Lavandería en sitio</div>
         </div>
       </div>
-      <div class="hotel-note">
-        <div class="hotel-note-title">Por qué esta ubicación es ideal</div>
-        <div class="hotel-note-text">
-          El hotel está en la zona <strong>Sand Lake / International Drive</strong> — el corredor turístico más importante de Orlando.<br><br>
-          A <strong>12 minutos de Universal Studios</strong>, 20 minutos de Disney World y a 5 minutos de SeaWorld. Rodeado de restaurantes, centros comerciales y entretenimiento nocturno.
+      <div class="hcard">
+        <div style="font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Por qué esta ubicación es ideal</div>
+        <div class="hcard-note">
+          El hotel está en la zona <strong>Sand Lake / International Drive</strong> — el corredor turístico principal de Orlando.<br><br>
+          A <strong>12 minutos de Universal Studios</strong>, 20 minutos de Disney World y 5 minutos de SeaWorld. Rodeado de más de 200 restaurantes, tiendas y entretenimiento nocturno para toda la familia.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ORLANDO -->
-<section class="section" style="padding-top:0">
+<!-- ══ ORLANDO ════════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">El destino</div>
+    <div class="ey">El destino</div>
     <h2 class="h2">¿Qué es <em>Orlando?</em></h2>
-    <p class="lead">La capital mundial del entretenimiento familiar. La ciudad más visitada de Estados Unidos, con el clima ideal para recorrer sus parques todo el día.</p>
-
-    <div class="stats-4">
-      <div class="stat">
-        <div class="stat-n">72<span class="stat-u">M</span></div>
-        <div class="stat-l">turistas por año — la ciudad más visitada de EE.UU.</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">28<span class="stat-u">°C</span></div>
-        <div class="stat-l">temperatura promedio en marzo — soleado y perfecto</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">4</div>
-        <div class="stat-l">complejos de parques temáticos a menos de 30 min</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">8</div>
-        <div class="stat-l">días completos para vivirlo todo sin apuros</div>
-      </div>
+    <p class="lead">La capital mundial del entretenimiento familiar y la ciudad más visitada de Estados Unidos. Clima perfecto, parques sin igual.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">72<span class="stat-u">M</span></div><div class="stat-l">turistas por año — la más visitada de EE.UU.</div></div>
+      <div class="stat"><div class="stat-n">28<span class="stat-u">°C</span></div><div class="stat-l">temperatura promedio en marzo — ideal</div></div>
+      <div class="stat"><div class="stat-n">4</div><div class="stat-l">complejos de parques a menos de 30 minutos</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">días para vivirlo todo sin apuros</div></div>
     </div>
-
-    <div class="parks-grid">
-      <div class="park-card">
-        <div class="park-photo" style="background-image:url('brochure-disney.jpg')">
-          <div class="park-photo-overlay">
-            <span class="park-photo-day">Días 2 y 3</span>
-          </div>
+    <div class="parks">
+      <div class="pk">
+        <div class="pk-photo" style="background-image:url('brochure-disney.jpg')">
+          <span class="pk-day">Días 2 y 3</span>
         </div>
-        <div class="park-body">
-          <div class="park-title">🏰 Walt Disney World</div>
-          <div class="park-text">Magic Kingdom, EPCOT, Hollywood Studios y Animal Kingdom. El sueño de toda familia con hijos. Desfiles, castillos y fuegos artificiales nocturnos.</div>
+        <div class="pk-body">
+          <div class="pk-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Walt Disney World
+          </div>
+          <div class="pk-text">Magic Kingdom, EPCOT, Hollywood Studios y Animal Kingdom. El sueño de toda familia. Desfiles, castillo de Cenicienta y fuegos artificiales nocturnos.</div>
         </div>
       </div>
-      <div class="park-card">
-        <div class="park-photo" style="background-image:url('brochure-universal.jpg')">
-          <div class="park-photo-overlay">
-            <span class="park-photo-day">Días 4 y 5</span>
-          </div>
+      <div class="pk">
+        <div class="pk-photo" style="background-image:url('brochure-universal.jpg')">
+          <span class="pk-day">Días 4 y 5</span>
         </div>
-        <div class="park-body">
-          <div class="park-title">🎢 Universal Studios & Islands of Adventure</div>
-          <div class="park-text">Harry Potter, Jurassic World, los Minions, Transformers. Las montañas rusas más emocionantes del mundo. A solo 12 minutos de su hotel.</div>
+        <div class="pk-body">
+          <div class="pk-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Universal & Islands of Adventure
+          </div>
+          <div class="pk-text">Harry Potter, Jurassic World, los Minions, Transformers. Las montañas rusas más emocionantes del mundo. A 12 min del hotel.</div>
         </div>
       </div>
-      <div class="park-card">
-        <div class="park-photo" style="background-image:url('brochure-kennedy.jpg')">
-          <div class="park-photo-overlay">
-            <span class="park-photo-day">Día 7</span>
-          </div>
+      <div class="pk">
+        <div class="pk-photo" style="background-image:url('brochure-kennedy.jpg')">
+          <span class="pk-day">Día 7</span>
         </div>
-        <div class="park-body">
-          <div class="park-title">🚀 Kennedy Space Center</div>
-          <div class="park-text">El centro de lanzamientos de la NASA en Cabo Cañaveral. El transbordador Atlantis original, simuladores espaciales e historia astronáutica real.</div>
+        <div class="pk-body">
+          <div class="pk-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            Kennedy Space Center
+          </div>
+          <div class="pk-text">La NASA en Cabo Cañaveral. El transbordador Atlantis original, simuladores espaciales e historia astronáutica real. A 55 minutos.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DISTANCIAS -->
-<section class="section" style="padding-top:0">
+<!-- ══ DISTANCIAS ════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">Desde su hotel</div>
+    <div class="ey">Desde su hotel</div>
     <h2 class="h2">¿Qué tan lejos<br><em>está todo?</em></h2>
-    <p class="lead">Desde 8300 Jamaican Court en auto rentado o Uber — los tiempos son aproximados sin tráfico.</p>
-
-    <div class="dist-grid">
-      <div class="dist-section-label">⭐ PARQUES TEMÁTICOS</div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🏰</div>
-        <div>
-          <div class="dist-name">Walt Disney World — Magic Kingdom</div>
-          <div class="dist-desc">Castillo Cenicienta, desfiles, Space Mountain. El parque más icónico del mundo.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~20 min</div>
-          <div class="dist-km">11 millas</div>
-        </div>
+    <p class="lead">Desde 8300 Jamaican Court en auto rentado o Uber. Tiempos aproximados sin tráfico.</p>
+    <div class="dists">
+      <div class="dist-label">PARQUES TEMÁTICOS</div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div><div class="dist-name" data-time="~20 min">Walt Disney World — Magic Kingdom</div><div class="dist-desc">Castillo Cenicienta, desfiles, Space Mountain. El parque más icónico.</div></div>
+        <div class="dist-badge"><div class="dist-time">~20 min</div><div class="dist-km">11 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🌍</div>
-        <div>
-          <div class="dist-name">Disney — EPCOT</div>
-          <div class="dist-desc">Pabellones de países, gastronomía mundial, Mission Space y Frozen Ever After.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~18 min</div>
-          <div class="dist-km">9 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div><div class="dist-name" data-time="~18 min">Disney — EPCOT</div><div class="dist-desc">Pabellones de países, gastronomía mundial, Mission Space y Frozen.</div></div>
+        <div class="dist-badge"><div class="dist-time">~18 min</div><div class="dist-km">9 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🎬</div>
-        <div>
-          <div class="dist-name">Universal Studios Florida</div>
-          <div class="dist-desc">Harry Potter (Diagon Alley), Minions, Simpsons, Transformers.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~12 min</div>
-          <div class="dist-km">4.5 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div><div class="dist-name" data-time="~12 min">Universal Studios Florida</div><div class="dist-desc">Harry Potter (Diagon Alley), Minions, Simpsons, Transformers.</div></div>
+        <div class="dist-badge"><div class="dist-time">~12 min</div><div class="dist-km">4.5 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🦕</div>
-        <div>
-          <div class="dist-name">Islands of Adventure</div>
-          <div class="dist-desc">Harry Potter (Hogsmeade), Jurassic World, Hulk, Doctor Doom. Las mejores montañas rusas.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~12 min</div>
-          <div class="dist-km">4.5 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="dist-name" data-time="~12 min">Islands of Adventure</div><div class="dist-desc">Harry Potter (Hogsmeade), Jurassic World, Hulk, Doctor Doom.</div></div>
+        <div class="dist-badge"><div class="dist-time">~12 min</div><div class="dist-km">4.5 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🐬</div>
-        <div>
-          <div class="dist-name">SeaWorld Orlando</div>
-          <div class="dist-desc">Shows de delfines, Mako (la montaña rusa más veloz de Florida), acuario.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~5 min</div>
-          <div class="dist-km">1.8 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></div>
+        <div><div class="dist-name" data-time="~5 min">SeaWorld Orlando</div><div class="dist-desc">Shows de delfines, Mako (montaña rusa más veloz de Florida), acuario.</div></div>
+        <div class="dist-badge"><div class="dist-time">~5 min</div><div class="dist-km">1.8 millas</div></div>
       </div>
-
-      <div class="dist-section-label">🛍️ COMPRAS Y OCIO</div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🎡</div>
-        <div>
-          <div class="dist-name">ICON Park — International Drive</div>
-          <div class="dist-desc">Rueda de la fortuna más alta de EE.UU., acuario, restaurantes. Perfecto la primera noche.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~7 min</div>
-          <div class="dist-km">2.5 millas</div>
-        </div>
+      <div class="dist-label">COMPRAS Y OCIO</div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="2" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="22" y2="12"/></svg></div>
+        <div><div class="dist-name" data-time="~7 min">ICON Park — I-Drive</div><div class="dist-desc">Rueda de la fortuna más alta de EE.UU., acuario, restaurantes. Ideal la primera noche.</div></div>
+        <div class="dist-badge"><div class="dist-time">~7 min</div><div class="dist-km">2.5 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🛍️</div>
-        <div>
-          <div class="dist-name">Vineland Premium Outlets</div>
-          <div class="dist-desc">Nike, Coach, Polo, Tommy Hilfiger, Calvin Klein a precios de outlet. Ideal para regalos.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~10 min</div>
-          <div class="dist-km">5 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div><div class="dist-name" data-time="~10 min">Vineland Premium Outlets</div><div class="dist-desc">Nike, Coach, Polo, Tommy Hilfiger, Calvin Klein. El mejor lugar para regalos.</div></div>
+        <div class="dist-badge"><div class="dist-time">~10 min</div><div class="dist-km">5 millas</div></div>
       </div>
-
-      <div class="dist-row">
-        <div class="dist-icon-box">🚀</div>
-        <div>
-          <div class="dist-name">Kennedy Space Center</div>
-          <div class="dist-desc">Base de la NASA en Cabo Cañaveral. Requiere salir temprano — es el paseo del día 7.</div>
-        </div>
-        <div class="dist-time-wrap">
-          <div class="dist-time">~55 min</div>
-          <div class="dist-km">58 millas</div>
-        </div>
+      <div class="dist">
+        <div class="dist-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
+        <div><div class="dist-name" data-time="~55 min">Kennedy Space Center</div><div class="dist-desc">NASA en Cabo Cañaveral. Cohetes reales e historia espacial. Salir temprano.</div></div>
+        <div class="dist-badge"><div class="dist-time">~55 min</div><div class="dist-km">58 millas</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ITINERARIO -->
-<section class="section" style="padding-top:0">
+<!-- ══ ITINERARIO ════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">Día a día</div>
-    <h2 class="h2">Su itinerario<br><em>sugerido</em></h2>
-    <p class="lead">Ocho días perfectamente distribuidos para que la familia descanse, disfrute y no se agote. Adáptelo a su ritmo.</p>
-
-    <div class="itinerary">
+    <div class="ey">Día a día</div>
+    <h2 class="h2">Itinerario <em>sugerido</em></h2>
+    <p class="lead">8 días distribuidos para que la familia disfrute sin agotarse. Adáptelo a su propio ritmo.</p>
+    <div class="days">
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 1 · Viernes 20 Marzo</div>
-            <div class="day-name">Llegada y primer paseo</div>
-          </div>
-          <span class="day-emoji">✈️</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 1 · Viernes 20 Marzo</div><div class="day-name">Llegada y primer paseo</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 3c-1.2-.6-2.4-.3-3.5.7L12 7 3.8 5.2C3 5 2 5.5 2 6.5v1c0 .8.5 1.5 1.2 1.7L7 10.4l-2 2.5-2 .5c-.6.2-1 .7-1 1.4v.5c0 .8.7 1.4 1.5 1.2l4-1 2 2 1 4c.2.8.9 1.2 1.6 1H14c.7-.1 1.2-.7 1.2-1.4L14 17l2 .8.3 1.4c.2.7.8 1.2 1.5 1.2h.5c.8 0 1.4-.7 1.3-1.4z"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Llegada al aeropuerto MCO y traslado al hotel</li>
-          <li>Check-in, descanso y refrescarse</li>
-          <li>Tarde: paseo por International Drive</li>
-          <li>Cena en restaurante de I-Drive (más de 200 opciones)</li>
-          <li>Noche: ICON Park opcional (la rueda de la fortuna)</li>
-        </ul>
-        <div class="day-tip">El primer día sin parques — el cuerpo necesita adaptarse al clima de Florida</div>
+        <ul class="day-list"><li>Llegada al aeropuerto MCO</li><li>Check-in y descanso en el hotel</li><li>Paseo tarde por International Drive</li><li>Cena en restaurante de I-Drive</li><li>ICON Park nocturno (opcional)</li></ul>
+        <div class="day-tip">Primer día sin parques — el cuerpo necesita adaptarse</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 2 · Sábado 21 Marzo</div>
-            <div class="day-name">Magic Kingdom</div>
-          </div>
-          <span class="day-emoji">🏰</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 2 · Sábado 21 Marzo</div><div class="day-name">Magic Kingdom</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Salir a las 8:00 AM (abre 9:00 AM)</li>
-          <li>Castillo de Cenicienta — foto obligatoria</li>
-          <li>Pirates of the Caribbean y Haunted Mansion</li>
-          <li>Space Mountain y Big Thunder Mountain</li>
-          <li>Desfile de personajes en la tarde</li>
-          <li>Fuegos artificiales 9:00 PM</li>
-        </ul>
-        <div class="day-tip">Comprar entradas en línea antes del viaje — sale 20–30% más barato</div>
+        <ul class="day-list"><li>Salir 8 AM (parque abre 9 AM)</li><li>Castillo de Cenicienta — foto de familia</li><li>Pirates of the Caribbean</li><li>Space Mountain y Haunted Mansion</li><li>Fuegos artificiales a las 9 PM</li></ul>
+        <div class="day-tip">Entradas en línea: 20–30% más barato que en puerta</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 3 · Domingo 22 Marzo</div>
-            <div class="day-name">EPCOT</div>
-          </div>
-          <span class="day-emoji">🌍</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 3 · Domingo 22 Marzo</div><div class="day-name">EPCOT</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Mission: SPACE — simulador NASA</li>
-          <li>Test Track — diseñar su propio auto</li>
-          <li>Frozen Ever After</li>
-          <li>Recorrer los pabellones internacionales</li>
-          <li>Almuerzo en el pabellón de México</li>
-          <li>Show Illuminations nocturno en el lago</li>
-        </ul>
-        <div class="day-tip">El pabellón de México tiene comida muy similar a la ecuatoriana</div>
+        <ul class="day-list"><li>Mission: SPACE — simulador NASA</li><li>Test Track — diseñar su auto</li><li>Frozen Ever After</li><li>Pabellones internacionales</li><li>Almuerzo en pabellón de México</li></ul>
+        <div class="day-tip">El pabellón de México tiene comida similar a la ecuatoriana</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 4 · Lunes 23 Marzo</div>
-            <div class="day-name">Universal Studios</div>
-          </div>
-          <span class="day-emoji">🎬</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 4 · Lunes 23 Marzo</div><div class="day-name">Universal Studios</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Harry Potter — Diagon Alley (empezar aquí)</li>
-          <li>Transformers: The Ride 3D</li>
-          <li>Despicable Me Minion Mayhem</li>
-          <li>The Simpsons Ride</li>
-          <li>Fast & Furious Supercharged</li>
-        </ul>
-        <div class="day-tip">Llegar antes de las 9 AM para evitar las colas de Harry Potter</div>
+        <ul class="day-list"><li>Harry Potter — Diagon Alley (primero)</li><li>Transformers: The Ride 3D</li><li>Despicable Me — Minions</li><li>The Simpsons Ride</li><li>Fast & Furious Supercharged</li></ul>
+        <div class="day-tip">Llegar antes de las 9 AM para Harry Potter</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 5 · Martes 24 Marzo</div>
-            <div class="day-name">Islands of Adventure</div>
-          </div>
-          <span class="day-emoji">🦕</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 5 · Martes 24 Marzo</div><div class="day-name">Islands of Adventure</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Harry Potter — Hogsmeade y el castillo</li>
-          <li>Hagrid's Magical Creatures (la mejor del parque)</li>
-          <li>Jurassic World — río de aventuras</li>
-          <li>The Incredible Hulk Coaster</li>
-          <li>Doctor Doom's Fearfall</li>
-        </ul>
-        <div class="day-tip">El Expreso de Hogwarts conecta este parque con Universal — pase doble</div>
+        <ul class="day-list"><li>Harry Potter — castillo de Hogwarts</li><li>Hagrid's Magical Creatures (la mejor)</li><li>Jurassic World — río de aventuras</li><li>The Incredible Hulk Coaster</li><li>Doctor Doom's Fearfall</li></ul>
+        <div class="day-tip">El Expreso de Hogwarts conecta los dos parques Universal</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 6 · Miércoles 25 Marzo</div>
-            <div class="day-name">SeaWorld + Outlets</div>
-          </div>
-          <span class="day-emoji">🐬</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 6 · Miércoles 25 Marzo</div><div class="day-name">SeaWorld + Outlets</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>SeaWorld en la mañana (5 min del hotel)</li>
-          <li>Show de delfines y orcas</li>
-          <li>Mako — la montaña rusa más veloz de Florida</li>
-          <li>Tarde: Vineland Premium Outlets</li>
-          <li>Noche libre en International Drive</li>
-        </ul>
+        <ul class="day-list"><li>SeaWorld en la mañana (5 min del hotel)</li><li>Show de delfines y orcas</li><li>Mako — la montaña rusa más veloz</li><li>Tarde: Vineland Outlets</li><li>Noche libre en International Drive</li></ul>
         <div class="day-tip">SeaWorld es el día más económico — entrada desde $89</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 7 · Jueves 26 Marzo</div>
-            <div class="day-name">Kennedy Space Center</div>
-          </div>
-          <span class="day-emoji">🚀</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 7 · Jueves 26 Marzo</div><div class="day-name">Kennedy Space Center</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Salir temprano (1 hora de camino)</li>
-          <li>Transbordador Atlantis — el original de la NASA</li>
-          <li>Simulador de lanzamiento Apollo</li>
-          <li>Heroes & Legends — historia de astronautas</li>
-          <li>Tienda oficial NASA para regalos únicos</li>
-        </ul>
-        <div class="day-tip">Deoniel va a amar este lugar — cohetes y trajes espaciales reales</div>
+        <ul class="day-list"><li>Salir temprano (1 hora de camino)</li><li>Transbordador Atlantis — el original</li><li>Simulador de lanzamiento Apollo</li><li>Heroes & Legends — astronautas reales</li><li>Tienda oficial NASA para regalos únicos</li></ul>
+        <div class="day-tip">Deoniel va a amar este lugar</div>
       </div>
-
       <div class="day">
-        <div class="day-header">
-          <div>
-            <div class="day-date">Día 8 · Viernes 27 Marzo</div>
-            <div class="day-name">Última mañana y regreso</div>
-          </div>
-          <span class="day-emoji">🛍️</span>
+        <div class="day-head">
+          <div><div class="day-date">Día 8 · Viernes 27 Marzo</div><div class="day-name">Última mañana y vuelo</div></div>
+          <div class="day-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
         </div>
-        <ul class="day-list">
-          <li>Mañana libre: compras finales en Outlets</li>
-          <li>Almuerzo de despedida en I-Drive</li>
-          <li>Check-out del hotel</li>
-          <li>Traslado al aeropuerto MCO (~20 min)</li>
-          <li>Vuelo de regreso a Ecuador 🇪🇨</li>
-        </ul>
-        <div class="day-tip">Llegar al aeropuerto 3 horas antes del vuelo internacional</div>
+        <ul class="day-list"><li>Últimas compras en Outlets</li><li>Almuerzo de despedida en I-Drive</li><li>Check-out del hotel</li><li>Traslado al aeropuerto MCO (~20 min)</li><li>Vuelo de regreso a Ecuador</li></ul>
+        <div class="day-tip">Llegar al aeropuerto 3 horas antes del vuelo</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CLIMA -->
-<section class="section" style="padding-top:0">
+<!-- ══ CLIMA ══════════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">Clima en marzo</div>
+    <div class="ey">Clima en marzo</div>
     <h2 class="h2">El tiempo ideal<br><em>para su viaje</em></h2>
-    <p class="lead">Marzo es uno de los mejores meses en Orlando: sin la humedad extrema del verano, temperaturas perfectas para caminar todo el día al aire libre.</p>
-    <div class="clima-band">
-      <div class="clima-item">
-        <span class="clima-emoji">☀️</span>
-        <div class="clima-label">Temperatura día</div>
-        <div class="clima-val">28–30°C</div>
-        <div class="clima-note">Cálido y soleado</div>
-      </div>
-      <div class="clima-item">
-        <span class="clima-emoji">🌙</span>
-        <div class="clima-label">Temperatura noche</div>
-        <div class="clima-val">17–20°C</div>
-        <div class="clima-note">Llevar chaqueta ligera</div>
-      </div>
-      <div class="clima-item">
-        <span class="clima-emoji">🌦️</span>
-        <div class="clima-label">Probabilidad lluvia</div>
-        <div class="clima-val">Baja</div>
-        <div class="clima-note">Estación seca en marzo</div>
-      </div>
-      <div class="clima-item">
-        <span class="clima-emoji">👗</span>
-        <div class="clima-label">Qué llevar</div>
-        <div class="clima-val">Ropa ligera</div>
-        <div class="clima-note">+ chaqueta para noches</div>
-      </div>
+    <p class="lead">Sin la humedad extrema del verano, con temperaturas perfectas para los parques al aire libre todo el día.</p>
+    <div class="clima">
+      <div class="cl"><div class="cl-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div><div class="cl-label">Temperatura día</div><div class="cl-val">28–30°C</div><div class="cl-note">Cálido y soleado</div></div>
+      <div class="cl"><div class="cl-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><div class="cl-label">Temperatura noche</div><div class="cl-val">17–20°C</div><div class="cl-note">Llevar chaqueta</div></div>
+      <div class="cl"><div class="cl-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="19" x2="8" y2="21"/><line x1="8" y1="13" x2="8" y2="15"/><line x1="16" y1="19" x2="16" y2="21"/><line x1="16" y1="13" x2="16" y2="15"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="12" y1="15" x2="12" y2="17"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg></div><div class="cl-label">Lluvia</div><div class="cl-val">Muy baja</div><div class="cl-note">Estación seca</div></div>
+      <div class="cl"><div class="cl-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cl-label">Qué llevar</div><div class="cl-val">Ropa ligera</div><div class="cl-note">+ chaqueta ligera</div></div>
     </div>
   </div>
 </section>
 
-<!-- TIPS -->
-<section class="section" style="padding-top:0">
+<!-- ══ TIPS ═══════════════════════════════════════════════════════ -->
+<section class="s">
   <div class="wrap">
-    <div class="eyebrow">Para el viaje</div>
-    <h2 class="h2">Consejos<br><em>prácticos</em></h2>
-    <p class="lead">Lo que necesitan saber antes de salir de Ecuador para que todo salga perfecto desde el primer día.</p>
-    <div class="tips-grid">
+    <div class="ey">Antes de viajar</div>
+    <h2 class="h2">Consejos <em>prácticos</em></h2>
+    <p class="lead">Todo lo que necesitan saber para que el viaje salga perfecto desde el primer día.</p>
+    <div class="tips">
       <div class="tip">
-        <span class="tip-icon">💵</span>
-        <div class="tip-title">Presupuesto estimado (4 personas, 8 días)</div>
-        <div class="tip-text">
-          <strong>Entradas parques:</strong> $100–120/persona/día<br>
-          <strong>Comida:</strong> $50–80/día para la familia<br>
-          <strong>Transporte Uber:</strong> $15–30/día<br>
-          <strong>Souvenirs y regalos:</strong> $200–400 total<br><br>
-          <strong>Total estimado:</strong> $2,500 – $3,500
-        </div>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="tip-title">Presupuesto estimado (familia 4, 8 días)</div>
+        <div class="tip-text"><strong>Entradas parques:</strong> $100–120/persona/día<br><strong>Comida:</strong> $50–80/día para la familia<br><strong>Transporte Uber:</strong> $15–30/día<br><strong>Souvenirs:</strong> $200–400 total<br><strong>Total estimado:</strong> $2,500 – $3,500</div>
       </div>
       <div class="tip">
-        <span class="tip-icon">🎫</span>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M2 13v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6"/><path d="M2 9h20M2 13h20"/></svg></div>
         <div class="tip-title">Entradas — comprar antes de viajar</div>
-        <div class="tip-text">
-          Comprar en línea es <strong>20–30% más barato</strong> que en la puerta.<br><br>
-          <strong>Disney:</strong> disneyworld.disney.go.com<br>
-          <strong>Universal:</strong> universalorlando.com<br>
-          <strong>SeaWorld:</strong> seaworld.com<br>
-          <strong>Kennedy:</strong> kennedyspacecenter.com
-        </div>
+        <div class="tip-text">Comprar en línea es <strong>20–30% más barato</strong> que en la puerta del parque.<br><br><strong>Disney:</strong> disneyworld.disney.go.com<br><strong>Universal:</strong> universalorlando.com<br><strong>SeaWorld:</strong> seaworld.com<br><strong>Kennedy:</strong> kennedyspacecenter.com</div>
       </div>
       <div class="tip">
-        <span class="tip-icon">📱</span>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
         <div class="tip-title">Apps imprescindibles</div>
-        <div class="tip-text">
-          <strong>My Disney Experience</strong> — tiempos de espera en Disney<br>
-          <strong>Universal Orlando</strong> — mapas y reservas<br>
-          <strong>Google Maps</strong> — navegación en auto<br>
-          <strong>Uber</strong> — instalar y configurar antes de viajar<br>
-          <strong>Google Translate</strong> — cámara para traducir letreros
-        </div>
+        <div class="tip-text"><strong>My Disney Experience</strong> — tiempos de espera en tiempo real<br><strong>Universal Orlando</strong> — mapas y reservas<br><strong>Google Maps</strong> — navegación en auto<br><strong>Uber</strong> — instalar antes de salir de Ecuador<br><strong>Google Translate</strong> — cámara para traducir letreros</div>
       </div>
       <div class="tip">
-        <span class="tip-icon">🧳</span>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
         <div class="tip-title">Lo que no puede faltar en la maleta</div>
-        <div class="tip-text">
-          <strong>Ropa cómoda</strong> — caminar 8–12 km por día en los parques<br>
-          <strong>Chaqueta ligera</strong> — noches y aire acondicionado intenso<br>
-          <strong>Bloqueador SPF 50+</strong> — sol fuerte al aire libre<br>
-          <strong>Botella de agua</strong> — llenar en fuentes de los parques<br>
-          <strong>Cargador portátil</strong> — el celular se usa todo el día
-        </div>
+        <div class="tip-text"><strong>Ropa cómoda</strong> — caminar 8–12 km por día en los parques<br><strong>Chaqueta ligera</strong> — noches y AC muy frío en interiores<br><strong>Bloqueador SPF 50+</strong> — sol fuerte todo el día<br><strong>Botella de agua</strong> — llenar en fuentes de los parques<br><strong>Cargador portátil</strong> — el celular se usa sin parar</div>
       </div>
       <div class="tip">
-        <span class="tip-icon">🍽️</span>
-        <div class="tip-title">Dónde comer bien sin gastar de más</div>
-        <div class="tip-text">
-          <strong>Dentro de parques:</strong> caro ($15–25/plato) — desayunar en el hotel<br>
-          <strong>International Drive:</strong> opciones para todos los presupuestos<br>
-          <strong>Applebee's e IHOP:</strong> económico y muy cerca del hotel<br>
-          <strong>Publix (supermercado):</strong> agua, snacks y frutas para los parques<br>
-          <strong>EPCOT:</strong> comer ahí — comida de todo el mundo
-        </div>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div class="tip-title">Dónde comer sin gastar de más</div>
+        <div class="tip-text"><strong>Dentro de parques:</strong> caro ($15–25/plato) — desayunar en el hotel<br><strong>International Drive:</strong> opciones para todo presupuesto<br><strong>Applebee's e IHOP:</strong> económico, cerca del hotel<br><strong>Publix (supermercado):</strong> agua y snacks para llevar<br><strong>EPCOT:</strong> comer ahí — comida del mundo entero</div>
       </div>
       <div class="tip">
-        <span class="tip-icon">🚗</span>
-        <div class="tip-title">Moverse en Orlando</div>
-        <div class="tip-text">
-          <strong>Uber/Lyft:</strong> la opción más cómoda — $10–20 por trayecto<br>
-          <strong>Auto rentado:</strong> recomendado para 4 personas — desde $35/día en el aeropuerto<br>
-          <strong>Kennedy Space Center:</strong> auto obligatorio (1 hora)<br>
-          <strong>Disney ofrece buses gratis</strong> desde algunos hoteles partner
-        </div>
+        <div class="tip-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="tip-title">Cómo moverse en Orlando</div>
+        <div class="tip-text"><strong>Uber/Lyft:</strong> la opción más cómoda — $10–20 por trayecto<br><strong>Auto rentado:</strong> ideal para 4 personas — desde $35/día<br><strong>Kennedy:</strong> auto obligatorio (1 hora de camino)<br><strong>Disney buses:</strong> gratuitos desde hoteles Disney partner</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ═════════════════════════════════════════════════════ -->
 <footer class="footer">
   <div class="footer-logo">Asesoría <em>Visa Global</em></div>
-  <div class="footer-sub">
-    Familia Seas Guamán · Orlando, Florida · 20–28 Marzo 2027<br>
-    Preparado por Roberto Acosta · asesoriadevisadosglobal.com
-  </div>
-  <a href="https://wa.me/593987846751" class="wa-btn">
-    📱 Consultas: +593 98 784 6751
+  <div class="footer-sub">Familia Seas Guamán · Orlando, Florida · 20–28 Marzo 2027<br>Preparado por Roberto Acosta · asesoriadevisadosglobal.com</div>
+  <a href="https://wa.me/593987846751" class="wa">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Consultas: +593 98 784 6751
   </a>
 </footer>
 
