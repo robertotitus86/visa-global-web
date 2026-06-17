@@ -141,10 +141,19 @@ body{font-family:var(--sans);background:var(--off);color:var(--navy);overflow-x:
   border-radius:16px;overflow:hidden;
 }
 .orl-photo{
-  width:100%;aspect-ratio:16/9;object-fit:cover;
-  background:linear-gradient(135deg,var(--navy3),#0d3a5c);
-  display:block;
+  width:100%;aspect-ratio:16/9;
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
 }
+.orl-photo-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;
+  background:rgba(0,0,0,.25);
+}
+.orl-photo-emoji{font-size:3rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.orl-photo-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .orl-body{padding:16px}
 .orl-tag{
   display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.1em;
@@ -390,7 +399,12 @@ body{font-family:var(--sans);background:var(--off);color:var(--navy);overflow-x:
 
     <div class="orlando-cards">
       <div class="orl-card">
-        <img class="orl-photo" src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=600&q=80&fit=crop" alt="Walt Disney World" onerror="this.style.background='linear-gradient(135deg,#1a1a5e,#3b4bc8)';this.src=''">
+        <div class="orl-photo" style="background:linear-gradient(135deg,#0d1f6e 0%,#1a3a9e 50%,#0a1550 100%)">
+          <div class="orl-photo-overlay">
+            <span class="orl-photo-emoji">🏰</span>
+            <span class="orl-photo-label">Walt Disney World</span>
+          </div>
+        </div>
         <div class="orl-body">
           <div class="orl-tag">Día 2 y 3</div>
           <div class="orl-title">Walt Disney World</div>
@@ -398,7 +412,12 @@ body{font-family:var(--sans);background:var(--off);color:var(--navy);overflow-x:
         </div>
       </div>
       <div class="orl-card">
-        <img class="orl-photo" src="https://images.unsplash.com/photo-1564153279786-16de78f0b3b2?w=600&q=80&fit=crop" alt="Universal Studios" onerror="this.style.background='linear-gradient(135deg,#003300,#006600)';this.src=''">
+        <div class="orl-photo" style="background:linear-gradient(135deg,#0a3d0a 0%,#1a6b1a 50%,#0d4a0d 100%)">
+          <div class="orl-photo-overlay">
+            <span class="orl-photo-emoji">🎢</span>
+            <span class="orl-photo-label">Universal Studios</span>
+          </div>
+        </div>
         <div class="orl-body">
           <div class="orl-tag">Día 4 y 5</div>
           <div class="orl-title">Universal Studios & Islands of Adventure</div>
@@ -406,7 +425,12 @@ body{font-family:var(--sans);background:var(--off);color:var(--navy);overflow-x:
         </div>
       </div>
       <div class="orl-card">
-        <img class="orl-photo" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80&fit=crop" alt="Kennedy Space Center" onerror="this.style.background='linear-gradient(135deg,#4a0000,#8b0000)';this.src=''">
+        <div class="orl-photo" style="background:linear-gradient(135deg,#1a0505 0%,#5c1010 50%,#2a0808 100%)">
+          <div class="orl-photo-overlay">
+            <span class="orl-photo-emoji">🚀</span>
+            <span class="orl-photo-label">Kennedy Space Center</span>
+          </div>
+        </div>
         <div class="orl-body">
           <div class="orl-tag">Día 7</div>
           <div class="orl-title">Kennedy Space Center</div>
