@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -11,26 +11,33 @@
 <meta property="og:url" content="https://www.asesoriadevisadosglobal.com/intake-ds160.html">
 <meta name="theme-color" content="#060D1A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:    #060D1A;
-  --bg2:   #0F1E35;
-  --bg3:   #162A4A;
-  --gold:  #F5B429;
-  --gdim:  rgba(245,180,41,.12);
-  --gbdr:  rgba(245,180,41,.25);
-  --text:  #E8ECF5;
-  --muted: #7A88A8;
-  --dim:   #384560;
-  --grn:   #0FAF72;
+  --bg:    #06101E;
+  --bg2:   #0C1A2E;
+  --bg3:   #112338;
+  --bg4:   #162D46;
+  --gold:  #C8861A;
+  --gold-lt: #F5C842;
+  --gdim:  rgba(245,200,66,.12);
+  --gbdr:  rgba(245,200,66,.25);
+  --blue:  #3B82F6;
+  --blue-lt:#60A5FA;
+  --text:  #CBD5E1;
+  --text2: #F1F5F9;
+  --muted: #64748B;
+  --dim:   #2E3E56;
+  --grn:   #10B981;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Space Grotesk', 'DM Sans', system-ui, sans-serif;
   --r: 16px;
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  font-family:var(--sans);
   background:var(--bg); color:var(--text);
   min-height:100dvh;
   -webkit-font-smoothing:antialiased;
@@ -39,7 +46,7 @@ body{
 
 /* ── PROGRESS ── */
 #prog-bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--bg3);z-index:200}
-#prog-fill{height:100%;background:var(--gold);width:0%;transition:width .5s var(--ease)}
+#prog-fill{height:100%;background:var(--gold-lt);width:0%;transition:width .5s var(--ease)}
 
 /* ── HEADER ── */
 header{
@@ -67,7 +74,7 @@ header{
 .hdr-pill{
   background:var(--gdim);border:1px solid var(--gbdr);
   border-radius:99px;padding:3px 10px;
-  font-size:10px;font-weight:700;color:var(--gold);
+  font-size:10px;font-weight:700;color:var(--gold-lt);
 }
 
 /* ── MAIN ── */
@@ -81,10 +88,14 @@ main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
 /* ── WELCOME ── */
 .welcome-flag{font-size:48px;margin-bottom:20px}
 .welcome-label{
-  font-size:10px;font-weight:800;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;
 }
-.welcome-h{font-size:clamp(22px,5vw,30px);font-weight:900;line-height:1.2;margin-bottom:10px}
+.welcome-h{
+  font-family:var(--serif);
+  font-size:clamp(22px,5vw,32px);font-weight:900;line-height:1.2;margin-bottom:10px;
+  color:var(--text2);
+}
 .welcome-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px;max-width:42ch}
 
 /* Trust pills */
@@ -107,7 +118,7 @@ main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
 }
 .so-title{
   font-size:10px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  text-transform:uppercase;color:var(--gold-lt);margin-bottom:14px;
 }
 .so-step{
   display:flex;align-items:flex-start;gap:12px;
@@ -118,7 +129,7 @@ main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
   width:26px;height:26px;border-radius:8px;flex-shrink:0;
   background:var(--gdim);border:1px solid var(--gbdr);
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:var(--gold);
+  font-size:12px;font-weight:800;color:var(--gold-lt);
 }
 .so-info{}
 .so-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2}
@@ -131,10 +142,10 @@ main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
   font-family:inherit;font-size:15px;font-weight:800;color:var(--bg);
   cursor:pointer;
   transition:transform .2s var(--ease),box-shadow .2s;
-  box-shadow:0 4px 24px rgba(245,180,41,.28);
+  box-shadow:0 4px 24px rgba(245,200,66,.28);
   letter-spacing:.02em;
 }
-.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,180,41,.38)}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,200,66,.38)}
 .btn-cta:active{transform:translateY(0)}
 .welcome-note{text-align:center;margin-top:12px;font-size:11px;color:var(--dim)}
 
@@ -154,9 +165,9 @@ main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
 .sc-meta{}
 .sc-badge{
   font-size:9px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:3px;
+  text-transform:uppercase;color:var(--gold-lt);margin-bottom:3px;
 }
-.sc-title{font-size:16px;font-weight:800;color:var(--text);line-height:1.2}
+.sc-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text2);line-height:1.2}
 .sc-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:3px}
 .sc-why{
   background:var(--gdim);border-left:2px solid var(--gold);
@@ -179,7 +190,7 @@ label{
   text-transform:uppercase;letter-spacing:.07em;
   display:flex;align-items:center;gap:4px;flex-wrap:wrap;
 }
-label .req{color:var(--gold)}
+label .req{color:var(--gold-lt)}
 label .hint{
   font-size:10px;color:var(--dim);
   text-transform:none;letter-spacing:0;font-weight:400;
@@ -197,7 +208,7 @@ input[type=tel],input[type=number],select,textarea{
   -webkit-appearance:none;appearance:none;
 }
 input:focus,select:focus,textarea:focus{
-  border-color:var(--gold);
+  border-color:var(--gold-lt);
   background:rgba(22,42,74,.7);
 }
 input::placeholder,textarea::placeholder{color:var(--dim)}
@@ -216,14 +227,14 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
   font-family:inherit;
 }
 .opt-btn:hover{border-color:var(--gbdr);background:var(--gdim)}
-.opt-btn.sel{border-color:var(--gold);background:var(--gdim)}
+.opt-btn.sel{border-color:var(--gold-lt);background:var(--gdim)}
 .opt-dot{
   width:18px;height:18px;border-radius:50%;flex-shrink:0;
   border:2px solid var(--dim);
   display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
-.opt-btn.sel .opt-dot{border-color:var(--gold);background:var(--gold)}
+.opt-btn.sel .opt-dot{border-color:var(--gold-lt);background:var(--gold)}
 .opt-dot::after{
   content:'';width:7px;height:7px;border-radius:50%;
   background:var(--bg);opacity:0;transition:opacity .15s;
@@ -241,7 +252,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
   transition:all .18s;
 }
 .cnt-btn:hover{border-color:var(--gbdr);color:var(--text)}
-.cnt-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--bg);transform:scale(1.06)}
+.cnt-btn.sel{background:var(--gold);border-color:var(--gold-lt);color:var(--bg);transform:scale(1.06)}
 
 /* Info box */
 .info-box{
@@ -256,7 +267,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
 /* Warning box */
 .warn-box{
   display:flex;gap:10px;align-items:flex-start;
-  background:rgba(245,180,41,.06);border:1px solid rgba(245,180,41,.2);
+  background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);
   border-radius:10px;padding:11px 13px;
   font-size:12px;color:var(--muted);line-height:1.55;
   margin-bottom:14px;
@@ -269,32 +280,32 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
 }
 .traveler-sub:last-child{margin-bottom:0}
 .tsub-label{
-  font-size:9px;font-weight:800;color:var(--gold);
+  font-size:9px;font-weight:800;color:var(--gold-lt);
   text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;
 }
 
 /* Divider */
 .divider{height:1px;background:rgba(255,255,255,.05);margin:18px 0}
 .sub-head{
-  font-size:10px;font-weight:800;color:var(--gold);
+  font-size:10px;font-weight:800;color:var(--gold-lt);
   text-transform:uppercase;letter-spacing:.08em;
   margin-bottom:12px;margin-top:20px;
   padding-bottom:7px;
-  border-bottom:1px solid rgba(245,180,41,.12);
+  border-bottom:1px solid rgba(245,200,66,.12);
 }
 
 /* ── STEP HEADER (above sections) ── */
 .step-header{margin-bottom:20px}
 .step-progress-label{
-  font-size:11px;font-weight:700;color:var(--gold);
-  letter-spacing:.04em;margin-bottom:8px;
+  font-size:11px;font-weight:700;color:var(--gold-lt);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;
   display:flex;align-items:center;gap:8px;
 }
 .step-progress-label::before{
   content:'';display:inline-block;width:18px;height:2px;
-  background:var(--gold);border-radius:1px;
+  background:var(--gold-lt);border-radius:1px;
 }
-.step-title{font-size:19px;font-weight:800;color:var(--text);margin-bottom:4px}
+.step-title{font-family:var(--serif);font-size:clamp(18px,4vw,24px);font-weight:700;color:var(--text2);margin-bottom:4px}
 .step-desc{font-size:13px;color:var(--muted);line-height:1.6}
 
 /* ── NAV ── */
@@ -320,9 +331,9 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
   font-family:inherit;font-size:14px;font-weight:800;
   cursor:pointer;letter-spacing:.02em;
   transition:transform .2s var(--ease),box-shadow .2s;
-  box-shadow:0 4px 18px rgba(245,180,41,.28);
+  box-shadow:0 4px 18px rgba(245,200,66,.28);
 }
-.nav-next:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(245,180,41,.38)}
+.nav-next:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(245,200,66,.38)}
 .nav-next:active{transform:translateY(0)}
 
 /* ── FINAL ── */
@@ -905,7 +916,7 @@ function buildSQ() {
         <button class="sq-yes" data-key="${key}" onclick="setSQ('${key}',true,this)"
           style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">Sí</button>
         <button class="sq-no" data-key="${key}" onclick="setSQ('${key}',false,this)"
-          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:var(--gdim);border-color:var(--gbdr);color:var(--gold);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">No</button>
+          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:var(--gdim);border-color:var(--gbdr);color:var(--gold-lt);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">No</button>
       </div>`;
     list.appendChild(row);
     S[key] = false; // default NO
@@ -921,7 +932,7 @@ function setSQ(key, val, btn) {
     b.style.borderColor = 'rgba(255,255,255,.1)';
     b.style.color = 'var(--muted)';
   });
-  btn.style.background = val ? 'rgba(245,180,41,.15)' : 'var(--gdim)';
+  btn.style.background = val ? 'rgba(245,200,66,.15)' : 'var(--gdim)';
   btn.style.borderColor = 'var(--gold)';
   btn.style.color = 'var(--gold)';
 }
