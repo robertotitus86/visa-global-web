@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Tu visa USA empieza aquí · Asesoría Visa Global</title>
-<meta name="description" content="Cuéntanos tu situación en 10 minutos. Nosotros preparamos todo: análisis, documentos y solicitud ante la embajada americana.">
+<meta name="description" content="Cuéntanos tu situación en 10 minutos. Nosotros preparamos todo.">
 <meta property="og:title" content="Empieza tu visa USA · Asesoría Visa Global">
 <meta property="og:description" content="Solo 10 minutos. Nosotros preparamos todo por ti.">
 <meta property="og:image" content="https://www.asesoriadevisadosglobal.com/cfb1.png">
@@ -13,536 +13,389 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ──────────────────────────────────── */
 :root {
-  --bg:     oklch(8%  0.020 250);
-  --bg2:    oklch(12% 0.024 250);
-  --bg3:    oklch(16% 0.026 250);
-  --gold:   oklch(72% 0.160 85);
-  --golddim:oklch(72% 0.160 85 / 14%);
-  --goldbdr:oklch(72% 0.160 85 / 30%);
-  --text:   oklch(92% 0.010 250);
-  --muted:  oklch(58% 0.014 250);
-  --dim:    oklch(35% 0.012 250);
-  --grn:    oklch(64% 0.180 155);
-  --red:    oklch(58% 0.200 22);
-  --ease:   cubic-bezier(0.16,1,0.3,1);
-  --easein: cubic-bezier(0.4,0,1,1);
+  --bg:    #060D1A;
+  --bg2:   #0F1E35;
+  --bg3:   #162A4A;
+  --gold:  #F5B429;
+  --gdim:  rgba(245,180,41,.12);
+  --gbdr:  rgba(245,180,41,.25);
+  --text:  #E8ECF5;
+  --muted: #7A88A8;
+  --dim:   #384560;
+  --grn:   #0FAF72;
+  --r: 16px;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100dvh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-/* ── BASE ────────────────────────────────────── */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
-html { height:100%; -webkit-text-size-adjust:100% }
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100%;
-  min-height: 100dvh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+/* ── PROGRESS ── */
+#prog-bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--bg3);z-index:200}
+#prog-fill{height:100%;background:var(--gold);width:0%;transition:width .5s var(--ease)}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:3px;z-index:100;
+  height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  background:rgba(6,13,26,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{
+  width:32px;height:32px;border-radius:9px;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:var(--bg);flex-shrink:0;
+}
+.logo-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.1}
+.logo-tag{font-size:10px;color:var(--muted)}
+.hdr-right{
+  font-size:11px;font-weight:600;color:var(--muted);
+  display:flex;align-items:center;gap:6px;
+}
+.hdr-pill{
+  background:var(--gdim);border:1px solid var(--gbdr);
+  border-radius:99px;padding:3px 10px;
+  font-size:10px;font-weight:700;color:var(--gold);
 }
 
-/* subtle grid texture */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image:
-    linear-gradient(oklch(100% 0 0 / 2%) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(100% 0 0 / 2%) 1px, transparent 1px);
-  background-size: 64px 64px;
+/* ── MAIN ── */
+main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
+
+/* ── STEPS ── */
+.step{display:none}
+.step.active{display:block;animation:stepIn .35s var(--ease) both}
+@keyframes stepIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── WELCOME ── */
+.welcome-flag{font-size:48px;margin-bottom:20px}
+.welcome-label{
+  font-size:10px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+.welcome-h{font-size:clamp(22px,5vw,30px);font-weight:900;line-height:1.2;margin-bottom:10px}
+.welcome-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px;max-width:42ch}
+
+/* Trust pills */
+.trust-pills{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.trust-pill{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;
+  background:var(--bg2);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+}
+.tp-ico{font-size:20px;flex-shrink:0}
+.tp-text{font-size:13px;color:var(--muted);line-height:1.4}
+.tp-text strong{color:var(--text);font-weight:600}
+
+/* Steps overview */
+.steps-overview{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);padding:16px 18px;margin-bottom:28px;
+}
+.so-title{
+  font-size:10px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+}
+.so-step{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.so-step:last-child{border:none;padding-bottom:0}
+.so-num{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  background:var(--gdim);border:1px solid var(--gbdr);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--gold);
+}
+.so-info{}
+.so-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2}
+.so-desc{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+
+/* CTA btn */
+.btn-cta{
+  width:100%;padding:16px;border-radius:14px;
+  background:var(--gold);border:none;
+  font-family:inherit;font-size:15px;font-weight:800;color:var(--bg);
+  cursor:pointer;
+  transition:transform .2s var(--ease),box-shadow .2s;
+  box-shadow:0 4px 24px rgba(245,180,41,.28);
+  letter-spacing:.02em;
+}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,180,41,.38)}
+.btn-cta:active{transform:translateY(0)}
+.welcome-note{text-align:center;margin-top:12px;font-size:11px;color:var(--dim)}
+
+/* ── SECTION CARD ── */
+.section-card{
+  background:var(--bg2);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);padding:20px 18px;
+  margin-bottom:16px;
+}
+.sc-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.sc-icon{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:var(--gdim);border:1px solid var(--gbdr);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.sc-meta{}
+.sc-badge{
+  font-size:9px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:3px;
+}
+.sc-title{font-size:16px;font-weight:800;color:var(--text);line-height:1.2}
+.sc-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:3px}
+.sc-why{
+  background:var(--gdim);border-left:2px solid var(--gold);
+  border-radius:0 8px 8px 0;padding:9px 12px;
+  font-size:12px;color:var(--muted);line-height:1.55;
+  margin-bottom:16px;
+}
+.sc-why strong{color:var(--text)}
+
+/* ── FIELDS ── */
+.field-group{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.field-grid{grid-template-columns:1fr}}
+.field.span2{grid-column:span 2}
+@media(max-width:480px){.field.span2{grid-column:span 1}}
+
+label{
+  font-size:10px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.07em;
+  display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+}
+label .req{color:var(--gold)}
+label .hint{
+  font-size:10px;color:var(--dim);
+  text-transform:none;letter-spacing:0;font-weight:400;
 }
 
-/* ── PROGRESS BAR (top) ──────────────────────── */
-#progress-bar {
-  position: fixed; top: 0; left: 0; z-index: 100;
-  width: 100%; height: 3px;
-  background: var(--bg3);
+input[type=text],input[type=date],input[type=email],
+input[type=tel],input[type=number],select,textarea{
+  width:100%;
+  background:var(--bg3);
+  border:1.5px solid rgba(255,255,255,.07);
+  border-radius:10px;color:var(--text);
+  font-family:inherit;font-size:14px;font-weight:500;
+  padding:11px 13px;outline:none;
+  transition:border-color .2s,background .2s;
+  -webkit-appearance:none;appearance:none;
 }
-#progress-fill {
-  height: 100%;
-  background: var(--gold);
-  width: 0%;
-  transition: width 0.5s var(--ease);
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gold);
+  background:rgba(22,42,74,.7);
+}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+select option{background:var(--bg2)}
+textarea{resize:vertical;min-height:76px;line-height:1.55}
+
+/* Option buttons (radio style) */
+.opt-group{display:flex;flex-direction:column;gap:8px}
+.opt-btn{
+  display:flex;align-items:center;gap:11px;
+  padding:12px 14px;
+  background:var(--bg3);
+  border:1.5px solid rgba(255,255,255,.07);
+  border-radius:10px;cursor:pointer;
+  transition:all .18s;text-align:left;width:100%;
+  font-family:inherit;
+}
+.opt-btn:hover{border-color:var(--gbdr);background:var(--gdim)}
+.opt-btn.sel{border-color:var(--gold);background:var(--gdim)}
+.opt-dot{
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  border:2px solid var(--dim);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.opt-btn.sel .opt-dot{border-color:var(--gold);background:var(--gold)}
+.opt-dot::after{
+  content:'';width:7px;height:7px;border-radius:50%;
+  background:var(--bg);opacity:0;transition:opacity .15s;
+}
+.opt-btn.sel .opt-dot::after{opacity:1}
+.opt-lbl{font-size:13.5px;font-weight:500;color:var(--text)}
+
+/* Count */
+.count-row{display:flex;gap:8px;flex-wrap:wrap}
+.cnt-btn{
+  width:52px;height:52px;border-radius:10px;
+  background:var(--bg3);border:1.5px solid rgba(255,255,255,.07);
+  font-family:inherit;font-size:18px;font-weight:700;color:var(--muted);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;
+}
+.cnt-btn:hover{border-color:var(--gbdr);color:var(--text)}
+.cnt-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--bg);transform:scale(1.06)}
+
+/* Info box */
+.info-box{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--gdim);border:1px solid var(--gbdr);
+  border-radius:10px;padding:11px 13px;
+  font-size:12px;color:var(--muted);line-height:1.55;
+  margin-top:12px;
+}
+.info-box .ii{font-size:16px;flex-shrink:0}
+
+/* Warning box */
+.warn-box{
+  display:flex;gap:10px;align-items:flex-start;
+  background:rgba(245,180,41,.06);border:1px solid rgba(245,180,41,.2);
+  border-radius:10px;padding:11px 13px;
+  font-size:12px;color:var(--muted);line-height:1.55;
+  margin-bottom:14px;
 }
 
-/* ── HEADER ──────────────────────────────────── */
-header {
-  position: fixed; top: 3px; left: 0; right: 0; z-index: 90;
-  height: 52px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
-  background: oklch(8% 0.020 250 / 90%);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid oklch(100% 0 0 / 5%);
+/* Traveler sub-card */
+.traveler-sub{
+  background:var(--bg3);border:1px solid rgba(255,255,255,.06);
+  border-radius:10px;padding:14px;margin-bottom:10px;
 }
-.logo {
-  display: flex; align-items: center; gap: 9px;
-  text-decoration: none;
-}
-.logo-mark {
-  width: 30px; height: 30px; border-radius: 8px;
-  background: var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 900; color: var(--bg);
-  flex-shrink: 0;
-}
-.logo-name {
-  font-size: 13px; font-weight: 700; color: var(--text);
-  line-height: 1;
-}
-.logo-tag {
-  font-size: 10px; color: var(--muted); font-weight: 400;
-}
-.hdr-step {
-  font-size: 11px; font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
-.hdr-step span { color: var(--gold) }
-
-/* ── MAIN CANVAS ─────────────────────────────── */
-main {
-  position: relative; z-index: 1;
-  min-height: 100dvh;
-  padding-top: 55px;
-  display: flex; flex-direction: column;
+.traveler-sub:last-child{margin-bottom:0}
+.tsub-label{
+  font-size:9px;font-weight:800;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;
 }
 
-/* ── SCREENS ─────────────────────────────────── */
-.screen {
-  display: none;
-  flex: 1;
-  flex-direction: column;
-}
-.screen.active {
-  display: flex;
-  animation: screenIn 0.4s var(--ease) both;
-}
-.screen.exit {
-  animation: screenOut 0.25s var(--easein) both;
-}
-@keyframes screenIn {
-  from { opacity: 0; transform: translateY(36px) }
-  to   { opacity: 1; transform: translateY(0) }
-}
-@keyframes screenOut {
-  from { opacity: 1; transform: translateY(0) }
-  to   { opacity: 0; transform: translateY(-18px) }
+/* Divider */
+.divider{height:1px;background:rgba(255,255,255,.05);margin:18px 0}
+.sub-head{
+  font-size:10px;font-weight:800;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:12px;margin-top:20px;
+  padding-bottom:7px;
+  border-bottom:1px solid rgba(245,180,41,.12);
 }
 
-/* ── WELCOME SCREEN ──────────────────────────── */
-.welcome {
-  flex: 1;
-  display: flex; flex-direction: column;
-  justify-content: center;
-  padding: 28px 22px 110px;
-  max-width: 480px; margin: 0 auto; width: 100%;
+/* ── STEP HEADER (above sections) ── */
+.step-header{margin-bottom:20px}
+.step-progress-label{
+  font-size:11px;font-weight:700;color:var(--gold);
+  letter-spacing:.04em;margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
 }
-.welcome-flag {
-  font-size: 52px; margin-bottom: 24px;
-  animation: flagBounce 0.6s var(--ease) 0.2s both;
+.step-progress-label::before{
+  content:'';display:inline-block;width:18px;height:2px;
+  background:var(--gold);border-radius:1px;
 }
-@keyframes flagBounce {
-  from { transform: scale(0.5) rotate(-10deg); opacity: 0 }
-  to   { transform: scale(1) rotate(0deg); opacity: 1 }
-}
-.welcome-brand {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 12px;
-}
-.welcome-h1 {
-  font-size: clamp(22px, 5vw, 32px);
-  font-weight: 800; line-height: 1.2;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-.welcome-sub {
-  font-size: 14px; color: var(--muted); line-height: 1.65;
-  margin-bottom: 28px; max-width: 44ch;
-}
-.welcome-pills {
-  display: flex; flex-direction: column; gap: 10px;
-  margin-bottom: 36px;
-}
-.pill {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--bg2);
-  border: 1px solid oklch(100% 0 0 / 6%);
-  border-radius: 12px; padding: 13px 16px;
-}
-.pill-ico { font-size: 20px; flex-shrink: 0 }
-.pill-text { font-size: 13px; color: var(--muted); line-height: 1.4 }
-.pill-text strong { color: var(--text); font-weight: 600 }
-.welcome-cta {
-  width: 100%;
-  background: var(--gold); color: var(--bg);
-  border: none; border-radius: 14px;
-  font-family: inherit; font-size: 16px; font-weight: 800;
-  padding: 17px 24px;
-  cursor: pointer;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s;
-  box-shadow: 0 4px 24px oklch(72% 0.16 85 / 30%);
-}
-.welcome-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px oklch(72% 0.16 85 / 40%);
-}
-.welcome-cta:active { transform: translateY(0) }
-.welcome-note {
-  text-align: center; margin-top: 16px;
-  font-size: 11px; color: var(--dim);
-}
+.step-title{font-size:19px;font-weight:800;color:var(--text);margin-bottom:4px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6}
 
-/* ── QUESTION SCREEN ─────────────────────────── */
-.q-screen {
-  flex: 1;
-  display: flex; flex-direction: column;
-  padding: 24px 22px 110px;
-  max-width: 520px; margin: 0 auto; width: 100%;
+/* ── NAV ── */
+.nav-fixed{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  padding:11px 18px max(10px,env(safe-area-inset-bottom));
+  background:rgba(6,13,26,.94);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.05);
+  display:flex;gap:10px;align-items:center;
 }
-.q-num {
-  font-size: 11px; font-weight: 700; color: var(--gold);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+.nav-back{
+  width:46px;height:46px;border-radius:11px;flex-shrink:0;
+  background:var(--bg2);border:1px solid rgba(255,255,255,.08);
+  color:var(--muted);font-size:17px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .18s;
 }
-.q-num::before {
-  content: '';
-  display: inline-block; width: 20px; height: 2px;
-  background: var(--gold); border-radius: 1px;
+.nav-back:hover{background:var(--bg3);color:var(--text)}
+.nav-next{
+  flex:1;height:46px;border-radius:11px;
+  background:var(--gold);border:none;color:var(--bg);
+  font-family:inherit;font-size:14px;font-weight:800;
+  cursor:pointer;letter-spacing:.02em;
+  transition:transform .2s var(--ease),box-shadow .2s;
+  box-shadow:0 4px 18px rgba(245,180,41,.28);
 }
-.q-text {
-  font-size: clamp(18px, 4vw, 26px);
-  font-weight: 700; line-height: 1.25;
-  color: var(--text);
-  margin-bottom: 7px;
-}
-.q-hint {
-  font-size: 13px; color: var(--muted);
-  line-height: 1.6; margin-bottom: 24px;
-  max-width: 48ch;
-}
-.q-body { flex: 1 }
+.nav-next:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(245,180,41,.38)}
+.nav-next:active{transform:translateY(0)}
 
-/* ── OPTION BUTTONS ──────────────────────────── */
-.opts { display: flex; flex-direction: column; gap: 10px }
-.opt {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 18px;
-  background: var(--bg2);
-  border: 1.5px solid oklch(100% 0 0 / 8%);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: border-color 0.18s, background 0.18s, transform 0.15s var(--ease);
-  text-align: left; width: 100%;
-  font-family: inherit;
+/* ── FINAL ── */
+.final-wrap{
+  text-align:center;padding:36px 20px 24px;
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);margin-bottom:16px;
 }
-.opt:hover {
-  border-color: var(--goldbdr);
-  background: var(--golddim);
-  transform: translateX(3px);
+.final-ico{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(15,175,114,.12);border:2px solid var(--grn);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin:0 auto 20px;
+  animation:popIn .5s var(--ease) both;
 }
-.opt.selected {
-  border-color: var(--gold);
-  background: var(--golddim);
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.final-h{font-size:clamp(20px,5vw,26px);font-weight:900;margin-bottom:8px}
+.final-sub{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.final-includes{text-align:left;margin-bottom:18px}
+.fi-row{
+  display:flex;gap:11px;padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:13px;color:var(--muted);line-height:1.4;
 }
-.opt-letter {
-  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
-  background: var(--bg3); border: 1px solid var(--dim);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: var(--muted);
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+.fi-row:last-child{border:none}
+.fi-row .fc{color:var(--grn);flex-shrink:0;font-size:14px}
+.final-price-note{
+  font-size:11.5px;color:var(--dim);
+  background:var(--bg3);border-radius:9px;padding:10px 13px;
+  line-height:1.55;margin-bottom:20px;text-align:left;
 }
-.opt.selected .opt-letter {
-  background: var(--gold); border-color: var(--gold); color: var(--bg);
+.final-price-note strong{color:var(--muted)}
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:15px;border-radius:13px;
+  background:#25D366;color:#fff;border:none;
+  font-family:inherit;font-size:15px;font-weight:800;
+  text-decoration:none;cursor:pointer;margin-bottom:9px;
+  transition:transform .2s var(--ease),box-shadow .2s;
+  box-shadow:0 4px 18px rgba(37,211,102,.28);
 }
-.opt-label { font-size: 14px; font-weight: 500; color: var(--text) }
-.opt.selected .opt-label { font-weight: 600 }
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(37,211,102,.38)}
+.btn-copy{
+  width:100%;padding:12px;border-radius:11px;
+  background:var(--bg3);border:1px solid rgba(255,255,255,.07);
+  color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .18s;
+}
+.btn-copy:hover{background:var(--bg2);color:var(--text)}
 
-/* ── COUNT SELECTOR ──────────────────────────── */
-.count-wrap { display: flex; gap: 10px; flex-wrap: wrap }
-.count-opt {
-  width: 60px; height: 60px; border-radius: 12px;
-  background: var(--bg2); border: 1.5px solid oklch(100% 0 0 / 8%);
-  font-family: inherit; font-size: 22px; font-weight: 700; color: var(--muted);
-  cursor: pointer;
-  transition: all 0.18s var(--ease);
-  display: flex; align-items: center; justify-content: center;
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  main{padding:20px 14px 96px}
+  .section-card{padding:16px 14px}
+  .step-title{font-size:17px}
+  input,select,textarea{font-size:14px;padding:10px 12px}
+  .opt-btn{padding:11px 12px}
+  .opt-lbl{font-size:13px}
+  .cnt-btn{width:46px;height:46px;font-size:16px}
+  .nav-fixed{padding:9px 14px max(9px,env(safe-area-inset-bottom))}
+  .nav-back{width:42px;height:42px}
+  .nav-next{height:42px;font-size:13px}
 }
-.count-opt:hover { border-color: var(--goldbdr); color: var(--text) }
-.count-opt.selected {
-  background: var(--gold); border-color: var(--gold);
-  color: var(--bg); transform: scale(1.06);
-}
-
-/* ── TEXT INPUT ──────────────────────────────── */
-.q-input-wrap { position: relative }
-.q-input {
-  width: 100%; padding: 14px 0 10px;
-  background: transparent;
-  border: none; border-bottom: 2px solid var(--bg3);
-  color: var(--text);
-  font-family: inherit; font-size: clamp(15px, 3.5vw, 18px);
-  font-weight: 500; outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.q-input::placeholder { color: var(--dim) }
-.q-input:focus { border-bottom-color: var(--gold) }
-.q-input-line {
-  position: absolute; bottom: 0; left: 0;
-  height: 2px; width: 0%;
-  background: var(--gold);
-  transition: width 0.3s var(--ease);
-  pointer-events: none;
-}
-.q-input:focus ~ .q-input-line { width: 100% }
-
-/* DATE ──────────────────────────────────────── */
-.q-date {
-  width: 100%; padding: 14px 0 10px;
-  background: transparent;
-  border: none; border-bottom: 2px solid var(--bg3);
-  color: var(--text);
-  font-family: inherit; font-size: clamp(15px, 3.5vw, 17px);
-  font-weight: 500; outline: none;
-  -webkit-appearance: none; appearance: none;
-  transition: border-color 0.2s;
-}
-.q-date:focus { border-bottom-color: var(--gold) }
-.q-date::-webkit-calendar-picker-indicator { filter: invert(0.7) }
-
-/* PHONE / EMAIL ─────────────────────────────── */
-.q-tel { font-size: clamp(18px, 4.5vw, 28px) }
-
-/* TEXTAREA ──────────────────────────────────── */
-.q-textarea {
-  width: 100%; padding: 0;
-  background: transparent; border: none;
-  border-bottom: 2px solid var(--bg3);
-  color: var(--text); font-family: inherit;
-  font-size: 14px; font-weight: 500;
-  outline: none; resize: none; min-height: 80px; line-height: 1.6;
-  transition: border-color 0.2s;
-}
-.q-textarea:focus { border-bottom-color: var(--gold) }
-.q-textarea::placeholder { color: var(--dim) }
-
-/* TRAVELERS LIST ────────────────────────────── */
-.traveler-cards { display: flex; flex-direction: column; gap: 12px }
-.traveler-card {
-  background: var(--bg2); border: 1px solid oklch(100% 0 0 / 6%);
-  border-radius: 12px; padding: 16px;
-}
-.traveler-card-header {
-  font-size: 11px; font-weight: 700; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 0.07em;
-  margin-bottom: 12px;
-}
-.tc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
-@media(max-width:480px){ .tc-grid{ grid-template-columns: 1fr } }
-.tc-field { display: flex; flex-direction: column; gap: 5px }
-.tc-label {
-  font-size: 10px; font-weight: 600; color: var(--dim);
-  text-transform: uppercase; letter-spacing: 0.07em;
-}
-.tc-input {
-  background: transparent; border: none;
-  border-bottom: 1.5px solid var(--bg3);
-  color: var(--text); font-family: inherit;
-  font-size: 14px; font-weight: 500; padding: 6px 0;
-  outline: none; transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.tc-input:focus { border-bottom-color: var(--gold) }
-.tc-input::placeholder { color: var(--dim) }
-.tc-select {
-  background: var(--bg3); border: 1px solid oklch(100% 0 0 / 10%);
-  border-radius: 7px; color: var(--text); font-family: inherit;
-  font-size: 13px; padding: 7px 10px; outline: none;
-  -webkit-appearance: none; width: 100%;
-}
-.tc-select option { background: var(--bg2) }
-
-/* INFO NOTE ─────────────────────────────────── */
-.q-note {
-  display: flex; gap: 10px; align-items: flex-start;
-  background: var(--golddim); border: 1px solid var(--goldbdr);
-  border-radius: 10px; padding: 12px 14px;
-  font-size: 12px; color: var(--muted); line-height: 1.55;
-  margin-top: 16px;
-}
-.q-note .ni { font-size: 16px; flex-shrink: 0 }
-
-/* DENIAL NOTE ───────────────────────────────── */
-.denial-note {
-  background: oklch(58% 0.20 22 / 8%);
-  border: 1px solid oklch(58% 0.20 22 / 25%);
-  border-radius: 10px; padding: 12px 14px;
-  font-size: 12.5px; color: var(--muted); line-height: 1.6;
-  margin-bottom: 16px;
-}
-.denial-note strong { color: var(--text) }
-
-/* SELECT STYLED ─────────────────────────────── */
-.q-select {
-  width: 100%;
-  background: var(--bg2);
-  border: 1.5px solid oklch(100% 0 0 / 8%);
-  border-radius: 12px; color: var(--text);
-  font-family: inherit; font-size: 15px; font-weight: 500;
-  padding: 14px 16px; outline: none;
-  -webkit-appearance: none; appearance: none;
-  transition: border-color 0.2s;
-  cursor: pointer;
-}
-.q-select:focus { border-color: var(--gold) }
-.q-select option { background: var(--bg2) }
-
-/* ── NAV (fixed bottom) ──────────────────────── */
-.nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-  padding: 12px 20px max(12px, env(safe-area-inset-bottom));
-  background: oklch(8% 0.020 250 / 95%);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid oklch(100% 0 0 / 5%);
-  display: flex; gap: 10px; align-items: center;
-}
-.nav-back {
-  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
-  background: var(--bg2); border: 1px solid oklch(100% 0 0 / 8%);
-  color: var(--muted); font-family: inherit; font-size: 18px;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, color 0.15s;
-}
-.nav-back:hover { background: var(--bg3); color: var(--text) }
-.nav-next {
-  flex: 1; height: 48px; border-radius: 12px;
-  background: var(--gold); border: none; color: var(--bg);
-  font-family: inherit; font-size: 15px; font-weight: 800;
-  cursor: pointer; letter-spacing: 0.02em;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s, opacity 0.2s;
-  box-shadow: 0 4px 20px oklch(72% 0.16 85 / 28%);
-}
-.nav-next:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px oklch(72% 0.16 85 / 38%);
-}
-.nav-next:active { transform: translateY(0) }
-.nav-next:disabled {
-  opacity: 0.35; cursor: not-allowed;
-  transform: none; box-shadow: none;
-}
-.nav-skip {
-  font-size: 12px; color: var(--dim); cursor: pointer;
-  background: none; border: none; font-family: inherit;
-  padding: 0 4px; flex-shrink: 0;
-  transition: color 0.15s;
-}
-.nav-skip:hover { color: var(--muted) }
-
-/* ── FINAL SCREEN ────────────────────────────── */
-.final {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 40px 24px 120px;
-  text-align: center; max-width: 520px; margin: 0 auto; width: 100%;
-}
-.final-check {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: oklch(64% 0.18 155 / 15%);
-  border: 2px solid var(--grn);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32px; margin: 0 auto 28px;
-  animation: checkPop 0.5s var(--ease) both;
-}
-@keyframes checkPop {
-  from { transform: scale(0); opacity: 0 }
-  to   { transform: scale(1); opacity: 1 }
-}
-.final-h { font-size: clamp(24px, 6vw, 36px); font-weight: 900; margin-bottom: 12px }
-.final-sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 32px }
-.final-box {
-  width: 100%;
-  background: var(--bg2); border: 1px solid oklch(100% 0 0 / 7%);
-  border-radius: 16px; padding: 20px;
-  margin-bottom: 24px; text-align: left;
-}
-.final-box-title {
-  font-size: 10px; font-weight: 700; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
-}
-.final-item {
-  display: flex; gap: 11px; padding: 9px 0;
-  border-bottom: 1px solid oklch(100% 0 0 / 5%);
-  font-size: 13px; line-height: 1.5; color: var(--muted);
-}
-.final-item:last-child { border: none; padding-bottom: 0 }
-.final-item .fi { color: var(--grn); flex-shrink: 0; font-size: 15px }
-.final-price {
-  font-size: 13px; color: var(--dim); margin-bottom: 24px;
-  padding: 12px 16px; background: var(--bg2);
-  border-radius: 10px; line-height: 1.6; text-align: left; width: 100%;
-}
-.final-price strong { color: var(--text) }
-.btn-wa {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; padding: 16px;
-  background: #25D366; color: #fff; border: none; border-radius: 14px;
-  font-family: inherit; font-size: 16px; font-weight: 800;
-  text-decoration: none; cursor: pointer;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s;
-  box-shadow: 0 4px 20px oklch(64% 0.18 155 / 30%);
-  margin-bottom: 10px;
-}
-.btn-wa:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px oklch(64% 0.18 155 / 40%);
-}
-.btn-copy {
-  width: 100%; padding: 13px;
-  background: var(--bg2); border: 1px solid oklch(100% 0 0 / 8%);
-  border-radius: 12px; color: var(--muted);
-  font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.btn-copy:hover { background: var(--bg3); color: var(--text) }
-
-/* ── KEYBOARD HINT ───────────────────────────── */
-.kbd-hint {
-  font-size: 11px; color: var(--dim); margin-top: 20px;
-  display: flex; align-items: center; gap: 6px;
-}
-.kbd {
-  display: inline-flex; align-items: center; gap: 3px;
-  background: var(--bg3); border: 1px solid var(--dim);
-  border-radius: 4px; padding: 2px 6px;
-  font-size: 10px; color: var(--muted); font-family: monospace;
-}
-
-/* ── MOBILE ──────────────────────────────────── */
-@media(max-width:480px) {
-  .q-screen { padding: 20px 18px 100px }
-  .welcome  { padding: 24px 18px 110px }
-  .q-text   { font-size: clamp(20px, 5.5vw, 28px) }
-  .opt      { padding: 14px 14px }
-  .opt-label{ font-size: 14px }
-  .count-opt{ width: 52px; height: 52px; font-size: 19px }
-  .nav      { padding: 10px 16px max(10px, env(safe-area-inset-bottom)) }
-  .nav-back { width: 44px; height: 44px }
-  .nav-next { height: 44px; font-size: 14px }
-}
-@media(max-width:360px) {
-  .q-text  { font-size: 19px }
-  .welcome-h1 { font-size: 24px }
-  .count-opt  { width: 46px; height: 46px; font-size: 17px; border-radius: 10px }
+@media(max-width:360px){
+  .welcome-h{font-size:20px}
+  .step-title{font-size:16px}
+  .sc-title{font-size:15px}
 }
 </style>
 </head>
 <body>
 
-<div id="progress-bar"><div id="progress-fill"></div></div>
+<div id="prog-bar"><div id="prog-fill"></div></div>
 
 <header>
   <a class="logo" href="https://www.asesoriadevisadosglobal.com">
@@ -552,618 +405,670 @@ main {
       <div class="logo-tag">asesoriadevisadosglobal.com</div>
     </div>
   </a>
-  <div class="hdr-step" id="hdr-step"></div>
+  <div class="hdr-right">
+    <span id="hdr-label"></span>
+    <span class="hdr-pill" id="hdr-pill" style="display:none"></span>
+  </div>
 </header>
 
-<main id="main"></main>
+<main>
 
-<div class="nav" id="nav" style="display:none">
-  <button class="nav-back" id="btn-back" onclick="prev()" title="Volver">←</button>
-  <button class="nav-next" id="btn-next" onclick="next()">Continuar</button>
+<!-- ══ PASO 0: BIENVENIDA ══════════════════════════════════ -->
+<div class="step active" id="step-0">
+  <div class="welcome-flag">🇺🇸</div>
+  <div class="welcome-label">Asesoría Visa Global</div>
+  <h1 class="welcome-h">Tu visa USA empieza aquí</h1>
+  <p class="welcome-sub">Responde estas preguntas con calma. Nosotros nos encargamos de todo: los documentos, la solicitud y el acompañamiento hasta el día de la entrevista.</p>
+
+  <div class="trust-pills">
+    <div class="trust-pill">
+      <span class="tp-ico">⏱️</span>
+      <div class="tp-text"><strong>Solo 10 minutos</strong> — tus respuestas se guardan automáticamente</div>
+    </div>
+    <div class="trust-pill">
+      <span class="tp-ico">🔒</span>
+      <div class="tp-text"><strong>Tus datos son privados</strong> — solo los recibe nuestro equipo, no van a ninguna embajada</div>
+    </div>
+    <div class="trust-pill">
+      <span class="tp-ico">📲</span>
+      <div class="tp-text"><strong>Respuesta en 24 horas</strong> por WhatsApp con tu análisis personalizado</div>
+    </div>
+  </div>
+
+  <div class="steps-overview">
+    <div class="so-title">Lo que vamos a cubrir:</div>
+    <div class="so-step">
+      <div class="so-num">1</div>
+      <div class="so-info">
+        <div class="so-name">¿Quiénes viajan y han solicitado visa antes?</div>
+        <div class="so-desc">Número de personas e historial de visas anteriores</div>
+      </div>
+    </div>
+    <div class="so-step">
+      <div class="so-num">2</div>
+      <div class="so-info">
+        <div class="so-name">¿Cómo eres y cómo contactarte?</div>
+        <div class="so-desc">Tu nombre, WhatsApp y ciudad</div>
+      </div>
+    </div>
+    <div class="so-step">
+      <div class="so-num">3</div>
+      <div class="so-info">
+        <div class="so-name">¿A dónde quieres ir y cuándo?</div>
+        <div class="so-desc">Destino, fechas y propósito del viaje</div>
+      </div>
+    </div>
+    <div class="so-step">
+      <div class="so-num">4</div>
+      <div class="so-info">
+        <div class="so-name">¿En qué trabajas y qué tienes en Ecuador?</div>
+        <div class="so-desc">Trabajo, familia y razones para volver — clave para la visa</div>
+      </div>
+    </div>
+    <div class="so-step">
+      <div class="so-num">5</div>
+      <div class="so-info">
+        <div class="so-name">Preguntas finales de seguridad</div>
+        <div class="so-desc">Preguntas estándar que la embajada hace a todo el mundo</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-cta" onclick="goTo(1)">Empezar →</button>
+  <p class="welcome-note">+593 99 444 2512 · Roberto Acosta · 13 años de experiencia</p>
 </div>
 
-<script>
-// ── DATA STORE ──────────────────────────────────────────────
-const S = {};
+<!-- ══ PASO 1: VIAJEROS ════════════════════════════════════ -->
+<div class="step" id="step-1">
+  <div class="step-header">
+    <div class="step-progress-label">Paso 1 de 5</div>
+    <div class="step-title">¿Quiénes van a viajar?</div>
+    <div class="step-desc">Cuéntanos cuántas personas incluye tu grupo y si alguna ya intentó obtener visa antes.</div>
+  </div>
 
-// ── QUESTIONS ───────────────────────────────────────────────
-// Each question: { id, type, q, hint?, opts?, skip?, condition? }
-// Types: welcome | count | opts | text | tel | email | date | select | textarea | travelers | final
-
-const QS = [
-  { id:'welcome', type:'welcome' },
-
-  {
-    id:'num_viajeros', type:'count', max:6,
-    q:'¿Cuántas personas van a viajar?',
-    hint:'Cuenta a todos — adultos y niños. Cada persona tiene su propia solicitud.',
-    note:'Nosotros preparamos los documentos de cada uno.'
-  },
-
-  {
-    id:'viajeros_datos', type:'travelers',
-    q:'¿Cuáles son los nombres de los viajeros?',
-    hint:'Tal como aparecen en el pasaporte. Puedes completar el resto más adelante.',
-  },
-
-  {
-    id:'visa_anterior', type:'opts',
-    q:'¿Alguno ha solicitado visa americana antes?',
-    hint:'Aprobada, rechazada o en proceso — cualquier intento cuenta.',
-    opts:['Sí, alguno solicitó antes','No, es la primera vez para todos']
-  },
-
-  {
-    id:'resultado_anterior', type:'opts',
-    condition: () => S.visa_anterior === 0,
-    q:'¿Cuál fue el resultado?',
-    hint:'Sé honesto — la embajada tiene ese historial y Roberto necesita saberlo para prepararte bien.',
-    opts:['Fue aprobada (tiene o tuvo visa)','Fue rechazada / negada','Algunos aprobados, otros rechazados'],
-    note:'Un rechazo anterior no cierra la puerta. Solo cambia la estrategia.',
-    isDenial: true
-  },
-
-  {
-    id:'causal_negacion', type:'select',
-    condition: () => S.visa_anterior === 0 && (S.resultado_anterior === 1 || S.resultado_anterior === 2),
-    q:'¿Cuál fue el motivo del rechazo?',
-    hint:'Si no lo recuerdas exactamente, elige la opción más cercana.',
-    opts:[
-      '214(b) — No demostró vínculos suficientes con Ecuador',
-      'Falta de solvencia económica',
-      'Documentación incompleta o inconsistente',
-      'Antecedentes migratorios',
-      'No indicaron motivo específico',
-      'No lo recuerdo'
-    ]
-  },
-
-  {
-    id:'que_dijo_oficial', type:'textarea',
-    condition: () => S.visa_anterior === 0 && (S.resultado_anterior === 1 || S.resultado_anterior === 2),
-    q:'¿Qué dijo el oficial cuando rechazó la visa?',
-    hint:'Cuéntanos lo que recuerdes, así sea poco. Esto ayuda mucho a la estrategia.',
-    placeholder:'Ej: "No tiene suficientes vínculos con Ecuador" / "Necesita más documentos de trabajo" / No dijo nada...',
-    skip: true
-  },
-
-  {
-    id:'nombre_principal', type:'text',
-    q:'¿Cuál es tu nombre completo?',
-    hint:'El del solicitante principal, tal como aparece en el pasaporte.',
-    placeholder:'Apellidos y nombres'
-  },
-
-  {
-    id:'whatsapp', type:'tel',
-    q:'¿Cuál es tu número de WhatsApp?',
-    hint:'Roberto te contacta aquí con el análisis de tu caso en menos de 24 horas.',
-    placeholder:'+593 98 000 0000'
-  },
-
-  {
-    id:'ciudad', type:'text',
-    q:'¿En qué ciudad de Ecuador vives?',
-    hint:'Tu ciudad de residencia actual.',
-    placeholder:'Quito / Guayaquil / Loja / Cuenca...'
-  },
-
-  {
-    id:'proposito', type:'opts',
-    q:'¿Para qué quieren ir a Estados Unidos?',
-    hint:'El motivo principal del viaje. Si son varios motivos, elige el más importante.',
-    opts:['Turismo y vacaciones','Visita a familiares','Negocios','Turismo + visita familiar','Otro motivo']
-  },
-
-  {
-    id:'destino', type:'text',
-    q:'¿A qué ciudad de USA quieren ir?',
-    hint:'Si tienen más de un destino, menciona el principal.',
-    placeholder:'Miami / Orlando / Nueva York / Los Ángeles...'
-  },
-
-  {
-    id:'fecha_aproximada', type:'opts',
-    q:'¿Cuándo están pensando viajar?',
-    hint:'Aproximado está bien. Roberto te ayuda a definir las fechas exactas.',
-    opts:['En los próximos 3 meses','Entre 3 y 6 meses','En 6 a 12 meses','Más de un año']
-  },
-
-  {
-    id:'situacion_laboral', type:'opts',
-    q:'¿En qué situación laboral estás actualmente?',
-    hint:'La situación laboral es uno de los factores más importantes para la visa.',
-    opts:['Empleado en empresa (relación de dependencia)','Tengo mi propio negocio / soy independiente','Estudiante','Jubilado / pensionista','Ama de casa','Desempleado actualmente']
-  },
-
-  {
-    id:'empleador', type:'text',
-    condition: () => S.situacion_laboral === 0 || S.situacion_laboral === 1,
-    q:'¿Dónde trabajas o cuál es tu negocio?',
-    hint:'Nombre de la empresa o descripción de tu actividad.',
-    placeholder:'Nombre de la empresa o tipo de negocio'
-  },
-
-  {
-    id:'vinculo_ecuador', type:'opts',
-    q:'¿Qué te ata a Ecuador y demuestra que vas a regresar?',
-    hint:'Este es el argumento más fuerte para obtener la visa — la embajada quiere saber por qué volverías.',
-    opts:['Tengo hijos que se quedan aquí','Tengo trabajo estable al que volver','Tengo casa o propiedad propia','Tengo negocio propio','Varias de estas razones','Nada muy sólido aún'],
-    note:'No te preocupes si todavía no tienes todo esto — Roberto sabe cómo construir el mejor argumento con lo que tienes.'
-  },
-
-  {
-    id:'pasaporte', type:'text',
-    q:'¿Cuál es tu número de pasaporte?',
-    hint:'Si viajas en familia, pon el del solicitante principal por ahora.',
-    placeholder:'A0000000'
-  },
-
-  {
-    id:'cedula', type:'text',
-    q:'¿Cuál es tu número de cédula ecuatoriana?',
-    hint:'Para verificar tu identidad y preparar los documentos.',
-    placeholder:'0000000000'
-  },
-
-  {
-    id:'obs', type:'textarea',
-    q:'¿Hay algo más que Roberto deba saber?',
-    hint:'Cualquier situación especial, antecedente, familiar en USA, rechazo previo en otro país o dato importante para tu caso.',
-    placeholder:'Escribe aquí cualquier cosa que consideres relevante... o deja en blanco si no hay nada más.',
-    skip: true
-  },
-
-  { id:'final', type:'final' }
-];
-
-// filter by condition
-function visibleQs() {
-  return QS.filter(q => !q.condition || q.condition());
-}
-
-let cursor = 0;
-
-// ── RENDER ───────────────────────────────────────────────────
-function render(dir = 1) {
-  const qs = visibleQs();
-  const q  = qs[cursor];
-  const main = document.getElementById('main');
-  const nav  = document.getElementById('nav');
-
-  // update progress
-  const pct = Math.round((cursor / (qs.length - 1)) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-
-  // header step
-  const hdr = document.getElementById('hdr-step');
-  if (q.type === 'welcome' || q.type === 'final') {
-    hdr.innerHTML = '';
-  } else {
-    const idx = qs.filter((x,i) => i <= cursor && x.type !== 'welcome' && x.type !== 'final').length;
-    const total = qs.filter(x => x.type !== 'welcome' && x.type !== 'final').length;
-    hdr.innerHTML = `<span>${idx}</span> / ${total}`;
-  }
-
-  // exit old screen
-  const old = main.querySelector('.screen.active');
-  if (old) {
-    old.classList.remove('active');
-    old.classList.add('exit');
-    setTimeout(() => old.remove(), 260);
-  }
-
-  // build new screen
-  const el = buildScreen(q, qs);
-  el.classList.add('screen');
-  main.appendChild(el);
-  requestAnimationFrame(() => el.classList.add('active'));
-
-  // nav visibility
-  const isWelcome = q.type === 'welcome';
-  const isFinal   = q.type === 'final';
-  nav.style.display = (isWelcome || isFinal) ? 'none' : 'flex';
-
-  if (!isWelcome && !isFinal) {
-    const btn = document.getElementById('btn-next');
-    btn.textContent = cursor === qs.length - 2 ? '¡Listo!' : 'Continuar';
-    btn.disabled = false;
-    document.getElementById('btn-back').style.visibility = cursor > 1 ? 'visible' : 'hidden';
-  }
-
-  // auto focus input
-  setTimeout(() => {
-    const inp = el.querySelector('.q-input,.q-tel,.q-date,.q-textarea,.tc-input');
-    if (inp) inp.focus();
-  }, 420);
-}
-
-// ── BUILD SCREENS ────────────────────────────────────────────
-function buildScreen(q, qs) {
-  const el = document.createElement('div');
-
-  if (q.type === 'welcome') return buildWelcome(el);
-  if (q.type === 'final')   return buildFinal(el, qs);
-
-  el.classList.add('q-screen');
-
-  const idx = qs.filter((x,i) => i <= cursor && x.type !== 'welcome' && x.type !== 'final').length;
-  el.innerHTML = `
-    <div class="q-num">Pregunta ${idx}</div>
-    <div class="q-text">${q.q}</div>
-    ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
-    <div class="q-body" id="qbody"></div>
-    ${q.note ? `<div class="q-note"><span class="ni">💡</span><span>${q.note}</span></div>` : ''}
-    ${window.innerWidth > 700 ? `<div class="kbd-hint">Presiona <span class="kbd">Enter ↵</span> para continuar</div>` : ''}
-  `;
-
-  const body = el.querySelector('#qbody');
-
-  if (q.isDenial) {
-    body.insertAdjacentHTML('beforebegin', `<div class="denial-note">
-      <strong>Un rechazo no cierra la puerta.</strong> Roberto tiene experiencia con casos negados — lo importante es saber qué pasó para construir una estrategia diferente esta vez.
-    </div>`);
-  }
-
-  switch(q.type) {
-    case 'opts':    buildOpts(body, q);      break;
-    case 'count':   buildCount(body, q);     break;
-    case 'text':    buildText(body, q);      break;
-    case 'tel':     buildTel(body, q);       break;
-    case 'email':   buildEmail(body, q);     break;
-    case 'date':    buildDate(body, q);      break;
-    case 'select':  buildSelect(body, q);    break;
-    case 'textarea':buildTextarea(body, q);  break;
-    case 'travelers':buildTravelers(body, q); break;
-  }
-
-  return el;
-}
-
-function buildWelcome(el) {
-  el.classList.add('welcome');
-  el.innerHTML = `
-    <div class="welcome-flag">🇺🇸</div>
-    <div class="welcome-brand">Asesoría Visa Global</div>
-    <h1 class="welcome-h1">Tu visa USA empieza aquí</h1>
-    <p class="welcome-sub">Responde estas preguntas en 10 minutos. Nosotros preparamos todo: análisis, documentos y solicitud ante la embajada. Tú no llevas nada a la embajada.</p>
-    <div class="welcome-pills">
-      <div class="pill">
-        <span class="pill-ico">⏱️</span>
-        <div class="pill-text"><strong>Solo 10 minutos</strong> — tus respuestas se guardan automáticamente</div>
-      </div>
-      <div class="pill">
-        <span class="pill-ico">🔒</span>
-        <div class="pill-text"><strong>Tus datos son privados</strong> — solo los recibe nuestro equipo, no van a ninguna embajada</div>
-      </div>
-      <div class="pill">
-        <span class="pill-ico">📲</span>
-        <div class="pill-text"><strong>Respuesta en menos de 24 horas</strong> por WhatsApp con tu análisis personalizado</div>
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">👥</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Viajeros</div>
+        <div class="sc-title">¿Cuántos van a viajar?</div>
+        <div class="sc-desc">Incluye a todos — adultos y niños. Cada persona necesita su propia solicitud.</div>
       </div>
     </div>
-    <button class="welcome-cta" onclick="startForm()">Comenzar →</button>
-    <p class="welcome-note">+593 99 444 2512 · Roberto Acosta · 13 años de experiencia</p>
-  `;
-  return el;
-}
-
-function buildFinal(el, qs) {
-  el.classList.add('q-screen');
-  el.style.display = 'flex';
-  el.style.flexDirection = 'column';
-  el.style.alignItems = 'center';
-  el.style.justifyContent = 'center';
-  el.style.paddingBottom = '40px';
-  el.style.textAlign = 'center';
-  el.style.maxWidth = '520px';
-  el.style.margin = '0 auto';
-  el.style.width = '100%';
-
-  const nombre  = S.nombre_principal || '';
-  const wa      = S.whatsapp || '';
-  const nViaj   = S.num_viajeros || 1;
-  const denied  = S.resultado_anterior === 1 || S.resultado_anterior === 2;
-
-  const waText = encodeURIComponent(
-    `Hola, acabo de completar el formulario de información para mi visa USA.\n\n` +
-    `Nombre: ${nombre}\nWhatsApp: ${wa}\n` +
-    `Viajeros: ${nViaj}\n` +
-    `Propósito: ${opLabel('proposito')}\n` +
-    `Destino: ${S.destino || 'pendiente'}\n` +
-    `Rechazo previo: ${denied ? 'Sí — ' + opLabel('causal_negacion') : 'No'}\n\n` +
-    `Quedo a la espera de su análisis. ¡Gracias!`
-  );
-
-  el.innerHTML = `
-    <div class="final-check">✓</div>
-    <div class="final-h">¡Listo, ${nombre.split(' ')[0] || 'ya terminaste'}!</div>
-    <p class="final-sub">Nuestro equipo recibió tu información. En menos de <strong>24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</p>
-    <div class="final-box">
-      <div class="final-box-title">Lo que incluye tu asesoría — $250 USD / persona</div>
-      <div class="final-item"><span class="fi">✓</span>Análisis completo de tu perfil migratorio</div>
-      <div class="final-item"><span class="fi">✓</span>Preparación y revisión de todos los documentos</div>
-      <div class="final-item"><span class="fi">✓</span>Llenado de la solicitud oficial ante la embajada</div>
-      <div class="final-item"><span class="fi">✓</span>Simulacro de entrevista consular</div>
-      <div class="final-item"><span class="fi">✓</span>Acompañamiento por WhatsApp hasta el sello</div>
+    <div class="count-row" id="count-viajeros">
+      <button class="cnt-btn" onclick="selectCount(1)">1</button>
+      <button class="cnt-btn" onclick="selectCount(2)">2</button>
+      <button class="cnt-btn" onclick="selectCount(3)">3</button>
+      <button class="cnt-btn" onclick="selectCount(4)">4</button>
+      <button class="cnt-btn" onclick="selectCount(5)">5</button>
+      <button class="cnt-btn" onclick="selectCount(6)">6+</button>
     </div>
-    <div class="final-price">
-      La tasa consular (<strong>$185 USD</strong>) se paga aparte, directamente al gobierno de USA. No es parte de nuestros honorarios.
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">📋</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Historial</div>
+        <div class="sc-title">¿Alguno ha solicitado visa americana antes?</div>
+        <div class="sc-desc">Aprobada, rechazada o en proceso — cualquier intento anterior importa.</div>
+      </div>
     </div>
-    <a class="btn-wa" href="https://wa.me/593994442512?text=${waText}" target="_blank">
+    <div class="opt-group">
+      <button class="opt-btn" onclick="selectOpt(this,'visa_ant',0)">
+        <div class="opt-dot"></div>
+        <span class="opt-lbl">Sí, alguno ya solicitó antes</span>
+      </button>
+      <button class="opt-btn" onclick="selectOpt(this,'visa_ant',1)">
+        <div class="opt-dot"></div>
+        <span class="opt-lbl">No, es la primera vez para todos</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Historial previo (condicional) -->
+  <div id="bloque-historial" style="display:none">
+    <div class="section-card">
+      <div class="sc-header">
+        <div class="sc-icon">🔍</div>
+        <div class="sc-meta">
+          <div class="sc-badge">Resultado anterior</div>
+          <div class="sc-title">¿Cuál fue el resultado de esa solicitud?</div>
+        </div>
+      </div>
+      <div class="warn-box">
+        <span style="font-size:16px;flex-shrink:0">💪</span>
+        <span>Un rechazo anterior <strong style="color:var(--text)">no cierra la puerta.</strong> Roberto trabaja con estos casos — necesita saberlo para preparar la estrategia correcta.</span>
+      </div>
+      <div class="opt-group">
+        <button class="opt-btn" onclick="selectOpt(this,'resultado',0)">
+          <div class="opt-dot"></div>
+          <span class="opt-lbl">✅ Fue aprobada (tiene o tuvo visa)</span>
+        </button>
+        <button class="opt-btn" onclick="selectOpt(this,'resultado',1)">
+          <div class="opt-dot"></div>
+          <span class="opt-lbl">❌ Fue rechazada / negada</span>
+        </button>
+        <button class="opt-btn" onclick="selectOpt(this,'resultado',2)">
+          <div class="opt-dot"></div>
+          <span class="opt-lbl">Algunos aprobados, otros rechazados</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="bloque-rechazo" style="display:none">
+      <div class="section-card">
+        <div class="sc-header">
+          <div class="sc-icon">📝</div>
+          <div class="sc-meta">
+            <div class="sc-badge">Detalles del rechazo</div>
+            <div class="sc-title">Cuéntanos más sobre ese rechazo</div>
+            <div class="sc-desc">Esta información ayuda mucho a construir una estrategia diferente esta vez.</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>¿Cuál fue el motivo indicado?</label>
+            <select onchange="S.causal=this.value;save()">
+              <option value="">Selecciona el más cercano...</option>
+              <option value="214b">214(b) — No demostró vínculos con Ecuador</option>
+              <option value="economico">Falta de solvencia económica</option>
+              <option value="docs">Documentación incompleta o inconsistente</option>
+              <option value="migratorio">Antecedentes migratorios</option>
+              <option value="sin_motivo">No indicaron motivo específico</option>
+              <option value="no_recuerdo">No lo recuerdo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>¿Qué dijo el oficial? <span class="hint">(opcional — lo que recuerdes)</span></label>
+            <textarea placeholder="Ej: 'No tiene suficientes vínculos con Ecuador' / 'Necesita más documentos de trabajo' / No dijo nada..." onchange="S.que_dijo=this.value;save()"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PASO 2: CONTACTO ════════════════════════════════════ -->
+<div class="step" id="step-2">
+  <div class="step-header">
+    <div class="step-progress-label">Paso 2 de 5</div>
+    <div class="step-title">¿Cómo eres y cómo contactarte?</div>
+    <div class="step-desc">Datos básicos del solicitante principal. Roberto te escribe por WhatsApp con el análisis de tu caso.</div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">👤</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Datos personales</div>
+        <div class="sc-title">Cuéntanos sobre ti</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Tu nombre completo <span class="req">*</span></label>
+          <input type="text" placeholder="Apellidos y nombres" oninput="S.nombre=this.value;save()">
+        </div>
+        <div class="field">
+          <label>WhatsApp <span class="req">*</span></label>
+          <input type="tel" placeholder="+593 98 000 0000" oninput="S.whatsapp=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Ciudad en Ecuador <span class="req">*</span></label>
+          <input type="text" placeholder="Quito / Guayaquil / Loja..." oninput="S.ciudad=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Cédula ecuatoriana</label>
+          <input type="text" placeholder="0000000000" oninput="S.cedula=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Fecha de nacimiento</label>
+          <input type="date" onchange="S.nacimiento=this.value;save()">
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="ii">💡</span>
+      <span>Solo necesitamos los del viajero principal por ahora. Roberto te pedirá los datos de los demás después si aplica.</span>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">🛂</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Pasaporte</div>
+        <div class="sc-title">Datos de tu pasaporte vigente</div>
+        <div class="sc-desc">Si no lo tienes a mano, déjalo en blanco — puedes enviarlo después por WhatsApp.</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field-grid">
+        <div class="field">
+          <label>Número de pasaporte</label>
+          <input type="text" placeholder="A0000000" oninput="S.pasaporte=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Fecha de vencimiento</label>
+          <input type="date" onchange="S.pasaporte_vence=this.value;save()">
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="ii">⚠️</span>
+      <span>Tu pasaporte debe tener <strong>mínimo 6 meses de vigencia</strong> desde la fecha de la entrevista consular. Si vence pronto, Roberto te avisará.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PASO 3: EL VIAJE ════════════════════════════════════ -->
+<div class="step" id="step-3">
+  <div class="step-header">
+    <div class="step-progress-label">Paso 3 de 5</div>
+    <div class="step-title">¿A dónde quieres ir?</div>
+    <div class="step-desc">Cuéntanos el plan del viaje. No tiene que ser perfecto — Roberto te ayuda a definir los detalles.</div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">✈️</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Destino y propósito</div>
+        <div class="sc-title">¿Para qué quieren ir y a dónde?</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field">
+        <label>Propósito del viaje <span class="req">*</span></label>
+        <div class="opt-group">
+          <button class="opt-btn" onclick="selectOpt(this,'proposito',0)"><div class="opt-dot"></div><span class="opt-lbl">Turismo y vacaciones</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'proposito',1)"><div class="opt-dot"></div><span class="opt-lbl">Visita a familiares</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'proposito',2)"><div class="opt-dot"></div><span class="opt-lbl">Negocios</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'proposito',3)"><div class="opt-dot"></div><span class="opt-lbl">Turismo y visita familiar</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'proposito',4)"><div class="opt-dot"></div><span class="opt-lbl">Otro motivo</span></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Ciudad de destino en USA</label>
+        <input type="text" placeholder="Miami / Orlando / Nueva York / Los Ángeles..." oninput="S.destino=this.value;save()">
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">📅</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Fechas</div>
+        <div class="sc-title">¿Cuándo piensan viajar?</div>
+        <div class="sc-desc">Aproximado está bien — las fechas exactas se coordinan más adelante.</div>
+      </div>
+    </div>
+    <div class="opt-group">
+      <button class="opt-btn" onclick="selectOpt(this,'cuando',0)"><div class="opt-dot"></div><span class="opt-lbl">En los próximos 3 meses</span></button>
+      <button class="opt-btn" onclick="selectOpt(this,'cuando',1)"><div class="opt-dot"></div><span class="opt-lbl">Entre 3 y 6 meses</span></button>
+      <button class="opt-btn" onclick="selectOpt(this,'cuando',2)"><div class="opt-dot"></div><span class="opt-lbl">En 6 a 12 meses</span></button>
+      <button class="opt-btn" onclick="selectOpt(this,'cuando',3)"><div class="opt-dot"></div><span class="opt-lbl">Más de un año</span></button>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">🏨</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Alojamiento en USA</div>
+        <div class="sc-title">¿Dónde se van a quedar?</div>
+        <div class="sc-desc">Si no tienes nada definido todavía, escribe "Por definir" — Roberto te ayuda.</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field">
+        <label>Hotel o dirección del anfitrión</label>
+        <input type="text" placeholder="Nombre del hotel / Dirección de familiar..." oninput="S.alojamiento=this.value;save()">
+      </div>
+      <div class="field">
+        <label>¿Quién paga el viaje? <span class="req">*</span></label>
+        <div class="opt-group">
+          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',0)"><div class="opt-dot"></div><span class="opt-lbl">Yo mismo / mis propios recursos</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',1)"><div class="opt-dot"></div><span class="opt-lbl">Un familiar que vive en USA</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',2)"><div class="opt-dot"></div><span class="opt-lbl">Mi empresa</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',3)"><div class="opt-dot"></div><span class="opt-lbl">Entre varios</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PASO 4: SITUACIÓN EN ECUADOR ═══════════════════════ -->
+<div class="step" id="step-4">
+  <div class="step-header">
+    <div class="step-progress-label">Paso 4 de 5</div>
+    <div class="step-title">¿Qué tienes en Ecuador?</div>
+    <div class="step-desc">Este paso es muy importante. La embajada quiere saber que tienes razones sólidas para regresar. Cuéntanos todo.</div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">💼</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Trabajo</div>
+        <div class="sc-title">¿En qué trabajas actualmente?</div>
+      </div>
+    </div>
+    <div class="sc-why">
+      <strong>¿Por qué lo preguntamos?</strong> La estabilidad laboral es uno de los factores más importantes para obtener la visa. La embajada quiere saber que tienes un trabajo al que regresar.
+    </div>
+    <div class="field-group">
+      <div class="field">
+        <label>Situación laboral actual <span class="req">*</span></label>
+        <div class="opt-group">
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',0)"><div class="opt-dot"></div><span class="opt-lbl">Empleado en empresa (con contrato)</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',1)"><div class="opt-dot"></div><span class="opt-lbl">Tengo mi propio negocio o soy independiente</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',2)"><div class="opt-dot"></div><span class="opt-lbl">Estudiante</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',3)"><div class="opt-dot"></div><span class="opt-lbl">Jubilado / pensionista</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',4)"><div class="opt-dot"></div><span class="opt-lbl">Ama de casa</span></button>
+          <button class="opt-btn" onclick="selectOpt(this,'trabajo',5)"><div class="opt-dot"></div><span class="opt-lbl">Desempleado actualmente</span></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Empresa o descripción de tu actividad</label>
+        <input type="text" placeholder="Nombre de la empresa / tipo de negocio..." oninput="S.empleador=this.value;save()">
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">🏠</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Vínculos con Ecuador</div>
+        <div class="sc-title">¿Qué te ata a Ecuador?</div>
+      </div>
+    </div>
+    <div class="sc-why">
+      <strong>Este es el argumento más fuerte para la visa.</strong> La pregunta clave del consul es: "¿Por qué va a volver?" — tus vínculos aquí son tu mejor respuesta.
+    </div>
+    <div class="field-group">
+      <div class="field">
+        <label>Selecciona todo lo que aplica a tu caso</label>
+        <div class="opt-group" id="vinculos-group">
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_hijos')"><div class="opt-dot"></div><span class="opt-lbl">Tengo hijos que se quedan en Ecuador</span></button>
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_trabajo')"><div class="opt-dot"></div><span class="opt-lbl">Tengo trabajo estable al que volver</span></button>
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_casa')"><div class="opt-dot"></div><span class="opt-lbl">Tengo casa o propiedad propia</span></button>
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_negocio')"><div class="opt-dot"></div><span class="opt-lbl">Tengo negocio propio</span></button>
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_familia')"><div class="opt-dot"></div><span class="opt-lbl">Tengo pareja / padres / familiares directos aquí</span></button>
+          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_estudios')"><div class="opt-dot"></div><span class="opt-lbl">Estoy estudiando actualmente</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="ii">💡</span>
+      <span>No te preocupes si tienes pocos vínculos — Roberto sabe cómo presentar tu caso de la forma más sólida posible con lo que tienes.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PASO 5: PREGUNTAS FINALES ══════════════════════════ -->
+<div class="step" id="step-5">
+  <div class="step-header">
+    <div class="step-progress-label">Paso 5 de 5 — ¡Ya casi!</div>
+    <div class="step-title">Unas preguntas finales</div>
+    <div class="step-desc">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde NO a todas. Si alguna aplica, Roberto sabe exactamente cómo manejarlo.</div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">🔐</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Preguntas estándar</div>
+        <div class="sc-title">Responde con honestidad</div>
+        <div class="sc-desc">Son preguntas de sí o no. Si hay algún SÍ, escríbelo sin miedo — la estrategia cambia pero la visa sigue siendo posible.</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div id="sq-list"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-header">
+      <div class="sc-icon">💬</div>
+      <div class="sc-meta">
+        <div class="sc-badge">Información adicional</div>
+        <div class="sc-title">¿Hay algo más que debamos saber?</div>
+        <div class="sc-desc">Cualquier situación especial que no hayamos preguntado. Déjalo en blanco si no hay nada más.</div>
+      </div>
+    </div>
+    <textarea style="width:100%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.07);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px;padding:12px 13px;outline:none;resize:vertical;min-height:80px;line-height:1.55;transition:border-color .2s" placeholder="Familiar en USA, situación legal especial, deportación previa en otro país, cualquier dato importante..." oninput="S.obs=this.value;save()"></textarea>
+  </div>
+</div>
+
+<!-- ══ FINAL ══════════════════════════════════════════════ -->
+<div class="step" id="step-final">
+  <div class="final-wrap">
+    <div class="final-ico">✓</div>
+    <div class="final-h" id="final-h">¡Listo!</div>
+    <div class="final-sub">Nuestro equipo recibió tu información. En menos de <strong>24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</div>
+    <div class="final-includes">
+      <div class="fi-row"><span class="fc">✓</span>Análisis completo de tu perfil migratorio</div>
+      <div class="fi-row"><span class="fc">✓</span>Preparación y revisión de todos tus documentos</div>
+      <div class="fi-row"><span class="fc">✓</span>Llenado de la solicitud oficial ante la embajada</div>
+      <div class="fi-row"><span class="fc">✓</span>Simulacro de entrevista consular</div>
+      <div class="fi-row"><span class="fc">✓</span>Acompañamiento por WhatsApp hasta el sello en tu pasaporte</div>
+    </div>
+    <div class="final-price-note">
+      El servicio completo cuesta <strong>$250 USD por persona.</strong> La tasa consular ($185 USD) se paga aparte directamente al gobierno de USA — no es parte de nuestros honorarios.
+    </div>
+    <a class="btn-wa" id="wa-link" href="#" target="_blank">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Confirmar con nosotros por WhatsApp
     </a>
-    <button class="btn-copy" onclick="copyLink()">Copiar link para compartir</button>
-  `;
-  return el;
+    <button class="btn-copy" onclick="copyLink()">📋 Copiar link para compartir con familiares</button>
+  </div>
+</div>
+
+</main>
+
+<!-- NAV -->
+<div class="nav-fixed" id="nav" style="display:none">
+  <button class="nav-back" id="btn-back" onclick="prev()">←</button>
+  <button class="nav-next" id="btn-next" onclick="next()">Continuar →</button>
+</div>
+
+<script>
+const S = {};
+let cur = 0;
+const STEPS = ['step-0','step-1','step-2','step-3','step-4','step-5','step-final'];
+const TOTAL = 5;
+
+// Security questions (short versions)
+const SQ = [
+  ['¿Tienes antecedentes penales en Ecuador o en otro país?','sq_penal'],
+  ['¿Has sido deportado o removido de algún país?','sq_deportado'],
+  ['¿Alguna vez has violado o permanecido más tiempo del permitido en USA?','sq_overstay'],
+  ['¿Tienes parientes con residencia o ciudadanía americana?','sq_fam_usa'],
+  ['¿Perteneces o perteneciste a grupos militares o paramilitares?','sq_militar'],
+];
+
+// Build security questions
+function buildSQ() {
+  const list = document.getElementById('sq-list');
+  SQ.forEach(([q, key]) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04)';
+    row.innerHTML = `
+      <span style="flex:1;font-size:13px;color:var(--muted);line-height:1.5">${q}</span>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="sq-yes" data-key="${key}" onclick="setSQ('${key}',true,this)"
+          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">Sí</button>
+        <button class="sq-no" data-key="${key}" onclick="setSQ('${key}',false,this)"
+          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:var(--gdim);border-color:var(--gbdr);color:var(--gold);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">No</button>
+      </div>`;
+    list.appendChild(row);
+    S[key] = false; // default NO
+  });
 }
 
-function opLabel(id) {
-  const q = QS.find(x => x.id === id);
-  if (!q || !q.opts || S[id] === undefined) return 'pendiente';
-  return q.opts[S[id]] || 'pendiente';
+function setSQ(key, val, btn) {
+  S[key] = val;
+  save();
+  const row = btn.closest('div[style]');
+  row.querySelectorAll('button').forEach(b => {
+    b.style.background = 'transparent';
+    b.style.borderColor = 'rgba(255,255,255,.1)';
+    b.style.color = 'var(--muted)';
+  });
+  btn.style.background = val ? 'rgba(245,180,41,.15)' : 'var(--gdim)';
+  btn.style.borderColor = 'var(--gold)';
+  btn.style.color = 'var(--gold)';
+}
+
+// Nav & progress
+function goTo(idx) {
+  const old = document.getElementById(STEPS[cur]);
+  old.classList.remove('active');
+  cur = idx;
+  const neo = document.getElementById(STEPS[cur]);
+  neo.classList.add('active');
+  window.scrollTo(0,0);
+  updateUI();
+  save();
+}
+
+function next() {
+  if (cur < STEPS.length - 1) {
+    if (cur === STEPS.length - 2) buildFinal();
+    goTo(cur + 1);
+  }
+}
+function prev() {
+  if (cur > 1) goTo(cur - 1);
+}
+
+function updateUI() {
+  const nav = document.getElementById('nav');
+  const isWelcome = cur === 0;
+  const isFinal   = cur === STEPS.length - 1;
+  nav.style.display = (isWelcome || isFinal) ? 'none' : 'flex';
+
+  // progress
+  const pct = cur === 0 ? 0 : Math.round((cur / (STEPS.length - 2)) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  // header
+  const hdrLabel = document.getElementById('hdr-label');
+  const hdrPill  = document.getElementById('hdr-pill');
+  if (isWelcome || isFinal) {
+    hdrLabel.textContent = '';
+    hdrPill.style.display = 'none';
+  } else {
+    hdrLabel.textContent = '';
+    hdrPill.style.display = '';
+    hdrPill.textContent = `Paso ${cur} de ${TOTAL}`;
+  }
+
+  // next btn label
+  const btnNext = document.getElementById('btn-next');
+  if (btnNext) {
+    btnNext.textContent = cur === STEPS.length - 2 ? '¡Terminar! →' : 'Continuar →';
+  }
+  // back visibility
+  const btnBack = document.getElementById('btn-back');
+  if (btnBack) btnBack.style.visibility = cur > 1 ? 'visible' : 'hidden';
+}
+
+// Selectors
+function selectCount(n) {
+  S.num_viajeros = n;
+  document.querySelectorAll('.cnt-btn').forEach((b,i) => {
+    b.classList.toggle('sel', i + 1 === n);
+  });
+  save();
+}
+
+function selectOpt(btn, key, val) {
+  S[key] = val;
+  save();
+  // find sibling opt-btns (only single-select, not multi)
+  const group = btn.closest('.opt-group');
+  if (group) group.querySelectorAll('.opt-btn:not(.multi)').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+
+  // conditionals
+  if (key === 'visa_ant') {
+    document.getElementById('bloque-historial').style.display = val === 0 ? 'block' : 'none';
+  }
+  if (key === 'resultado') {
+    document.getElementById('bloque-rechazo').style.display = (val === 1 || val === 2) ? 'block' : 'none';
+  }
+}
+
+function toggleMulti(btn, key) {
+  S[key] = !S[key];
+  btn.classList.toggle('sel', S[key]);
+  save();
+}
+
+// Final screen
+function buildFinal() {
+  const nombre = S.nombre ? S.nombre.split(' ')[0] : '';
+  document.getElementById('final-h').textContent = nombre ? `¡Listo, ${nombre}!` : '¡Listo!';
+
+  const denied = S.resultado === 1 || S.resultado === 2;
+  const vinculos = ['vinculo_hijos','vinculo_trabajo','vinculo_casa','vinculo_negocio','vinculo_familia','vinculo_estudios']
+    .filter(k => S[k]).length;
+
+  const msg = [
+    `Hola, acabo de completar el formulario para mi asesoría de visa USA.`,
+    ``,
+    `Nombre: ${S.nombre || 'pendiente'}`,
+    `WhatsApp: ${S.whatsapp || 'pendiente'}`,
+    `Ciudad: ${S.ciudad || 'pendiente'}`,
+    `Viajeros: ${S.num_viajeros || 1}`,
+    `Propósito: ${['Turismo','Visita familiar','Negocios','Turismo + familiar','Otro'][S.proposito] || 'pendiente'}`,
+    `Destino: ${S.destino || 'pendiente'}`,
+    `Cuándo: ${['3 meses','3-6 meses','6-12 meses','más de 1 año'][S.cuando] || 'pendiente'}`,
+    `Visa anterior: ${S.visa_ant === 0 ? (denied ? 'Sí — fue rechazada' : 'Sí — aprobada') : 'Primera vez'}`,
+    `Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo] || 'pendiente'}`,
+    `Vínculos con Ecuador: ${vinculos} factor(es)`,
+    S.obs ? `\nObs: ${S.obs}` : '',
+    `\nQuedo a la espera de su análisis. ¡Gracias!`
+  ].join('\n');
+
+  document.getElementById('wa-link').href = `https://wa.me/593994442512?text=${encodeURIComponent(msg)}`;
 }
 
 function copyLink() {
   navigator.clipboard.writeText('https://www.asesoriadevisadosglobal.com/intake-ds160.html')
-    .then(() => { document.querySelector('.btn-copy').textContent = '¡Copiado!' })
+    .then(() => { document.querySelector('.btn-copy').textContent = '✓ ¡Copiado!' })
     .catch(() => {});
 }
 
-// ── FIELD BUILDERS ───────────────────────────────────────────
-function buildOpts(body, q) {
-  const letters = 'ABCDEFGHIJ';
-  const div = document.createElement('div');
-  div.className = 'opts';
-  q.opts.forEach((o, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt' + (S[q.id] === i ? ' selected' : '');
-    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span class="opt-label">${o}</span>`;
-    btn.onclick = () => {
-      S[q.id] = i;
-      div.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      save();
-      setTimeout(() => next(), 280);
-    };
-    div.appendChild(btn);
-  });
-  body.appendChild(div);
-}
-
-function buildCount(body, q) {
-  const div = document.createElement('div');
-  div.className = 'count-wrap';
-  const max = q.max || 6;
-  for (let i = 1; i <= max; i++) {
-    const btn = document.createElement('button');
-    btn.className = 'count-opt' + (S[q.id] === i ? ' selected' : '');
-    btn.textContent = i === max ? max + '+' : i;
-    btn.onclick = () => {
-      S[q.id] = i;
-      div.querySelectorAll('.count-opt').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      save();
-      setTimeout(() => next(), 280);
-    };
-    div.appendChild(btn);
-  }
-  body.appendChild(div);
-  if (q.note) {
-    const n = document.createElement('div');
-    n.className = 'q-note'; n.innerHTML = `<span class="ni">💡</span><span>${q.note}</span>`;
-    body.appendChild(n);
-  }
-}
-
-function buildText(body, q) {
-  const wrap = document.createElement('div');
-  wrap.className = 'q-input-wrap';
-  wrap.innerHTML = `
-    <input class="q-input" type="text" placeholder="${q.placeholder || ''}" value="${S[q.id] || ''}">
-    <div class="q-input-line"></div>
-  `;
-  wrap.querySelector('input').oninput = e => { S[q.id] = e.target.value; save() };
-  body.appendChild(wrap);
-}
-
-function buildTel(body, q) {
-  const wrap = document.createElement('div');
-  wrap.className = 'q-input-wrap';
-  wrap.innerHTML = `
-    <input class="q-input q-tel" type="tel" placeholder="${q.placeholder || '+593 00 000 0000'}" value="${S[q.id] || ''}">
-    <div class="q-input-line"></div>
-  `;
-  wrap.querySelector('input').oninput = e => { S[q.id] = e.target.value; save() };
-  body.appendChild(wrap);
-}
-
-function buildEmail(body, q) {
-  const wrap = document.createElement('div');
-  wrap.className = 'q-input-wrap';
-  wrap.innerHTML = `
-    <input class="q-input" type="email" placeholder="${q.placeholder || 'correo@ejemplo.com'}" value="${S[q.id] || ''}">
-    <div class="q-input-line"></div>
-  `;
-  wrap.querySelector('input').oninput = e => { S[q.id] = e.target.value; save() };
-  body.appendChild(wrap);
-}
-
-function buildDate(body, q) {
-  const inp = document.createElement('input');
-  inp.type = 'date'; inp.className = 'q-date';
-  inp.value = S[q.id] || '';
-  inp.oninput = e => { S[q.id] = e.target.value; save() };
-  body.appendChild(inp);
-}
-
-function buildSelect(body, q) {
-  const sel = document.createElement('select');
-  sel.className = 'q-select';
-  sel.innerHTML = `<option value="">Selecciona una opción...</option>` +
-    q.opts.map((o, i) => `<option value="${i}" ${S[q.id] === i ? 'selected' : ''}>${o}</option>`).join('');
-  sel.onchange = e => { S[q.id] = parseInt(e.target.value); save() };
-  body.appendChild(sel);
-}
-
-function buildTextarea(body, q) {
-  const ta = document.createElement('textarea');
-  ta.className = 'q-textarea';
-  ta.placeholder = q.placeholder || '';
-  ta.value = S[q.id] || '';
-  ta.oninput = e => { S[q.id] = e.target.value; save() };
-  body.appendChild(ta);
-}
-
-function buildTravelers(body, q) {
-  const n = S.num_viajeros || 1;
-  if (!S.viajeros) S.viajeros = [];
-  while (S.viajeros.length < n) S.viajeros.push({});
-
-  const wrap = document.createElement('div');
-  wrap.className = 'traveler-cards';
-
-  for (let i = 0; i < n; i++) {
-    const card = document.createElement('div');
-    card.className = 'traveler-card';
-    const roles = ['Solicitante principal','Cónyuge / Pareja','Hijo/a','Padre / Madre','Hermano/a','Otro familiar'];
-    card.innerHTML = `
-      <div class="traveler-card-header">Viajero ${i + 1}${i === 0 ? ' — Principal' : ''}</div>
-      <div class="tc-grid">
-        <div class="tc-field">
-          <div class="tc-label">Apellidos y nombres</div>
-          <input class="tc-input" type="text" placeholder="Como en pasaporte" value="${S.viajeros[i].nombre || ''}">
-        </div>
-        <div class="tc-field">
-          <div class="tc-label">Fecha de nacimiento</div>
-          <input class="tc-input" type="date" value="${S.viajeros[i].nac || ''}">
-        </div>
-        ${i > 0 ? `<div class="tc-field">
-          <div class="tc-label">Relación con el principal</div>
-          <select class="tc-select">
-            ${roles.map((r,j) => `<option value="${j}" ${S.viajeros[i].rol === j ? 'selected':''} >${r}</option>`).join('')}
-          </select>
-        </div>` : ''}
-        <div class="tc-field">
-          <div class="tc-label">Número de pasaporte</div>
-          <input class="tc-input" type="text" placeholder="A0000000" value="${S.viajeros[i].pasaporte || ''}">
-        </div>
-      </div>
-    `;
-    const inputs = card.querySelectorAll('.tc-input');
-    inputs[0].oninput = e => { S.viajeros[i].nombre = e.target.value; save() };
-    inputs[1].oninput = e => { S.viajeros[i].nac = e.target.value; save() };
-    if (i > 0) {
-      card.querySelector('.tc-select').onchange = e => { S.viajeros[i].rol = parseInt(e.target.value); save() };
-      inputs[2].oninput = e => { S.viajeros[i].pasaporte = e.target.value; save() };
-    } else {
-      if (inputs[2]) inputs[2].oninput = e => { S.viajeros[i].pasaporte = e.target.value; save() };
-    }
-    wrap.appendChild(card);
-  }
-  body.appendChild(wrap);
-}
-
-// ── NAVIGATION ───────────────────────────────────────────────
-function startForm() {
-  cursor = 1;
-  render();
-}
-
-function next() {
-  const qs = visibleQs();
-  const q  = qs[cursor];
-
-  // validation: skip-able questions can proceed
-  const isRequired = !q.skip;
-  if (isRequired && !hasValue(q)) {
-    shake();
-    return;
-  }
-
-  if (cursor < qs.length - 1) {
-    cursor++;
-    render(1);
-  }
-}
-
-function prev() {
-  if (cursor > 1) { cursor--; render(-1) }
-}
-
-function hasValue(q) {
-  if (!q || q.type === 'welcome' || q.type === 'final' || q.type === 'travelers') return true;
-  const v = S[q.id];
-  if (q.type === 'opts' || q.type === 'count') return v !== undefined && v !== null;
-  if (q.type === 'select') return v !== undefined && v !== null;
-  return v !== undefined && String(v).trim() !== '';
-}
-
-function shake() {
-  const btn = document.getElementById('btn-next');
-  if (!btn) return;
-  btn.style.transform = 'translateX(-6px)';
-  setTimeout(() => btn.style.transform = 'translateX(6px)', 80);
-  setTimeout(() => btn.style.transform = '', 160);
-}
-
-// ── KEYBOARD ─────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'SELECT') {
-    const qs = visibleQs();
-    const q  = qs[cursor];
-    if (q && q.type !== 'welcome' && q.type !== 'final' && q.type !== 'opts' && q.type !== 'count') {
-      next();
-    }
-  }
-});
-
-// ── SKIP BUTTON ───────────────────────────────────────────────
-// Inject skip for optional questions
-const origRender = render;
-function renderWithSkip(dir) {
-  origRender(dir);
-  setTimeout(() => {
-    const qs = visibleQs();
-    const q  = qs[cursor];
-    const nav = document.getElementById('nav');
-    if (q && q.skip && nav) {
-      if (!document.getElementById('btn-skip')) {
-        const skipBtn = document.createElement('button');
-        skipBtn.className = 'nav-skip';
-        skipBtn.id = 'btn-skip';
-        skipBtn.textContent = 'Saltar';
-        skipBtn.onclick = () => { cursor++; render(1) };
-        nav.appendChild(skipBtn);
-      }
-    } else {
-      const s = document.getElementById('btn-skip');
-      if (s) s.remove();
-    }
-  }, 100);
-}
-
-// ── PERSISTENCE ───────────────────────────────────────────────
+// Persistence
 function save() {
-  try { localStorage.setItem('avg_intake_v2', JSON.stringify({S, cursor})) } catch(e) {}
+  try { localStorage.setItem('avg_intake_v3', JSON.stringify({S, cur})) } catch(e) {}
 }
 function load() {
   try {
-    const d = JSON.parse(localStorage.getItem('avg_intake_v2') || '{}');
-    if (d.S) Object.assign(S, d.S);
-    if (d.cursor && d.cursor > 0) {
+    const d = JSON.parse(localStorage.getItem('avg_intake_v3') || 'null');
+    if (d && d.S && d.cur > 0) {
       if (confirm('Tienes información guardada. ¿Continuar donde lo dejaste?')) {
-        cursor = d.cursor;
+        Object.assign(S, d.S);
+        cur = d.cur;
+        document.getElementById(STEPS[0]).classList.remove('active');
+        document.getElementById(STEPS[cur]).classList.add('active');
+        updateUI();
       }
     }
   } catch(e) {}
 }
 
-// ── INIT ─────────────────────────────────────────────────────
+buildSQ();
 load();
-// override render to add skip
-window.render = renderWithSkip;
-render();
+updateUI();
 </script>
 </body>
 </html>
