@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu visa comienza aquí · Asesoría Visa Global</title>
+<meta name="description" content="Cuéntanos tu situación y Asesoría Visa Global prepara todo — análisis, documentos, solicitud y acompañamiento hasta el sello en tu pasaporte.">
+<!-- WhatsApp / OG preview -->
+<meta property="og:title" content="Empieza tu visa USA — Asesoría Visa Global">
+<meta property="og:description" content="Solo 10 minutos. Nosotros preparamos todo por ti: análisis de perfil, documentos y solicitud oficial ante la embajada americana.">
+<meta property="og:image" content="https://www.asesoriadevisadosglobal.com/archivo/og-intake.jpg">
+<meta property="og:url" content="https://www.asesoriadevisadosglobal.com/intake-ds160.html">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0B1628">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ───────────────────────────────────────────────── */
+:root{
+  --n0:#060D1A; --n1:#0B1628; --n2:#112040; --n3:#162A52; --n4:#1E3668;
+  --g:#C9940A; --gc:#F5B429; --gl:rgba(245,180,41,.10); --gb:rgba(245,180,41,.22);
+  --t:#E8EAF0; --t2:#8A94B0; --t3:#4A5270;
+  --wh:#FFFFFF; --grn:#0FAF72; --red:#E8162A;
+  --r:14px; --rs:10px;
+  --ease:cubic-bezier(.22,.68,0,1.2);
+  --ease2:cubic-bezier(.4,0,.2,1);
+}
+
+/* ── RESET ────────────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+/* ── BODY + ANIMATED MESH BG ─────────────────────────────── */
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--n0); color:var(--t);
+  min-height:100vh; line-height:1.6; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 0%, rgba(245,180,41,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 100%, rgba(22,42,82,.9) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(17,32,64,.5) 0%, transparent 70%);
+  animation:meshDrift 12s ease-in-out infinite alternate;
+}
+@keyframes meshDrift{
+  0%{background-position:0% 0%, 100% 100%, 50% 50%}
+  100%{background-position:5% 5%, 95% 95%, 52% 48%}
+}
+
+/* ── HEADER ───────────────────────────────────────────────── */
+header{
+  position:sticky; top:0; z-index:200;
+  background:rgba(11,22,40,.85);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(245,180,41,.2);
+  padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  box-shadow:0 4px 32px rgba(0,0,0,.4);
+}
+/* animated gold line at top */
+header::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gc),transparent);
+  animation:scanLine 3s ease-in-out infinite;
+}
+@keyframes scanLine{0%,100%{opacity:.4}50%{opacity:1}}
+
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-ico{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--g),var(--gc));
+  color:var(--n1); font-weight:900; font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 16px rgba(245,180,41,.35);
+  flex-shrink:0;
+}
+.logo-text{font-size:14px;font-weight:800;color:var(--wh);line-height:1.1}
+.logo-sub{font-size:10px;color:var(--gc);font-weight:600;letter-spacing:.03em}
+
+.header-price{
+  background:var(--gl); border:1px solid var(--gb);
+  border-radius:99px; padding:7px 18px;
+  display:flex;flex-direction:column;align-items:flex-end;gap:1px;
+  flex-shrink:0;
+}
+.price-label{font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.08em}
+.price-value{font-size:20px;font-weight:900;color:var(--gc);line-height:1}
+.price-note{font-size:9px;color:var(--t3)}
+
+/* ── PROGRESS BAR ─────────────────────────────────────────── */
+.progress-wrap{
+  position:sticky; top:69px; z-index:190;
+  background:rgba(11,22,40,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+  padding:12px 24px 10px;
+}
+.progress-info{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px; gap:8px;
+}
+.progress-step{font-size:11px;font-weight:700;color:var(--gc);letter-spacing:.04em}
+.progress-title{
+  font-size:12px;font-weight:600;color:var(--wh);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;
+}
+.progress-pct{font-size:11px;color:var(--t2);font-weight:600;flex-shrink:0}
+.progress-bar{
+  height:5px;background:rgba(255,255,255,.07);
+  border-radius:99px;overflow:hidden;position:relative;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--g) 0%,var(--gc) 60%,#FFD700 100%);
+  border-radius:99px;
+  transition:width .5s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+/* shimmer on fill */
+.progress-fill::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);
+  background-size:200% 100%;
+  animation:shimmer 2s linear infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.steps-dots{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.dot{
+  height:4px;border-radius:99px;
+  background:rgba(255,255,255,.09);cursor:pointer;
+  transition:all .35s var(--ease);
+  width:22px;
+}
+.dot.active{width:32px;background:var(--gc);box-shadow:0 0 8px rgba(245,180,41,.6)}
+.dot.done{background:var(--grn);width:22px}
+
+/* ── MAIN WRAPPER ─────────────────────────────────────────── */
+main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 16px 110px}
+@media(min-width:640px){main{padding:36px 24px 120px}}
+
+/* ── SECTION TRANSITIONS ─────────────────────────────────── */
+.section{display:none}
+.section.active{
+  display:block;
+  animation:sectionIn .4s var(--ease) both;
+}
+@keyframes sectionIn{
+  from{opacity:0;transform:translateY(20px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ── SECTION HEADER ──────────────────────────────────────── */
+.section-header{margin-bottom:28px}
+.section-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--gl);border:1px solid var(--gb);
+  color:var(--gc);font-size:10px;font-weight:800;
+  padding:5px 14px;border-radius:99px;margin-bottom:14px;
+  text-transform:uppercase;letter-spacing:.07em;
+  animation:badgePop .4s var(--ease) .1s both;
+}
+@keyframes badgePop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.section-title{
+  font-size:clamp(20px,5vw,26px);font-weight:900;color:var(--wh);
+  margin-bottom:8px;line-height:1.2;
+}
+.section-desc{font-size:13px;color:var(--t2);line-height:1.7;max-width:600px}
+
+/* ── FORM GRID ───────────────────────────────────────────── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid.full{grid-template-columns:1fr}
+.form-grid.trio{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:580px){
+  .form-grid,.form-grid.trio{grid-template-columns:1fr}
+  .field.span2{grid-column:span 1}
+}
+
+.field{display:flex;flex-direction:column;gap:7px}
+.field.span2{grid-column:span 2}
+
+/* ── LABELS ──────────────────────────────────────────────── */
+label{
+  font-size:11px;font-weight:700;color:var(--t2);
+  text-transform:uppercase;letter-spacing:.06em;
+  display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+}
+label .req{color:var(--gc)}
+label .hint{
+  font-size:10px;color:var(--t3);text-transform:none;
+  letter-spacing:0;font-weight:400;
+}
+
+/* ── INPUTS ──────────────────────────────────────────────── */
+input[type=text],input[type=date],input[type=email],
+input[type=tel],input[type=number],select,textarea{
+  width:100%;
+  background:rgba(17,32,64,.7);
+  border:1.5px solid rgba(255,255,255,.09);
+  border-radius:var(--rs);
+  color:var(--wh);
+  padding:12px 16px;
+  font-size:14px;font-family:inherit;
+  transition:border-color .25s,box-shadow .25s,background .25s;
+  outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+input:hover,select:hover,textarea:hover{
+  border-color:rgba(245,180,41,.3);
+  background:rgba(17,32,64,.9);
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gc);
+  box-shadow:0 0 0 3px rgba(245,180,41,.12),0 2px 12px rgba(245,180,41,.08);
+  background:rgba(22,42,82,.8);
+}
+input::placeholder,textarea::placeholder{color:var(--t3)}
+select option{background:var(--n2)}
+textarea{resize:vertical;min-height:84px;line-height:1.6}
+
+/* ── RADIO BUTTONS — premium pill style ─────────────────── */
+.radio-group{display:flex;gap:8px;flex-wrap:wrap}
+.radio-btn{
+  display:flex;align-items:center;gap:9px;
+  padding:11px 18px;
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:var(--r);
+  cursor:pointer;
+  transition:all .22s var(--ease2);
+  font-size:13px;font-weight:500;color:var(--t);
+  user-select:none;position:relative;overflow:hidden;
+  background:rgba(17,32,64,.4);
+}
+.radio-btn::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(245,180,41,.15),transparent 70%);
+  opacity:0;transition:opacity .25s;
+}
+.radio-btn:hover{border-color:rgba(245,180,41,.45);transform:translateY(-1px)}
+.radio-btn:hover::before{opacity:1}
+.radio-btn input[type=radio]{
+  accent-color:var(--gc);width:16px;height:16px;flex-shrink:0;
+}
+.radio-btn.selected{
+  border-color:var(--gc);
+  background:linear-gradient(135deg,rgba(245,180,41,.12),rgba(201,148,10,.08));
+  color:var(--gc);font-weight:700;
+  box-shadow:0 0 0 1px rgba(245,180,41,.2),0 4px 12px rgba(245,180,41,.12);
+  transform:translateY(-1px);
+}
+.radio-btn.selected::before{opacity:1}
+
+/* ── CHECK BUTTONS ───────────────────────────────────────── */
+.check-btn{
+  display:flex;align-items:center;gap:9px;padding:11px 16px;
+  border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);
+  cursor:pointer;transition:all .22s;font-size:13px;color:var(--t);
+  background:rgba(17,32,64,.4);
+}
+.check-btn:hover{border-color:rgba(245,180,41,.4)}
+.check-btn input[type=checkbox]{accent-color:var(--gc);width:16px;height:16px}
+
+/* ── CONDITIONALS ────────────────────────────────────────── */
+.conditional{display:none}
+.conditional.show{
+  display:block;margin-top:18px;
+  animation:sectionIn .3s var(--ease) both;
+}
+
+/* ── REPEATER ITEMS ──────────────────────────────────────── */
+.repeater-item{
+  background:rgba(22,42,82,.5);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);padding:18px;margin-top:12px;
+  position:relative;
+  transition:border-color .2s;
+}
+.repeater-item:hover{border-color:rgba(245,180,41,.2)}
+.repeater-item .remove-btn{
+  position:absolute;top:12px;right:12px;
+  background:rgba(232,22,42,.12);border:1px solid rgba(232,22,42,.25);
+  color:#ff6677;font-size:11px;font-weight:700;
+  padding:4px 11px;border-radius:6px;cursor:pointer;
+  transition:all .2s;
+}
+.repeater-item .remove-btn:hover{background:rgba(232,22,42,.28);transform:scale(1.05)}
+
+.add-btn{
+  margin-top:12px;
+  background:rgba(245,180,41,.07);
+  border:1.5px dashed rgba(245,180,41,.3);
+  color:var(--gc);font-size:13px;font-weight:700;
+  padding:12px 20px;border-radius:var(--r);cursor:pointer;
+  width:100%;transition:all .25s;letter-spacing:.02em;
+}
+.add-btn:hover{
+  background:rgba(245,180,41,.14);
+  border-color:var(--gc);
+  transform:translateY(-1px);
+}
+
+/* ── DIVIDER ─────────────────────────────────────────────── */
+.divider{height:1px;background:rgba(255,255,255,.06);margin:28px 0}
+
+/* ── SECTION SUB-TITLE ───────────────────────────────────── */
+.section-sub{
+  font-size:11px;font-weight:800;color:var(--gc);
+  text-transform:uppercase;letter-spacing:.09em;
+  margin-bottom:14px;margin-top:24px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(245,180,41,.15);
+  display:flex;align-items:center;gap:8px;
+}
+.section-sub::before{
+  content:'';display:inline-block;width:3px;height:14px;
+  background:var(--gc);border-radius:2px;
+}
+
+/* ── SECURITY QUESTIONS ──────────────────────────────────── */
+.security-qs{display:flex;flex-direction:column;gap:8px}
+.security-q{
+  background:rgba(17,32,64,.5);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r);padding:14px 16px;
+  display:flex;align-items:flex-start;gap:14px;
+  transition:border-color .2s,background .2s;
+}
+.security-q:hover{
+  border-color:rgba(245,180,41,.2);
+  background:rgba(22,42,82,.6);
+}
+.security-q .q-text{flex:1;font-size:12.5px;color:var(--t);line-height:1.55}
+.security-q .q-radio{display:flex;gap:7px;margin-top:8px}
+.sq-btn{
+  padding:5px 18px;border-radius:7px;
+  border:1px solid rgba(255,255,255,.13);
+  font-size:11px;font-weight:800;cursor:pointer;
+  transition:all .18s;background:transparent;color:var(--t2);
+  letter-spacing:.03em;
+}
+.sq-btn:hover{border-color:var(--gc);color:var(--gc);transform:scale(1.05)}
+.sq-btn.yes-sel{
+  background:rgba(15,175,114,.15);
+  border-color:var(--grn);color:var(--grn);
+}
+.sq-btn.no-sel{
+  background:rgba(245,180,41,.12);
+  border-color:var(--gc);color:var(--gc);
+}
+
+/* ── INFO BOX ────────────────────────────────────────────── */
+.info-box{
+  background:rgba(245,180,41,.07);
+  border:1px solid rgba(245,180,41,.2);
+  border-radius:var(--r);padding:14px 18px;
+  font-size:13px;color:var(--gc);
+  display:flex;gap:12px;align-items:flex-start;
+  line-height:1.6;
+}
+.info-box .ico{font-size:20px;flex-shrink:0;line-height:1}
+
+/* ── NAV BUTTONS (fixed bottom bar) ─────────────────────── */
+.nav-btns{
+  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  background:rgba(6,13,26,.92);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 -8px 32px rgba(0,0,0,.5);
+}
+.btn-back{
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.12);
+  color:var(--t2);font-size:13px;font-weight:700;
+  padding:12px 22px;border-radius:var(--rs);cursor:pointer;
+  transition:all .22s;white-space:nowrap;
+}
+.btn-back:hover{border-color:rgba(245,180,41,.4);color:var(--wh);background:rgba(245,180,41,.06)}
+
+/* MAGNETIC NEXT BUTTON */
+.btn-next{
+  flex:1;max-width:320px;
+  background:linear-gradient(135deg,#C9940A 0%,#F5B429 50%,#FFD84D 100%);
+  color:var(--n1);font-size:14px;font-weight:900;
+  padding:13px 28px;border-radius:var(--rs);
+  cursor:pointer;border:none;
+  transition:all .25s var(--ease);
+  box-shadow:0 4px 20px rgba(245,180,41,.35),0 0 0 0 rgba(245,180,41,.4);
+  animation:pulseCTA 8s ease-in-out infinite;
+  letter-spacing:.02em;
+}
+@keyframes pulseCTA{
+  0%,85%,100%{box-shadow:0 4px 20px rgba(245,180,41,.35),0 0 0 0 rgba(245,180,41,.4)}
+  90%{box-shadow:0 4px 20px rgba(245,180,41,.5),0 0 0 8px rgba(245,180,41,0)}
+}
+.btn-next:hover{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 8px 32px rgba(245,180,41,.5);
+}
+.btn-next:active{transform:translateY(0) scale(.99)}
+
+/* ── FINAL CARD ──────────────────────────────────────────── */
+.final-card{
+  text-align:center;padding:48px 28px;
+  background:linear-gradient(160deg,rgba(17,32,64,.9),rgba(22,42,82,.7));
+  border:1px solid rgba(245,180,41,.25);
+  border-radius:24px;
+  box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(245,180,41,.08);
+  animation:sectionIn .5s var(--ease) both;
+}
+.final-icon{font-size:72px;margin-bottom:20px;animation:iconBounce .6s var(--ease) both}
+@keyframes iconBounce{from{transform:scale(0) rotate(-15deg)}to{transform:scale(1) rotate(0)}}
+.final-title{font-size:clamp(22px,5vw,32px);font-weight:900;color:var(--wh);margin-bottom:10px}
+.final-sub{font-size:14px;color:var(--t2);margin-bottom:32px;line-height:1.7}
+
+.final-price{
+  display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;
+  background:var(--gl);border:1px solid var(--gb);
+  border-radius:20px;padding:20px 36px;margin-bottom:32px;
+  box-shadow:0 8px 32px rgba(245,180,41,.15);
+}
+.final-price .fp-usd{
+  font-size:56px;font-weight:900;color:var(--gc);
+  text-shadow:0 0 32px rgba(245,180,41,.4);
+}
+.final-price .fp-label{font-size:13px;color:var(--t2);text-align:left;line-height:1.4}
+
+.final-includes{text-align:left;max-width:380px;margin:0 auto 32px}
+.fi-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:13px;line-height:1.5;
+}
+.fi-check{color:var(--grn);font-size:18px;flex-shrink:0;margin-top:-1px}
+
+.btn-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#1DA851,#25D366);
+  color:white;font-size:15px;font-weight:800;
+  padding:15px 38px;border-radius:99px;text-decoration:none;
+  transition:all .25s var(--ease));
+  box-shadow:0 6px 24px rgba(37,211,102,.35);
+  letter-spacing:.02em;
+}
+.btn-wa:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 36px rgba(37,211,102,.5)}
+
+.btn-download{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gl);border:1px solid var(--gb);
+  color:var(--gc);font-size:13px;font-weight:700;
+  padding:11px 26px;border-radius:var(--rs);cursor:pointer;
+  transition:all .22s;margin-top:12px;text-decoration:none;
+}
+.btn-download:hover{background:rgba(245,180,41,.18);transform:translateY(-1px)}
+
+.mt2{margin-top:10px}
+
+/* ── RESPONSIVE: TABLET ──────────────────────────────────── */
+@media(max-width:768px){
+  main{max-width:100%;padding:24px 16px 110px}
+  .form-grid.trio{grid-template-columns:1fr 1fr}
+  .header-price .price-note{display:none}
+  .price-value{font-size:17px}
+  .steps-dots{gap:4px}
+  .dot{width:18px}
+  .dot.active{width:28px}
+}
+
+/* ── RESPONSIVE: MOBILE ──────────────────────────────────── */
+@media(max-width:560px){
+  header{padding:11px 14px;gap:8px}
+  .header-price{
+    padding:5px 12px;
+    border-radius:99px;
+  }
+  .header-price .price-label{display:none}
+  .price-value{font-size:15px}
+  .price-note{display:none}
+
+  .progress-wrap{padding:9px 14px 8px}
+  .progress-title{max-width:130px;font-size:11px}
+  .progress-step{font-size:10px}
+  .steps-dots{margin-top:6px}
+  .dot{width:16px;height:3px}
+  .dot.active{width:24px}
+
+  main{padding:16px 12px 105px}
+
+  .form-grid,.form-grid.trio{grid-template-columns:1fr}
+  .field.span2{grid-column:span 1}
+
+  .section-title{font-size:19px}
+  .section-desc{font-size:12.5px}
+
+  /* Radio buttons: stack en columna en mobile */
+  .radio-group{flex-direction:column;gap:8px}
+  .radio-btn{padding:13px 16px;font-size:13px;width:100%}
+
+  /* Nav bar mobile */
+  .nav-btns{padding:10px 12px;gap:8px}
+  .btn-back{padding:11px 16px;font-size:12px}
+  .btn-next{padding:13px 16px;font-size:13px;font-weight:800}
+
+  /* Welcome card mobile */
+  .final-card{padding:32px 18px}
+  .final-price{padding:16px 20px}
+  .final-price .fp-usd{font-size:42px}
+
+  /* Security questions mobile */
+  .security-q{flex-direction:column;gap:8px}
+  .security-q .q-radio{margin-top:4px}
+  .sq-btn{flex:1;text-align:center;padding:8px 12px}
+
+  /* Repeater */
+  .repeater-item{padding:14px 12px}
+  .repeater-item .remove-btn{position:static;display:block;margin-top:10px;width:100%;text-align:center}
+
+  /* Add btn */
+  .add-btn{padding:13px 16px;font-size:12px}
+
+  /* Info box */
+  .info-box{font-size:12px;padding:12px 14px}
+  .info-box .ico{font-size:16px}
+}
+
+/* ── RESPONSIVE: SMALL MOBILE (< 380px) ─────────────────── */
+@media(max-width:380px){
+  header{padding:10px 12px}
+  .logo-text{font-size:13px}
+  .logo-ico{width:34px;height:34px;font-size:13px}
+  .section-title{font-size:17px}
+  .btn-next{font-size:12px;padding:12px 14px}
+  .price-value{font-size:14px}
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--n1)}
+::-webkit-scrollbar-thumb{background:rgba(245,180,41,.3);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(245,180,41,.5)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-ico">RA</div>
+    <div>
+      <div class="logo-text">Asesoría Visa Global</div>
+      <div class="logo-sub">Roberto Acosta · Tu asesor de visa</div>
+    </div>
+  </div>
+  <div class="header-price">
+    <div>
+      <div class="price-label">Servicio completo</div>
+      <div class="price-value">$250 <span style="font-size:13px;color:var(--t2);font-weight:400">USD / persona</span></div>
+      <div class="price-note">Incluye todo hasta el sello en tu pasaporte</div>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-info">
+    <div class="progress-step" id="stepLabel">Paso 1 de 10</div>
+    <div class="progress-title" id="stepTitle">Información Personal</div>
+    <div class="progress-pct" id="stepPct">0%</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="steps-dots" id="stepsDots"></div>
+</div>
+
+<main>
+
+<!-- ====== SECCIÓN 0: BIENVENIDA + VIAJEROS + HISTORIAL DS-160 ====== -->
+<div class="section active" id="sec0">
+
+  <!-- WELCOME CARD -->
+  <div style="
+    background:linear-gradient(135deg,rgba(17,32,64,.95),rgba(22,42,82,.8));
+    border:1px solid rgba(245,180,41,.25);
+    border-radius:20px; padding:32px 28px; margin-bottom:28px;
+    box-shadow:0 8px 40px rgba(0,0,0,.4);
+  ">
+    <div style="font-size:44px;margin-bottom:16px">🇺🇸</div>
+    <div style="font-size:22px;font-weight:900;color:var(--wh);margin-bottom:10px;line-height:1.2">
+      Bienvenido a<br><span style="color:var(--gc)">Asesoría Visa Global</span>
+    </div>
+    <div style="font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:24px">
+      Este es nuestro espacio de trabajo — no el tuyo. Tú solo nos cuentas tu situación, y nosotros nos encargamos de todo lo demás: analizar tu perfil, preparar los documentos y presentar tu solicitud ante la embajada americana.
+    </div>
+
+    <!-- TIME ESTIMATE -->
+    <div style="
+      display:flex;align-items:center;gap:12px;
+      background:rgba(245,180,41,.08);border:1px solid rgba(245,180,41,.2);
+      border-radius:12px;padding:14px 18px;margin-bottom:24px;
+    ">
+      <div style="font-size:28px">⏱️</div>
+      <div>
+        <div style="font-size:16px;font-weight:800;color:var(--gc)">Aproximadamente 10 minutos</div>
+        <div style="font-size:12px;color:var(--t2);margin-top:2px">Puedes pausar y continuar cuando quieras — tus respuestas se guardan automáticamente</div>
+      </div>
+    </div>
+
+    <!-- STEPS OVERVIEW -->
+    <div style="font-size:11px;font-weight:800;color:var(--gc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Lo que vamos a cubrir:</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,180,41,.15);border:1px solid rgba(245,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">👥</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--wh)">¿Quiénes viajan?</div><div style="font-size:12px;color:var(--t2)">Número de personas, nombres y si ya tuvieron visa antes</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,180,41,.15);border:1px solid rgba(245,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📋</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--wh)">Tus datos personales y pasaporte</div><div style="font-size:12px;color:var(--t2)">Nombre, fecha de nacimiento, documento vigente</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,180,41,.15);border:1px solid rgba(245,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✈️</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--wh)">El plan del viaje</div><div style="font-size:12px;color:var(--t2)">Destino, fechas, motivo del viaje y dónde te quedas</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,180,41,.15);border:1px solid rgba(245,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🏠</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--wh)">Tu situación en Ecuador</div><div style="font-size:12px;color:var(--t2)">Trabajo, familia, propiedades — lo que te ancla aquí</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,180,41,.15);border:1px solid rgba(245,180,41,.3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🔐</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--wh)">Preguntas estándar de seguridad</div><div style="font-size:12px;color:var(--t2)">Las que la embajada le pregunta a todo el mundo — cortas, de sí/no</div></div>
+      </div>
+    </div>
+
+    <div style="
+      margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);
+      font-size:12px;color:var(--t2);
+    ">
+      💾 <strong style="color:var(--wh)">Tus respuestas NO van a ninguna embajada.</strong> Solo las recibe Asesoría Visa Global para preparar tu estrategia y presentar tu solicitud oficial en el sistema del gobierno americano.
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-badge">👋 Empecemos</div>
+    <div class="section-title">¿Cuántas personas van a viajar?</div>
+    <div class="section-desc">Incluye a todos — adultos y niños. Roberto prepara la documentación de cada uno.</div>
+  </div>
+
+  <div class="info-box" style="margin-bottom:28px;display:none">
+    <div class="ico">✋</div>
+    <div>Estas preguntas las usa Roberto para preparar tu solicitud de visa. <strong>No las envías a ninguna embajada</strong> — solo las recibe Roberto para trabajar en tu caso.</div>
+  </div>
+
+  <!-- Número de personas -->
+  <div class="section-sub">¿Cuántas personas van a viajar?</div>
+  <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Incluye a todos — adultos y niños. Roberto prepara la documentación de cada uno.</p>
+  <div class="form-grid full">
+    <div class="field">
+      <label>Número de viajeros <span class="req">*</span></label>
+      <div class="radio-group" id="num_viajeros_group">
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="1" onchange="setViajeros(1)"> 1 persona</label>
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="2" onchange="setViajeros(2)"> 2 personas</label>
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="3" onchange="setViajeros(3)"> 3 personas</label>
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="4" onchange="setViajeros(4)"> 4 personas</label>
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="5" onchange="setViajeros(5)"> 5 personas</label>
+        <label class="radio-btn"><input type="radio" name="num_viajeros" value="6" onchange="setViajeros(6)"> 6 o más</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nombres de viajeros -->
+  <div class="conditional" id="viajeros_nombres_det">
+    <div class="section-sub" style="margin-top:20px">Nombre completo de cada viajero</div>
+    <div id="viajeros_list"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DS-160 previo / negación -->
+  <div class="section-sub">¿Han solicitado visa antes?</div>
+
+  <div class="form-grid full">
+    <div class="field">
+      <label>¿Alguno de los viajeros ya solicitó visa americana antes? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="visa_anterior" value="SI" onchange="toggleConditional('visa_anterior_det','SI',this)"> Sí, alguno ha solicitado antes</label>
+        <label class="radio-btn"><input type="radio" name="visa_anterior" value="NO" onchange="toggleConditional('visa_anterior_det','SI',this)" checked> No, es la primera vez para todos</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="conditional" id="visa_anterior_det">
+    <div class="form-grid full" style="margin-top:16px">
+      <div class="field">
+        <label>¿Cuál fue el resultado de la solicitud anterior? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-btn"><input type="radio" name="resultado_anterior" value="APROBADA" onchange="showResultadoAnterior(this)"> ✅ Fue aprobada (tiene o tuvo visa)</label>
+          <label class="radio-btn"><input type="radio" name="resultado_anterior" value="NEGADA" onchange="showResultadoAnterior(this)"> ❌ Fue negada / rechazada</label>
+          <label class="radio-btn"><input type="radio" name="resultado_anterior" value="AMBAS"> Algunos aprobados, otros negados</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Si fue aprobada -->
+    <div class="conditional" id="res_aprobada_det">
+      <div class="form-grid">
+        <div class="field">
+          <label>Número de visa anterior <span class="hint">(si lo tiene a mano)</span></label>
+          <input type="text" id="visa_num_anterior" placeholder="Ej: B1234567">
+        </div>
+        <div class="field">
+          <label>Fecha de vencimiento de esa visa</label>
+          <input type="date" id="visa_vence_anterior">
+        </div>
+        <div class="field">
+          <label>Tipo de visa que tuvo</label>
+          <select id="visa_tipo_anterior">
+            <option value="">— Seleccionar —</option>
+            <option>B1/B2 (Turismo/Negocios)</option>
+            <option>F1 (Estudiante)</option>
+            <option>J1 (Intercambio)</option>
+            <option>H (Trabajo)</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>¿Actualmente tiene esa visa vigente?</label>
+          <div class="radio-group">
+            <label class="radio-btn"><input type="radio" name="visa_vigente" value="SI"> Sí, sigue vigente</label>
+            <label class="radio-btn"><input type="radio" name="visa_vigente" value="NO"> No, ya venció</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Si fue negada -->
+    <div class="conditional" id="res_negada_det">
+      <div class="info-box" style="margin:16px 0;background:rgba(232,22,42,0.08);border-color:rgba(232,22,42,0.3)">
+        <div class="ico">💪</div>
+        <div style="color:#f87171">Un rechazo anterior <strong>no significa que no puedas obtener la visa.</strong> Roberto trabaja exactamente con estos casos — solo necesita saber qué pasó para preparar una estrategia diferente esta vez.</div>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>¿Cuándo fue negada? <span class="hint">(fecha aproximada)</span></label>
+          <input type="date" id="negacion_fecha">
+        </div>
+        <div class="field">
+          <label>Causal indicada por la embajada</label>
+          <select id="negacion_causal">
+            <option value="">— Seleccionar si la recuerda —</option>
+            <option>214(b) — No demostró vínculos suficientes con Ecuador</option>
+            <option>Falta de solvencia económica</option>
+            <option>Documentación insuficiente o inconsistente</option>
+            <option>Antecedentes migratorios</option>
+            <option>No indica causal específica</option>
+            <option>Otra / No recuerdo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>¿Tiene el DS-160 anterior guardado? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-btn"><input type="radio" name="ds160_guardado" value="SI" onchange="toggleConditional('ds160_prev_det','SI',this)"> Sí, tengo el número de confirmación</label>
+            <label class="radio-btn"><input type="radio" name="ds160_guardado" value="NO" onchange="toggleConditional('ds160_prev_det','SI',this)"> No lo tengo</label>
+          </div>
+        </div>
+        <div class="field span2">
+          <label>¿Qué dijo el oficial consular al momento de la negativa? <span class="hint">(si lo recuerda)</span></label>
+          <textarea id="negacion_que_dijo" placeholder="Ej: 'No ha demostrado suficientes vínculos con su país' / 'Necesita más documentación de trabajo' / No dijo nada..."></textarea>
+        </div>
+      </div>
+      <div class="conditional" id="ds160_prev_det">
+        <div class="form-grid">
+          <div class="field">
+            <label>Número de confirmación del DS-160 anterior</label>
+            <input type="text" id="ds160_prev_num" placeholder="AA00XXXXXX">
+          </div>
+          <div class="field">
+            <label>Fecha en que fue completado</label>
+            <input type="date" id="ds160_prev_fecha">
+          </div>
+          <div class="field span2">
+            <label>¿Qué cambió desde esa negativa que fortalezca su caso ahora?</label>
+            <textarea id="ds160_cambios" placeholder="Ej: Cambié de trabajo, ahora tengo casa propia, mis hijos están estudiando en Ecuador, tengo más ahorros..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-grid full" style="margin-top:16px">
+      <div class="field">
+        <label>¿Algún viajero ha sido deportado o removido de cualquier país? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-btn"><input type="radio" name="deportado" value="SI" onchange="toggleConditional('deportado_det','SI',this)"> Sí</label>
+          <label class="radio-btn"><input type="radio" name="deportado" value="NO" onchange="toggleConditional('deportado_det','SI',this)" checked> No</label>
+        </div>
+      </div>
+    </div>
+    <div class="conditional" id="deportado_det">
+      <div class="field"><label>Explique cuándo, de qué país y las circunstancias</label><textarea id="deportado_exp" placeholder="País, año, motivo..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Dato de contacto para Roberto -->
+  <div class="section-sub">Datos de contacto del solicitante principal</div>
+  <div class="form-grid">
+    <div class="field">
+      <label>Nombre completo del solicitante principal <span class="req">*</span></label>
+      <input type="text" id="contacto_principal_nombre" placeholder="Apellidos, Nombres">
+    </div>
+    <div class="field">
+      <label>WhatsApp / Teléfono <span class="req">*</span></label>
+      <input type="tel" id="contacto_principal_tel" placeholder="0987654321">
+    </div>
+    <div class="field">
+      <label>Email <span class="req">*</span></label>
+      <input type="email" id="contacto_principal_email" placeholder="correo@ejemplo.com">
+    </div>
+    <div class="field">
+      <label>Ciudad en Ecuador <span class="req">*</span></label>
+      <input type="text" id="contacto_principal_ciudad" placeholder="Quito / Guayaquil / Loja...">
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== SECCIÓN 1: INFORMACIÓN PERSONAL ====== -->
+<div class="section active" id="sec1">
+  <div class="section-header">
+    <div class="section-badge">👤 Sobre ti</div>
+    <div class="section-title">¿Cómo te llamas y quién eres?</div>
+    <div class="section-desc">Roberto necesita estos datos exactamente como aparecen en tu pasaporte para preparar tu solicitud. No te preocupes si tienes dudas — marca lo que puedas y él te ayuda con el resto.</div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Apellidos <span class="req">*</span> <span class="hint">(como en pasaporte)</span></label>
+      <input type="text" id="apellidos" placeholder="PRIMER APELLIDO SEGUNDO APELLIDO">
+    </div>
+    <div class="field">
+      <label>Nombres <span class="req">*</span> <span class="hint">(como en pasaporte)</span></label>
+      <input type="text" id="nombres" placeholder="PRIMER NOMBRE SEGUNDO NOMBRE">
+    </div>
+    <div class="field span2">
+      <label>Nombre completo en idioma nativo <span class="hint">(si aplica, si no escribe "NO APLICA")</span></label>
+      <input type="text" id="nombre_nativo" placeholder="NO APLICA">
+    </div>
+    <div class="field">
+      <label>¿Ha usado otros nombres? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn" id="rb_otros_si"><input type="radio" name="otros_nombres" value="SI" onchange="toggleConditional('otros_nombres_det','SI',this)"> Sí</label>
+        <label class="radio-btn" id="rb_otros_no"><input type="radio" name="otros_nombres" value="NO" onchange="toggleConditional('otros_nombres_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Sexo <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="sexo" value="MASCULINO"> Masculino</label>
+        <label class="radio-btn"><input type="radio" name="sexo" value="FEMENINO"> Femenino</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="conditional" id="otros_nombres_det">
+    <div class="field">
+      <label>Otros nombres usados</label>
+      <input type="text" id="otros_nombres_val" placeholder="Nombre de soltera, apodo legal, etc.">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Estado civil <span class="req">*</span></label>
+      <select id="estado_civil">
+        <option value="">— Seleccionar —</option>
+        <option>Soltero/a</option>
+        <option>Casado/a</option>
+        <option>Unión libre / Concubinato</option>
+        <option>Divorciado/a</option>
+        <option>Separado/a legalmente</option>
+        <option>Viudo/a</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Fecha de nacimiento <span class="req">*</span></label>
+      <input type="date" id="fecha_nac">
+    </div>
+    <div class="field">
+      <label>Ciudad de nacimiento <span class="req">*</span></label>
+      <input type="text" id="ciudad_nac" placeholder="QUITO">
+    </div>
+    <div class="field">
+      <label>Estado/Provincia de nacimiento</label>
+      <input type="text" id="provincia_nac" placeholder="PICHINCHA">
+    </div>
+    <div class="field">
+      <label>País de nacimiento <span class="req">*</span></label>
+      <input type="text" id="pais_nac" placeholder="ECUADOR">
+    </div>
+    <div class="field">
+      <label>Nacionalidad <span class="req">*</span></label>
+      <input type="text" id="nacionalidad" placeholder="ECUADOR">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Tiene otra nacionalidad? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="otra_nac" value="SI" onchange="toggleConditional('otra_nac_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="otra_nac" value="NO" onchange="toggleConditional('otra_nac_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿Es residente permanente de otro país? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="res_perm" value="SI" onchange="toggleConditional('res_perm_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="res_perm" value="NO" onchange="toggleConditional('res_perm_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="otra_nac_det">
+    <div class="field"><label>¿Cuál otra nacionalidad?</label><input type="text" id="otra_nac_val" placeholder="Ej: ESPAÑOLA"></div>
+  </div>
+  <div class="conditional" id="res_perm_det">
+    <div class="field"><label>¿En qué país es residente?</label><input type="text" id="res_perm_val" placeholder="País de residencia permanente"></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="form-grid trio">
+    <div class="field">
+      <label>Número de cédula / ID Nacional <span class="req">*</span></label>
+      <input type="text" id="cedula" placeholder="1712345678">
+    </div>
+    <div class="field">
+      <label>Seguro Social USA <span class="hint">(si aplica)</span></label>
+      <input type="text" id="ssn_usa" placeholder="NO APLICA">
+    </div>
+    <div class="field">
+      <label>Contribuyente USA (ITIN) <span class="hint">(si aplica)</span></label>
+      <input type="text" id="itin_usa" placeholder="NO APLICA">
+    </div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 2: DIRECCIÓN Y CONTACTO ====== -->
+<div class="section" id="sec2">
+  <div class="section-header">
+    <div class="section-badge">🏠 Dónde vives</div>
+    <div class="section-title">¿Dónde vives actualmente?</div>
+    <div class="section-desc">Tu dirección en Ecuador y cómo contactarte. Roberto también necesita tus redes sociales — la embajada las revisa.</div>
+  </div>
+
+  <div class="section-sub">Domicilio</div>
+  <div class="form-grid">
+    <div class="field span2">
+      <label>Calle y número <span class="req">*</span></label>
+      <input type="text" id="dir_calle" placeholder="AV. NOMBRE N00-00 Y CALLE">
+    </div>
+    <div class="field">
+      <label>Barrio / Urbanización</label>
+      <input type="text" id="dir_barrio" placeholder="NOMBRE DEL BARRIO / SECTOR">
+    </div>
+    <div class="field">
+      <label>Ciudad <span class="req">*</span></label>
+      <input type="text" id="dir_ciudad" placeholder="QUITO">
+    </div>
+    <div class="field">
+      <label>Provincia <span class="req">*</span></label>
+      <input type="text" id="dir_provincia" placeholder="PICHINCHA">
+    </div>
+    <div class="field">
+      <label>Código Postal</label>
+      <input type="text" id="dir_cp" placeholder="170401">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Teléfonos</div>
+  <div class="form-grid">
+    <div class="field">
+      <label>Teléfono principal <span class="req">*</span> <span class="hint">(con código país)</span></label>
+      <input type="tel" id="tel_principal" placeholder="00593987654321">
+    </div>
+    <div class="field">
+      <label>Teléfono secundario</label>
+      <input type="tel" id="tel_secundario" placeholder="NO APLICA">
+    </div>
+    <div class="field">
+      <label>Teléfono del trabajo</label>
+      <input type="tel" id="tel_trabajo" placeholder="NO APLICA">
+    </div>
+    <div class="field">
+      <label>¿Tiene otros teléfonos?</label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="otros_tel" value="SI" onchange="toggleConditional('otros_tel_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="otros_tel" value="NO" onchange="toggleConditional('otros_tel_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="otros_tel_det">
+    <div class="field"><label>Otros teléfonos</label><input type="text" id="otros_tel_val" placeholder="Listar separados por coma"></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Email y Redes Sociales</div>
+  <div class="form-grid">
+    <div class="field">
+      <label>Email principal <span class="req">*</span></label>
+      <input type="email" id="email_principal" placeholder="correo@ejemplo.com">
+    </div>
+    <div class="field">
+      <label>¿Tiene otros emails?</label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="otros_email" value="SI" onchange="toggleConditional('otros_email_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="otros_email" value="NO" onchange="toggleConditional('otros_email_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="otros_email_det">
+    <div class="field"><label>Otros emails</label><input type="text" id="otros_email_val" placeholder="email2@ejemplo.com"></div>
+  </div>
+
+  <div class="section-sub">Redes Sociales <span style="font-size:11px;color:var(--text2);text-transform:none;font-weight:400">(obligatorio declararlas todas)</span></div>
+  <div id="redes_container"></div>
+  <button class="add-btn" onclick="addRed()">+ Agregar red social</button>
+</div>
+
+<!-- ====== SECCIÓN 3: PASAPORTE ====== -->
+<div class="section" id="sec3">
+  <div class="section-header">
+    <div class="section-badge">🛂 Tu pasaporte</div>
+    <div class="section-title">Cuéntanos sobre tu pasaporte</div>
+    <div class="section-desc">Ten tu pasaporte físico a mano — Roberto necesita los datos tal como aparecen impresos. Si vence pronto, él te dirá si necesitas renovarlo antes.</div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Tipo de pasaporte <span class="req">*</span></label>
+      <select id="tipo_pasaporte">
+        <option value="">— Seleccionar —</option>
+        <option>Regular / Ordinario</option>
+        <option>Oficial</option>
+        <option>Diplomático</option>
+        <option>Laissez-Passer (ONU/Organismos Intl.)</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Número de pasaporte <span class="req">*</span></label>
+      <input type="text" id="num_pasaporte" placeholder="A1234567">
+    </div>
+    <div class="field">
+      <label>Número de libro de pasaporte <span class="hint">(si aplica)</span></label>
+      <input type="text" id="libro_pasaporte" placeholder="NO APLICA">
+    </div>
+    <div class="field">
+      <label>País que emitió el pasaporte <span class="req">*</span></label>
+      <input type="text" id="pais_emision" placeholder="ECUADOR">
+    </div>
+    <div class="field">
+      <label>Ciudad de emisión <span class="req">*</span></label>
+      <input type="text" id="ciudad_emision" placeholder="QUITO">
+    </div>
+    <div class="field">
+      <label>Provincia/Estado de emisión</label>
+      <input type="text" id="provincia_emision" placeholder="PICHINCHA">
+    </div>
+    <div class="field">
+      <label>Fecha de emisión <span class="req">*</span></label>
+      <input type="date" id="fecha_emision">
+    </div>
+    <div class="field">
+      <label>Fecha de vencimiento <span class="req">*</span></label>
+      <input type="date" id="fecha_vence">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Ha perdido algún pasaporte o le han robado uno? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="pasap_perdido" value="SI" onchange="toggleConditional('pasap_perdido_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="pasap_perdido" value="NO" onchange="toggleConditional('pasap_perdido_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="pasap_perdido_det">
+    <div class="form-grid">
+      <div class="field"><label>Número del pasaporte perdido/robado</label><input type="text" id="pasap_perd_num" placeholder="Número si lo recuerda"></div>
+      <div class="field"><label>País que emitió el pasaporte perdido</label><input type="text" id="pasap_perd_pais" placeholder="País"></div>
+      <div class="field span2"><label>Explique las circunstancias</label><textarea id="pasap_perd_exp" placeholder="Fecha aproximada, cómo ocurrió..."></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 4: INFORMACIÓN DE VIAJE ====== -->
+<div class="section" id="sec4">
+  <div class="section-header">
+    <div class="section-badge">✈️ Tu viaje</div>
+    <div class="section-title">¿A dónde quieres ir y para qué?</div>
+    <div class="section-desc">Cuéntanos el plan del viaje. No tiene que ser perfecto — Roberto trabaja con la información que tengas y te ayuda a definir el itinerario que más le conviene a tu caso.</div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Propósito principal del viaje <span class="req">*</span></label>
+      <select id="proposito_viaje">
+        <option value="">— Seleccionar —</option>
+        <option>Turismo / Vacaciones (B2)</option>
+        <option>Negocios / Turismo (B1/B2)</option>
+        <option>Negocios (B1)</option>
+        <option>Visita familiar</option>
+        <option>Tratamiento médico (B2)</option>
+        <option>Tránsito (C)</option>
+        <option>Tripulación (D)</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>¿Tiene planes de viaje específicos? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="planes_viaje" value="SI" onchange="toggleConditional('itinerario_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="planes_viaje" value="NO" onchange="toggleConditional('itinerario_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="conditional" id="itinerario_det">
+    <div class="form-grid">
+      <div class="field">
+        <label>Fecha de llegada a USA <span class="req">*</span></label>
+        <input type="date" id="fecha_llegada">
+      </div>
+      <div class="field">
+        <label>Ciudad de llegada <span class="req">*</span></label>
+        <input type="text" id="ciudad_llegada" placeholder="MIAMI / NEW YORK / LOS ANGELES">
+      </div>
+      <div class="field">
+        <label>Fecha de salida de USA <span class="req">*</span></label>
+        <input type="date" id="fecha_salida">
+      </div>
+      <div class="field">
+        <label>Días de estancia aproximados</label>
+        <input type="number" id="dias_estancia" placeholder="15" min="1" max="180">
+      </div>
+      <div class="field span2">
+        <label>Dirección donde se hospedará en USA <span class="req">*</span></label>
+        <input type="text" id="dir_usa" placeholder="8300 JAMAICAN COURT">
+      </div>
+      <div class="field">
+        <label>Ciudad, Estado <span class="req">*</span></label>
+        <input type="text" id="ciudad_estado_usa" placeholder="ORLANDO, FLORIDA">
+      </div>
+      <div class="field">
+        <label>Código ZIP</label>
+        <input type="text" id="zip_usa" placeholder="32819">
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">¿Quién paga el viaje?</div>
+  <div class="form-grid">
+    <div class="field">
+      <label>Financiamiento del viaje <span class="req">*</span></label>
+      <select id="quien_paga" onchange="showPagoOtro()">
+        <option value="">— Seleccionar —</option>
+        <option>Yo mismo / Recursos propios</option>
+        <option>Otra persona</option>
+        <option>Empresa / Organización</option>
+      </select>
+    </div>
+  </div>
+  <div class="conditional" id="pago_otro_det">
+    <div class="form-grid">
+      <div class="field"><label>Nombre completo de quien paga <span class="req">*</span></label><input type="text" id="pagador_nombre" placeholder="Apellidos, Nombres"></div>
+      <div class="field"><label>Teléfono de quien paga</label><input type="tel" id="pagador_tel" placeholder="00593..."></div>
+      <div class="field"><label>Email de quien paga</label><input type="email" id="pagador_email" placeholder="email@ejemplo.com"></div>
+      <div class="field"><label>Relación con usted <span class="req">*</span></label>
+        <select id="pagador_relacion">
+          <option value="">— Seleccionar —</option>
+          <option>Padre / Madre</option><option>Cónyuge / Pareja</option>
+          <option>Hijo/a</option><option>Hermano/a</option>
+          <option>Otro familiar</option><option>Amigo/a</option>
+          <option>Empleador</option><option>Otro</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Acompañantes</div>
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Viaja con otras personas? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="acomp" value="SI" onchange="toggleConditional('acomp_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="acomp" value="NO" onchange="toggleConditional('acomp_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿Viaja como parte de un grupo u organización? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="viaja_grupo" value="SI" onchange="toggleConditional('grupo_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="viaja_grupo" value="NO" onchange="toggleConditional('grupo_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="acomp_det">
+    <div id="acomp_container"></div>
+    <button class="add-btn" onclick="addAcomp()">+ Agregar acompañante</button>
+  </div>
+  <div class="conditional" id="grupo_det">
+    <div class="field"><label>Nombre del grupo u organización</label><input type="text" id="grupo_nombre" placeholder="Nombre del grupo"></div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 5: HISTORIAL EN USA ====== -->
+<div class="section" id="sec5">
+  <div class="section-header">
+    <div class="section-badge">🇺🇸 USA antes</div>
+    <div class="section-title">¿Has estado en Estados Unidos antes?</div>
+    <div class="section-desc">Si ya fuiste antes — aunque fue hace mucho — Roberto necesita saberlo. Y si te negaron una visa, tranquilo: eso no cierra la puerta, solo cambia la estrategia.</div>
+  </div>
+
+  <div class="form-grid full">
+    <div class="field">
+      <label>¿Ha estado en Estados Unidos anteriormente? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="estuvo_usa" value="SI" onchange="toggleConditional('estuvo_usa_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="estuvo_usa" value="NO" onchange="toggleConditional('estuvo_usa_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="estuvo_usa_det">
+    <div id="viajes_usa_container"></div>
+    <button class="add-btn" onclick="addViajeUSA()">+ Agregar visita a USA</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field">
+    <label>¿Le han emitido visa estadounidense alguna vez? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="tuvo_visa" value="SI" onchange="toggleConditional('tuvo_visa_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="tuvo_visa" value="NO" onchange="toggleConditional('tuvo_visa_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="tuvo_visa_det">
+    <div class="form-grid">
+      <div class="field"><label>Número de visa anterior</label><input type="text" id="visa_num" placeholder="Si lo tiene"></div>
+      <div class="field"><label>Fecha de emisión de la visa anterior</label><input type="date" id="visa_fecha"></div>
+      <div class="field"><label>Tipo de visa anterior</label><input type="text" id="visa_tipo" placeholder="B1/B2, F1, etc."></div>
+      <div class="field"><label>¿Tiene la visa o fue destruida/perdida?</label>
+        <div class="radio-group">
+          <label class="radio-btn"><input type="radio" name="visa_tiene" value="TIENE"> La tengo</label>
+          <label class="radio-btn"><input type="radio" name="visa_tiene" value="NO_TIENE"> No la tengo</label>
+        </div>
+      </div>
+      <div class="field"><label>¿Se le solicitó la misma visa o un tipo diferente?</label>
+        <div class="radio-group">
+          <label class="radio-btn"><input type="radio" name="misma_visa" value="MISMA"> Misma</label>
+          <label class="radio-btn"><input type="radio" name="misma_visa" value="DIFERENTE"> Diferente</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field">
+    <label>¿Le han negado una visa, rechazado la entrada a USA, o retiró su solicitud en un puerto de entrada? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="rechazo_visa" value="SI" onchange="toggleConditional('rechazo_visa_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="rechazo_visa" value="NO" onchange="toggleConditional('rechazo_visa_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="rechazo_visa_det">
+    <div class="form-grid">
+      <div class="field"><label>¿Cuándo ocurrió? <span class="hint">(fecha aproximada)</span></label><input type="date" id="rechazo_fecha"></div>
+      <div class="field"><label>Tipo de visa solicitada en esa ocasión</label><input type="text" id="rechazo_tipo_visa" placeholder="B1/B2"></div>
+      <div class="field span2"><label>Explique brevemente qué ocurrió</label><textarea id="rechazo_exp" placeholder="Ej: Negación 214(b) en Nov 2025, causal indicada fue..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field">
+    <label>¿Alguien ha presentado una petición de inmigrante en su nombre ante el USCIS? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="peticion_usics" value="SI" onchange="toggleConditional('peticion_uscis_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="peticion_usics" value="NO" onchange="toggleConditional('peticion_uscis_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="peticion_uscis_det">
+    <div class="field"><label>Explique</label><textarea id="peticion_uscis_exp" placeholder="Quién presentó la petición, cuándo, categoría..."></textarea></div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 6: CONTACTO EN USA ====== -->
+<div class="section" id="sec6">
+  <div class="section-header">
+    <div class="section-badge">📍 En USA</div>
+    <div class="section-title">¿A dónde llegas y dónde te quedas?</div>
+    <div class="section-desc">¿Tienes hotel reservado, o te quedas con alguien? Pon lo que tengas — si aún no tienes nada definido, deja el campo en blanco y Roberto te orienta.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="ico">⚠️</div>
+    <div>Si vas a un hotel, pon el nombre y dirección del hotel. Si te quedas con alguien, su nombre y teléfono. ¿No lo tienes claro aún? Escribe "POR DEFINIR" — Roberto te ayuda después.</div>
+  </div>
+
+  <div style="margin-top:20px"></div>
+  <div class="form-grid">
+    <div class="field">
+      <label>Nombre del contacto en USA</label>
+      <input type="text" id="contacto_nombre" placeholder="APELLIDO, NOMBRE  ó  DO NOT KNOW">
+    </div>
+    <div class="field">
+      <label>Nombre de la organización en USA <span class="hint">(hotel, empresa, etc.)</span></label>
+      <input type="text" id="contacto_org" placeholder="NOMBRE DEL HOTEL / EMPRESA">
+    </div>
+    <div class="field">
+      <label>Relación con usted <span class="req">*</span></label>
+      <select id="contacto_relacion">
+        <option value="">— Seleccionar —</option>
+        <option>Familiar</option><option>Amigo/a</option><option>Empleador</option>
+        <option>Hotel / Alojamiento</option><option>Empresa</option><option>Otro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Teléfono del contacto en USA</label>
+      <input type="tel" id="contacto_tel" placeholder="001-305-555-0000">
+    </div>
+    <div class="field span2">
+      <label>Dirección del contacto en USA <span class="req">*</span></label>
+      <input type="text" id="contacto_dir" placeholder="8300 JAMAICAN COURT, ORLANDO, FL 32819">
+    </div>
+    <div class="field">
+      <label>Email del contacto</label>
+      <input type="email" id="contacto_email" placeholder="contacto@hotel.com">
+    </div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 7: INFORMACIÓN FAMILIAR ====== -->
+<div class="section" id="sec7">
+  <div class="section-header">
+    <div class="section-badge">👨‍👩‍👧 Tu familia</div>
+    <div class="section-title">¿Con quién vives y quiénes son los tuyos?</div>
+    <div class="section-desc">La familia en Ecuador es uno de los argumentos más fuertes para obtener la visa — demuestra que tienes razones de peso para regresar. Cuéntanos sobre ella.</div>
+  </div>
+
+  <div class="section-sub">Padre</div>
+  <div class="form-grid">
+    <div class="field"><label>Apellidos del padre <span class="req">*</span></label><input type="text" id="padre_apellidos" placeholder="APELLIDOS DEL PADRE"></div>
+    <div class="field"><label>Nombres del padre <span class="req">*</span></label><input type="text" id="padre_nombres" placeholder="NOMBRES DEL PADRE"></div>
+    <div class="field"><label>Fecha de nacimiento del padre</label><input type="date" id="padre_nac"></div>
+    <div class="field"><label>¿El padre está en USA? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="padre_usa" value="SI"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="padre_usa" value="NO" checked> No</label>
+        <label class="radio-btn"><input type="radio" name="padre_usa" value="FALLECIDO"> Fallecido</label>
+        <label class="radio-btn"><input type="radio" name="padre_usa" value="NO_CONOCE"> No sé</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Madre</div>
+  <div class="form-grid">
+    <div class="field"><label>Apellidos de la madre <span class="req">*</span></label><input type="text" id="madre_apellidos" placeholder="APELLIDOS DE LA MADRE"></div>
+    <div class="field"><label>Nombres de la madre <span class="req">*</span></label><input type="text" id="madre_nombres" placeholder="NOMBRES DE LA MADRE"></div>
+    <div class="field"><label>Fecha de nacimiento de la madre</label><input type="date" id="madre_nac"></div>
+    <div class="field"><label>¿La madre está en USA? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="madre_usa" value="SI"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="madre_usa" value="NO" checked> No</label>
+        <label class="radio-btn"><input type="radio" name="madre_usa" value="FALLECIDA"> Fallecida</label>
+        <label class="radio-btn"><input type="radio" name="madre_usa" value="NO_CONOCE"> No sé</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Cónyuge / Pareja <span style="font-size:11px;color:var(--text2);text-transform:none;font-weight:400">(si aplica)</span></div>
+  <div class="form-grid">
+    <div class="field"><label>Apellidos del/de la cónyuge</label><input type="text" id="conyuge_apellidos" placeholder="Si es casado/a"></div>
+    <div class="field"><label>Nombres del/de la cónyuge</label><input type="text" id="conyuge_nombres" placeholder=""></div>
+    <div class="field"><label>Fecha de nacimiento cónyuge</label><input type="date" id="conyuge_nac"></div>
+    <div class="field"><label>Nacionalidad del/de la cónyuge</label><input type="text" id="conyuge_nac_pais" placeholder="ECUADOR"></div>
+    <div class="field"><label>Ciudad y país de nacimiento cónyuge</label><input type="text" id="conyuge_nac_lugar" placeholder="GUAYAQUIL, ECUADOR"></div>
+    <div class="field"><label>Dirección del/de la cónyuge <span class="hint">(si diferente)</span></label><input type="text" id="conyuge_dir" placeholder="Igual a la suya si conviven"></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Tiene familiares en USA (excepto padres)? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="fam_usa" value="SI" onchange="toggleConditional('fam_usa_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="fam_usa" value="NO" onchange="toggleConditional('fam_usa_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿Tiene otros familiares en USA? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="otros_fam_usa" value="SI" onchange="toggleConditional('otros_fam_usa_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="otros_fam_usa" value="NO" onchange="toggleConditional('otros_fam_usa_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="fam_usa_det">
+    <div class="field"><label>Nombre y relación del familiar en USA</label><textarea id="fam_usa_val" placeholder="Ej: APELLIDO, NOMBRE - Hermana, ciudadana USA&#10;APELLIDO, NOMBRE - Sobrino, residente permanente"></textarea></div>
+  </div>
+  <div class="conditional" id="otros_fam_usa_det">
+    <div class="field"><label>Nombre y relación de otros familiares en USA</label><textarea id="otros_fam_usa_val" placeholder="Listar nombre y relación de cada uno"></textarea></div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 8: TRABAJO / EDUCACIÓN ====== -->
+<div class="section" id="sec8">
+  <div class="section-header">
+    <div class="section-badge">💼 Tu trabajo</div>
+    <div class="section-title">¿En qué trabajas y cómo está tu economía?</div>
+    <div class="section-desc">Esto es clave para tu caso. La embajada quiere saber que tienes estabilidad en Ecuador y razones económicas para volver. Roberto usa esto para construir tu argumento más fuerte.</div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Ocupación principal <span class="req">*</span></label>
+      <select id="ocupacion">
+        <option value="">— Seleccionar —</option>
+        <option>Empleado/a (dependencia)</option><option>Comerciante / Negocio propio</option>
+        <option>Profesional independiente</option><option>Estudiante</option>
+        <option>Ama/o de casa</option><option>Jubilado/a</option>
+        <option>Desempleado/a</option><option>Otro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Nombre del empleador actual o institución educativa <span class="req">*</span></label>
+      <input type="text" id="empleador_nombre" placeholder="NOMBRE DE LA EMPRESA / INSTITUCIÓN">
+    </div>
+    <div class="field span2">
+      <label>Dirección del empleador / institución <span class="req">*</span></label>
+      <input type="text" id="empleador_dir" placeholder="AV. NOMBRE N00-00 Y CALLE">
+    </div>
+    <div class="field"><label>Ciudad</label><input type="text" id="empleador_ciudad" placeholder="QUITO"></div>
+    <div class="field"><label>Provincia</label><input type="text" id="empleador_provincia" placeholder="PICHINCHA"></div>
+    <div class="field"><label>Código Postal</label><input type="text" id="empleador_cp" placeholder="170401"></div>
+    <div class="field"><label>País</label><input type="text" id="empleador_pais" placeholder="ECUADOR"></div>
+    <div class="field"><label>Teléfono del empleador</label><input type="tel" id="empleador_tel" placeholder="022345678"></div>
+    <div class="field">
+      <label>Salario mensual en dólares <span class="hint">(0 si no aplica)</span></label>
+      <input type="number" id="salario" placeholder="800" min="0">
+    </div>
+    <div class="field span2">
+      <label>Describa brevemente sus funciones / actividades <span class="req">*</span></label>
+      <textarea id="funciones" placeholder="Ej: ESTUDIANTE DE BACHILLERATO / VENDEDOR DE PRODUCTOS ELECTRÓNICOS / CONTADOR GENERAL"></textarea>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field">
+    <label>¿Ha tenido empleos anteriores? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="emp_prev" value="SI" onchange="toggleConditional('emp_prev_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="emp_prev" value="NO" onchange="toggleConditional('emp_prev_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="emp_prev_det">
+    <div id="emp_prev_container"></div>
+    <button class="add-btn" onclick="addEmpPrev()">+ Agregar empleo anterior</button>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field">
+    <label>¿Ha asistido a instituciones educativas de nivel secundario o superior? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="educacion" value="SI" onchange="toggleConditional('edu_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="educacion" value="NO" onchange="toggleConditional('edu_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="edu_det">
+    <div id="edu_container"></div>
+    <button class="add-btn" onclick="addEdu()">+ Agregar institución educativa</button>
+  </div>
+
+  <div class="divider"></div>
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Pertenece a algún clan o tribu? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="clan" value="SI" onchange="toggleConditional('clan_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="clan" value="NO" onchange="toggleConditional('clan_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="clan_det">
+    <div class="field"><label>Nombre del clan o tribu</label><input type="text" id="clan_nombre" placeholder="Nombre"></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-sub">Idiomas que habla</div>
+  <div id="idiomas_container"></div>
+  <button class="add-btn" onclick="addIdioma()">+ Agregar idioma</button>
+</div>
+
+<!-- ====== SECCIÓN 9: VIAJES Y ORGANIZACIONES ====== -->
+<div class="section" id="sec9">
+  <div class="section-header">
+    <div class="section-badge">🌍 Tus viajes</div>
+    <div class="section-title">¿Has viajado a otros países?</div>
+    <div class="section-desc">Haber viajado antes — aunque sea a Colombia o Perú — suma puntos a tu expediente. Y si tienes visas de otros países, mucho mejor. Cuéntanos todo.</div>
+  </div>
+
+  <div class="field">
+    <label>¿Ha viajado a otros países en los últimos 5 años? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="viajes_5" value="SI" onchange="toggleConditional('viajes_5_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="viajes_5" value="NO" onchange="toggleConditional('viajes_5_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="viajes_5_det">
+    <div id="viajes_5_container"></div>
+    <button class="add-btn" onclick="addViaje5()">+ Agregar viaje</button>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field">
+    <label>¿Ha pertenecido, contribuido o trabajado para alguna organización profesional, social o benéfica? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="organizaciones" value="SI" onchange="toggleConditional('org_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="organizaciones" value="NO" onchange="toggleConditional('org_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="org_det">
+    <div class="field"><label>Nombre de la organización, cargo y fechas</label><textarea id="org_val" placeholder="Ej: COLEGIO DE ABOGADOS DE QUITO - Miembro activo desde 2015"></textarea></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="form-grid">
+    <div class="field">
+      <label>¿Tiene habilidades especializadas en armas de fuego, explosivos, nuclear, biológico o químico? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="habilidades_esp" value="SI" onchange="toggleConditional('habilidades_esp_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="habilidades_esp" value="NO" onchange="toggleConditional('habilidades_esp_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿Ha servido en el ejército? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-btn"><input type="radio" name="militar" value="SI" onchange="toggleConditional('militar_det','SI',this)"> Sí</label>
+        <label class="radio-btn"><input type="radio" name="militar" value="NO" onchange="toggleConditional('militar_det','SI',this)" checked> No</label>
+      </div>
+    </div>
+  </div>
+  <div class="conditional" id="habilidades_esp_det">
+    <div class="field"><label>Describa las habilidades</label><textarea id="habilidades_esp_val" placeholder="Tipo, contexto, nivel de entrenamiento..."></textarea></div>
+  </div>
+  <div class="conditional" id="militar_det">
+    <div class="form-grid">
+      <div class="field"><label>País de las fuerzas armadas</label><input type="text" id="militar_pais" placeholder="ECUADOR"></div>
+      <div class="field"><label>Ramas / Especialidad</label><input type="text" id="militar_rama" placeholder="Ejército / Marina / Fuerza Aérea"></div>
+      <div class="field"><label>Rango / Grado</label><input type="text" id="militar_rango" placeholder="Cabo, Sargento, etc."></div>
+      <div class="field"><label>Años de servicio</label><input type="text" id="militar_anios" placeholder="2010-2015"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field">
+    <label>¿Ha pertenecido a algún grupo paramilitar, guerrilla o insurgente? <span class="req">*</span></label>
+    <div class="radio-group">
+      <label class="radio-btn"><input type="radio" name="paramilitar" value="SI" onchange="toggleConditional('paramilitar_det','SI',this)"> Sí</label>
+      <label class="radio-btn"><input type="radio" name="paramilitar" value="NO" onchange="toggleConditional('paramilitar_det','SI',this)" checked> No</label>
+    </div>
+  </div>
+  <div class="conditional" id="paramilitar_det">
+    <div class="field"><label>Explique</label><textarea id="paramilitar_val" placeholder="Nombre del grupo, fechas, rol..."></textarea></div>
+  </div>
+</div>
+
+<!-- ====== SECCIÓN 10: SEGURIDAD Y ANTECEDENTES ====== -->
+<div class="section" id="sec10">
+  <div class="section-header">
+    <div class="section-badge">🔐 Última parte</div>
+    <div class="section-title">Unas preguntas finales — responde con honestidad</div>
+    <div class="section-desc">Son preguntas estándar que la embajada hace a todo el mundo. La gran mayoría responde NO a todas. Si alguna aplica a tu caso, Roberto sabe exactamente cómo manejarlo — lo importante es ser honesto.</div>
+  </div>
+
+  <div class="info-box" style="margin-bottom:20px">
+    <div class="ico">⚠️</div>
+    <div>La mayoría de personas responde NO a todas estas preguntas. Si hay algún SÍ, Roberto lo manejará con la estrategia correcta.</div>
+  </div>
+
+  <div class="security-qs" id="security_qs"></div>
+
+  <div class="divider"></div>
+  <div class="form-grid">
+    <div class="field span2">
+      <label>Observaciones adicionales para Roberto <span class="hint">(información que deba conocer y no aparece en el formulario)</span></label>
+      <textarea id="obs_adicionales" placeholder="Cualquier situación especial, antecedente, familiar en USA, rechazo previo, datos que no encajan en las preguntas..." style="min-height:120px"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ====== PANTALLA FINAL ====== -->
+<div class="section" id="secFinal">
+  <div class="final-card">
+    <div class="final-icon">🎉</div>
+    <div class="final-title">¡Ya está! Asesoría Visa Global tiene todo lo que necesita</div>
+    <div class="final-sub">En menos de <strong style="color:var(--gc)">24 horas</strong> nuestro equipo analiza tu caso y te escribe con la estrategia para tu visa. Tú no tienes que hacer nada más por ahora.</div>
+
+    <div class="final-price">
+      <div class="fp-usd">$250</div>
+      <div>
+        <div style="color:var(--gc);font-weight:700;font-size:14px">USD por persona</div>
+        <div class="fp-label">Todo incluido — Roberto lo gestiona por ti</div>
+      </div>
+    </div>
+
+    <div class="final-includes">
+      <div class="fi-item"><div class="fi-check">✓</div><div>Analizamos tu perfil y te decimos tu probabilidad real</div></div>
+      <div class="fi-item"><div class="fi-check">✓</div><div>Llenamos y revisamos tu solicitud oficial ante la embajada</div></div>
+      <div class="fi-item"><div class="fi-check">✓</div><div>Te preparamos para la entrevista consular con simulacros</div></div>
+      <div class="fi-item"><div class="fi-check">✓</div><div>Te acompañamos por WhatsApp hasta el sello en tu pasaporte</div></div>
+      <div class="fi-item" style="border:none;color:var(--t2);font-size:12px"><div class="fi-check" style="color:var(--t2)">ℹ</div><div>La tasa consular ($185) se paga aparte directamente al gobierno de USA — no a Roberto</div></div>
+    </div>
+
+    <a id="wa_link" href="#" class="btn-wa" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Confirmar con Roberto por WhatsApp
+    </a>
+    <br>
+    <button class="btn-download mt2" onclick="downloadResumen()">⬇ Guardar copia de mis respuestas</button>
+  </div>
+</div>
+
+</main>
+
+<!-- NAV BUTTONS -->
+<div class="nav-btns">
+  <button class="btn-back" id="btnBack" onclick="goBack()" style="visibility:hidden">← Volver</button>
+  <button class="btn-next" id="btnNext" onclick="goNext()">Continuar →</button>
+</div>
+
+<script>
+const SECTIONS = ['sec0','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','secFinal'];
+const TITLES = [
+  '¿Cuántos van a viajar?',
+  '¿Cómo te llamas?','¿Dónde vives?','Tu pasaporte','¿Cuándo y a dónde vas?',
+  '¿Has viajado antes a USA?','¿A quién visitas en USA?','Tu familia','¿En qué trabajas?',
+  'Tus viajes y actividades','Últimas preguntas','¡Todo listo!'
+];
+
+// Lógica número de viajeros
+let numViajeros = 1;
+function setViajeros(n) {
+  numViajeros = n;
+  const det = document.getElementById('viajeros_nombres_det');
+  det.classList.add('show');
+  const list = document.getElementById('viajeros_list');
+  list.innerHTML = '';
+  for (let i = 1; i <= n; i++) {
+    const div = document.createElement('div');
+    div.className = 'repeater-item';
+    div.style.marginBottom = '10px';
+    div.innerHTML = `<div class="form-grid">
+      <div class="field">
+        <label>Viajero ${i} — Apellidos y Nombres <span class="req">*</span></label>
+        <input type="text" id="viajero_${i}_nombre" placeholder="APELLIDO(S), NOMBRE(S)">
+      </div>
+      <div class="field">
+        <label>Viajero ${i} — Fecha de nacimiento</label>
+        <input type="date" id="viajero_${i}_nac">
+      </div>
+      <div class="field">
+        <label>Viajero ${i} — Relación con el solicitante principal</label>
+        <select id="viajero_${i}_relacion">
+          <option value="">— Seleccionar —</option>
+          <option>Solicitante principal</option>
+          <option>Cónyuge / Pareja</option>
+          <option>Hijo/a menor de edad</option>
+          <option>Hijo/a mayor de edad</option>
+          <option>Padre / Madre</option>
+          <option>Hermano/a</option>
+          <option>Otro familiar</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Viajero ${i} — Pasaporte</label>
+        <input type="text" id="viajero_${i}_pasaporte" placeholder="A1234567">
+      </div>
+    </div>`;
+    list.appendChild(div);
+  }
+  // Radio visual
+  document.querySelectorAll('input[name="num_viajeros"]').forEach(r => {
+    r.closest('.radio-btn').classList.toggle('selected', parseInt(r.value) === n);
+  });
+}
+
+function showResultadoAnterior(input) {
+  const v = input.value;
+  document.getElementById('res_aprobada_det').classList.toggle('show', v === 'APROBADA' || v === 'AMBAS');
+  document.getElementById('res_negada_det').classList.toggle('show', v === 'NEGADA' || v === 'AMBAS');
+}
+
+const SECURITY_QUESTIONS = [
+  "¿Padece alguna enfermedad comunicable de salud pública (tuberculosis activa, sífilis infecciosa, lepra, gonorrea, etc.)?",
+  "¿Tiene algún trastorno mental o físico que represente una amenaza para la seguridad o bienestar de usted u otros?",
+  "¿Es o ha sido usted adicto o consumidor de drogas?",
+  "¿Ha sido arrestado, detenido o condenado por algún delito o crimen, aunque haya recibido indulto, amnistía u acción similar?",
+  "¿Ha violado o participado en una conspiración para violar alguna ley relacionada con sustancias controladas?",
+  "¿Viene a USA a dedicarse a la prostitución o a vicios comerciales ilegales, o lo ha hecho en los últimos 10 años?",
+  "¿Ha participado o pretende participar en lavado de dinero?",
+  "¿Ha cometido o conspirado para cometer delitos de trata de personas dentro o fuera de USA?",
+  "¿Es cónyuge, hijo/a de un individuo que ha cometido trata de personas y se ha beneficiado de esas actividades en los últimos 5 años?",
+  "¿Ha ayudado o coludido con alguien que ha cometido trata de personas?",
+  "¿Pretende dedicarse al espionaje, sabotaje, violaciones de control de exportaciones u otras actividades ilegales en USA?",
+  "¿Pretende dedicarse a actividades terroristas o las ha realizado alguna vez?",
+  "¿Ha proporcionado o pretende proporcionar apoyo financiero u otro a terroristas u organizaciones terroristas?",
+  "¿Es miembro o representante de una organización terrorista?",
+  "¿Es cónyuge, hijo/a de alguien que se ha involucrado en actividades terroristas en los últimos 5 años?",
+  "¿Ha ordenado, incitado, cometido o participado en genocidio?",
+  "¿Ha cometido, ordenado, incitado o participado en torturas?",
+  "¿Ha cometido, ordenado o participado en ejecuciones extrajudiciales, asesinatos políticos u otros actos de violencia?",
+  "¿Ha participado en el reclutamiento o uso de soldados infantiles?",
+  "¿Ha sido, como funcionario de gobierno, responsable de violaciones graves de la libertad religiosa?",
+  "¿Ha participado directamente en controles de población que forzaran abortos o esterilizaciones involuntarias?",
+  "¿Ha participado en el trasplante coercitivo de órganos o tejidos humanos?",
+  "¿Ha intentado obtener visa, entrada a USA u otros beneficios migratorios mediante fraude o tergiversación?",
+  "¿Ha sido expulsado o deportado de algún país?",
+  "¿Ha retenido la custodia de un niño ciudadano americano fuera de USA sin autorización legal de un tribunal americano?",
+  "¿Ha votado en USA violando alguna ley o reglamento?",
+  "¿Ha renunciado a la ciudadanía americana para evitar el pago de impuestos?"
+];
+
+let currentSection = 0;
+const answers = {};
+
+// Init dots
+function initDots() {
+  const d = document.getElementById('stepsDots');
+  TITLES.forEach((t,i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i===0?' active':'');
+    dot.title = t;
+    dot.onclick = () => jumpTo(i);
+    d.appendChild(dot);
+  });
+}
+
+function initSecurityQs() {
+  const c = document.getElementById('security_qs');
+  SECURITY_QUESTIONS.forEach((q,i) => {
+    const div = document.createElement('div');
+    div.className = 'security-q';
+    div.innerHTML = `<div class="q-text">${q}<div class="q-radio">
+      <button class="sq-btn" id="sq_si_${i}" onclick="answerSQ(${i},'SI')">Sí</button>
+      <button class="sq-btn no-sel" id="sq_no_${i}" onclick="answerSQ(${i},'NO')">No</button>
+    </div></div>`;
+    c.appendChild(div);
+  });
+  // Default all NO
+  SECURITY_QUESTIONS.forEach((_,i) => { answers['sq_'+i] = 'NO'; });
+}
+
+function answerSQ(i, val) {
+  answers['sq_'+i] = val;
+  document.getElementById('sq_si_'+i).className = 'sq-btn' + (val==='SI'?' yes-sel':'');
+  document.getElementById('sq_no_'+i).className = 'sq-btn' + (val==='NO'?' no-sel':'');
+}
+
+function updateProgress() {
+  const total = SECTIONS.length - 1;
+  const pct = Math.round((currentSection / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepPct').textContent = pct + '%';
+  document.getElementById('stepLabel').textContent = currentSection < total ? `Paso ${currentSection+1} de ${total}` : '¡Completado!';
+  document.getElementById('stepTitle').textContent = TITLES[currentSection];
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach((d,i) => {
+    d.className = 'dot' + (i === currentSection ? ' active' : i < currentSection ? ' done' : '');
+  });
+  document.getElementById('btnBack').style.visibility = currentSection === 0 ? 'hidden' : 'visible';
+  const isFinal = SECTIONS[currentSection] === 'secFinal';
+  const isLast = currentSection === SECTIONS.length - 2;
+  document.getElementById('btnNext').textContent = isFinal ? '✓ Listo' : isLast ? '¡Terminar! →' : 'Continuar →';
+  if(isFinal) document.getElementById('btnNext').style.display = 'none';
+  else document.getElementById('btnNext').style.display = '';
+}
+
+function showSection(idx) {
+  SECTIONS.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.toggle('active', i === idx);
+  });
+  updateProgress();
+  window.scrollTo(0, 0);
+  if(SECTIONS[idx] === 'secFinal') buildFinal();
+}
+
+function goNext() {
+  if(currentSection < SECTIONS.length - 1) { currentSection++; showSection(currentSection); }
+}
+function goBack() {
+  if(currentSection > 0) { currentSection--; showSection(currentSection); }
+}
+function jumpTo(idx) {
+  if(idx <= currentSection) { currentSection = idx; showSection(currentSection); }
+}
+
+// TOGGLES
+function toggleConditional(id, triggerVal, input) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('show', input.value === triggerVal);
+}
+
+function showPagoOtro() {
+  const v = document.getElementById('quien_paga').value;
+  const el = document.getElementById('pago_otro_det');
+  el.classList.toggle('show', v === 'Otra persona' || v === 'Empresa / Organización');
+}
+
+// REPEATERS
+function addRed() {
+  const c = document.getElementById('redes_container');
+  const idx = c.children.length;
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid">
+      <div class="field"><label>Plataforma</label>
+        <select onchange="">
+          <option>Facebook</option><option>Instagram</option><option>Twitter/X</option>
+          <option>LinkedIn</option><option>TikTok</option><option>YouTube</option>
+          <option>Snapchat</option><option>Pinterest</option><option>Otra</option>
+        </select>
+      </div>
+      <div class="field"><label>Usuario / Identificador</label><input type="text" placeholder="@usuario o nombre del perfil"></div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addAcomp() {
+  const c = document.getElementById('acomp_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid">
+      <div class="field"><label>Apellidos, Nombres del acompañante</label><input type="text" placeholder="APELLIDO(S), NOMBRE(S) COMPLETO"></div>
+      <div class="field"><label>Relación</label>
+        <select><option>Cónyuge / Pareja</option><option>Hijo/a</option><option>Padre / Madre</option>
+        <option>Hermano/a</option><option>Otro familiar</option><option>Amigo/a</option></select>
+      </div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addViajeUSA() {
+  const c = document.getElementById('viajes_usa_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid trio">
+      <div class="field"><label>Fecha de llegada</label><input type="date"></div>
+      <div class="field"><label>Duración de la estadía</label><input type="text" placeholder="15 días"></div>
+      <div class="field"><label>Propósito</label><input type="text" placeholder="Turismo / Negocios"></div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addEmpPrev() {
+  const c = document.getElementById('emp_prev_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid">
+      <div class="field"><label>Nombre del empleador</label><input type="text" placeholder="NOMBRE DE LA EMPRESA"></div>
+      <div class="field"><label>Cargo</label><input type="text" placeholder="CARGO O PUESTO DESEMPEÑADO"></div>
+      <div class="field"><label>Dirección del empleador</label><input type="text" placeholder="Av. Principal 123, Quito"></div>
+      <div class="field"><label>Teléfono</label><input type="tel" placeholder="022345678"></div>
+      <div class="field"><label>Fecha inicio</label><input type="date"></div>
+      <div class="field"><label>Fecha fin</label><input type="date"></div>
+      <div class="field span2"><label>Descripción de funciones</label><textarea placeholder="Actividades principales"></textarea></div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addEdu() {
+  const c = document.getElementById('edu_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid">
+      <div class="field"><label>Nombre de la institución</label><input type="text" placeholder="NOMBRE DE LA INSTITUCIÓN EDUCATIVA"></div>
+      <div class="field"><label>Ciudad y país</label><input type="text" placeholder="QUITO, ECUADOR"></div>
+      <div class="field"><label>Carrera / Nivel</label><input type="text" placeholder="CARRERA / NIVEL CURSADO"></div>
+      <div class="field"><label>Año de ingreso</label><input type="text" placeholder="2018"></div>
+      <div class="field"><label>Año de graduación (o "en curso")</label><input type="text" placeholder="2022 / En curso"></div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addIdioma() {
+  const c = document.getElementById('idiomas_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid trio">
+      <div class="field"><label>Idioma</label><input type="text" placeholder="ESPAÑOL / INGLÉS / QUECHUA"></div>
+      <div class="field"><label>Nivel</label>
+        <select><option>Nativo</option><option>Avanzado</option><option>Intermedio</option><option>Básico</option></select>
+      </div>
+    </div>`;
+  c.appendChild(div);
+}
+
+function addViaje5() {
+  const c = document.getElementById('viajes_5_container');
+  const div = document.createElement('div');
+  div.className = 'repeater-item';
+  div.innerHTML = `<button class="remove-btn" onclick="this.parentElement.remove()">✕ Quitar</button>
+    <div class="form-grid trio">
+      <div class="field"><label>País visitado</label><input type="text" placeholder="COLOMBIA"></div>
+      <div class="field"><label>Fecha de visita</label><input type="text" placeholder="Marzo 2024"></div>
+      <div class="field"><label>Propósito</label><input type="text" placeholder="Turismo / Negocios"></div>
+    </div>`;
+  c.appendChild(div);
+}
+
+// INITIAL DATA
+function initDefaultRepeaters() {
+  addRed(); // una red social por defecto
+  addIdioma(); // español por defecto
+}
+
+// FINAL BUILD
+function buildFinal() {
+  const principal = document.getElementById('contacto_principal_nombre')?.value || '';
+  const tel = document.getElementById('contacto_principal_tel')?.value || '';
+  const ciudad = document.getElementById('contacto_principal_ciudad')?.value || '';
+  const viajeros_txt = Array.from({length: numViajeros}, (_,i) =>
+    `  ${i+1}. ${document.getElementById('viajero_'+(i+1)+'_nombre')?.value||'pendiente'}`
+  ).join('\n');
+  const visa_ant = document.querySelector('input[name="visa_anterior"]:checked')?.value||'NO';
+  const resultado = document.querySelector('input[name="resultado_anterior"]:checked')?.value||'';
+  const negacion_causal = document.getElementById('negacion_causal')?.value||'';
+  const ds160_num = document.getElementById('ds160_prev_num')?.value||'';
+
+  let historial = visa_ant === 'NO' ? 'Primera solicitud' :
+    resultado === 'APROBADA' ? 'Tuvo visa aprobada anteriormente' :
+    resultado === 'NEGADA' ? `NEGADA — ${negacion_causal||'sin causal especificada'}${ds160_num?' — DS-160 previo: '+ds160_num:''}` :
+    'Historial mixto (algunos aprobados, otros negados)';
+
+  const waText = encodeURIComponent(
+    `Hola Roberto, completé el formulario de datos DS-160.\n\n` +
+    `Solicitante principal: ${principal}\n` +
+    `Ciudad: ${ciudad} | Tel: ${tel}\n` +
+    `Viajeros (${numViajeros}):\n${viajeros_txt}\n\n` +
+    `Historial visa USA: ${historial}\n` +
+    `Propósito: ${document.getElementById('proposito_viaje')?.value||'pendiente'}\n` +
+    `Llegada: ${document.getElementById('fecha_llegada')?.value||'pendiente'}\n\n` +
+    `Por favor revisar los datos para continuar. ¡Gracias!`
+  );
+  document.getElementById('wa_link').href = `https://wa.me/593994442512?text=${waText}`;
+}
+
+function downloadResumen() {
+  const nombre = (document.getElementById('nombres')?.value||'') + ' ' + (document.getElementById('apellidos')?.value||'');
+  const principal = document.getElementById('contacto_principal_nombre')?.value||'';
+  const visa_ant = document.querySelector('input[name="visa_anterior"]:checked')?.value||'NO';
+  const resultado = document.querySelector('input[name="resultado_anterior"]:checked')?.value||'';
+  let txt = `FORMULARIO DS-160 — ASESORÍA VISA GLOBAL\n`;
+  txt += `==========================================\n`;
+  txt += `Inversión: $250 USD por persona\n`;
+  txt += `WhatsApp: +593 99 444 2512\n\n`;
+  txt += `SOLICITANTE PRINCIPAL: ${principal}\n`;
+  txt += `Tel/WA: ${document.getElementById('contacto_principal_tel')?.value||''}\n`;
+  txt += `Ciudad: ${document.getElementById('contacto_principal_ciudad')?.value||''}\n\n`;
+  txt += `VIAJEROS (${numViajeros} persona${numViajeros>1?'s':''})\n`;
+  for(let i=1;i<=numViajeros;i++){
+    txt += `  ${i}. ${document.getElementById('viajero_'+i+'_nombre')?.value||'pendiente'}\n`;
+  }
+  txt += `\nHISTORIAL VISA USA: ${visa_ant==='NO'?'Primera solicitud':resultado==='NEGADA'?'NEGADA previamente — '+document.getElementById('negacion_causal')?.value:'Con visa anterior'}\n`;
+  if(resultado==='NEGADA') txt += `DS-160 previo: ${document.getElementById('ds160_prev_num')?.value||'no disponible'}\n`;
+  txt += `\nDATOS PERSONALES\n`;
+  txt += `Nombre en pasaporte: ${nombre.trim()}\n`;
+  txt += `Cédula: ${document.getElementById('cedula')?.value||''}\n`;
+  txt += `Fecha de nac.: ${document.getElementById('fecha_nac')?.value||''}\n`;
+  txt += `Pasaporte: ${document.getElementById('num_pasaporte')?.value||''} (vence ${document.getElementById('fecha_vence')?.value||''})\n`;
+  txt += `Email: ${document.getElementById('email_principal')?.value||''}\n`;
+  txt += `Tel.: ${document.getElementById('tel_principal')?.value||''}\n\n`;
+  txt += `VIAJE\n`;
+  txt += `Propósito: ${document.getElementById('proposito_viaje')?.value||''}\n`;
+  txt += `Llegada: ${document.getElementById('fecha_llegada')?.value||''} — Salida: ${document.getElementById('fecha_salida')?.value||''}\n\n`;
+  txt += `TRABAJO\n`;
+  txt += `Ocupación: ${document.getElementById('ocupacion')?.value||''}\n`;
+  txt += `Empleador: ${document.getElementById('empleador_nombre')?.value||''}\n`;
+  txt += `Salario: $${document.getElementById('salario')?.value||'0'}/mes\n\n`;
+  txt += `Observaciones: ${document.getElementById('obs_adicionales')?.value||'Ninguna'}\n`;
+
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `DS160_${(nombre.trim().replace(/\s+/g,'_')||'cliente')}.txt`;
+  a.click();
+}
+
+// RADIO BUTTON VISUAL
+document.addEventListener('change', function(e) {
+  if(e.target.type === 'radio') {
+    const name = e.target.name;
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      r.closest('.radio-btn')?.classList.remove('selected');
+    });
+    e.target.closest('.radio-btn')?.classList.add('selected');
+  }
+});
+
+// INIT
+initDots();
+initSecurityQs();
+initDefaultRepeaters();
+showSection(0);
+
+// ── PREMIUM UX ─────────────────────────────────────────────
+
+// Magnetic effect on Next button
+const btnNext = document.getElementById('btnNext');
+btnNext.addEventListener('mousemove', e => {
+  const r = btnNext.getBoundingClientRect();
+  const x = e.clientX - r.left - r.width/2;
+  const y = e.clientY - r.top - r.height/2;
+  btnNext.style.transform = `translate(${x*0.12}px,${y*0.18}px) scale(1.03)`;
+});
+btnNext.addEventListener('mouseleave', () => {
+  btnNext.style.transform = '';
+});
+
+// Input focus highlight — animate label color
+document.querySelectorAll('input,select,textarea').forEach(el => {
+  el.addEventListener('focus', () => {
+    const label = el.closest('.field')?.querySelector('label');
+    if(label) label.style.color = 'var(--gc)';
+  });
+  el.addEventListener('blur', () => {
+    const label = el.closest('.field')?.querySelector('label');
+    if(label) label.style.color = '';
+  });
+  // Ripple on fill
+  el.addEventListener('input', () => {
+    if(el.value) el.style.borderColor = 'rgba(245,180,41,.4)';
+    else el.style.borderColor = '';
+  });
+});
+
+// Radio button click — scale micro-animation
+document.addEventListener('click', e => {
+  const rb = e.target.closest('.radio-btn');
+  if(rb) {
+    rb.style.transform = 'scale(.96)';
+    setTimeout(() => { rb.style.transform = ''; }, 120);
+  }
+  const sqBtn = e.target.closest('.sq-btn');
+  if(sqBtn) {
+    sqBtn.style.transform = 'scale(.9)';
+    setTimeout(() => { sqBtn.style.transform = ''; }, 120);
+  }
+});
+
+// Dot tooltip on hover
+document.querySelectorAll('.dot').forEach((d, i) => {
+  d.title = TITLES[i] || '';
+});
+
+// Save to localStorage on every input change
+document.addEventListener('input', saveState);
+document.addEventListener('change', saveState);
+function saveState() {
+  try {
+    const state = {};
+    document.querySelectorAll('input,select,textarea').forEach(el => {
+      if(el.id) state[el.id] = el.type==='radio'||el.type==='checkbox' ? el.checked : el.value;
+    });
+    localStorage.setItem('ds160_avg_draft', JSON.stringify(state));
+  } catch(e){}
+}
+
+// Restore on load
+try {
+  const saved = JSON.parse(localStorage.getItem('ds160_avg_draft') || '{}');
+  Object.keys(saved).forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(el.type==='radio'||el.type==='checkbox') el.checked = saved[id];
+    else el.value = saved[id] || '';
+  });
+} catch(e){}
+
+// Section dot progress glow animation
+function flashDot(i) {
+  const dots = document.querySelectorAll('.dot');
+  if(dots[i]) {
+    dots[i].style.boxShadow = '0 0 16px rgba(245,180,41,.9)';
+    setTimeout(() => { dots[i].style.boxShadow = ''; }, 600);
+  }
+}
+const _origShow = showSection;
+// override to add flash
+window.showSection = function(idx) {
+  _origShow(idx);
+  flashDot(idx);
+};
+</script>
+</body>
+</html>
