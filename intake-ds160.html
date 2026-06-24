@@ -1,412 +1,561 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Tu visa USA empieza aquí · Asesoría Visa Global</title>
-<meta name="description" content="Cuéntanos tu situación en 10 minutos. Nosotros preparamos todo.">
-<meta property="og:title" content="Empieza tu visa USA · Asesoría Visa Global">
-<meta property="og:description" content="Solo 10 minutos. Nosotros preparamos todo por ti.">
+<title>Empieza tu visa USA · Asesoría Visa Global</title>
+<meta name="description" content="Cuéntanos tu situación en 10 minutos. Nuestro equipo prepara todo por ti.">
+<meta property="og:title" content="Tu visa USA empieza aquí · Asesoría Visa Global">
+<meta property="og:description" content="10 minutos. Nuestro equipo se encarga de todo: documentos, solicitud y acompañamiento.">
 <meta property="og:image" content="https://www.asesoriadevisadosglobal.com/cfb1.png">
 <meta property="og:url" content="https://www.asesoriadevisadosglobal.com/intake-ds160.html">
-<meta name="theme-color" content="#060D1A">
+<meta name="theme-color" content="#06101E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ══ TOKENS (idénticos al sitio) ══════════════════════ */
 :root {
-  --bg:    #06101E;
-  --bg2:   #0C1A2E;
-  --bg3:   #112338;
-  --bg4:   #162D46;
-  --gold:  #C8861A;
-  --gold-lt: #F5C842;
-  --gdim:  rgba(245,200,66,.12);
-  --gbdr:  rgba(245,200,66,.25);
-  --blue:  #3B82F6;
-  --blue-lt:#60A5FA;
-  --text:  #CBD5E1;
-  --text2: #F1F5F9;
-  --muted: #64748B;
-  --dim:   #2E3E56;
-  --grn:   #10B981;
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans:  'Space Grotesk', 'DM Sans', system-ui, sans-serif;
-  --r: 16px;
-  --ease: cubic-bezier(0.16,1,0.3,1);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  font-family:var(--sans);
-  background:var(--bg); color:var(--text);
-  min-height:100dvh;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  --bg:       #06101E;
+  --bg2:      #0C1A2E;
+  --bg3:      #112338;
+  --bg4:      #162D46;
+  --navy:     #0B1E3B;
+  --gold:     #C8861A;
+  --gold-lt:  #F5C842;
+  --gold-glow:rgba(245,200,66,.15);
+  --gold-bdr: rgba(245,200,66,.25);
+  --blue:     #3B82F6;
+  --green:    #10B981;
+  --white:    #FFFFFF;
+  --text:     #CBD5E1;
+  --dark-txt: #F1F5F9;
+  --muted:    #64748B;
+  --line:     rgba(255,255,255,.07);
+  --line2:    rgba(255,255,255,.13);
+  --serif:   'Playfair Display', Georgia, serif;
+  --sans:    'Space Grotesk', system-ui, sans-serif;
+  --ease:    cubic-bezier(.16,1,.3,1);
+  --ease2:   cubic-bezier(.22,.68,0,1.2);
+  --sh-gold: 0 8px 40px rgba(245,200,66,.2);
 }
 
-/* ── PROGRESS ── */
-#prog-bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--bg3);z-index:200}
-#prog-fill{height:100%;background:var(--gold-lt);width:0%;transition:width .5s var(--ease)}
-
-/* ── HEADER ── */
-header{
-  position:sticky;top:3px;z-index:100;
-  height:54px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;
-  background:rgba(6,13,26,.92);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{
-  width:32px;height:32px;border-radius:9px;
-  background:var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:900;color:var(--bg);flex-shrink:0;
-}
-.logo-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.1}
-.logo-tag{font-size:10px;color:var(--muted)}
-.hdr-right{
-  font-size:11px;font-weight:600;color:var(--muted);
-  display:flex;align-items:center;gap:6px;
-}
-.hdr-pill{
-  background:var(--gdim);border:1px solid var(--gbdr);
-  border-radius:99px;padding:3px 10px;
-  font-size:10px;font-weight:700;color:var(--gold-lt);
+/* ══ RESET ════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100% }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── MAIN ── */
-main{max-width:560px;margin:0 auto;padding:28px 18px 100px}
-
-/* ── STEPS ── */
-.step{display:none}
-.step.active{display:block;animation:stepIn .35s var(--ease) both}
-@keyframes stepIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── WELCOME ── */
-.welcome-flag{font-size:48px;margin-bottom:20px}
-.welcome-label{
-  font-size:10px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;
+/* ══ PROGRESS LINE ════════════════════════════════════ */
+#prog {
+  position:fixed; top:0; left:0; right:0; height:2px;
+  background:var(--bg3); z-index:300;
 }
-.welcome-h{
-  font-family:var(--serif);
-  font-size:clamp(22px,5vw,32px);font-weight:900;line-height:1.2;margin-bottom:10px;
-  color:var(--text2);
-}
-.welcome-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px;max-width:42ch}
-
-/* Trust pills */
-.trust-pills{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.trust-pill{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 14px;
-  background:var(--bg2);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:12px;
-}
-.tp-ico{font-size:20px;flex-shrink:0}
-.tp-text{font-size:13px;color:var(--muted);line-height:1.4}
-.tp-text strong{color:var(--text);font-weight:600}
-
-/* Steps overview */
-.steps-overview{
-  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--r);padding:16px 18px;margin-bottom:28px;
-}
-.so-title{
-  font-size:10px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--gold-lt);margin-bottom:14px;
-}
-.so-step{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);
-}
-.so-step:last-child{border:none;padding-bottom:0}
-.so-num{
-  width:26px;height:26px;border-radius:8px;flex-shrink:0;
-  background:var(--gdim);border:1px solid var(--gbdr);
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:var(--gold-lt);
-}
-.so-info{}
-.so-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2}
-.so-desc{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
-
-/* CTA btn */
-.btn-cta{
-  width:100%;padding:16px;border-radius:14px;
-  background:var(--gold);border:none;
-  font-family:inherit;font-size:15px;font-weight:800;color:var(--bg);
-  cursor:pointer;
-  transition:transform .2s var(--ease),box-shadow .2s;
-  box-shadow:0 4px 24px rgba(245,200,66,.28);
-  letter-spacing:.02em;
-}
-.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(245,200,66,.38)}
-.btn-cta:active{transform:translateY(0)}
-.welcome-note{text-align:center;margin-top:12px;font-size:11px;color:var(--dim)}
-
-/* ── SECTION CARD ── */
-.section-card{
-  background:var(--bg2);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--r);padding:20px 18px;
-  margin-bottom:16px;
-}
-.sc-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
-.sc-icon{
-  width:38px;height:38px;border-radius:10px;flex-shrink:0;
-  background:var(--gdim);border:1px solid var(--gbdr);
-  display:flex;align-items:center;justify-content:center;font-size:18px;
-}
-.sc-meta{}
-.sc-badge{
-  font-size:9px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--gold-lt);margin-bottom:3px;
-}
-.sc-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text2);line-height:1.2}
-.sc-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:3px}
-.sc-why{
-  background:var(--gdim);border-left:2px solid var(--gold);
-  border-radius:0 8px 8px 0;padding:9px 12px;
-  font-size:12px;color:var(--muted);line-height:1.55;
-  margin-bottom:16px;
-}
-.sc-why strong{color:var(--text)}
-
-/* ── FIELDS ── */
-.field-group{display:flex;flex-direction:column;gap:14px}
-.field{display:flex;flex-direction:column;gap:5px}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:480px){.field-grid{grid-template-columns:1fr}}
-.field.span2{grid-column:span 2}
-@media(max-width:480px){.field.span2{grid-column:span 1}}
-
-label{
-  font-size:10px;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.07em;
-  display:flex;align-items:center;gap:4px;flex-wrap:wrap;
-}
-label .req{color:var(--gold-lt)}
-label .hint{
-  font-size:10px;color:var(--dim);
-  text-transform:none;letter-spacing:0;font-weight:400;
+#prog-fill {
+  height:100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  width:0%; transition:width .5s var(--ease);
 }
 
-input[type=text],input[type=date],input[type=email],
-input[type=tel],input[type=number],select,textarea{
+/* ══ HEADER ═══════════════════════════════════════════ */
+header {
+  position:sticky; top:2px; z-index:200;
+  height:60px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 24px;
+  background: rgba(6,16,30,.9);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--line);
+}
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none }
+.logo-mark {
+  width:34px; height:34px; border-radius:8px; flex-shrink:0;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-size:14px; font-weight:700; color:var(--navy);
+}
+.logo-name { font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--white) }
+.logo-tag  { font-size:.65rem; color:var(--muted); margin-top:1px }
+.hdr-badge {
+  display:none;
+  background:rgba(245,200,66,.08); border:1px solid var(--gold-bdr);
+  border-radius:100px; padding:4px 14px;
+  font-size:.625rem; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--gold-lt);
+}
+.hdr-badge.show { display:block }
+
+/* ══ MAIN ══════════════════════════════════════════════ */
+main { position:relative; z-index:1 }
+
+/* ══ STEP SYSTEM ════════════════════════════════════════ */
+.step { display:none; opacity:0 }
+.step.active {
+  display:block; opacity:1;
+  animation: stepReveal .45s var(--ease) both;
+}
+@keyframes stepReveal {
+  from { opacity:0; transform:translateY(28px) }
+  to   { opacity:1; transform:translateY(0) }
+}
+
+/* ══ LABEL CHIP (mismo estilo que el sitio) ════════════ */
+.label-chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:.625rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.2em;
+  color:var(--gold-lt);
+  background:rgba(245,200,66,.08);
+  border:1px solid rgba(245,200,66,.2);
+  padding:6px 16px; border-radius:100px;
+  margin-bottom:20px;
+}
+.label-chip::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--gold-lt); flex-shrink:0;
+  animation:blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ══ WELCOME HERO ═══════════════════════════════════════ */
+.welcome {
+  min-height:calc(100dvh - 62px);
+  display:flex; flex-direction:column; justify-content:center;
+  padding:60px 28px 120px;
+  max-width:640px; margin:0 auto;
+  position:relative;
+}
+.welcome::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 30%, rgba(29,78,216,.12), transparent),
+    radial-gradient(ellipse 50% 50% at 85% 70%, rgba(245,200,66,.06), transparent);
+}
+.welcome > * { position:relative; z-index:1 }
+.welcome-flag { font-size:56px; margin-bottom:28px; display:block }
+.welcome-h {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight:900; line-height:1.0; letter-spacing:-.03em;
+  color:var(--white); margin-bottom:20px;
+}
+.welcome-h em { color:var(--gold-lt); font-style:italic }
+.welcome-sub {
+  font-size:1rem; font-weight:300; color:rgba(203,213,225,.7);
+  line-height:1.75; margin-bottom:40px; max-width:44ch;
+}
+.trust-row {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:16px;
+  overflow:hidden; margin-bottom:44px;
+}
+.trust-cell {
+  background:rgba(255,255,255,.02);
+  padding:18px 16px;
+  display:flex; flex-direction:column; gap:5px;
+  backdrop-filter:blur(8px);
+}
+.trust-ico { font-size:20px }
+.trust-num {
+  font-family:var(--serif); font-size:1.4rem; font-weight:700;
+  color:var(--gold-lt); line-height:1;
+}
+.trust-lbl {
+  font-size:.6rem; font-weight:500; text-transform:uppercase;
+  letter-spacing:.14em; color:var(--muted); line-height:1.4;
+}
+.btn-gold {
+  display:inline-flex; align-items:center; gap:12px;
+  background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold) 100%);
+  color:var(--navy);
+  font-family:var(--sans); font-size:1rem; font-weight:800;
+  padding:18px 40px; border-radius:100px;
+  text-decoration:none; border:none; cursor:pointer;
+  transition:all .3s var(--ease2);
+  box-shadow:var(--sh-gold);
+  letter-spacing:.01em;
   width:100%;
-  background:var(--bg3);
-  border:1.5px solid rgba(255,255,255,.07);
-  border-radius:10px;color:var(--text);
-  font-family:inherit;font-size:14px;font-weight:500;
-  padding:11px 13px;outline:none;
-  transition:border-color .2s,background .2s;
-  -webkit-appearance:none;appearance:none;
+  justify-content:center;
 }
-input:focus,select:focus,textarea:focus{
+.btn-gold:hover { transform:scale(1.03) translateY(-2px); box-shadow:0 16px 48px rgba(245,200,66,.35) }
+.btn-gold:active { transform:scale(.98) }
+.welcome-note { text-align:center; margin-top:16px; font-size:.75rem; color:var(--muted) }
+
+/* Steps preview */
+.steps-preview {
+  display:flex; flex-direction:column; gap:0;
+  border:1px solid var(--line); border-radius:16px;
+  overflow:hidden; margin-bottom:40px;
+  background:rgba(255,255,255,.02);
+}
+.sp-row {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  transition:background .2s;
+}
+.sp-row:last-child { border:none }
+.sp-num {
+  width:24px; height:24px; border-radius:6px; flex-shrink:0;
+  background:var(--gold-glow); border:1px solid var(--gold-bdr);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.7rem; font-weight:800; color:var(--gold-lt);
+}
+.sp-text {}
+.sp-name { font-size:.875rem; font-weight:600; color:var(--dark-txt); line-height:1.2 }
+.sp-desc { font-size:.75rem; color:var(--muted); margin-top:2px }
+
+/* ══ STEP PAGES ════════════════════════════════════════ */
+.step-page {
+  max-width:600px; margin:0 auto;
+  padding:40px 24px 110px;
+  position:relative;
+}
+.step-page::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(29,78,216,.08), transparent),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,200,66,.04), transparent);
+}
+.step-page > * { position:relative; z-index:1 }
+.step-head { margin-bottom:36px }
+.step-super {
+  font-size:.625rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold-lt);
+  display:flex; align-items:center; gap:8px; margin-bottom:14px;
+}
+.step-super::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--gold-lt); animation:blink 2s infinite;
+}
+.step-h {
+  font-family:var(--serif);
+  font-size:clamp(1.6rem,4.5vw,2.4rem);
+  font-weight:800; line-height:1.1; letter-spacing:-.025em;
+  color:var(--white); margin-bottom:8px;
+}
+.step-desc { font-size:.9rem; font-weight:300; color:rgba(203,213,225,.65); line-height:1.7 }
+
+/* ══ CARDS ═════════════════════════════════════════════ */
+.card {
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px; padding:28px 24px;
+  margin-bottom:16px;
+  backdrop-filter:blur(8px);
+  position:relative; overflow:hidden;
+  transition:background .25s, border-color .25s;
+}
+.card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(245,200,66,.3), transparent);
+  opacity:0; transition:opacity .3s;
+}
+.card:hover { background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.1) }
+.card:hover::before { opacity:1 }
+.card-head { display:flex; align-items:flex-start; gap:14px; margin-bottom:20px }
+.card-ico {
+  width:42px; height:42px; border-radius:12px; flex-shrink:0;
+  background:rgba(245,200,66,.08); border:1px solid rgba(245,200,66,.2);
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+}
+.card-meta {}
+.card-tag {
+  font-size:.575rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold-lt); margin-bottom:4px;
+  display:flex; align-items:center; gap:6px;
+}
+.card-title {
+  font-family:var(--serif); font-size:1.1rem; font-weight:700;
+  color:var(--white); line-height:1.2;
+}
+.card-sub { font-size:.8rem; color:var(--muted); line-height:1.55; margin-top:4px }
+
+/* WHY box */
+.why-box {
+  background:rgba(245,200,66,.05);
+  border-left:2px solid var(--gold);
+  border-radius:0 10px 10px 0;
+  padding:10px 14px; margin-bottom:20px;
+  font-size:.8rem; color:var(--muted); line-height:1.6;
+}
+.why-box strong { color:var(--text) }
+
+/* ══ FORM CONTROLS ══════════════════════════════════════ */
+.fgroup { display:flex; flex-direction:column; gap:16px }
+.fgrid  { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+@media(max-width:500px){ .fgrid{ grid-template-columns:1fr } }
+.fgrid .span2 { grid-column:span 2 }
+@media(max-width:500px){ .fgrid .span2{ grid-column:span 1 } }
+
+.field { display:flex; flex-direction:column; gap:7px }
+.field label {
+  font-size:.6rem; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted);
+  display:flex; align-items:center; gap:5px;
+}
+.field label .req { color:var(--gold-lt) }
+.field label .note { font-size:.6rem; color:var(--bg4); text-transform:none; letter-spacing:0; font-weight:400 }
+
+input[type=text],input[type=tel],input[type=email],
+input[type=date],input[type=number],select,textarea {
+  width:100%;
+  background:rgba(11,30,59,.6);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; color:var(--white);
+  font-family:var(--sans); font-size:.9rem; font-weight:400;
+  padding:12px 16px; outline:none;
+  transition:border-color .2s, background .2s, box-shadow .2s;
+  -webkit-appearance:none; appearance:none;
+}
+input:hover,select:hover,textarea:hover { border-color:rgba(255,255,255,.16) }
+input:focus,select:focus,textarea:focus {
   border-color:var(--gold-lt);
-  background:rgba(22,42,74,.7);
+  background:rgba(11,30,59,.9);
+  box-shadow:0 0 0 3px rgba(245,200,66,.1);
 }
-input::placeholder,textarea::placeholder{color:var(--dim)}
-select option{background:var(--bg2)}
-textarea{resize:vertical;min-height:76px;line-height:1.55}
+input::placeholder,textarea::placeholder { color:rgba(100,116,139,.7) }
+select option { background:var(--bg2) }
+textarea { resize:vertical; min-height:80px; line-height:1.6 }
 
-/* Option buttons (radio style) */
-.opt-group{display:flex;flex-direction:column;gap:8px}
-.opt-btn{
-  display:flex;align-items:center;gap:11px;
-  padding:12px 14px;
-  background:var(--bg3);
-  border:1.5px solid rgba(255,255,255,.07);
-  border-radius:10px;cursor:pointer;
-  transition:all .18s;text-align:left;width:100%;
-  font-family:inherit;
+/* ══ OPTION BUTTONS ════════════════════════════════════ */
+.opts { display:flex; flex-direction:column; gap:9px }
+.opt {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px; cursor:pointer;
+  transition:all .2s var(--ease2);
+  text-align:left; width:100%; font-family:var(--sans);
+  position:relative; overflow:hidden;
 }
-.opt-btn:hover{border-color:var(--gbdr);background:var(--gdim)}
-.opt-btn.sel{border-color:var(--gold-lt);background:var(--gdim)}
-.opt-dot{
-  width:18px;height:18px;border-radius:50%;flex-shrink:0;
-  border:2px solid var(--dim);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
+.opt::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%, rgba(245,200,66,.08), transparent);
+  opacity:0; transition:opacity .2s;
 }
-.opt-btn.sel .opt-dot{border-color:var(--gold-lt);background:var(--gold)}
-.opt-dot::after{
-  content:'';width:7px;height:7px;border-radius:50%;
-  background:var(--bg);opacity:0;transition:opacity .15s;
+.opt:hover { border-color:rgba(245,200,66,.3); background:rgba(245,200,66,.04) }
+.opt:hover::after { opacity:1 }
+.opt.sel {
+  border-color:var(--gold-lt);
+  background:rgba(245,200,66,.07);
 }
-.opt-btn.sel .opt-dot::after{opacity:1}
-.opt-lbl{font-size:13.5px;font-weight:500;color:var(--text)}
-
-/* Count */
-.count-row{display:flex;gap:8px;flex-wrap:wrap}
-.cnt-btn{
-  width:52px;height:52px;border-radius:10px;
-  background:var(--bg3);border:1.5px solid rgba(255,255,255,.07);
-  font-family:inherit;font-size:18px;font-weight:700;color:var(--muted);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
+.opt.sel::after { opacity:1 }
+.opt-circle {
+  width:20px; height:20px; border-radius:50%; flex-shrink:0;
+  border:2px solid rgba(100,116,139,.5);
+  display:flex; align-items:center; justify-content:center;
   transition:all .18s;
 }
-.cnt-btn:hover{border-color:var(--gbdr);color:var(--text)}
-.cnt-btn.sel{background:var(--gold);border-color:var(--gold-lt);color:var(--bg);transform:scale(1.06)}
-
-/* Info box */
-.info-box{
-  display:flex;gap:10px;align-items:flex-start;
-  background:var(--gdim);border:1px solid var(--gbdr);
-  border-radius:10px;padding:11px 13px;
-  font-size:12px;color:var(--muted);line-height:1.55;
-  margin-top:12px;
+.opt.sel .opt-circle { border-color:var(--gold-lt); background:var(--gold-lt) }
+.opt-circle-dot {
+  width:8px; height:8px; border-radius:50%; background:var(--navy);
+  opacity:0; transition:opacity .15s; transform:scale(0);
 }
-.info-box .ii{font-size:16px;flex-shrink:0}
+.opt.sel .opt-circle-dot { opacity:1; transform:scale(1) }
+.opt-text { font-size:.9rem; font-weight:500; color:var(--text); line-height:1.3 }
+.opt.sel .opt-text { color:var(--white); font-weight:600 }
+.opt-arrow { margin-left:auto; font-size:.85rem; color:var(--muted); opacity:0; transition:opacity .2s, transform .2s }
+.opt:hover .opt-arrow, .opt.sel .opt-arrow { opacity:1; transform:translateX(3px) }
 
-/* Warning box */
-.warn-box{
-  display:flex;gap:10px;align-items:flex-start;
-  background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);
-  border-radius:10px;padding:11px 13px;
-  font-size:12px;color:var(--muted);line-height:1.55;
-  margin-bottom:14px;
+/* ══ COUNT SELECTOR ════════════════════════════════════ */
+.count-grid { display:flex; gap:10px; flex-wrap:wrap }
+.count-btn {
+  width:56px; height:56px; border-radius:14px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.08);
+  font-family:var(--serif); font-size:1.3rem; font-weight:700; color:var(--muted);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .2s var(--ease2);
 }
-
-/* Traveler sub-card */
-.traveler-sub{
-  background:var(--bg3);border:1px solid rgba(255,255,255,.06);
-  border-radius:10px;padding:14px;margin-bottom:10px;
-}
-.traveler-sub:last-child{margin-bottom:0}
-.tsub-label{
-  font-size:9px;font-weight:800;color:var(--gold-lt);
-  text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;
+.count-btn:hover { border-color:rgba(245,200,66,.3); color:var(--text) }
+.count-btn.sel {
+  background:linear-gradient(135deg, rgba(245,200,66,.25), rgba(245,200,66,.1));
+  border-color:var(--gold-lt); color:var(--gold-lt);
+  transform:scale(1.08); box-shadow:0 4px 20px rgba(245,200,66,.2);
 }
 
-/* Divider */
-.divider{height:1px;background:rgba(255,255,255,.05);margin:18px 0}
-.sub-head{
-  font-size:10px;font-weight:800;color:var(--gold-lt);
-  text-transform:uppercase;letter-spacing:.08em;
-  margin-bottom:12px;margin-top:20px;
-  padding-bottom:7px;
-  border-bottom:1px solid rgba(245,200,66,.12);
+/* ══ INFO / WARN BOXES ═════════════════════════════════ */
+.info-note {
+  display:flex; gap:10px; align-items:flex-start;
+  background:rgba(245,200,66,.06); border:1px solid rgba(245,200,66,.2);
+  border-radius:12px; padding:12px 16px; margin-top:16px;
+  font-size:.8rem; color:var(--muted); line-height:1.6;
 }
+.info-note .in { font-size:1rem; flex-shrink:0 }
+.warn-note {
+  display:flex; gap:10px; align-items:flex-start;
+  background:rgba(59,130,246,.06); border:1px solid rgba(59,130,246,.2);
+  border-radius:12px; padding:12px 16px; margin-bottom:16px;
+  font-size:.8rem; color:var(--muted); line-height:1.6;
+}
+.warn-note .in { font-size:1rem; flex-shrink:0 }
 
-/* ── STEP HEADER (above sections) ── */
-.step-header{margin-bottom:20px}
-.step-progress-label{
-  font-size:11px;font-weight:700;color:var(--gold-lt);
-  letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;
-  display:flex;align-items:center;gap:8px;
+/* ══ TRAVELER CARDS ═════════════════════════════════════ */
+.tc { margin-bottom:12px; }
+.tc-head {
+  font-size:.575rem; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--gold-lt); margin-bottom:12px;
 }
-.step-progress-label::before{
-  content:'';display:inline-block;width:18px;height:2px;
-  background:var(--gold-lt);border-radius:1px;
-}
-.step-title{font-family:var(--serif);font-size:clamp(18px,4vw,24px);font-weight:700;color:var(--text2);margin-bottom:4px}
-.step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.tc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px }
+@media(max-width:440px){ .tc-grid{ grid-template-columns:1fr } }
 
-/* ── NAV ── */
-.nav-fixed{
-  position:fixed;bottom:0;left:0;right:0;z-index:100;
-  padding:11px 18px max(10px,env(safe-area-inset-bottom));
-  background:rgba(6,13,26,.94);
-  backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,.05);
-  display:flex;gap:10px;align-items:center;
+/* ══ SECURITY Q ══════════════════════════════════════════ */
+.sq-row {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:13px 0; border-bottom:1px solid var(--line);
 }
-.nav-back{
-  width:46px;height:46px;border-radius:11px;flex-shrink:0;
-  background:var(--bg2);border:1px solid rgba(255,255,255,.08);
-  color:var(--muted);font-size:17px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .18s;
+.sq-row:last-child { border:none }
+.sq-text { flex:1; font-size:.82rem; color:var(--muted); line-height:1.55 }
+.sq-btns { display:flex; gap:6px; flex-shrink:0 }
+.sq-btn {
+  padding:5px 16px; border-radius:100px;
+  border:1px solid rgba(255,255,255,.1);
+  background:transparent; color:var(--muted);
+  font-family:var(--sans); font-size:.65rem; font-weight:700;
+  letter-spacing:.08em; cursor:pointer; transition:all .18s;
 }
-.nav-back:hover{background:var(--bg3);color:var(--text)}
-.nav-next{
-  flex:1;height:46px;border-radius:11px;
-  background:var(--gold);border:none;color:var(--bg);
-  font-family:inherit;font-size:14px;font-weight:800;
-  cursor:pointer;letter-spacing:.02em;
-  transition:transform .2s var(--ease),box-shadow .2s;
-  box-shadow:0 4px 18px rgba(245,200,66,.28);
-}
-.nav-next:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(245,200,66,.38)}
-.nav-next:active{transform:translateY(0)}
+.sq-btn:hover { border-color:var(--gold-bdr); color:var(--gold-lt) }
+.sq-btn.yes { background:rgba(245,200,66,.1); border-color:var(--gold-lt); color:var(--gold-lt) }
+.sq-btn.no  { background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.4); color:var(--green) }
 
-/* ── FINAL ── */
-.final-wrap{
-  text-align:center;padding:36px 20px 24px;
-  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--r);margin-bottom:16px;
+/* ══ BOTTOM NAV ══════════════════════════════════════════ */
+#nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  padding:14px 24px max(14px, env(safe-area-inset-bottom));
+  background:rgba(6,16,30,.92);
+  backdrop-filter:blur(24px);
+  border-top:1px solid var(--line);
+  display:none; align-items:center; gap:12px;
 }
-.final-ico{
-  width:64px;height:64px;border-radius:50%;
-  background:rgba(15,175,114,.12);border:2px solid var(--grn);
-  display:flex;align-items:center;justify-content:center;
-  font-size:28px;margin:0 auto 20px;
+#btn-back {
+  width:48px; height:48px; border-radius:100px; flex-shrink:0;
+  background:rgba(255,255,255,.04); border:1px solid var(--line2);
+  color:var(--muted); font-size:1.1rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .2s;
+}
+#btn-back:hover { background:rgba(255,255,255,.08); color:var(--white) }
+#btn-next {
+  flex:1; height:48px; border-radius:100px;
+  background:linear-gradient(135deg, var(--gold-lt), var(--gold));
+  border:none; color:var(--navy);
+  font-family:var(--sans); font-size:.95rem; font-weight:800;
+  cursor:pointer; letter-spacing:.02em;
+  transition:all .3s var(--ease2);
+  box-shadow:var(--sh-gold);
+}
+#btn-next:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(245,200,66,.35) }
+#btn-next:active { transform:translateY(0) }
+
+/* ══ FINAL ═══════════════════════════════════════════════ */
+.final-page {
+  max-width:600px; margin:0 auto;
+  padding:60px 24px 60px;
+}
+.final-page::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%, rgba(16,185,129,.06), transparent);
+}
+.final-page > * { position:relative; z-index:1 }
+.final-check-wrap {
+  width:72px; height:72px; border-radius:50%;
+  background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem; margin:0 auto 28px;
   animation:popIn .5s var(--ease) both;
 }
-@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.final-h{font-size:clamp(20px,5vw,26px);font-weight:900;margin-bottom:8px}
-.final-sub{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:24px}
-.final-includes{text-align:left;margin-bottom:18px}
-.fi-row{
-  display:flex;gap:11px;padding:9px 0;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  font-size:13px;color:var(--muted);line-height:1.4;
+@keyframes popIn { from{transform:scale(0) rotate(-20deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
+.final-h {
+  font-family:var(--serif); font-size:clamp(2rem,5vw,3rem);
+  font-weight:900; color:var(--white); text-align:center;
+  letter-spacing:-.03em; margin-bottom:10px;
 }
-.fi-row:last-child{border:none}
-.fi-row .fc{color:var(--grn);flex-shrink:0;font-size:14px}
-.final-price-note{
-  font-size:11.5px;color:var(--dim);
-  background:var(--bg3);border-radius:9px;padding:10px 13px;
-  line-height:1.55;margin-bottom:20px;text-align:left;
+.final-sub { text-align:center; font-size:.9rem; color:rgba(203,213,225,.65); line-height:1.7; margin-bottom:40px }
+.final-box {
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px; padding:28px 24px; margin-bottom:20px;
+  backdrop-filter:blur(8px); position:relative; overflow:hidden;
 }
-.final-price-note strong{color:var(--muted)}
-.btn-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:100%;padding:15px;border-radius:13px;
-  background:#25D366;color:#fff;border:none;
-  font-family:inherit;font-size:15px;font-weight:800;
-  text-decoration:none;cursor:pointer;margin-bottom:9px;
-  transition:transform .2s var(--ease),box-shadow .2s;
-  box-shadow:0 4px 18px rgba(37,211,102,.28);
+.final-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(245,200,66,.4),transparent);
 }
-.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(37,211,102,.38)}
-.btn-copy{
-  width:100%;padding:12px;border-radius:11px;
-  background:var(--bg3);border:1px solid rgba(255,255,255,.07);
-  color:var(--muted);font-family:inherit;font-size:13px;font-weight:600;
-  cursor:pointer;transition:all .18s;
+.final-box-title {
+  font-size:.575rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold-lt); margin-bottom:20px;
 }
-.btn-copy:hover{background:var(--bg2);color:var(--text)}
+.final-item {
+  display:flex; gap:12px; padding:10px 0;
+  border-bottom:1px solid var(--line); font-size:.875rem; color:var(--muted);
+}
+.final-item:last-child { border:none; padding-bottom:0 }
+.final-item .fc { color:var(--green); flex-shrink:0 }
+.final-price-note {
+  font-size:.78rem; color:var(--muted); line-height:1.65;
+  background:rgba(255,255,255,.025); border-radius:12px;
+  padding:14px 16px; margin-bottom:28px;
+}
+.final-price-note strong { color:var(--text) }
+.btn-wa {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  width:100%; padding:18px;
+  background:linear-gradient(135deg,#1DA851,#25D366);
+  color:var(--white); border:none; border-radius:100px;
+  font-family:var(--sans); font-size:1rem; font-weight:800;
+  text-decoration:none; cursor:pointer; margin-bottom:12px;
+  transition:all .3s var(--ease2);
+  box-shadow:0 8px 32px rgba(37,211,102,.25);
+}
+.btn-wa:hover { transform:translateY(-2px); box-shadow:0 14px 40px rgba(37,211,102,.35) }
+.btn-secondary {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:15px;
+  background:transparent; border:1px solid var(--line2);
+  border-radius:100px; color:var(--muted);
+  font-family:var(--sans); font-size:.875rem; font-weight:600;
+  cursor:pointer; transition:all .2s;
+}
+.btn-secondary:hover { border-color:rgba(245,200,66,.3); color:var(--gold-lt) }
 
-/* ── RESPONSIVE ── */
-@media(max-width:480px){
-  main{padding:20px 14px 96px}
-  .section-card{padding:16px 14px}
-  .step-title{font-size:17px}
-  input,select,textarea{font-size:14px;padding:10px 12px}
-  .opt-btn{padding:11px 12px}
-  .opt-lbl{font-size:13px}
-  .cnt-btn{width:46px;height:46px;font-size:16px}
-  .nav-fixed{padding:9px 14px max(9px,env(safe-area-inset-bottom))}
-  .nav-back{width:42px;height:42px}
-  .nav-next{height:42px;font-size:13px}
+/* ══ MOBILE ══════════════════════════════════════════════ */
+@media(max-width:500px) {
+  header { padding:0 16px }
+  .logo-name { font-size:.875rem }
+  .welcome { padding:40px 18px 110px }
+  .welcome-flag { font-size:44px; margin-bottom:20px }
+  .trust-row { grid-template-columns:1fr 1fr 1fr }
+  .trust-num { font-size:1.1rem }
+  .step-page { padding:28px 16px 100px }
+  .step-h { font-size:1.5rem }
+  .card { padding:20px 16px }
+  .card-title { font-size:1rem }
+  .opt { padding:12px 14px }
+  .opt-text { font-size:.85rem }
+  .count-btn { width:48px; height:48px; font-size:1.1rem; border-radius:12px }
+  .btn-gold, #btn-next, .btn-wa { font-size:.9rem; padding:16px 28px }
+  #nav { padding:10px 16px max(10px, env(safe-area-inset-bottom)) }
+  #btn-back { width:44px; height:44px }
+  #btn-next { height:44px }
+  .final-page { padding:40px 18px 50px }
+  .sq-text { font-size:.78rem }
 }
-@media(max-width:360px){
-  .welcome-h{font-size:20px}
-  .step-title{font-size:16px}
-  .sc-title{font-size:15px}
+@media(max-width:360px) {
+  .trust-row { grid-template-columns:1fr }
+  .count-btn { width:44px; height:44px; font-size:1rem; border-radius:10px }
 }
 </style>
 </head>
 <body>
-
-<div id="prog-bar"><div id="prog-fill"></div></div>
+<div id="prog"><div id="prog-fill"></div></div>
 
 <header>
   <a class="logo" href="https://www.asesoriadevisadosglobal.com">
@@ -416,170 +565,134 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
       <div class="logo-tag">asesoriadevisadosglobal.com</div>
     </div>
   </a>
-  <div class="hdr-right">
-    <span id="hdr-label"></span>
-    <span class="hdr-pill" id="hdr-pill" style="display:none"></span>
-  </div>
+  <div class="hdr-badge" id="hdr-badge"></div>
 </header>
 
 <main>
 
-<!-- ══ PASO 0: BIENVENIDA ══════════════════════════════════ -->
-<div class="step active" id="step-0">
-  <div class="welcome-flag">🇺🇸</div>
-  <div class="welcome-label">Asesoría Visa Global</div>
-  <h1 class="welcome-h">Tu visa USA empieza aquí</h1>
-  <p class="welcome-sub">Responde estas preguntas con calma. Nosotros nos encargamos de todo: los documentos, la solicitud y el acompañamiento hasta el día de la entrevista.</p>
+<!-- ═══════════════ BIENVENIDA ════════════════════ -->
+<div class="step active" id="s0">
+<div class="welcome">
+  <span class="welcome-flag">🇺🇸</span>
+  <div class="label-chip">Asesoría Visa Global</div>
+  <h1 class="welcome-h">Tu visa USA<br>empieza <em>aquí.</em></h1>
+  <p class="welcome-sub">Responde estas preguntas con calma. Nuestro equipo se encarga de todo: los documentos, la solicitud y el acompañamiento hasta el sello en tu pasaporte.</p>
 
-  <div class="trust-pills">
-    <div class="trust-pill">
-      <span class="tp-ico">⏱️</span>
-      <div class="tp-text"><strong>Solo 10 minutos</strong> — tus respuestas se guardan automáticamente</div>
+  <div class="trust-row">
+    <div class="trust-cell">
+      <span class="trust-ico">⏱️</span>
+      <div class="trust-num">10 min</div>
+      <div class="trust-lbl">Tiempo<br>estimado</div>
     </div>
-    <div class="trust-pill">
-      <span class="tp-ico">🔒</span>
-      <div class="tp-text"><strong>Tus datos son privados</strong> — solo los recibe nuestro equipo, no van a ninguna embajada</div>
+    <div class="trust-cell">
+      <span class="trust-ico">🔒</span>
+      <div class="trust-num">100%</div>
+      <div class="trust-lbl">Privado<br>y seguro</div>
     </div>
-    <div class="trust-pill">
-      <span class="tp-ico">📲</span>
-      <div class="tp-text"><strong>Respuesta en 24 horas</strong> por WhatsApp con tu análisis personalizado</div>
+    <div class="trust-cell">
+      <span class="trust-ico">📲</span>
+      <div class="trust-num">24 h</div>
+      <div class="trust-lbl">Respuesta<br>WhatsApp</div>
     </div>
   </div>
 
-  <div class="steps-overview">
-    <div class="so-title">Lo que vamos a cubrir:</div>
-    <div class="so-step">
-      <div class="so-num">1</div>
-      <div class="so-info">
-        <div class="so-name">¿Quiénes viajan y han solicitado visa antes?</div>
-        <div class="so-desc">Número de personas e historial de visas anteriores</div>
-      </div>
-    </div>
-    <div class="so-step">
-      <div class="so-num">2</div>
-      <div class="so-info">
-        <div class="so-name">¿Cómo eres y cómo contactarte?</div>
-        <div class="so-desc">Tu nombre, WhatsApp y ciudad</div>
-      </div>
-    </div>
-    <div class="so-step">
-      <div class="so-num">3</div>
-      <div class="so-info">
-        <div class="so-name">¿A dónde quieres ir y cuándo?</div>
-        <div class="so-desc">Destino, fechas y propósito del viaje</div>
-      </div>
-    </div>
-    <div class="so-step">
-      <div class="so-num">4</div>
-      <div class="so-info">
-        <div class="so-name">¿En qué trabajas y qué tienes en Ecuador?</div>
-        <div class="so-desc">Trabajo, familia y razones para volver — clave para la visa</div>
-      </div>
-    </div>
-    <div class="so-step">
-      <div class="so-num">5</div>
-      <div class="so-info">
-        <div class="so-name">Preguntas finales de seguridad</div>
-        <div class="so-desc">Preguntas estándar que la embajada hace a todo el mundo</div>
-      </div>
-    </div>
+  <div class="steps-preview">
+    <div class="sp-row"><div class="sp-num">1</div><div class="sp-text"><div class="sp-name">¿Quiénes viajan?</div><div class="sp-desc">Número de personas e historial de visas</div></div></div>
+    <div class="sp-row"><div class="sp-num">2</div><div class="sp-text"><div class="sp-name">¿Quién eres y cómo contactarte?</div><div class="sp-desc">Nombre, WhatsApp, ciudad y pasaporte</div></div></div>
+    <div class="sp-row"><div class="sp-num">3</div><div class="sp-text"><div class="sp-name">¿A dónde quieres ir?</div><div class="sp-desc">Destino, fechas y propósito del viaje</div></div></div>
+    <div class="sp-row"><div class="sp-num">4</div><div class="sp-text"><div class="sp-name">¿Qué tienes en Ecuador?</div><div class="sp-desc">Trabajo, familia y vínculos — la clave para la visa</div></div></div>
+    <div class="sp-row"><div class="sp-num">5</div><div class="sp-text"><div class="sp-name">Preguntas finales</div><div class="sp-desc">Estándar de la embajada — la mayoría responde No</div></div></div>
   </div>
 
-  <button class="btn-cta" onclick="goTo(1)">Empezar →</button>
+  <button class="btn-gold" onclick="go(1)">Comenzar →</button>
   <p class="welcome-note">+593 99 444 2512 · Roberto Acosta · 13 años de experiencia</p>
 </div>
+</div>
 
-<!-- ══ PASO 1: VIAJEROS ════════════════════════════════════ -->
-<div class="step" id="step-1">
-  <div class="step-header">
-    <div class="step-progress-label">Paso 1 de 5</div>
-    <div class="step-title">¿Quiénes van a viajar?</div>
-    <div class="step-desc">Cuéntanos cuántas personas incluye tu grupo y si alguna ya intentó obtener visa antes.</div>
+<!-- ═══════════════ PASO 1: VIAJEROS ══════════════ -->
+<div class="step" id="s1">
+<div class="step-page">
+  <div class="step-head">
+    <div class="step-super">Paso 1 de 5</div>
+    <h2 class="step-h">¿Quiénes van a viajar?</h2>
+    <p class="step-desc">Cuéntanos cuántas personas incluye tu grupo y si alguna ya intentó obtener visa antes.</p>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">👥</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Viajeros</div>
-        <div class="sc-title">¿Cuántos van a viajar?</div>
-        <div class="sc-desc">Incluye a todos — adultos y niños. Cada persona necesita su propia solicitud.</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">👥</div>
+      <div class="card-meta">
+        <div class="card-tag">Número de viajeros</div>
+        <div class="card-title">¿Cuántas personas viajan?</div>
+        <div class="card-sub">Incluye adultos y niños. Cada persona necesita su propia solicitud.</div>
       </div>
     </div>
-    <div class="count-row" id="count-viajeros">
-      <button class="cnt-btn" onclick="selectCount(1)">1</button>
-      <button class="cnt-btn" onclick="selectCount(2)">2</button>
-      <button class="cnt-btn" onclick="selectCount(3)">3</button>
-      <button class="cnt-btn" onclick="selectCount(4)">4</button>
-      <button class="cnt-btn" onclick="selectCount(5)">5</button>
-      <button class="cnt-btn" onclick="selectCount(6)">6+</button>
+    <div class="count-grid" id="count-row">
+      <button class="count-btn" onclick="setCount(1)">1</button>
+      <button class="count-btn" onclick="setCount(2)">2</button>
+      <button class="count-btn" onclick="setCount(3)">3</button>
+      <button class="count-btn" onclick="setCount(4)">4</button>
+      <button class="count-btn" onclick="setCount(5)">5</button>
+      <button class="count-btn" onclick="setCount(6)">6+</button>
     </div>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">📋</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Historial</div>
-        <div class="sc-title">¿Alguno ha solicitado visa americana antes?</div>
-        <div class="sc-desc">Aprobada, rechazada o en proceso — cualquier intento anterior importa.</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">📋</div>
+      <div class="card-meta">
+        <div class="card-tag">Historial de visa</div>
+        <div class="card-title">¿Alguno ha solicitado visa americana antes?</div>
+        <div class="card-sub">Aprobada, rechazada o en proceso — cualquier intento cuenta.</div>
       </div>
     </div>
-    <div class="opt-group">
-      <button class="opt-btn" onclick="selectOpt(this,'visa_ant',0)">
-        <div class="opt-dot"></div>
-        <span class="opt-lbl">Sí, alguno ya solicitó antes</span>
+    <div class="opts">
+      <button class="opt" onclick="selOpt(this,'visa_ant',0)">
+        <div class="opt-circle"><div class="opt-circle-dot"></div></div>
+        <span class="opt-text">Sí, alguno ya solicitó antes</span>
+        <span class="opt-arrow">›</span>
       </button>
-      <button class="opt-btn" onclick="selectOpt(this,'visa_ant',1)">
-        <div class="opt-dot"></div>
-        <span class="opt-lbl">No, es la primera vez para todos</span>
+      <button class="opt" onclick="selOpt(this,'visa_ant',1)">
+        <div class="opt-circle"><div class="opt-circle-dot"></div></div>
+        <span class="opt-text">No, es la primera vez para todos</span>
+        <span class="opt-arrow">›</span>
       </button>
     </div>
   </div>
 
-  <!-- Historial previo (condicional) -->
-  <div id="bloque-historial" style="display:none">
-    <div class="section-card">
-      <div class="sc-header">
-        <div class="sc-icon">🔍</div>
-        <div class="sc-meta">
-          <div class="sc-badge">Resultado anterior</div>
-          <div class="sc-title">¿Cuál fue el resultado de esa solicitud?</div>
+  <div id="blk-historial" style="display:none">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-ico">🔍</div>
+        <div class="card-meta">
+          <div class="card-tag">Resultado anterior</div>
+          <div class="card-title">¿Cuál fue el resultado?</div>
         </div>
       </div>
-      <div class="warn-box">
-        <span style="font-size:16px;flex-shrink:0">💪</span>
-        <span>Un rechazo anterior <strong style="color:var(--text)">no cierra la puerta.</strong> Roberto trabaja con estos casos — necesita saberlo para preparar la estrategia correcta.</span>
+      <div class="warn-note">
+        <span class="in">💪</span>
+        <span>Un rechazo <strong style="color:var(--text)">no cierra la puerta.</strong> Solo cambia la estrategia. Lo importante es ser honesto — la embajada tiene ese historial registrado.</span>
       </div>
-      <div class="opt-group">
-        <button class="opt-btn" onclick="selectOpt(this,'resultado',0)">
-          <div class="opt-dot"></div>
-          <span class="opt-lbl">✅ Fue aprobada (tiene o tuvo visa)</span>
-        </button>
-        <button class="opt-btn" onclick="selectOpt(this,'resultado',1)">
-          <div class="opt-dot"></div>
-          <span class="opt-lbl">❌ Fue rechazada / negada</span>
-        </button>
-        <button class="opt-btn" onclick="selectOpt(this,'resultado',2)">
-          <div class="opt-dot"></div>
-          <span class="opt-lbl">Algunos aprobados, otros rechazados</span>
-        </button>
+      <div class="opts">
+        <button class="opt" onclick="selOpt(this,'resultado',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">✅ Fue aprobada (tiene o tuvo visa)</span><span class="opt-arrow">›</span></button>
+        <button class="opt" onclick="selOpt(this,'resultado',1);showRechazo()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">❌ Fue rechazada / negada</span><span class="opt-arrow">›</span></button>
+        <button class="opt" onclick="selOpt(this,'resultado',2);showRechazo()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Algunos aprobados, otros rechazados</span><span class="opt-arrow">›</span></button>
       </div>
     </div>
 
-    <div id="bloque-rechazo" style="display:none">
-      <div class="section-card">
-        <div class="sc-header">
-          <div class="sc-icon">📝</div>
-          <div class="sc-meta">
-            <div class="sc-badge">Detalles del rechazo</div>
-            <div class="sc-title">Cuéntanos más sobre ese rechazo</div>
-            <div class="sc-desc">Esta información ayuda mucho a construir una estrategia diferente esta vez.</div>
+    <div id="blk-rechazo" style="display:none">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-ico">📝</div>
+          <div class="card-meta">
+            <div class="card-tag">Detalles del rechazo</div>
+            <div class="card-title">Cuéntanos más sobre ese rechazo</div>
+            <div class="card-sub">Esto ayuda mucho a definir la estrategia correcta para esta nueva solicitud.</div>
           </div>
         </div>
-        <div class="field-group">
+        <div class="fgroup">
           <div class="field">
-            <label>¿Cuál fue el motivo indicado?</label>
+            <label>Motivo indicado por la embajada</label>
             <select onchange="S.causal=this.value;save()">
               <option value="">Selecciona el más cercano...</option>
               <option value="214b">214(b) — No demostró vínculos con Ecuador</option>
@@ -591,35 +704,37 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
             </select>
           </div>
           <div class="field">
-            <label>¿Qué dijo el oficial? <span class="hint">(opcional — lo que recuerdes)</span></label>
-            <textarea placeholder="Ej: 'No tiene suficientes vínculos con Ecuador' / 'Necesita más documentos de trabajo' / No dijo nada..." onchange="S.que_dijo=this.value;save()"></textarea>
+            <label>¿Qué dijo el oficial? <span class="note">(opcional)</span></label>
+            <textarea placeholder="Lo que recuerdes, así sea poco..." oninput="S.que_dijo=this.value;save()"></textarea>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ══ PASO 2: CONTACTO ════════════════════════════════════ -->
-<div class="step" id="step-2">
-  <div class="step-header">
-    <div class="step-progress-label">Paso 2 de 5</div>
-    <div class="step-title">¿Cómo eres y cómo contactarte?</div>
-    <div class="step-desc">Datos básicos del solicitante principal. Roberto te escribe por WhatsApp con el análisis de tu caso.</div>
+<!-- ═══════════════ PASO 2: CONTACTO ══════════════ -->
+<div class="step" id="s2">
+<div class="step-page">
+  <div class="step-head">
+    <div class="step-super">Paso 2 de 5</div>
+    <h2 class="step-h">¿Quién eres y cómo contactarte?</h2>
+    <p class="step-desc">Datos básicos del solicitante principal. Nuestro equipo te contacta por WhatsApp con el análisis de tu caso.</p>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">👤</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Datos personales</div>
-        <div class="sc-title">Cuéntanos sobre ti</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">👤</div>
+      <div class="card-meta">
+        <div class="card-tag">Datos personales</div>
+        <div class="card-title">Cuéntanos sobre ti</div>
       </div>
     </div>
-    <div class="field-group">
-      <div class="field-grid">
+    <div class="fgroup">
+      <div class="fgrid">
         <div class="field span2">
-          <label>Tu nombre completo <span class="req">*</span></label>
+          <label>Nombre completo <span class="req">*</span></label>
           <input type="text" placeholder="Apellidos y nombres" oninput="S.nombre=this.value;save()">
         </div>
         <div class="field">
@@ -628,7 +743,7 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
         </div>
         <div class="field">
           <label>Ciudad en Ecuador <span class="req">*</span></label>
-          <input type="text" placeholder="Quito / Guayaquil / Loja..." oninput="S.ciudad=this.value;save()">
+          <input type="text" placeholder="Quito / Guayaquil..." oninput="S.ciudad=this.value;save()">
         </div>
         <div class="field">
           <label>Cédula ecuatoriana</label>
@@ -636,449 +751,382 @@ textarea{resize:vertical;min-height:76px;line-height:1.55}
         </div>
         <div class="field">
           <label>Fecha de nacimiento</label>
-          <input type="date" onchange="S.nacimiento=this.value;save()">
+          <input type="date" onchange="S.nac=this.value;save()">
         </div>
       </div>
-    </div>
-    <div class="info-box">
-      <span class="ii">💡</span>
-      <span>Solo necesitamos los del viajero principal por ahora. Roberto te pedirá los datos de los demás después si aplica.</span>
     </div>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">🛂</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Pasaporte</div>
-        <div class="sc-title">Datos de tu pasaporte vigente</div>
-        <div class="sc-desc">Si no lo tienes a mano, déjalo en blanco — puedes enviarlo después por WhatsApp.</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🛂</div>
+      <div class="card-meta">
+        <div class="card-tag">Pasaporte vigente</div>
+        <div class="card-title">Datos de tu pasaporte</div>
+        <div class="card-sub">Si no lo tienes a mano, déjalo en blanco — puedes enviarlo después por WhatsApp.</div>
       </div>
     </div>
-    <div class="field-group">
-      <div class="field-grid">
-        <div class="field">
-          <label>Número de pasaporte</label>
-          <input type="text" placeholder="A0000000" oninput="S.pasaporte=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Fecha de vencimiento</label>
-          <input type="date" onchange="S.pasaporte_vence=this.value;save()">
-        </div>
+    <div class="fgrid">
+      <div class="field">
+        <label>Número de pasaporte</label>
+        <input type="text" placeholder="A0000000" oninput="S.pasaporte=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Fecha de vencimiento</label>
+        <input type="date" onchange="S.pasaporte_vence=this.value;save()">
       </div>
     </div>
-    <div class="info-box">
-      <span class="ii">⚠️</span>
-      <span>Tu pasaporte debe tener <strong>mínimo 6 meses de vigencia</strong> desde la fecha de la entrevista consular. Si vence pronto, Roberto te avisará.</span>
+    <div class="info-note">
+      <span class="in">⚠️</span>
+      <span>Tu pasaporte necesita al menos <strong style="color:var(--text)">6 meses de vigencia</strong> desde la fecha de la entrevista. Si vence pronto, nuestro equipo te avisará.</span>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ══ PASO 3: EL VIAJE ════════════════════════════════════ -->
-<div class="step" id="step-3">
-  <div class="step-header">
-    <div class="step-progress-label">Paso 3 de 5</div>
-    <div class="step-title">¿A dónde quieres ir?</div>
-    <div class="step-desc">Cuéntanos el plan del viaje. No tiene que ser perfecto — Roberto te ayuda a definir los detalles.</div>
+<!-- ═══════════════ PASO 3: VIAJE ══════════════════ -->
+<div class="step" id="s3">
+<div class="step-page">
+  <div class="step-head">
+    <div class="step-super">Paso 3 de 5</div>
+    <h2 class="step-h">¿A dónde quieres ir?</h2>
+    <p class="step-desc">El plan del viaje. No tiene que ser perfecto — nuestro equipo te ayuda a definir los detalles.</p>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">✈️</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Destino y propósito</div>
-        <div class="sc-title">¿Para qué quieren ir y a dónde?</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">✈️</div>
+      <div class="card-meta">
+        <div class="card-tag">Propósito del viaje</div>
+        <div class="card-title">¿Para qué quieren ir a USA?</div>
       </div>
     </div>
-    <div class="field-group">
-      <div class="field">
-        <label>Propósito del viaje <span class="req">*</span></label>
-        <div class="opt-group">
-          <button class="opt-btn" onclick="selectOpt(this,'proposito',0)"><div class="opt-dot"></div><span class="opt-lbl">Turismo y vacaciones</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'proposito',1)"><div class="opt-dot"></div><span class="opt-lbl">Visita a familiares</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'proposito',2)"><div class="opt-dot"></div><span class="opt-lbl">Negocios</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'proposito',3)"><div class="opt-dot"></div><span class="opt-lbl">Turismo y visita familiar</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'proposito',4)"><div class="opt-dot"></div><span class="opt-lbl">Otro motivo</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label>Ciudad de destino en USA</label>
-        <input type="text" placeholder="Miami / Orlando / Nueva York / Los Ángeles..." oninput="S.destino=this.value;save()">
-      </div>
+    <div class="opts">
+      <button class="opt" onclick="selOpt(this,'proposito',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Turismo y vacaciones</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'proposito',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Visita a familiares</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'proposito',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Negocios</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'proposito',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Turismo y visita familiar</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'proposito',4)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Otro motivo</span><span class="opt-arrow">›</span></button>
+    </div>
+    <div class="field" style="margin-top:16px">
+      <label>Ciudad de destino en USA</label>
+      <input type="text" placeholder="Miami / Orlando / Nueva York / Los Ángeles..." oninput="S.destino=this.value;save()">
     </div>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">📅</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Fechas</div>
-        <div class="sc-title">¿Cuándo piensan viajar?</div>
-        <div class="sc-desc">Aproximado está bien — las fechas exactas se coordinan más adelante.</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">📅</div>
+      <div class="card-meta">
+        <div class="card-tag">Fechas</div>
+        <div class="card-title">¿Cuándo piensan viajar?</div>
+        <div class="card-sub">Aproximado está bien — las fechas exactas se coordinan después.</div>
       </div>
     </div>
-    <div class="opt-group">
-      <button class="opt-btn" onclick="selectOpt(this,'cuando',0)"><div class="opt-dot"></div><span class="opt-lbl">En los próximos 3 meses</span></button>
-      <button class="opt-btn" onclick="selectOpt(this,'cuando',1)"><div class="opt-dot"></div><span class="opt-lbl">Entre 3 y 6 meses</span></button>
-      <button class="opt-btn" onclick="selectOpt(this,'cuando',2)"><div class="opt-dot"></div><span class="opt-lbl">En 6 a 12 meses</span></button>
-      <button class="opt-btn" onclick="selectOpt(this,'cuando',3)"><div class="opt-dot"></div><span class="opt-lbl">Más de un año</span></button>
+    <div class="opts">
+      <button class="opt" onclick="selOpt(this,'cuando',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">En los próximos 3 meses</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'cuando',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Entre 3 y 6 meses</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'cuando',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">En 6 a 12 meses</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'cuando',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Más de un año</span><span class="opt-arrow">›</span></button>
     </div>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">🏨</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Alojamiento en USA</div>
-        <div class="sc-title">¿Dónde se van a quedar?</div>
-        <div class="sc-desc">Si no tienes nada definido todavía, escribe "Por definir" — Roberto te ayuda.</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🏨</div>
+      <div class="card-meta">
+        <div class="card-tag">Alojamiento y financiamiento</div>
+        <div class="card-title">¿Dónde se quedan y quién paga?</div>
       </div>
     </div>
-    <div class="field-group">
+    <div class="fgroup">
       <div class="field">
-        <label>Hotel o dirección del anfitrión</label>
+        <label>Hotel o dirección del anfitrión <span class="note">(si ya lo tienen)</span></label>
         <input type="text" placeholder="Nombre del hotel / Dirección de familiar..." oninput="S.alojamiento=this.value;save()">
       </div>
       <div class="field">
-        <label>¿Quién paga el viaje? <span class="req">*</span></label>
-        <div class="opt-group">
-          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',0)"><div class="opt-dot"></div><span class="opt-lbl">Yo mismo / mis propios recursos</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',1)"><div class="opt-dot"></div><span class="opt-lbl">Un familiar que vive en USA</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',2)"><div class="opt-dot"></div><span class="opt-lbl">Mi empresa</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'quien_paga',3)"><div class="opt-dot"></div><span class="opt-lbl">Entre varios</span></button>
+        <label>¿Quién financia el viaje? <span class="req">*</span></label>
+        <div class="opts">
+          <button class="opt" onclick="selOpt(this,'paga',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Yo mismo / recursos propios</span><span class="opt-arrow">›</span></button>
+          <button class="opt" onclick="selOpt(this,'paga',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Un familiar que vive en USA</span><span class="opt-arrow">›</span></button>
+          <button class="opt" onclick="selOpt(this,'paga',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Mi empresa</span><span class="opt-arrow">›</span></button>
+          <button class="opt" onclick="selOpt(this,'paga',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Entre varias personas</span><span class="opt-arrow">›</span></button>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ══ PASO 4: SITUACIÓN EN ECUADOR ═══════════════════════ -->
-<div class="step" id="step-4">
-  <div class="step-header">
-    <div class="step-progress-label">Paso 4 de 5</div>
-    <div class="step-title">¿Qué tienes en Ecuador?</div>
-    <div class="step-desc">Este paso es muy importante. La embajada quiere saber que tienes razones sólidas para regresar. Cuéntanos todo.</div>
+<!-- ═══════════════ PASO 4: SITUACIÓN ══════════════ -->
+<div class="step" id="s4">
+<div class="step-page">
+  <div class="step-head">
+    <div class="step-super">Paso 4 de 5</div>
+    <h2 class="step-h">¿Qué tienes en Ecuador?</h2>
+    <p class="step-desc">Este paso es clave. La embajada quiere ver que tienes razones sólidas para regresar. Cuéntanos todo lo que tengas.</p>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">💼</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Trabajo</div>
-        <div class="sc-title">¿En qué trabajas actualmente?</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">💼</div>
+      <div class="card-meta">
+        <div class="card-tag">Situación laboral</div>
+        <div class="card-title">¿En qué trabajas actualmente?</div>
       </div>
     </div>
-    <div class="sc-why">
-      <strong>¿Por qué lo preguntamos?</strong> La estabilidad laboral es uno de los factores más importantes para obtener la visa. La embajada quiere saber que tienes un trabajo al que regresar.
+    <div class="why-box">
+      <strong>¿Por qué importa?</strong> La estabilidad laboral es uno de los argumentos más fuertes para obtener la visa. La embajada quiere saber que tienes un trabajo al que regresar.
     </div>
-    <div class="field-group">
-      <div class="field">
-        <label>Situación laboral actual <span class="req">*</span></label>
-        <div class="opt-group">
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',0)"><div class="opt-dot"></div><span class="opt-lbl">Empleado en empresa (con contrato)</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',1)"><div class="opt-dot"></div><span class="opt-lbl">Tengo mi propio negocio o soy independiente</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',2)"><div class="opt-dot"></div><span class="opt-lbl">Estudiante</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',3)"><div class="opt-dot"></div><span class="opt-lbl">Jubilado / pensionista</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',4)"><div class="opt-dot"></div><span class="opt-lbl">Ama de casa</span></button>
-          <button class="opt-btn" onclick="selectOpt(this,'trabajo',5)"><div class="opt-dot"></div><span class="opt-lbl">Desempleado actualmente</span></button>
-        </div>
-      </div>
-      <div class="field">
-        <label>Empresa o descripción de tu actividad</label>
-        <input type="text" placeholder="Nombre de la empresa / tipo de negocio..." oninput="S.empleador=this.value;save()">
-      </div>
+    <div class="opts">
+      <button class="opt" onclick="selOpt(this,'trabajo',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Empleado en empresa (con contrato)</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'trabajo',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo mi propio negocio / soy independiente</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'trabajo',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Estudiante</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'trabajo',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Jubilado / pensionista</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'trabajo',4)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Ama de casa</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'trabajo',5)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Desempleado actualmente</span><span class="opt-arrow">›</span></button>
+    </div>
+    <div class="field" style="margin-top:16px">
+      <label>Nombre de tu empresa o actividad</label>
+      <input type="text" placeholder="Empresa donde trabajas / tipo de negocio..." oninput="S.empleador=this.value;save()">
     </div>
   </div>
 
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">🏠</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Vínculos con Ecuador</div>
-        <div class="sc-title">¿Qué te ata a Ecuador?</div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🏠</div>
+      <div class="card-meta">
+        <div class="card-tag">Vínculos con Ecuador</div>
+        <div class="card-title">¿Qué te ata a Ecuador?</div>
       </div>
     </div>
-    <div class="sc-why">
-      <strong>Este es el argumento más fuerte para la visa.</strong> La pregunta clave del consul es: "¿Por qué va a volver?" — tus vínculos aquí son tu mejor respuesta.
+    <div class="why-box">
+      <strong>Este es el argumento más poderoso.</strong> La pregunta real del cónsul es: "¿Por qué va a volver?" — todo lo que tienes aquí es tu mejor respuesta.
     </div>
-    <div class="field-group">
-      <div class="field">
-        <label>Selecciona todo lo que aplica a tu caso</label>
-        <div class="opt-group" id="vinculos-group">
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_hijos')"><div class="opt-dot"></div><span class="opt-lbl">Tengo hijos que se quedan en Ecuador</span></button>
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_trabajo')"><div class="opt-dot"></div><span class="opt-lbl">Tengo trabajo estable al que volver</span></button>
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_casa')"><div class="opt-dot"></div><span class="opt-lbl">Tengo casa o propiedad propia</span></button>
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_negocio')"><div class="opt-dot"></div><span class="opt-lbl">Tengo negocio propio</span></button>
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_familia')"><div class="opt-dot"></div><span class="opt-lbl">Tengo pareja / padres / familiares directos aquí</span></button>
-          <button class="opt-btn multi" onclick="toggleMulti(this,'vinculo_estudios')"><div class="opt-dot"></div><span class="opt-lbl">Estoy estudiando actualmente</span></button>
-        </div>
-      </div>
+    <div class="opts">
+      <button class="opt multi" onclick="togMulti(this,'v_hijos')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo hijos que se quedan en Ecuador</span><span class="opt-arrow">›</span></button>
+      <button class="opt multi" onclick="togMulti(this,'v_trabajo')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo trabajo estable al que regresar</span><span class="opt-arrow">›</span></button>
+      <button class="opt multi" onclick="togMulti(this,'v_casa')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo casa o propiedad propia</span><span class="opt-arrow">›</span></button>
+      <button class="opt multi" onclick="togMulti(this,'v_negocio')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo negocio propio</span><span class="opt-arrow">›</span></button>
+      <button class="opt multi" onclick="togMulti(this,'v_familia')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo pareja / padres / familiares directos aquí</span><span class="opt-arrow">›</span></button>
+      <button class="opt multi" onclick="togMulti(this,'v_estudios')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Estoy estudiando actualmente</span><span class="opt-arrow">›</span></button>
     </div>
-    <div class="info-box">
-      <span class="ii">💡</span>
-      <span>No te preocupes si tienes pocos vínculos — Roberto sabe cómo presentar tu caso de la forma más sólida posible con lo que tienes.</span>
+    <div class="info-note">
+      <span class="in">💡</span>
+      <span>No te preocupes si tienes pocos vínculos — nuestro equipo sabe cómo construir el argumento más sólido posible con lo que tienes.</span>
     </div>
   </div>
 </div>
-
-<!-- ══ PASO 5: PREGUNTAS FINALES ══════════════════════════ -->
-<div class="step" id="step-5">
-  <div class="step-header">
-    <div class="step-progress-label">Paso 5 de 5 — ¡Ya casi!</div>
-    <div class="step-title">Unas preguntas finales</div>
-    <div class="step-desc">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde NO a todas. Si alguna aplica, Roberto sabe exactamente cómo manejarlo.</div>
-  </div>
-
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">🔐</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Preguntas estándar</div>
-        <div class="sc-title">Responde con honestidad</div>
-        <div class="sc-desc">Son preguntas de sí o no. Si hay algún SÍ, escríbelo sin miedo — la estrategia cambia pero la visa sigue siendo posible.</div>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <div id="sq-list"></div>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="sc-header">
-      <div class="sc-icon">💬</div>
-      <div class="sc-meta">
-        <div class="sc-badge">Información adicional</div>
-        <div class="sc-title">¿Hay algo más que debamos saber?</div>
-        <div class="sc-desc">Cualquier situación especial que no hayamos preguntado. Déjalo en blanco si no hay nada más.</div>
-      </div>
-    </div>
-    <textarea style="width:100%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.07);border-radius:10px;color:var(--text);font-family:inherit;font-size:14px;padding:12px 13px;outline:none;resize:vertical;min-height:80px;line-height:1.55;transition:border-color .2s" placeholder="Familiar en USA, situación legal especial, deportación previa en otro país, cualquier dato importante..." oninput="S.obs=this.value;save()"></textarea>
-  </div>
 </div>
 
-<!-- ══ FINAL ══════════════════════════════════════════════ -->
-<div class="step" id="step-final">
-  <div class="final-wrap">
-    <div class="final-ico">✓</div>
-    <div class="final-h" id="final-h">¡Listo!</div>
-    <div class="final-sub">Nuestro equipo recibió tu información. En menos de <strong>24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</div>
-    <div class="final-includes">
-      <div class="fi-row"><span class="fc">✓</span>Análisis completo de tu perfil migratorio</div>
-      <div class="fi-row"><span class="fc">✓</span>Preparación y revisión de todos tus documentos</div>
-      <div class="fi-row"><span class="fc">✓</span>Llenado de la solicitud oficial ante la embajada</div>
-      <div class="fi-row"><span class="fc">✓</span>Simulacro de entrevista consular</div>
-      <div class="fi-row"><span class="fc">✓</span>Acompañamiento por WhatsApp hasta el sello en tu pasaporte</div>
-    </div>
-    <div class="final-price-note">
-      El servicio completo cuesta <strong>$250 USD por persona.</strong> La tasa consular ($185 USD) se paga aparte directamente al gobierno de USA — no es parte de nuestros honorarios.
-    </div>
-    <a class="btn-wa" id="wa-link" href="#" target="_blank">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Confirmar con nosotros por WhatsApp
-    </a>
-    <button class="btn-copy" onclick="copyLink()">📋 Copiar link para compartir con familiares</button>
+<!-- ═══════════════ PASO 5: SEGURIDAD ══════════════ -->
+<div class="step" id="s5">
+<div class="step-page">
+  <div class="step-head">
+    <div class="step-super">Paso 5 de 5 — ¡Ya casi!</div>
+    <h2 class="step-h">Preguntas finales</h2>
+    <p class="step-desc">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde No a todas. Si alguna aplica, nuestro equipo sabe exactamente cómo manejarlo.</p>
   </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🔐</div>
+      <div class="card-meta">
+        <div class="card-tag">Preguntas estándar — sí o no</div>
+        <div class="card-title">Responde con total honestidad</div>
+        <div class="card-sub">Son preguntas que la embajada registra. Si hay algún Sí, escríbelo sin miedo.</div>
+      </div>
+    </div>
+    <div id="sq-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">💬</div>
+      <div class="card-meta">
+        <div class="card-tag">Observaciones adicionales</div>
+        <div class="card-title">¿Hay algo más que debamos saber?</div>
+        <div class="card-sub">Cualquier situación especial. Déjalo en blanco si no hay nada más.</div>
+      </div>
+    </div>
+    <textarea id="obs-field" placeholder="Familiar en USA, deportación previa en otro país, situación legal especial, cualquier dato importante..." oninput="S.obs=this.value;save()" style="width:100%;background:rgba(11,30,59,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--white);font-family:var(--sans);font-size:.9rem;padding:12px 16px;outline:none;resize:vertical;min-height:88px;line-height:1.6;transition:border-color .2s,box-shadow .2s"></textarea>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════ FINAL ═══════════════════════════ -->
+<div class="step" id="s-final">
+<div class="final-page">
+  <div class="final-check-wrap">✓</div>
+  <h2 class="final-h" id="final-h">¡Listo!</h2>
+  <p class="final-sub">Nuestro equipo recibió tu información. En menos de <strong style="color:var(--gold-lt)">24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</p>
+
+  <div class="final-box">
+    <div class="final-box-title">Tu asesoría completa — $250 USD por persona</div>
+    <div class="final-item"><span class="fc">✓</span>Análisis completo de tu perfil migratorio</div>
+    <div class="final-item"><span class="fc">✓</span>Preparación y revisión de todos tus documentos</div>
+    <div class="final-item"><span class="fc">✓</span>Llenado de la solicitud oficial ante la embajada</div>
+    <div class="final-item"><span class="fc">✓</span>Simulacro de entrevista consular</div>
+    <div class="final-item"><span class="fc">✓</span>Acompañamiento por WhatsApp hasta el sello en tu pasaporte</div>
+  </div>
+
+  <div class="final-price-note">
+    La tasa consular <strong>($185 USD)</strong> se paga aparte, directamente al gobierno de USA. No es parte de nuestros honorarios.
+  </div>
+
+  <a class="btn-wa" id="wa-link" href="#" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Confirmar por WhatsApp con nuestro equipo
+  </a>
+  <button class="btn-secondary" onclick="copyLink()">📋 Copiar link para compartir</button>
+</div>
 </div>
 
 </main>
 
-<!-- NAV -->
-<div class="nav-fixed" id="nav" style="display:none">
-  <button class="nav-back" id="btn-back" onclick="prev()">←</button>
-  <button class="nav-next" id="btn-next" onclick="next()">Continuar →</button>
+<div id="nav">
+  <button id="btn-back" onclick="prev()">←</button>
+  <button id="btn-next" onclick="next()">Continuar →</button>
 </div>
 
 <script>
 const S = {};
+const STEPS = ['s0','s1','s2','s3','s4','s5','s-final'];
 let cur = 0;
-const STEPS = ['step-0','step-1','step-2','step-3','step-4','step-5','step-final'];
-const TOTAL = 5;
 
-// Security questions (short versions)
 const SQ = [
-  ['¿Tienes antecedentes penales en Ecuador o en otro país?','sq_penal'],
+  ['¿Tienes antecedentes penales en Ecuador o en cualquier otro país?','sq_penal'],
   ['¿Has sido deportado o removido de algún país?','sq_deportado'],
-  ['¿Alguna vez has violado o permanecido más tiempo del permitido en USA?','sq_overstay'],
-  ['¿Tienes parientes con residencia o ciudadanía americana?','sq_fam_usa'],
-  ['¿Perteneces o perteneciste a grupos militares o paramilitares?','sq_militar'],
+  ['¿Alguna vez permaneciste en USA más tiempo del permitido?','sq_overstay'],
+  ['¿Tienes parientes con residencia permanente o ciudadanía americana?','sq_fam_usa'],
+  ['¿Perteneciste o perteneces a grupos militares o paramilitares?','sq_militar'],
 ];
 
-// Build security questions
-function buildSQ() {
-  const list = document.getElementById('sq-list');
-  SQ.forEach(([q, key]) => {
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04)';
-    row.innerHTML = `
-      <span style="flex:1;font-size:13px;color:var(--muted);line-height:1.5">${q}</span>
-      <div style="display:flex;gap:6px;flex-shrink:0">
-        <button class="sq-yes" data-key="${key}" onclick="setSQ('${key}',true,this)"
-          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">Sí</button>
-        <button class="sq-no" data-key="${key}" onclick="setSQ('${key}',false,this)"
-          style="padding:5px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:var(--gdim);border-color:var(--gbdr);color:var(--gold-lt);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s">No</button>
+(function buildSQ() {
+  const c = document.getElementById('sq-list');
+  SQ.forEach(([q, k]) => {
+    S[k] = false;
+    const r = document.createElement('div');
+    r.className = 'sq-row';
+    r.innerHTML = `<span class="sq-text">${q}</span>
+      <div class="sq-btns">
+        <button class="sq-btn" id="${k}-y" onclick="setSQ('${k}',true)">Sí</button>
+        <button class="sq-btn no" id="${k}-n" onclick="setSQ('${k}',false)">No</button>
       </div>`;
-    list.appendChild(row);
-    S[key] = false; // default NO
+    c.appendChild(r);
   });
+})();
+
+function setSQ(k, v) {
+  S[k] = v; save();
+  document.getElementById(k+'-y').className = 'sq-btn' + (v ? ' yes' : '');
+  document.getElementById(k+'-n').className = 'sq-btn' + (!v ? ' no' : '');
 }
 
-function setSQ(key, val, btn) {
-  S[key] = val;
-  save();
-  const row = btn.closest('div[style]');
-  row.querySelectorAll('button').forEach(b => {
-    b.style.background = 'transparent';
-    b.style.borderColor = 'rgba(255,255,255,.1)';
-    b.style.color = 'var(--muted)';
-  });
-  btn.style.background = val ? 'rgba(245,200,66,.15)' : 'var(--gdim)';
-  btn.style.borderColor = 'var(--gold)';
-  btn.style.color = 'var(--gold)';
-}
-
-// Nav & progress
-function goTo(idx) {
+function go(idx) {
   const old = document.getElementById(STEPS[cur]);
   old.classList.remove('active');
   cur = idx;
   const neo = document.getElementById(STEPS[cur]);
   neo.classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo({top:0, behavior:'instant'});
   updateUI();
   save();
 }
-
 function next() {
-  if (cur < STEPS.length - 1) {
-    if (cur === STEPS.length - 2) buildFinal();
-    goTo(cur + 1);
-  }
+  if (cur === STEPS.length - 2) buildFinal();
+  if (cur < STEPS.length - 1) go(cur + 1);
 }
-function prev() {
-  if (cur > 1) goTo(cur - 1);
-}
+function prev() { if (cur > 1) go(cur - 1) }
 
 function updateUI() {
   const nav = document.getElementById('nav');
-  const isWelcome = cur === 0;
-  const isFinal   = cur === STEPS.length - 1;
-  nav.style.display = (isWelcome || isFinal) ? 'none' : 'flex';
+  const isW = cur === 0, isF = cur === STEPS.length - 1;
+  nav.style.display = (isW || isF) ? 'none' : 'flex';
 
-  // progress
-  const pct = cur === 0 ? 0 : Math.round((cur / (STEPS.length - 2)) * 100);
+  const pct = isW ? 0 : Math.round((cur / (STEPS.length - 2)) * 100);
   document.getElementById('prog-fill').style.width = pct + '%';
 
-  // header
-  const hdrLabel = document.getElementById('hdr-label');
-  const hdrPill  = document.getElementById('hdr-pill');
-  if (isWelcome || isFinal) {
-    hdrLabel.textContent = '';
-    hdrPill.style.display = 'none';
-  } else {
-    hdrLabel.textContent = '';
-    hdrPill.style.display = '';
-    hdrPill.textContent = `Paso ${cur} de ${TOTAL}`;
-  }
+  const badge = document.getElementById('hdr-badge');
+  if (!isW && !isF) {
+    badge.textContent = `Paso ${cur} de 5`;
+    badge.classList.add('show');
+  } else { badge.classList.remove('show') }
 
-  // next btn label
-  const btnNext = document.getElementById('btn-next');
-  if (btnNext) {
-    btnNext.textContent = cur === STEPS.length - 2 ? '¡Terminar! →' : 'Continuar →';
-  }
-  // back visibility
-  const btnBack = document.getElementById('btn-back');
-  if (btnBack) btnBack.style.visibility = cur > 1 ? 'visible' : 'hidden';
+  const nb = document.getElementById('btn-next');
+  if (nb) nb.textContent = cur === STEPS.length - 2 ? '¡Terminar! →' : 'Continuar →';
+  const bb = document.getElementById('btn-back');
+  if (bb) bb.style.visibility = cur > 1 ? 'visible' : 'hidden';
 }
 
-// Selectors
-function selectCount(n) {
-  S.num_viajeros = n;
-  document.querySelectorAll('.cnt-btn').forEach((b,i) => {
-    b.classList.toggle('sel', i + 1 === n);
-  });
-  save();
+function setCount(n) {
+  S.num_viajeros = n; save();
+  document.querySelectorAll('.count-btn').forEach((b,i) => b.classList.toggle('sel', i+1===n));
 }
 
-function selectOpt(btn, key, val) {
-  S[key] = val;
-  save();
-  // find sibling opt-btns (only single-select, not multi)
-  const group = btn.closest('.opt-group');
-  if (group) group.querySelectorAll('.opt-btn:not(.multi)').forEach(b => b.classList.remove('sel'));
+function selOpt(btn, key, val) {
+  S[key] = val; save();
+  const grp = btn.closest('.opts');
+  if (grp) grp.querySelectorAll('.opt:not(.multi)').forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
-
-  // conditionals
   if (key === 'visa_ant') {
-    document.getElementById('bloque-historial').style.display = val === 0 ? 'block' : 'none';
-  }
-  if (key === 'resultado') {
-    document.getElementById('bloque-rechazo').style.display = (val === 1 || val === 2) ? 'block' : 'none';
+    document.getElementById('blk-historial').style.display = val === 0 ? 'block' : 'none';
   }
 }
-
-function toggleMulti(btn, key) {
-  S[key] = !S[key];
-  btn.classList.toggle('sel', S[key]);
-  save();
+function showRechazo() {
+  document.getElementById('blk-rechazo').style.display = 'block';
+}
+function togMulti(btn, k) {
+  S[k] = !S[k]; btn.classList.toggle('sel', S[k]); save();
 }
 
-// Final screen
 function buildFinal() {
-  const nombre = S.nombre ? S.nombre.split(' ')[0] : '';
-  document.getElementById('final-h').textContent = nombre ? `¡Listo, ${nombre}!` : '¡Listo!';
+  const nom = S.nombre ? S.nombre.split(' ')[0] : '';
+  document.getElementById('final-h').textContent = nom ? `¡Listo, ${nom}!` : '¡Listo!';
+  const props = ['Turismo','Visita familiar','Negocios','Turismo + familiar','Otro'];
+  const cuandos = ['3 meses','3-6 meses','6-12 meses','más de 1 año'];
+  const vic = ['v_hijos','v_trabajo','v_casa','v_negocio','v_familia','v_estudios'].filter(k=>S[k]).length;
+  const msg = `Hola, completé el formulario de información para mi visa USA.
 
-  const denied = S.resultado === 1 || S.resultado === 2;
-  const vinculos = ['vinculo_hijos','vinculo_trabajo','vinculo_casa','vinculo_negocio','vinculo_familia','vinculo_estudios']
-    .filter(k => S[k]).length;
+Nombre: ${S.nombre||'pendiente'}
+WhatsApp: ${S.whatsapp||'pendiente'}
+Ciudad: ${S.ciudad||'pendiente'}
+Viajeros: ${S.num_viajeros||1}
+Propósito: ${props[S.proposito]||'pendiente'}
+Destino: ${S.destino||'pendiente'}
+Cuándo: ${cuandos[S.cuando]||'pendiente'}
+Historial visa: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'Rechazada — '+S.causal:'Aprobada'):'Primera vez'}
+Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo]||'pendiente'}
+Vínculos Ecuador: ${vic} factor(es)
+${S.obs?'Obs: '+S.obs:''}
 
-  const msg = [
-    `Hola, acabo de completar el formulario para mi asesoría de visa USA.`,
-    ``,
-    `Nombre: ${S.nombre || 'pendiente'}`,
-    `WhatsApp: ${S.whatsapp || 'pendiente'}`,
-    `Ciudad: ${S.ciudad || 'pendiente'}`,
-    `Viajeros: ${S.num_viajeros || 1}`,
-    `Propósito: ${['Turismo','Visita familiar','Negocios','Turismo + familiar','Otro'][S.proposito] || 'pendiente'}`,
-    `Destino: ${S.destino || 'pendiente'}`,
-    `Cuándo: ${['3 meses','3-6 meses','6-12 meses','más de 1 año'][S.cuando] || 'pendiente'}`,
-    `Visa anterior: ${S.visa_ant === 0 ? (denied ? 'Sí — fue rechazada' : 'Sí — aprobada') : 'Primera vez'}`,
-    `Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo] || 'pendiente'}`,
-    `Vínculos con Ecuador: ${vinculos} factor(es)`,
-    S.obs ? `\nObs: ${S.obs}` : '',
-    `\nQuedo a la espera de su análisis. ¡Gracias!`
-  ].join('\n');
-
+Quedo a la espera del análisis. ¡Gracias!`;
   document.getElementById('wa-link').href = `https://wa.me/593994442512?text=${encodeURIComponent(msg)}`;
 }
 
 function copyLink() {
   navigator.clipboard.writeText('https://www.asesoriadevisadosglobal.com/intake-ds160.html')
-    .then(() => { document.querySelector('.btn-copy').textContent = '✓ ¡Copiado!' })
-    .catch(() => {});
+    .then(()=>{ document.querySelector('.btn-secondary').textContent = '✓ ¡Copiado!' })
+    .catch(()=>{});
 }
 
-// Persistence
 function save() {
-  try { localStorage.setItem('avg_intake_v3', JSON.stringify({S, cur})) } catch(e) {}
+  try { localStorage.setItem('avg_v4', JSON.stringify({S, cur})) } catch(e) {}
 }
-function load() {
+(function load() {
   try {
-    const d = JSON.parse(localStorage.getItem('avg_intake_v3') || 'null');
-    if (d && d.S && d.cur > 0) {
+    const d = JSON.parse(localStorage.getItem('avg_v4')||'null');
+    if (d?.S && d?.cur > 0) {
       if (confirm('Tienes información guardada. ¿Continuar donde lo dejaste?')) {
-        Object.assign(S, d.S);
-        cur = d.cur;
+        Object.assign(S, d.S); cur = d.cur;
         document.getElementById(STEPS[0]).classList.remove('active');
         document.getElementById(STEPS[cur]).classList.add('active');
         updateUI();
       }
     }
   } catch(e) {}
-}
+})();
 
-buildSQ();
-load();
 updateUI();
 </script>
 </body>
