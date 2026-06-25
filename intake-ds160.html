@@ -746,39 +746,153 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
           <input type="text" placeholder="Quito / Guayaquil..." oninput="S.ciudad=this.value;save()">
         </div>
         <div class="field">
-          <label>Cédula ecuatoriana</label>
+          <label>Email <span class="req">*</span></label>
+          <input type="email" placeholder="correo@ejemplo.com" oninput="S.email=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Cédula ecuatoriana <span class="req">*</span></label>
           <input type="text" placeholder="0000000000" oninput="S.cedula=this.value;save()">
         </div>
         <div class="field">
-          <label>Fecha de nacimiento</label>
+          <label>Fecha de nacimiento <span class="req">*</span></label>
           <input type="date" onchange="S.nac=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Ciudad de nacimiento <span class="req">*</span></label>
+          <input type="text" placeholder="Quito / Loja / Guayaquil..." oninput="S.ciudad_nac=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Provincia de nacimiento</label>
+          <input type="text" placeholder="Pichincha / Loja / Guayas..." oninput="S.prov_nac=this.value;save()">
+        </div>
+        <div class="field span2">
+          <label>Estado civil <span class="req">*</span></label>
+          <div class="opts" style="flex-direction:row;gap:8px;flex-wrap:wrap">
+            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',0);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Soltero/a</span></button>
+            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',1);toggleConyuge(true)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Casado/a</span></button>
+            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',2);toggleConyuge(true)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Unión libre</span></button>
+            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',3);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Divorciado/a</span></button>
+            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',4);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Viudo/a</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos del cónyuge (condicional) -->
+      <div id="blk-conyuge" style="display:none;margin-top:16px">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15)">Datos del cónyuge / pareja</div>
+        <div class="fgrid">
+          <div class="field">
+            <label>Apellidos del cónyuge <span class="req">*</span></label>
+            <input type="text" placeholder="Apellidos" oninput="S.conyuge_apellidos=this.value;save()">
+          </div>
+          <div class="field">
+            <label>Nombres del cónyuge <span class="req">*</span></label>
+            <input type="text" placeholder="Nombres completos" oninput="S.conyuge_nombres=this.value;save()">
+          </div>
+          <div class="field">
+            <label>Fecha de nacimiento</label>
+            <input type="date" onchange="S.conyuge_nac=this.value;save()">
+          </div>
+          <div class="field">
+            <label>Nacionalidad del cónyuge</label>
+            <input type="text" placeholder="Ecuador / Colombia..." oninput="S.conyuge_nac_pais=this.value;save()">
+          </div>
+          <div class="field span2">
+            <label>Ciudad y país de nacimiento del cónyuge</label>
+            <input type="text" placeholder="Guayaquil, Ecuador" oninput="S.conyuge_nac_lugar=this.value;save()">
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- CARD: DIRECCIÓN COMPLETA -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🏠</div>
+      <div class="card-meta">
+        <div class="card-tag">Dirección de domicilio</div>
+        <div class="card-title">¿Dónde vives actualmente?</div>
+        <div class="card-sub">Dirección completa en Ecuador. La embajada la requiere en el formulario.</div>
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="field span2">
+        <label>Calle y número <span class="req">*</span></label>
+        <input type="text" placeholder="Av. Nombre N00-00 y Calle Transversal" oninput="S.dir_calle=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Barrio / Sector</label>
+        <input type="text" placeholder="Nombre del barrio" oninput="S.dir_barrio=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Provincia <span class="req">*</span></label>
+        <input type="text" placeholder="Pichincha / Guayas..." oninput="S.dir_provincia=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Código postal</label>
+        <input type="text" placeholder="170401" oninput="S.dir_cp=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Teléfono secundario <span class="note">(fijo u otro)</span></label>
+        <input type="tel" placeholder="02-000-0000" oninput="S.tel_sec=this.value;save()">
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD: PASAPORTE -->
   <div class="card">
     <div class="card-head">
       <div class="card-ico">🛂</div>
       <div class="card-meta">
         <div class="card-tag">Pasaporte vigente</div>
         <div class="card-title">Datos de tu pasaporte</div>
-        <div class="card-sub">Si no lo tienes a mano, déjalo en blanco — puedes enviarlo después por WhatsApp.</div>
+        <div class="card-sub">Ten el pasaporte físico a mano. Si no lo tienes, déjalo en blanco y envíalo después por WhatsApp.</div>
       </div>
     </div>
     <div class="fgrid">
       <div class="field">
-        <label>Número de pasaporte</label>
+        <label>Número de pasaporte <span class="req">*</span></label>
         <input type="text" placeholder="A0000000" oninput="S.pasaporte=this.value;save()">
       </div>
       <div class="field">
-        <label>Fecha de vencimiento</label>
+        <label>Fecha de vencimiento <span class="req">*</span></label>
         <input type="date" onchange="S.pasaporte_vence=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Fecha de emisión</label>
+        <input type="date" onchange="S.pasaporte_emision=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Ciudad donde fue emitido</label>
+        <input type="text" placeholder="Quito / Guayaquil..." oninput="S.pasaporte_ciudad=this.value;save()">
       </div>
     </div>
     <div class="info-note">
       <span class="in">⚠️</span>
       <span>Tu pasaporte necesita al menos <strong style="color:var(--text)">6 meses de vigencia</strong> desde la fecha de la entrevista. Si vence pronto, nuestro equipo te avisará.</span>
+    </div>
+  </div>
+
+  <!-- CARD: IDIOMAS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🗣️</div>
+      <div class="card-meta">
+        <div class="card-tag">Idiomas</div>
+        <div class="card-title">¿Qué idiomas hablas?</div>
+        <div class="card-sub">Marca todos los que hablas, aunque sea básico. La embajada lo pregunta en el formulario.</div>
+      </div>
+    </div>
+    <div class="opts" style="flex-direction:row;flex-wrap:wrap;gap:8px">
+      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_es')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Español</span></button>
+      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_en')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Inglés</span></button>
+      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_qu')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Quechua / Kichwa</span></button>
+      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_pt')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Portugués</span></button>
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label>Otros idiomas</label>
+      <input type="text" placeholder="Francés, Italiano, Alemán..." oninput="S.idiomas_otros=this.value;save()">
     </div>
   </div>
 
@@ -971,6 +1085,78 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       </div>
     </div>
   </div>
+
+  <!-- CARD: CONTACTO EN USA -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">📍</div>
+      <div class="card-meta">
+        <div class="card-tag">Contacto en USA</div>
+        <div class="card-title">¿A quién visitas o dónde te quedas?</div>
+        <div class="card-sub">La embajada necesita un punto de contacto en USA. Puede ser el hotel o un familiar/amigo.</div>
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="field">
+        <label>Nombre del contacto / Hotel <span class="req">*</span></label>
+        <input type="text" placeholder="Juan Pérez / Hotel Marriott" oninput="S.contacto_usa_nombre=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Relación con el contacto</label>
+        <select onchange="S.contacto_usa_rel=this.value;save()">
+          <option value="">— Seleccionar —</option>
+          <option>Familiar</option>
+          <option>Amigo/a</option>
+          <option>Hotel / Alojamiento</option>
+          <option>Empresa / Socio de negocios</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field span2">
+        <label>Dirección completa en USA <span class="req">*</span></label>
+        <input type="text" placeholder="8300 Jamaican Court, Orlando, FL 32819" oninput="S.contacto_usa_dir=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Teléfono del contacto en USA</label>
+        <input type="tel" placeholder="001-407-000-0000" oninput="S.contacto_usa_tel=this.value;save()">
+      </div>
+      <div class="field">
+        <label>Email del contacto</label>
+        <input type="email" placeholder="contacto@hotel.com" oninput="S.contacto_usa_email=this.value;save()">
+      </div>
+    </div>
+    <div class="info-note">
+      <span class="in">💡</span>
+      <span>Si vas a un hotel, pon el nombre y dirección del hotel. Si aún no tienes nada definido, escribe "Por definir" — nuestro equipo te ayuda a completarlo.</span>
+    </div>
+  </div>
+
+  <!-- CARD: VIAJES PREVIOS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">🌍</div>
+      <div class="card-meta">
+        <div class="card-tag">Historial de viajes</div>
+        <div class="card-title">¿Has viajado a otros países en los últimos 5 años?</div>
+        <div class="card-sub">Haber viajado antes suma puntos a tu perfil. Menciona todos los países que hayas visitado.</div>
+      </div>
+    </div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="selOpt(this,'viajes_prev',0);showViajesPrev()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí, he viajado a otros países</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="selOpt(this,'viajes_prev',1);hideViajesPrev()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No, solo he estado en Ecuador</span><span class="opt-arrow">›</span></button>
+    </div>
+    <div id="blk-viajes-prev" style="display:none">
+      <div class="field">
+        <label>Países visitados y año aproximado</label>
+        <textarea placeholder="Colombia (2023), Perú (2022), España (2019)..." oninput="S.paises_visitados=this.value;save()"></textarea>
+      </div>
+      <div class="field" style="margin-top:12px">
+        <label>¿Tienes visa vigente de algún otro país?</label>
+        <input type="text" placeholder="Visa Schengen (España 2024), Visa Canadá..." oninput="S.otras_visas=this.value;save()">
+      </div>
+    </div>
+  </div>
+
 </div>
 </div>
 
@@ -1192,6 +1378,11 @@ function selOpt(btn, key, val) {
 function showRechazo() {
   document.getElementById('blk-rechazo').style.display = 'block';
 }
+function toggleConyuge(show) {
+  document.getElementById('blk-conyuge').style.display = show ? 'block' : 'none';
+}
+function showViajesPrev() { document.getElementById('blk-viajes-prev').style.display='block' }
+function hideViajesPrev() { document.getElementById('blk-viajes-prev').style.display='none' }
 function togMulti(btn, k) {
   S[k] = !S[k]; btn.classList.toggle('sel', S[k]); save();
 }
@@ -1213,34 +1404,55 @@ function buildFinal() {
     S.red_otros ? `Otros: ${S.red_otros}` : '',
   ].filter(Boolean).join(' | ') || 'No indicadas';
 
+  const ecivil = ['Soltero/a','Casado/a','Unión libre','Divorciado/a','Viudo/a'];
+  const idiomas = [S.idioma_es&&'Español',S.idioma_en&&'Inglés',S.idioma_qu&&'Quechua',S.idioma_pt&&'Portugués',S.idiomas_otros].filter(Boolean).join(', ')||'No indicado';
+
   const msg = `Hola, completé el formulario para mi visa USA.
 
-DATOS PRINCIPALES
+DATOS PERSONALES
 Nombre: ${S.nombre||'pendiente'}
+Email: ${S.email||'pendiente'}
 WhatsApp: ${S.whatsapp||'pendiente'}
-Ciudad: ${S.ciudad||'pendiente'}
 Cédula: ${S.cedula||'pendiente'}
-Pasaporte: ${S.pasaporte||'pendiente'} (vence ${S.pasaporte_vence||'pendiente'})
+Nac: ${S.nac||'pendiente'} | ${S.ciudad_nac||''}${S.prov_nac?', '+S.prov_nac:''}, Ecuador
+Estado civil: ${ecivil[S.estado_civil]||'pendiente'}
+${S.conyuge_nombres?'Cónyuge: '+S.conyuge_nombres+' '+S.conyuge_apellidos+' ('+S.conyuge_nac+')'  :''}
+
+DIRECCIÓN
+${S.dir_calle||'pendiente'}${S.dir_barrio?', '+S.dir_barrio:''}, ${S.ciudad||''}, ${S.dir_provincia||''} ${S.dir_cp||''}
+Tel. fijo: ${S.tel_sec||'N/A'}
+
+PASAPORTE N° ${S.pasaporte||'pendiente'}
+Emitido: ${S.pasaporte_emision||'pendiente'} en ${S.pasaporte_ciudad||'pendiente'} | Vence: ${S.pasaporte_vence||'pendiente'}
 Viajeros: ${S.num_viajeros||1}
 
-VIAJE
-Propósito: ${props[S.proposito]||'pendiente'}
-Destino: ${S.destino||'pendiente'}
-Cuándo: ${cuandos[S.cuando]||'pendiente'}
-Alojamiento: ${S.alojamiento||'pendiente'}
-
-HISTORIAL
-Visa anterior: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'Rechazada — '+S.causal:'Aprobada anteriormente'):'Primera vez'}
-
-DATOS DE PADRES
-Padre: ${S.padre_nombres||''} ${S.padre_apellidos||''} ${S.padre_nac?'('+S.padre_nac+')':''} — ${usaOpt[S.padre_usa]||'No indicado'}
-Madre: ${S.madre_nombres||''} ${S.madre_apellidos||''} ${S.madre_nac?'('+S.madre_nac+')':''} — ${usaOpt[S.madre_usa]||'No indicado'}
+PADRES
+Padre: ${(S.padre_nombres||'')+' '+(S.padre_apellidos||'')} ${S.padre_nac?'('+S.padre_nac+')':''} — ${usaOpt[S.padre_usa]||'No indicado'}
+Madre: ${(S.madre_nombres||'')+' '+(S.madre_apellidos||'')} ${S.madre_nac?'('+S.madre_nac+')':''} — ${usaOpt[S.madre_usa]||'No indicado'}
 
 REDES SOCIALES
 ${redes}
 
+IDIOMAS: ${idiomas}
+
+VIAJE
+Propósito: ${props[S.proposito]||'pendiente'} | Destino: ${S.destino||'pendiente'}
+Cuándo: ${cuandos[S.cuando]||'pendiente'} | Paga: ${['Propio','Familiar USA','Empresa','Entre varios'][S.paga]||'pendiente'}
+Alojamiento: ${S.alojamiento||'pendiente'}
+
+CONTACTO EN USA
+${S.contacto_usa_nombre||'pendiente'} (${S.contacto_usa_rel||''})
+Dirección: ${S.contacto_usa_dir||'pendiente'}
+Tel: ${S.contacto_usa_tel||'pendiente'} | Email: ${S.contacto_usa_email||'N/A'}
+
+HISTORIAL
+Visa anterior: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'RECHAZADA — '+S.causal:'Aprobada anteriormente'):'Primera solicitud'}
+Viajes previos: ${S.paises_visitados||'No ha viajado'}
+Otras visas vigentes: ${S.otras_visas||'Ninguna'}
+
 SITUACIÓN ECUADOR
 Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo]||'pendiente'}
+Empleador: ${S.empleador||'N/A'}
 Vínculos: ${vic} factor(es)
 ${S.obs?'Obs: '+S.obs:''}
 
