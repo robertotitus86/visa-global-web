@@ -598,7 +598,7 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
 
   <div class="steps-preview">
     <div class="sp-row"><div class="sp-num">1</div><div class="sp-text"><div class="sp-name">¿Quiénes viajan?</div><div class="sp-desc">Número de personas e historial de visas</div></div></div>
-    <div class="sp-row"><div class="sp-num">2</div><div class="sp-text"><div class="sp-name">¿Quién eres y cómo contactarte?</div><div class="sp-desc">Nombre, WhatsApp, ciudad y pasaporte</div></div></div>
+    <div class="sp-row"><div class="sp-num">2</div><div class="sp-text"><div class="sp-name">¿Quién eres y cómo contactarte?</div><div class="sp-desc">Nombre, WhatsApp, pasaporte, datos de padres y redes sociales</div></div></div>
     <div class="sp-row"><div class="sp-num">3</div><div class="sp-text"><div class="sp-name">¿A dónde quieres ir?</div><div class="sp-desc">Destino, fechas y propósito del viaje</div></div></div>
     <div class="sp-row"><div class="sp-num">4</div><div class="sp-text"><div class="sp-name">¿Qué tienes en Ecuador?</div><div class="sp-desc">Trabajo, familia y vínculos — la clave para la visa</div></div></div>
     <div class="sp-row"><div class="sp-num">5</div><div class="sp-text"><div class="sp-name">Preguntas finales</div><div class="sp-desc">Estándar de la embajada — la mayoría responde No</div></div></div>
@@ -781,6 +781,122 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       <span>Tu pasaporte necesita al menos <strong style="color:var(--text)">6 meses de vigencia</strong> desde la fecha de la entrevista. Si vence pronto, nuestro equipo te avisará.</span>
     </div>
   </div>
+
+  <!-- CARD: DATOS DE PADRES -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">👨‍👩‍👧</div>
+      <div class="card-meta">
+        <div class="card-tag">Datos de padres</div>
+        <div class="card-title">Información de tu padre y madre</div>
+        <div class="card-sub">La embajada lo solicita siempre en el formulario oficial. Pon los datos que tengas.</div>
+      </div>
+    </div>
+    <div class="why-box">
+      <strong>¿Por qué lo pide la embajada?</strong> Es un requisito estándar del DS-160 para todos los solicitantes, independientemente de la edad.
+    </div>
+    <div class="fgroup">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15)">Padre</div>
+      <div class="fgrid">
+        <div class="field">
+          <label>Apellidos del padre <span class="req">*</span></label>
+          <input type="text" placeholder="Apellidos paternos" oninput="S.padre_apellidos=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Nombres del padre <span class="req">*</span></label>
+          <input type="text" placeholder="Nombres completos" oninput="S.padre_nombres=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Fecha de nacimiento del padre</label>
+          <input type="date" onchange="S.padre_nac=this.value;save()">
+        </div>
+        <div class="field">
+          <label>¿El padre está en USA?</label>
+          <div class="opts" style="flex-direction:row;gap:8px">
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí</span></button>
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No</span></button>
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Fallecido</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15);margin-top:8px">Madre</div>
+      <div class="fgrid">
+        <div class="field">
+          <label>Apellidos de la madre <span class="req">*</span></label>
+          <input type="text" placeholder="Apellidos maternos" oninput="S.madre_apellidos=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Nombres de la madre <span class="req">*</span></label>
+          <input type="text" placeholder="Nombres completos" oninput="S.madre_nombres=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Fecha de nacimiento de la madre</label>
+          <input type="date" onchange="S.madre_nac=this.value;save()">
+        </div>
+        <div class="field">
+          <label>¿La madre está en USA?</label>
+          <div class="opts" style="flex-direction:row;gap:8px">
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí</span></button>
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No</span></button>
+            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Fallecida</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD: REDES SOCIALES -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-ico">📱</div>
+      <div class="card-meta">
+        <div class="card-tag">Redes sociales</div>
+        <div class="card-title">¿Qué redes sociales usas?</div>
+        <div class="card-sub">La embajada americana las revisa. Deben declararse todas — activas o no.</div>
+      </div>
+    </div>
+    <div class="why-box">
+      <strong>Es obligatorio declararlas.</strong> El gobierno de USA revisa las redes sociales de todos los solicitantes. Si tienes cuenta, aunque no la uses activamente, debes incluirla.
+    </div>
+    <div class="fgroup" id="redes-group">
+      <div class="fgrid">
+        <div class="field">
+          <label>Facebook <span class="note">(usuario o URL)</span></label>
+          <input type="text" placeholder="@tuusuario" oninput="S.red_fb=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Instagram <span class="note">(usuario)</span></label>
+          <input type="text" placeholder="@tuusuario" oninput="S.red_ig=this.value;save()">
+        </div>
+        <div class="field">
+          <label>Twitter / X <span class="note">(usuario)</span></label>
+          <input type="text" placeholder="@tuusuario" oninput="S.red_tw=this.value;save()">
+        </div>
+        <div class="field">
+          <label>TikTok <span class="note">(usuario)</span></label>
+          <input type="text" placeholder="@tuusuario" oninput="S.red_tt=this.value;save()">
+        </div>
+        <div class="field">
+          <label>LinkedIn <span class="note">(si tienes)</span></label>
+          <input type="text" placeholder="@tuusuario o URL" oninput="S.red_li=this.value;save()">
+        </div>
+        <div class="field">
+          <label>YouTube <span class="note">(si tienes canal)</span></label>
+          <input type="text" placeholder="Nombre del canal o URL" oninput="S.red_yt=this.value;save()">
+        </div>
+        <div class="field span2">
+          <label>Otras redes <span class="note">(WhatsApp, Snapchat, Pinterest, etc.)</span></label>
+          <input type="text" placeholder="Plataforma y usuario, separados por coma" oninput="S.red_otros=this.value;save()">
+        </div>
+      </div>
+    </div>
+    <div class="info-note">
+      <span class="in">💡</span>
+      <span>Si no tienes cuenta en alguna plataforma, déjala en blanco. Si la tienes pero ya no la usas, igual ponla — es obligatorio declararla.</span>
+    </div>
+  </div>
+
 </div>
 </div>
 
@@ -1086,18 +1202,46 @@ function buildFinal() {
   const props = ['Turismo','Visita familiar','Negocios','Turismo + familiar','Otro'];
   const cuandos = ['3 meses','3-6 meses','6-12 meses','más de 1 año'];
   const vic = ['v_hijos','v_trabajo','v_casa','v_negocio','v_familia','v_estudios'].filter(k=>S[k]).length;
-  const msg = `Hola, completé el formulario de información para mi visa USA.
+  const usaOpt = ['Sí, en USA','No','Fallecido/a'];
+  const redes = [
+    S.red_fb ? `FB: ${S.red_fb}` : '',
+    S.red_ig ? `IG: ${S.red_ig}` : '',
+    S.red_tw ? `X/Twitter: ${S.red_tw}` : '',
+    S.red_tt ? `TikTok: ${S.red_tt}` : '',
+    S.red_li ? `LinkedIn: ${S.red_li}` : '',
+    S.red_yt ? `YouTube: ${S.red_yt}` : '',
+    S.red_otros ? `Otros: ${S.red_otros}` : '',
+  ].filter(Boolean).join(' | ') || 'No indicadas';
 
+  const msg = `Hola, completé el formulario para mi visa USA.
+
+DATOS PRINCIPALES
 Nombre: ${S.nombre||'pendiente'}
 WhatsApp: ${S.whatsapp||'pendiente'}
 Ciudad: ${S.ciudad||'pendiente'}
+Cédula: ${S.cedula||'pendiente'}
+Pasaporte: ${S.pasaporte||'pendiente'} (vence ${S.pasaporte_vence||'pendiente'})
 Viajeros: ${S.num_viajeros||1}
+
+VIAJE
 Propósito: ${props[S.proposito]||'pendiente'}
 Destino: ${S.destino||'pendiente'}
 Cuándo: ${cuandos[S.cuando]||'pendiente'}
-Historial visa: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'Rechazada — '+S.causal:'Aprobada'):'Primera vez'}
+Alojamiento: ${S.alojamiento||'pendiente'}
+
+HISTORIAL
+Visa anterior: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'Rechazada — '+S.causal:'Aprobada anteriormente'):'Primera vez'}
+
+DATOS DE PADRES
+Padre: ${S.padre_nombres||''} ${S.padre_apellidos||''} ${S.padre_nac?'('+S.padre_nac+')':''} — ${usaOpt[S.padre_usa]||'No indicado'}
+Madre: ${S.madre_nombres||''} ${S.madre_apellidos||''} ${S.madre_nac?'('+S.madre_nac+')':''} — ${usaOpt[S.madre_usa]||'No indicado'}
+
+REDES SOCIALES
+${redes}
+
+SITUACIÓN ECUADOR
 Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo]||'pendiente'}
-Vínculos Ecuador: ${vic} factor(es)
+Vínculos: ${vic} factor(es)
 ${S.obs?'Obs: '+S.obs:''}
 
 Quedo a la espera del análisis. ¡Gracias!`;
