@@ -32,17 +32,35 @@
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* BG AMBIENT */
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 70% 60% at 15% 20%,rgba(29,78,216,.1),transparent),
-             radial-gradient(ellipse 50% 50% at 85% 80%,rgba(245,200,66,.05),transparent)}
+/* ── BACKGROUND IMAGE SYSTEM ──────────────────── */
+.bglayer{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-size:cover;background-position:center;
+  transition:opacity 1s ease;
+  opacity:0;
+}
+.bglayer.active{opacity:1}
+.bglayer.out{opacity:0}
+.bgoverlay{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(to bottom,
+      rgba(6,16,30,.78) 0%,
+      rgba(6,16,30,.62) 40%,
+      rgba(6,16,30,.82) 100%);
+}
+/* subtle gold vignette */
+.bgoverlay::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 100% 100% at 50% 0%,rgba(245,200,66,.04),transparent 60%);
+}
 
 /* PROGRESS */
-#prog{position:fixed;top:0;left:0;right:0;height:2px;background:var(--bg3);z-index:300}
+#prog{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.1);z-index:400}
 #pfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gl));width:0%;transition:width .5s var(--ease)}
 
 /* HEADER */
-header{position:sticky;top:2px;z-index:200;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(6,16,30,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:2px;z-index:300;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(6,16,30,.82);backdrop-filter:blur(28px);border-bottom:1px solid rgba(245,200,66,.12)}
 .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
 .lm{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gl),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;color:var(--navy);flex-shrink:0}
 .ln{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--white);line-height:1.1}
@@ -51,7 +69,7 @@ header{position:sticky;top:2px;z-index:200;height:58px;display:flex;align-items:
 .hbadge.on{display:block}
 
 /* MAIN */
-main{position:relative;z-index:1}
+main{position:relative;z-index:2}
 
 /* GRID BG TEXTURE */
 body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -74,17 +92,17 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
 /* HEADINGS */
-.ph{font-family:var(--serif);font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:900;color:var(--white);line-height:1.1;letter-spacing:-.025em;margin-bottom:7px}
+.ph{font-family:var(--serif);font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:900;color:var(--white);line-height:1.1;letter-spacing:-.025em;margin-bottom:7px;text-shadow:0 2px 20px rgba(0,0,0,.5)}
 .ph em{color:var(--gl);font-style:italic}
 .pd{font-size:.875rem;font-weight:300;color:rgba(203,213,225,.65);line-height:1.7;margin-bottom:28px}
 
 /* CARD */
-.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:background .2s,border-color .2s}
+.card{background:rgba(6,16,30,.55);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:background .2s,border-color .2s}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.25),transparent);opacity:0;transition:opacity .3s}
 .card:hover{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.1)}
 .card:hover::before{opacity:1}
-.ch{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
-.ci{width:4px;height:40px;border-radius:2px;background:linear-gradient(180deg,var(--gl),var(--gold));flex-shrink:0;align-self:stretch}
+.ch{margin-bottom:16px}
+.ci{display:none}
 .ctag{font-size:.55rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gl);margin-bottom:3px}
 .ctitle{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--white);line-height:1.2}
 .csub{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.5}
@@ -163,7 +181,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
 .wflag-img{width:100%;height:220px;border-radius:20px;margin-bottom:28px;background:url("brochure-kennedy.jpg") center/cover no-repeat;position:relative;overflow:hidden}
 .wflag-img::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,16,30,.6),rgba(11,30,59,.3));border-radius:20px}
 .wflag-img::after{content:"Visa USA \B7 B1/B2 \B7 Ecuador";position:absolute;bottom:14px;left:18px;font-size:.575rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,200,66,.8)}
-.wh{font-family:var(--serif);font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;color:var(--white);line-height:1.0;letter-spacing:-.03em;margin-bottom:18px}
+.wh{font-family:var(--serif);font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;color:var(--white);line-height:1.0;letter-spacing:-.03em;margin-bottom:18px;text-shadow:0 2px 24px rgba(0,0,0,.4)}
 .wh em{color:var(--gl);font-style:italic}
 .ws{font-size:.9375rem;font-weight:300;color:rgba(203,213,225,.7);line-height:1.75;margin-bottom:36px;max-width:44ch}
 .tstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:36px}
@@ -182,7 +200,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
 .wnote2{text-align:center;margin-top:14px;font-size:.7rem;color:var(--dim)}
 
 /* NAV */
-#nav{position:fixed;bottom:0;left:0;right:0;z-index:200;padding:12px 20px max(12px,env(safe-area-inset-bottom));background:rgba(6,16,30,.94);backdrop-filter:blur(24px);border-top:1px solid var(--line);display:none;align-items:center;gap:11px}
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:300;padding:12px 20px max(12px,env(safe-area-inset-bottom));background:rgba(6,16,30,.94);backdrop-filter:blur(24px);border-top:1px solid var(--line);display:none;align-items:center;gap:11px}
 #bback{width:46px;height:46px;border-radius:100px;flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--muted);font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s}
 #bback:hover{background:rgba(255,255,255,.08);color:var(--white)}
 #bnext{flex:1;height:46px;border-radius:100px;background:linear-gradient(135deg,var(--gl),var(--gold));border:none;color:var(--navy);font-family:var(--sans);font-size:.9rem;font-weight:800;cursor:pointer;letter-spacing:.02em;transition:all .3s var(--ease2);box-shadow:var(--shg)}
@@ -241,7 +259,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
 <!-- ═══ BIENVENIDA ════════════════════════════════ -->
 <div class="step active" id="s0">
 <div class="wl">
-  <div class="wflag-img"></div>
+  
   <div class="chip">Asesoría Visa Global</div>
   <h1 class="wh">Tu visa USA<br>empieza <em>aquí.</em></h1>
   <p class="ws">Respóndenos estas preguntas con calma. Nuestro equipo se encarga de todo: los documentos, la solicitud oficial y el acompañamiento hasta el sello en tu pasaporte.</p>
@@ -272,7 +290,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Cuéntanos cuántos van y los datos básicos de cada uno. Cada persona necesita su propia solicitud.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Número de viajeros</div><div class="ctitle">¿Cuántas personas van a viajar?</div><div class="csub">Cuenta adultos y niños.</div></div></div>
+    <div class="ch"><div><div class="ctag">Número de viajeros</div><div class="ctitle">¿Cuántas personas van a viajar?</div><div class="csub">Cuenta adultos y niños.</div></div></div>
     <div class="cg" id="cg-viaj">
       <button class="cb" onclick="setV(1)">1</button><button class="cb" onclick="setV(2)">2</button>
       <button class="cb" onclick="setV(3)">3</button><button class="cb" onclick="setV(4)">4</button>
@@ -281,7 +299,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Datos por viajero</div><div class="ctitle">Nombre y pasaporte de cada uno</div><div class="csub">Exactamente como aparece en el pasaporte. Deja en blanco lo que no tengas a mano.</div></div></div>
+    <div class="ch"><div><div class="ctag">Datos por viajero</div><div class="ctitle">Nombre y pasaporte de cada uno</div><div class="csub">Exactamente como aparece en el pasaporte. Deja en blanco lo que no tengas a mano.</div></div></div>
     <div id="vtcs"></div>
   </div>
 </div></div>
@@ -293,7 +311,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Del solicitante principal. La embajada necesita estos datos exactamente — ten tu cédula y pasaporte a mano.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Identificación</div><div class="ctitle">¿Cómo te llamas y cuándo naciste?</div></div></div>
+    <div class="ch"><div><div class="ctag">Identificación</div><div class="ctitle">¿Cómo te llamas y cuándo naciste?</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f s2"><label class="fl">Apellidos completos <span class="r">*</span></label><input type="text" placeholder="Primer apellido y segundo apellido" oninput="S.apellidos=this.value;sv()"></div>
@@ -314,7 +332,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Estado civil</div><div class="ctitle">¿Cuál es tu estado civil?</div></div></div>
+    <div class="ch"><div><div class="ctag">Estado civil</div><div class="ctitle">¿Cuál es tu estado civil?</div></div></div>
     <div class="opts">
       <button class="opt" onclick="so(this,'ecivil',0);showC(false)"><div class="oc"></div><span class="ot">Soltero/a</span></button>
       <button class="opt" onclick="so(this,'ecivil',1);showC(true)"><div class="oc"></div><span class="ot">Casado/a</span></button>
@@ -338,7 +356,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Dirección y contacto</div><div class="ctitle">¿Dónde vives actualmente?</div><div class="csub">Dirección completa en Ecuador.</div></div></div>
+    <div class="ch"><div><div class="ctag">Dirección y contacto</div><div class="ctitle">¿Dónde vives actualmente?</div><div class="csub">Dirección completa en Ecuador.</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f s2"><label class="fl">Calle y número <span class="r">*</span></label><input type="text" placeholder="Av. Nombre N00-00 y Calle" oninput="S.dir_calle=this.value;sv()"></div>
@@ -353,7 +371,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Pasaporte</div><div class="ctitle">Datos de tu pasaporte vigente</div><div class="csub">Ten el pasaporte a mano. Si no puedes ahora, déjalo en blanco y envíalo por WhatsApp después.</div></div></div>
+    <div class="ch"><div><div class="ctag">Pasaporte</div><div class="ctitle">Datos de tu pasaporte vigente</div><div class="csub">Ten el pasaporte a mano. Si no puedes ahora, déjalo en blanco y envíalo por WhatsApp después.</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f"><label class="fl">Número de pasaporte <span class="r">*</span></label><input type="text" placeholder="A0000000" oninput="S.pp_num=this.value;sv()"></div>
@@ -379,7 +397,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">La embajada americana revisa las redes de todos los solicitantes. Tienes que declararlas todas — activas o no.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Plataformas sociales</div><div class="ctitle">¿Qué redes sociales usas?</div><div class="csub">Pon el usuario tal como aparece en tu perfil. Si no tienes, déjalo en blanco.</div></div></div>
+    <div class="ch"><div><div class="ctag">Plataformas sociales</div><div class="ctitle">¿Qué redes sociales usas?</div><div class="csub">Pon el usuario tal como aparece en tu perfil. Si no tienes, déjalo en blanco.</div></div></div>
     <div class="why"><strong>Es obligatorio declarar todas las cuentas</strong> de los últimos 5 años, incluso las que ya no uses activamente.</div>
     <div class="fg">
       <div class="gr">
@@ -405,7 +423,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Cuéntanos el plan. No tiene que ser definitivo — nuestro equipo te ayuda a definir los detalles.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Propósito y destino</div><div class="ctitle">¿Para qué van y a dónde?</div></div></div>
+    <div class="ch"><div><div class="ctag">Propósito y destino</div><div class="ctitle">¿Para qué van y a dónde?</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'prop',0)"><div class="oc"></div><span class="ot">Turismo y vacaciones</span></button>
       <button class="opt" onclick="so(this,'prop',1)"><div class="oc"></div><span class="ot">Visita a familiares</span></button>
@@ -424,7 +442,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Alojamiento en USA</div><div class="ctitle">¿Dónde se van a quedar?</div><div class="csub">Hotel, casa de familiar o amigo. Si no está definido aún, escribe "por definir".</div></div></div>
+    <div class="ch"><div><div class="ctag">Alojamiento en USA</div><div class="ctitle">¿Dónde se van a quedar?</div><div class="csub">Hotel, casa de familiar o amigo. Si no está definido aún, escribe "por definir".</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f s2"><label class="fl">Nombre del hotel o del anfitrión <span class="r">*</span></label><input type="text" placeholder="Hotel Marriott / Casa de Juan García" oninput="S.aloj_nombre=this.value;sv()"></div>
@@ -444,7 +462,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Financiamiento</div><div class="ctitle">¿Quién paga el viaje?</div></div></div>
+    <div class="ch"><div><div class="ctag">Financiamiento</div><div class="ctitle">¿Quién paga el viaje?</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'paga',0);showPagador(false)"><div class="oc"></div><span class="ot">Yo mismo / mis propios recursos</span></button>
       <button class="opt" onclick="so(this,'paga',1);showPagador(true)"><div class="oc"></div><span class="ot">Un familiar que vive en USA</span></button>
@@ -477,7 +495,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Datos de tus padres y si tienes familiares en USA. La embajada siempre lo pregunta.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Padre</div><div class="ctitle">Datos de tu padre</div><div class="csub">Exactamente como aparece en su cédula o pasaporte.</div></div></div>
+    <div class="ch"><div><div class="ctag">Padre</div><div class="ctitle">Datos de tu padre</div><div class="csub">Exactamente como aparece en su cédula o pasaporte.</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f"><label class="fl">Apellidos del padre <span class="r">*</span></label><input type="text" placeholder="Apellidos completos" oninput="S.p_ap=this.value;sv()"></div>
@@ -496,7 +514,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Madre</div><div class="ctitle">Datos de tu madre</div></div></div>
+    <div class="ch"><div><div class="ctag">Madre</div><div class="ctitle">Datos de tu madre</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f"><label class="fl">Apellidos de la madre <span class="r">*</span></label><input type="text" placeholder="Apellidos completos" oninput="S.m_ap=this.value;sv()"></div>
@@ -515,7 +533,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Familiares en USA</div><div class="ctitle">¿Tienes familiares viviendo en USA?</div><div class="csub">Con residencia, ciudadanía o cualquier estatus migratorio.</div></div></div>
+    <div class="ch"><div><div class="ctag">Familiares en USA</div><div class="ctitle">¿Tienes familiares viviendo en USA?</div><div class="csub">Con residencia, ciudadanía o cualquier estatus migratorio.</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'fam_usa',0);show('blk-famusa')"><div class="oc"></div><span class="ot">Sí, tengo familiares en USA</span></button>
       <button class="opt" onclick="so(this,'fam_usa',1);hide('blk-famusa')"><div class="oc"></div><span class="ot">No tengo familiares en USA</span></button>
@@ -535,7 +553,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Tu situación laboral y académica — uno de los factores más importantes para la visa.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Situación laboral actual</div><div class="ctitle">¿En qué trabajas?</div></div></div>
+    <div class="ch"><div><div class="ctag">Situación laboral actual</div><div class="ctitle">¿En qué trabajas?</div></div></div>
     <div class="why"><strong>¿Por qué importa?</strong> La embajada quiere confirmar que tienes estabilidad en Ecuador y razones económicas para regresar.</div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'ocup',0)"><div class="oc"></div><span class="ot">Empleado en empresa (relación de dependencia)</span></button>
@@ -557,7 +575,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Empleo anterior</div><div class="ctitle">¿Has trabajado en otra empresa antes?</div><div class="csub">Solo el empleo más reciente anterior al actual.</div></div></div>
+    <div class="ch"><div><div class="ctag">Empleo anterior</div><div class="ctitle">¿Has trabajado en otra empresa antes?</div><div class="csub">Solo el empleo más reciente anterior al actual.</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'emp_prev',0);show('blk-emprev')"><div class="oc"></div><span class="ot">Sí, tuve empleo anterior</span></button>
       <button class="opt" onclick="so(this,'emp_prev',1);hide('blk-emprev')"><div class="oc"></div><span class="ot">No, este es mi primer trabajo</span></button>
@@ -575,7 +593,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Educación</div><div class="ctitle">¿Cuál es tu nivel de estudios?</div><div class="csub">La institución más reciente de nivel secundario o superior.</div></div></div>
+    <div class="ch"><div><div class="ctag">Educación</div><div class="ctitle">¿Cuál es tu nivel de estudios?</div><div class="csub">La institución más reciente de nivel secundario o superior.</div></div></div>
     <div class="fg">
       <div class="gr">
         <div class="f s2"><label class="fl">Nombre de la institución educativa</label><input type="text" placeholder="Colegio / Universidad / Instituto..." oninput="S.edu_nom=this.value;sv()"></div>
@@ -588,7 +606,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Idiomas</div><div class="ctitle">¿Qué idiomas hablas?</div></div></div>
+    <div class="ch"><div><div class="ctag">Idiomas</div><div class="ctitle">¿Qué idiomas hablas?</div></div></div>
     <div class="opts row" style="margin-bottom:12px">
       <button class="opt" onclick="tog(this,'i_es')"><div class="oc"></div><span class="ot">Español</span></button>
       <button class="opt" onclick="tog(this,'i_en')"><div class="oc"></div><span class="ot">Inglés</span></button>
@@ -599,7 +617,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Vínculos en Ecuador</div><div class="ctitle">¿Qué te ata a Ecuador?</div></div></div>
+    <div class="ch"><div><div class="ctag">Vínculos en Ecuador</div><div class="ctitle">¿Qué te ata a Ecuador?</div></div></div>
     <div class="why"><strong>Este es el argumento más fuerte.</strong> La embajada pregunta implícitamente: "¿por qué va a regresar?" Selecciona todo lo que aplica.</div>
     <div class="opts row" style="flex-wrap:wrap">
       <button class="opt" onclick="tog(this,'v_hijos')"><div class="oc"></div><span class="ot">Hijos aquí</span></button>
@@ -619,7 +637,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">Visitas previas a USA y otros países que hayas visitado. Haber viajado antes suma puntos a tu expediente.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Historial USA</div><div class="ctitle">¿Has estado en Estados Unidos antes?</div></div></div>
+    <div class="ch"><div><div class="ctag">Historial USA</div><div class="ctitle">¿Has estado en Estados Unidos antes?</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'usa_antes',0);show('blk-usaantes')"><div class="oc"></div><span class="ot">Sí, he estado en USA</span></button>
       <button class="opt" onclick="so(this,'usa_antes',1);hide('blk-usaantes')"><div class="oc"></div><span class="ot">No, nunca he ido</span></button>
@@ -635,7 +653,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Visa americana</div><div class="ctitle">¿Has tenido visa americana antes?</div></div></div>
+    <div class="ch"><div><div class="ctag">Visa americana</div><div class="ctitle">¿Has tenido visa americana antes?</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'visa_prev',0);show('blk-visaprev')"><div class="oc"></div><span class="ot">Sí, tuve o tengo visa americana</span></button>
       <button class="opt" onclick="so(this,'visa_prev',1);hide('blk-visaprev')"><div class="oc"></div><span class="ot">No, nunca me la han dado</span></button>
@@ -651,7 +669,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Rechazos previos</div><div class="ctitle">¿Te han negado visa o entrada a USA alguna vez?</div></div></div>
+    <div class="ch"><div><div class="ctag">Rechazos previos</div><div class="ctitle">¿Te han negado visa o entrada a USA alguna vez?</div></div></div>
     <div class="wnote"><span style="width:3px;height:3px;border-radius:50%;background:var(--gl);flex-shrink:0;margin-top:6px;display:inline-block"></span><span>Un rechazo anterior <strong style="color:var(--text)">no cierra la puerta.</strong> Nuestro equipo sabe exactamente cómo manejarlo — lo importante es ser honesto.</span></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'rechazo',0);show('blk-rechazo')"><div class="oc"></div><span class="ot">Sí, me rechazaron o negaron entrada</span></button>
@@ -678,7 +696,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Otros países</div><div class="ctitle">¿Has viajado a otros países en los últimos 5 años?</div><div class="csub">Cualquier país — haber viajado antes suma puntos a tu caso.</div></div></div>
+    <div class="ch"><div><div class="ctag">Otros países</div><div class="ctitle">¿Has viajado a otros países en los últimos 5 años?</div><div class="csub">Cualquier país — haber viajado antes suma puntos a tu caso.</div></div></div>
     <div class="opts" style="margin-bottom:14px">
       <button class="opt" onclick="so(this,'viaj_prev',0);show('blk-viajprev')"><div class="oc"></div><span class="ot">Sí, he viajado a otros países</span></button>
       <button class="opt" onclick="so(this,'viaj_prev',1);hide('blk-viajprev')"><div class="oc"></div><span class="ot">No, solo Ecuador</span></button>
@@ -699,12 +717,12 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
   <p class="pd">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde No a todas. Si hay algún Sí, nuestro equipo sabe exactamente cómo manejarlo.</p>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Preguntas de seguridad</div><div class="ctitle">Responde con honestidad — sí o no</div><div class="csub">Son preguntas estándar que registra el gobierno americano para todos los solicitantes.</div></div></div>
+    <div class="ch"><div><div class="ctag">Preguntas de seguridad</div><div class="ctitle">Responde con honestidad — sí o no</div><div class="csub">Son preguntas estándar que registra el gobierno americano para todos los solicitantes.</div></div></div>
     <div id="sqlist"></div>
   </div>
 
   <div class="card">
-    <div class="ch"><div class="ci"></div><div><div class="ctag">Información adicional</div><div class="ctitle">¿Hay algo más que debamos saber?</div><div class="csub">Cualquier situación especial que no hayamos preguntado. Déjalo en blanco si no hay nada más.</div></div></div>
+    <div class="ch"><div><div class="ctag">Información adicional</div><div class="ctitle">¿Hay algo más que debamos saber?</div><div class="csub">Cualquier situación especial que no hayamos preguntado. Déjalo en blanco si no hay nada más.</div></div></div>
     <textarea placeholder="Deportación previa en otro país, situación legal especial, familiar en USA con residencia, cualquier dato importante para tu caso..." oninput="S.obs=this.value;sv()" style="width:100%;background:rgba(11,30,59,.55);border:1px solid rgba(255,255,255,.09);border-radius:9px;color:var(--white);font-family:var(--sans);font-size:.875rem;padding:11px 13px;outline:none;resize:vertical;min-height:80px;line-height:1.55;transition:border-color .2s,box-shadow .2s"></textarea>
   </div>
 </div></div>
@@ -797,7 +815,7 @@ function setSQ(k,v){
 }
 
 /* NAV */
-function go(i){
+function go(i){setBG(i);
   const o=document.getElementById(ST[cur]);
   o.classList.remove('active');
   cur=i;
@@ -960,6 +978,38 @@ function sv(){try{localStorage.setItem('avg5',JSON.stringify({S,cur}))}catch(e){
   }catch(e){}
 })();
 ui();
-</script>
-</body>
+/* ── BACKGROUND IMAGES PER STEP ─────────────── */
+const BIMGS = [
+  'brochure-kennedy.jpg',    // s0 welcome
+  'familia-aeropuerto.jpg',  // s1 viajeros
+  'documentos-pasaporte.jpg',// s2 personal
+  'brochure-disney.jpg',     // s3 redes
+  'brochure-universal.jpg',  // s4 viaje
+  'familia-aeropuerto.jpg',  // s5 familia
+  'city-destination.jpg',    // s6 trabajo
+  'brochure-kennedy.jpg',    // s7 historial
+  'documentos-pasaporte.jpg',// s8 seguridad
+  'hero-bg.jpg',             // sfin
+];
+
+let bg1Active = true;
+function setBG(idx) {
+  const url = 'url("' + (BIMGS[idx] || BIMGS[0]) + '")';
+  const b1 = document.getElementById('bg1');
+  const b2 = document.getElementById('bg2');
+  if (bg1Active) {
+    b2.style.backgroundImage = url;
+    b2.classList.add('active');
+    setTimeout(() => { b1.classList.remove('active'); }, 50);
+  } else {
+    b1.style.backgroundImage = url;
+    b1.classList.add('active');
+    setTimeout(() => { b2.classList.remove('active'); }, 50);
+  }
+  bg1Active = !bg1Active;
+}
+// Init
+document.getElementById('bg1').style.backgroundImage = 'url("brochure-kennedy.jpg")';
+document.getElementById('bg1').classList.add('active');</script>
+<div id="bg1" class="bglayer"></div><div id="bg2" class="bglayer"></div><div class="bgoverlay"></div></body>
 </html>
