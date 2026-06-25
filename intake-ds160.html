@@ -4,1486 +4,952 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Empieza tu visa USA · Asesoría Visa Global</title>
-<meta name="description" content="Cuéntanos tu situación en 10 minutos. Nuestro equipo prepara todo por ti.">
+<meta name="description" content="Cuéntanos tu situación en 15 minutos. Nuestro equipo prepara todo por ti.">
 <meta property="og:title" content="Tu visa USA empieza aquí · Asesoría Visa Global">
-<meta property="og:description" content="10 minutos. Nuestro equipo se encarga de todo: documentos, solicitud y acompañamiento.">
+<meta property="og:description" content="15 minutos. Nosotros hacemos todo: documentos, solicitud y acompañamiento.">
 <meta property="og:image" content="https://www.asesoriadevisadosglobal.com/cfb1.png">
 <meta property="og:url" content="https://www.asesoriadevisadosglobal.com/intake-ds160.html">
 <meta name="theme-color" content="#06101E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ══ TOKENS (idénticos al sitio) ══════════════════════ */
-:root {
-  --bg:       #06101E;
-  --bg2:      #0C1A2E;
-  --bg3:      #112338;
-  --bg4:      #162D46;
-  --navy:     #0B1E3B;
-  --gold:     #C8861A;
-  --gold-lt:  #F5C842;
-  --gold-glow:rgba(245,200,66,.15);
-  --gold-bdr: rgba(245,200,66,.25);
-  --blue:     #3B82F6;
-  --green:    #10B981;
-  --white:    #FFFFFF;
-  --text:     #CBD5E1;
-  --dark-txt: #F1F5F9;
-  --muted:    #64748B;
-  --line:     rgba(255,255,255,.07);
-  --line2:    rgba(255,255,255,.13);
-  --serif:   'Playfair Display', Georgia, serif;
-  --sans:    'Space Grotesk', system-ui, sans-serif;
-  --ease:    cubic-bezier(.16,1,.3,1);
-  --ease2:   cubic-bezier(.22,.68,0,1.2);
-  --sh-gold: 0 8px 40px rgba(245,200,66,.2);
+:root{
+  --bg:#06101E; --bg2:#0C1A2E; --bg3:#112338; --bg4:#162D46;
+  --navy:#0B1E3B;
+  --gold:#C8861A; --gl:#F5C842;
+  --gdim:rgba(245,200,66,.10); --gbdr:rgba(245,200,66,.22);
+  --blue:#3B82F6;
+  --grn:#10B981;
+  --white:#FFFFFF; --text:#CBD5E1; --bright:#F1F5F9;
+  --muted:#64748B; --dim:#2A3A52; --line:rgba(255,255,255,.07);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease2:cubic-bezier(.22,.68,0,1.2);
+  --shg:0 8px 32px rgba(245,200,66,.2);
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* ══ RESET ════════════════════════════════════════════ */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
-html { scroll-behavior:smooth; -webkit-text-size-adjust:100% }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100dvh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+/* BG AMBIENT */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 15% 20%,rgba(29,78,216,.1),transparent),
+             radial-gradient(ellipse 50% 50% at 85% 80%,rgba(245,200,66,.05),transparent)}
 
-/* ══ PROGRESS LINE ════════════════════════════════════ */
-#prog {
-  position:fixed; top:0; left:0; right:0; height:2px;
-  background:var(--bg3); z-index:300;
-}
-#prog-fill {
-  height:100%;
-  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
-  width:0%; transition:width .5s var(--ease);
-}
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;right:0;height:2px;background:var(--bg3);z-index:300}
+#pfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gl));width:0%;transition:width .5s var(--ease)}
 
-/* ══ HEADER ═══════════════════════════════════════════ */
-header {
-  position:sticky; top:2px; z-index:200;
-  height:60px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 24px;
-  background: rgba(6,16,30,.9);
-  backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--line);
-}
-.logo { display:flex; align-items:center; gap:12px; text-decoration:none }
-.logo-mark {
-  width:34px; height:34px; border-radius:8px; flex-shrink:0;
-  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--serif); font-size:14px; font-weight:700; color:var(--navy);
-}
-.logo-name { font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--white) }
-.logo-tag  { font-size:.65rem; color:var(--muted); margin-top:1px }
-.hdr-badge {
-  display:none;
-  background:rgba(245,200,66,.08); border:1px solid var(--gold-bdr);
-  border-radius:100px; padding:4px 14px;
-  font-size:.625rem; font-weight:700; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--gold-lt);
-}
-.hdr-badge.show { display:block }
+/* HEADER */
+header{position:sticky;top:2px;z-index:200;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(6,16,30,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.lm{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--gl),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;color:var(--navy);flex-shrink:0}
+.ln{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--white);line-height:1.1}
+.lt{font-size:.6rem;color:var(--muted)}
+.hbadge{background:var(--gdim);border:1px solid var(--gbdr);border-radius:100px;padding:3px 12px;font-size:.575rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gl);display:none}
+.hbadge.on{display:block}
 
-/* ══ MAIN ══════════════════════════════════════════════ */
-main { position:relative; z-index:1 }
+/* MAIN */
+main{position:relative;z-index:1}
 
-/* ══ STEP SYSTEM ════════════════════════════════════════ */
-.step { display:none; opacity:0 }
-.step.active {
-  display:block; opacity:1;
-  animation: stepReveal .45s var(--ease) both;
-}
-@keyframes stepReveal {
-  from { opacity:0; transform:translateY(28px) }
-  to   { opacity:1; transform:translateY(0) }
-}
+/* STEPS */
+.step{display:none}
+.step.active{display:block;animation:sIn .4s var(--ease) both}
+@keyframes sIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* ══ LABEL CHIP (mismo estilo que el sitio) ════════════ */
-.label-chip {
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:.625rem; font-weight:700;
-  text-transform:uppercase; letter-spacing:.2em;
-  color:var(--gold-lt);
-  background:rgba(245,200,66,.08);
-  border:1px solid rgba(245,200,66,.2);
-  padding:6px 16px; border-radius:100px;
-  margin-bottom:20px;
-}
-.label-chip::before {
-  content:''; width:5px; height:5px; border-radius:50%;
-  background:var(--gold-lt); flex-shrink:0;
-  animation:blink 2s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+/* PAGE WRAPPER */
+.pg{max-width:580px;margin:0 auto;padding:36px 20px 110px}
 
-/* ══ WELCOME HERO ═══════════════════════════════════════ */
-.welcome {
-  min-height:calc(100dvh - 62px);
-  display:flex; flex-direction:column; justify-content:center;
-  padding:60px 28px 120px;
-  max-width:640px; margin:0 auto;
-  position:relative;
-}
-.welcome::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:
-    radial-gradient(ellipse 70% 60% at 15% 30%, rgba(29,78,216,.12), transparent),
-    radial-gradient(ellipse 50% 50% at 85% 70%, rgba(245,200,66,.06), transparent);
-}
-.welcome > * { position:relative; z-index:1 }
-.welcome-flag { font-size:56px; margin-bottom:28px; display:block }
-.welcome-h {
-  font-family: var(--serif);
-  font-size: clamp(2.4rem, 7vw, 4.5rem);
-  font-weight:900; line-height:1.0; letter-spacing:-.03em;
-  color:var(--white); margin-bottom:20px;
-}
-.welcome-h em { color:var(--gold-lt); font-style:italic }
-.welcome-sub {
-  font-size:1rem; font-weight:300; color:rgba(203,213,225,.7);
-  line-height:1.75; margin-bottom:40px; max-width:44ch;
-}
-.trust-row {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:1px; background:var(--line);
-  border:1px solid var(--line); border-radius:16px;
-  overflow:hidden; margin-bottom:44px;
-}
-.trust-cell {
-  background:rgba(255,255,255,.02);
-  padding:18px 16px;
-  display:flex; flex-direction:column; gap:5px;
-  backdrop-filter:blur(8px);
-}
-.trust-ico { font-size:20px }
-.trust-num {
-  font-family:var(--serif); font-size:1.4rem; font-weight:700;
-  color:var(--gold-lt); line-height:1;
-}
-.trust-lbl {
-  font-size:.6rem; font-weight:500; text-transform:uppercase;
-  letter-spacing:.14em; color:var(--muted); line-height:1.4;
-}
-.btn-gold {
-  display:inline-flex; align-items:center; gap:12px;
-  background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold) 100%);
-  color:var(--navy);
-  font-family:var(--sans); font-size:1rem; font-weight:800;
-  padding:18px 40px; border-radius:100px;
-  text-decoration:none; border:none; cursor:pointer;
-  transition:all .3s var(--ease2);
-  box-shadow:var(--sh-gold);
-  letter-spacing:.01em;
-  width:100%;
-  justify-content:center;
-}
-.btn-gold:hover { transform:scale(1.03) translateY(-2px); box-shadow:0 16px 48px rgba(245,200,66,.35) }
-.btn-gold:active { transform:scale(.98) }
-.welcome-note { text-align:center; margin-top:16px; font-size:.75rem; color:var(--muted) }
+/* CHIP LABEL */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.575rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gl);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);padding:5px 14px;border-radius:100px;margin-bottom:16px}
+.chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gl);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
-/* Steps preview */
-.steps-preview {
-  display:flex; flex-direction:column; gap:0;
-  border:1px solid var(--line); border-radius:16px;
-  overflow:hidden; margin-bottom:40px;
-  background:rgba(255,255,255,.02);
-}
-.sp-row {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 18px;
-  border-bottom:1px solid var(--line);
-  transition:background .2s;
-}
-.sp-row:last-child { border:none }
-.sp-num {
-  width:24px; height:24px; border-radius:6px; flex-shrink:0;
-  background:var(--gold-glow); border:1px solid var(--gold-bdr);
-  display:flex; align-items:center; justify-content:center;
-  font-size:.7rem; font-weight:800; color:var(--gold-lt);
-}
-.sp-text {}
-.sp-name { font-size:.875rem; font-weight:600; color:var(--dark-txt); line-height:1.2 }
-.sp-desc { font-size:.75rem; color:var(--muted); margin-top:2px }
+/* HEADINGS */
+.ph{font-family:var(--serif);font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:900;color:var(--white);line-height:1.1;letter-spacing:-.025em;margin-bottom:7px}
+.ph em{color:var(--gl);font-style:italic}
+.pd{font-size:.875rem;font-weight:300;color:rgba(203,213,225,.65);line-height:1.7;margin-bottom:28px}
 
-/* ══ STEP PAGES ════════════════════════════════════════ */
-.step-page {
-  max-width:600px; margin:0 auto;
-  padding:40px 24px 110px;
-  position:relative;
-}
-.step-page::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(29,78,216,.08), transparent),
-    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,200,66,.04), transparent);
-}
-.step-page > * { position:relative; z-index:1 }
-.step-head { margin-bottom:36px }
-.step-super {
-  font-size:.625rem; font-weight:700; letter-spacing:.2em;
-  text-transform:uppercase; color:var(--gold-lt);
-  display:flex; align-items:center; gap:8px; margin-bottom:14px;
-}
-.step-super::before {
-  content:''; width:5px; height:5px; border-radius:50%;
-  background:var(--gold-lt); animation:blink 2s infinite;
-}
-.step-h {
-  font-family:var(--serif);
-  font-size:clamp(1.6rem,4.5vw,2.4rem);
-  font-weight:800; line-height:1.1; letter-spacing:-.025em;
-  color:var(--white); margin-bottom:8px;
-}
-.step-desc { font-size:.9rem; font-weight:300; color:rgba(203,213,225,.65); line-height:1.7 }
+/* CARD */
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:background .2s,border-color .2s}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.25),transparent);opacity:0;transition:opacity .3s}
+.card:hover{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.1)}
+.card:hover::before{opacity:1}
+.ch{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ci{width:38px;height:38px;border-radius:10px;background:var(--gdim);border:1px solid var(--gbdr);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ctag{font-size:.55rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gl);margin-bottom:3px}
+.ctitle{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--white);line-height:1.2}
+.csub{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.5}
 
-/* ══ CARDS ═════════════════════════════════════════════ */
-.card {
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:20px; padding:28px 24px;
-  margin-bottom:16px;
-  backdrop-filter:blur(8px);
-  position:relative; overflow:hidden;
-  transition:background .25s, border-color .25s;
-}
-.card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg, transparent, rgba(245,200,66,.3), transparent);
-  opacity:0; transition:opacity .3s;
-}
-.card:hover { background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.1) }
-.card:hover::before { opacity:1 }
-.card-head { display:flex; align-items:flex-start; gap:14px; margin-bottom:20px }
-.card-ico {
-  width:42px; height:42px; border-radius:12px; flex-shrink:0;
-  background:rgba(245,200,66,.08); border:1px solid rgba(245,200,66,.2);
-  display:flex; align-items:center; justify-content:center; font-size:20px;
-}
-.card-meta {}
-.card-tag {
-  font-size:.575rem; font-weight:700; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--gold-lt); margin-bottom:4px;
-  display:flex; align-items:center; gap:6px;
-}
-.card-title {
-  font-family:var(--serif); font-size:1.1rem; font-weight:700;
-  color:var(--white); line-height:1.2;
-}
-.card-sub { font-size:.8rem; color:var(--muted); line-height:1.55; margin-top:4px }
+/* WHY BOX */
+.why{background:rgba(245,200,66,.05);border-left:2px solid var(--gold);border-radius:0 8px 8px 0;padding:9px 13px;font-size:.78rem;color:var(--muted);line-height:1.55;margin-bottom:16px}
+.why strong{color:var(--text)}
 
-/* WHY box */
-.why-box {
-  background:rgba(245,200,66,.05);
-  border-left:2px solid var(--gold);
-  border-radius:0 10px 10px 0;
-  padding:10px 14px; margin-bottom:20px;
-  font-size:.8rem; color:var(--muted); line-height:1.6;
-}
-.why-box strong { color:var(--text) }
+/* SUB DIVIDER */
+.sdiv{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gl);padding-bottom:7px;border-bottom:1px solid rgba(245,200,66,.13);margin:18px 0 14px}
 
-/* ══ FORM CONTROLS ══════════════════════════════════════ */
-.fgroup { display:flex; flex-direction:column; gap:16px }
-.fgrid  { display:grid; grid-template-columns:1fr 1fr; gap:14px }
-@media(max-width:500px){ .fgrid{ grid-template-columns:1fr } }
-.fgrid .span2 { grid-column:span 2 }
-@media(max-width:500px){ .fgrid .span2{ grid-column:span 1 } }
+/* FIELDS */
+.fg{display:flex;flex-direction:column;gap:13px}
+.gr{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:480px){.gr{grid-template-columns:1fr}}
+.gr .s2{grid-column:span 2}
+@media(max-width:480px){.gr .s2{grid-column:span 1}}
+.f{display:flex;flex-direction:column;gap:5px}
+.fl{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.fl .r{color:var(--gl)}
+.fl .nt{font-size:.6rem;color:var(--dim);text-transform:none;letter-spacing:0;font-weight:400}
 
-.field { display:flex; flex-direction:column; gap:7px }
-.field label {
-  font-size:.6rem; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--muted);
-  display:flex; align-items:center; gap:5px;
-}
-.field label .req { color:var(--gold-lt) }
-.field label .note { font-size:.6rem; color:var(--bg4); text-transform:none; letter-spacing:0; font-weight:400 }
+input[type=text],input[type=tel],input[type=email],input[type=date],input[type=number],select,textarea{
+  width:100%;background:rgba(11,30,59,.55);border:1px solid rgba(255,255,255,.09);border-radius:9px;color:var(--white);
+  font-family:var(--sans);font-size:.875rem;font-weight:400;padding:11px 13px;outline:none;
+  transition:border-color .2s,background .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gl);background:rgba(11,30,59,.85);box-shadow:0 0 0 3px rgba(245,200,66,.09)}
+input::placeholder,textarea::placeholder{color:rgba(100,116,139,.6)}
+select option{background:var(--bg2)}
+textarea{resize:vertical;min-height:72px;line-height:1.55}
 
-input[type=text],input[type=tel],input[type=email],
-input[type=date],input[type=number],select,textarea {
-  width:100%;
-  background:rgba(11,30,59,.6);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:10px; color:var(--white);
-  font-family:var(--sans); font-size:.9rem; font-weight:400;
-  padding:12px 16px; outline:none;
-  transition:border-color .2s, background .2s, box-shadow .2s;
-  -webkit-appearance:none; appearance:none;
-}
-input:hover,select:hover,textarea:hover { border-color:rgba(255,255,255,.16) }
-input:focus,select:focus,textarea:focus {
-  border-color:var(--gold-lt);
-  background:rgba(11,30,59,.9);
-  box-shadow:0 0 0 3px rgba(245,200,66,.1);
-}
-input::placeholder,textarea::placeholder { color:rgba(100,116,139,.7) }
-select option { background:var(--bg2) }
-textarea { resize:vertical; min-height:80px; line-height:1.6 }
+/* OPTION BUTTONS */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.row{flex-direction:row;flex-wrap:wrap;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 15px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:all .18s var(--ease2);text-align:left;width:100%;font-family:var(--sans);position:relative;overflow:hidden}
+.opt::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 0%,rgba(245,200,66,.07),transparent);opacity:0;transition:opacity .2s}
+.opt:hover{border-color:rgba(245,200,66,.28);background:rgba(245,200,66,.03)}
+.opt:hover::after,.opt.s::after{opacity:1}
+.opt.s{border-color:var(--gl);background:rgba(245,200,66,.07)}
+.opts.row .opt{flex:1;min-width:90px;justify-content:center}
+.oc{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(100,116,139,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.opt.s .oc{border-color:var(--gl);background:var(--gl)}
+.oc::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--navy);opacity:0;transition:opacity .12s}
+.opt.s .oc::after{opacity:1}
+.ot{font-size:.875rem;font-weight:500;color:var(--text);transition:color .15s;line-height:1.3}
+.opt.s .ot{color:var(--white);font-weight:600}
 
-/* ══ OPTION BUTTONS ════════════════════════════════════ */
-.opts { display:flex; flex-direction:column; gap:9px }
-.opt {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 18px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px; cursor:pointer;
-  transition:all .2s var(--ease2);
-  text-align:left; width:100%; font-family:var(--sans);
-  position:relative; overflow:hidden;
-}
-.opt::after {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 80% at 50% 50%, rgba(245,200,66,.08), transparent);
-  opacity:0; transition:opacity .2s;
-}
-.opt:hover { border-color:rgba(245,200,66,.3); background:rgba(245,200,66,.04) }
-.opt:hover::after { opacity:1 }
-.opt.sel {
-  border-color:var(--gold-lt);
-  background:rgba(245,200,66,.07);
-}
-.opt.sel::after { opacity:1 }
-.opt-circle {
-  width:20px; height:20px; border-radius:50%; flex-shrink:0;
-  border:2px solid rgba(100,116,139,.5);
-  display:flex; align-items:center; justify-content:center;
-  transition:all .18s;
-}
-.opt.sel .opt-circle { border-color:var(--gold-lt); background:var(--gold-lt) }
-.opt-circle-dot {
-  width:8px; height:8px; border-radius:50%; background:var(--navy);
-  opacity:0; transition:opacity .15s; transform:scale(0);
-}
-.opt.sel .opt-circle-dot { opacity:1; transform:scale(1) }
-.opt-text { font-size:.9rem; font-weight:500; color:var(--text); line-height:1.3 }
-.opt.sel .opt-text { color:var(--white); font-weight:600 }
-.opt-arrow { margin-left:auto; font-size:.85rem; color:var(--muted); opacity:0; transition:opacity .2s, transform .2s }
-.opt:hover .opt-arrow, .opt.sel .opt-arrow { opacity:1; transform:translateX(3px) }
+/* COUNT */
+.cg{display:flex;gap:9px;flex-wrap:wrap}
+.cb{width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);font-family:var(--serif);font-size:1.25rem;font-weight:700;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s var(--ease2)}
+.cb:hover{border-color:rgba(245,200,66,.3);color:var(--text)}
+.cb.s{background:linear-gradient(135deg,rgba(245,200,66,.2),rgba(245,200,66,.08));border-color:var(--gl);color:var(--gl);transform:scale(1.07);box-shadow:0 4px 16px rgba(245,200,66,.18)}
 
-/* ══ COUNT SELECTOR ════════════════════════════════════ */
-.count-grid { display:flex; gap:10px; flex-wrap:wrap }
-.count-btn {
-  width:56px; height:56px; border-radius:14px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.08);
-  font-family:var(--serif); font-size:1.3rem; font-weight:700; color:var(--muted);
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-  transition:all .2s var(--ease2);
-}
-.count-btn:hover { border-color:rgba(245,200,66,.3); color:var(--text) }
-.count-btn.sel {
-  background:linear-gradient(135deg, rgba(245,200,66,.25), rgba(245,200,66,.1));
-  border-color:var(--gold-lt); color:var(--gold-lt);
-  transform:scale(1.08); box-shadow:0 4px 20px rgba(245,200,66,.2);
-}
+/* TRAVELER CARD */
+.tc{background:rgba(11,30,59,.4);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:10px}
+.tc:last-child{margin-bottom:0}
+.tclabel{font-size:.575rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gl);margin-bottom:12px}
 
-/* ══ INFO / WARN BOXES ═════════════════════════════════ */
-.info-note {
-  display:flex; gap:10px; align-items:flex-start;
-  background:rgba(245,200,66,.06); border:1px solid rgba(245,200,66,.2);
-  border-radius:12px; padding:12px 16px; margin-top:16px;
-  font-size:.8rem; color:var(--muted); line-height:1.6;
-}
-.info-note .in { font-size:1rem; flex-shrink:0 }
-.warn-note {
-  display:flex; gap:10px; align-items:flex-start;
-  background:rgba(59,130,246,.06); border:1px solid rgba(59,130,246,.2);
-  border-radius:12px; padding:12px 16px; margin-bottom:16px;
-  font-size:.8rem; color:var(--muted); line-height:1.6;
-}
-.warn-note .in { font-size:1rem; flex-shrink:0 }
+/* INFO / WARN */
+.inote{display:flex;gap:9px;align-items:flex-start;background:var(--gdim);border:1px solid var(--gbdr);border-radius:10px;padding:11px 13px;margin-top:13px;font-size:.78rem;color:var(--muted);line-height:1.55}
+.inote .ii{font-size:15px;flex-shrink:0}
+.wnote{display:flex;gap:9px;align-items:flex-start;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:11px 13px;margin-bottom:13px;font-size:.78rem;color:var(--muted);line-height:1.55}
 
-/* ══ TRAVELER CARDS ═════════════════════════════════════ */
-.tc { margin-bottom:12px; }
-.tc-head {
-  font-size:.575rem; font-weight:700; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--gold-lt); margin-bottom:12px;
-}
-.tc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px }
-@media(max-width:440px){ .tc-grid{ grid-template-columns:1fr } }
+/* SECURITY Qs */
+.sqr{display:flex;align-items:flex-start;gap:13px;padding:11px 0;border-bottom:1px solid var(--line)}
+.sqr:last-child{border:none;padding-bottom:0}
+.sqt{flex:1;font-size:.8rem;color:var(--muted);line-height:1.5}
+.sqb{display:flex;gap:6px;flex-shrink:0;margin-top:2px}
+.sqbtn{padding:4px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .15s}
+.sqbtn:hover{border-color:var(--gbdr);color:var(--gl)}
+.sqbtn.y{background:rgba(245,200,66,.1);border-color:var(--gl);color:var(--gl)}
+.sqbtn.n{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.35);color:var(--grn)}
 
-/* ══ SECURITY Q ══════════════════════════════════════════ */
-.sq-row {
-  display:flex; align-items:flex-start; gap:14px;
-  padding:13px 0; border-bottom:1px solid var(--line);
-}
-.sq-row:last-child { border:none }
-.sq-text { flex:1; font-size:.82rem; color:var(--muted); line-height:1.55 }
-.sq-btns { display:flex; gap:6px; flex-shrink:0 }
-.sq-btn {
-  padding:5px 16px; border-radius:100px;
-  border:1px solid rgba(255,255,255,.1);
-  background:transparent; color:var(--muted);
-  font-family:var(--sans); font-size:.65rem; font-weight:700;
-  letter-spacing:.08em; cursor:pointer; transition:all .18s;
-}
-.sq-btn:hover { border-color:var(--gold-bdr); color:var(--gold-lt) }
-.sq-btn.yes { background:rgba(245,200,66,.1); border-color:var(--gold-lt); color:var(--gold-lt) }
-.sq-btn.no  { background:rgba(16,185,129,.1); border-color:rgba(16,185,129,.4); color:var(--green) }
+/* WELCOME */
+.wl{min-height:calc(100dvh - 60px);display:flex;flex-direction:column;justify-content:center;padding:48px 22px 110px;max-width:600px;margin:0 auto}
+.wflag{font-size:54px;margin-bottom:24px;display:block}
+.wh{font-family:var(--serif);font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;color:var(--white);line-height:1.0;letter-spacing:-.03em;margin-bottom:18px}
+.wh em{color:var(--gl);font-style:italic}
+.ws{font-size:.9375rem;font-weight:300;color:rgba(203,213,225,.7);line-height:1.75;margin-bottom:36px;max-width:44ch}
+.tstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:36px}
+.tsc{background:rgba(255,255,255,.02);padding:16px 14px;backdrop-filter:blur(8px)}
+.tsico{font-size:18px;margin-bottom:4px}
+.tsn{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gl);line-height:1}
+.tsl{font-size:.575rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);line-height:1.5;margin-top:3px}
+.sprev{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:36px;background:rgba(255,255,255,.02)}
+.spr{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.spr:last-child{border:none}
+.sprn{width:22px;height:22px;border-radius:6px;background:var(--gdim);border:1px solid var(--gbdr);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--gl);flex-shrink:0}
+.sprname{font-size:.875rem;font-weight:600;color:var(--bright);line-height:1.2}
+.sprd{font-size:.72rem;color:var(--muted);margin-top:2px}
+.btngo{width:100%;padding:17px;border-radius:100px;background:linear-gradient(135deg,var(--gl),var(--gold));border:none;color:var(--navy);font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;letter-spacing:.02em;transition:all .3s var(--ease2);box-shadow:var(--shg)}
+.btngo:hover{transform:scale(1.03) translateY(-2px);box-shadow:0 14px 40px rgba(245,200,66,.32)}
+.wnote2{text-align:center;margin-top:14px;font-size:.7rem;color:var(--dim)}
 
-/* ══ BOTTOM NAV ══════════════════════════════════════════ */
-#nav {
-  position:fixed; bottom:0; left:0; right:0; z-index:200;
-  padding:14px 24px max(14px, env(safe-area-inset-bottom));
-  background:rgba(6,16,30,.92);
-  backdrop-filter:blur(24px);
-  border-top:1px solid var(--line);
-  display:none; align-items:center; gap:12px;
-}
-#btn-back {
-  width:48px; height:48px; border-radius:100px; flex-shrink:0;
-  background:rgba(255,255,255,.04); border:1px solid var(--line2);
-  color:var(--muted); font-size:1.1rem; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:all .2s;
-}
-#btn-back:hover { background:rgba(255,255,255,.08); color:var(--white) }
-#btn-next {
-  flex:1; height:48px; border-radius:100px;
-  background:linear-gradient(135deg, var(--gold-lt), var(--gold));
-  border:none; color:var(--navy);
-  font-family:var(--sans); font-size:.95rem; font-weight:800;
-  cursor:pointer; letter-spacing:.02em;
-  transition:all .3s var(--ease2);
-  box-shadow:var(--sh-gold);
-}
-#btn-next:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(245,200,66,.35) }
-#btn-next:active { transform:translateY(0) }
+/* NAV */
+#nav{position:fixed;bottom:0;left:0;right:0;z-index:200;padding:12px 20px max(12px,env(safe-area-inset-bottom));background:rgba(6,16,30,.94);backdrop-filter:blur(24px);border-top:1px solid var(--line);display:none;align-items:center;gap:11px}
+#bback{width:46px;height:46px;border-radius:100px;flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--muted);font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s}
+#bback:hover{background:rgba(255,255,255,.08);color:var(--white)}
+#bnext{flex:1;height:46px;border-radius:100px;background:linear-gradient(135deg,var(--gl),var(--gold));border:none;color:var(--navy);font-family:var(--sans);font-size:.9rem;font-weight:800;cursor:pointer;letter-spacing:.02em;transition:all .3s var(--ease2);box-shadow:var(--shg)}
+#bnext:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(245,200,66,.32)}
+#bnext:active{transform:translateY(0)}
 
-/* ══ FINAL ═══════════════════════════════════════════════ */
-.final-page {
-  max-width:600px; margin:0 auto;
-  padding:60px 24px 60px;
-}
-.final-page::before {
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:radial-gradient(ellipse 70% 60% at 50% 40%, rgba(16,185,129,.06), transparent);
-}
-.final-page > * { position:relative; z-index:1 }
-.final-check-wrap {
-  width:72px; height:72px; border-radius:50%;
-  background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);
-  display:flex; align-items:center; justify-content:center;
-  font-size:2rem; margin:0 auto 28px;
-  animation:popIn .5s var(--ease) both;
-}
-@keyframes popIn { from{transform:scale(0) rotate(-20deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
-.final-h {
-  font-family:var(--serif); font-size:clamp(2rem,5vw,3rem);
-  font-weight:900; color:var(--white); text-align:center;
-  letter-spacing:-.03em; margin-bottom:10px;
-}
-.final-sub { text-align:center; font-size:.9rem; color:rgba(203,213,225,.65); line-height:1.7; margin-bottom:40px }
-.final-box {
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:20px; padding:28px 24px; margin-bottom:20px;
-  backdrop-filter:blur(8px); position:relative; overflow:hidden;
-}
-.final-box::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(245,200,66,.4),transparent);
-}
-.final-box-title {
-  font-size:.575rem; font-weight:700; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--gold-lt); margin-bottom:20px;
-}
-.final-item {
-  display:flex; gap:12px; padding:10px 0;
-  border-bottom:1px solid var(--line); font-size:.875rem; color:var(--muted);
-}
-.final-item:last-child { border:none; padding-bottom:0 }
-.final-item .fc { color:var(--green); flex-shrink:0 }
-.final-price-note {
-  font-size:.78rem; color:var(--muted); line-height:1.65;
-  background:rgba(255,255,255,.025); border-radius:12px;
-  padding:14px 16px; margin-bottom:28px;
-}
-.final-price-note strong { color:var(--text) }
-.btn-wa {
-  display:flex; align-items:center; justify-content:center; gap:12px;
-  width:100%; padding:18px;
-  background:linear-gradient(135deg,#1DA851,#25D366);
-  color:var(--white); border:none; border-radius:100px;
-  font-family:var(--sans); font-size:1rem; font-weight:800;
-  text-decoration:none; cursor:pointer; margin-bottom:12px;
-  transition:all .3s var(--ease2);
-  box-shadow:0 8px 32px rgba(37,211,102,.25);
-}
-.btn-wa:hover { transform:translateY(-2px); box-shadow:0 14px 40px rgba(37,211,102,.35) }
-.btn-secondary {
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  width:100%; padding:15px;
-  background:transparent; border:1px solid var(--line2);
-  border-radius:100px; color:var(--muted);
-  font-family:var(--sans); font-size:.875rem; font-weight:600;
-  cursor:pointer; transition:all .2s;
-}
-.btn-secondary:hover { border-color:rgba(245,200,66,.3); color:var(--gold-lt) }
+/* FINAL */
+.fin{max-width:580px;margin:0 auto;padding:52px 20px 60px;text-align:center}
+.fincheck{width:68px;height:68px;border-radius:50%;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;font-size:1.75rem;margin:0 auto 24px;animation:pop .5s var(--ease) both}
+@keyframes pop{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.finh{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;color:var(--white);letter-spacing:-.025em;margin-bottom:9px}
+.fins{font-size:.9rem;color:rgba(203,213,225,.65);line-height:1.7;margin-bottom:36px}
+.finbox{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:24px 20px;margin-bottom:18px;text-align:left;position:relative;overflow:hidden}
+.finbox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.35),transparent)}
+.finbt{font-size:.55rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gl);margin-bottom:16px}
+.fini{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);line-height:1.45}
+.fini:last-child{border:none;padding-bottom:0}
+.fini .fc{color:var(--grn);flex-shrink:0}
+.finprice{font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.025);border-radius:10px;padding:12px 15px;margin-bottom:24px;line-height:1.6;text-align:left}
+.finprice strong{color:var(--text)}
+.btnwa{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;padding:17px;background:linear-gradient(135deg,#1DAF51,#25D366);color:#fff;border:none;border-radius:100px;font-family:var(--sans);font-size:.9375rem;font-weight:800;text-decoration:none;cursor:pointer;margin-bottom:10px;transition:all .3s var(--ease2);box-shadow:0 6px 24px rgba(37,211,102,.22)}
+.btnwa:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.32)}
+.btnsec{width:100%;padding:13px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--muted);font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .18s}
+.btnsec:hover{border-color:rgba(245,200,66,.3);color:var(--gl)}
 
-/* ══ MOBILE ══════════════════════════════════════════════ */
-@media(max-width:500px) {
-  header { padding:0 16px }
-  .logo-name { font-size:.875rem }
-  .welcome { padding:40px 18px 110px }
-  .welcome-flag { font-size:44px; margin-bottom:20px }
-  .trust-row { grid-template-columns:1fr 1fr 1fr }
-  .trust-num { font-size:1.1rem }
-  .step-page { padding:28px 16px 100px }
-  .step-h { font-size:1.5rem }
-  .card { padding:20px 16px }
-  .card-title { font-size:1rem }
-  .opt { padding:12px 14px }
-  .opt-text { font-size:.85rem }
-  .count-btn { width:48px; height:48px; font-size:1.1rem; border-radius:12px }
-  .btn-gold, #btn-next, .btn-wa { font-size:.9rem; padding:16px 28px }
-  #nav { padding:10px 16px max(10px, env(safe-area-inset-bottom)) }
-  #btn-back { width:44px; height:44px }
-  #btn-next { height:44px }
-  .final-page { padding:40px 18px 50px }
-  .sq-text { font-size:.78rem }
+/* MOBILE */
+@media(max-width:480px){
+  header{padding:0 14px}.wl{padding:32px 16px 100px}.pg{padding:24px 14px 100px}
+  .wh{font-size:2rem}.ph{font-size:1.5rem}.card{padding:17px 14px}
+  .opt{padding:11px 13px}.ot{font-size:.84rem}
+  .cb{width:46px;height:46px;font-size:1.1rem;border-radius:10px}
+  #nav{padding:10px 14px max(10px,env(safe-area-inset-bottom))}
+  #bback{width:42px;height:42px}#bnext{height:42px;font-size:.875rem}
+  .sqt{font-size:.75rem}.tstats{grid-template-columns:1fr 1fr 1fr}
 }
-@media(max-width:360px) {
-  .trust-row { grid-template-columns:1fr }
-  .count-btn { width:44px; height:44px; font-size:1rem; border-radius:10px }
+@media(max-width:360px){
+  .wh{font-size:1.75rem}.cb{width:42px;height:42px;font-size:1rem}
+  .tstats{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<div id="prog"><div id="prog-fill"></div></div>
+<div id="prog"><div id="pfill"></div></div>
 
 <header>
   <a class="logo" href="https://www.asesoriadevisadosglobal.com">
-    <div class="logo-mark">AV</div>
-    <div>
-      <div class="logo-name">Asesoría Visa Global</div>
-      <div class="logo-tag">asesoriadevisadosglobal.com</div>
-    </div>
+    <div class="lm">AV</div>
+    <div><div class="ln">Asesoría Visa Global</div><div class="lt">asesoriadevisadosglobal.com</div></div>
   </a>
-  <div class="hdr-badge" id="hdr-badge"></div>
+  <div class="hbadge" id="hbadge"></div>
 </header>
 
 <main>
 
-<!-- ═══════════════ BIENVENIDA ════════════════════ -->
+<!-- ═══ BIENVENIDA ════════════════════════════════ -->
 <div class="step active" id="s0">
-<div class="welcome">
-  <span class="welcome-flag">🇺🇸</span>
-  <div class="label-chip">Asesoría Visa Global</div>
-  <h1 class="welcome-h">Tu visa USA<br>empieza <em>aquí.</em></h1>
-  <p class="welcome-sub">Responde estas preguntas con calma. Nuestro equipo se encarga de todo: los documentos, la solicitud y el acompañamiento hasta el sello en tu pasaporte.</p>
-
-  <div class="trust-row">
-    <div class="trust-cell">
-      <span class="trust-ico">⏱️</span>
-      <div class="trust-num">10 min</div>
-      <div class="trust-lbl">Tiempo<br>estimado</div>
-    </div>
-    <div class="trust-cell">
-      <span class="trust-ico">🔒</span>
-      <div class="trust-num">100%</div>
-      <div class="trust-lbl">Privado<br>y seguro</div>
-    </div>
-    <div class="trust-cell">
-      <span class="trust-ico">📲</span>
-      <div class="trust-num">24 h</div>
-      <div class="trust-lbl">Respuesta<br>WhatsApp</div>
-    </div>
+<div class="wl">
+  <span class="wflag">🇺🇸</span>
+  <div class="chip">Asesoría Visa Global</div>
+  <h1 class="wh">Tu visa USA<br>empieza <em>aquí.</em></h1>
+  <p class="ws">Respóndenos estas preguntas con calma. Nuestro equipo se encarga de todo: los documentos, la solicitud oficial y el acompañamiento hasta el sello en tu pasaporte.</p>
+  <div class="tstats">
+    <div class="tsc"><div class="tsico">⏱️</div><div class="tsn">15 min</div><div class="tsl">Tiempo<br>estimado</div></div>
+    <div class="tsc"><div class="tsico">🔒</div><div class="tsn">100%</div><div class="tsl">Privado<br>y seguro</div></div>
+    <div class="tsc"><div class="tsico">📲</div><div class="tsn">24 h</div><div class="tsl">Respuesta<br>WhatsApp</div></div>
   </div>
-
-  <div class="steps-preview">
-    <div class="sp-row"><div class="sp-num">1</div><div class="sp-text"><div class="sp-name">¿Quiénes viajan?</div><div class="sp-desc">Número de personas e historial de visas</div></div></div>
-    <div class="sp-row"><div class="sp-num">2</div><div class="sp-text"><div class="sp-name">¿Quién eres y cómo contactarte?</div><div class="sp-desc">Nombre, WhatsApp, pasaporte, datos de padres y redes sociales</div></div></div>
-    <div class="sp-row"><div class="sp-num">3</div><div class="sp-text"><div class="sp-name">¿A dónde quieres ir?</div><div class="sp-desc">Destino, fechas y propósito del viaje</div></div></div>
-    <div class="sp-row"><div class="sp-num">4</div><div class="sp-text"><div class="sp-name">¿Qué tienes en Ecuador?</div><div class="sp-desc">Trabajo, familia y vínculos — la clave para la visa</div></div></div>
-    <div class="sp-row"><div class="sp-num">5</div><div class="sp-text"><div class="sp-name">Preguntas finales</div><div class="sp-desc">Estándar de la embajada — la mayoría responde No</div></div></div>
+  <div class="sprev">
+    <div class="spr"><div class="sprn">1</div><div><div class="sprname">¿Quiénes viajan?</div><div class="sprd">Número de personas, nombres y pasaportes</div></div></div>
+    <div class="spr"><div class="sprn">2</div><div><div class="sprname">Datos personales</div><div class="sprd">Nombre, nacimiento, estado civil, dirección, contacto</div></div></div>
+    <div class="spr"><div class="sprn">3</div><div><div class="sprname">Redes sociales</div><div class="sprd">La embajada las revisa — deben declararse todas</div></div></div>
+    <div class="spr"><div class="sprn">4</div><div><div class="sprname">El viaje</div><div class="sprd">Destino, fechas, alojamiento y quién paga</div></div></div>
+    <div class="spr"><div class="sprn">5</div><div><div class="sprname">Tu familia</div><div class="sprd">Padres, cónyuge y familiares en USA</div></div></div>
+    <div class="spr"><div class="sprn">6</div><div><div class="sprname">Trabajo y estudios</div><div class="sprd">Ocupación, empleador, educación e idiomas</div></div></div>
+    <div class="spr"><div class="sprn">7</div><div><div class="sprname">Viajes e historial de visas</div><div class="sprd">Países visitados, visas anteriores y rechazos</div></div></div>
+    <div class="spr"><div class="sprn">8</div><div><div class="sprname">Últimas preguntas</div><div class="sprd">Preguntas estándar de seguridad — la mayoría responde No</div></div></div>
   </div>
-
-  <button class="btn-gold" onclick="go(1)">Comenzar →</button>
-  <p class="welcome-note">+593 99 444 2512 · Roberto Acosta · 13 años de experiencia</p>
+  <button class="btngo" onclick="go(1)">Comenzar →</button>
+  <p class="wnote2">+593 99 444 2512 · Roberto Acosta · 13 años de experiencia</p>
 </div>
 </div>
 
-<!-- ═══════════════ PASO 1: VIAJEROS ══════════════ -->
-<div class="step" id="s1">
-<div class="step-page">
-  <div class="step-head">
-    <div class="step-super">Paso 1 de 5</div>
-    <h2 class="step-h">¿Quiénes van a viajar?</h2>
-    <p class="step-desc">Cuéntanos cuántas personas incluye tu grupo y si alguna ya intentó obtener visa antes.</p>
-  </div>
+<!-- ═══ PASO 1: VIAJEROS ══════════════════════════ -->
+<div class="step" id="s1"><div class="pg">
+  <div class="chip">Paso 1 de 8</div>
+  <h2 class="ph">¿Quiénes <em>viajan?</em></h2>
+  <p class="pd">Cuéntanos cuántos van y los datos básicos de cada uno. Cada persona necesita su propia solicitud.</p>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">👥</div>
-      <div class="card-meta">
-        <div class="card-tag">Número de viajeros</div>
-        <div class="card-title">¿Cuántas personas viajan?</div>
-        <div class="card-sub">Incluye adultos y niños. Cada persona necesita su propia solicitud.</div>
-      </div>
-    </div>
-    <div class="count-grid" id="count-row">
-      <button class="count-btn" onclick="setCount(1)">1</button>
-      <button class="count-btn" onclick="setCount(2)">2</button>
-      <button class="count-btn" onclick="setCount(3)">3</button>
-      <button class="count-btn" onclick="setCount(4)">4</button>
-      <button class="count-btn" onclick="setCount(5)">5</button>
-      <button class="count-btn" onclick="setCount(6)">6+</button>
+    <div class="ch"><div class="ci">👥</div><div><div class="ctag">Número de viajeros</div><div class="ctitle">¿Cuántas personas van a viajar?</div><div class="csub">Cuenta adultos y niños.</div></div></div>
+    <div class="cg" id="cg-viaj">
+      <button class="cb" onclick="setV(1)">1</button><button class="cb" onclick="setV(2)">2</button>
+      <button class="cb" onclick="setV(3)">3</button><button class="cb" onclick="setV(4)">4</button>
+      <button class="cb" onclick="setV(5)">5</button><button class="cb" onclick="setV(6)">6+</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">📋</div>
-      <div class="card-meta">
-        <div class="card-tag">Historial de visa</div>
-        <div class="card-title">¿Alguno ha solicitado visa americana antes?</div>
-        <div class="card-sub">Aprobada, rechazada o en proceso — cualquier intento cuenta.</div>
+    <div class="ch"><div class="ci">📋</div><div><div class="ctag">Datos por viajero</div><div class="ctitle">Nombre y pasaporte de cada uno</div><div class="csub">Exactamente como aparece en el pasaporte. Deja en blanco lo que no tengas a mano.</div></div></div>
+    <div id="vtcs"></div>
+  </div>
+</div></div>
+
+<!-- ═══ PASO 2: DATOS PERSONALES ══════════════════ -->
+<div class="step" id="s2"><div class="pg">
+  <div class="chip">Paso 2 de 8</div>
+  <h2 class="ph">Datos <em>personales</em></h2>
+  <p class="pd">Del solicitante principal. La embajada necesita estos datos exactamente — ten tu cédula y pasaporte a mano.</p>
+
+  <div class="card">
+    <div class="ch"><div class="ci">👤</div><div><div class="ctag">Identificación</div><div class="ctitle">¿Cómo te llamas y cuándo naciste?</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Apellidos completos <span class="r">*</span></label><input type="text" placeholder="Primer apellido y segundo apellido" oninput="S.apellidos=this.value;sv()"></div>
+        <div class="f s2"><label class="fl">Nombres completos <span class="r">*</span></label><input type="text" placeholder="Primer nombre y segundo nombre" oninput="S.nombres=this.value;sv()"></div>
+        <div class="f"><label class="fl">Sexo <span class="r">*</span></label>
+          <div class="opts row">
+            <button class="opt" onclick="so(this,'sexo',0)"><div class="oc"></div><span class="ot">Masculino</span></button>
+            <button class="opt" onclick="so(this,'sexo',1)"><div class="oc"></div><span class="ot">Femenino</span></button>
+          </div>
+        </div>
+        <div class="f"><label class="fl">Fecha de nacimiento <span class="r">*</span></label><input type="date" onchange="S.nac=this.value;sv()"></div>
+        <div class="f"><label class="fl">Ciudad de nacimiento <span class="r">*</span></label><input type="text" placeholder="Quito / Loja / Guayaquil..." oninput="S.ciudad_nac=this.value;sv()"></div>
+        <div class="f"><label class="fl">Provincia de nacimiento</label><input type="text" placeholder="Pichincha / Loja / Guayas..." oninput="S.prov_nac=this.value;sv()"></div>
+        <div class="f"><label class="fl">Número de cédula <span class="r">*</span></label><input type="text" placeholder="0000000000" oninput="S.cedula=this.value;sv()"></div>
+        <div class="f"><label class="fl">Email <span class="r">*</span></label><input type="email" placeholder="correo@ejemplo.com" oninput="S.email=this.value;sv()"></div>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">💍</div><div><div class="ctag">Estado civil</div><div class="ctitle">¿Cuál es tu estado civil?</div></div></div>
     <div class="opts">
-      <button class="opt" onclick="selOpt(this,'visa_ant',0)">
-        <div class="opt-circle"><div class="opt-circle-dot"></div></div>
-        <span class="opt-text">Sí, alguno ya solicitó antes</span>
-        <span class="opt-arrow">›</span>
-      </button>
-      <button class="opt" onclick="selOpt(this,'visa_ant',1)">
-        <div class="opt-circle"><div class="opt-circle-dot"></div></div>
-        <span class="opt-text">No, es la primera vez para todos</span>
-        <span class="opt-arrow">›</span>
-      </button>
+      <button class="opt" onclick="so(this,'ecivil',0);showC(false)"><div class="oc"></div><span class="ot">Soltero/a</span></button>
+      <button class="opt" onclick="so(this,'ecivil',1);showC(true)"><div class="oc"></div><span class="ot">Casado/a</span></button>
+      <button class="opt" onclick="so(this,'ecivil',2);showC(true)"><div class="oc"></div><span class="ot">Unión libre / Concubinato</span></button>
+      <button class="opt" onclick="so(this,'ecivil',3);showC(false)"><div class="oc"></div><span class="ot">Divorciado/a</span></button>
+      <button class="opt" onclick="so(this,'ecivil',4);showC(false)"><div class="oc"></div><span class="ot">Viudo/a</span></button>
+      <button class="opt" onclick="so(this,'ecivil',5);showC(true)"><div class="oc"></div><span class="ot">Separado/a legalmente</span></button>
     </div>
-  </div>
-
-  <div id="blk-historial" style="display:none">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-ico">🔍</div>
-        <div class="card-meta">
-          <div class="card-tag">Resultado anterior</div>
-          <div class="card-title">¿Cuál fue el resultado?</div>
+    <div id="blk-c" style="display:none;margin-top:16px">
+      <div class="sdiv">Datos del cónyuge / pareja</div>
+      <div class="fg">
+        <div class="gr">
+          <div class="f"><label class="fl">Apellidos del cónyuge <span class="r">*</span></label><input type="text" placeholder="Apellidos" oninput="S.c_ap=this.value;sv()"></div>
+          <div class="f"><label class="fl">Nombres del cónyuge <span class="r">*</span></label><input type="text" placeholder="Nombres" oninput="S.c_nom=this.value;sv()"></div>
+          <div class="f"><label class="fl">Fecha de nacimiento</label><input type="date" onchange="S.c_nac=this.value;sv()"></div>
+          <div class="f"><label class="fl">Nacionalidad</label><input type="text" placeholder="Ecuador / Colombia..." oninput="S.c_nac_pais=this.value;sv()"></div>
+          <div class="f s2"><label class="fl">Ciudad y país de nacimiento</label><input type="text" placeholder="Guayaquil, Ecuador" oninput="S.c_nac_lugar=this.value;sv()"></div>
         </div>
       </div>
-      <div class="warn-note">
-        <span class="in">💪</span>
-        <span>Un rechazo <strong style="color:var(--text)">no cierra la puerta.</strong> Solo cambia la estrategia. Lo importante es ser honesto — la embajada tiene ese historial registrado.</span>
-      </div>
-      <div class="opts">
-        <button class="opt" onclick="selOpt(this,'resultado',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">✅ Fue aprobada (tiene o tuvo visa)</span><span class="opt-arrow">›</span></button>
-        <button class="opt" onclick="selOpt(this,'resultado',1);showRechazo()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">❌ Fue rechazada / negada</span><span class="opt-arrow">›</span></button>
-        <button class="opt" onclick="selOpt(this,'resultado',2);showRechazo()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Algunos aprobados, otros rechazados</span><span class="opt-arrow">›</span></button>
-      </div>
-    </div>
-
-    <div id="blk-rechazo" style="display:none">
-      <div class="card">
-        <div class="card-head">
-          <div class="card-ico">📝</div>
-          <div class="card-meta">
-            <div class="card-tag">Detalles del rechazo</div>
-            <div class="card-title">Cuéntanos más sobre ese rechazo</div>
-            <div class="card-sub">Esto ayuda mucho a definir la estrategia correcta para esta nueva solicitud.</div>
-          </div>
-        </div>
-        <div class="fgroup">
-          <div class="field">
-            <label>Motivo indicado por la embajada</label>
-            <select onchange="S.causal=this.value;save()">
-              <option value="">Selecciona el más cercano...</option>
-              <option value="214b">214(b) — No demostró vínculos con Ecuador</option>
-              <option value="economico">Falta de solvencia económica</option>
-              <option value="docs">Documentación incompleta o inconsistente</option>
-              <option value="migratorio">Antecedentes migratorios</option>
-              <option value="sin_motivo">No indicaron motivo específico</option>
-              <option value="no_recuerdo">No lo recuerdo</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>¿Qué dijo el oficial? <span class="note">(opcional)</span></label>
-            <textarea placeholder="Lo que recuerdes, así sea poco..." oninput="S.que_dijo=this.value;save()"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ═══════════════ PASO 2: CONTACTO ══════════════ -->
-<div class="step" id="s2">
-<div class="step-page">
-  <div class="step-head">
-    <div class="step-super">Paso 2 de 5</div>
-    <h2 class="step-h">¿Quién eres y cómo contactarte?</h2>
-    <p class="step-desc">Datos básicos del solicitante principal. Nuestro equipo te contacta por WhatsApp con el análisis de tu caso.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">👤</div>
-      <div class="card-meta">
-        <div class="card-tag">Datos personales</div>
-        <div class="card-title">Cuéntanos sobre ti</div>
-      </div>
-    </div>
-    <div class="fgroup">
-      <div class="fgrid">
-        <div class="field span2">
-          <label>Nombre completo <span class="req">*</span></label>
-          <input type="text" placeholder="Apellidos y nombres" oninput="S.nombre=this.value;save()">
-        </div>
-        <div class="field">
-          <label>WhatsApp <span class="req">*</span></label>
-          <input type="tel" placeholder="+593 98 000 0000" oninput="S.whatsapp=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Ciudad en Ecuador <span class="req">*</span></label>
-          <input type="text" placeholder="Quito / Guayaquil..." oninput="S.ciudad=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Email <span class="req">*</span></label>
-          <input type="email" placeholder="correo@ejemplo.com" oninput="S.email=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Cédula ecuatoriana <span class="req">*</span></label>
-          <input type="text" placeholder="0000000000" oninput="S.cedula=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Fecha de nacimiento <span class="req">*</span></label>
-          <input type="date" onchange="S.nac=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Ciudad de nacimiento <span class="req">*</span></label>
-          <input type="text" placeholder="Quito / Loja / Guayaquil..." oninput="S.ciudad_nac=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Provincia de nacimiento</label>
-          <input type="text" placeholder="Pichincha / Loja / Guayas..." oninput="S.prov_nac=this.value;save()">
-        </div>
-        <div class="field span2">
-          <label>Estado civil <span class="req">*</span></label>
-          <div class="opts" style="flex-direction:row;gap:8px;flex-wrap:wrap">
-            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',0);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Soltero/a</span></button>
-            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',1);toggleConyuge(true)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Casado/a</span></button>
-            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',2);toggleConyuge(true)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Unión libre</span></button>
-            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',3);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Divorciado/a</span></button>
-            <button class="opt" style="flex:1;min-width:120px;justify-content:center" onclick="selOpt(this,'estado_civil',4);toggleConyuge(false)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Viudo/a</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Datos del cónyuge (condicional) -->
-      <div id="blk-conyuge" style="display:none;margin-top:16px">
-        <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15)">Datos del cónyuge / pareja</div>
-        <div class="fgrid">
-          <div class="field">
-            <label>Apellidos del cónyuge <span class="req">*</span></label>
-            <input type="text" placeholder="Apellidos" oninput="S.conyuge_apellidos=this.value;save()">
-          </div>
-          <div class="field">
-            <label>Nombres del cónyuge <span class="req">*</span></label>
-            <input type="text" placeholder="Nombres completos" oninput="S.conyuge_nombres=this.value;save()">
-          </div>
-          <div class="field">
-            <label>Fecha de nacimiento</label>
-            <input type="date" onchange="S.conyuge_nac=this.value;save()">
-          </div>
-          <div class="field">
-            <label>Nacionalidad del cónyuge</label>
-            <input type="text" placeholder="Ecuador / Colombia..." oninput="S.conyuge_nac_pais=this.value;save()">
-          </div>
-          <div class="field span2">
-            <label>Ciudad y país de nacimiento del cónyuge</label>
-            <input type="text" placeholder="Guayaquil, Ecuador" oninput="S.conyuge_nac_lugar=this.value;save()">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CARD: DIRECCIÓN COMPLETA -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🏠</div>
-      <div class="card-meta">
-        <div class="card-tag">Dirección de domicilio</div>
-        <div class="card-title">¿Dónde vives actualmente?</div>
-        <div class="card-sub">Dirección completa en Ecuador. La embajada la requiere en el formulario.</div>
-      </div>
-    </div>
-    <div class="fgrid">
-      <div class="field span2">
-        <label>Calle y número <span class="req">*</span></label>
-        <input type="text" placeholder="Av. Nombre N00-00 y Calle Transversal" oninput="S.dir_calle=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Barrio / Sector</label>
-        <input type="text" placeholder="Nombre del barrio" oninput="S.dir_barrio=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Provincia <span class="req">*</span></label>
-        <input type="text" placeholder="Pichincha / Guayas..." oninput="S.dir_provincia=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Código postal</label>
-        <input type="text" placeholder="170401" oninput="S.dir_cp=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Teléfono secundario <span class="note">(fijo u otro)</span></label>
-        <input type="tel" placeholder="02-000-0000" oninput="S.tel_sec=this.value;save()">
-      </div>
-    </div>
-  </div>
-
-  <!-- CARD: PASAPORTE -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🛂</div>
-      <div class="card-meta">
-        <div class="card-tag">Pasaporte vigente</div>
-        <div class="card-title">Datos de tu pasaporte</div>
-        <div class="card-sub">Ten el pasaporte físico a mano. Si no lo tienes, déjalo en blanco y envíalo después por WhatsApp.</div>
-      </div>
-    </div>
-    <div class="fgrid">
-      <div class="field">
-        <label>Número de pasaporte <span class="req">*</span></label>
-        <input type="text" placeholder="A0000000" oninput="S.pasaporte=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Fecha de vencimiento <span class="req">*</span></label>
-        <input type="date" onchange="S.pasaporte_vence=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Fecha de emisión</label>
-        <input type="date" onchange="S.pasaporte_emision=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Ciudad donde fue emitido</label>
-        <input type="text" placeholder="Quito / Guayaquil..." oninput="S.pasaporte_ciudad=this.value;save()">
-      </div>
-    </div>
-    <div class="info-note">
-      <span class="in">⚠️</span>
-      <span>Tu pasaporte necesita al menos <strong style="color:var(--text)">6 meses de vigencia</strong> desde la fecha de la entrevista. Si vence pronto, nuestro equipo te avisará.</span>
-    </div>
-  </div>
-
-  <!-- CARD: IDIOMAS -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🗣️</div>
-      <div class="card-meta">
-        <div class="card-tag">Idiomas</div>
-        <div class="card-title">¿Qué idiomas hablas?</div>
-        <div class="card-sub">Marca todos los que hablas, aunque sea básico. La embajada lo pregunta en el formulario.</div>
-      </div>
-    </div>
-    <div class="opts" style="flex-direction:row;flex-wrap:wrap;gap:8px">
-      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_es')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Español</span></button>
-      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_en')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Inglés</span></button>
-      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_qu')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Quechua / Kichwa</span></button>
-      <button class="opt multi" style="flex:1;min-width:140px;justify-content:center" onclick="togMulti(this,'idioma_pt')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Portugués</span></button>
-    </div>
-    <div class="field" style="margin-top:12px">
-      <label>Otros idiomas</label>
-      <input type="text" placeholder="Francés, Italiano, Alemán..." oninput="S.idiomas_otros=this.value;save()">
-    </div>
-  </div>
-
-  <!-- CARD: DATOS DE PADRES -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">👨‍👩‍👧</div>
-      <div class="card-meta">
-        <div class="card-tag">Datos de padres</div>
-        <div class="card-title">Información de tu padre y madre</div>
-        <div class="card-sub">La embajada lo solicita siempre en el formulario oficial. Pon los datos que tengas.</div>
-      </div>
-    </div>
-    <div class="why-box">
-      <strong>¿Por qué lo pide la embajada?</strong> Es un requisito estándar del DS-160 para todos los solicitantes, independientemente de la edad.
-    </div>
-    <div class="fgroup">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15)">Padre</div>
-      <div class="fgrid">
-        <div class="field">
-          <label>Apellidos del padre <span class="req">*</span></label>
-          <input type="text" placeholder="Apellidos paternos" oninput="S.padre_apellidos=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Nombres del padre <span class="req">*</span></label>
-          <input type="text" placeholder="Nombres completos" oninput="S.padre_nombres=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Fecha de nacimiento del padre</label>
-          <input type="date" onchange="S.padre_nac=this.value;save()">
-        </div>
-        <div class="field">
-          <label>¿El padre está en USA?</label>
-          <div class="opts" style="flex-direction:row;gap:8px">
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí</span></button>
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No</span></button>
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'padre_usa',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Fallecido</span></button>
-          </div>
-        </div>
-      </div>
-
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(245,200,66,.15);margin-top:8px">Madre</div>
-      <div class="fgrid">
-        <div class="field">
-          <label>Apellidos de la madre <span class="req">*</span></label>
-          <input type="text" placeholder="Apellidos maternos" oninput="S.madre_apellidos=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Nombres de la madre <span class="req">*</span></label>
-          <input type="text" placeholder="Nombres completos" oninput="S.madre_nombres=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Fecha de nacimiento de la madre</label>
-          <input type="date" onchange="S.madre_nac=this.value;save()">
-        </div>
-        <div class="field">
-          <label>¿La madre está en USA?</label>
-          <div class="opts" style="flex-direction:row;gap:8px">
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí</span></button>
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No</span></button>
-            <button class="opt" style="flex:1;justify-content:center" onclick="selOpt(this,'madre_usa',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Fallecida</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CARD: REDES SOCIALES -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">📱</div>
-      <div class="card-meta">
-        <div class="card-tag">Redes sociales</div>
-        <div class="card-title">¿Qué redes sociales usas?</div>
-        <div class="card-sub">La embajada americana las revisa. Deben declararse todas — activas o no.</div>
-      </div>
-    </div>
-    <div class="why-box">
-      <strong>Es obligatorio declararlas.</strong> El gobierno de USA revisa las redes sociales de todos los solicitantes. Si tienes cuenta, aunque no la uses activamente, debes incluirla.
-    </div>
-    <div class="fgroup" id="redes-group">
-      <div class="fgrid">
-        <div class="field">
-          <label>Facebook <span class="note">(usuario o URL)</span></label>
-          <input type="text" placeholder="@tuusuario" oninput="S.red_fb=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Instagram <span class="note">(usuario)</span></label>
-          <input type="text" placeholder="@tuusuario" oninput="S.red_ig=this.value;save()">
-        </div>
-        <div class="field">
-          <label>Twitter / X <span class="note">(usuario)</span></label>
-          <input type="text" placeholder="@tuusuario" oninput="S.red_tw=this.value;save()">
-        </div>
-        <div class="field">
-          <label>TikTok <span class="note">(usuario)</span></label>
-          <input type="text" placeholder="@tuusuario" oninput="S.red_tt=this.value;save()">
-        </div>
-        <div class="field">
-          <label>LinkedIn <span class="note">(si tienes)</span></label>
-          <input type="text" placeholder="@tuusuario o URL" oninput="S.red_li=this.value;save()">
-        </div>
-        <div class="field">
-          <label>YouTube <span class="note">(si tienes canal)</span></label>
-          <input type="text" placeholder="Nombre del canal o URL" oninput="S.red_yt=this.value;save()">
-        </div>
-        <div class="field span2">
-          <label>Otras redes <span class="note">(WhatsApp, Snapchat, Pinterest, etc.)</span></label>
-          <input type="text" placeholder="Plataforma y usuario, separados por coma" oninput="S.red_otros=this.value;save()">
-        </div>
-      </div>
-    </div>
-    <div class="info-note">
-      <span class="in">💡</span>
-      <span>Si no tienes cuenta en alguna plataforma, déjala en blanco. Si la tienes pero ya no la usas, igual ponla — es obligatorio declararla.</span>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- ═══════════════ PASO 3: VIAJE ══════════════════ -->
-<div class="step" id="s3">
-<div class="step-page">
-  <div class="step-head">
-    <div class="step-super">Paso 3 de 5</div>
-    <h2 class="step-h">¿A dónde quieres ir?</h2>
-    <p class="step-desc">El plan del viaje. No tiene que ser perfecto — nuestro equipo te ayuda a definir los detalles.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">✈️</div>
-      <div class="card-meta">
-        <div class="card-tag">Propósito del viaje</div>
-        <div class="card-title">¿Para qué quieren ir a USA?</div>
-      </div>
-    </div>
-    <div class="opts">
-      <button class="opt" onclick="selOpt(this,'proposito',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Turismo y vacaciones</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'proposito',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Visita a familiares</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'proposito',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Negocios</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'proposito',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Turismo y visita familiar</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'proposito',4)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Otro motivo</span><span class="opt-arrow">›</span></button>
-    </div>
-    <div class="field" style="margin-top:16px">
-      <label>Ciudad de destino en USA</label>
-      <input type="text" placeholder="Miami / Orlando / Nueva York / Los Ángeles..." oninput="S.destino=this.value;save()">
     </div>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">📅</div>
-      <div class="card-meta">
-        <div class="card-tag">Fechas</div>
-        <div class="card-title">¿Cuándo piensan viajar?</div>
-        <div class="card-sub">Aproximado está bien — las fechas exactas se coordinan después.</div>
+    <div class="ch"><div class="ci">🏠</div><div><div class="ctag">Dirección y contacto</div><div class="ctitle">¿Dónde vives actualmente?</div><div class="csub">Dirección completa en Ecuador.</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Calle y número <span class="r">*</span></label><input type="text" placeholder="Av. Nombre N00-00 y Calle" oninput="S.dir_calle=this.value;sv()"></div>
+        <div class="f"><label class="fl">Barrio / Sector</label><input type="text" placeholder="Nombre del barrio" oninput="S.dir_barrio=this.value;sv()"></div>
+        <div class="f"><label class="fl">Ciudad <span class="r">*</span></label><input type="text" placeholder="Quito / Guayaquil..." oninput="S.dir_ciudad=this.value;sv()"></div>
+        <div class="f"><label class="fl">Provincia <span class="r">*</span></label><input type="text" placeholder="Pichincha / Guayas..." oninput="S.dir_prov=this.value;sv()"></div>
+        <div class="f"><label class="fl">Código postal</label><input type="text" placeholder="170401" oninput="S.dir_cp=this.value;sv()"></div>
+        <div class="f"><label class="fl">Teléfono principal <span class="r">*</span></label><input type="tel" placeholder="+593 98 000 0000" oninput="S.tel=this.value;sv()"></div>
+        <div class="f"><label class="fl">Teléfono fijo / secundario</label><input type="tel" placeholder="02-000-0000" oninput="S.tel2=this.value;sv()"></div>
       </div>
-    </div>
-    <div class="opts">
-      <button class="opt" onclick="selOpt(this,'cuando',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">En los próximos 3 meses</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'cuando',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Entre 3 y 6 meses</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'cuando',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">En 6 a 12 meses</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'cuando',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Más de un año</span><span class="opt-arrow">›</span></button>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🏨</div>
-      <div class="card-meta">
-        <div class="card-tag">Alojamiento y financiamiento</div>
-        <div class="card-title">¿Dónde se quedan y quién paga?</div>
-      </div>
-    </div>
-    <div class="fgroup">
-      <div class="field">
-        <label>Hotel o dirección del anfitrión <span class="note">(si ya lo tienen)</span></label>
-        <input type="text" placeholder="Nombre del hotel / Dirección de familiar..." oninput="S.alojamiento=this.value;save()">
-      </div>
-      <div class="field">
-        <label>¿Quién financia el viaje? <span class="req">*</span></label>
-        <div class="opts">
-          <button class="opt" onclick="selOpt(this,'paga',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Yo mismo / recursos propios</span><span class="opt-arrow">›</span></button>
-          <button class="opt" onclick="selOpt(this,'paga',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Un familiar que vive en USA</span><span class="opt-arrow">›</span></button>
-          <button class="opt" onclick="selOpt(this,'paga',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Mi empresa</span><span class="opt-arrow">›</span></button>
-          <button class="opt" onclick="selOpt(this,'paga',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Entre varias personas</span><span class="opt-arrow">›</span></button>
+    <div class="ch"><div class="ci">🛂</div><div><div class="ctag">Pasaporte</div><div class="ctitle">Datos de tu pasaporte vigente</div><div class="csub">Ten el pasaporte a mano. Si no puedes ahora, déjalo en blanco y envíalo por WhatsApp después.</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f"><label class="fl">Número de pasaporte <span class="r">*</span></label><input type="text" placeholder="A0000000" oninput="S.pp_num=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de emisión</label><input type="date" onchange="S.pp_emision=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de vencimiento <span class="r">*</span></label><input type="date" onchange="S.pp_vence=this.value;sv()"></div>
+        <div class="f"><label class="fl">Ciudad donde fue emitido</label><input type="text" placeholder="Quito / Guayaquil..." oninput="S.pp_ciudad=this.value;sv()"></div>
+        <div class="f"><label class="fl">¿Has perdido algún pasaporte?</label>
+          <div class="opts row"><button class="opt" onclick="so(this,'pp_perdido',0)"><div class="oc"></div><span class="ot">Sí</span></button><button class="opt" onclick="so(this,'pp_perdido',1)"><div class="oc"></div><span class="ot">No</span></button></div>
+        </div>
+        <div class="f"><label class="fl">¿Tienes otra nacionalidad?</label>
+          <div class="opts row"><button class="opt" onclick="so(this,'otra_nac',0)"><div class="oc"></div><span class="ot">Sí</span></button><button class="opt" onclick="so(this,'otra_nac',1)"><div class="oc"></div><span class="ot">No</span></button></div>
         </div>
       </div>
     </div>
+    <div class="inote"><span class="ii">⚠️</span><span>Tu pasaporte necesita al menos <strong style="color:var(--text)">6 meses de vigencia</strong> desde la entrevista. Nuestro equipo te avisará si necesitas renovarlo.</span></div>
   </div>
+</div></div>
 
-  <!-- CARD: CONTACTO EN USA -->
+<!-- ═══ PASO 3: REDES SOCIALES ════════════════════ -->
+<div class="step" id="s3"><div class="pg">
+  <div class="chip">Paso 3 de 8</div>
+  <h2 class="ph">Redes <em>sociales</em></h2>
+  <p class="pd">La embajada americana revisa las redes de todos los solicitantes. Tienes que declararlas todas — activas o no.</p>
+
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">📍</div>
-      <div class="card-meta">
-        <div class="card-tag">Contacto en USA</div>
-        <div class="card-title">¿A quién visitas o dónde te quedas?</div>
-        <div class="card-sub">La embajada necesita un punto de contacto en USA. Puede ser el hotel o un familiar/amigo.</div>
+    <div class="ch"><div class="ci">📱</div><div><div class="ctag">Plataformas sociales</div><div class="ctitle">¿Qué redes sociales usas?</div><div class="csub">Pon el usuario tal como aparece en tu perfil. Si no tienes, déjalo en blanco.</div></div></div>
+    <div class="why"><strong>Es obligatorio declarar todas las cuentas</strong> de los últimos 5 años, incluso las que ya no uses activamente.</div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f"><label class="fl">Facebook <span class="nt">(usuario o URL)</span></label><input type="text" placeholder="@usuario" oninput="S.r_fb=this.value;sv()"></div>
+        <div class="f"><label class="fl">Instagram</label><input type="text" placeholder="@usuario" oninput="S.r_ig=this.value;sv()"></div>
+        <div class="f"><label class="fl">Twitter / X</label><input type="text" placeholder="@usuario" oninput="S.r_tw=this.value;sv()"></div>
+        <div class="f"><label class="fl">TikTok</label><input type="text" placeholder="@usuario" oninput="S.r_tt=this.value;sv()"></div>
+        <div class="f"><label class="fl">LinkedIn</label><input type="text" placeholder="@usuario o URL" oninput="S.r_li=this.value;sv()"></div>
+        <div class="f"><label class="fl">YouTube</label><input type="text" placeholder="Nombre del canal" oninput="S.r_yt=this.value;sv()"></div>
+        <div class="f"><label class="fl">Snapchat</label><input type="text" placeholder="@usuario" oninput="S.r_snap=this.value;sv()"></div>
+        <div class="f"><label class="fl">Pinterest</label><input type="text" placeholder="@usuario" oninput="S.r_pin=this.value;sv()"></div>
+        <div class="f s2"><label class="fl">Otras plataformas <span class="nt">(WhatsApp Business, Twitch, etc.)</span></label><input type="text" placeholder="Plataforma: @usuario, Plataforma: @usuario..." oninput="S.r_otros=this.value;sv()"></div>
       </div>
     </div>
-    <div class="fgrid">
-      <div class="field">
-        <label>Nombre del contacto / Hotel <span class="req">*</span></label>
-        <input type="text" placeholder="Juan Pérez / Hotel Marriott" oninput="S.contacto_usa_nombre=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Relación con el contacto</label>
-        <select onchange="S.contacto_usa_rel=this.value;save()">
-          <option value="">— Seleccionar —</option>
-          <option>Familiar</option>
-          <option>Amigo/a</option>
-          <option>Hotel / Alojamiento</option>
-          <option>Empresa / Socio de negocios</option>
-          <option>Otro</option>
-        </select>
-      </div>
-      <div class="field span2">
-        <label>Dirección completa en USA <span class="req">*</span></label>
-        <input type="text" placeholder="8300 Jamaican Court, Orlando, FL 32819" oninput="S.contacto_usa_dir=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Teléfono del contacto en USA</label>
-        <input type="tel" placeholder="001-407-000-0000" oninput="S.contacto_usa_tel=this.value;save()">
-      </div>
-      <div class="field">
-        <label>Email del contacto</label>
-        <input type="email" placeholder="contacto@hotel.com" oninput="S.contacto_usa_email=this.value;save()">
-      </div>
-    </div>
-    <div class="info-note">
-      <span class="in">💡</span>
-      <span>Si vas a un hotel, pon el nombre y dirección del hotel. Si aún no tienes nada definido, escribe "Por definir" — nuestro equipo te ayuda a completarlo.</span>
-    </div>
+    <div class="inote"><span class="ii">💡</span><span>Si dejaste de usar una red hace años pero aún tienes la cuenta, también hay que incluirla. Declararlas todas evita problemas en la entrevista.</span></div>
   </div>
+</div></div>
 
-  <!-- CARD: VIAJES PREVIOS -->
+<!-- ═══ PASO 4: EL VIAJE ══════════════════════════ -->
+<div class="step" id="s4"><div class="pg">
+  <div class="chip">Paso 4 de 8</div>
+  <h2 class="ph">El <em>viaje</em></h2>
+  <p class="pd">Cuéntanos el plan. No tiene que ser definitivo — nuestro equipo te ayuda a definir los detalles.</p>
+
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🌍</div>
-      <div class="card-meta">
-        <div class="card-tag">Historial de viajes</div>
-        <div class="card-title">¿Has viajado a otros países en los últimos 5 años?</div>
-        <div class="card-sub">Haber viajado antes suma puntos a tu perfil. Menciona todos los países que hayas visitado.</div>
-      </div>
-    </div>
+    <div class="ch"><div class="ci">✈️</div><div><div class="ctag">Propósito y destino</div><div class="ctitle">¿Para qué van y a dónde?</div></div></div>
     <div class="opts" style="margin-bottom:14px">
-      <button class="opt" onclick="selOpt(this,'viajes_prev',0);showViajesPrev()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Sí, he viajado a otros países</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'viajes_prev',1);hideViajesPrev()"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">No, solo he estado en Ecuador</span><span class="opt-arrow">›</span></button>
+      <button class="opt" onclick="so(this,'prop',0)"><div class="oc"></div><span class="ot">Turismo y vacaciones</span></button>
+      <button class="opt" onclick="so(this,'prop',1)"><div class="oc"></div><span class="ot">Visita a familiares</span></button>
+      <button class="opt" onclick="so(this,'prop',2)"><div class="oc"></div><span class="ot">Negocios</span></button>
+      <button class="opt" onclick="so(this,'prop',3)"><div class="oc"></div><span class="ot">Turismo y visita familiar</span></button>
+      <button class="opt" onclick="so(this,'prop',4)"><div class="oc"></div><span class="ot">Tratamiento médico</span></button>
+      <button class="opt" onclick="so(this,'prop',5)"><div class="oc"></div><span class="ot">Otro motivo</span></button>
     </div>
-    <div id="blk-viajes-prev" style="display:none">
-      <div class="field">
-        <label>Países visitados y año aproximado</label>
-        <textarea placeholder="Colombia (2023), Perú (2022), España (2019)..." oninput="S.paises_visitados=this.value;save()"></textarea>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Ciudad de destino principal en USA</label><input type="text" placeholder="Miami / Orlando / Nueva York..." oninput="S.destino=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de llegada a USA <span class="nt">(aprox.)</span></label><input type="date" onchange="S.llegada=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de salida de USA <span class="nt">(aprox.)</span></label><input type="date" onchange="S.salida=this.value;sv()"></div>
       </div>
-      <div class="field" style="margin-top:12px">
-        <label>¿Tienes visa vigente de algún otro país?</label>
-        <input type="text" placeholder="Visa Schengen (España 2024), Visa Canadá..." oninput="S.otras_visas=this.value;save()">
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- ═══════════════ PASO 4: SITUACIÓN ══════════════ -->
-<div class="step" id="s4">
-<div class="step-page">
-  <div class="step-head">
-    <div class="step-super">Paso 4 de 5</div>
-    <h2 class="step-h">¿Qué tienes en Ecuador?</h2>
-    <p class="step-desc">Este paso es clave. La embajada quiere ver que tienes razones sólidas para regresar. Cuéntanos todo lo que tengas.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-head">
-      <div class="card-ico">💼</div>
-      <div class="card-meta">
-        <div class="card-tag">Situación laboral</div>
-        <div class="card-title">¿En qué trabajas actualmente?</div>
-      </div>
-    </div>
-    <div class="why-box">
-      <strong>¿Por qué importa?</strong> La estabilidad laboral es uno de los argumentos más fuertes para obtener la visa. La embajada quiere saber que tienes un trabajo al que regresar.
-    </div>
-    <div class="opts">
-      <button class="opt" onclick="selOpt(this,'trabajo',0)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Empleado en empresa (con contrato)</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'trabajo',1)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo mi propio negocio / soy independiente</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'trabajo',2)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Estudiante</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'trabajo',3)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Jubilado / pensionista</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'trabajo',4)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Ama de casa</span><span class="opt-arrow">›</span></button>
-      <button class="opt" onclick="selOpt(this,'trabajo',5)"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Desempleado actualmente</span><span class="opt-arrow">›</span></button>
-    </div>
-    <div class="field" style="margin-top:16px">
-      <label>Nombre de tu empresa o actividad</label>
-      <input type="text" placeholder="Empresa donde trabajas / tipo de negocio..." oninput="S.empleador=this.value;save()">
     </div>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🏠</div>
-      <div class="card-meta">
-        <div class="card-tag">Vínculos con Ecuador</div>
-        <div class="card-title">¿Qué te ata a Ecuador?</div>
+    <div class="ch"><div class="ci">🏨</div><div><div class="ctag">Alojamiento en USA</div><div class="ctitle">¿Dónde se van a quedar?</div><div class="csub">Hotel, casa de familiar o amigo. Si no está definido aún, escribe "por definir".</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Nombre del hotel o del anfitrión <span class="r">*</span></label><input type="text" placeholder="Hotel Marriott / Casa de Juan García" oninput="S.aloj_nombre=this.value;sv()"></div>
+        <div class="f s2"><label class="fl">Dirección completa donde se quedan <span class="r">*</span></label><input type="text" placeholder="8300 Jamaican Court, Orlando, FL 32819" oninput="S.aloj_dir=this.value;sv()"></div>
+        <div class="f"><label class="fl">Teléfono del alojamiento</label><input type="tel" placeholder="001-407-000-0000" oninput="S.aloj_tel=this.value;sv()"></div>
+        <div class="f"><label class="fl">Email del alojamiento <span class="nt">(si tienen)</span></label><input type="email" placeholder="hotel@ejemplo.com" oninput="S.aloj_email=this.value;sv()"></div>
+        <div class="f"><label class="fl">Relación con el contacto</label>
+          <select onchange="S.aloj_rel=this.value;sv()">
+            <option value="">— Seleccionar —</option>
+            <option>Hotel / Alojamiento turístico</option>
+            <option>Familiar</option><option>Amigo/a</option>
+            <option>Empresa / Socio de negocios</option><option>Otro</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="why-box">
-      <strong>Este es el argumento más poderoso.</strong> La pregunta real del cónsul es: "¿Por qué va a volver?" — todo lo que tienes aquí es tu mejor respuesta.
-    </div>
-    <div class="opts">
-      <button class="opt multi" onclick="togMulti(this,'v_hijos')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo hijos que se quedan en Ecuador</span><span class="opt-arrow">›</span></button>
-      <button class="opt multi" onclick="togMulti(this,'v_trabajo')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo trabajo estable al que regresar</span><span class="opt-arrow">›</span></button>
-      <button class="opt multi" onclick="togMulti(this,'v_casa')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo casa o propiedad propia</span><span class="opt-arrow">›</span></button>
-      <button class="opt multi" onclick="togMulti(this,'v_negocio')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo negocio propio</span><span class="opt-arrow">›</span></button>
-      <button class="opt multi" onclick="togMulti(this,'v_familia')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Tengo pareja / padres / familiares directos aquí</span><span class="opt-arrow">›</span></button>
-      <button class="opt multi" onclick="togMulti(this,'v_estudios')"><div class="opt-circle"><div class="opt-circle-dot"></div></div><span class="opt-text">Estoy estudiando actualmente</span><span class="opt-arrow">›</span></button>
-    </div>
-    <div class="info-note">
-      <span class="in">💡</span>
-      <span>No te preocupes si tienes pocos vínculos — nuestro equipo sabe cómo construir el argumento más sólido posible con lo que tienes.</span>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ═══════════════ PASO 5: SEGURIDAD ══════════════ -->
-<div class="step" id="s5">
-<div class="step-page">
-  <div class="step-head">
-    <div class="step-super">Paso 5 de 5 — ¡Ya casi!</div>
-    <h2 class="step-h">Preguntas finales</h2>
-    <p class="step-desc">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde No a todas. Si alguna aplica, nuestro equipo sabe exactamente cómo manejarlo.</p>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">🔐</div>
-      <div class="card-meta">
-        <div class="card-tag">Preguntas estándar — sí o no</div>
-        <div class="card-title">Responde con total honestidad</div>
-        <div class="card-sub">Son preguntas que la embajada registra. Si hay algún Sí, escríbelo sin miedo.</div>
+    <div class="ch"><div class="ci">💳</div><div><div class="ctag">Financiamiento</div><div class="ctitle">¿Quién paga el viaje?</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'paga',0);showPagador(false)"><div class="oc"></div><span class="ot">Yo mismo / mis propios recursos</span></button>
+      <button class="opt" onclick="so(this,'paga',1);showPagador(true)"><div class="oc"></div><span class="ot">Un familiar que vive en USA</span></button>
+      <button class="opt" onclick="so(this,'paga',2);showPagador(true)"><div class="oc"></div><span class="ot">Mi empresa u organización</span></button>
+      <button class="opt" onclick="so(this,'paga',3);showPagador(true)"><div class="oc"></div><span class="ot">Otra persona</span></button>
+    </div>
+    <div id="blk-pag" style="display:none">
+      <div class="gr">
+        <div class="f"><label class="fl">Nombre de quien paga <span class="r">*</span></label><input type="text" placeholder="Apellidos, Nombres" oninput="S.pag_nom=this.value;sv()"></div>
+        <div class="f"><label class="fl">Relación contigo</label>
+          <select onchange="S.pag_rel=this.value;sv()">
+            <option value="">— Seleccionar —</option>
+            <option>Padre / Madre</option><option>Cónyuge / Pareja</option>
+            <option>Hijo/a</option><option>Hermano/a</option>
+            <option>Otro familiar</option><option>Amigo/a</option>
+            <option>Empresa / Organización</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="f"><label class="fl">Teléfono</label><input type="tel" placeholder="+593 / +1..." oninput="S.pag_tel=this.value;sv()"></div>
+        <div class="f"><label class="fl">Email</label><input type="email" placeholder="correo@ejemplo.com" oninput="S.pag_email=this.value;sv()"></div>
       </div>
     </div>
-    <div id="sq-list"></div>
+  </div>
+</div></div>
+
+<!-- ═══ PASO 5: FAMILIA ═══════════════════════════ -->
+<div class="step" id="s5"><div class="pg">
+  <div class="chip">Paso 5 de 8</div>
+  <h2 class="ph">Tu <em>familia</em></h2>
+  <p class="pd">Datos de tus padres y si tienes familiares en USA. La embajada siempre lo pregunta.</p>
+
+  <div class="card">
+    <div class="ch"><div class="ci">👨</div><div><div class="ctag">Padre</div><div class="ctitle">Datos de tu padre</div><div class="csub">Exactamente como aparece en su cédula o pasaporte.</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f"><label class="fl">Apellidos del padre <span class="r">*</span></label><input type="text" placeholder="Apellidos completos" oninput="S.p_ap=this.value;sv()"></div>
+        <div class="f"><label class="fl">Nombres del padre <span class="r">*</span></label><input type="text" placeholder="Nombres completos" oninput="S.p_nom=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de nacimiento</label><input type="date" onchange="S.p_nac=this.value;sv()"></div>
+        <div class="f"><label class="fl">¿Tu padre está en USA? <span class="r">*</span></label>
+          <div class="opts row">
+            <button class="opt" onclick="so(this,'p_usa',0)"><div class="oc"></div><span class="ot">Sí</span></button>
+            <button class="opt" onclick="so(this,'p_usa',1)"><div class="oc"></div><span class="ot">No</span></button>
+            <button class="opt" onclick="so(this,'p_usa',2)"><div class="oc"></div><span class="ot">Fallecido</span></button>
+            <button class="opt" onclick="so(this,'p_usa',3)"><div class="oc"></div><span class="ot">No sé</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="card-ico">💬</div>
-      <div class="card-meta">
-        <div class="card-tag">Observaciones adicionales</div>
-        <div class="card-title">¿Hay algo más que debamos saber?</div>
-        <div class="card-sub">Cualquier situación especial. Déjalo en blanco si no hay nada más.</div>
+    <div class="ch"><div class="ci">👩</div><div><div class="ctag">Madre</div><div class="ctitle">Datos de tu madre</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f"><label class="fl">Apellidos de la madre <span class="r">*</span></label><input type="text" placeholder="Apellidos completos" oninput="S.m_ap=this.value;sv()"></div>
+        <div class="f"><label class="fl">Nombres de la madre <span class="r">*</span></label><input type="text" placeholder="Nombres completos" oninput="S.m_nom=this.value;sv()"></div>
+        <div class="f"><label class="fl">Fecha de nacimiento</label><input type="date" onchange="S.m_nac=this.value;sv()"></div>
+        <div class="f"><label class="fl">¿Tu madre está en USA? <span class="r">*</span></label>
+          <div class="opts row">
+            <button class="opt" onclick="so(this,'m_usa',0)"><div class="oc"></div><span class="ot">Sí</span></button>
+            <button class="opt" onclick="so(this,'m_usa',1)"><div class="oc"></div><span class="ot">No</span></button>
+            <button class="opt" onclick="so(this,'m_usa',2)"><div class="oc"></div><span class="ot">Fallecida</span></button>
+            <button class="opt" onclick="so(this,'m_usa',3)"><div class="oc"></div><span class="ot">No sé</span></button>
+          </div>
+        </div>
       </div>
     </div>
-    <textarea id="obs-field" placeholder="Familiar en USA, deportación previa en otro país, situación legal especial, cualquier dato importante..." oninput="S.obs=this.value;save()" style="width:100%;background:rgba(11,30,59,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--white);font-family:var(--sans);font-size:.9rem;padding:12px 16px;outline:none;resize:vertical;min-height:88px;line-height:1.6;transition:border-color .2s,box-shadow .2s"></textarea>
-  </div>
-</div>
-</div>
-
-<!-- ═══════════════ FINAL ═══════════════════════════ -->
-<div class="step" id="s-final">
-<div class="final-page">
-  <div class="final-check-wrap">✓</div>
-  <h2 class="final-h" id="final-h">¡Listo!</h2>
-  <p class="final-sub">Nuestro equipo recibió tu información. En menos de <strong style="color:var(--gold-lt)">24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</p>
-
-  <div class="final-box">
-    <div class="final-box-title">Tu asesoría completa — $250 USD por persona</div>
-    <div class="final-item"><span class="fc">✓</span>Análisis completo de tu perfil migratorio</div>
-    <div class="final-item"><span class="fc">✓</span>Preparación y revisión de todos tus documentos</div>
-    <div class="final-item"><span class="fc">✓</span>Llenado de la solicitud oficial ante la embajada</div>
-    <div class="final-item"><span class="fc">✓</span>Simulacro de entrevista consular</div>
-    <div class="final-item"><span class="fc">✓</span>Acompañamiento por WhatsApp hasta el sello en tu pasaporte</div>
   </div>
 
-  <div class="final-price-note">
-    La tasa consular <strong>($185 USD)</strong> se paga aparte, directamente al gobierno de USA. No es parte de nuestros honorarios.
+  <div class="card">
+    <div class="ch"><div class="ci">🇺🇸</div><div><div class="ctag">Familiares en USA</div><div class="ctitle">¿Tienes familiares viviendo en USA?</div><div class="csub">Con residencia, ciudadanía o cualquier estatus migratorio.</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'fam_usa',0);show('blk-famusa')"><div class="oc"></div><span class="ot">Sí, tengo familiares en USA</span></button>
+      <button class="opt" onclick="so(this,'fam_usa',1);hide('blk-famusa')"><div class="oc"></div><span class="ot">No tengo familiares en USA</span></button>
+    </div>
+    <div id="blk-famusa" style="display:none">
+      <div class="f"><label class="fl">¿Quiénes son y cuál es su estatus migratorio?</label>
+        <textarea placeholder="Ej: Hermano — CARLOS PÉREZ — ciudadano americano&#10;Tía — MARÍA GÓMEZ — residente permanente (green card)&#10;(Un familiar por línea)" oninput="S.fam_usa_det=this.value;sv()"></textarea>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══ PASO 6: TRABAJO Y ESTUDIOS ════════════════ -->
+<div class="step" id="s6"><div class="pg">
+  <div class="chip">Paso 6 de 8</div>
+  <h2 class="ph">Trabajo y <em>estudios</em></h2>
+  <p class="pd">Tu situación laboral y académica — uno de los factores más importantes para la visa.</p>
+
+  <div class="card">
+    <div class="ch"><div class="ci">💼</div><div><div class="ctag">Situación laboral actual</div><div class="ctitle">¿En qué trabajas?</div></div></div>
+    <div class="why"><strong>¿Por qué importa?</strong> La embajada quiere confirmar que tienes estabilidad en Ecuador y razones económicas para regresar.</div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'ocup',0)"><div class="oc"></div><span class="ot">Empleado en empresa (relación de dependencia)</span></button>
+      <button class="opt" onclick="so(this,'ocup',1)"><div class="oc"></div><span class="ot">Tengo mi propio negocio / soy independiente</span></button>
+      <button class="opt" onclick="so(this,'ocup',2)"><div class="oc"></div><span class="ot">Estudiante</span></button>
+      <button class="opt" onclick="so(this,'ocup',3)"><div class="oc"></div><span class="ot">Jubilado / pensionista</span></button>
+      <button class="opt" onclick="so(this,'ocup',4)"><div class="oc"></div><span class="ot">Ama / amo de casa</span></button>
+      <button class="opt" onclick="so(this,'ocup',5)"><div class="oc"></div><span class="ot">Sin empleo actualmente</span></button>
+    </div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Nombre de la empresa / institución / negocio <span class="r">*</span></label><input type="text" placeholder="EMPRESA SA / Colegio / Mi negocio de..." oninput="S.emp_nom=this.value;sv()"></div>
+        <div class="f s2"><label class="fl">Dirección del empleador</label><input type="text" placeholder="Av. Nombre N00-00, Ciudad" oninput="S.emp_dir=this.value;sv()"></div>
+        <div class="f"><label class="fl">Teléfono del empleador</label><input type="tel" placeholder="02-000-0000" oninput="S.emp_tel=this.value;sv()"></div>
+        <div class="f"><label class="fl">Salario mensual aproximado <span class="nt">(en dólares)</span></label><input type="number" placeholder="800" min="0" oninput="S.salario=this.value;sv()"></div>
+        <div class="f s2"><label class="fl">Describe brevemente tu trabajo o actividad</label><textarea placeholder="Ej: Vendedor de productos electrónicos / Contador general / Estudiante de 3er año de Medicina..." oninput="S.emp_desc=this.value;sv()"></textarea></div>
+      </div>
+    </div>
   </div>
 
-  <a class="btn-wa" id="wa-link" href="#" target="_blank">
+  <div class="card">
+    <div class="ch"><div class="ci">🏢</div><div><div class="ctag">Empleo anterior</div><div class="ctitle">¿Has trabajado en otra empresa antes?</div><div class="csub">Solo el empleo más reciente anterior al actual.</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'emp_prev',0);show('blk-emprev')"><div class="oc"></div><span class="ot">Sí, tuve empleo anterior</span></button>
+      <button class="opt" onclick="so(this,'emp_prev',1);hide('blk-emprev')"><div class="oc"></div><span class="ot">No, este es mi primer trabajo</span></button>
+    </div>
+    <div id="blk-emprev" style="display:none">
+      <div class="fg">
+        <div class="gr">
+          <div class="f"><label class="fl">Empresa anterior</label><input type="text" placeholder="Nombre de la empresa" oninput="S.eprev_nom=this.value;sv()"></div>
+          <div class="f"><label class="fl">Cargo que tenías</label><input type="text" placeholder="Asistente / Vendedor / Técnico..." oninput="S.eprev_cargo=this.value;sv()"></div>
+          <div class="f"><label class="fl">Fecha de inicio</label><input type="date" onchange="S.eprev_ini=this.value;sv()"></div>
+          <div class="f"><label class="fl">Fecha de fin</label><input type="date" onchange="S.eprev_fin=this.value;sv()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🎓</div><div><div class="ctag">Educación</div><div class="ctitle">¿Cuál es tu nivel de estudios?</div><div class="csub">La institución más reciente de nivel secundario o superior.</div></div></div>
+    <div class="fg">
+      <div class="gr">
+        <div class="f s2"><label class="fl">Nombre de la institución educativa</label><input type="text" placeholder="Colegio / Universidad / Instituto..." oninput="S.edu_nom=this.value;sv()"></div>
+        <div class="f"><label class="fl">Ciudad</label><input type="text" placeholder="Quito / Guayaquil..." oninput="S.edu_ciudad=this.value;sv()"></div>
+        <div class="f"><label class="fl">Carrera / Nivel cursado</label><input type="text" placeholder="Bachillerato / Ingeniería Comercial..." oninput="S.edu_carrera=this.value;sv()"></div>
+        <div class="f"><label class="fl">Año de inicio</label><input type="text" placeholder="2018" oninput="S.edu_ini=this.value;sv()"></div>
+        <div class="f"><label class="fl">Año de graduación <span class="nt">(o "En curso")</span></label><input type="text" placeholder="2022 / En curso" oninput="S.edu_fin=this.value;sv()"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🗣️</div><div><div class="ctag">Idiomas</div><div class="ctitle">¿Qué idiomas hablas?</div></div></div>
+    <div class="opts row" style="margin-bottom:12px">
+      <button class="opt" onclick="tog(this,'i_es')"><div class="oc"></div><span class="ot">Español</span></button>
+      <button class="opt" onclick="tog(this,'i_en')"><div class="oc"></div><span class="ot">Inglés</span></button>
+      <button class="opt" onclick="tog(this,'i_qu')"><div class="oc"></div><span class="ot">Quechua</span></button>
+      <button class="opt" onclick="tog(this,'i_pt')"><div class="oc"></div><span class="ot">Portugués</span></button>
+    </div>
+    <div class="f"><label class="fl">Otros idiomas</label><input type="text" placeholder="Francés, Italiano, Alemán..." oninput="S.i_otros=this.value;sv()"></div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🏠</div><div><div class="ctag">Vínculos en Ecuador</div><div class="ctitle">¿Qué te ata a Ecuador?</div></div></div>
+    <div class="why"><strong>Este es el argumento más fuerte.</strong> La embajada pregunta implícitamente: "¿por qué va a regresar?" Selecciona todo lo que aplica.</div>
+    <div class="opts row" style="flex-wrap:wrap">
+      <button class="opt" onclick="tog(this,'v_hijos')"><div class="oc"></div><span class="ot">Hijos aquí</span></button>
+      <button class="opt" onclick="tog(this,'v_trabajo')"><div class="oc"></div><span class="ot">Trabajo estable</span></button>
+      <button class="opt" onclick="tog(this,'v_casa')"><div class="oc"></div><span class="ot">Casa propia</span></button>
+      <button class="opt" onclick="tog(this,'v_negocio')"><div class="oc"></div><span class="ot">Negocio propio</span></button>
+      <button class="opt" onclick="tog(this,'v_familia')"><div class="oc"></div><span class="ot">Familia directa</span></button>
+      <button class="opt" onclick="tog(this,'v_estudios')"><div class="oc"></div><span class="ot">Estudios en curso</span></button>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══ PASO 7: HISTORIAL DE VIAJES ══════════════ -->
+<div class="step" id="s7"><div class="pg">
+  <div class="chip">Paso 7 de 8</div>
+  <h2 class="ph">Historial de <em>viajes</em></h2>
+  <p class="pd">Visitas previas a USA y otros países que hayas visitado. Haber viajado antes suma puntos a tu expediente.</p>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🇺🇸</div><div><div class="ctag">Historial USA</div><div class="ctitle">¿Has estado en Estados Unidos antes?</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'usa_antes',0);show('blk-usaantes')"><div class="oc"></div><span class="ot">Sí, he estado en USA</span></button>
+      <button class="opt" onclick="so(this,'usa_antes',1);hide('blk-usaantes')"><div class="oc"></div><span class="ot">No, nunca he ido</span></button>
+    </div>
+    <div id="blk-usaantes" style="display:none">
+      <div class="fg">
+        <div class="gr">
+          <div class="f"><label class="fl">¿Cuándo fue la última visita?</label><input type="text" placeholder="Año / mes aproximado" oninput="S.usa_cuando=this.value;sv()"></div>
+          <div class="f"><label class="fl">¿Cuánto tiempo te quedaste?</label><input type="text" placeholder="2 semanas / 1 mes..." oninput="S.usa_tiempo=this.value;sv()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">📄</div><div><div class="ctag">Visa americana</div><div class="ctitle">¿Has tenido visa americana antes?</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'visa_prev',0);show('blk-visaprev')"><div class="oc"></div><span class="ot">Sí, tuve o tengo visa americana</span></button>
+      <button class="opt" onclick="so(this,'visa_prev',1);hide('blk-visaprev')"><div class="oc"></div><span class="ot">No, nunca me la han dado</span></button>
+    </div>
+    <div id="blk-visaprev" style="display:none">
+      <div class="fg">
+        <div class="gr">
+          <div class="f"><label class="fl">Número de la visa</label><input type="text" placeholder="Si lo recuerdas" oninput="S.visa_num=this.value;sv()"></div>
+          <div class="f"><label class="fl">Fecha de vencimiento</label><input type="date" onchange="S.visa_vence=this.value;sv()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">❌</div><div><div class="ctag">Rechazos previos</div><div class="ctitle">¿Te han negado visa o entrada a USA alguna vez?</div></div></div>
+    <div class="wnote"><span style="font-size:16px;flex-shrink:0">💪</span><span>Un rechazo anterior <strong style="color:var(--text)">no cierra la puerta.</strong> Nuestro equipo sabe exactamente cómo manejarlo — lo importante es ser honesto.</span></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'rechazo',0);show('blk-rechazo')"><div class="oc"></div><span class="ot">Sí, me rechazaron o negaron entrada</span></button>
+      <button class="opt" onclick="so(this,'rechazo',1);hide('blk-rechazo')"><div class="oc"></div><span class="ot">No, nunca me han negado</span></button>
+    </div>
+    <div id="blk-rechazo" style="display:none">
+      <div class="fg">
+        <div class="f"><label class="fl">¿Cuándo ocurrió? <span class="nt">(fecha aprox.)</span></label><input type="date" onchange="S.rec_fecha=this.value;sv()"></div>
+        <div class="f"><label class="fl">¿Cuál fue el motivo?</label>
+          <select onchange="S.rec_motivo=this.value;sv()">
+            <option value="">— Seleccionar —</option>
+            <option value="214b">214(b) — No demostró vínculos con Ecuador</option>
+            <option value="economico">Falta de solvencia económica</option>
+            <option value="docs">Documentación incompleta</option>
+            <option value="migratorio">Antecedentes migratorios</option>
+            <option value="sin_motivo">No indicaron motivo</option>
+            <option value="no_recuerdo">No lo recuerdo</option>
+          </select>
+        </div>
+        <div class="f"><label class="fl">¿Qué dijo el oficial? <span class="nt">(lo que recuerdes)</span></label><textarea placeholder="Cualquier cosa que recuerdes de la entrevista..." oninput="S.rec_que=this.value;sv()"></textarea></div>
+        <div class="f"><label class="fl">¿Qué cambió desde esa negativa?</label><textarea placeholder="Nuevo trabajo, casa propia, más ahorros, hijos mayores..." oninput="S.rec_cambios=this.value;sv()"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🌍</div><div><div class="ctag">Otros países</div><div class="ctitle">¿Has viajado a otros países en los últimos 5 años?</div><div class="csub">Cualquier país — haber viajado antes suma puntos a tu caso.</div></div></div>
+    <div class="opts" style="margin-bottom:14px">
+      <button class="opt" onclick="so(this,'viaj_prev',0);show('blk-viajprev')"><div class="oc"></div><span class="ot">Sí, he viajado a otros países</span></button>
+      <button class="opt" onclick="so(this,'viaj_prev',1);hide('blk-viajprev')"><div class="oc"></div><span class="ot">No, solo Ecuador</span></button>
+    </div>
+    <div id="blk-viajprev" style="display:none">
+      <div class="fg">
+        <div class="f"><label class="fl">¿A qué países y en qué año?</label><textarea placeholder="Colombia (2023 y 2024)&#10;Perú (2022)&#10;España (2019)..." oninput="S.viaj_paises=this.value;sv()"></textarea></div>
+        <div class="f"><label class="fl">¿Tienes visas vigentes de otros países?</label><input type="text" placeholder="Visa Schengen (España 2024) / Visa canadiense..." oninput="S.otras_visas=this.value;sv()"></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══ PASO 8: PREGUNTAS FINALES ══════════════════ -->
+<div class="step" id="s8"><div class="pg">
+  <div class="chip">Paso 8 de 8 — ¡Ya casi!</div>
+  <h2 class="ph">Últimas <em>preguntas</em></h2>
+  <p class="pd">La embajada hace estas preguntas a todo el mundo. La gran mayoría responde No a todas. Si hay algún Sí, nuestro equipo sabe exactamente cómo manejarlo.</p>
+
+  <div class="card">
+    <div class="ch"><div class="ci">🔐</div><div><div class="ctag">Preguntas de seguridad</div><div class="ctitle">Responde con honestidad — sí o no</div><div class="csub">Son preguntas estándar que registra el gobierno americano para todos los solicitantes.</div></div></div>
+    <div id="sqlist"></div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ci">💬</div><div><div class="ctag">Información adicional</div><div class="ctitle">¿Hay algo más que debamos saber?</div><div class="csub">Cualquier situación especial que no hayamos preguntado. Déjalo en blanco si no hay nada más.</div></div></div>
+    <textarea placeholder="Deportación previa en otro país, situación legal especial, familiar en USA con residencia, cualquier dato importante para tu caso..." oninput="S.obs=this.value;sv()" style="width:100%;background:rgba(11,30,59,.55);border:1px solid rgba(255,255,255,.09);border-radius:9px;color:var(--white);font-family:var(--sans);font-size:.875rem;padding:11px 13px;outline:none;resize:vertical;min-height:80px;line-height:1.55;transition:border-color .2s,box-shadow .2s"></textarea>
+  </div>
+</div></div>
+
+<!-- ═══ FINAL ══════════════════════════════════════ -->
+<div class="step" id="sfin">
+<div class="fin">
+  <div class="fincheck">✓</div>
+  <h2 class="finh" id="finh">¡Listo!</h2>
+  <p class="fins">Nuestro equipo recibió tu información. En menos de <strong style="color:var(--gl)">24 horas</strong> te escribimos por WhatsApp con el análisis de tu caso y los próximos pasos.</p>
+  <div class="finbox">
+    <div class="finbt">Asesoría completa · $250 USD por persona</div>
+    <div class="fini"><span class="fc">✓</span>Análisis completo de tu perfil migratorio</div>
+    <div class="fini"><span class="fc">✓</span>Llenado y revisión de la solicitud oficial ante la embajada</div>
+    <div class="fini"><span class="fc">✓</span>Preparación y revisión de todos tus documentos</div>
+    <div class="fini"><span class="fc">✓</span>Simulacro de entrevista consular</div>
+    <div class="fini"><span class="fc">✓</span>Acompañamiento por WhatsApp hasta el sello en tu pasaporte</div>
+  </div>
+  <div class="finprice">La tasa consular (<strong>$185 USD</strong>) se paga aparte, directamente al gobierno de USA. No es parte de nuestros honorarios.</div>
+  <a class="btnwa" id="walink" href="#" target="_blank">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Confirmar por WhatsApp con nuestro equipo
+    Confirmar por WhatsApp
   </a>
-  <button class="btn-secondary" onclick="copyLink()">📋 Copiar link para compartir</button>
+  <button class="btnsec" onclick="cplink()">📋 Copiar link para compartir</button>
 </div>
 </div>
 
 </main>
 
 <div id="nav">
-  <button id="btn-back" onclick="prev()">←</button>
-  <button id="btn-next" onclick="next()">Continuar →</button>
+  <button id="bback" onclick="prev()">←</button>
+  <button id="bnext" onclick="next()">Continuar →</button>
 </div>
 
 <script>
-const S = {};
-const STEPS = ['s0','s1','s2','s3','s4','s5','s-final'];
-let cur = 0;
+const S={};
+const ST=['s0','s1','s2','s3','s4','s5','s6','s7','s8','sfin'];
+const TOT=8;
+let cur=0;
 
-const SQ = [
-  ['¿Tienes antecedentes penales en Ecuador o en cualquier otro país?','sq_penal'],
-  ['¿Has sido deportado o removido de algún país?','sq_deportado'],
-  ['¿Alguna vez permaneciste en USA más tiempo del permitido?','sq_overstay'],
-  ['¿Tienes parientes con residencia permanente o ciudadanía americana?','sq_fam_usa'],
-  ['¿Perteneciste o perteneces a grupos militares o paramilitares?','sq_militar'],
+/* SECURITY QUESTIONS (full DS-160 list) */
+const SQS=[
+  ['¿Tienes o has tenido alguna enfermedad contagiosa de importancia para la salud pública (tuberculosis activa, sífilis, lepra, etc.)?','sq1'],
+  ['¿Tienes algún trastorno mental o físico que pueda representar riesgo para ti mismo o para otros?','sq2'],
+  ['¿Eres o has sido consumidor de drogas?','sq3'],
+  ['¿Has sido arrestado o condenado por algún delito, aunque hayas recibido indulto o amnistía?','sq4'],
+  ['¿Has violado o conspirado para violar leyes relacionadas con sustancias controladas?','sq5'],
+  ['¿Has ejercido o piensas ejercer la prostitución o el vicio comercial?','sq6'],
+  ['¿Has participado o piensas participar en lavado de dinero?','sq7'],
+  ['¿Has cometido o conspirado para cometer tráfico de personas dentro o fuera de USA?','sq8'],
+  ['¿Eres cónyuge o hijo/a de alguien que haya cometido tráfico de personas y te hayas beneficiado de ello en los últimos 5 años?','sq9'],
+  ['¿Has colaborado o ayudado a alguien que cometió tráfico de personas?','sq10'],
+  ['¿Piensas dedicarte al espionaje, sabotaje, control de exportaciones u otras actividades ilegales en USA?','sq11'],
+  ['¿Has participado o piensas participar en actividades terroristas?','sq12'],
+  ['¿Has proporcionado o piensas proporcionar apoyo financiero a terroristas u organizaciones terroristas?','sq13'],
+  ['¿Eres miembro o representante de una organización terrorista?','sq14'],
+  ['¿Eres cónyuge o hijo/a de alguien que haya participado en actividades terroristas en los últimos 5 años?','sq15'],
+  ['¿Has ordenado, incitado o participado en actos de genocidio?','sq16'],
+  ['¿Has cometido, ordenado o participado en tortura?','sq17'],
+  ['¿Has cometido ejecuciones extrajudiciales, asesinatos políticos u otros actos de violencia?','sq18'],
+  ['¿Has participado en el reclutamiento o uso de niños soldados?','sq19'],
+  ['¿Has sido responsable de violaciones graves a la libertad religiosa como funcionario de gobierno?','sq20'],
+  ['¿Has participado en abortos o esterilizaciones forzadas?','sq21'],
+  ['¿Has participado en el trasplante coercitivo de órganos?','sq22'],
+  ['¿Has intentado obtener una visa, entrada a USA o beneficio migratorio mediante fraude?','sq23'],
+  ['¿Has sido deportado o removido de algún país?','sq24'],
+  ['¿Has retenido la custodia de un niño ciudadano americano fuera de USA sin autorización legal?','sq25'],
+  ['¿Has votado en USA violando alguna ley?','sq26'],
+  ['¿Has renunciado a la ciudadanía americana para evitar pagar impuestos?','sq27'],
 ];
 
-(function buildSQ() {
-  const c = document.getElementById('sq-list');
-  SQ.forEach(([q, k]) => {
-    S[k] = false;
-    const r = document.createElement('div');
-    r.className = 'sq-row';
-    r.innerHTML = `<span class="sq-text">${q}</span>
-      <div class="sq-btns">
-        <button class="sq-btn" id="${k}-y" onclick="setSQ('${k}',true)">Sí</button>
-        <button class="sq-btn no" id="${k}-n" onclick="setSQ('${k}',false)">No</button>
-      </div>`;
+(function buildSQ(){
+  const c=document.getElementById('sqlist');
+  SQS.forEach(([q,k])=>{
+    S[k]=false;
+    const r=document.createElement('div');
+    r.className='sqr';
+    r.innerHTML=`<span class="sqt">${q}</span><div class="sqb">
+      <button class="sqbtn" id="${k}y" onclick="setSQ('${k}',true)">Sí</button>
+      <button class="sqbtn n" id="${k}n" onclick="setSQ('${k}',false)">No</button>
+    </div>`;
     c.appendChild(r);
   });
 })();
 
-function setSQ(k, v) {
-  S[k] = v; save();
-  document.getElementById(k+'-y').className = 'sq-btn' + (v ? ' yes' : '');
-  document.getElementById(k+'-n').className = 'sq-btn' + (!v ? ' no' : '');
+function setSQ(k,v){
+  S[k]=v;sv();
+  document.getElementById(k+'y').className='sqbtn'+(v?' y':'');
+  document.getElementById(k+'n').className='sqbtn'+(v?'':' n');
 }
 
-function go(idx) {
-  const old = document.getElementById(STEPS[cur]);
-  old.classList.remove('active');
-  cur = idx;
-  const neo = document.getElementById(STEPS[cur]);
-  neo.classList.add('active');
-  window.scrollTo({top:0, behavior:'instant'});
-  updateUI();
-  save();
+/* NAV */
+function go(i){
+  const o=document.getElementById(ST[cur]);
+  o.classList.remove('active');
+  cur=i;
+  const n=document.getElementById(ST[cur]);
+  n.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  ui();sv();
 }
-function next() {
-  if (cur === STEPS.length - 2) buildFinal();
-  if (cur < STEPS.length - 1) go(cur + 1);
-}
-function prev() { if (cur > 1) go(cur - 1) }
+function next(){if(cur===ST.length-2)bfin();if(cur<ST.length-1)go(cur+1)}
+function prev(){if(cur>1)go(cur-1)}
 
-function updateUI() {
-  const nav = document.getElementById('nav');
-  const isW = cur === 0, isF = cur === STEPS.length - 1;
-  nav.style.display = (isW || isF) ? 'none' : 'flex';
-
-  const pct = isW ? 0 : Math.round((cur / (STEPS.length - 2)) * 100);
-  document.getElementById('prog-fill').style.width = pct + '%';
-
-  const badge = document.getElementById('hdr-badge');
-  if (!isW && !isF) {
-    badge.textContent = `Paso ${cur} de 5`;
-    badge.classList.add('show');
-  } else { badge.classList.remove('show') }
-
-  const nb = document.getElementById('btn-next');
-  if (nb) nb.textContent = cur === STEPS.length - 2 ? '¡Terminar! →' : 'Continuar →';
-  const bb = document.getElementById('btn-back');
-  if (bb) bb.style.visibility = cur > 1 ? 'visible' : 'hidden';
+function ui(){
+  const nav=document.getElementById('nav');
+  const isW=cur===0,isF=cur===ST.length-1;
+  nav.style.display=(isW||isF)?'none':'flex';
+  const pct=isW?0:Math.round((cur/TOT)*100);
+  document.getElementById('pfill').style.width=pct+'%';
+  const hb=document.getElementById('hbadge');
+  if(!isW&&!isF){hb.textContent='Paso '+cur+' de '+TOT;hb.classList.add('on')}
+  else hb.classList.remove('on');
+  const nb=document.getElementById('bnext');
+  if(nb)nb.textContent=cur===ST.length-2?'¡Terminar! →':'Continuar →';
+  const bb=document.getElementById('bback');
+  if(bb)bb.style.visibility=cur>1?'visible':'hidden';
 }
 
-function setCount(n) {
-  S.num_viajeros = n; save();
-  document.querySelectorAll('.count-btn').forEach((b,i) => b.classList.toggle('sel', i+1===n));
-}
-
-function selOpt(btn, key, val) {
-  S[key] = val; save();
-  const grp = btn.closest('.opts');
-  if (grp) grp.querySelectorAll('.opt:not(.multi)').forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-  if (key === 'visa_ant') {
-    document.getElementById('blk-historial').style.display = val === 0 ? 'block' : 'none';
+/* TRAVELER CARDS */
+function setV(n){
+  S.nviaj=n;sv();
+  document.querySelectorAll('.cb').forEach((b,i)=>b.classList.toggle('s',i+1===n));
+  const c=document.getElementById('vtcs');c.innerHTML='';
+  for(let i=1;i<=n;i++){
+    if(!S['v'+i])S['v'+i]={};
+    const d=document.createElement('div');d.className='tc';
+    d.innerHTML=`<div class="tclabel">Viajero ${i}${i===1?' — Solicitante principal':''}</div>
+    <div class="fg"><div class="gr">
+      <div class="f s2"><label class="fl">Apellidos y nombres (como en pasaporte)</label><input type="text" placeholder="APELLIDOS, Nombres" value="${S['v'+i].nom||''}" oninput="S['v${i}'].nom=this.value;sv()"></div>
+      <div class="f"><label class="fl">Fecha de nacimiento</label><input type="date" value="${S['v'+i].nac||''}" onchange="S['v${i}'].nac=this.value;sv()"></div>
+      <div class="f"><label class="fl">Número de pasaporte</label><input type="text" placeholder="A0000000" value="${S['v'+i].pp||''}" oninput="S['v${i}'].pp=this.value;sv()"></div>
+      ${i>1?`<div class="f"><label class="fl">Relación con el principal</label><select onchange="S['v${i}'].rel=this.value;sv()"><option value="">— Seleccionar —</option><option>Cónyuge / Pareja</option><option>Hijo/a menor</option><option>Hijo/a mayor</option><option>Padre / Madre</option><option>Hermano/a</option><option>Otro familiar</option></select></div>`:''}
+    </div></div>`;
+    c.appendChild(d);
   }
 }
-function showRechazo() {
-  document.getElementById('blk-rechazo').style.display = 'block';
+
+/* OPT / TOG */
+function so(btn,k,v){
+  S[k]=v;sv();
+  const g=btn.closest('.opts');
+  if(g)g.querySelectorAll('.opt:not(.multi)').forEach(b=>b.classList.remove('s'));
+  btn.classList.add('s');
 }
-function toggleConyuge(show) {
-  document.getElementById('blk-conyuge').style.display = show ? 'block' : 'none';
-}
-function showViajesPrev() { document.getElementById('blk-viajes-prev').style.display='block' }
-function hideViajesPrev() { document.getElementById('blk-viajes-prev').style.display='none' }
-function togMulti(btn, k) {
-  S[k] = !S[k]; btn.classList.toggle('sel', S[k]); save();
-}
+function tog(btn,k){S[k]=!S[k];btn.classList.toggle('s',S[k]);sv()}
 
-function buildFinal() {
-  const nom = S.nombre ? S.nombre.split(' ')[0] : '';
-  document.getElementById('final-h').textContent = nom ? `¡Listo, ${nom}!` : '¡Listo!';
-  const props = ['Turismo','Visita familiar','Negocios','Turismo + familiar','Otro'];
-  const cuandos = ['3 meses','3-6 meses','6-12 meses','más de 1 año'];
-  const vic = ['v_hijos','v_trabajo','v_casa','v_negocio','v_familia','v_estudios'].filter(k=>S[k]).length;
-  const usaOpt = ['Sí, en USA','No','Fallecido/a'];
-  const redes = [
-    S.red_fb ? `FB: ${S.red_fb}` : '',
-    S.red_ig ? `IG: ${S.red_ig}` : '',
-    S.red_tw ? `X/Twitter: ${S.red_tw}` : '',
-    S.red_tt ? `TikTok: ${S.red_tt}` : '',
-    S.red_li ? `LinkedIn: ${S.red_li}` : '',
-    S.red_yt ? `YouTube: ${S.red_yt}` : '',
-    S.red_otros ? `Otros: ${S.red_otros}` : '',
-  ].filter(Boolean).join(' | ') || 'No indicadas';
+/* SHOW/HIDE */
+function show(id){const e=document.getElementById(id);if(e)e.style.display='block'}
+function hide(id){const e=document.getElementById(id);if(e)e.style.display='none'}
+function showC(v){v?show('blk-c'):hide('blk-c')}
+function showPagador(v){v?show('blk-pag'):hide('blk-pag')}
 
-  const ecivil = ['Soltero/a','Casado/a','Unión libre','Divorciado/a','Viudo/a'];
-  const idiomas = [S.idioma_es&&'Español',S.idioma_en&&'Inglés',S.idioma_qu&&'Quechua',S.idioma_pt&&'Portugués',S.idiomas_otros].filter(Boolean).join(', ')||'No indicado';
+/* FINAL MSG */
+function bfin(){
+  const nom=S.nombres?S.nombres.split(' ')[0]:'';
+  document.getElementById('finh').textContent=nom?'¡Listo, '+nom+'!':'¡Listo!';
 
-  const msg = `Hola, completé el formulario para mi visa USA.
+  const ua=['Sí, en USA','No','Fallecido/a','No sé'];
+  const ec=['Soltero/a','Casado/a','Unión libre','Divorciado/a','Viudo/a','Separado/a'];
+  const ocup=['Empleado','Negocio propio','Estudiante','Jubilado','Ama/o de casa','Sin empleo'];
+  const prop=['Turismo','Visita familiar','Negocios','Turismo + familiar','Tratamiento médico','Otro'];
 
-DATOS PERSONALES
-Nombre: ${S.nombre||'pendiente'}
-Email: ${S.email||'pendiente'}
-WhatsApp: ${S.whatsapp||'pendiente'}
-Cédula: ${S.cedula||'pendiente'}
-Nac: ${S.nac||'pendiente'} | ${S.ciudad_nac||''}${S.prov_nac?', '+S.prov_nac:''}, Ecuador
-Estado civil: ${ecivil[S.estado_civil]||'pendiente'}
-${S.conyuge_nombres?'Cónyuge: '+S.conyuge_nombres+' '+S.conyuge_apellidos+' ('+S.conyuge_nac+')'  :''}
+  const viajeros=Object.keys(S).filter(k=>/^v\d+$/.test(k)&&S[k].nom).map((k,i)=>`  ${i+1}. ${S[k].nom} (${S[k].nac||'fecha pendiente'}) Pasaporte: ${S[k].pp||'pendiente'}`).join('\n');
+
+  const redes=[S.r_fb&&'FB: '+S.r_fb,S.r_ig&&'IG: '+S.r_ig,S.r_tw&&'X: '+S.r_tw,S.r_tt&&'TT: '+S.r_tt,S.r_li&&'LI: '+S.r_li,S.r_yt&&'YT: '+S.r_yt,S.r_snap&&'Snap: '+S.r_snap,S.r_pin&&'Pin: '+S.r_pin,S.r_otros&&S.r_otros].filter(Boolean).join(' | ')||'No indicadas';
+
+  const idiomas=[S.i_es&&'Español',S.i_en&&'Inglés',S.i_qu&&'Quechua',S.i_pt&&'Portugués',S.i_otros].filter(Boolean).join(', ')||'No indicado';
+
+  const vinculos=['v_hijos','v_trabajo','v_casa','v_negocio','v_familia','v_estudios'].filter(k=>S[k]).map(k=>({v_hijos:'Hijos aquí',v_trabajo:'Trabajo estable',v_casa:'Casa propia',v_negocio:'Negocio propio',v_familia:'Familia directa',v_estudios:'Estudios en curso'}[k])).join(', ')||'Ninguno indicado';
+
+  const sqSi=SQS.filter(([q,k])=>S[k]).map(([q])=>q.substring(0,60)+'...').join('\n  - ');
+
+  const msg=`Hola, completé el formulario de información para mi visa USA.
+
+VIAJEROS (${S.nviaj||1})
+${viajeros||'  Datos pendientes'}
+
+DATOS PERSONALES (Solicitante principal)
+Nombre: ${S.apellidos||''}, ${S.nombres||''}
+Sexo: ${['Masculino','Femenino'][S.sexo]||'pendiente'}
+Nacimiento: ${S.nac||'pendiente'} — ${S.ciudad_nac||''}${S.prov_nac?', '+S.prov_nac:''}, Ecuador
+Cédula: ${S.cedula||'pendiente'} | Email: ${S.email||'pendiente'}
+Estado civil: ${ec[S.ecivil]||'pendiente'}
+${S.c_nom?'Cónyuge: '+S.c_ap+', '+S.c_nom+' ('+S.c_nac+')':''}
 
 DIRECCIÓN
-${S.dir_calle||'pendiente'}${S.dir_barrio?', '+S.dir_barrio:''}, ${S.ciudad||''}, ${S.dir_provincia||''} ${S.dir_cp||''}
-Tel. fijo: ${S.tel_sec||'N/A'}
+${S.dir_calle||'pendiente'}${S.dir_barrio?', '+S.dir_barrio:''}, ${S.dir_ciudad||''}, ${S.dir_prov||''} ${S.dir_cp||''}
+Tel: ${S.tel||'pendiente'}${S.tel2?' | Fijo: '+S.tel2:''}
 
-PASAPORTE N° ${S.pasaporte||'pendiente'}
-Emitido: ${S.pasaporte_emision||'pendiente'} en ${S.pasaporte_ciudad||'pendiente'} | Vence: ${S.pasaporte_vence||'pendiente'}
-Viajeros: ${S.num_viajeros||1}
-
-PADRES
-Padre: ${(S.padre_nombres||'')+' '+(S.padre_apellidos||'')} ${S.padre_nac?'('+S.padre_nac+')':''} — ${usaOpt[S.padre_usa]||'No indicado'}
-Madre: ${(S.madre_nombres||'')+' '+(S.madre_apellidos||'')} ${S.madre_nac?'('+S.madre_nac+')':''} — ${usaOpt[S.madre_usa]||'No indicado'}
+PASAPORTE N° ${S.pp_num||'pendiente'}
+Emitido: ${S.pp_emision||'pendiente'} en ${S.pp_ciudad||'pendiente'} | Vence: ${S.pp_vence||'pendiente'}
 
 REDES SOCIALES
 ${redes}
 
-IDIOMAS: ${idiomas}
-
 VIAJE
-Propósito: ${props[S.proposito]||'pendiente'} | Destino: ${S.destino||'pendiente'}
-Cuándo: ${cuandos[S.cuando]||'pendiente'} | Paga: ${['Propio','Familiar USA','Empresa','Entre varios'][S.paga]||'pendiente'}
-Alojamiento: ${S.alojamiento||'pendiente'}
+Propósito: ${prop[S.prop]||'pendiente'} | Destino: ${S.destino||'pendiente'}
+Llegada: ${S.llegada||'pendiente'} | Salida: ${S.salida||'pendiente'}
+Alojamiento: ${S.aloj_nombre||'pendiente'} — ${S.aloj_dir||'pendiente'} — Tel: ${S.aloj_tel||'N/A'}
+Quién paga: ${['Propio','Familiar USA','Empresa','Otra persona'][S.paga]||'pendiente'}${S.pag_nom?' ('+S.pag_nom+', '+S.pag_rel+')':''}
 
-CONTACTO EN USA
-${S.contacto_usa_nombre||'pendiente'} (${S.contacto_usa_rel||''})
-Dirección: ${S.contacto_usa_dir||'pendiente'}
-Tel: ${S.contacto_usa_tel||'pendiente'} | Email: ${S.contacto_usa_email||'N/A'}
+FAMILIA
+Padre: ${S.p_nom||''} ${S.p_ap||''} ${S.p_nac?'('+S.p_nac+')':''} — ${ua[S.p_usa]||'No indicado'}
+Madre: ${S.m_nom||''} ${S.m_ap||''} ${S.m_nac?'('+S.m_nac+')':''} — ${ua[S.m_usa]||'No indicado'}
+Familiares en USA: ${S.fam_usa===0?'Sí:\n'+S.fam_usa_det:'No'}
 
-HISTORIAL
-Visa anterior: ${S.visa_ant===0?(S.resultado===1||S.resultado===2?'RECHAZADA — '+S.causal:'Aprobada anteriormente'):'Primera solicitud'}
-Viajes previos: ${S.paises_visitados||'No ha viajado'}
+TRABAJO Y ESTUDIOS
+Ocupación: ${ocup[S.ocup]||'pendiente'} — ${S.emp_nom||''}
+Dirección empleador: ${S.emp_dir||'N/A'} | Tel: ${S.emp_tel||'N/A'}
+Salario mensual: $${S.salario||'N/A'} | Descripción: ${S.emp_desc||'N/A'}
+${S.emp_prev===0?'Empleo anterior: '+S.eprev_nom+' ('+S.eprev_cargo+', '+S.eprev_ini+' a '+S.eprev_fin+')':''}
+Educación: ${S.edu_nom||'N/A'} — ${S.edu_carrera||''} (${S.edu_ini||''}-${S.edu_fin||''})
+Idiomas: ${idiomas}
+Vínculos Ecuador: ${vinculos}
+
+HISTORIAL VISAS Y VIAJES
+USA antes: ${S.usa_antes===0?'Sí ('+S.usa_cuando+', '+S.usa_tiempo+')'  :'No'}
+Visa previa: ${S.visa_prev===0?'Sí — '+S.visa_num+' (vence '+S.visa_vence+')':'No'}
+Rechazo: ${S.rechazo===0?'Sí — '+S.rec_motivo+' | '+S.rec_que:'No'}
+Países visitados: ${S.viaj_paises||'Solo Ecuador'}
 Otras visas vigentes: ${S.otras_visas||'Ninguna'}
 
-SITUACIÓN ECUADOR
-Trabajo: ${['Empleado','Negocio propio','Estudiante','Jubilado','Ama de casa','Desempleado'][S.trabajo]||'pendiente'}
-Empleador: ${S.empleador||'N/A'}
-Vínculos: ${vic} factor(es)
-${S.obs?'Obs: '+S.obs:''}
+PREGUNTAS SEGURIDAD
+${sqSi?'TIENE SÍ EN:\n  - '+sqSi:'Todas NO'}
+${S.obs?'\nOBSERVACIONES: '+S.obs:''}
 
 Quedo a la espera del análisis. ¡Gracias!`;
-  document.getElementById('wa-link').href = `https://wa.me/593994442512?text=${encodeURIComponent(msg)}`;
+
+  document.getElementById('walink').href='https://wa.me/593994442512?text='+encodeURIComponent(msg);
 }
 
-function copyLink() {
+function cplink(){
   navigator.clipboard.writeText('https://www.asesoriadevisadosglobal.com/intake-ds160.html')
-    .then(()=>{ document.querySelector('.btn-secondary').textContent = '✓ ¡Copiado!' })
+    .then(()=>{document.querySelector('.btnsec').textContent='✓ ¡Copiado!'})
     .catch(()=>{});
 }
 
-function save() {
-  try { localStorage.setItem('avg_v4', JSON.stringify({S, cur})) } catch(e) {}
-}
-(function load() {
-  try {
-    const d = JSON.parse(localStorage.getItem('avg_v4')||'null');
-    if (d?.S && d?.cur > 0) {
-      if (confirm('Tienes información guardada. ¿Continuar donde lo dejaste?')) {
-        Object.assign(S, d.S); cur = d.cur;
-        document.getElementById(STEPS[0]).classList.remove('active');
-        document.getElementById(STEPS[cur]).classList.add('active');
-        updateUI();
+/* SAVE / LOAD */
+function sv(){try{localStorage.setItem('avg5',JSON.stringify({S,cur}))}catch(e){}}
+(function ld(){
+  try{
+    const d=JSON.parse(localStorage.getItem('avg5')||'null');
+    if(d?.S&&d?.cur>0){
+      if(confirm('Tienes información guardada. ¿Continuar donde lo dejaste?')){
+        Object.assign(S,d.S);cur=d.cur;
+        document.getElementById(ST[0]).classList.remove('active');
+        document.getElementById(ST[cur]).classList.add('active');
+        if(S.nviaj)setV(S.nviaj);
+        ui();
       }
     }
-  } catch(e) {}
+  }catch(e){}
 })();
-
-updateUI();
+ui();
 </script>
 </body>
 </html>
