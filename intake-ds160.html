@@ -97,9 +97,9 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .pd{font-size:.875rem;font-weight:300;color:rgba(203,213,225,.65);line-height:1.7;margin-bottom:28px}
 
 /* CARD */
-.card{background:rgba(6,16,30,.55);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:background .2s,border-color .2s}
+.card{background:rgba(6,16,30,.32);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden;transition:all .25s;box-shadow:0 8px 32px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.07)}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.25),transparent);opacity:0;transition:opacity .3s}
-.card:hover{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.1)}
+.card:hover{background:rgba(6,16,30,.22);border-color:rgba(245,200,66,.2);box-shadow:0 12px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.1)}
 .card:hover::before{opacity:1}
 .ch{margin-bottom:16px}
 .ci{display:none}
@@ -953,6 +953,136 @@ ${S.obs?'\nOBSERVACIONES: '+S.obs:''}
 Quedo a la espera del análisis. ¡Gracias!`;
 
   document.getElementById('walink').href='https://wa.me/593994442512?text='+encodeURIComponent(msg);
+
+  // ── ENVIAR A GOOGLE SHEETS ────────────────────────────
+  enviarSheets();
+}
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw50KSbad11eId3-poH8TMNuOe-KvV8tTHPWmc8lVDHfqQezc-zZ5mfyiMkEuFv3Q87Pw/exec';
+
+function enviarSheets() {
+  try {
+    const ecivil = ['Soltero/a','Casado/a','Unión libre','Divorciado/a','Viudo/a','Separado/a'];
+    const ocups  = ['Empleado en empresa','Negocio propio / Independiente','Estudiante','Jubilado / Pensionista','Ama o amo de casa','Sin empleo'];
+    const props  = ['Turismo y vacaciones','Visita a familiares','Negocios','Turismo y visita familiar','Tratamiento médico','Otro'];
+    const pagas  = ['Recursos propios','Familiar en USA','Empresa u organización','Otra persona'];
+    const usaOp  = ['Sí, está en USA','No','Fallecido/a','No sé'];
+    const redes  = [S.r_fb&&'FB:'+S.r_fb, S.r_ig&&'IG:'+S.r_ig, S.r_tw&&'X:'+S.r_tw,
+                    S.r_tt&&'TT:'+S.r_tt, S.r_li&&'LI:'+S.r_li, S.r_yt&&'YT:'+S.r_yt,
+                    S.r_snap&&'Snap:'+S.r_snap, S.r_pin&&'Pin:'+S.r_pin, S.r_otros]
+                   .filter(Boolean).join(' | ') || 'No indicadas';
+    const idiomas= [S.i_es&&'Español',S.i_en&&'Inglés',S.i_qu&&'Quechua',S.i_pt&&'Portugués',S.i_otros].filter(Boolean).join(', ')||'No indicado';
+    const vinculos=['v_hijos','v_trabajo','v_casa','v_negocio','v_familia','v_estudios']
+                   .filter(k=>S[k]).map(k=>({'v_hijos':'Hijos en Ecuador','v_trabajo':'Trabajo estable','v_casa':'Casa propia','v_negocio':'Negocio propio','v_familia':'Familia directa','v_estudios':'Estudios en curso'}[k])).join(', ')||'Ninguno';
+
+    const personas = [];
+    const nViaj = S.nviaj || 1;
+
+    for (let i = 1; i <= nViaj; i++) {
+      const v = S['v'+i] || {};
+      const isMain = i === 1;
+      const datos = {};
+
+      if (isMain) {
+        // DATOS PERSONALES
+        datos['Apellidos']               = S.apellidos || '';
+        datos['Nombres']                 = S.nombres || '';
+        datos['Sexo']                    = ['Masculino','Femenino'][S.sexo] || '';
+        datos['Fecha de nacimiento']     = S.nac || '';
+        datos['Ciudad y país de nacimiento'] = (S.ciudad_nac||'') + (S.prov_nac?', '+S.prov_nac:'') + ', Ecuador';
+        datos['Número de cédula']        = S.cedula || '';
+        datos['Estado civil']            = ecivil[S.ecivil] || '';
+        datos['Datos de la pareja']      = S.c_nom ? (S.c_ap+', '+S.c_nom+' — '+S.c_nac+' — '+S.c_nac_pais) : 'No aplica';
+
+        // DIRECCIÓN / CONTACTO
+        datos['Dirección en Ecuador']    = (S.dir_calle||'') + (S.dir_barrio?', '+S.dir_barrio:'') + ', ' + (S.dir_ciudad||'') + ', ' + (S.dir_prov||'') + ' ' + (S.dir_cp||'');
+        datos['Teléfono celular']        = S.tel || '';
+        datos['Correo electrónico']      = S.email || '';
+        datos['Redes sociales']          = redes;
+
+        // PASAPORTE
+        datos['Número de pasaporte']     = S.pp_num || '';
+        datos['Fecha de emisión']        = S.pp_emision || '';
+        datos['Fecha de vencimiento']    = S.pp_vence || '';
+        datos['Ciudad de emisión']       = S.pp_ciudad || '';
+        datos['Pasaporte perdido']       = S.pp_perdido === 0 ? 'Sí' : 'No';
+
+        // VIAJE
+        datos['Fecha llegada USA']       = S.llegada || '';
+        datos['Días de estadía']         = S.salida ? 'Hasta ' + S.salida : '';
+        datos['Dirección en USA']        = (S.aloj_dir||'') + ' — ' + (S.aloj_nombre||'');
+        datos['Contacto en USA']         = (S.aloj_nombre||'') + ' Tel: ' + (S.aloj_tel||'') + ' Email: ' + (S.aloj_email||'');
+        datos['Quién paga']              = pagas[S.paga] || '' + (S.pag_nom ? ' ('+S.pag_nom+', '+S.pag_rel+')' : '');
+        datos['Fondos disponibles']      = 'Ver documentos bancarios';
+
+        // FAMILIA
+        datos['Nombre del padre']        = (S.p_nom||'') + ' ' + (S.p_ap||'');
+        datos['Nacimiento del padre']    = S.p_nac || '';
+        datos['Padre en USA']            = usaOp[S.p_usa] || '';
+        datos['Nombre de la madre']      = (S.m_nom||'') + ' ' + (S.m_ap||'');
+        datos['Nacimiento de la madre']  = S.m_nac || '';
+        datos['Madre en USA']            = usaOp[S.m_usa] || '';
+        datos['Otros familiares en USA'] = S.fam_usa === 0 ? (S.fam_usa_det||'Sí — pendiente detalle') : 'No';
+
+        // TRABAJO / EDUCACIÓN
+        datos['Ocupación']               = ocups[S.ocup] || '';
+        datos['Empresa o institución']   = S.emp_nom || '';
+        datos['Dirección del empleador'] = S.emp_dir || '';
+        datos['Teléfono del empleador']  = S.emp_tel || '';
+        datos['Ingreso mensual USD']     = S.salario ? '$'+S.salario : '';
+        datos['Tiempo en el trabajo']    = S.emp_ini || '';
+        datos['Trabajo anterior']        = S.emp_prev===0 ? (S.eprev_nom+' — '+S.eprev_cargo+' ('+S.eprev_ini+' a '+S.eprev_fin+')') : 'No';
+        datos['Nivel de educación']      = S.edu_nom ? (S.edu_carrera+' en '+S.edu_nom+' ('+S.edu_ini+'-'+S.edu_fin+')') : '';
+        datos['Idiomas']                 = idiomas;
+        datos['Vínculos con Ecuador']    = vinculos;
+
+        // HISTORIAL
+        datos['Visitas previas USA']     = S.usa_antes===0 ? 'Sí — '+S.usa_cuando+', '+S.usa_tiempo : 'No';
+        datos['Visa USA anterior']       = S.visa_prev===0 ? 'Sí — N°'+S.visa_num+' (vence '+S.visa_vence+')' : 'No';
+        datos['Rechazo visa USA']        = S.rechazo===0 ? 'Sí — '+S.rec_motivo+' | '+S.rec_que : 'No';
+        datos['Rechazo otros países']    = 'No reportado';
+        datos['Viajes internacionales']  = S.viaj_paises || 'Solo Ecuador';
+        datos['Petición inmigrante']     = 'No';
+
+        // SEGURIDAD
+        datos['Enfermedad contagiosa']   = S.sq3 ? 'SÍ' : 'No';
+        datos['Consumo de drogas']       = S.sq3 ? 'SÍ' : 'No';
+        datos['Antecedentes penales']    = S.sq4 ? 'SÍ' : 'No';
+        datos['Deportación previa']      = S.sq24 ? 'SÍ' : 'No';
+        datos['Actividad terrorista']    = S.sq12 ? 'SÍ' : 'No';
+        datos['Observaciones']           = S.obs || '';
+
+      } else {
+        // Viajeros adicionales — datos básicos
+        datos['Apellidos y nombres']     = v.nom || '';
+        datos['Fecha de nacimiento']     = v.nac || '';
+        datos['Número de pasaporte']     = v.pp || '';
+        datos['Relación con principal']  = v.rel || '';
+      }
+
+      personas.push({ nombre: v.nom || (S.apellidos+', '+S.nombres) || 'Viajero '+i, datos });
+    }
+
+    const payload = { personas };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      console.log('Datos enviados a Sheets correctamente');
+      // Show subtle confirmation
+      const note = document.createElement('div');
+      note.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(16,185,129,.9);color:#fff;padding:9px 20px;border-radius:99px;font-size:.78rem;font-weight:700;z-index:999;animation:sIn .3s ease both';
+      note.textContent = '✓ Datos guardados en el sistema';
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 3500);
+    }).catch(err => console.warn('Sheets:', err));
+
+  } catch(err) {
+    console.warn('Error al enviar a Sheets:', err);
+  }
 }
 
 function cplink(){
