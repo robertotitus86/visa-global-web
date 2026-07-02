@@ -9,7 +9,7 @@
 const ANTHROPIC_KEY     = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
 // GEMINI: gratis. Usar para todos los analisis del portal.
 const GEMINI_KEY        = PropertiesService.getScriptProperties().getProperty('GEMINI_KEY');
-const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN');
+const ADMIN_PIN         = PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || 'adminVisa2026!';
 // Secreto compartido bot ↔ GAS — mismo valor que FOLLOWUP_SECRET en Render
 const BOT_SECRET        = PropertiesService.getScriptProperties().getProperty('FOLLOWUP_SECRET');
 const PAYPHONE_TOKEN    = PropertiesService.getScriptProperties().getProperty('PAYPHONE_TOKEN');
