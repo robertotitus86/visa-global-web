@@ -810,3 +810,31 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25) !import
   .results-grid { grid-template-columns: 1fr !important; }
   .hstat-n { font-size: 1.6rem !important; }
 }
+
+/* ── FIX MOBILE: colores dorados correctos en todos los dispositivos ── */
+
+/* Corregir variable --gold para que no se vea rojiza en pantallas de celular */
+:root {
+  --gold:    #D4920A !important;
+  --gold-lt: #F5C842 !important;
+}
+
+/* res-big ($0, 24h, 7/10): forzar dorado sólido en móvil */
+@media (max-width: 768px) {
+  .res-big {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #F5C842 !important;
+    color: #F5C842 !important;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #F5C842 0%, #D4920A 100%) !important;
+    color: #060E1C !important;
+  }
+
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #FFD84D 0%, #E5A322 100%) !important;
+  }
+}
