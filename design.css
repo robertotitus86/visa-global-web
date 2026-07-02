@@ -811,16 +811,16 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25) !import
   .hstat-n { font-size: 1.6rem !important; }
 }
 
-/* ── FIX MOBILE: colores dorados correctos en todos los dispositivos ── */
+/* ── FIX MOBILE: colores y fuentes iguales que escritorio ── */
 
-/* Corregir variable --gold para que no se vea rojiza en pantallas de celular */
+/* Corregir --gold para que no se vea rojiza en pantallas de celular */
 :root {
   --gold:    #D4920A !important;
   --gold-lt: #F5C842 !important;
 }
 
-/* res-big ($0, 24h, 7/10): forzar dorado sólido en móvil */
 @media (max-width: 768px) {
+  /* Gradient text: res-big ($0, 24h, 7/10) → dorado sólido */
   .res-big {
     background: none !important;
     -webkit-background-clip: unset !important;
@@ -829,12 +829,40 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25) !import
     color: #F5C842 !important;
   }
 
+  /* Gradient text: pstep-n (números de pasos) → azul sólido */
+  .pstep-n {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #60A5FA !important;
+    color: #60A5FA !important;
+  }
+
+  /* Botones dorados: colores explícitos sin depender de variables CSS */
   .btn-gold {
     background: linear-gradient(135deg, #F5C842 0%, #D4920A 100%) !important;
     color: #060E1C !important;
+    -webkit-text-fill-color: #060E1C !important;
   }
 
-  .btn-gold:hover {
-    background: linear-gradient(135deg, #FFD84D 0%, #E5A322 100%) !important;
+  .nav-cta {
+    background: linear-gradient(135deg, #F5C842, #D4920A) !important;
+    color: #060E1C !important;
+    -webkit-text-fill-color: #060E1C !important;
+  }
+
+  /* Fuentes: forzar carga correcta en móvil */
+  body {
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
+  }
+
+  h1, h2, h3, .display, .h1, .logo, .nav-brand, .res-big, .hstat-n, .pstep-n,
+  .loader-logo, .svc-code, .price-num {
+    font-family: 'Playfair Display', Georgia, serif !important;
+  }
+
+  /* Asegurar fondo navy en toda la página */
+  body, .sec, .hero, section {
+    background-color: #060E1C !important;
   }
 }
