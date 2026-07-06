@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Fiorella Martinez · Visa B1/B2 USA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;--gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;--white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);--card:rgba(255,255,255,.04);--sans:'Space Grotesk',sans-serif;--serif:'Playfair Display',serif;--r:14px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(245,200,66,.06),transparent 55%),radial-gradient(ellipse 60% 40% at 85% 100%,rgba(59,130,246,.05),transparent 60%),var(--navy)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+.main{position:relative;z-index:1;padding:72px 16px 48px}
+.wrap{max-width:640px;margin:0 auto}
+.screen{animation:fadeUp .3s ease-out}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+
+/* badges */
+.badge-gold{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.badge-gold span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.learn{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.mod-tag.tip{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2)}
+.mod-tag.review{background:rgba(124,58,237,.15);color:#A78BFA;border:1px solid rgba(124,58,237,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+
+/* typography */
+.h1{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.h1 em{color:var(--gold);font-style:italic}
+.h2{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2rem);line-height:1.2;margin-bottom:8px}
+.h2 em{color:var(--gold);font-style:italic}
+.sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:20px}
+
+/* cards */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.ic-num{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:rgba(245,200,66,.2);line-height:1;margin-bottom:7px}
+.ic-title{font-weight:700;font-size:.9375rem;margin-bottom:5px}
+.ic-body{font-size:.8125rem;color:rgba(255,255,255,.6);line-height:1.65}
+.str-card{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-bottom:8px;display:flex;gap:12px}
+.str-icon{font-size:1.2rem;flex-shrink:0}
+.str-title{font-weight:700;font-size:.875rem;margin-bottom:3px}
+.str-body{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55}
+.risk-card{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:14px;margin-bottom:8px;display:flex;gap:12px}
+.resp-box{background:rgba(59,130,246,.06);border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;padding:14px;margin:10px 0}
+.resp-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:7px}
+.resp-text{font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic}
+
+/* trip box */
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600}
+
+/* ds-160 */
+.ds-header{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid rgba(245,200,66,.2);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ds-name{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.ds-sub{font-size:.8rem;color:rgba(245,200,66,.8);font-weight:600}
+.ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ds-field{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
+.ds-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.ds-value{font-size:.875rem;font-weight:600;line-height:1.4}
+.ds-field.hi{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.05)}
+.ds-field.ok{border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.05)}
+.ds-field.wn{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05)}
+.ds-note{background:rgba(59,130,246,.06);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:14px;font-size:.825rem;color:rgba(255,255,255,.75);line-height:1.6}
+
+/* mode buttons */
+.mode-box{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.mode-btn{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;color:var(--white);width:100%}
+.mode-btn:hover{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.04)}
+.mode-icon{font-size:1.4rem;flex-shrink:0}
+.mode-title{font-weight:700;font-size:.875rem;margin-bottom:2px}
+.mode-sub{font-size:.72rem;color:var(--muted)}
+
+/* practice */
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-tip{font-size:.75rem;color:var(--muted);font-style:italic;margin-bottom:14px;line-height:1.5}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+
+/* buttons */
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+/* result */
+.score-ring{width:110px;height:110px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.score-num{font-family:var(--serif);font-size:2.4rem;font-weight:700;line-height:1}
+.score-lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.wa-cta{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:14px;text-decoration:none;color:var(--white);font-size:.875rem;font-weight:600;margin-bottom:10px}
+
+@media(max-width:520px){.ds-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <div class="logo">Asesori&#769;a <em>Visa</em> Global</div>
+  <div class="hdr-right"><span class="hdr-prog">Mo&#769;dulo <strong id="hm">1</strong> de <strong id="ht">8</strong></span></div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+'use strict';
+var cur=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const EXPEDIENTE_CONTEXT=`Joceline Fiorella Martinez Mera. Analista de Comunicacion (SP7) en AME - Asociacion de Municipalidades Ecuatorianas, Quito, desde el 29 de octubre de 2025. Salario $1,674/mes. Cursa un master en Comunicacion y Marketing Politico en la Universidad de La Rioja, de forma virtual desde Ecuador. Viaje de negocios/institucional acompanando a su jefa, Yuri Jessica Colorado Marquez, quien cubre los gastos del viaje. Destino: Nueva York, hospedaje en Wingate by Wyndham, Long Island City. Viaje del 31 de julio al 6 de agosto de 2026, seis dias. No tiene familiares en Estados Unidos. Nunca le han negado una visa — es su primera solicitud. Paises visitados en los ultimos 5 anos: Republica Dominicana, siempre regreso a Ecuador. Pasaporte A9599617. DS-160 AA00FNFH4N. Entrevista: 14 julio 2026, 8:00 AM, Embajada/Consulado USA Quito, Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA.`;
+
+/* ── DATOS ─────────────────────────────────────────── */
+var QB=[
+  {q:"Cual es el proposito de su viaje a los Estados Unidos?",
+   tip:"Viaje de negocios acompanando a su jefa, fechas exactas.",
+   model:"Viajo por motivo de negocios, acompanando a mi jefa Yuri Jessica Colorado Marquez. Vamos a Nueva York del 31 de julio al 6 de agosto de 2026, seis dias.",
+   kw:["negocios","jefa","nueva york","31","julio","seis","6"]},
+  {q:"A que se dedica usted?",
+   tip:"Analista de Comunicacion en la Asociacion de Municipalidades Ecuatorianas.",
+   model:"Soy Analista de Comunicacion en la Asociacion de Municipalidades Ecuatorianas, en Quito.",
+   kw:["analista","comunicacion","asociacion","municipalidades","quito"]},
+  {q:"Donde se va a hospedar?",
+   tip:"Wingate by Wyndham, Long Island City.",
+   model:"En el hotel Wingate by Wyndham, en Long Island City, Nueva York. Ya tenemos la reserva confirmada.",
+   kw:["wingate","wyndham","long island","reserva"]},
+  {q:"Quien paga este viaje?",
+   tip:"Su jefa cubre los gastos, es un viaje de trabajo.",
+   model:"Los gastos los cubre mi jefa, Yuri Jessica Colorado Marquez, ya que es un viaje de trabajo.",
+   kw:["jefa","yuri","colorado","cubre","gastos","trabajo"]},
+  {q:"Tiene familiares en los Estados Unidos?",
+   tip:"No tiene familiares alla. Directo, sin rodeos.",
+   model:"No, no tengo familiares en los Estados Unidos.",
+   kw:["no","familiares"]}
+];
+
+var QI=[
+  {q:"Cuanto gana usted actualmente?",
+   tip:"Mil seiscientos setenta y cuatro dolares mensuales, con precision.",
+   model:"Mil seiscientos setenta y cuatro dolares mensuales, en la Asociacion de Municipalidades Ecuatorianas.",
+   kw:["1674","mil seiscientos","setenta","salario","mensual"]},
+  {q:"Desde cuando trabaja en la Asociacion de Municipalidades Ecuatorianas?",
+   tip:"Desde el 29 de octubre de 2025.",
+   model:"Desde el 29 de octubre de 2025. Llevo varios meses trabajando ahi como Analista de Comunicacion.",
+   kw:["29","octubre","2025","analista","comunicacion"]},
+  {q:"Quien es Yuri Jessica Colorado Marquez?",
+   tip:"Es su jefa directa, quien organiza el viaje de negocios.",
+   model:"Es mi jefa directa en la Asociacion de Municipalidades Ecuatorianas. Ella organiza este viaje de trabajo y viajamos juntas.",
+   kw:["jefa","directa","asociacion","viaje","trabajo","juntas"]},
+  {q:"Esta estudiando actualmente?",
+   tip:"Si, un master en Comunicacion y Marketing Politico en la Universidad de La Rioja.",
+   model:"Si, estoy cursando un master en Comunicacion y Marketing Politico en la Universidad de La Rioja, de manera virtual.",
+   kw:["master","comunicacion","marketing","politico","rioja","virtual"]},
+  {q:"Ha viajado antes fuera de Ecuador?",
+   tip:"Si, a Republica Dominicana, siempre regresando.",
+   model:"Si, he viajado a Republica Dominicana anteriormente, y regrese a Ecuador sin ningun problema.",
+   kw:["republica","dominicana","regrese","ecuador","si"]}
+];
+
+var QD=[
+  {q:"Es la primera vez que solicita una visa a Estados Unidos. Por que ahora?",
+   tip:"Oportunidad de negocios concreta con su jefa, no es turismo.",
+   model:"Esta es mi primera solicitud porque ahora surgio esta oportunidad concreta de viaje de negocios con mi jefa. No habia tenido antes un motivo institucional para viajar a Estados Unidos.",
+   kw:["primera","oportunidad","negocios","jefa","motivo"]},
+  {q:"Por que su jefa paga el viaje y no usted misma?",
+   tip:"Es un viaje de trabajo organizado por ella, no un viaje personal.",
+   model:"Porque es un viaje de trabajo organizado por mi jefa como parte de nuestras funciones en la Asociacion de Municipalidades Ecuatorianas. Ella cubre los gastos institucionales del viaje.",
+   kw:["trabajo","jefa","funciones","asociacion","institucionales","cubre"]},
+  {q:"Con un salario de mil seiscientos dolares, como respalda usted misma este viaje si no lo paga usted?",
+   tip:"No lo paga ella — lo paga su jefa. Su salario respalda su estabilidad en Ecuador, no el costo del viaje.",
+   model:"El viaje lo cubre mi jefa, no yo. Mi salario de mil seiscientos setenta y cuatro dolares mensuales respalda mi estabilidad laboral y mi vida aqui en Ecuador.",
+   kw:["jefa","cubre","salario","estabilidad","ecuador"]},
+  {q:"Que garantia tiene de que va a regresar a Ecuador?",
+   tip:"Trabajo estable en AME, maestria en curso, viaje corto de 6 dias.",
+   model:"Tengo un trabajo estable en la Asociacion de Municipalidades Ecuatorianas y estoy cursando una maestria que continuo desde Ecuador. Ademas, este es un viaje corto de solo seis dias con fecha de regreso fija.",
+   kw:["trabajo","estable","asociacion","maestria","ecuador","seis","regreso"]},
+  {q:"Por que esta haciendo una maestria en una universidad espanola si su carrera esta en Ecuador?",
+   tip:"El master es virtual, a distancia desde Ecuador, y refuerza su trabajo actual.",
+   model:"El master es virtual, lo curso a distancia desde Ecuador, y complementa directamente mi trabajo actual en comunicacion institucional en la Asociacion de Municipalidades Ecuatorianas.",
+   kw:["virtual","distancia","ecuador","complementa","comunicacion","institucional"]}
+];
+
+/* Normalize: remove accents, lowercase */
+function norm(s){
+  return s.toLowerCase()
+    .replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e')
+    .replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o')
+    .replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');
+}
+
+/* ── NAV ─────────────────────────────────────────── */
+function goTo(n){cur=n;qIdx=0;pendingFollowup=null;render();}
+function next(){goTo(Math.min(cur+1,7));}
+function prev(){goTo(Math.max(cur-1,0));}
+
+/* ── PRACTICE EVAL ────────────────────────────────── */
+function localCheck(q,resp){
+  var hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;
+  return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;
+}
+
+async function check(){
+  var pqs=cur===4?QB:cur===5?QI:QD;
+  var wasFollowup=!!pendingFollowup;
+  var q=pendingFollowup||pqs[qIdx];
+  var respRaw=(document.getElementById('qa').value||'').trim();
+  var resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+
+  var evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  var historial=answersLog.slice(-3).map(function(a){
+    return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};
+  });
+
+  var iaResult=null;
+  try{
+    fetch(WEBHOOK,{
+      method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,
+        respuestaUsuario:respRaw,expedienteContext:EXPEDIENTE_CONTEXT,historial:historial})
+    }).catch(function(){});
+
+    for(var attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        var r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        var d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+
+  var ok, fbClass, fbEstado, fbMsg, repregunta='';
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial esta conforme'
+      :iaResult.evaluacion==='riesgo'?'Riesgo — respuesta debil'
+      :'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+    repregunta=iaResult.repregunta||'';
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales.':'Revisa la respuesta modelo. Asegurate de incluir los detalles especificos.';
+  }
+
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+
+  // Si la respuesta original fue debil y la IA dio una repregunta, el oficial
+  // insiste en el mismo punto antes de avanzar (como en una entrevista real).
+  // La repregunta solo se hace UNA vez — si ya era una repregunta, se cierra el tema.
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, tip:'', model:q.model, kw:q.kw};
+  }else{
+    pendingFollowup=null;
+  }
+
+  var fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  var repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
+
+function nextQ(){
+  if(!pendingFollowup) qIdx++;
+  render();
+}
+
+/* ── RENDER ───────────────────────────────────────── */
+function setHdr(){
+  document.getElementById('hm').textContent=cur+1;
+  document.getElementById('ht').textContent=8;
+  document.getElementById('pf').style.width=(cur/7*100)+'%';
+  window.scrollTo(0,0);
+}
+
+function dias(){
+  var d=Math.ceil((new Date('2026-07-14')-new Date())/86400000);
+  return d>0?d:'Hoy';
+}
+
+function mkDots(pqs){
+  return pqs.map(function(_,i){
+    return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';
+  }).join('');
+}
+
+function renderPractica(pqs,nivel,cls,titulo){
+  if(qIdx>=pqs.length){
+    var t=pqs.length,b=0;
+    for(var i=scores.length-t;i<scores.length;i++){if(scores[i])b++;}
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'&#127881;':'&#128170;')+'</div>'
+      +'<div class="h2">Nivel '+nivel+'<br><em>completado</em></div>'
+      +'<p class="sub">'+b+' de '+t+' respuestas completas.</p>'
+      +'<button class="btn-p" onclick="next()">Continuar &#8594;</button>'
+      +'<button class="btn-s" onclick="goTo(cur)">Repetir este nivel</button>'
+      +'</div>';
+    return;
+  }
+  var q=pendingFollowup||pqs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="nivel-badge '+cls+'">'+titulo+' &#8212; '+(qIdx+1)+' de '+pqs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">&#9888; El oficial no quedo conforme &mdash; insiste en el mismo punto</div>':'')
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(pqs)+'</div></div>'
+    +'<p class="q-text">&#8810;&#8811; '+q.q+'</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aqui..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar &#8594;</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div>'
+      +'<div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div>'
+      +'<div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ()">'+(qIdx+1<pqs.length?'Siguiente pregunta &#8594;':'Ver resumen &#8594;')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="prev()">&#8592; Anterior</button>'
+    +'</div>';
+}
+
+function render(){
+  setHdr();
+  var w=document.getElementById('wrap');
+  if(cur===0){renderBienvenida();}
+  else if(cur===1){renderEvalua();}
+  else if(cur===2){renderFortalezas();}
+  else if(cur===3){renderDS160();}
+  else if(cur===4){renderPractica(QB,'basico','n1','&#9679; Nivel basico');}
+  else if(cur===5){renderPractica(QI,'intermedio','n2','&#9679; Nivel intermedio');}
+  else if(cur===6){renderPractica(QD,'dificil','n3','&#9679; Nivel dificil');}
+  else if(cur===7){renderProtocolo();}
+}
+
+/* ── PANTALLAS ────────────────────────────────────── */
+function renderBienvenida(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<div class="badge-gold"><span></span>Preparacion entrevista consular USA B1/B2</div>'
+  +'<h1 class="h1">Fiorella<br><em>Martinez</em></h1>'
+  +'<p class="sub">Analista de Comunicacion en la Asociacion de Municipalidades Ecuatorianas. Este simulador fue preparado con los datos exactos de tu DS-160. Practica hasta que las respuestas salgan solas.</p>'
+
+  +'<div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+  +'<div style="font-size:1.4rem">&#127963;</div>'
+  +'<div style="flex:1;min-width:160px">'
+  +'<div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>'
+  +'<div style="font-weight:700;font-size:.82rem;color:#fff">Martes 14 julio 2026 &middot; 8:00 AM</div>'
+  +'<div style="font-size:.68rem;color:rgba(255,255,255,.45)">Consulado Quito &middot; Avigiras E12-170 &middot; Frente al SOLCA</div>'
+  +'</div>'
+  +'<div style="text-align:center;min-width:44px">'
+  +'<div style="font-size:1.5rem;font-weight:700;color:#F5C842">'+dias()+'</div>'
+  +'<div style="font-size:.52rem;color:rgba(255,255,255,.35);text-transform:uppercase">dias</div>'
+  +'</div></div>'
+
+  +'<div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.78rem;color:rgba(255,255,255,.7)">'
+  +'<span style="color:#EF4444;font-weight:700">Limite reagenda:</span> 10 julio 2026 &middot; 5:00 AM</div>'
+
+  +'<div class="trip-box"><div class="trip-ttl">Datos del viaje</div>'
+  +'<div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">Nueva York (Long Island City)</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">31 jul &mdash; 6 ago 2026</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Hospedaje</span><span class="trip-v">Wingate by Wyndham</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Proposito</span><span class="trip-v">Negocios &mdash; viaje con su jefa</span></div>'
+  +'<div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:var(--gold)">AA00FNFH4N</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Pasaporte</span><span class="trip-v" style="font-family:monospace">A9599617</span></div>'
+  +'</div>'
+
+  +'<div class="mode-box">'
+  +'<button class="mode-btn" onclick="next()">'
+  +'<span class="mode-icon">&#128218;</span>'
+  +'<div><div class="mode-title">Recorrido completo</div>'
+  +'<div class="mode-sub">Aprendizaje &rarr; DS-160 &rarr; practica basico, intermedio y dificil</div></div>'
+  +'</button>'
+  +'<button class="mode-btn" onclick="goTo(4)">'
+  +'<span class="mode-icon">&#9889;</span>'
+  +'<div><div class="mode-title">Solo practica</div>'
+  +'<div class="mode-sub">Directo a las preguntas sin modulos de aprendizaje</div></div>'
+  +'</button>'
+  +'</div></div>';
+}
+
+function renderEvalua(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag learn">Modulo 1 &middot; Aprender</span>'
+  +'<h2 class="h2">Lo que evalua el<br><em>oficial consular</em></h2>'
+  +'<p class="sub">No es el Consul General quien entrevista &mdash; es un Oficial Consular. La entrevista dura 2 a 5 minutos. Ya leyeron tu DS-160 antes de que entres.</p>'
+  +'<div class="info-card"><div class="ic-num">01</div>'
+  +'<div class="ic-title">Va a regresar a Ecuador?</div>'
+  +'<div class="ic-body">Esta es la pregunta central. Busca vinculos reales: trabajo, estudios, historial. <strong style="color:var(--gold)">Tu trabajo en la AME y tu maestria en curso desde Ecuador son tu vinculo mas fuerte.</strong></div></div>'
+  +'<div class="info-card"><div class="ic-num">02</div>'
+  +'<div class="ic-title">Puede costear el viaje?</div>'
+  +'<div class="ic-body">No lo pagas tu — lo paga tu jefa, porque es un viaje de trabajo. Eso hay que decirlo con naturalidad, no con duda.</div></div>'
+  +'<div class="info-card"><div class="ic-num">03</div>'
+  +'<div class="ic-title">El proposito es claro y legitimo?</div>'
+  +'<div class="ic-body">Viaje de negocios acompanando a tu jefa, hospedaje confirmado en Wingate by Wyndham, fechas exactas.</div></div>'
+  +'<div class="info-card"><div class="ic-num">04</div>'
+  +'<div class="ic-title">Hay senales de riesgo?</div>'
+  +'<div class="ic-body">Primera vez en USA + el viaje lo paga tu jefa + tu cargo actual es reciente (desde octubre 2025). Para cada punto tienes respuesta preparada &mdash; la practicamos aqui.</div></div>'
+  +'<button class="btn-p" onclick="next()">Siguiente &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+function renderFortalezas(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag learn">Modulo 2 &middot; Tu caso</span>'
+  +'<h2 class="h2">Fortalezas y<br><em>puntos a preparar</em></h2>'
+  +'<p class="sub">Conoce tus ventajas. Usalas con naturalidad, no con timidez.</p>'
+
+  +'<div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:8px">Fortalezas</div>'
+  +'<div class="str-card"><div class="str-icon">&#127970;</div><div>'
+  +'<div class="str-title">Cargo formal en institucion nacional</div>'
+  +'<div class="str-body">Analista de Comunicacion en la Asociacion de Municipalidades Ecuatorianas (AME), en Quito. Vinculo laboral formal y verificable.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#127979;</div><div>'
+  +'<div class="str-title">Maestria en curso, virtual, desde Ecuador</div>'
+  +'<div class="str-body">Cursas un master en Comunicacion y Marketing Politico en la Universidad de La Rioja de forma virtual — demuestra proyecto de vida y carrera en Ecuador.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#128188;</div><div>'
+  +'<div class="str-title">Viaje institucional con proposito claro</div>'
+  +'<div class="str-body">Viajas acompanando a tu jefa, Yuri Jessica Colorado Marquez, quien organiza y cubre los gastos del viaje de trabajo.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#9992;</div><div>'
+  +'<div class="str-title">Historial de viajera responsable</div>'
+  +'<div class="str-body">Ya viajaste a Republica Dominicana y regresaste a Ecuador sin ningun problema.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#128220;</div><div>'
+  +'<div class="str-title">Sin rechazos previos &middot; Sin familiares en USA</div>'
+  +'<div class="str-body">Historial limpio, primera solicitud. Ninguna razon para quedarte en Estados Unidos.</div></div></div>'
+
+  +'<div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin:14px 0 8px">Puntos a preparar</div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">Cargo relativamente reciente (desde oct. 2025)</div>'
+  +'<div class="str-body">No te pongas nerviosa por la fecha de ingreso. Explica con seguridad tu rol actual y tu funcion.</div></div></div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">El viaje lo paga tu jefa, no tu</div>'
+  +'<div class="str-body">Dilo con naturalidad: es un viaje de trabajo, tu jefa organiza y cubre los gastos institucionales.</div></div></div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">Primera vez viajando a Estados Unidos</div>'
+  +'<div class="str-body">No te disculpes. "Esta es la primera oportunidad concreta de negocios que se presento."</div></div></div>'
+
+  +'<div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05);margin-top:8px">'
+  +'<div class="ic-title" style="color:var(--red)">Error a evitar</div>'
+  +'<div class="ic-body">No dudes al explicar que tu jefa paga el viaje — es normal en un viaje de trabajo. La duda genera sospecha, no la explicacion.</div></div>'
+
+  +'<button class="btn-p" onclick="next()">Siguiente &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+function renderDS160(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag review">DS-160 &middot; Fiorella Martinez</span>'
+  +'<h2 class="h2">Lo que declaraste<br><em>en tu DS-160</em></h2>'
+  +'<p class="sub">Esto es exactamente lo que el oficial consular tiene frente a el. Conocelo de memoria.</p>'
+  +'<div class="ds-header"><div class="ds-name">Joceline Fiorella Martinez Mera</div>'
+  +'<div class="ds-sub">DS-160 &middot; AA00FNFH4N &middot; Enviado 06 julio 2026</div></div>'
+  +'<div class="ds-grid">'
+  +'<div class="ds-field ok"><div class="ds-label">Nombre preferido</div><div class="ds-value">FIORELLA MARTINEZ</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Fecha de nacimiento</div><div class="ds-value">28 enero 1995</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Lugar de nacimiento</div><div class="ds-value">Esmeraldas, Ecuador</div></div>'
+  +'<div class="ds-field hi"><div class="ds-label">Pasaporte</div><div class="ds-value">A9599617</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Ocupacion</div><div class="ds-value">Analista de Comunicacion, AME Quito</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Ingreso al puesto</div><div class="ds-value">29 octubre 2025</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Salario mensual</div><div class="ds-value">$1.674</div></div>'
+  +'<div class="ds-field wn"><div class="ds-label">Primera vez en USA</div><div class="ds-value">Si &mdash; primera solicitud de visa</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Familiares en USA</div><div class="ds-value">Ninguno</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Rechazos previos</div><div class="ds-value">Ninguno</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Paises visitados (5 anos)</div><div class="ds-value">Republica Dominicana</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Estudios en curso</div><div class="ds-value">Master Comunicacion y Marketing Politico &mdash; Univ. de La Rioja (virtual)</div></div>'
+  +'</div>'
+  +'<div class="ds-note"><strong style="color:var(--blue)">Proposito declarado:</strong> Negocios/Personal (B1/B2). Viaje de trabajo acompanando a su jefa, 6 dias, 31 jul &ndash; 6 ago, a Nueva York.</div>'
+  +'<div class="ds-grid">'
+  +'<div class="ds-field"><div class="ds-label">Hospedaje en USA</div><div class="ds-value">Wingate by Wyndham<br>Long Island City, New York</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Quien paga el viaje</div><div class="ds-value">Yuri Jessica Colorado Marquez<br>(su jefa)</div></div>'
+  +'</div>'
+  +'<div class="ds-note" style="border-left-color:var(--amber);background:rgba(245,158,11,.06)">'
+  +'<strong style="color:var(--amber)">Sobre el pago del viaje:</strong> Es normal declarar que paga un tercero cuando es un viaje de trabajo. Tienes respuesta preparada para esto.</div>'
+  +estudioPreguntasHtml()
+  +'<button class="btn-p" onclick="next()">Ir a practica &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+/* Bloque "estudiar antes de practicar" — todas las preguntas + respuesta modelo,
+   sin tip (el tip solo se usa en la fase de estudio, no durante la practica real) */
+function estudioPreguntasHtml(){
+  var niveles=[
+    {qs:QB, titulo:'Nivel basico', color:'var(--green)'},
+    {qs:QI, titulo:'Nivel intermedio', color:'var(--amber)'},
+    {qs:QD, titulo:'Nivel dificil', color:'var(--red)'}
+  ];
+  var html='<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin:18px 0 10px">Estudia estas preguntas antes de practicar &mdash; en la practica no habra pistas, como en la entrevista real</div>';
+  niveles.forEach(function(nv){
+    html+='<div class="study-nivel-hdr" style="color:'+nv.color+'">'+nv.titulo+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card">'
+        +'<div class="study-q">&#171; '+q.q+' &#187;</div>'
+        +'<div class="study-tip">&#128161; '+q.tip+'</div>'
+        +'<div class="study-a-label">Respuesta modelo</div>'
+        +'<div class="study-a">'+q.model+'</div>'
+        +'</div>';
+    });
+  });
+  return html;
+}
+
+function renderProtocolo(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag tip">Modulo 7 &middot; Dia de la entrevista</span>'
+  +'<h2 class="h2">Protocolo<br><em>del 14 de julio</em></h2>'
+  +'<div class="info-card"><div class="ic-num">&#128205;</div>'
+  +'<div class="ic-title">Donde queda el Consulado</div>'
+  +'<div class="ic-body">Avigiras E12-170 y Guayacanes, Quito. Frente al Hospital SOLCA.<br>La cita es a las <strong style="color:var(--gold)">8:00 AM &mdash; llega a las 7:30</strong>.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128084;</div>'
+  +'<div class="ic-title">Como vestir</div>'
+  +'<div class="ic-body">Formal. Blusa o traje formal, colores serios. Comunica seriedad profesional.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128193;</div>'
+  +'<div class="ic-title">Que llevar</div>'
+  +'<div class="ic-body">&#10003; Pasaporte original A9599617<br>&#10003; Confirmacion DS-160 (AA00FNFH4N)<br>&#10003; Hoja de confirmacion de cita<br>&#10003; Certificado laboral / roles de pago de la AME (ultimos 3 meses)<br>&#10003; Extractos bancarios de los ultimos 3 meses<br>&#10003; Certificado de estudios o matricula de la maestria<br>&#10003; Copia de la visa de su jefa (acompanante de viaje)</div></div>'
+  +'<div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05)">'
+  +'<div class="ic-num" style="color:var(--red)">&#128683;</div>'
+  +'<div class="ic-title" style="color:var(--red)">Que NO llevar</div>'
+  +'<div class="ic-body">Celular (no pasa seguridad). Laptop, tablet, cables. Comida o bebidas.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128172;</div>'
+  +'<div class="ic-title">Dentro de la entrevista</div>'
+  +'<div class="ic-body">&#8226; Responde solo lo que te preguntan &mdash; ni mas ni menos<br>&#8226; Habla claro, directo, sin apresurarte<br>&#8226; Si no entiendes, pide que repitan la pregunta<br>&#8226; No te justifiques en exceso &mdash; eso genera mas preguntas<br>&#8226; Si preguntan por el pago del viaje: es tu jefa, con naturalidad</div></div>'
+  +'<div class="resp-box"><div class="resp-label">Si preguntan por que su jefa paga el viaje</div>'
+  +'<div class="resp-text">"Es un viaje de trabajo organizado por mi jefa. Ella cubre los gastos institucionales porque viajamos juntas por motivo de negocios."</div></div>'
+
+  +'<div style="background:var(--navy2);border-radius:var(--r);padding:18px;margin-top:16px;margin-bottom:14px">'
+  +'<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:12px">Las 3 respuestas que debes memorizar</div>'
+  +'<div style="font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.8)">'
+  +'<strong style="color:var(--gold)">1. Proposito del viaje:</strong> Negocios, acompanando a su jefa a Nueva York, 6 dias, fechas exactas.<br>'
+  +'<strong style="color:var(--gold)">2. Garantia de regreso:</strong> Trabajo estable en la AME + maestria en curso desde Ecuador.<br>'
+  +'<strong style="color:var(--gold)">3. Quien paga:</strong> Su jefa, Yuri Colorado Marquez, por ser viaje institucional/de trabajo.'
+  +'</div></div>'
+
+  +'<div style="background:rgba(16,185,129,.06);border-radius:var(--r);padding:14px;margin-bottom:14px">'
+  +'<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px">Checklist documentos &mdash; 14 julio</div>'
+  +'<div style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.8">'
+  +'&#9744; Pasaporte A9599617 (original)<br>'
+  +'&#9744; Confirmacion cita + DS-160 AA00FNFH4N<br>'
+  +'&#9744; Roles de pago / certificado laboral AME (3 meses)<br>'
+  +'&#9744; Extractos bancarios (3 meses)<br>'
+  +'&#9744; Certificado o matricula de la maestria<br>'
+  +'&#9744; Copia de la visa de su jefa (acompanante)'
+  +'</div></div>'
+
+  +'<a class="wa-cta" href="https://wa.me/593987846751">'
+  +'<span style="font-size:1.2rem">&#128172;</span>'
+  +'<span>Tienes dudas? Escribele a Roberto por WhatsApp</span>'
+  +'</a>'
+  +'<button class="btn-p" onclick="goTo(0)">Volver al inicio</button>'
+  +'<button class="btn-s" onclick="goTo(4)">Repetir practica</button>'
+  +'</div>';
+}
+
+render();
+</script>
+</body>
+</html>
