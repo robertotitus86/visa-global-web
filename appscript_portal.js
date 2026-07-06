@@ -49,6 +49,7 @@ function doPost(e) {
     if (payload.subtipo === 'extractDS160')             return extractarDS160(payload);
     if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
     if (payload.subtipo === 'submit_screening')         return manejarScreening(payload);
+    if (payload.subtipo === 'evaluarOficialConsular')   return iniciarEvaluacionOficial(payload);
     if (payload.action === 'lead_magnet')               return guardarLeadMagnet(payload);
     if (payload.action === 'run_diagnostic')            return runDiagnostico(payload);
     if (payload.action === 'chat_message')              return chatMessage(payload);
@@ -904,6 +905,7 @@ function doGet(e) {
   if (action === 'payphone_prepare') return payphonePrepare(e);
   if (action === 'payphone_verify')  return payphoneVerify(e);
   if (action === 'bot_history')      return botHistory(e);
+  if (action === 'getEvalOficial')   return getEvalOficial(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -1023,6 +1025,100 @@ function llamarClaudeIA(prompt) {
       proximos_pasos: 'Verificar configuracion de Gemini en Script Properties',
       alerta_principal: 'Error en analisis — revisar logs',
       campos_faltantes: 'PERFIL COMPLETO'
+    };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// PRACTICA CON IA — OFICIAL CONSULAR (Claude Haiku 4.5)
+// Aprobado por Roberto 6-jul-2026: excepcion a "Anthropic solo para el bot",
+// exclusiva para evaluar respuestas de practica en los simuladores de
+// entrevista (viejos y nuevos). Costo estimado ~$1-3/mes con el volumen
+// actual de casos. Usa el mismo patron POST (no-cors, fire-and-forget) +
+// GET polling que extractDS160/getExtraction, pero con CacheService en
+// lugar de una hoja de Sheets porque el dato es efimero.
+// ═══════════════════════════════════════════════════════════════════════
+function iniciarEvaluacionOficial(payload) {
+  try {
+    const evalId = payload.evalId;
+    const resultado = evaluarComoOficialConsular(payload);
+    CacheService.getScriptCache().put('oficial_' + evalId, JSON.stringify(resultado), 300);
+    return ok({ status: 'ok', evalId });
+  } catch(err) {
+    console.error('iniciarEvaluacionOficial error:', err.toString());
+    return ok({ error: err.toString() });
+  }
+}
+
+function getEvalOficial(e) {
+  const evalId = e.parameter.evalId || '';
+  const cached = CacheService.getScriptCache().get('oficial_' + evalId);
+  if (!cached) return ok({ status: 'pending' });
+  const datos = JSON.parse(cached);
+  datos.status = 'ok';
+  return ok(datos);
+}
+
+function evaluarComoOficialConsular(payload) {
+  const historial = (payload.historial || []).map(function(h){
+    return 'Pregunta anterior: ' + h.pregunta + '\nRespuesta del solicitante: ' + h.respuesta + '\nEvaluacion: ' + h.evaluacion;
+  }).join('\n\n');
+
+  const prompt = `Eres un Oficial Consular de la Embajada de Estados Unidos realizando una entrevista real de visa B1/B2 en Ecuador. Tu tono es profesional, directo y algo esceptico por defecto — no hostil, pero tampoco condescendiente. Tienes el expediente del solicitante frente a ti y ya revisaste su DS-160 antes de que entrara.
+
+EXPEDIENTE DEL SOLICITANTE (hechos reales, no los cuestiones salvo que la respuesta los contradiga):
+${payload.expedienteContext || ''}
+
+${historial ? 'CONVERSACION PREVIA EN ESTA ENTREVISTA:\n' + historial + '\n' : ''}
+PREGUNTA QUE LE ACABAS DE HACER: ${payload.pregunta}
+
+RESPUESTA DEL SOLICITANTE: "${payload.respuestaUsuario}"
+
+Evalua esta respuesta como lo haria un oficial consular real en 2-5 minutos de entrevista: ¿es concreta?, ¿es consistente con el expediente?, ¿suena honesta y natural en vez de memorizada?, ¿demuestra vinculos de arraigo cuando corresponde? Responde en JSON exacto, sin markdown ni bloques de codigo:
+{
+  "evaluacion": "bien | mejorar | riesgo",
+  "reaccionOficial": "1-2 frases en primera persona, como si tu -el oficial- reaccionaras en el momento a la respuesta. Natural, en espanol, tono de entrevista real",
+  "consejo": "consejo breve y concreto de que mejorar en la respuesta — vacio si la respuesta ya fue solida",
+  "repregunta": "la siguiente pregunta de seguimiento natural que harias como oficial. Si la respuesta fue debil o incompleta, presiona sobre esa debilidad especifica. Si fue solida, avanza hacia otro aspecto del caso"
+}`;
+
+  return llamarClaudeOficial(prompt);
+}
+
+function llamarClaudeOficial(prompt) {
+  try {
+    const resp = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json'
+      },
+      payload: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 500,
+        messages: [{ role: 'user', content: prompt }]
+      }),
+      muteHttpExceptions: true
+    });
+
+    const json = JSON.parse(resp.getContentText());
+    if (json.error) throw new Error('Claude error: ' + JSON.stringify(json.error));
+
+    const text  = (json.content && json.content[0] && json.content[0].text) || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    const match = clean.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('No JSON en respuesta Claude');
+
+    return JSON.parse(match[0]);
+  } catch(err) {
+    console.error('llamarClaudeOficial error:', err.toString());
+    return {
+      evaluacion: 'error',
+      reaccionOficial: '',
+      consejo: '',
+      repregunta: '',
+      error: err.toString()
     };
   }
 }

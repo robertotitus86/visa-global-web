@@ -102,10 +102,13 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
 .fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
 .fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
 .fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
 .fb.bien .fb-estado{color:var(--green)}
 .fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
 .fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
 .fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
 .fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
 .fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
@@ -136,7 +139,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 <script>
 'use strict';
-var cur=0, qIdx=0, scores=[];
+var cur=0, qIdx=0, scores=[], answersLog=[];
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const EXPEDIENTE_CONTEXT=`Hugo Leon. Responsable de Comunicacion Institucional en la Asociacion de Municipalidades Ecuatorianas (AME), Quito. Salario $1,212/mes. Trayectoria: 9 anos en la Gobernacion de Esmeraldas (comunicacion social), luego GAD Municipal de Esmeraldas (produccion y marketing), ahora AME. Padres Homero y Mariela viven en Esmeraldas. Pasaporte emitido marzo 2026, vigente hasta 2036, sin rechazos previos, primera solicitud. Viaje: turismo personal a Nueva York (Long Island City, Queens), 30 julio al 5 agosto 2026, seis dias, paga el mismo con ahorros propios. Tiene un hermano (Cristhian) viviendo en Estados Unidos, pero no participa en el viaje ni lo hospeda. Nunca ha viajado fuera de Ecuador. Contacto en NY: Comite Civico Ecuatoriano, organizacion comunitaria en Elmhurst Queens (no es una persona individual). Entrevista: 13 julio 2026, 8:30 AM, Consulado Quito.`;
 
 /* ── DATOS ─────────────────────────────────────────── */
 var QB=[
@@ -222,22 +227,75 @@ function next(){goTo(Math.min(cur+1,7));}
 function prev(){goTo(Math.max(cur-1,0));}
 
 /* ── PRACTICE EVAL ────────────────────────────────── */
-function check(){
+function localCheck(q,resp){
+  var hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;
+  return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;
+}
+
+async function check(){
   var pqs=cur===4?QB:cur===5?QI:QD;
   var q=pqs[qIdx];
-  var resp=norm(document.getElementById('qa').value||'');
-  var hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;
-  var ok=hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;
+  var respRaw=(document.getElementById('qa').value||'').trim();
+  var resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+
+  var evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  var historial=answersLog.slice(-3).map(function(a){
+    return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};
+  });
+
+  var iaResult=null;
+  try{
+    fetch(WEBHOOK,{
+      method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,
+        respuestaUsuario:respRaw,expedienteContext:EXPEDIENTE_CONTEXT,historial:historial})
+    }).catch(function(){});
+
+    for(var attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        var r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        var d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+
+  var ok, fbClass, fbEstado, fbMsg, repregunta='';
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial esta conforme'
+      :iaResult.evaluacion==='riesgo'?'Riesgo — respuesta debil'
+      :'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+    repregunta=iaResult.repregunta||'';
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales.':'Revisa la respuesta modelo. Asegurate de incluir los detalles especificos.';
+  }
+
   scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+
   var fb=document.getElementById('fb');
-  fb.className='fb '+(ok?'bien':'mejorar');
-  document.getElementById('fb-estado').textContent=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
-  document.getElementById('fb-msg').textContent=ok?'Buena respuesta. Cubre los puntos esenciales.':'Revisa la respuesta modelo. Asegurate de incluir los detalles especificos.';
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
   document.getElementById('fb-model').textContent=q.model;
+  var repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(repregunta){ repregEl.textContent='El oficial podria seguir con: «'+repregunta+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
   fb.style.display='block';
   document.getElementById('btn-nxt').classList.remove('hidden');
   document.getElementById('qa').disabled=true;
-  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
 }
 
 function nextQ(){
@@ -289,6 +347,7 @@ function renderPractica(pqs,nivel,cls,titulo){
     +'<div class="fb" id="fb" style="display:none">'
       +'<div class="fb-estado" id="fb-estado"></div>'
       +'<div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
       +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div>'
       +'<div class="fb-model-text" id="fb-model"></div></div>'
     +'</div>'

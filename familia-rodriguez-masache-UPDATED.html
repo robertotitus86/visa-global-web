@@ -50,7 +50,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .fam-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
 @media(max-width:520px){.fam-grid{grid-template-columns:1fr}}
 .fam-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  padding:16px;cursor:pointer;transition:all .25s var(--ease)}
+  padding:16px;cursor:pointer;transition:all .25s var(--ease);display:block;color:inherit;text-decoration:none}
 .fam-card:hover,.fam-card:active{border-color:rgba(245,200,66,.4);transform:translateY(-3px);
   box-shadow:0 8px 30px rgba(0,0,0,.3);background:rgba(245,200,66,.05)}
 .fam-card.primary{border-color:rgba(245,200,66,.25);background:rgba(245,200,66,.05)}
@@ -82,6 +82,50 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
   .trip-v{text-align:right;flex:1}
 }
+
+/* ── practica (oficial consular) ── */
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-tip{font-size:.75rem;color:var(--muted);font-style:italic;margin-bottom:14px;line-height:1.5}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+/* ── estudio (paso 1: ver respuestas antes de practicar) ── */
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
 </style>
 </head>
 <body>
@@ -89,13 +133,15 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 <header class="hdr">
   <div class="logo">Asesoría <em>Visa</em> Global</div>
   <div class="hdr-right">
-    <span class="hdr-prog">Familia <strong>Rodríguez Masache</strong></span>
+    <span class="hdr-prog" id="hdrProg">Familia <strong>Rodríguez Masache</strong></span>
   </div>
 </header>
 <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
 <main class="main"><div class="wrap" id="wrap"></div></main>
 
 <script>
+'use strict';
+
 const familia={
   nombre:'Rodríguez Masache',
   cita:'31 julio 2026',
@@ -108,14 +154,377 @@ const familia={
     propósito:'Turismo familiar B1/B2'
   },
   miembros:[
-    {nombre:'Paul Fernando Rodriguez Narvaez',rol:'Padre/Titular',ocupacion:'Alcalde del Cantón Paquisha',tag:'Alcalde electo',pasaporte:'A9692851',ds160:'AA00FLUP4V'},
-    {nombre:'Jenny Enid Masache',rol:'Madre',ocupacion:'Presidenta Patronato de Acción Social desde 2023 + Administra la Granja Familiar de Criadero Porcino El Piolín desde su mayoría de edad',tag:'Empresaria',pasaporte:'A9692850',ds160:'AA00FLUXD3'},
-    {nombre:'Mileidy Maily Masache',rol:'Hija',ocupacion:'Estudiante bachillerato',tag:'Estudiante',pasaporte:'A9692847',ds160:'AA00FLUZDN'},
-    {nombre:'Paul Smith Rodriguez Masache',rol:'Hijo',ocupacion:'Estudiante primaria',tag:'Menor',pasaporte:'A9692848',ds160:'AA00FLUYSP'}
+    {nombre:'Paul Fernando Rodriguez Narvaez',rol:'Padre/Titular',ocupacion:'Alcalde del Cantón Paquisha',tag:'Alcalde electo',pasaporte:'A9692851',ds160:'AA00FLUP4V',id:'paul'},
+    {nombre:'Jenny Enid Masache',rol:'Madre',ocupacion:'Presidenta Patronato de Acción Social desde 2023 + Administra la Granja Familiar de Criadero Porcino El Piolín desde su mayoría de edad',tag:'Empresaria',pasaporte:'A9692850',ds160:'AA00FLUXD3',id:'jenny'},
+    {nombre:'Mileidy Maily Masache',rol:'Hija',ocupacion:'Estudiante bachillerato',tag:'Estudiante',pasaporte:'A9692847',ds160:'AA00FLUZDN',id:'mileidy'},
+    {nombre:'Paul Smith Rodriguez Masache',rol:'Hijo',ocupacion:'Estudiante primaria',tag:'Menor',pasaporte:'A9692848',ds160:'AA00FLUYSP',id:'paulsmith'}
   ]
 };
 
-document.getElementById('wrap').innerHTML=`
+/* ── PREGUNTAS POR MIEMBRO — basadas en el expediente real ────────────
+   Fuente: plan-rodriguez-masache.pdf (negativa 214(b) nov-2025, salarios,
+   cargos, fechas de viaje y regreso). No inventar datos fuera de esto. */
+const MIEMBROS={
+  paul:{
+    nombre:'Paul Fernando',
+    niveles:true,
+    expedienteContext:`Paul Fernando Rodriguez Narvaez. Alcalde del Canton Paquisha, provincia de Zamora Chinchipe, desde 2023, elegido popularmente, actualmente en campana de reeleccion. Salario $4,508/mes en el GAD Municipal de Paquisha. Antes fue Cabo Primero de la Policia Nacional 15 anos (2003-2018). Ha viajado antes a Espana y Peru, siempre regresando. Familia: esposa Jenny (Presidenta del Patronato de Accion Social de Paquisha desde 2023, cargo nuevo asumido tras la negativa + administra la granja porcina familiar El Piolin) e hijos Mileidy (19, estudiante bachillerato) y Paul Smith (12, estudiante primaria). Los 4 recibieron negativa 214(b) en noviembre 2025 — esta es la 2da solicitud. Viaje: turismo familiar a Orlando Florida, 21-28 marzo 2027, hotel The Point Hotel & Suites (7389 Universal Blvd), pagan ellos mismos. Los hijos retoman clases el 29 de marzo 2027 en la Unidad Educativa Soberania Nacional, Paquisha. Durante su ausencia el Vicealcalde asume funciones segun el COOTAD. Entrevista: 31 julio 2026, 8:30 AM, Consulado Quito.`,
+    QB:[
+      {q:"¿Cuál es el propósito de su viaje a Estados Unidos?",
+       tip:"Turismo familiar, fechas exactas, con esposa e hijos.",
+       model:"Viajo con mi esposa y mis dos hijos por turismo familiar a Orlando, Florida. Vamos del 21 al 28 de marzo de 2027, ocho días, para conocer los parques temáticos.",
+       kw:["turismo","familiar","orlando","marzo","2027","ocho","8","parques"]},
+      {q:"¿A qué se dedica usted?",
+       tip:"Alcalde de Paquisha, cargo elegido popularmente, en campaña de reelección.",
+       model:"Soy el Alcalde del Cantón Paquisha, en la provincia de Zamora Chinchipe, elegido popularmente. Dirijo el Gobierno Autónomo Descentralizado Municipal y actualmente estoy en campaña de reelección.",
+       kw:["alcalde","paquisha","zamora","municipal","reeleccion","campana"]},
+      {q:"¿Quién viaja con usted?",
+       tip:"Su esposa Jenny y sus dos hijos, Mileidy y Paul Smith.",
+       model:"Viajo con mi esposa Jenny y mis dos hijos, Mileidy y Paul Smith. Viajamos los cuatro juntos.",
+       kw:["esposa","jenny","mileidy","paul smith","hijos","cuatro","4"]},
+      {q:"¿Dónde se van a hospedar?",
+       tip:"The Point Hotel & Suites, con dirección exacta.",
+       model:"En el The Point Hotel and Suites, en el 7389 de Universal Boulevard, Orlando, Florida. Ya tenemos la reserva confirmada.",
+       kw:["point hotel","universal","orlando","reserva","confirmada"]},
+      {q:"¿Quién paga este viaje?",
+       tip:"Ustedes mismos, con ahorros e ingresos propios.",
+       model:"Lo pagamos nosotros mismos, mi esposa y yo, con nuestros propios ingresos y ahorros.",
+       kw:["nosotros","propios","ahorros","ingresos","esposa"]}
+    ],
+    QI:[
+      {q:"¿Cuánto gana usted como Alcalde?",
+       tip:"$4,508 mensuales exactos, salario del GAD Municipal de Paquisha.",
+       model:"Cuatro mil quinientos ocho dólares mensuales, como salario del Gobierno Autónomo Descentralizado Municipal de Paquisha.",
+       kw:["4508","cuatro mil","quinientos","ocho","salario","municipal"]},
+      {q:"¿A qué se dedica su esposa?",
+       tip:"Presidenta del Patronato de Acción Social + Granja El Piolín.",
+       model:"Mi esposa Jenny es Presidenta del Patronato de Acción Social del Cantón Paquisha, y además administra nuestra granja familiar de producción porcina, llamada El Piolín.",
+       kw:["patronato","accion social","granja","piolin","porcina","presidenta"]},
+      {q:"¿Cuánto tiempo lleva como Alcalde?",
+       tip:"Desde 2023. Antes, 15 años en la Policía Nacional (2003-2018).",
+       model:"Soy Alcalde de Paquisha desde 2023. Antes de eso trabajé quince años como Cabo Primero en la Policía Nacional, entre 2003 y 2018.",
+       kw:["2023","quince","15","policia","cabo","2003","2018"]},
+      {q:"¿Ha viajado antes fuera de Ecuador?",
+       tip:"Sí, a España y Perú, siempre regresando sin problema.",
+       model:"Sí, he viajado a España y a Perú anteriormente, y en ambas ocasiones regresé a Ecuador sin ningún problema.",
+       kw:["espana","peru","regrese","ecuador","si"]},
+      {q:"¿Cuándo regresan y por qué?",
+       tip:"28 de marzo. Hijos vuelven a clases el 29, y usted tiene actividades municipales.",
+       model:"Regresamos el 28 de marzo de 2027. Mis hijos retoman clases el día siguiente, y yo tengo actividades de campaña y sesiones municipales que requieren mi presencia.",
+       kw:["28","marzo","2027","clases","municipales","campana"]}
+    ],
+    QD:[
+      {q:"Veo que ya solicitaron esta visa antes y no fue aprobada en noviembre de 2025. ¿Qué ha cambiado desde entonces?",
+       tip:"NO minimizar ni ocultar la negativa. Reconocerla con calma y explicar 2 cambios reales: su campaña de reelección y el nuevo cargo de Jenny.",
+       model:"Entiendo, señor oficial. Desde esa fecha mi situación en Ecuador se ha fortalecido: inicié mi campaña de reelección como Alcalde de Paquisha, y mi esposa Jenny asumió la presidencia del Patronato de Acción Social del cantón, un cargo nuevo con responsabilidades importantes. Ambos tenemos compromisos institucionales que nos obligan a regresar.",
+       kw:["reeleccion","jenny","patronato","cargo nuevo","compromisos","regresar"]},
+      {q:"¿Quién queda a cargo del municipio durante su ausencia?",
+       tip:"El Vicealcalde, según el COOTAD, durante ausencias planificadas.",
+       model:"El Vicealcalde asume las funciones ejecutivas según el COOTAD ecuatoriano durante ausencias planificadas. Coordiné el viaje para que no afecte la gestión municipal.",
+       kw:["vicealcalde","cootad","funciones","ausencia","planificado"]},
+      {q:"Con un salario de Alcalde, ¿cómo pueden costear un viaje para toda la familia a Orlando?",
+       tip:"Ahorros propios + ingreso combinado con Jenny, viaje ya planificado y reservado.",
+       model:"Entre mi salario y el ingreso de mi esposa por la granja familiar hemos ahorrado para este viaje. Ya tenemos el hotel reservado y hemos planificado el presupuesto completo para los cuatro.",
+       kw:["ahorrado","salario","granja","reservado","presupuesto","cuatro"]},
+      {q:"¿Por qué cree que esta vez su solicitud será diferente?",
+       tip:"Cambios reales y verificables desde la negativa, no la misma situación de hace un año.",
+       model:"Porque desde la negativa hemos tenido cambios reales y verificables: mi campaña de reelección y el nuevo cargo de mi esposa en el Patronato. No es la misma situación de hace un año, es una familia con más arraigo institucional.",
+       kw:["cambios","verificables","reeleccion","patronato","arraigo"]},
+      {q:"¿Qué garantía tengo de que sus hijos van a regresar a Ecuador?",
+       tip:"Colegio en Paquisha, clases el 29 de marzo, un día después del regreso.",
+       model:"Mis hijos estudian en la Unidad Educativa Soberanía Nacional en Paquisha, y retoman clases el 29 de marzo de 2027, un día después de nuestro regreso. Su vida escolar está en Ecuador.",
+       kw:["unidad educativa","paquisha","clases","29","marzo","regreso"]}
+    ]
+  },
+  jenny:{
+    nombre:'Jenny',
+    niveles:false,
+    expedienteContext:`Jenny Enid Masache. Presidenta del Patronato de Accion Social del Canton Paquisha desde 2023 — cargo nuevo asumido DESPUES de la negativa 214(b) de noviembre 2025, prueba de cambio real. Tambien administra la granja familiar de produccion porcina "El Piolin" en Paquisha, ingreso combinado ~$1,500/mes. Esposo Paul Fernando es Alcalde de Paquisha ($4,508/mes), en campana de reeleccion. Hijos Mileidy (19, estudiante) y Paul Smith (12, estudiante). Los 4 recibieron negativa 214(b) en noviembre 2025 — esta es la 2da solicitud. Viaje: turismo familiar a Orlando Florida, 21-28 marzo 2027, hotel reservado. Regresan el 28 de marzo, ocho dias de viaje. Entrevista: 31 julio 2026, 8:30 AM, Consulado Quito.`,
+    Q:[
+      {q:"¿A qué se dedica usted?",
+       tip:"Presidenta del Patronato de Acción Social + Granja El Piolín.",
+       model:"Soy Presidenta del Patronato de Acción Social del Cantón Paquisha, y también administro nuestra granja familiar de producción porcina, El Piolín.",
+       kw:["patronato","accion social","granja","piolin","presidenta"]},
+      {q:"¿Desde cuándo es presidenta del Patronato?",
+       tip:"Cargo nuevo, asumido después de la negativa de noviembre 2025 — es una fortaleza, no hay que ocultarlo.",
+       model:"Asumí la presidencia del Patronato de Acción Social después de noviembre de 2025. Es un cargo con responsabilidades institucionales importantes para la comunidad de Paquisha.",
+       kw:["2025","patronato","cargo","comunidad","paquisha"]},
+      {q:"¿Cuánto gana usted?",
+       tip:"Alrededor de $1,500 mensuales, entre la granja y el Patronato.",
+       model:"Alrededor de mil quinientos dólares mensuales, entre mi actividad en la granja y mi rol en el Patronato.",
+       kw:["1500","mil quinientos","granja","patronato","mensual"]},
+      {q:"¿Por qué viaja con toda la familia y no solo su esposo?",
+       tip:"Viaje familiar de turismo, los cuatro juntos, regreso el 28 de marzo.",
+       model:"Es un viaje familiar de turismo. Queremos que nuestros hijos conozcan Orlando juntos, como familia. Los cuatro regresamos el 28 de marzo.",
+       kw:["familiar","turismo","hijos","orlando","28","marzo","regresamos"]},
+      {q:"¿Quién atiende la granja El Piolín cuando usted no está?",
+       tip:"Viaje corto de ocho días. Su presencia constante es la razón para regresar pronto.",
+       model:"Es nuestra granja familiar de producción porcina en Paquisha. Es un viaje corto de ocho días, y tengo quien me apoye durante esos días, pero mi presencia constante es necesaria — por eso regreso pronto.",
+       kw:["porcina","paquisha","ocho","dias","regreso","granja"]}
+    ]
+  },
+  mileidy:{
+    nombre:'Mileidy',
+    niveles:false,
+    expedienteContext:`Mileidy Maily Rodriguez Masache, 19 anos. Estudiante de bachillerato en la Unidad Educativa Soberania Nacional, Paquisha. Planes de estudiar en la universidad en Ecuador despues del colegio. Viaja con sus padres (Paul Fernando, Alcalde de Paquisha; Jenny, Presidenta del Patronato de Accion Social) y su hermano menor Paul Smith (12). Los 4 recibieron negativa 214(b) en noviembre 2025 — esta es la 2da solicitud. Viaje: turismo familiar a Orlando Florida, 21-28 marzo 2027. Regresa a clases el 29 de marzo 2027. Entrevista: 31 julio 2026, 8:30 AM, Consulado Quito.`,
+    Q:[
+      {q:"¿Cuál es el propósito de su viaje?",
+       tip:"Turismo familiar con sus padres y su hermano.",
+       model:"Viajo con mis padres y mi hermano por turismo, para conocer Orlando. Es un viaje familiar.",
+       kw:["padres","hermano","turismo","orlando","familiar"]},
+      {q:"¿A qué se dedica usted?",
+       tip:"Estudiante en la Unidad Educativa Soberanía Nacional, Paquisha.",
+       model:"Soy estudiante en la Unidad Educativa Soberanía Nacional, en Paquisha.",
+       kw:["estudiante","unidad educativa","soberania","paquisha"]},
+      {q:"¿Cuándo regresa a clases?",
+       tip:"29 de marzo de 2027, un día después del vuelo de regreso.",
+       model:"Regreso a clases el 29 de marzo de 2027, un día después de nuestro vuelo de vuelta.",
+       kw:["29","marzo","2027","clases","vuelo"]},
+      {q:"¿Qué planea hacer después de terminar el colegio?",
+       tip:"Planes de estudiar en la universidad aquí en Ecuador.",
+       model:"Quiero seguir estudiando en la universidad aquí en Ecuador. Todavía estoy en el colegio, pero ya tengo claro que mi futuro académico lo voy a hacer aquí.",
+       kw:["universidad","ecuador","colegio","estudiando"]},
+      {q:"¿Por qué debería creer que usted va a regresar a Ecuador?",
+       tip:"Estudia en Paquisha, su familia vive ahí, viaje corto de vacaciones con sus padres.",
+       model:"Porque estudio aquí en Paquisha, mi familia vive aquí, y este es un viaje corto de vacaciones con mis padres. Regreso con ellos el 28 de marzo.",
+       kw:["estudio","paquisha","familia","padres","28","marzo"]}
+    ]
+  },
+  paulsmith:{
+    nombre:'Paul Smith',
+    niveles:false,
+    expedienteContext:`Paul Smith Rodriguez Masache, 12 anos. Estudiante de primaria en la Unidad Educativa Soberania Nacional, Paquisha. Es menor de edad, viaja acompanado por ambos padres (Paul Fernando, Alcalde de Paquisha; Jenny, Presidenta del Patronato de Accion Social) y su hermana mayor Mileidy (19). Los 4 recibieron negativa 214(b) en noviembre 2025 — esta es la 2da solicitud. Viaje: turismo familiar a Orlando Florida, 21-28 marzo 2027 (Disney, Universal, Kennedy Space Center). Regresa a clases el 29 de marzo 2027. Entrevista: 31 julio 2026, 8:30 AM, Consulado Quito.`,
+    Q:[
+      {q:"¿Cuál es el propósito de su viaje?",
+       tip:"Vacaciones familiares a Orlando con sus papás y su hermana.",
+       model:"Voy con mis papás y mi hermana de vacaciones a Orlando, a conocer los parques.",
+       kw:["papas","hermana","orlando","parques","vacaciones"]},
+      {q:"¿A qué se dedica usted?",
+       tip:"Estudiante de primaria en Paquisha.",
+       model:"Estudio en la Unidad Educativa Soberanía Nacional, en Paquisha.",
+       kw:["estudiante","estudio","unidad educativa","paquisha"]},
+      {q:"¿Con quién viaja?",
+       tip:"Con papá, mamá y su hermana Mileidy — los cuatro juntos.",
+       model:"Viajo con mi papá, mi mamá y mi hermana Mileidy. Somos los cuatro.",
+       kw:["papa","mama","mileidy","hermana","cuatro"]},
+      {q:"¿Cuándo regresa a clases?",
+       tip:"29 de marzo, un día después de llegar de Estados Unidos.",
+       model:"Regreso a clases el 29 de marzo, un día después de que lleguemos de Estados Unidos.",
+       kw:["29","marzo","clases","regreso"]},
+      {q:"¿Qué van a hacer en Orlando?",
+       tip:"Disney, Universal y el Centro Espacial Kennedy.",
+       model:"Vamos a ir a Disney, a Universal, y al Centro Espacial Kennedy.",
+       kw:["disney","universal","kennedy","espacial"]}
+    ]
+  }
+};
+
+/* Normalize: remove accents, lowercase */
+function norm(s){
+  return s.toLowerCase()
+    .replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e')
+    .replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o')
+    .replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');
+}
+
+/* ── PRACTICE STATE ─────────────────────────────────── */
+let nivelIdx=0, qIdx=0, scores=[], answersLog=[];
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+
+function nivelesDe(m){
+  return m.niveles ? [
+    {qs:m.QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
+    {qs:m.QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
+    {qs:m.QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'}
+  ] : [
+    {qs:m.Q,nivel:'practica',cls:'n2',titulo:'● Práctica — oficial consular'}
+  ];
+}
+
+function mkDots(pqs){
+  return pqs.map(function(_,i){
+    return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';
+  }).join('');
+}
+
+function localCheck(q,resp){
+  const hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;
+  return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;
+}
+
+async function check(m){
+  const niveles=nivelesDe(m);
+  const pqs=niveles[nivelIdx].qs;
+  const q=pqs[qIdx];
+  const respRaw=(document.getElementById('qa').value||'').trim();
+  const resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+
+  const evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  const historial=answersLog.slice(-3).map(function(a){
+    return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};
+  });
+
+  let iaResult=null;
+  try{
+    fetch(WEBHOOK,{
+      method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,
+        respuestaUsuario:respRaw,expedienteContext:m.expedienteContext,historial:historial})
+    }).catch(function(){});
+
+    for(let attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        const r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        const d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+
+  let ok, fbClass, fbEstado, fbMsg, repregunta='';
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial está conforme'
+      :iaResult.evaluacion==='riesgo'?'Riesgo — respuesta débil'
+      :'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+    repregunta=iaResult.repregunta||'';
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales que el oficial consular espera escuchar.':'Revisa la respuesta modelo. Asegúrate de incluir los detalles específicos de tu expediente.';
+  }
+
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+
+  const fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  const repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(repregunta){ repregEl.textContent='El oficial podría seguir con: «'+repregunta+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
+
+function nextQ(miembroId){
+  qIdx++;
+  renderPractica(miembroId);
+}
+
+function siguienteNivel(miembroId){
+  nivelIdx++;
+  qIdx=0;
+  renderPractica(miembroId);
+}
+
+function repetirNivel(miembroId){
+  qIdx=0;
+  renderPractica(miembroId);
+}
+
+function renderPractica(miembroId){
+  const m=MIEMBROS[miembroId];
+  const niveles=nivelesDe(m);
+  const nv=niveles[nivelIdx];
+  document.getElementById('hdrProg').innerHTML='Practicando · <strong>'+m.nombre+'</strong>';
+  document.getElementById('prog-fill').style.width=Math.round(((nivelIdx+qIdx/nv.qs.length)/niveles.length)*100)+'%';
+  window.scrollTo(0,0);
+
+  if(qIdx>=nv.qs.length){
+    const t=nv.qs.length; let b=0;
+    for(let i=scores.length-t;i<scores.length;i++){ if(scores[i]) b++; }
+    const hayMas=nivelIdx+1<niveles.length;
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'🎉':'💪')+'</div>'
+      +'<div class="welcome-title" style="font-size:1.6rem">Nivel '+nv.nivel+'<br><em>completado</em></div>'
+      +'<p class="welcome-sub">'+b+' de '+t+' respuestas completas.</p>'
+      +(hayMas
+        ? '<button class="btn-p" onclick="siguienteNivel(\''+miembroId+'\')">Siguiente nivel →</button>'
+        : '<button class="btn-p" onclick="location.href=\'familia-rodriguez-masache-UPDATED.html\'">Volver al panel familiar →</button>')
+      +'<button class="btn-s" onclick="repetirNivel(\''+miembroId+'\')">Repetir este nivel</button>'
+      +'</div>';
+    return;
+  }
+  const q=nv.qs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="mod-tag practice">Practicando con '+m.nombre+'</span><br>'
+    +'<span class="nivel-badge '+nv.cls+'">'+nv.titulo+' — '+(qIdx+1)+' de '+nv.qs.length+'</span>'
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(nv.qs)+'</div></div>'
+    +'<p class="q-text">« '+q.q+' »</p>'
+    +'<p class="q-tip">💡 '+q.tip+'</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aquí..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check(MIEMBROS[\''+miembroId+'\'])">Verificar →</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div>'
+      +'<div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div>'
+      +'<div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ(\''+miembroId+'\')">'+(qIdx+1<nv.qs.length?'Siguiente pregunta →':'Ver resumen →')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="renderEstudio(\''+miembroId+'\')">← Ver respuestas de nuevo</button>'
+    +'<button class="btn-s" onclick="location.href=\'familia-rodriguez-masache-UPDATED.html\'">← Volver al panel familiar</button>'
+    +'</div>';
+}
+
+/* ── ESTUDIO (paso 1 — leer preguntas y respuestas modelo) ── */
+function renderEstudio(miembroId){
+  const m=MIEMBROS[miembroId];
+  const niveles=nivelesDe(m);
+  document.getElementById('hdrProg').innerHTML='Estudiando · <strong>'+m.nombre+'</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  window.scrollTo(0,0);
+
+  let html='<div class="screen">'
+    +'<span class="mod-tag" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)">Paso 1 · Estudiar</span>'
+    +'<h1 class="welcome-title" style="font-size:1.8rem">Respuestas de<br><em>'+m.nombre+'</em></h1>'
+    +'<p class="welcome-sub">Lean cada pregunta y su respuesta modelo con calma, todas basadas en el expediente real. El oficial consular hace estas preguntas o muy parecidas. Cuando ya se las sepan de memoria, pasen a practicar sin ver la respuesta.</p>';
+
+  niveles.forEach(function(nv){
+    if(niveles.length>1){
+      const color=nv.cls==='n1'?'var(--green)':nv.cls==='n2'?'var(--amber)':'var(--red)';
+      html+='<div class="study-nivel-hdr" style="color:'+color+'">'+nv.titulo.replace('● ','')+'</div>';
+    }
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card">'
+        +'<div class="study-q">« '+q.q+' »</div>'
+        +'<div class="study-tip">💡 '+q.tip+'</div>'
+        +'<div class="study-a-label">Respuesta modelo</div>'
+        +'<div class="study-a">'+q.model+'</div>'
+        +'</div>';
+    });
+  });
+
+  html+='<button class="btn-p" onclick="empezarPractica(\''+miembroId+'\')">Ya me las sé — empezar práctica →</button>'
+    +'<button class="btn-s" onclick="location.href=\'familia-rodriguez-masache-UPDATED.html\'">← Volver al panel familiar</button>'
+    +'</div>';
+
+  document.getElementById('wrap').innerHTML=html;
+}
+
+function empezarPractica(miembroId){
+  nivelIdx=0; qIdx=0; scores=[];
+  renderPractica(miembroId);
+}
+
+/* ── PANEL FAMILIAR (pantalla por defecto) ────────────── */
+function renderPanel(){
+  document.getElementById('hdrProg').innerHTML='Familia <strong>Rodríguez Masache</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('wrap').innerHTML=`
 <div class="screen">
   <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
   <h1 class="welcome-title">Familia<br><em>Rodríguez Masache</em></h1>
@@ -133,7 +542,7 @@ document.getElementById('wrap').innerHTML=`
   </div>
 
   <div class="trip-box">
-    <div class="trip-ttl">📋 Datos del viaje (pendiente confirmación)</div>
+    <div class="trip-ttl">📋 Datos del viaje</div>
     <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">${familia.viaje.destino}</span></div>
     <div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">${familia.viaje.fechas}</span></div>
     <div class="trip-row"><span class="trip-l">Hotel</span><span class="trip-v">${familia.viaje.hotel}</span></div>
@@ -188,6 +597,18 @@ document.getElementById('wrap').innerHTML=`
     </div>
   </div>
 
+  <!-- NEGATIVA ANTERIOR -->
+  <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠️ CRÍTICO: Cambios desde la negativa de noviembre 2025</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:8px">Los 4 miembros recibieron negativa 214(b) en noviembre 2025. Esta es la 2da solicitud. El oficial preguntará qué cambió — NO se debe minimizar ni ocultar la negativa, se reconoce con calma:</p>
+    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
+      <li><strong>Paul Fernando:</strong> Alcalde en funciones, ahora en plena campaña de reelección — vínculo institucional más fuerte que en 2025</li>
+      <li><strong>Jenny:</strong> Presidenta del Patronato de Acción Social desde 2023 — cargo NUEVO asumido tras la negativa + administra la Granja "El Piolín"</li>
+      <li><strong>Mileidy:</strong> Planes universitarios claros en Ecuador</li>
+      <li><strong>Paul Smith:</strong> Acompañado por ambos padres — garantía de retorno familiar</li>
+    </ul>
+  </div>
+
   <!-- DS-160 POR MIEMBRO -->
   <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;margin-bottom:16px">
     <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px">Números de confirmación DS-160</div>
@@ -200,31 +621,31 @@ document.getElementById('wrap').innerHTML=`
     </div>
   </div>
 
-  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Ir directo a un miembro</p>
+  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar — toca tu nombre</p>
   <div class="fam-grid">
     ${familia.miembros.map((m,i)=>`
-    <div class="fam-card${i===0?' primary':''}">
+    <a class="fam-card${i===0?' primary':''}" href="?miembro=${m.id}">
       <div class="fam-role">${m.rol}</div>
       <div class="fam-name">${m.nombre.split(' ')[0]}</div>
       <div class="fam-info">${m.ocupacion}</div>
       <span class="tag tag-${i===1 || i===2?'b':'g'}">${m.tag}</span>
-    </div>
+      <div class="fam-go" style="margin-top:6px">Estudiar respuestas →</div>
+    </a>
     `).join('')}
   </div>
-
-  <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:14px;margin-bottom:16px;margin-top:20px">
-    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠️ CRÍTICO: Cambios desde la negación de noviembre 2025</div>
-    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
-      <li><strong>Paul Fernando:</strong> Ahora es ALCALDE EN FUNCIONES (no solo electo), desde mayo 2023 hasta 2027</li>
-      <li><strong>Jenny:</strong> Presidenta del Patronato de Acción Social desde 2023 + administra la Granja Familiar de Criadero Porcino El Piolín desde su mayoría de edad</li>
-      <li><strong>Mileidy:</strong> Email propio + planes universitarios claros en Ecuador</li>
-      <li><strong>Paul Smith:</strong> Acompañado por ambos padres (garantía de retorno)</li>
-    </ul>
-  </div>
-
-  <button class="btn-primary" onclick="alert('En construcción — próximamente más módulos de aprendizaje y práctica. Contacte a Roberto para acceso a la versión completa.')">Ver análisis completo →</button>
 </div>
 `;
+}
+
+/* ── ROUTER ─────────────────────────────────────────── */
+const params=new URLSearchParams(location.search);
+const miembroParam=params.get('miembro');
+if(miembroParam && MIEMBROS[miembroParam]){
+  nivelIdx=0; qIdx=0; scores=[];
+  renderEstudio(miembroParam);
+} else {
+  renderPanel();
+}
 </script>
 </body>
 </html>
