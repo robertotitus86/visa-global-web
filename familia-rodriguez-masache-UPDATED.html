@@ -328,7 +328,7 @@ function norm(s){
 }
 
 /* ── PRACTICE STATE ─────────────────────────────────── */
-let nivelIdx=0, qIdx=0, scores=[], answersLog=[];
+let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
 const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
 
 function nivelesDe(m){
@@ -355,7 +355,8 @@ function localCheck(q,resp){
 async function check(m){
   const niveles=nivelesDe(m);
   const pqs=niveles[nivelIdx].qs;
-  const q=pqs[qIdx];
+  const wasFollowup=!!pendingFollowup;
+  const q=pendingFollowup||pqs[qIdx];
   const respRaw=(document.getElementById('qa').value||'').trim();
   const resp=norm(respRaw);
   document.getElementById('btn-vrf').disabled=true;
@@ -403,6 +404,15 @@ async function check(m){
   scores.push(ok);
   answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
 
+  // Si la respuesta original fue débil y la IA dio una repregunta, el oficial
+  // insiste en el mismo punto antes de avanzar (como en una entrevista real).
+  // La repregunta solo se hace UNA vez — si ya era una repregunta, se cierra el tema.
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, tip:'', model:q.model, kw:q.kw};
+  }else{
+    pendingFollowup=null;
+  }
+
   const fb=document.getElementById('fb');
   fb.className='fb '+fbClass;
   document.getElementById('fb-estado').textContent=fbEstado;
@@ -410,7 +420,7 @@ async function check(m){
   document.getElementById('fb-model').textContent=q.model;
   const repregEl=document.getElementById('fb-repregunta');
   if(repregEl){
-    if(repregunta){ repregEl.textContent='El oficial podría seguir con: «'+repregunta+'»'; repregEl.style.display='block'; }
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
     else{ repregEl.style.display='none'; }
   }
   fb.style.display='block';
@@ -420,18 +430,20 @@ async function check(m){
 }
 
 function nextQ(miembroId){
-  qIdx++;
+  if(!pendingFollowup) qIdx++;
   renderPractica(miembroId);
 }
 
 function siguienteNivel(miembroId){
   nivelIdx++;
   qIdx=0;
+  pendingFollowup=null;
   renderPractica(miembroId);
 }
 
 function repetirNivel(miembroId){
   qIdx=0;
+  pendingFollowup=null;
   renderPractica(miembroId);
 }
 
@@ -458,13 +470,13 @@ function renderPractica(miembroId){
       +'</div>';
     return;
   }
-  const q=nv.qs[qIdx];
+  const q=pendingFollowup||nv.qs[qIdx];
   document.getElementById('wrap').innerHTML='<div class="screen">'
     +'<span class="mod-tag practice">Practicando con '+m.nombre+'</span><br>'
     +'<span class="nivel-badge '+nv.cls+'">'+nv.titulo+' — '+(qIdx+1)+' de '+nv.qs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">⚠ El oficial no quedó conforme — insiste en el mismo punto</div>':'')
     +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(nv.qs)+'</div></div>'
     +'<p class="q-text">« '+q.q+' »</p>'
-    +'<p class="q-tip">💡 '+q.tip+'</p>'
     +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aquí..."></textarea>'
     +'<button class="btn-vrf" id="btn-vrf" onclick="check(MIEMBROS[\''+miembroId+'\'])">Verificar →</button>'
     +'<div class="fb" id="fb" style="display:none">'
@@ -516,7 +528,7 @@ function renderEstudio(miembroId){
 }
 
 function empezarPractica(miembroId){
-  nivelIdx=0; qIdx=0; scores=[];
+  nivelIdx=0; qIdx=0; scores=[]; pendingFollowup=null;
   renderPractica(miembroId);
 }
 
@@ -641,7 +653,7 @@ function renderPanel(){
 const params=new URLSearchParams(location.search);
 const miembroParam=params.get('miembro');
 if(miembroParam && MIEMBROS[miembroParam]){
-  nivelIdx=0; qIdx=0; scores=[];
+  nivelIdx=0; qIdx=0; scores=[]; pendingFollowup=null;
   renderEstudio(miembroParam);
 } else {
   renderPanel();

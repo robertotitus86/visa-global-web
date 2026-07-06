@@ -111,6 +111,12 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
 .fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
 .fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
 .fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
 
 /* buttons */
@@ -139,7 +145,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 <script>
 'use strict';
-var cur=0, qIdx=0, scores=[], answersLog=[];
+var cur=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
 const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
 const EXPEDIENTE_CONTEXT=`Hugo Leon. Responsable de Comunicacion Institucional en la Asociacion de Municipalidades Ecuatorianas (AME), Quito. Salario $1,212/mes. Trayectoria: 9 anos en la Gobernacion de Esmeraldas (comunicacion social), luego GAD Municipal de Esmeraldas (produccion y marketing), ahora AME. Padres Homero y Mariela viven en Esmeraldas. Pasaporte emitido marzo 2026, vigente hasta 2036, sin rechazos previos, primera solicitud. Viaje: turismo personal a Nueva York (Long Island City, Queens), 30 julio al 5 agosto 2026, seis dias, paga el mismo con ahorros propios. Tiene un hermano (Cristhian) viviendo en Estados Unidos, pero no participa en el viaje ni lo hospeda. Nunca ha viajado fuera de Ecuador. Contacto en NY: Comite Civico Ecuatoriano, organizacion comunitaria en Elmhurst Queens (no es una persona individual). Entrevista: 13 julio 2026, 8:30 AM, Consulado Quito.`;
 
@@ -222,7 +228,7 @@ function norm(s){
 }
 
 /* ── NAV ─────────────────────────────────────────── */
-function goTo(n){cur=n;qIdx=0;render();}
+function goTo(n){cur=n;qIdx=0;pendingFollowup=null;render();}
 function next(){goTo(Math.min(cur+1,7));}
 function prev(){goTo(Math.max(cur-1,0));}
 
@@ -234,7 +240,8 @@ function localCheck(q,resp){
 
 async function check(){
   var pqs=cur===4?QB:cur===5?QI:QD;
-  var q=pqs[qIdx];
+  var wasFollowup=!!pendingFollowup;
+  var q=pendingFollowup||pqs[qIdx];
   var respRaw=(document.getElementById('qa').value||'').trim();
   var resp=norm(respRaw);
   document.getElementById('btn-vrf').disabled=true;
@@ -282,6 +289,15 @@ async function check(){
   scores.push(ok);
   answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
 
+  // Si la respuesta original fue debil y la IA dio una repregunta, el oficial
+  // insiste en el mismo punto antes de avanzar (como en una entrevista real).
+  // La repregunta solo se hace UNA vez — si ya era una repregunta, se cierra el tema.
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, tip:'', model:q.model, kw:q.kw};
+  }else{
+    pendingFollowup=null;
+  }
+
   var fb=document.getElementById('fb');
   fb.className='fb '+fbClass;
   document.getElementById('fb-estado').textContent=fbEstado;
@@ -289,7 +305,7 @@ async function check(){
   document.getElementById('fb-model').textContent=q.model;
   var repregEl=document.getElementById('fb-repregunta');
   if(repregEl){
-    if(repregunta){ repregEl.textContent='El oficial podria seguir con: «'+repregunta+'»'; repregEl.style.display='block'; }
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
     else{ repregEl.style.display='none'; }
   }
   fb.style.display='block';
@@ -299,9 +315,8 @@ async function check(){
 }
 
 function nextQ(){
-  var pqs=cur===4?QB:cur===5?QI:QD;
-  qIdx++;
-  if(qIdx>=pqs.length){render();}else{render();}
+  if(!pendingFollowup) qIdx++;
+  render();
 }
 
 /* ── RENDER ───────────────────────────────────────── */
@@ -336,12 +351,12 @@ function renderPractica(pqs,nivel,cls,titulo){
       +'</div>';
     return;
   }
-  var q=pqs[qIdx];
+  var q=pendingFollowup||pqs[qIdx];
   document.getElementById('wrap').innerHTML='<div class="screen">'
     +'<span class="nivel-badge '+cls+'">'+titulo+' &#8212; '+(qIdx+1)+' de '+pqs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">&#9888; El oficial no quedo conforme &mdash; insiste en el mismo punto</div>':'')
     +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(pqs)+'</div></div>'
     +'<p class="q-text">&#8810;&#8811; '+q.q+'</p>'
-    +'<p class="q-tip">&#128161; '+q.tip+'</p>'
     +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aqui..."></textarea>'
     +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar &#8594;</button>'
     +'<div class="fb" id="fb" style="display:none">'
@@ -511,9 +526,33 @@ function renderDS160(){
   +'</div>'
   +'<div class="ds-note" style="border-left-color:var(--amber);background:rgba(245,158,11,.06)">'
   +'<strong style="color:var(--amber)">Sobre el contacto:</strong> El nombre del contacto quedo como "DO NOT KNOW" porque es una organizacion, no una persona individual. Tienes respuesta preparada para esto.</div>'
+  +estudioPreguntasHtml()
   +'<button class="btn-p" onclick="next()">Ir a practica &rarr;</button>'
   +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
   +'</div>';
+}
+
+/* Bloque "estudiar antes de practicar" — todas las preguntas + respuesta modelo,
+   sin tip (el tip solo se usa en la fase de estudio, no durante la practica real) */
+function estudioPreguntasHtml(){
+  var niveles=[
+    {qs:QB, titulo:'Nivel basico', color:'var(--green)'},
+    {qs:QI, titulo:'Nivel intermedio', color:'var(--amber)'},
+    {qs:QD, titulo:'Nivel dificil', color:'var(--red)'}
+  ];
+  var html='<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin:18px 0 10px">Estudia estas preguntas antes de practicar &mdash; en la practica no habra pistas, como en la entrevista real</div>';
+  niveles.forEach(function(nv){
+    html+='<div class="study-nivel-hdr" style="color:'+nv.color+'">'+nv.titulo+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card">'
+        +'<div class="study-q">&#171; '+q.q+' &#187;</div>'
+        +'<div class="study-tip">&#128161; '+q.tip+'</div>'
+        +'<div class="study-a-label">Respuesta modelo</div>'
+        +'<div class="study-a">'+q.model+'</div>'
+        +'</div>';
+    });
+  });
+  return html;
 }
 
 function renderProtocolo(){
