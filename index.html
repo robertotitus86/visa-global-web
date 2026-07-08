@@ -966,12 +966,13 @@ footer::before {
 /* ═══ SOCIAL PROOF TOAST ═════════════════════════════ */
 #toast {
   position:fixed; bottom:96px; left:28px; z-index:999;
-  background:rgba(11,30,59,.96); border:1px solid var(--gold-bdr);
-  backdrop-filter:blur(20px); border-radius:14px;
+  background:var(--bg-card); border:1px solid var(--gold-bdr);
+  border-radius:14px;
   padding:14px 18px; display:flex; align-items:center; gap:14px;
   max-width:290px; box-shadow:0 12px 40px rgba(11,30,59,.4);
   transform:translateX(-130%); transition:transform .5s cubic-bezier(.22,.68,0,1.1);
   pointer-events:none;
+  will-change:transform;
 }
 #toast.show { transform:translateX(0); }
 
