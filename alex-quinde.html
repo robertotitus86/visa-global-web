@@ -138,76 +138,76 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 'use strict';
 var cur=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
 const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
-const EXPEDIENTE_CONTEXT=`Alex Manuel Quinde Olivo. Trabaja en la Asociacion de Municipalidades Ecuatorianas (AME) en Quito desde enero 2025, supervisor Danny. Visa B1/B2 negocios/turismo. Viaje de NEGOCIOS a Nueva York para coordinar con el Comite Civico Ecuatoriano (organizacion, no persona), direccion 96-09 Roosevelt Avenue 2nd Floor Corona NY 11368, telefono +1-917-225-4509. Objetivo: fortalecer lazos entre AME y la comunidad ecuatoriana organizada en Queens, explorar colaboraciones entre municipalidades ecuatorianas y comunidades en USA. Primera vez viajando a Estados Unidos, sin rechazos previos. Padre Victor Alonso Quinde Vasquez (jubilado) y madre viven en Ecuador — principal vinculo de regreso. Sin familiares en Estados Unidos, solo contacto profesional institucional. Redes sociales: Instagram @CREATIVO_VISUAL (trabajo de diseno/creatividad), Facebook, LinkedIn con su perfil profesional en AME. Paga el viaje el mismo con sus ahorros. Pasaporte B1128232. DS-160 AA00FNRBAB. Entrevista: 15 julio 2026, 9:00 AM, Embajada de EEUU Quito.`;
+const EXPEDIENTE_CONTEXT=`Alex Manuel Quinde Olivo. Diseñador Grafico de la Asociacion de Municipalidades Ecuatorianas (AME) en Quito desde enero 2025 (14-ene-2025), supervisor Danny. Cedula 0803751221. Visa B1/B2 negocios/turismo. INVITADO DE HONOR OFICIAL del Desfile Ecuatoriano 2026 en Nueva York — carta formal fechada 03-jul-2026 en Nueva York, firmada por Oswaldo Guzman (Presidente, The Ecuadorian Civic Committee of NY, tel 917-225-4509, oswaldoguzman@yahoo.com) y Diego Benitez (Presidente, Fundacion Vista Para Todos). La carta lo reconoce individualmente como "Persona Destacada del Ano" y lo invita a titulo personal, no solo como acompanante de la Presidenta de AME. Agenda oficial confirmada: (1) Invitado de Honor del Desfile Ecuatoriano 2026, domingo 2 de agosto 2026, 11:00 AM, Northern Blvd desde la calle 69, Queens NY — conmemora el Primer Grito de Independencia de Quito, 10 agosto 1809; (2) Capacitacion de Cooperacion Internacional, sabado 1 agosto 2026, en las instalaciones del Comite Civico Ecuatoriano, 96-09 Roosevelt Avenue, 2do piso, Corona NY 11368; (3) Visita al Municipio de New York con el tema Buenas Practicas Municipales; (4) 31 julio 2026, Banquete de Gala por el Bicentenario de la Independencia del Ecuador; (5) 2 de agosto 2026, XLIII Desfile Ecuatoriano de New York. El evento reune a agrupaciones comunitarias, grupos folkloricos y latinoamericanos de distintos condados en demostracion de unidad. Primera vez viajando a Estados Unidos, sin rechazos previos. Padre Victor Alonso Quinde Vasquez (jubilado) y madre (Olivo Estupina) viven en Ecuador — principal vinculo de regreso. Sin familiares en Estados Unidos, solo el contacto institucional del Comite Civico. Redes sociales: Instagram @CREATIVO_VISUAL (trabajo de diseno grafico, coherente con su cargo en AME), Facebook @MANUEL QUINDE, LinkedIn con su perfil profesional en AME. Los gastos institucionales relacionados con la invitacion los gestiona la AME junto con el Comite Civico Ecuatoriano. Pasaporte B1128232. DS-160 AA00FNRBAB. Entrevista: 15 julio 2026, 9:00 AM, Embajada de EEUU Quito.`;
 
 /* ── DATOS ─────────────────────────────────────────── */
 var QB=[
   {q:"Cual es el proposito de su viaje a los Estados Unidos?",
-   tip:"Viaje de negocios, no turismo vago. Menciona AME y el Comite Civico Ecuatoriano.",
-   model:"Viaje de negocios. Voy a Nueva York para coordinar con el Comite Civico Ecuatoriano, una organizacion que representa a ecuatorianos en Queens. Trabajo para la Asociacion de Municipalidades Ecuatorianas en Quito, y este viaje tiene proposito profesional e institucional.",
-   kw:["negocios","comite civico","asociacion","municipalidades","institucional","nueva york"]},
+   tip:"Invitado de honor oficial. Menciona el Desfile Ecuatoriano 2026 y tu cargo en AME.",
+   model:"Viaje institucional. Fui invitado formalmente como Invitado de Honor del Desfile Ecuatoriano 2026 en Nueva York, en reconocimiento a mi trabajo como Disenador Grafico de la Asociacion de Municipalidades Ecuatorianas. Tengo una carta oficial de invitacion del Comite Civico Ecuatoriano.",
+   kw:["invitado de honor","desfile ecuatoriano","asociacion","municipalidades","carta oficial"]},
   {q:"Quien es su contacto en Estados Unidos?",
-   tip:"Es una organizacion, no una persona. Da la direccion completa.",
-   model:"El Comite Civico Ecuatoriano. Direccion: 96-09 Roosevelt Avenue, segundo piso, Corona, Nueva York 11368. Telefono +1-917-225-4509. Es una organizacion ecuatoriana, no una persona individual.",
-   kw:["comite civico","roosevelt","corona","organizacion","telefono"]},
+   tip:"El Comite Civico Ecuatoriano, con nombre del presidente que firma la carta: Oswaldo Guzman.",
+   model:"El Comite Civico Ecuatoriano de Nueva York, ubicado en 96-09 Roosevelt Avenue, segundo piso, Corona, Nueva York. Mi contacto es Oswaldo Guzman, Presidente del Comite, quien firmo mi carta de invitacion oficial.",
+   kw:["comite civico","roosevelt","corona","oswaldo guzman","presidente"]},
   {q:"Cuanto tiempo se va a quedar?",
-   tip:"Da un numero exacto de dias con fechas.",
-   model:"Planeo quedarme aproximadamente diez dias, con fechas de ida y vuelta ya definidas segun mi itinerario.",
-   kw:["dias","fecha","itinerario","diez"]},
+   tip:"La agenda oficial va del 31 de julio al 2 de agosto de 2026 — da unos dias adicionales de margen.",
+   model:"Planeo quedarme entre siete y diez dias. Mi agenda oficial confirmada va del 31 de julio al 2 de agosto de 2026, con actividades del Comite Civico Ecuatoriano y la Municipalidad de Nueva York.",
+   kw:["dias","31 de julio","2 de agosto","agenda","confirmada"]},
   {q:"Quien paga el viaje?",
-   tip:"Usted mismo, con sus ingresos estables desde enero 2025.",
-   model:"Yo mismo. Tengo ingresos estables como trabajador de la Asociacion de Municipalidades Ecuatorianas desde enero de 2025. Tengo ahorros y puedo cubrir todos los gastos del viaje.",
-   kw:["yo mismo","ingresos","asociacion","ahorros","enero 2025"]},
+   tip:"Gestionado entre la AME y el Comite Civico Ecuatoriano por ser una invitacion institucional.",
+   model:"Los gastos relacionados con esta invitacion institucional se gestionan entre la Asociacion de Municipalidades Ecuatorianas y el Comite Civico Ecuatoriano, ya que es un reconocimiento oficial a mi trabajo.",
+   kw:["ame","comite civico","institucional","gestionan","reconocimiento"]},
   {q:"Ha viajado a Estados Unidos antes?",
    tip:"No, es su primera vez. Muestra confianza, no nerviosismo.",
-   model:"No, esta es mi primera vez. Pero estoy listo para este viaje de negocios. Tengo documentos completos y un proposito claro.",
-   kw:["primera vez","listo","negocios","documentos","proposito"]}
+   model:"No, esta es mi primera vez. Pero estoy listo para este viaje institucional. Tengo documentos completos, la carta de invitacion oficial y un proposito claro.",
+   kw:["primera vez","listo","invitacion oficial","documentos","proposito"]}
 ];
 
 var QI=[
   {q:"En que trabaja usted?",
-   tip:"AME, desde enero 2025, mas de un ano de antiguedad.",
-   model:"Trabajo para la Asociacion de Municipalidades Ecuatorianas (AME) en Quito. Es una organizacion que representa a municipios ecuatorianos y promueve colaboracion entre gobiernos locales. Llevo trabajando alli desde enero de 2025.",
-   kw:["asociacion","municipalidades","quito","enero 2025","gobiernos locales"]},
-  {q:"Por que su empleador lo autoriza a viajar?",
-   tip:"El viaje tiene proposito institucional que beneficia a la AME.",
-   model:"La Asociacion entiende la importancia de fortalecer contactos con comunidades ecuatorianas en el exterior. Mi viaje tiene proposito institucional que beneficia a la organizacion y a las municipalidades que representa.",
-   kw:["asociacion","institucional","beneficia","municipalidades","fortalecer"]},
+   tip:"AME, desde enero 2025, Disenador Grafico, mas de un ano de antiguedad.",
+   model:"Trabajo como Disenador Grafico en la Asociacion de Municipalidades Ecuatorianas (AME) en Quito, desde enero de 2025. Por mi trabajo alli fui reconocido e invitado como Invitado de Honor del Desfile Ecuatoriano 2026.",
+   kw:["disenador grafico","asociacion","municipalidades","invitado de honor","enero 2025"]},
+  {q:"Por que fue invitado usted especificamente?",
+   tip:"La carta lo reconoce individualmente como Persona Destacada del Ano por su trabajo en AME.",
+   model:"El Comite Civico Ecuatoriano me reconocio como Persona Destacada del Ano por mi trabajo como Disenador Grafico en la Asociacion de Municipalidades Ecuatorianas. La carta de invitacion oficial esta fechada el 3 de julio de 2026 en Nueva York.",
+   kw:["persona destacada","reconocio","disenador grafico","carta","invitacion"]},
   {q:"Tiene familia en Estados Unidos?",
-   tip:"No familia directa, solo contacto profesional con el Comite Civico.",
-   model:"No tengo familia directa en Estados Unidos. Tengo un contacto profesional, el Comite Civico Ecuatoriano, que es una organizacion establecida de ecuatorianos en Nueva York.",
-   kw:["no familia","contacto profesional","comite civico","organizacion"]},
+   tip:"No familia directa, solo el contacto institucional del Comite Civico Ecuatoriano.",
+   model:"No tengo familia en Estados Unidos. Mi unico contacto alla es institucional: el Comite Civico Ecuatoriano, que me invito formalmente a este evento.",
+   kw:["no familia","comite civico","institucional","invito","contacto"]},
   {q:"Que garantia tiene de que regresara a Ecuador?",
    tip:"Padres en Ecuador y su trabajo estable en la AME.",
    model:"Mis padres viven en Ecuador. Mi trabajo en la Asociacion de Municipalidades es mi responsabilidad diaria. Regresare para cuidar a mis padres y continuar con mi empleo. No tengo planes de quedarme en Estados Unidos.",
    kw:["padres","ecuador","trabajo","regresare","empleo"]},
   {q:"Tiene dinero para este viaje?",
-   tip:"Ahorros propios, respalda con extractos bancarios.",
-   model:"Si. Tengo ahorros suficientes en mi cuenta bancaria, y mis extractos de los ultimos tres meses muestran ese respaldo. Estoy preparado para cubrir todos los gastos del viaje.",
-   kw:["ahorros","cuenta bancaria","extractos","preparado"]}
+   tip:"Gestionado institucionalmente por ser invitacion oficial. Aun asi ten tus ahorros y extractos listos.",
+   model:"Los gastos de este viaje se gestionan institucionalmente entre la AME y el Comite Civico Ecuatoriano, por ser una invitacion oficial. Ademas tengo ahorros propios y extractos bancarios de los ultimos tres meses que respaldan mi situacion.",
+   kw:["gestionan","institucional","comite civico","ahorros","extractos"]}
 ];
 
 var QD=[
-  {q:"Que hara exactamente en el Comite Civico Ecuatoriano?",
-   tip:"Se especifico: reuniones, exploracion de colaboraciones, informacion para AME.",
-   model:"Me reunire con lideres del Comite, aprendere sobre sus programas y estructura, explorare colaboraciones que beneficien a municipalidades ecuatorianas, y llevare informacion de regreso a mi organizacion en Quito.",
-   kw:["reuniones","lideres","colaboraciones","municipalidades","informacion"]},
-  {q:"Conoce el nombre del director o presidente del Comite Civico?",
-   tip:"Si no lo sabe, sea honesto: la organizacion es conocida en la comunidad.",
-   model:"No tengo el nombre del director directo en este momento, pero la organizacion existe hace varios anos y es bien conocida en la comunidad ecuatoriana de Queens. Puedo verificarlo si lo necesita.",
-   kw:["no tengo","conocida","comunidad","organizacion","verificar"]},
-  {q:"Con un empleo institucional, por que viaja usted personalmente y no otra persona de la AME?",
-   tip:"Su rol especifico dentro de AME justifica que sea usted quien viaje.",
-   model:"Dentro de la Asociacion, mi rol incluye la coordinacion de este tipo de contactos institucionales. Por eso fui designado para representar a la organizacion en este viaje.",
-   kw:["rol","coordinacion","designado","representar","organizacion"]},
+  {q:"Cual es exactamente su agenda durante el viaje?",
+   tip:"Memoriza los 5 puntos: banquete 31 jul, capacitacion 1 ago, visita municipio, desfile 2 ago como invitado de honor.",
+   model:"Tengo una agenda oficial de cinco actividades: el 31 de julio, banquete de gala por el Bicentenario de la Independencia del Ecuador; el 1 de agosto, capacitacion de Cooperacion Internacional en las instalaciones del Comite Civico Ecuatoriano; una visita al Municipio de Nueva York sobre Buenas Practicas Municipales; y el 2 de agosto, participo como Invitado de Honor en el XLIII Desfile Ecuatoriano de Nueva York.",
+   kw:["31 de julio","banquete","1 de agosto","capacitacion","2 de agosto","desfile","invitado de honor"]},
+  {q:"Conoce el nombre del presidente del Comite Civico Ecuatoriano?",
+   tip:"Si — Oswaldo Guzman, quien firma su carta de invitacion junto a Diego Benitez de Fundacion Vista Para Todos.",
+   model:"Si. Oswaldo Guzman es el Presidente del Comite Civico Ecuatoriano de Nueva York, y firmo mi carta de invitacion oficial junto con Diego Benitez, Presidente de la Fundacion Vista Para Todos.",
+   kw:["oswaldo guzman","presidente","comite civico","diego benitez","fundacion"]},
+  {q:"Por que fue elegido usted y no otra persona de la AME?",
+   tip:"Es un reconocimiento personal a su trabajo como Disenador Grafico, no una designacion administrativa.",
+   model:"Porque el Comite Civico Ecuatoriano me reconocio individualmente como Persona Destacada del Ano por mi trabajo como Disenador Grafico en la Asociacion de Municipalidades Ecuatorianas. No es una designacion administrativa, es un reconocimiento personal.",
+   kw:["reconocimiento","persona destacada","disenador grafico","individual","personal"]},
   {q:"Usa redes sociales? Que publica?",
-   tip:"Instagram @CREATIVO_VISUAL con trabajo profesional, LinkedIn con su perfil en AME.",
-   model:"Si. Tengo LinkedIn profesional que muestra mi trabajo en la Asociacion de Municipalidades, e Instagram donde publico trabajo de diseno y creatividad, ademas de Facebook para contactos personales. Todo es consistente con mi perfil profesional.",
-   kw:["linkedin","instagram","diseno","profesional","asociacion"]},
-  {q:"Por que Estados Unidos y no otro pais para este proposito institucional?",
-   tip:"El Comite Civico Ecuatoriano esta especificamente en Nueva York.",
-   model:"Porque el Comite Civico Ecuatoriano esta en Nueva York, y el trabajo que busco hacer requiere estar en Estados Unidos para coordinar en persona. Es un viaje de negocios especifico, no generico.",
-   kw:["comite civico","nueva york","coordinar","especifico","negocios"]}
+   tip:"Instagram @CREATIVO_VISUAL con trabajo de diseno, coherente con su cargo en AME.",
+   model:"Si. Tengo LinkedIn profesional que muestra mi trabajo como Disenador Grafico en la Asociacion de Municipalidades, e Instagram (@CREATIVO_VISUAL) donde publico mi trabajo de diseno y contenido creativo, ademas de Facebook para contactos personales. Todo es consistente con mi perfil profesional.",
+   kw:["linkedin","instagram","disenador","diseno","asociacion"]},
+  {q:"Por que Estados Unidos y no otro pais para este reconocimiento?",
+   tip:"El Desfile Ecuatoriano 2026 y toda la agenda oficial son en Nueva York, organizados por el Comite Civico.",
+   model:"Porque el Desfile Ecuatoriano 2026 y toda la agenda oficial de reconocimiento las organiza el Comite Civico Ecuatoriano en Nueva York. Mi presencia fisica alli es parte de la invitacion formal que recibi.",
+   kw:["desfile ecuatoriano","comite civico","nueva york","agenda oficial","invitacion"]}
 ];
 
 /* Normalize: remove accents, lowercase */
@@ -377,7 +377,7 @@ function renderBienvenida(){
   +'<div class="screen">'
   +'<div class="badge-gold"><span></span>Preparacion entrevista consular USA B1/B2</div>'
   +'<h1 class="h1">Alex<br><em>Quinde</em></h1>'
-  +'<p class="sub">Trabajador de la Asociacion de Municipalidades Ecuatorianas (AME). Este simulador fue preparado con los datos exactos de tu DS-160. Practica hasta que las respuestas salgan solas.</p>'
+  +'<p class="sub">Disenador Grafico de la Asociacion de Municipalidades Ecuatorianas (AME) — Invitado de Honor del Desfile Ecuatoriano 2026. Este simulador fue preparado con los datos exactos de tu DS-160 y tu carta de invitacion oficial. Practica hasta que las respuestas salgan solas.</p>'
 
   +'<div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
   +'<div style="font-size:1.4rem">&#127963;</div>'
@@ -393,8 +393,10 @@ function renderBienvenida(){
 
   +'<div class="trip-box"><div class="trip-ttl">Datos del viaje</div>'
   +'<div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">Nueva York, Queens NY</span></div>'
-  +'<div class="trip-row"><span class="trip-l">Proposito</span><span class="trip-v">Negocios institucionales (AME)</span></div>'
-  +'<div class="trip-row"><span class="trip-l">Contacto USA</span><span class="trip-v">Comite Civico Ecuatoriano</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Proposito</span><span class="trip-v">Invitado de Honor — Desfile Ecuatoriano 2026</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Cargo</span><span class="trip-v">Disenador Grafico, AME</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Contacto USA</span><span class="trip-v">Oswaldo Guzman — Comite Civico Ecuatoriano</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Agenda</span><span class="trip-v">31 jul &ndash; 2 ago 2026</span></div>'
   +'<div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:var(--gold)">AA00FNRBAB</span></div>'
   +'<div class="trip-row"><span class="trip-l">Pasaporte</span><span class="trip-v" style="font-family:monospace">B1128232</span></div>'
   +'</div>'
@@ -423,8 +425,8 @@ function renderEvalua(){
   +'<div class="ic-title">Va a regresar a Ecuador?</div>'
   +'<div class="ic-body">Pregunta central. Busca vinculos reales: trabajo, familia, historial. <strong style="color:var(--gold)">Tu trabajo estable en AME y tus padres en Ecuador son tu vinculo mas fuerte.</strong></div></div>'
   +'<div class="info-card"><div class="ic-num">02</div>'
-  +'<div class="ic-title">El proposito es negocios real, no turismo disfrazado?</div>'
-  +'<div class="ic-body">No es un viaje generico. Debes ser especifico: Comite Civico Ecuatoriano, direccion, telefono, y que haras exactamente alli.</div></div>'
+  +'<div class="ic-title">El proposito es institucional real, no turismo disfrazado?</div>'
+  +'<div class="ic-body">No es un viaje generico. Se especifico: fuiste invitado formalmente como Invitado de Honor del Desfile Ecuatoriano 2026, con una carta oficial fechada 3 de julio 2026 y una agenda de 5 actividades confirmadas.</div></div>'
   +'<div class="info-card"><div class="ic-num">03</div>'
   +'<div class="ic-title">Puede costear el viaje?</div>'
   +'<div class="ic-body">Tu salario en AME desde enero 2025 y tus ahorros son tu respaldo. Ten extractos bancarios listos.</div></div>'
@@ -448,8 +450,11 @@ function renderFortalezas(){
   +'<div class="str-title">Empleo estable en AME</div>'
   +'<div class="str-body">Trabaja en la Asociacion de Municipalidades Ecuatorianas desde enero 2025, con supervisor conocido (Danny) y referencias laborales solidas.</div></div></div>'
   +'<div class="str-card"><div class="str-icon">&#127970;</div><div>'
-  +'<div class="str-title">Proposito institucional claro</div>'
-  +'<div class="str-body">El Comite Civico Ecuatoriano es una organizacion establecida en Queens con direccion y telefono verificables — no un contacto vago.</div></div></div>'
+  +'<div class="str-title">Invitacion oficial verificable</div>'
+  +'<div class="str-body">Carta formal del Comite Civico Ecuatoriano de NY, firmada por su Presidente Oswaldo Guzman y por Diego Benitez (Fundacion Vista Para Todos), con membrete, sellos y agenda de 5 actividades con fechas exactas.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#127942;</div><div>'
+  +'<div class="str-title">Reconocimiento individual</div>'
+  +'<div class="str-body">Fuiste reconocido como Persona Destacada del Ano por tu trabajo como Disenador Grafico en la AME — no es una designacion generica, es un honor personal documentado.</div></div></div>'
   +'<div class="str-card"><div class="str-icon">&#128106;</div><div>'
   +'<div class="str-title">Padres en Ecuador &middot; Vinculo familiar claro</div>'
   +'<div class="str-body">Su padre (jubilado) y su madre viven en Ecuador. Vinculo familiar solido con su pais de origen.</div></div></div>'
@@ -462,11 +467,11 @@ function renderFortalezas(){
   +'<div class="str-title">Primera vez viajando a Estados Unidos</div>'
   +'<div class="str-body">No te disculpes. Muestra confianza: tienes documentos completos y proposito claro.</div></div></div>'
   +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
-  +'<div class="str-title">Contacto es organizacion, no persona</div>'
-  +'<div class="str-body">El oficial puede preguntar por el nombre del director. Si no lo sabes, di que la organizacion es conocida en la comunidad y ofrece verificar.</div></div></div>'
+  +'<div class="str-title">Memoriza la agenda completa de 5 puntos</div>'
+  +'<div class="str-body">31 jul: banquete de gala. 1 ago: capacitacion en el Comite Civico. Visita al Municipio de NY. 2 ago: Desfile Ecuatoriano como Invitado de Honor. El oficial puede pedir detalle de cualquiera.</div></div></div>'
   +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
-  +'<div class="str-title">Distinguir "viaje de negocios" de "turismo"</div>'
-  +'<div class="str-body">Se especifico sobre las actividades: reuniones, exploracion de colaboraciones, informacion para la AME. No digas solo "voy a conocer".</div></div></div>'
+  +'<div class="str-title">Nombre del contacto: Oswaldo Guzman</div>'
+  +'<div class="str-body">Memoriza el nombre y telefono del Presidente del Comite Civico Ecuatoriano que firmo tu invitacion: Oswaldo Guzman, +1-917-225-4509.</div></div></div>'
 
   +'<div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05);margin-top:8px">'
   +'<div class="ic-title" style="color:var(--red)">Error a evitar</div>'
@@ -493,13 +498,13 @@ function renderDS160(){
   +'<div class="ds-field ok"><div class="ds-label">Familiares en USA</div><div class="ds-value">Ninguno &mdash; solo contacto profesional</div></div>'
   +'<div class="ds-field ok"><div class="ds-label">Rechazos previos</div><div class="ds-value">Ninguno</div></div>'
   +'</div>'
-  +'<div class="ds-note"><strong style="color:var(--blue)">Proposito declarado:</strong> Negocios/turismo (B1/B2). Coordinacion institucional con el Comite Civico Ecuatoriano en Nueva York.</div>'
+  +'<div class="ds-note"><strong style="color:var(--blue)">Proposito declarado:</strong> Negocios/turismo (B1/B2). Invitado de Honor del Desfile Ecuatoriano 2026, con agenda oficial confirmada del 31 de julio al 2 de agosto 2026.</div>'
   +'<div class="ds-grid">'
   +'<div class="ds-field"><div class="ds-label">Contacto en USA</div><div class="ds-value">The Ecuadorian Civic Committee<br>96-09 Roosevelt Ave, Corona NY 11368</div></div>'
-  +'<div class="ds-field"><div class="ds-label">Telefono contacto</div><div class="ds-value">+1-917-225-4509</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Presidente / telefono</div><div class="ds-value">Oswaldo Guzman<br>+1-917-225-4509</div></div>'
   +'</div>'
   +'<div class="ds-note" style="border-left-color:var(--amber);background:rgba(245,158,11,.06)">'
-  +'<strong style="color:var(--amber)">Sobre el contacto:</strong> Es una organizacion, no una persona individual. Tienes respuesta preparada para esto.</div>'
+  +'<strong style="color:var(--amber)">Sobre el contacto:</strong> Oswaldo Guzman firma tu carta oficial de invitacion como Presidente del Comite. Es tu contacto principal, memoriza su nombre.</div>'
   +estudioPreguntasHtml()
   +'<button class="btn-p" onclick="next()">Ir a practica &rarr;</button>'
   +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
@@ -547,16 +552,16 @@ function renderProtocolo(){
   +'<div class="ic-body">Celular (no pasa seguridad). Laptop, tablet, cables, camara. Comida o bebidas.</div></div>'
   +'<div class="info-card"><div class="ic-num">&#128172;</div>'
   +'<div class="ic-title">Dentro de la entrevista</div>'
-  +'<div class="ic-body">&#8226; Responde solo lo que te preguntan &mdash; ni mas ni menos<br>&#8226; Habla claro, directo, sin apresurarte<br>&#8226; Si no entiendes, pide que repitan la pregunta<br>&#8226; Se especifico sobre el Comite Civico Ecuatoriano, no genero</div></div>'
+  +'<div class="ic-body">&#8226; Responde solo lo que te preguntan &mdash; ni mas ni menos<br>&#8226; Habla claro, directo, sin apresurarte<br>&#8226; Si no entiendes, pide que repitan la pregunta<br>&#8226; Se especifico sobre la agenda oficial y el Comite Civico Ecuatoriano, no genero</div></div>'
   +'<div class="resp-box"><div class="resp-label">Si preguntan por que nunca ha viajado antes</div>'
-  +'<div class="resp-text">"No, esta es mi primera vez. Pero estoy listo para este viaje de negocios, con documentos completos y proposito claro."</div></div>'
+  +'<div class="resp-text">"No, esta es mi primera vez. Pero estoy listo para este viaje como Invitado de Honor, con documentos completos, la carta oficial y proposito claro."</div></div>'
 
   +'<div style="background:var(--navy2);border-radius:var(--r);padding:18px;margin-top:16px;margin-bottom:14px">'
   +'<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:12px">Las 3 respuestas que debes memorizar</div>'
   +'<div style="font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.8)">'
-  +'<strong style="color:var(--gold)">1. Proposito del viaje:</strong> Negocios con el Comite Civico Ecuatoriano, direccion y telefono exactos.<br>'
+  +'<strong style="color:var(--gold)">1. Proposito del viaje:</strong> Invitado de Honor del Desfile Ecuatoriano 2026, carta oficial de Oswaldo Guzman (Comite Civico Ecuatoriano).<br>'
   +'<strong style="color:var(--gold)">2. Garantia de regreso:</strong> Trabajo estable en AME + padres en Ecuador.<br>'
-  +'<strong style="color:var(--gold)">3. Quien paga:</strong> Usted mismo, con ingresos de AME desde enero 2025.'
+  +'<strong style="color:var(--gold)">3. Agenda exacta:</strong> 31 jul banquete, 1 ago capacitacion, 2 ago desfile como Invitado de Honor.'
   +'</div></div>'
 
   +'<div style="background:rgba(16,185,129,.06);border-radius:var(--r);padding:14px;margin-bottom:14px">'
@@ -566,6 +571,7 @@ function renderProtocolo(){
   +'&#9744; Confirmacion cita + DS-160 AA00FNRBAB<br>'
   +'&#9744; Comprobante de pago MRV<br>'
   +'&#9744; Carta laboral de la AME + nominas<br>'
+  +'&#9744; Carta oficial de invitacion (Comite Civico Ecuatoriano)<br>'
   +'&#9744; Extractos bancarios / ahorros'
   +'</div></div>'
 
