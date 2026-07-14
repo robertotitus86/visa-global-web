@@ -13,18 +13,55 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center}
 .logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
 .logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
 .main{position:relative;z-index:1;padding:72px 16px 48px}
 .wrap{max-width:640px;margin:0 auto}
+.screen{animation:fadeUp .3s ease-out}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+
+.badge-gold{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.badge-gold span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.learn{background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.mod-tag.tip{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.2)}
+.mod-tag.review{background:rgba(124,58,237,.15);color:#A78BFA;border:1px solid rgba(124,58,237,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+
 .h1{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
 .h1 em{color:var(--gold);font-style:italic}
+.h2{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2rem);line-height:1.2;margin-bottom:8px}
+.h2 em{color:var(--gold);font-style:italic}
 .sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:20px}
+
 .info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.ic-num{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:rgba(245,200,66,.2);line-height:1;margin-bottom:7px}
 .ic-title{font-weight:700;font-size:.9375rem;margin-bottom:5px}
 .ic-body{font-size:.8125rem;color:rgba(255,255,255,.6);line-height:1.65}
 .str-card{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-bottom:8px;display:flex;gap:12px}
 .str-icon{font-size:1.2rem;flex-shrink:0}
 .str-title{font-weight:700;font-size:.875rem;margin-bottom:3px}
 .str-body{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55}
+.risk-card{background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:14px;margin-bottom:8px;display:flex;gap:12px}
+.resp-box{background:rgba(59,130,246,.06);border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;padding:14px;margin:10px 0}
+.resp-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:7px}
+.resp-text{font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic}
+
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600}
+
 .ds-header{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid rgba(245,200,66,.2);border-radius:var(--r);padding:18px;margin-bottom:14px}
 .ds-name{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:4px}
 .ds-sub{font-size:.8rem;color:rgba(245,200,66,.8);font-weight:600}
@@ -34,138 +71,514 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .ds-value{font-size:.875rem;font-weight:600;line-height:1.4}
 .ds-field.hi{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.05)}
 .ds-field.ok{border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.05)}
+.ds-field.wn{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05)}
+.ds-note{background:rgba(59,130,246,.06);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:14px;font-size:.825rem;color:rgba(255,255,255,.75);line-height:1.6}
+
+.mode-box{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.mode-btn{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;color:var(--white);width:100%}
+.mode-btn:hover{border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.04)}
+.mode-icon{font-size:1.4rem;flex-shrink:0}
+.mode-title{font-weight:700;font-size:.875rem;margin-bottom:2px}
+.mode-sub{font-size:.72rem;color:var(--muted)}
+
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-tip{font-size:.75rem;color:var(--muted);font-style:italic;margin-bottom:14px;line-height:1.5}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+
 .btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+.score-ring{width:110px;height:110px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.score-num{font-family:var(--serif);font-size:2.4rem;font-weight:700;line-height:1}
+.score-lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.wa-cta{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:14px;text-decoration:none;color:var(--white);font-size:.875rem;font-weight:600;margin-bottom:10px}
+
 @media(max-width:520px){.ds-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <header class="hdr">
-  <div class="logo">Asesoria <em>Visa</em> Global</div>
+  <div class="logo">Asesori&#769;a <em>Visa</em> Global</div>
+  <div class="hdr-right"><span class="hdr-prog">Mo&#769;dulo <strong id="hm">1</strong> de <strong id="ht">8</strong></span></div>
 </header>
-<main class="main"><div class="wrap">
+<div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
 
-<h1>Preparacion para tu Entrevista, <em>Alex</em></h1>
-<p class="sub">15 de julio, 2026 — 09:00 AM, Embajada de EEUU (Quito)</p>
+<script>
+'use strict';
+var cur=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const EXPEDIENTE_CONTEXT=`Alex Manuel Quinde Olivo. Trabaja en la Asociacion de Municipalidades Ecuatorianas (AME) en Quito desde enero 2025, supervisor Danny. Visa B1/B2 negocios/turismo. Viaje de NEGOCIOS a Nueva York para coordinar con el Comite Civico Ecuatoriano (organizacion, no persona), direccion 96-09 Roosevelt Avenue 2nd Floor Corona NY 11368, telefono +1-917-225-4509. Objetivo: fortalecer lazos entre AME y la comunidad ecuatoriana organizada en Queens, explorar colaboraciones entre municipalidades ecuatorianas y comunidades en USA. Primera vez viajando a Estados Unidos, sin rechazos previos. Padre Victor Alonso Quinde Vasquez (jubilado) y madre viven en Ecuador — principal vinculo de regreso. Sin familiares en Estados Unidos, solo contacto profesional institucional. Redes sociales: Instagram @CREATIVO_VISUAL (trabajo de diseno/creatividad), Facebook, LinkedIn con su perfil profesional en AME. Paga el viaje el mismo con sus ahorros. Pasaporte B1128232. DS-160 AA00FNRBAB. Entrevista: 15 julio 2026, 9:00 AM, Embajada de EEUU Quito.`;
 
-<div class="ds-header">
-  <div class="ds-name">Alex Manuel Quinde Olivo</div>
-  <div class="ds-sub">Visa B1/B2 — Negocios y Turismo</div>
-</div>
+/* ── DATOS ─────────────────────────────────────────── */
+var QB=[
+  {q:"Cual es el proposito de su viaje a los Estados Unidos?",
+   tip:"Viaje de negocios, no turismo vago. Menciona AME y el Comite Civico Ecuatoriano.",
+   model:"Viaje de negocios. Voy a Nueva York para coordinar con el Comite Civico Ecuatoriano, una organizacion que representa a ecuatorianos en Queens. Trabajo para la Asociacion de Municipalidades Ecuatorianas en Quito, y este viaje tiene proposito profesional e institucional.",
+   kw:["negocios","comite civico","asociacion","municipalidades","institucional","nueva york"]},
+  {q:"Quien es su contacto en Estados Unidos?",
+   tip:"Es una organizacion, no una persona. Da la direccion completa.",
+   model:"El Comite Civico Ecuatoriano. Direccion: 96-09 Roosevelt Avenue, segundo piso, Corona, Nueva York 11368. Telefono +1-917-225-4509. Es una organizacion ecuatoriana, no una persona individual.",
+   kw:["comite civico","roosevelt","corona","organizacion","telefono"]},
+  {q:"Cuanto tiempo se va a quedar?",
+   tip:"Da un numero exacto de dias con fechas.",
+   model:"Planeo quedarme aproximadamente diez dias, con fechas de ida y vuelta ya definidas segun mi itinerario.",
+   kw:["dias","fecha","itinerario","diez"]},
+  {q:"Quien paga el viaje?",
+   tip:"Usted mismo, con sus ingresos estables desde enero 2025.",
+   model:"Yo mismo. Tengo ingresos estables como trabajador de la Asociacion de Municipalidades Ecuatorianas desde enero de 2025. Tengo ahorros y puedo cubrir todos los gastos del viaje.",
+   kw:["yo mismo","ingresos","asociacion","ahorros","enero 2025"]},
+  {q:"Ha viajado a Estados Unidos antes?",
+   tip:"No, es su primera vez. Muestra confianza, no nerviosismo.",
+   model:"No, esta es mi primera vez. Pero estoy listo para este viaje de negocios. Tengo documentos completos y un proposito claro.",
+   kw:["primera vez","listo","negocios","documentos","proposito"]}
+];
 
-<div class="ds-grid">
-  <div class="ds-field hi">
-    <div class="ds-label">DS-160</div>
-    <div class="ds-value">AA00FNRBAB</div>
-  </div>
-  <div class="ds-field ok">
-    <div class="ds-label">Pasaporte</div>
-    <div class="ds-value">B1128232</div>
-  </div>
-  <div class="ds-field">
-    <div class="ds-label">Entrevista</div>
-    <div class="ds-value">15 julio, 09:00</div>
-  </div>
-  <div class="ds-field">
-    <div class="ds-label">Ubicacion</div>
-    <div class="ds-value">Embajada Quito</div>
-  </div>
-</div>
+var QI=[
+  {q:"En que trabaja usted?",
+   tip:"AME, desde enero 2025, mas de un ano de antiguedad.",
+   model:"Trabajo para la Asociacion de Municipalidades Ecuatorianas (AME) en Quito. Es una organizacion que representa a municipios ecuatorianos y promueve colaboracion entre gobiernos locales. Llevo trabajando alli desde enero de 2025.",
+   kw:["asociacion","municipalidades","quito","enero 2025","gobiernos locales"]},
+  {q:"Por que su empleador lo autoriza a viajar?",
+   tip:"El viaje tiene proposito institucional que beneficia a la AME.",
+   model:"La Asociacion entiende la importancia de fortalecer contactos con comunidades ecuatorianas en el exterior. Mi viaje tiene proposito institucional que beneficia a la organizacion y a las municipalidades que representa.",
+   kw:["asociacion","institucional","beneficia","municipalidades","fortalecer"]},
+  {q:"Tiene familia en Estados Unidos?",
+   tip:"No familia directa, solo contacto profesional con el Comite Civico.",
+   model:"No tengo familia directa en Estados Unidos. Tengo un contacto profesional, el Comite Civico Ecuatoriano, que es una organizacion establecida de ecuatorianos en Nueva York.",
+   kw:["no familia","contacto profesional","comite civico","organizacion"]},
+  {q:"Que garantia tiene de que regresara a Ecuador?",
+   tip:"Padres en Ecuador y su trabajo estable en la AME.",
+   model:"Mis padres viven en Ecuador. Mi trabajo en la Asociacion de Municipalidades es mi responsabilidad diaria. Regresare para cuidar a mis padres y continuar con mi empleo. No tengo planes de quedarme en Estados Unidos.",
+   kw:["padres","ecuador","trabajo","regresare","empleo"]},
+  {q:"Tiene dinero para este viaje?",
+   tip:"Ahorros propios, respalda con extractos bancarios.",
+   model:"Si. Tengo ahorros suficientes en mi cuenta bancaria, y mis extractos de los ultimos tres meses muestran ese respaldo. Estoy preparado para cubrir todos los gastos del viaje.",
+   kw:["ahorros","cuenta bancaria","extractos","preparado"]}
+];
 
-<div class="info-card">
-  <div class="ic-title">Tu Fortaleza Principal</div>
-  <div class="ic-body">Empleo estable en municipalidades ecuatorianas — 13+ meses de antigüedad con supervisor conocido y referencias laborales sólidas. Esto es tu argumento principal para demostrar que tienes razones para volver a Ecuador.</div>
-</div>
+var QD=[
+  {q:"Que hara exactamente en el Comite Civico Ecuatoriano?",
+   tip:"Se especifico: reuniones, exploracion de colaboraciones, informacion para AME.",
+   model:"Me reunire con lideres del Comite, aprendere sobre sus programas y estructura, explorare colaboraciones que beneficien a municipalidades ecuatorianas, y llevare informacion de regreso a mi organizacion en Quito.",
+   kw:["reuniones","lideres","colaboraciones","municipalidades","informacion"]},
+  {q:"Conoce el nombre del director o presidente del Comite Civico?",
+   tip:"Si no lo sabe, sea honesto: la organizacion es conocida en la comunidad.",
+   model:"No tengo el nombre del director directo en este momento, pero la organizacion existe hace varios anos y es bien conocida en la comunidad ecuatoriana de Queens. Puedo verificarlo si lo necesita.",
+   kw:["no tengo","conocida","comunidad","organizacion","verificar"]},
+  {q:"Con un empleo institucional, por que viaja usted personalmente y no otra persona de la AME?",
+   tip:"Su rol especifico dentro de AME justifica que sea usted quien viaje.",
+   model:"Dentro de la Asociacion, mi rol incluye la coordinacion de este tipo de contactos institucionales. Por eso fui designado para representar a la organizacion en este viaje.",
+   kw:["rol","coordinacion","designado","representar","organizacion"]},
+  {q:"Usa redes sociales? Que publica?",
+   tip:"Instagram @CREATIVO_VISUAL con trabajo profesional, LinkedIn con su perfil en AME.",
+   model:"Si. Tengo LinkedIn profesional que muestra mi trabajo en la Asociacion de Municipalidades, e Instagram donde publico trabajo de diseno y creatividad, ademas de Facebook para contactos personales. Todo es consistente con mi perfil profesional.",
+   kw:["linkedin","instagram","diseno","profesional","asociacion"]},
+  {q:"Por que Estados Unidos y no otro pais para este proposito institucional?",
+   tip:"El Comite Civico Ecuatoriano esta especificamente en Nueva York.",
+   model:"Porque el Comite Civico Ecuatoriano esta en Nueva York, y el trabajo que busco hacer requiere estar en Estados Unidos para coordinar en persona. Es un viaje de negocios especifico, no generico.",
+   kw:["comite civico","nueva york","coordinar","especifico","negocios"]}
+];
 
-<div class="info-card">
-  <div class="ic-title">Tu Perfil Profesional</div>
-  <div class="ic-body">Trabajas en la Asociación de Municipalidades Ecuatorianas. Tu supervisor es Danny. Tu cargo y ingresos son tus pruebas de estabilidad económica. Esto responde: ¿Por qué vuelves? Porque tu empleo te espera.</div>
-</div>
+/* Normalize: remove accents, lowercase */
+function norm(s){
+  return s.toLowerCase()
+    .replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e')
+    .replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o')
+    .replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');
+}
 
-<div class="str-card">
-  <div class="str-icon">✓</div>
-  <div>
-    <div class="str-title">Fortaleza: Vínculos familiares</div>
-    <div class="str-body">Tu padre (jubilado) y tu madre en Ecuador son razones claras para regresar. El oficial buscará confirmar esos vínculos.</div>
-  </div>
-</div>
+/* ── NAV ─────────────────────────────────────────── */
+function goTo(n){cur=n;qIdx=0;pendingFollowup=null;render();}
+function next(){goTo(Math.min(cur+1,7));}
+function prev(){goTo(Math.max(cur-1,0));}
 
-<div class="str-card">
-  <div class="str-icon">✓</div>
-  <div>
-    <div class="str-title">Fortaleza: Perfil profesional</div>
-    <div class="str-body">Tu presencia en LinkedIn, Instagram y Facebook muestra un perfil profesional y creativo. Verifica que sea consistente con tu DS-160.</div>
-  </div>
-</div>
+/* ── PRACTICE EVAL ────────────────────────────────── */
+function localCheck(q,resp){
+  var hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;
+  return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;
+}
 
-<div class="str-card">
-  <div class="str-icon">✓</div>
-  <div>
-    <div class="str-title">Fortaleza: Contactos en USA</div>
-    <div class="str-body">Tienes una organización ecuatoriana establecida en Nueva York (Comite Civico Ecuatoriano). Eso demuestra red profesional pero requiere claridad: ¿cuál es tu relación exacta?</div>
-  </div>
-</div>
+async function check(){
+  var pqs=cur===4?QB:cur===5?QI:QD;
+  var wasFollowup=!!pendingFollowup;
+  var q=pendingFollowup||pqs[qIdx];
+  var respRaw=(document.getElementById('qa').value||'').trim();
+  var resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
 
-<h2 style="font-family:var(--serif);font-size:1.5rem;line-height:1.2;margin:24px 0 16px">Respuestas Clave que el Oficial Buscara</h2>
+  var evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  var historial=answersLog.slice(-3).map(function(a){
+    return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};
+  });
 
-<div class="info-card">
-  <div class="ic-title">1. ¿Cual es el proposito de tu viaje?</div>
-  <div class="ic-body"><strong>Tu respuesta debe ser:</strong> "Viajar por negocios y turismo. Tengo reuniones con [ESPECIFICAR ORGANIZACION/PERSONA] en Nueva York durante [DURACION]. Después visitaré [CIUDADES/LUGARES] para conocer oportunidades comerciales." No seas vago. El oficial valida cada palabra.</div>
-</div>
+  var iaResult=null;
+  try{
+    fetch(WEBHOOK,{
+      method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,
+        respuestaUsuario:respRaw,expedienteContext:EXPEDIENTE_CONTEXT,historial:historial})
+    }).catch(function(){});
 
-<div class="info-card">
-  <div class="ic-title">2. ¿Cuanto tiempo vas a quedarte en USA?</div>
-  <div class="ic-body"><strong>Tu respuesta:</strong> "[NUMERO] dias, desde [FECHA] hasta [FECHA]. Mi visa es B1/B2 de 10 años, así que puedo entrar y salir. Esta vez vengo por [DURACION ESPECIFICA]." Sé preciso. No digas "varias semanas" — di "14 días".</div>
-</div>
+    for(var attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        var r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        var d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
 
-<div class="info-card">
-  <div class="ic-title">3. ¿Quien paga tu viaje?</div>
-  <div class="ic-body"><strong>Tu respuesta:</strong> "Yo pago mi boleto, hotel y gastos. Mi empleador [NOMBRE] me apoya con [CARTA DE PERMISO/TIEMPO DISPONIBLE]. Tengo fondos demostrados en mi cuenta bancaria." Adjunta extractos de 3 meses.</div>
-</div>
+  var ok, fbClass, fbEstado, fbMsg, repregunta='';
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial esta conforme'
+      :iaResult.evaluacion==='riesgo'?'Riesgo — respuesta debil'
+      :'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+    repregunta=iaResult.repregunta||'';
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales.':'Revisa la respuesta modelo. Asegurate de incluir los detalles especificos.';
+  }
 
-<div class="info-card">
-  <div class="ic-title">4. ¿Tienes familia o amigos en USA?</div>
-  <div class="ic-body"><strong>Tu respuesta:</strong> "Tengo un contacto profesional, el Comite Civico Ecuatoriano en Queens. Nos conectamos por [TIPO DE RELACION]. Pero mi familia esta aqui: mi padre [EDAD] y mi madre en Ecuador." No ocultes contactos — explica la relacion exacta.</div>
-</div>
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
 
-<div class="info-card">
-  <div class="ic-title">5. ¿Que haces en Ecuador? ¿Por que vuelves?</div>
-  <div class="ic-body"><strong>Tu respuesta:</strong> "Trabajo como [CARGO] en la Asociacion de Municipalidades Ecuatorianas desde [ENERO 2025]. Gano [SALARIO MENSUAL]. Mis padres estan aqui. Mi casa, mi empleo, mi vida estan en Ecuador. Despues de mi viaje, vuelvo directamente al trabajo." Este es tu argumento más fuerte.</div>
-</div>
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, tip:'', model:q.model, kw:q.kw};
+  }else{
+    pendingFollowup=null;
+  }
 
-<h2 style="font-family:var(--serif);font-size:1.5rem;line-height:1.2;margin:24px 0 16px">Lo que el Oficial Revisara en tus Redes Sociales</h2>
+  var fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  var repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
 
-<div class="info-card">
-  <div class="ic-title">Tu Instagram: @CREATIVO_VISUAL</div>
-  <div class="ic-body">Verifica que tus posts sean consistentes con tu perfil profesional. No debe haber: a) Viajes no reportados al DS-160, b) Comportamiento que contradiga tu narrativa, c) Contenido controversial.</div>
-</div>
+function nextQ(){
+  if(!pendingFollowup) qIdx++;
+  render();
+}
 
-<div class="info-card">
-  <div class="ic-title">Tu Facebook: @MANUEL QUINDE</div>
-  <div class="ic-body">Asegurate de que tu estado civil, ubicacion y actividades recientes sean coherentes con tu DS-160. Que muestre estabilidad y arraigo en Ecuador.</div>
-</div>
+/* ── RENDER ───────────────────────────────────────── */
+function setHdr(){
+  document.getElementById('hm').textContent=cur+1;
+  document.getElementById('ht').textContent=8;
+  document.getElementById('pf').style.width=(cur/7*100)+'%';
+  window.scrollTo(0,0);
+}
 
-<div class="info-card">
-  <div class="ic-title">Tu LinkedIn</div>
-  <div class="ic-body">Debe reflejar tu empleo en Municipalidades, tu experiencia, y tu credibilidad profesional. Esto RESPALDA tu narrativa de que tienes razon para volver: tu carrera.</div>
-</div>
+function dias(){
+  var d=Math.ceil((new Date('2026-07-15')-new Date())/86400000);
+  return d>0?d:'Hoy';
+}
 
-<div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:16px;margin:24px 0">
-  <div style="font-weight:700;margin-bottom:8px">Checklist de Documentos</div>
-  <ul style="font-size:.875rem;color:rgba(255,255,255,.8);line-height:1.8;list-style:none;padding:0">
-    <li>☐ Pasaporte original (vigente 6+ meses)</li>
-    <li>☐ Copia del DS-160 impreso + numero de confirmacion</li>
-    <li>☐ Confirmacion de cita impresa</li>
-    <li>☐ Cedula de identidad o documento con foto</li>
-    <li>☐ Carta de permiso de empleador (si aplica)</li>
-    <li>☐ Extractos bancarios 3 meses</li>
-    <li>☐ Comprobante de impuestos / declaracion de renta</li>
-    <li>☐ Fotos de familia en Ecuador (vinculos)</li>
-  </ul>
-</div>
+function mkDots(pqs){
+  return pqs.map(function(_,i){
+    return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';
+  }).join('');
+}
 
-<button class="btn-p" onclick="alert('Descarga tu PDF de preparacion en el email. Practica tus respuestas. ¡Exito!')">Descargar Plan Completo (PDF)</button>
+function renderPractica(pqs,nivel,cls,titulo){
+  if(qIdx>=pqs.length){
+    var t=pqs.length,b=0;
+    for(var i=scores.length-t;i<scores.length;i++){if(scores[i])b++;}
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'&#127881;':'&#128170;')+'</div>'
+      +'<div class="h2">Nivel '+nivel+'<br><em>completado</em></div>'
+      +'<p class="sub">'+b+' de '+t+' respuestas completas.</p>'
+      +'<button class="btn-p" onclick="next()">Continuar &#8594;</button>'
+      +'<button class="btn-s" onclick="goTo(cur)">Repetir este nivel</button>'
+      +'</div>';
+    return;
+  }
+  var q=pendingFollowup||pqs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="nivel-badge '+cls+'">'+titulo+' &#8212; '+(qIdx+1)+' de '+pqs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">&#9888; El oficial no quedo conforme &mdash; insiste en el mismo punto</div>':'')
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(pqs)+'</div></div>'
+    +'<p class="q-text">&#8810;&#8811; '+q.q+'</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aqui..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar &#8594;</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div>'
+      +'<div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div>'
+      +'<div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ()">'+(qIdx+1<pqs.length?'Siguiente pregunta &#8594;':'Ver resumen &#8594;')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="prev()">&#8592; Anterior</button>'
+    +'</div>';
+}
 
-</div></main>
+function render(){
+  setHdr();
+  if(cur===0){renderBienvenida();}
+  else if(cur===1){renderEvalua();}
+  else if(cur===2){renderFortalezas();}
+  else if(cur===3){renderDS160();}
+  else if(cur===4){renderPractica(QB,'basico','n1','&#9679; Nivel basico');}
+  else if(cur===5){renderPractica(QI,'intermedio','n2','&#9679; Nivel intermedio');}
+  else if(cur===6){renderPractica(QD,'dificil','n3','&#9679; Nivel dificil');}
+  else if(cur===7){renderProtocolo();}
+}
+
+/* ── PANTALLAS ────────────────────────────────────── */
+function renderBienvenida(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<div class="badge-gold"><span></span>Preparacion entrevista consular USA B1/B2</div>'
+  +'<h1 class="h1">Alex<br><em>Quinde</em></h1>'
+  +'<p class="sub">Trabajador de la Asociacion de Municipalidades Ecuatorianas (AME). Este simulador fue preparado con los datos exactos de tu DS-160. Practica hasta que las respuestas salgan solas.</p>'
+
+  +'<div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+  +'<div style="font-size:1.4rem">&#127963;</div>'
+  +'<div style="flex:1;min-width:160px">'
+  +'<div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular Confirmada</div>'
+  +'<div style="font-weight:700;font-size:.82rem;color:#fff">Miercoles 15 julio 2026 &middot; 9:00 AM</div>'
+  +'<div style="font-size:.68rem;color:rgba(255,255,255,.45)">Embajada de EEUU &middot; Quito &middot; Avigiras E12-170</div>'
+  +'</div>'
+  +'<div style="text-align:center;min-width:44px">'
+  +'<div style="font-size:1.5rem;font-weight:700;color:#F5C842">'+dias()+'</div>'
+  +'<div style="font-size:.52rem;color:rgba(255,255,255,.35);text-transform:uppercase">dias</div>'
+  +'</div></div>'
+
+  +'<div class="trip-box"><div class="trip-ttl">Datos del viaje</div>'
+  +'<div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">Nueva York, Queens NY</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Proposito</span><span class="trip-v">Negocios institucionales (AME)</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Contacto USA</span><span class="trip-v">Comite Civico Ecuatoriano</span></div>'
+  +'<div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:var(--gold)">AA00FNRBAB</span></div>'
+  +'<div class="trip-row"><span class="trip-l">Pasaporte</span><span class="trip-v" style="font-family:monospace">B1128232</span></div>'
+  +'</div>'
+
+  +'<div class="mode-box">'
+  +'<button class="mode-btn" onclick="next()">'
+  +'<span class="mode-icon">&#128218;</span>'
+  +'<div><div class="mode-title">Recorrido completo</div>'
+  +'<div class="mode-sub">Aprendizaje &rarr; DS-160 &rarr; practica basico, intermedio y dificil</div></div>'
+  +'</button>'
+  +'<button class="mode-btn" onclick="goTo(4)">'
+  +'<span class="mode-icon">&#9889;</span>'
+  +'<div><div class="mode-title">Solo practica</div>'
+  +'<div class="mode-sub">Directo a las preguntas sin modulos de aprendizaje</div></div>'
+  +'</button>'
+  +'</div></div>';
+}
+
+function renderEvalua(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag learn">Modulo 1 &middot; Aprender</span>'
+  +'<h2 class="h2">Lo que evalua el<br><em>oficial consular</em></h2>'
+  +'<p class="sub">La entrevista dura 2 a 5 minutos. Ya leyeron tu DS-160 antes de que entres.</p>'
+  +'<div class="info-card"><div class="ic-num">01</div>'
+  +'<div class="ic-title">Va a regresar a Ecuador?</div>'
+  +'<div class="ic-body">Pregunta central. Busca vinculos reales: trabajo, familia, historial. <strong style="color:var(--gold)">Tu trabajo estable en AME y tus padres en Ecuador son tu vinculo mas fuerte.</strong></div></div>'
+  +'<div class="info-card"><div class="ic-num">02</div>'
+  +'<div class="ic-title">El proposito es negocios real, no turismo disfrazado?</div>'
+  +'<div class="ic-body">No es un viaje generico. Debes ser especifico: Comite Civico Ecuatoriano, direccion, telefono, y que haras exactamente alli.</div></div>'
+  +'<div class="info-card"><div class="ic-num">03</div>'
+  +'<div class="ic-title">Puede costear el viaje?</div>'
+  +'<div class="ic-body">Tu salario en AME desde enero 2025 y tus ahorros son tu respaldo. Ten extractos bancarios listos.</div></div>'
+  +'<div class="info-card"><div class="ic-num">04</div>'
+  +'<div class="ic-title">Hay senales de inmigracion irregular?</div>'
+  +'<div class="ic-body">Primera vez viajando + sin familia en USA. Para cada punto tienes respuesta preparada &mdash; la practicamos aqui.</div></div>'
+  +'<button class="btn-p" onclick="next()">Siguiente &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+function renderFortalezas(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag learn">Modulo 2 &middot; Tu caso</span>'
+  +'<h2 class="h2">Fortalezas y<br><em>puntos a preparar</em></h2>'
+  +'<p class="sub">Conoce tus ventajas. Usalas con naturalidad, no con timidez.</p>'
+
+  +'<div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:8px">Fortalezas</div>'
+  +'<div class="str-card"><div class="str-icon">&#128188;</div><div>'
+  +'<div class="str-title">Empleo estable en AME</div>'
+  +'<div class="str-body">Trabaja en la Asociacion de Municipalidades Ecuatorianas desde enero 2025, con supervisor conocido (Danny) y referencias laborales solidas.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#127970;</div><div>'
+  +'<div class="str-title">Proposito institucional claro</div>'
+  +'<div class="str-body">El Comite Civico Ecuatoriano es una organizacion establecida en Queens con direccion y telefono verificables — no un contacto vago.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#128106;</div><div>'
+  +'<div class="str-title">Padres en Ecuador &middot; Vinculo familiar claro</div>'
+  +'<div class="str-body">Su padre (jubilado) y su madre viven en Ecuador. Vinculo familiar solido con su pais de origen.</div></div></div>'
+  +'<div class="str-card"><div class="str-icon">&#128241;</div><div>'
+  +'<div class="str-title">Perfil profesional consistente</div>'
+  +'<div class="str-body">LinkedIn, Instagram (@CREATIVO_VISUAL) y Facebook muestran perfil profesional y creativo, coherente con el DS-160.</div></div></div>'
+
+  +'<div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin:14px 0 8px">Puntos a preparar</div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">Primera vez viajando a Estados Unidos</div>'
+  +'<div class="str-body">No te disculpes. Muestra confianza: tienes documentos completos y proposito claro.</div></div></div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">Contacto es organizacion, no persona</div>'
+  +'<div class="str-body">El oficial puede preguntar por el nombre del director. Si no lo sabes, di que la organizacion es conocida en la comunidad y ofrece verificar.</div></div></div>'
+  +'<div class="risk-card"><div class="str-icon">&#9888;</div><div>'
+  +'<div class="str-title">Distinguir "viaje de negocios" de "turismo"</div>'
+  +'<div class="str-body">Se especifico sobre las actividades: reuniones, exploracion de colaboraciones, informacion para la AME. No digas solo "voy a conocer".</div></div></div>'
+
+  +'<div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05);margin-top:8px">'
+  +'<div class="ic-title" style="color:var(--red)">Error a evitar</div>'
+  +'<div class="ic-body">No des respuestas genericas como "voy a ver gente" o "a conocer Nueva York". El oficial necesita algo especifico y verificable.</div></div>'
+
+  +'<button class="btn-p" onclick="next()">Siguiente &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+function renderDS160(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag review">DS-160 &middot; Alex Quinde</span>'
+  +'<h2 class="h2">Lo que declaraste<br><em>en tu DS-160</em></h2>'
+  +'<p class="sub">Esto es exactamente lo que el oficial consular tiene frente a el. Conocelo de memoria.</p>'
+  +'<div class="ds-header"><div class="ds-name">Alex Manuel Quinde Olivo</div>'
+  +'<div class="ds-sub">DS-160 &middot; AA00FNRBAB</div></div>'
+  +'<div class="ds-grid">'
+  +'<div class="ds-field hi"><div class="ds-label">Pasaporte</div><div class="ds-value">B1128232</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Ocupacion</div><div class="ds-value">Asociacion de Municipalidades Ecuatorianas</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Desde</div><div class="ds-value">Enero 2025</div></div>'
+  +'<div class="ds-field wn"><div class="ds-label">Primera vez en USA</div><div class="ds-value">Si &mdash; nunca ha viajado a Estados Unidos</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Familiares en USA</div><div class="ds-value">Ninguno &mdash; solo contacto profesional</div></div>'
+  +'<div class="ds-field ok"><div class="ds-label">Rechazos previos</div><div class="ds-value">Ninguno</div></div>'
+  +'</div>'
+  +'<div class="ds-note"><strong style="color:var(--blue)">Proposito declarado:</strong> Negocios/turismo (B1/B2). Coordinacion institucional con el Comite Civico Ecuatoriano en Nueva York.</div>'
+  +'<div class="ds-grid">'
+  +'<div class="ds-field"><div class="ds-label">Contacto en USA</div><div class="ds-value">The Ecuadorian Civic Committee<br>96-09 Roosevelt Ave, Corona NY 11368</div></div>'
+  +'<div class="ds-field"><div class="ds-label">Telefono contacto</div><div class="ds-value">+1-917-225-4509</div></div>'
+  +'</div>'
+  +'<div class="ds-note" style="border-left-color:var(--amber);background:rgba(245,158,11,.06)">'
+  +'<strong style="color:var(--amber)">Sobre el contacto:</strong> Es una organizacion, no una persona individual. Tienes respuesta preparada para esto.</div>'
+  +estudioPreguntasHtml()
+  +'<button class="btn-p" onclick="next()">Ir a practica &rarr;</button>'
+  +'<button class="btn-s" onclick="prev()">&larr; Anterior</button>'
+  +'</div>';
+}
+
+function estudioPreguntasHtml(){
+  var niveles=[
+    {qs:QB, titulo:'Nivel basico', color:'var(--green)'},
+    {qs:QI, titulo:'Nivel intermedio', color:'var(--amber)'},
+    {qs:QD, titulo:'Nivel dificil', color:'var(--red)'}
+  ];
+  var html='<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin:18px 0 10px">Estudia estas preguntas antes de practicar &mdash; en la practica no habra pistas, como en la entrevista real</div>';
+  niveles.forEach(function(nv){
+    html+='<div class="study-nivel-hdr" style="color:'+nv.color+'">'+nv.titulo+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card">'
+        +'<div class="study-q">&#171; '+q.q+' &#187;</div>'
+        +'<div class="study-tip">&#128161; '+q.tip+'</div>'
+        +'<div class="study-a-label">Respuesta modelo</div>'
+        +'<div class="study-a">'+q.model+'</div>'
+        +'</div>';
+    });
+  });
+  return html;
+}
+
+function renderProtocolo(){
+  document.getElementById('wrap').innerHTML=''
+  +'<div class="screen">'
+  +'<span class="mod-tag tip">Modulo 7 &middot; Dia de la entrevista</span>'
+  +'<h2 class="h2">Protocolo<br><em>del 15 de julio</em></h2>'
+  +'<div class="info-card"><div class="ic-num">&#128205;</div>'
+  +'<div class="ic-title">Donde queda la Embajada</div>'
+  +'<div class="ic-body">Avenida Avigiras E12-170, Quito.<br>La cita es a las <strong style="color:var(--gold)">9:00 AM &mdash; llega a las 8:30</strong>.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128084;</div>'
+  +'<div class="ic-title">Como vestir</div>'
+  +'<div class="ic-body">Formal: traje oscuro o camisa formal + pantalon oscuro, zapatos negros.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128193;</div>'
+  +'<div class="ic-title">Que llevar</div>'
+  +'<div class="ic-body">&#10003; Pasaporte original B1128232<br>&#10003; Confirmacion DS-160 (AA00FNRBAB)<br>&#10003; Hoja de confirmacion de cita<br>&#10003; Comprobante de pago MRV<br>&#10003; Carta del empleador (AME) + nominas<br>&#10003; Extractos bancarios de los ultimos 3 meses</div></div>'
+  +'<div class="info-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.05)">'
+  +'<div class="ic-num" style="color:var(--red)">&#128683;</div>'
+  +'<div class="ic-title" style="color:var(--red)">Que NO llevar</div>'
+  +'<div class="ic-body">Celular (no pasa seguridad). Laptop, tablet, cables, camara. Comida o bebidas.</div></div>'
+  +'<div class="info-card"><div class="ic-num">&#128172;</div>'
+  +'<div class="ic-title">Dentro de la entrevista</div>'
+  +'<div class="ic-body">&#8226; Responde solo lo que te preguntan &mdash; ni mas ni menos<br>&#8226; Habla claro, directo, sin apresurarte<br>&#8226; Si no entiendes, pide que repitan la pregunta<br>&#8226; Se especifico sobre el Comite Civico Ecuatoriano, no genero</div></div>'
+  +'<div class="resp-box"><div class="resp-label">Si preguntan por que nunca ha viajado antes</div>'
+  +'<div class="resp-text">"No, esta es mi primera vez. Pero estoy listo para este viaje de negocios, con documentos completos y proposito claro."</div></div>'
+
+  +'<div style="background:var(--navy2);border-radius:var(--r);padding:18px;margin-top:16px;margin-bottom:14px">'
+  +'<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:12px">Las 3 respuestas que debes memorizar</div>'
+  +'<div style="font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.8)">'
+  +'<strong style="color:var(--gold)">1. Proposito del viaje:</strong> Negocios con el Comite Civico Ecuatoriano, direccion y telefono exactos.<br>'
+  +'<strong style="color:var(--gold)">2. Garantia de regreso:</strong> Trabajo estable en AME + padres en Ecuador.<br>'
+  +'<strong style="color:var(--gold)">3. Quien paga:</strong> Usted mismo, con ingresos de AME desde enero 2025.'
+  +'</div></div>'
+
+  +'<div style="background:rgba(16,185,129,.06);border-radius:var(--r);padding:14px;margin-bottom:14px">'
+  +'<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px">Checklist documentos &mdash; 15 julio</div>'
+  +'<div style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.8">'
+  +'&#9744; Pasaporte B1128232 (original)<br>'
+  +'&#9744; Confirmacion cita + DS-160 AA00FNRBAB<br>'
+  +'&#9744; Comprobante de pago MRV<br>'
+  +'&#9744; Carta laboral de la AME + nominas<br>'
+  +'&#9744; Extractos bancarios / ahorros'
+  +'</div></div>'
+
+  +'<a class="wa-cta" href="https://wa.me/593987846751">'
+  +'<span style="font-size:1.2rem">&#128172;</span>'
+  +'<span>Tienes dudas? Escribele a Roberto por WhatsApp</span>'
+  +'</a>'
+  +'<button class="btn-p" onclick="goTo(0)">Volver al inicio</button>'
+  +'<button class="btn-s" onclick="goTo(4)">Repetir practica</button>'
+  +'</div>';
+}
+
+render();
+</script>
 </body>
 </html>
