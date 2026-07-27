@@ -67,97 +67,96 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;background:#060E1C;color:#94A3B8;line-height:1.75}
+body{font-family:'DM Sans',sans-serif;background:#1C1410;color:#B8A99A;line-height:1.75}
 a{text-decoration:none;color:inherit}
 .nav{background:rgba(6,14,28,.97);border-bottom:1px solid rgba(255,255,255,.07);padding:16px 40px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);flex-wrap:wrap}
 .nav a{color:rgba(255,255,255,.7);font-size:.875rem;font-weight:500;transition:color .2s}
-.nav a:hover,.nav a.brand{color:#F5C842}.nav a.brand{font-weight:700;font-family:'Playfair Display',serif}
+.nav a:hover,.nav a.brand{color:#E2703A}.nav a.brand{font-weight:700;font-family:'Newsreader',serif}
 .nav-sep{color:rgba(255,255,255,.2);margin:0 4px}
-.hero{background:linear-gradient(135deg,#060E1C 0%,#0F2010 50%,#060E1C 100%);padding:96px 40px 72px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(16,185,129,.05),transparent);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:100px;padding:6px 16px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#10B981;margin-bottom:20px}
-.hero-badge span{width:6px;height:6px;border-radius:50%;background:#10B981;animation:p 2s infinite}
-@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:#E2E8F0;line-height:1.12;margin-bottom:18px}
-.hero h1 em{color:#F5C842;font-style:italic}
+.hero{background:linear-gradient(135deg,#1C1410 0%,#0F2010 50%,#1C1410 100%);padding:96px 40px 72px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(107,158,92,.05),transparent);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(107,158,92,.08);border:1px solid rgba(107,158,92,.2);border-radius:100px;padding:6px 16px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#6B9E5C;margin-bottom:20px}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:#6B9E5C;animation:p 2s infinite}
+.hero h1{font-family:'Newsreader',serif;font-size:clamp(2rem,5vw,3.5rem);color:#F2E9DE;line-height:1.12;margin-bottom:18px}
+.hero h1 em{color:#E2703A;font-style:italic}
 .hero p{font-size:1rem;color:rgba(255,255,255,.5);max-width:580px;margin:0 auto 32px;line-height:1.75}
 .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 .hstat{text-align:center}
-.hstat-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#F5C842;line-height:1}
+.hstat-n{font-family:'Newsreader',serif;font-size:1.8rem;font-weight:700;color:#E2703A;line-height:1}
 .hstat-l{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-top:4px}
-.btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:15px 34px;border-radius:100px;font-weight:700;font-size:.9rem;box-shadow:0 8px 30px rgba(37,211,102,.25);transition:transform .2s}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#157A40,#0F6E5F);color:#fff;padding:15px 34px;border-radius:100px;font-weight:700;font-size:.9rem;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:transform .2s}
 .btn-wa:hover{transform:translateY(-2px)}
 .wrap{max-width:860px;margin:0 auto;padding:64px 24px}
-.sec-label{display:block;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:100px;padding:4px 14px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#10B981;margin-bottom:12px;margin-top:48px}
-.sec-label.gold{background:rgba(245,200,66,.08);border-color:rgba(245,200,66,.2);color:#F5C842}
+.sec-label{display:block;background:rgba(107,158,92,.08);border:1px solid rgba(107,158,92,.2);border-radius:100px;padding:4px 14px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#6B9E5C;margin-bottom:12px;margin-top:48px}
+.sec-label.gold{background:rgba(226,112,58,.08);border-color:rgba(226,112,58,.2);color:#E2703A}
 .sec-label.red{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:#EF4444}
-.sec-title{color:#E2E8F0;font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;margin-bottom:20px}
-p{color:#64748B;margin-bottom:16px;line-height:1.8;font-size:.95rem}
-h2{color:#E2E8F0;font-family:'Playfair Display',serif;font-size:1.5rem;margin:48px 0 16px}
-h3{color:#E2E8F0;font-size:1rem;font-weight:700;margin:28px 0 10px}
-strong{color:#CBD5E1}
-.alert{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.18);border-left:3px solid #F5C842;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
-.alert strong{color:#E2E8F0;display:block;margin-bottom:6px}
+.sec-title{color:#F2E9DE;font-family:'Newsreader',serif;font-size:1.7rem;font-weight:700;margin-bottom:20px}
+p{color:#A69684;margin-bottom:16px;line-height:1.8;font-size:.95rem}
+h2{color:#F2E9DE;font-family:'Newsreader',serif;font-size:1.5rem;margin:48px 0 16px}
+h3{color:#F2E9DE;font-size:1rem;font-weight:700;margin:28px 0 10px}
+strong{color:#E8DDD0}
+.alert{background:rgba(226,112,58,.05);border:1px solid rgba(226,112,58,.18);border-left:3px solid #E2703A;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.alert strong{color:#F2E9DE;display:block;margin-bottom:6px}
 .alert p{margin:0;font-size:.875rem}
-.alert-green{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.18);border-left:3px solid #10B981;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
-.alert-green strong{color:#E2E8F0;display:block;margin-bottom:6px}
+.alert-green{background:rgba(107,158,92,.05);border:1px solid rgba(107,158,92,.18);border-left:3px solid #6B9E5C;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.alert-green strong{color:#F2E9DE;display:block;margin-bottom:6px}
 .alert-green p{margin:0;font-size:.875rem}
 .alert-red{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-left:3px solid #EF4444;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
 .alert-red strong{color:#EF4444;display:block;margin-bottom:6px}
 .alert-red p{margin:0;font-size:.875rem}
 .country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:20px 0 36px}
-.country-card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px}
-.country-card.active{border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.04)}
+.country-card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px}
+.country-card.active{border-color:rgba(107,158,92,.25);background:rgba(107,158,92,.04)}
 .country-flag{font-size:1.8rem;margin-bottom:10px}
-.country-name{color:#E2E8F0;font-weight:700;font-size:.95rem;margin-bottom:4px}
-.country-sector{color:#10B981;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-.country-detail{color:#64748B;font-size:.82rem;line-height:1.6}
-.country-badge{display:inline-block;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:99px;padding:2px 10px;font-size:.65rem;font-weight:700;color:#10B981;margin-top:8px}
-.country-badge.dev{background:rgba(245,200,66,.08);border-color:rgba(245,200,66,.2);color:#F5C842}
+.country-name{color:#F2E9DE;font-weight:700;font-size:.95rem;margin-bottom:4px}
+.country-sector{color:#6B9E5C;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.country-detail{color:#A69684;font-size:.82rem;line-height:1.6}
+.country-badge{display:inline-block;background:rgba(107,158,92,.1);border:1px solid rgba(107,158,92,.2);border-radius:99px;padding:2px 10px;font-size:.65rem;font-weight:700;color:#6B9E5C;margin-top:8px}
+.country-badge.dev{background:rgba(226,112,58,.08);border-color:rgba(226,112,58,.2);color:#E2703A}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 36px}
-.compare-card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px}
-.compare-card.legal{border-color:rgba(16,185,129,.25)}
+.compare-card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px}
+.compare-card.legal{border-color:rgba(107,158,92,.25)}
 .compare-card.ilegal{border-color:rgba(239,68,68,.2)}
 .compare-card h3{font-size:.9rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.07)}
-.compare-card.legal h3{color:#10B981}
+.compare-card.legal h3{color:#6B9E5C}
 .compare-card.ilegal h3{color:#EF4444}
-.compare-card li{list-style:none;font-size:.82rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);color:#64748B;display:flex;gap:8px;align-items:flex-start}
+.compare-card li{list-style:none;font-size:.82rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);color:#A69684;display:flex;gap:8px;align-items:flex-start}
 .compare-card li:last-child{border:none}
-.compare-card.legal li::before{content:'✓';color:#10B981;font-weight:700;flex-shrink:0}
+.compare-card.legal li::before{content:'✓';color:#6B9E5C;font-weight:700;flex-shrink:0}
 .compare-card.ilegal li::before{content:'✗';color:#EF4444;font-weight:700;flex-shrink:0}
 .steps{display:flex;flex-direction:column;gap:0;margin:20px 0 32px}
 .step{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .step:last-child{border:none}
-.step-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:rgba(16,185,129,.3);line-height:1}
-.step-title{color:#E2E8F0;font-weight:700;font-size:.95rem;margin-bottom:4px}
-.step-body{color:#64748B;font-size:.875rem;line-height:1.7}
+.step-n{font-family:'Newsreader',serif;font-size:1.8rem;font-weight:700;color:rgba(107,158,92,.3);line-height:1}
+.step-title{color:#F2E9DE;font-weight:700;font-size:.95rem;margin-bottom:4px}
+.step-body{color:#A69684;font-size:.875rem;line-height:1.7}
 ul.list{list-style:none;padding:0;margin:16px 0 32px;display:flex;flex-direction:column;gap:10px}
-ul.list li{display:flex;gap:12px;font-size:.9rem;color:#94A3B8}
-ul.list li::before{content:'→';color:#F5C842;font-weight:700;flex-shrink:0}
-ul.list li strong{color:#E2E8F0}
+ul.list li{display:flex;gap:12px;font-size:.9rem;color:#B8A99A}
+ul.list li::before{content:'→';color:#E2703A;font-weight:700;flex-shrink:0}
+ul.list li strong{color:#F2E9DE}
 .fraud-list li::before{content:'⚠';color:#EF4444}
 .salary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0 32px}
-.salary-card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px;text-align:center}
-.salary-card.highlight{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.04)}
-.salary-amount{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#10B981;margin-bottom:4px}
-.salary-label{font-size:.75rem;color:#64748B;text-transform:uppercase;letter-spacing:.08em}
+.salary-card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px;text-align:center}
+.salary-card.highlight{border-color:rgba(107,158,92,.3);background:rgba(107,158,92,.04)}
+.salary-amount{font-family:'Newsreader',serif;font-size:1.5rem;font-weight:700;color:#6B9E5C;margin-bottom:4px}
+.salary-label{font-size:.75rem;color:#A69684;text-transform:uppercase;letter-spacing:.08em}
 .salary-note{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:6px}
 .faq{display:flex;flex-direction:column;gap:0}
-.faq-q{color:#E2E8F0;font-weight:600;font-size:.9rem;padding:18px 0 8px;border-top:1px solid rgba(255,255,255,.07)}
-.faq-a{color:#64748B;font-size:.85rem;line-height:1.75;padding-bottom:18px}
-.cta-block{background:linear-gradient(135deg,#0F1F38,#060E1C);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:56px 40px;text-align:center;margin:56px 0}
-.cta-block h2{font-family:'Playfair Display',serif;color:#E2E8F0;font-size:1.7rem;margin-bottom:12px}
-.cta-block h2 em{color:#10B981;font-style:italic}
+.faq-q{color:#F2E9DE;font-weight:600;font-size:.9rem;padding:18px 0 8px;border-top:1px solid rgba(255,255,255,.07)}
+.faq-a{color:#A69684;font-size:.85rem;line-height:1.75;padding-bottom:18px}
+.cta-block{background:linear-gradient(135deg,#2C2018,#1C1410);border:1px solid rgba(107,158,92,.2);border-radius:20px;padding:56px 40px;text-align:center;margin:56px 0}
+.cta-block h2{font-family:'Newsreader',serif;color:#F2E9DE;font-size:1.7rem;margin-bottom:12px}
+.cta-block h2 em{color:#6B9E5C;font-style:italic}
 .cta-block p{color:rgba(255,255,255,.4);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
-footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28px 40px;text-align:center}
+footer{background:#150F0B;border-top:1px solid rgba(255,255,255,.06);padding:28px 40px;text-align:center}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:12px}
 .foot-links a{color:rgba(255,255,255,.3);font-size:.78rem;transition:color .2s}
-.foot-links a:hover{color:#F5C842}
+.foot-links a:hover{color:#E2703A}
 .foot-copy{color:rgba(255,255,255,.18);font-size:.72rem}
-.foot-copy a{color:#F5C842}
+.foot-copy a{color:#E2703A}
 @media(max-width:600px){.hero{padding:72px 24px 56px}.cta-block{padding:36px 20px}.nav{padding:12px 18px}.country-grid{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}.salary-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -324,9 +323,9 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <ul class="list">
     <li><strong>Ciudadano ecuatoriano</strong> con cédula vigente</li>
-    <li><strong>Mayoría de edad</strong> — entre 18 y 45 años (varía por convocatoria; agricultura hasta 41 en algunas)</li>
-    <li><strong>Sin antecedentes penales</strong> — se verifica con el sistema DINARDAP</li>
-    <li><strong>Perfil compatible</strong> con la vacante — experiencia agrícola, sector salud, mecánica u otro según convocatoria</li>
+    <li><strong>Mayoría de edad</strong>, entre 18 y 45 años (varía por convocatoria; agricultura hasta 41 en algunas)</li>
+    <li><strong>Sin antecedentes penales</strong>, se verifica con el sistema DINARDAP</li>
+    <li><strong>Perfil compatible</strong> con la vacante, experiencia agrícola, sector salud, mecánica u otro según convocatoria</li>
     <li><strong>Disponibilidad completa</strong> para viajar y residir en el exterior el período del contrato</li>
     <li><strong>Cédula y pasaporte vigentes</strong> (o en trámite al momento de postular)</li>
     <li><strong>Registro en encuentraempleo.trabajo.gob.ec</strong> con perfil laboral completo</li>
@@ -341,11 +340,11 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
   </div>
 
   <ul class="list fraud-list">
-    <li><strong>Te cobran para "asegurar tu cupo"</strong> — el programa es gratuito, nadie vende plazas</li>
-    <li><strong>Prometen visa permanente o residencia</strong> — el programa es solo temporal, no otorga residencia</li>
-    <li><strong>Piden el pasaporte original antes de la selección oficial</strong> — nunca entregues tu pasaporte a un particular</li>
-    <li><strong>Dicen tener "contactos especiales" en el Ministerio</strong> — el proceso es abierto y transparente para todos</li>
-    <li><strong>Te ofrecen el puesto sin entrevista con el empleador</strong> — el proceso siempre incluye selección formal</li>
+    <li><strong>Te cobran para "asegurar tu cupo"</strong>, el programa es gratuito, nadie vende plazas</li>
+    <li><strong>Prometen visa permanente o residencia</strong>, el programa es solo temporal, no otorga residencia</li>
+    <li><strong>Piden el pasaporte original antes de la selección oficial</strong>, nunca entregues tu pasaporte a un particular</li>
+    <li><strong>Dicen tener "contactos especiales" en el Ministerio</strong>, el proceso es abierto y transparente para todos</li>
+    <li><strong>Te ofrecen el puesto sin entrevista con el empleador</strong>, el proceso siempre incluye selección formal</li>
   </ul>
 
   <div class="sec-label">Legal vs. irregular</div>
@@ -384,10 +383,10 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <div class="sec-label gold">Nuestro servicio</div>
   <h2 class="sec-title">¿En qué te ayudamos nosotros?</h2>
-  <p>La inscripción al programa del MDT es gratuita. Nuestro servicio es la <strong>asesoría profesional para que tu postulación llegue seleccionada</strong> — no para "conseguirte el cupo", sino para prepararte mejor que los demás candidatos.</p>
+  <p>La inscripción al programa del MDT es gratuita. Nuestro servicio es la <strong>asesoría profesional para que tu postulación llegue seleccionada</strong>, no para "conseguirte el cupo", sino para prepararte mejor que los demás candidatos.</p>
 
   <ul class="list">
-    <li><strong>Orientación sobre convocatorias activas</strong> — te decimos cuáles aplican para tu perfil ahora mismo</li>
+    <li><strong>Orientación sobre convocatorias activas</strong>, te decimos cuáles aplican para tu perfil ahora mismo</li>
     <li><strong>Optimización de tu perfil</strong> en la plataforma encuentraempleo para aumentar visibilidad</li>
     <li><strong>Preparación de documentos</strong> para la postulación (experiencia laboral, certificados, etc.)</li>
     <li><strong>Preparación para la entrevista</strong> con el empleador extranjero (qué decir, qué no decir, qué esperan)</li>
@@ -396,7 +395,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <div class="alert">
     <strong>Precio de nuestra asesoría: $97 por persona</strong>
-    <p>Primera consulta siempre gratis. La inscripción al MDT es gratuita — los $97 son exclusivamente por nuestro servicio de preparación.</p>
+    <p>Primera consulta siempre gratis. La inscripción al MDT es gratuita, los $97 son exclusivamente por nuestro servicio de preparación.</p>
   </div>
 
   <div class="sec-label">Preguntas frecuentes</div>
@@ -413,7 +412,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
     <div class="faq-a">Al ser un programa oficial del Estado ecuatoriano, existen mecanismos de protección. La Cancillería y la OIM (Organización Internacional para las Migraciones) dan seguimiento a los casos. Si hay incumplimientos, hay vías de denuncia formales.</div>
 
     <div class="faq-q">¿Puedo llevar a mi familia?</div>
-    <div class="faq-a">El programa es para trabajadores individuales. Los contratos son personales. Tu familia no puede acompañarte bajo este programa — quedaría en Ecuador mientras dura el contrato.</div>
+    <div class="faq-a">El programa es para trabajadores individuales. Los contratos son personales. Tu familia no puede acompañarte bajo este programa, quedaría en Ecuador mientras dura el contrato.</div>
 
     <div class="faq-q">¿Puedo quedarme en el país destino al terminar el contrato?</div>
     <div class="faq-a">No. El retorno a Ecuador es una condición obligatoria del programa. Quienes no regresan quedan en situación irregular, pierden la posibilidad de participar en futuras convocatorias y pueden afectar las plazas disponibles para otros ecuatorianos.</div>
@@ -430,7 +429,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
     <small style="color:rgba(255,255,255,.25);font-size:.75rem">Asesoría desde $97 · Inscripción al MDT es gratuita · Primera consulta siempre gratis</small>
   </div>
 
-  <p style="font-size:.8rem;color:rgba(255,255,255,.2);text-align:center">También tramitamos: <a href="/visa-usa-ecuador.html" style="color:#F5C842">Visa USA</a> · <a href="/visa-espana-ecuatorianos.html" style="color:#F5C842">Visa España</a> · <a href="/visa-canada-ecuatorianos.html" style="color:#F5C842">Visa Canadá</a></p>
+  <p style="font-size:.8rem;color:rgba(255,255,255,.2);text-align:center">También tramitamos: <a href="/visa-usa-ecuador.html" style="color:#E2703A">Visa USA</a> · <a href="/visa-espana-ecuatorianos.html" style="color:#E2703A">Visa España</a> · <a href="/visa-canada-ecuatorianos.html" style="color:#E2703A">Visa Canadá</a></p>
 
 </div>
 

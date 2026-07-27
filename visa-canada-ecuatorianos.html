@@ -65,82 +65,81 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;background:#060E1C;color:#94A3B8;line-height:1.75}
+body{font-family:'DM Sans',sans-serif;background:#1C1410;color:#B8A99A;line-height:1.75}
 a{text-decoration:none;color:inherit}
 .nav{background:rgba(6,14,28,.97);border-bottom:1px solid rgba(255,255,255,.07);padding:16px 40px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);flex-wrap:wrap}
 .nav a{color:rgba(255,255,255,.7);font-size:.875rem;font-weight:500;transition:color .2s}
-.nav a:hover,.nav a.brand{color:#F5C842}.nav a.brand{font-weight:700;font-family:'Playfair Display',serif}
+.nav a:hover,.nav a.brand{color:#E2703A}.nav a.brand{font-weight:700;font-family:'Newsreader',serif}
 .nav-sep{color:rgba(255,255,255,.2);margin:0 4px}
-.hero{background:linear-gradient(135deg,#060E1C 0%,#0F1F38 50%,#060E1C 100%);padding:96px 40px 72px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(245,200,66,.05),transparent);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);border-radius:100px;padding:6px 16px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#F5C842;margin-bottom:20px}
-.hero-badge span{width:6px;height:6px;border-radius:50%;background:#F5C842;animation:p 2s infinite}
-@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:#E2E8F0;line-height:1.12;margin-bottom:18px}
-.hero h1 em{color:#F5C842;font-style:italic}
+.hero{background:linear-gradient(135deg,#1C1410 0%,#2C2018 50%,#1C1410 100%);padding:96px 40px 72px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(226,112,58,.05),transparent);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(226,112,58,.08);border:1px solid rgba(226,112,58,.2);border-radius:100px;padding:6px 16px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#E2703A;margin-bottom:20px}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:#E2703A}
+.hero h1{font-family:'Newsreader',serif;font-size:clamp(2rem,5vw,3.5rem);color:#F2E9DE;line-height:1.12;margin-bottom:18px}
+.hero h1 em{color:#E2703A;font-style:italic}
 .hero p{font-size:1rem;color:rgba(255,255,255,.5);max-width:560px;margin:0 auto 32px;line-height:1.75}
 .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:15px 34px;border-radius:100px;font-weight:700;font-size:.9rem;box-shadow:0 8px 30px rgba(37,211,102,.25);transition:transform .2s}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#157A40,#0F6E5F);color:#fff;padding:15px 34px;border-radius:100px;font-weight:700;font-size:.9rem;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:transform .2s}
 .btn-wa:hover{transform:translateY(-2px)}
-.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#F5C842,#C8861A);color:#060E1C;padding:15px 34px;border-radius:100px;font-weight:800;font-size:.9rem;box-shadow:0 8px 30px rgba(245,200,66,.2)}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E2703A,#B8501F);color:#1C1410;padding:15px 34px;border-radius:100px;font-weight:800;font-size:.9rem;box-shadow:0 8px 30px rgba(226,112,58,.2)}
 .wrap{max-width:860px;margin:0 auto;padding:64px 24px}
-.sec-label{display:block;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);border-radius:100px;padding:4px 14px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#F5C842;margin-bottom:12px;margin-top:48px}
-.sec-title{color:#E2E8F0;font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;margin-bottom:20px}
-p{color:#64748B;margin-bottom:16px;line-height:1.8;font-size:.95rem}
-h2{color:#E2E8F0;font-family:'Playfair Display',serif;font-size:1.5rem;margin:48px 0 16px}
-h3{color:#E2E8F0;font-size:1rem;font-weight:700;margin:28px 0 10px}
-strong{color:#CBD5E1}
-.alert{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.18);border-left:3px solid #F5C842;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
-.alert strong{color:#E2E8F0;display:block;margin-bottom:6px}
+.sec-label{display:block;background:rgba(226,112,58,.08);border:1px solid rgba(226,112,58,.2);border-radius:100px;padding:4px 14px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#E2703A;margin-bottom:12px;margin-top:48px}
+.sec-title{color:#F2E9DE;font-family:'Newsreader',serif;font-size:1.7rem;font-weight:700;margin-bottom:20px}
+p{color:#A69684;margin-bottom:16px;line-height:1.8;font-size:.95rem}
+h2{color:#F2E9DE;font-family:'Newsreader',serif;font-size:1.5rem;margin:48px 0 16px}
+h3{color:#F2E9DE;font-size:1rem;font-weight:700;margin:28px 0 10px}
+strong{color:#E8DDD0}
+.alert{background:rgba(226,112,58,.05);border:1px solid rgba(226,112,58,.18);border-left:3px solid #E2703A;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.alert strong{color:#F2E9DE;display:block;margin-bottom:6px}
 .alert p{margin:0;font-size:.875rem}
-.alert-blue{background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.18);border-left:3px solid #3B82F6;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
-.alert-blue strong{color:#E2E8F0;display:block;margin-bottom:6px}
+.alert-blue{background:rgba(79,158,138,.05);border:1px solid rgba(79,158,138,.18);border-left:3px solid #4F9E8A;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.alert-blue strong{color:#F2E9DE;display:block;margin-bottom:6px}
 .alert-blue p{margin:0;font-size:.875rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:20px 0 36px}
-.card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px;transition:border-color .2s}
-.card:hover{border-color:rgba(245,200,66,.25)}
+.card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:24px;transition:border-color .2s}
+.card:hover{border-color:rgba(226,112,58,.25)}
 .card h3{margin:0 0 8px;font-size:.95rem}
-.card p{margin:0;font-size:.85rem;color:#64748B}
+.card p{margin:0;font-size:.85rem;color:#A69684}
 .card-icon{font-size:1.4rem;margin-bottom:10px}
 .cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0 32px}
-.cost-card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px;text-align:center}
-.cost-amount{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#F5C842;margin-bottom:4px}
-.cost-label{font-size:.75rem;color:#64748B;text-transform:uppercase;letter-spacing:.08em}
+.cost-card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px;text-align:center}
+.cost-amount{font-family:'Newsreader',serif;font-size:1.6rem;font-weight:700;color:#E2703A;margin-bottom:4px}
+.cost-label{font-size:.75rem;color:#A69684;text-transform:uppercase;letter-spacing:.08em}
 .cost-note{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:6px}
 ul.list{list-style:none;padding:0;margin:16px 0 32px;display:flex;flex-direction:column;gap:10px}
-ul.list li{display:flex;gap:12px;font-size:.9rem;color:#94A3B8}
-ul.list li::before{content:'→';color:#F5C842;font-weight:700;flex-shrink:0}
-ul.list li strong{color:#E2E8F0}
+ul.list li{display:flex;gap:12px;font-size:.9rem;color:#B8A99A}
+ul.list li::before{content:'→';color:#E2703A;font-weight:700;flex-shrink:0}
+ul.list li strong{color:#F2E9DE}
 ul.list-x li::before{content:'✗';color:#EF4444}
 .steps{display:flex;flex-direction:column;gap:0;margin:20px 0 32px}
 .step{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .step:last-child{border:none}
-.step-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:rgba(245,200,66,.25);line-height:1}
-.step-title{color:#E2E8F0;font-weight:700;font-size:.95rem;margin-bottom:4px}
-.step-body{color:#64748B;font-size:.875rem;line-height:1.7}
+.step-n{font-family:'Newsreader',serif;font-size:1.8rem;font-weight:700;color:rgba(226,112,58,.25);line-height:1}
+.step-title{color:#F2E9DE;font-weight:700;font-size:.95rem;margin-bottom:4px}
+.step-body{color:#A69684;font-size:.875rem;line-height:1.7}
 .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 32px}
-.diff-card{background:#0D1930;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px}
+.diff-card{background:#291F17;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px}
 .diff-card h3{font-size:.85rem;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.07)}
-.diff-card.canada h3{color:#3B82F6}
-.diff-card.usa h3{color:#F5C842}
-.diff-card li{list-style:none;font-size:.82rem;color:#64748B;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.diff-card.canada h3{color:#4F9E8A}
+.diff-card.usa h3{color:#E2703A}
+.diff-card li{list-style:none;font-size:.82rem;color:#A69684;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .diff-card li:last-child{border:none}
 .faq{display:flex;flex-direction:column;gap:0}
-.faq-q{color:#E2E8F0;font-weight:600;font-size:.9rem;padding:18px 0 8px;border-top:1px solid rgba(255,255,255,.07)}
-.faq-a{color:#64748B;font-size:.85rem;line-height:1.75;padding-bottom:18px}
-.cta-block{background:linear-gradient(135deg,#0F1F38,#060E1C);border:1px solid rgba(245,200,66,.2);border-radius:20px;padding:56px 40px;text-align:center;margin:56px 0}
-.cta-block h2{font-family:'Playfair Display',serif;color:#E2E8F0;font-size:1.7rem;margin-bottom:12px}
-.cta-block h2 em{color:#F5C842;font-style:italic}
+.faq-q{color:#F2E9DE;font-weight:600;font-size:.9rem;padding:18px 0 8px;border-top:1px solid rgba(255,255,255,.07)}
+.faq-a{color:#A69684;font-size:.85rem;line-height:1.75;padding-bottom:18px}
+.cta-block{background:linear-gradient(135deg,#2C2018,#1C1410);border:1px solid rgba(226,112,58,.2);border-radius:20px;padding:56px 40px;text-align:center;margin:56px 0}
+.cta-block h2{font-family:'Newsreader',serif;color:#F2E9DE;font-size:1.7rem;margin-bottom:12px}
+.cta-block h2 em{color:#E2703A;font-style:italic}
 .cta-block p{color:rgba(255,255,255,.4);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto}
-footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28px 40px;text-align:center}
+footer{background:#150F0B;border-top:1px solid rgba(255,255,255,.06);padding:28px 40px;text-align:center}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:12px}
 .foot-links a{color:rgba(255,255,255,.3);font-size:.78rem;transition:color .2s}
-.foot-links a:hover{color:#F5C842}
+.foot-links a:hover{color:#E2703A}
 .foot-copy{color:rgba(255,255,255,.18);font-size:.72rem}
-.foot-copy a{color:#F5C842}
+.foot-copy a{color:#E2703A}
 @media(max-width:600px){.hero{padding:72px 24px 56px}.cta-block{padding:36px 20px}.nav{padding:12px 18px}.grid{grid-template-columns:1fr}.diff-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -165,7 +164,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <div class="alert">
     <strong>Lo primero que debes saber:</strong>
-    <p>Ecuador NO tiene acceso a eTA (autorización electrónica). Todo ecuatoriano necesita visa completa para entrar a Canadá — incluso si solo haces escala. El trámite se hace 100% online en ircc.canada.ca y tarda entre 8 y 12 semanas.</p>
+    <p>Ecuador NO tiene acceso a eTA (autorización electrónica). Todo ecuatoriano necesita visa completa para entrar a Canadá, incluso si solo haces escala. El trámite se hace 100% online en ircc.canada.ca y tarda entre 8 y 12 semanas.</p>
   </div>
 
   <div class="sec-label">Costos oficiales 2026</div>
@@ -223,17 +222,17 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <div class="sec-label">Documentos requeridos</div>
   <h2 class="sec-title">¿Qué documentos necesitas para la visa de Canadá?</h2>
-  <p>El oficial de IRCC evalúa tu caso 100% por el expediente — no hay entrevista presencial. Por eso, cada documento cuenta.</p>
+  <p>El oficial de IRCC evalúa tu caso 100% por el expediente, no hay entrevista presencial. Por eso, cada documento cuenta.</p>
 
   <ul class="list">
-    <li><strong>Pasaporte vigente</strong> — mínimo 6 meses de validez adicional al regreso</li>
-    <li><strong>Formulario IMM 5257</strong> — completado en línea en el portal IRCC</li>
-    <li><strong>Extractos bancarios (6 meses)</strong> — fondos con excedente del 10-15% sobre el mínimo. Los depósitos repentinos son bandera roja</li>
-    <li><strong>Carta de empleo</strong> — cargo, salario, tiempo en la empresa, vacaciones aprobadas y fecha de retorno</li>
-    <li><strong>Declaración de impuestos / planilla IESS / RUC</strong> — historial económico consistente</li>
-    <li><strong>Itinerario del viaje</strong> — alojamiento, actividades y fechas concretas</li>
-    <li><strong>Documentos de arraigo en Ecuador</strong> — escrituras, matrícula de vehículo, certificado de matrimonio, matrícula de hijos en colegios</li>
-    <li><strong>Carta de invitación</strong> — si visitas a un familiar o amigo en Canadá, incluir su estatus migratorio y dirección</li>
+    <li><strong>Pasaporte vigente</strong>, mínimo 6 meses de validez adicional al regreso</li>
+    <li><strong>Formulario IMM 5257</strong>, completado en línea en el portal IRCC</li>
+    <li><strong>Extractos bancarios (6 meses)</strong>, fondos con excedente del 10-15% sobre el mínimo. Los depósitos repentinos son bandera roja</li>
+    <li><strong>Carta de empleo</strong>, cargo, salario, tiempo en la empresa, vacaciones aprobadas y fecha de retorno</li>
+    <li><strong>Declaración de impuestos / planilla IESS / RUC</strong>, historial económico consistente</li>
+    <li><strong>Itinerario del viaje</strong>, alojamiento, actividades y fechas concretas</li>
+    <li><strong>Documentos de arraigo en Ecuador</strong>, escrituras, matrícula de vehículo, certificado de matrimonio, matrícula de hijos en colegios</li>
+    <li><strong>Carta de invitación</strong>, si visitas a un familiar o amigo en Canadá, incluir su estatus migratorio y dirección</li>
   </ul>
 
   <div class="sec-label">Proceso paso a paso</div>
@@ -288,12 +287,12 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
   <h2 class="sec-title">Las razones principales de rechazo para ecuatorianos</h2>
 
   <ul class="list list-x">
-    <li><strong>No demostrar intención de regreso a Ecuador</strong> — es la causa #1. Tener familiares en Canadá sin justificar claramente por qué vas a volver hace que el oficial dude</li>
-    <li><strong>Depósitos bancarios repentinos</strong> — meter dinero en la cuenta días antes de aplicar es señal de alerta. Los fondos deben verse como ahorros normales</li>
-    <li><strong>Formulario incompleto o con inconsistencias</strong> — una fecha mal puesta o un campo vacío puede generar rechazo automático</li>
-    <li><strong>Propósito del viaje vago</strong> — "conocer Canadá" no es suficiente. Se necesita itinerario específico con fechas, alojamiento y actividades</li>
-    <li><strong>Historial migratorio negativo</strong> — overstays en cualquier país, deportaciones o visas negadas anteriores son factores críticos</li>
-    <li><strong>Fondos en el límite exacto</strong> — presentar exactamente el mínimo genera sospecha. Se recomienda demostrar entre 10-15% adicional</li>
+    <li><strong>No demostrar intención de regreso a Ecuador</strong>, es la causa #1. Tener familiares en Canadá sin justificar claramente por qué vas a volver hace que el oficial dude</li>
+    <li><strong>Depósitos bancarios repentinos</strong>, meter dinero en la cuenta días antes de aplicar es señal de alerta. Los fondos deben verse como ahorros normales</li>
+    <li><strong>Formulario incompleto o con inconsistencias</strong>, una fecha mal puesta o un campo vacío puede generar rechazo automático</li>
+    <li><strong>Propósito del viaje vago</strong>, "conocer Canadá" no es suficiente. Se necesita itinerario específico con fechas, alojamiento y actividades</li>
+    <li><strong>Historial migratorio negativo</strong>, overstays en cualquier país, deportaciones o visas negadas anteriores son factores críticos</li>
+    <li><strong>Fondos en el límite exacto</strong>, presentar exactamente el mínimo genera sospecha. Se recomienda demostrar entre 10-15% adicional</li>
   </ul>
 
   <div class="sec-label">Canadá vs. USA</div>
@@ -303,7 +302,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
     <div class="diff-card canada">
       <h3>🍁 Visa Canadá (TRV)</h3>
       <ul>
-        <li>Sin entrevista presencial — todo por expediente</li>
+        <li>Sin entrevista presencial, todo por expediente</li>
         <li>8-12 semanas de procesamiento</li>
         <li>Biometría obligatoria en VFS Global</li>
         <li>Más exigente en fondos bancarios</li>
@@ -329,7 +328,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
 
   <div class="faq">
     <div class="faq-q">¿Cuántos fondos necesito demostrar para la visa de Canadá?</div>
-    <div class="faq-a">No hay un mínimo oficial publicado para visa de visitante. Como referencia, se recomienda demostrar entre $5.000 y $8.000 USD en extractos bancarios para una estadía de 2-3 semanas. Lo importante es que los fondos sean consistentes con tu historial de ingresos — no depósitos recientes. Un excedente del 10-15% sobre lo estimado para el viaje refuerza el caso.</div>
+    <div class="faq-a">No hay un mínimo oficial publicado para visa de visitante. Como referencia, se recomienda demostrar entre $5.000 y $8.000 USD en extractos bancarios para una estadía de 2-3 semanas. Lo importante es que los fondos sean consistentes con tu historial de ingresos, no depósitos recientes. Un excedente del 10-15% sobre lo estimado para el viaje refuerza el caso.</div>
 
     <div class="faq-q">¿Puedo aplicar a la visa de Canadá si tengo familiares viviendo allá?</div>
     <div class="faq-a">Sí, pero es un factor de riesgo que debe manejarse bien. El oficial de IRCC evaluará si tienes motivos suficientes para regresar a Ecuador. La carta de invitación del familiar debe incluir su estatus migratorio. Y tus propios documentos de arraigo (trabajo, propiedad, familia en Ecuador) deben ser sólidos.</div>
@@ -352,7 +351,7 @@ footer{background:#030A14;border-top:1px solid rgba(255,255,255,.06);padding:28p
     <small style="color:rgba(255,255,255,.25);font-size:.75rem">Paquetes desde $197 · Tasa consular NO incluida · Primera consulta siempre gratis</small>
   </div>
 
-  <p style="font-size:.8rem;color:rgba(255,255,255,.2);text-align:center">También tramitamos: <a href="/visa-usa-ecuador.html" style="color:#F5C842">Visa USA</a> · <a href="/visa-espana-ecuatorianos.html" style="color:#F5C842">Visa España</a> · <a href="/migracion-circular-ecuador.html" style="color:#F5C842">Migración Circular</a></p>
+  <p style="font-size:.8rem;color:rgba(255,255,255,.2);text-align:center">También tramitamos: <a href="/visa-usa-ecuador.html" style="color:#E2703A">Visa USA</a> · <a href="/visa-espana-ecuatorianos.html" style="color:#E2703A">Visa España</a> · <a href="/migracion-circular-ecuador.html" style="color:#E2703A">Migración Circular</a></p>
 
 </div>
 
