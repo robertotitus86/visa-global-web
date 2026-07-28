@@ -178,9 +178,10 @@ nav.scrolled {
   display: flex !important;
   gap: 40px !important;
   align-items: flex-end !important;
+  justify-content: center !important;
 }
 
-.hstat { text-align: right !important; }
+.hstat { text-align: center !important; }
 .hstat-n {
   color: #E4C888 !important;
   font-family: 'Newsreader', Georgia, serif !important;
