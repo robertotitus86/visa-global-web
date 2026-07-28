@@ -204,8 +204,8 @@ nav.scrolled {
   backdrop-filter: blur(20px) !important;
 }
 
-.marquee-item { color: rgba(15,26,58,.3) !important; }
-.marquee-item.g { color: #B8873A !important; }
+.marquee-item { color: rgba(255,255,255,.35) !important; }
+.marquee-item.g { color: #E4C888 !important; }
 
 /* ── IMPACT ──────────────────────────────────────────────────── */
 .impact {
