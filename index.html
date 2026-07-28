@@ -1620,7 +1620,6 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
 <div id="scroll-progress"></div>
 
 <!-- URGENCY BAR -->
-<div id="urgency">¿No sabes si te van a rechazar? Empieza por el diagnóstico de perfil, $37 — <a href="https://wa.me/593994442512?text=Hola,%20vi%20el%20diagn%C3%B3stico%20y%20quiero%20evaluar%20mi%20caso" target="_blank" style="color:var(--navy);font-weight:700;text-decoration:underline">agenda el tuyo →</a></div>
 
 <!-- LOADING -->
 <div id="loader">
@@ -2432,15 +2431,6 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
 /* ── LOADER ── */
 window.addEventListener('load', () => {
   setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 1600);
-  setTimeout(() => {
-    const urg = document.getElementById('urgency');
-    const nav = document.getElementById('nav');
-    urg.classList.add('show');
-    setTimeout(() => {
-      const h = urg.getBoundingClientRect().height;
-      nav.style.top = h + 'px';
-    }, 650);
-  }, 3500);
 });
 
 /* ── NAV SCROLL + PROGRESS ── */
