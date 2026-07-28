@@ -2449,16 +2449,6 @@ a[href], button, [onclick], label, select, input[type="submit"], input[type="but
   </div>
 </footer>
 
-<!-- SOCIAL PROOF TOAST -->
-<div id="toast">
-  <img id="ti" src="testimonio-maria.jpg" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold-bdr);flex-shrink:0">
-  <div>
-    <div id="tn" style="font-size:.8rem;font-weight:600;color:var(--dark-txt);margin-bottom:2px">María G. · Guayaquil</div>
-    <div id="tm" style="font-size:.6875rem;color:var(--muted)">acaba de agendar su consulta</div>
-    <div style="display:flex;align-items:center;gap:5px;margin-top:3px"><span style="width:5px;height:5px;border-radius:50%;background:#25D366;display:inline-block"></span><span style="font-size:.625rem;color:rgba(200,136,10,.8)">hace un momento</span></div>
-  </div>
-</div>
-
 <!-- EXIT INTENT POPUP -->
 <div id="ei-popup">
   <div id="ei-backdrop"></div>
@@ -2529,31 +2519,6 @@ window.addEventListener('load',()=>{
   });
 });
 
-/* ── SOCIAL PROOF TOASTS ── */
-const toasts=[
-  {name:'María G. · Quito',  msg:'obtuvo su visa USA aprobada hoy',          img:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&q=80&auto=format&fit=crop&crop=face'},
-  {name:'Carlos P. · Quito', msg:'acaba de agendar su consulta gratuita',     img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&q=80&auto=format&fit=crop&crop=face'},
-  {name:'Andrea V. · Cuenca',msg:'su visa Canadá fue aprobada',               img:'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=96&h=96&q=80&auto=format&fit=crop&crop=face'},
-  {name:'Roberto S. · Manta',msg:'reservó consulta para visa España',         img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&q=80&auto=format&fit=crop&crop=face'},
-  {name:'Valeria M. · Loja', msg:'acaba de completar su proceso',             img:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&h=96&q=80&auto=format&fit=crop&crop=face'},
-];
-let ti=0;
-function showToast(){
-  // No mostrar mientras el hero esta en pantalla, evita tapar el CTA
-  const heroEl = document.querySelector('.hero');
-  if(heroEl){
-    const r = heroEl.getBoundingClientRect();
-    if(r.bottom > 80) return;
-  }
-  const t=toasts[ti%toasts.length];ti++;
-  const el=document.getElementById('toast');
-  document.getElementById('ti').src=t.img;
-  document.getElementById('tn').textContent=t.name;
-  document.getElementById('tm').textContent=t.msg;
-  el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),4200);
-}
-setTimeout(()=>{showToast();setInterval(showToast,9000);},4000);
 
 /* ── DIAGNÓSTICO TERMINAL ANIMATION ── */
 (function(){
