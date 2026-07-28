@@ -83,12 +83,12 @@ nav.scrolled {
 }
 
 .hero-bg {
-  background: url('hero-bg.jpg') center 20%/cover no-repeat !important;
+  background: url('hero-bg.jpg') center 12%/cover no-repeat !important;
 }
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, #0A1E5A 0%, #0A1E5A 32%, rgba(10,30,90,.75) 48%, rgba(10,30,90,.15) 68%, transparent 82%),
+    linear-gradient(90deg, #0A1E5A 0%, #0A1E5A 20%, rgba(10,30,90,.92) 32%, rgba(10,30,90,.72) 44%, rgba(10,30,90,.42) 56%, rgba(10,30,90,.16) 68%, transparent 80%),
     linear-gradient(to bottom, transparent 0%, transparent 72%, #F4F5F8 100%) !important;
 }
 
@@ -473,13 +473,13 @@ footer::before {
 }
 
 .btn-outline-light {
-  border: 1px solid rgba(15,26,58,.18) !important;
-  color: rgba(15,26,58,.7) !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  color: rgba(255,255,255,.88) !important;
   border-radius: 100px !important;
 }
 
 .btn-outline-light:hover {
-  border-color: rgba(10,30,90,.4) !important;
+  border-color: rgba(228,200,136,.6) !important;
   color: #B8873A !important;
 }
 
