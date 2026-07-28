@@ -551,7 +551,13 @@ section.sec:not(.services-dark):not(.wa-section) {
 }
 
 section.sec:nth-child(even):not(.services-dark):not(.wa-section) {
-  background: #E8EBF2;
+  background: #E4E8F2;
+  border-top: 1px solid rgba(201,164,85,.25);
+}
+section.sec:not(.services-dark):not(.wa-section) .card,
+section.sec:not(.services-dark):not(.wa-section) .info-card,
+section.sec:not(.services-dark):not(.wa-section) .svc {
+  box-shadow: 0 1px 2px rgba(10,30,90,.04), 0 8px 24px rgba(10,30,90,.06);
 }
 
 /* Textos genéricos en secciones claras */
