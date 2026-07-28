@@ -83,13 +83,13 @@ nav.scrolled {
 }
 
 .hero-bg {
-  background:
-    radial-gradient(ellipse 70% 60% at 80% 20%, rgba(201,164,85,.14), transparent),
-    linear-gradient(135deg, #0A1E5A 0%, #0E2670 55%, #0A1E5A 100%) !important;
+  background: url('hero-bg.jpg') center 20%/cover no-repeat !important;
 }
 
 .hero-overlay {
-  background: linear-gradient(to bottom, transparent 0%, transparent 75%, #F4F5F8 100%) !important;
+  background:
+    linear-gradient(90deg, #0A1E5A 0%, #0A1E5A 32%, rgba(10,30,90,.75) 48%, rgba(10,30,90,.15) 68%, transparent 82%),
+    linear-gradient(to bottom, transparent 0%, transparent 72%, #F4F5F8 100%) !important;
 }
 
 .hero h1 {
@@ -130,23 +130,24 @@ nav.scrolled {
   transform: none !important;
 }
 
-/* Eyebrow — píldora dorada, siempre visible sobre cualquier fondo */
+/* Eyebrow — etiqueta plana con regla dorada, no píldora */
 .hero-eyebrow {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 8px !important;
-  color: #0A1E5A !important;
-  background: linear-gradient(135deg, #C9A455, #E4C888) !important;
+  gap: 10px !important;
+  color: #E4C888 !important;
+  background: none !important;
   border: none !important;
-  border-radius: 100px !important;
-  padding: 8px 20px !important;
-  font-weight: 800 !important;
+  border-left: 2px solid #C9A455 !important;
+  border-radius: 0 !important;
+  padding: 4px 0 4px 14px !important;
+  font-weight: 700 !important;
   font-size: .75rem !important;
   letter-spacing: .1em !important;
   text-transform: uppercase !important;
   opacity: 1 !important;
   margin-bottom: 20px !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,.25) !important;
+  box-shadow: none !important;
 }
 
 /* Stats labels — más grandes y visibles */
