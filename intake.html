@@ -27,8 +27,8 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root {
-  --navy:#060E1F; --navy2:#0d1a30; --navy3:#1a2a45;
-  --gold:#F0B429; --gold2:#ffd166; --gold-dim:rgba(240,180,41,.13);
+  --navy:#0A1E5A; --navy2:#0E2670; --navy3:#16307A;
+  --gold:#B8873A; --gold2:#ffd166; --gold-dim:rgba(184,135,58,.13);
   --white:#fff; --muted:rgba(255,255,255,.5); --muted2:rgba(255,255,255,.25);
   --border:rgba(255,255,255,.08); --input-bg:rgba(255,255,255,.05);
   --red:rgba(239,68,68,.8); --green:#4ade80;
@@ -42,18 +42,18 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* BG */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 90% 50% at 10% 0%,rgba(240,180,41,.06) 0%,transparent 55%),
+  background:radial-gradient(ellipse 90% 50% at 10% 0%,rgba(184,135,58,.06) 0%,transparent 55%),
   radial-gradient(ellipse 60% 70% at 90% 100%,rgba(14,30,60,.8) 0%,transparent 60%),var(--navy)}
 .mesh{position:absolute;inset:0;
-  background-image:linear-gradient(rgba(240,180,41,.025) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(240,180,41,.025) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(184,135,58,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(184,135,58,.025) 1px,transparent 1px);
   background-size:60px 60px;
   mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;
   display:flex;align-items:center;justify-content:space-between;padding:0 20px;
-  background:rgba(6,14,31,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+  background:rgba(10,30,90,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .logo{font-family:var(--serif);font-size:.95rem;font-weight:700}
 .logo em{color:var(--gold);font-style:italic}
 .hdr-progress{flex:1;max-width:200px;margin:0 16px}
@@ -64,13 +64,13 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 /* TRAVELER PILLS */
 .traveler-nav{position:fixed;top:60px;left:0;right:0;z-index:99;
   display:flex;gap:6px;padding:10px 20px;overflow-x:auto;
-  background:rgba(6,14,31,.85);backdrop-filter:blur(12px);
+  background:rgba(10,30,90,.85);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);scrollbar-width:none}
 .traveler-nav::-webkit-scrollbar{display:none}
 .t-pill{flex-shrink:0;display:flex;align-items:center;gap:6px;
   padding:5px 12px 5px 6px;border-radius:99px;border:1px solid var(--border);
   font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted)}
-.t-pill.active{border-color:rgba(240,180,41,.5);background:var(--gold-dim);color:var(--white)}
+.t-pill.active{border-color:rgba(184,135,58,.5);background:var(--gold-dim);color:var(--white)}
 .t-pill.done{border-color:rgba(74,222,128,.3);background:rgba(74,222,128,.08);color:var(--green)}
 .t-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:.68rem;font-weight:700;flex-shrink:0}
@@ -86,7 +86,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* PHASE LABEL */
 .phase-label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);
+  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(184,135,58,.2);
   padding:4px 12px;border-radius:99px;display:inline-block;margin-bottom:16px}
 
 /* CARD */
@@ -118,7 +118,7 @@ input[type=text],input[type=date],input[type=email],input[type=tel],input[type=n
   border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.88rem;
   padding:11px 14px;outline:none;transition:border-color .2s,background .2s;
   -webkit-appearance:none;appearance:none}
-input:focus,select:focus,textarea:focus{border-color:rgba(240,180,41,.5);background:rgba(255,255,255,.07)}
+input:focus,select:focus,textarea:focus{border-color:rgba(184,135,58,.5);background:rgba(255,255,255,.07)}
 input::placeholder,textarea::placeholder{color:rgba(255,255,255,.25)}
 select option{background:var(--navy2);color:var(--white)}
 textarea{resize:vertical;min-height:80px;line-height:1.5}
@@ -128,16 +128,16 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .yn-btn{flex:1;padding:11px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);
   background:transparent;color:var(--muted);font-family:var(--sans);font-size:.88rem;font-weight:600;
   cursor:pointer;transition:all .2s;text-align:center}
-.yn-btn:hover{border-color:rgba(240,180,41,.3);color:var(--white)}
-.yn-btn.selected-yes{background:rgba(240,180,41,.15);border-color:rgba(240,180,41,.5);color:var(--gold)}
+.yn-btn:hover{border-color:rgba(184,135,58,.3);color:var(--white)}
+.yn-btn.selected-yes{background:rgba(184,135,58,.15);border-color:rgba(184,135,58,.5);color:var(--gold)}
 .yn-btn.selected-no{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25);color:var(--white)}
 
 /* RADIO OPTIONS */
 .radio-opts{display:flex;flex-direction:column;gap:7px}
 .radio-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;
   border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);cursor:pointer;transition:all .2s}
-.radio-opt:hover{border-color:rgba(240,180,41,.3)}
-.radio-opt.selected{background:var(--gold-dim);border-color:rgba(240,180,41,.45)}
+.radio-opt:hover{border-color:rgba(184,135,58,.3)}
+.radio-opt.selected{background:var(--gold-dim);border-color:rgba(184,135,58,.45)}
 .radio-circle{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.25);
   flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .radio-opt.selected .radio-circle{border-color:var(--gold);background:var(--gold)}
@@ -154,7 +154,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .sec-batch{display:flex;flex-direction:column;gap:6px}
 .sec-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
   border:1px solid rgba(255,255,255,.07);border-radius:var(--rs);cursor:pointer;transition:all .2s}
-.sec-item.flagged{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06)}
+.sec-item.flagged{border-color:rgba(184,135,58,.4);background:rgba(184,135,58,.06)}
 .sec-check{width:18px;height:18px;border-radius:4px;border:1.5px solid rgba(255,255,255,.2);
   flex-shrink:0;margin-top:1px;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .sec-item.flagged .sec-check{background:var(--gold);border-color:var(--gold)}
@@ -176,8 +176,8 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 @media(max-width:420px){.sm-grid{grid-template-columns:1fr}}
 .sm-platform{display:flex;align-items:center;gap:8px;padding:9px 12px;
   border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);cursor:pointer;transition:all .2s}
-.sm-platform:hover{border-color:rgba(240,180,41,.3)}
-.sm-platform.selected{background:var(--gold-dim);border-color:rgba(240,180,41,.45)}
+.sm-platform:hover{border-color:rgba(184,135,58,.3)}
+.sm-platform.selected{background:var(--gold-dim);border-color:rgba(184,135,58,.45)}
 .sm-platform-name{font-size:.82rem;color:var(--muted);font-weight:500;transition:color .2s}
 .sm-platform.selected .sm-platform-name{color:var(--white)}
 .sm-username{margin-top:6px}
@@ -189,7 +189,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 
 /* NAV BUTTONS */
 .nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
-  padding:12px 16px;background:rgba(6,14,31,.95);backdrop-filter:blur(20px);
+  padding:12px 16px;background:rgba(10,30,90,.95);backdrop-filter:blur(20px);
   border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .nav-back{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
   color:var(--muted);font-family:var(--sans);font-size:.85rem;font-weight:600;
@@ -198,7 +198,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .nav-next{flex:1;background:var(--gold);color:var(--navy);border:none;
   font-family:var(--sans);font-size:.9rem;font-weight:700;
   padding:13px 20px;border-radius:var(--rs);cursor:pointer;transition:all .2s;
-  box-shadow:0 4px 16px rgba(240,180,41,.3)}
+  box-shadow:0 4px 16px rgba(184,135,58,.3)}
 .nav-next:hover{background:var(--gold2);transform:translateY(-1px)}
 .nav-next:active{transform:translateY(0)}
 .nav-save{font-size:.65rem;color:var(--muted);text-align:center;flex-shrink:0}
@@ -207,7 +207,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .traveler-row{display:flex;gap:10px;align-items:flex-start;
   background:rgba(255,255,255,.03);border:1px solid var(--border);
   border-radius:var(--rs);padding:12px;margin-bottom:8px}
-.t-num{width:28px;height:28px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+.t-num{width:28px;height:28px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);
   display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--gold);flex-shrink:0}
 .traveler-row-fields{flex:1;display:flex;flex-direction:column;gap:8px}
 .traveler-row-fields input,.traveler-row-fields select{margin:0}
@@ -216,7 +216,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .review-person{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);
   padding:16px;margin-bottom:12px}
 .review-person-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.review-avatar{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+.review-avatar{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);
   display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:var(--gold)}
 .review-name{font-size:.95rem;font-weight:700}
 .review-role{font-size:.7rem;color:var(--muted)}
@@ -236,7 +236,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .next-steps{text-align:left}
 .next-step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .next-step:last-child{border:none}
-.step-n{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);
+.step-n{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);
   display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--gold);flex-shrink:0}
 .step-text{font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5;padding-top:3px}
 
@@ -246,7 +246,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .mini-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
 
 /* SPINNER */
-.spinner{width:22px;height:22px;border:2px solid rgba(6,14,31,.3);border-top-color:var(--navy);
+.spinner{width:22px;height:22px;border:2px solid rgba(10,30,90,.3);border-top-color:var(--navy);
   border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -254,7 +254,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .hidden{display:none!important}
 
 /* DS-160 UPLOAD */
-.upload-banner{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);
+.upload-banner{background:rgba(184,135,58,.08);border:1px solid rgba(184,135,58,.2);
   border-radius:var(--r);padding:16px;margin-bottom:24px}
 .upload-banner-title{font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:4px}
 .upload-banner-sub{font-size:.75rem;color:var(--muted);margin-bottom:12px}
@@ -262,9 +262,9 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 @media(max-width:420px){.upload-slots{grid-template-columns:1fr}}
 .upload-slot{border:1px dashed rgba(255,255,255,.15);border-radius:var(--rs);
   padding:10px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.upload-slot:hover{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.05)}
+.upload-slot:hover{border-color:rgba(184,135,58,.4);background:rgba(184,135,58,.05)}
 .upload-slot.loaded{border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.06);border-style:solid}
-.upload-slot.processing{border-color:rgba(240,180,41,.4);background:rgba(240,180,41,.06);border-style:solid}
+.upload-slot.processing{border-color:rgba(184,135,58,.4);background:rgba(184,135,58,.06);border-style:solid}
 .upload-slot-label{font-size:.7rem;font-weight:600;color:var(--muted);margin-bottom:4px}
 .upload-slot-name{font-size:.65rem;color:var(--green);margin-top:3px;word-break:break-all}
 .upload-slot-status{font-size:.65rem;margin-top:3px}
@@ -286,13 +286,13 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .count-btn{width:52px;height:52px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);
   background:transparent;color:var(--muted);font-family:var(--sans);font-size:1.1rem;font-weight:700;
   cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.count-btn:hover{border-color:rgba(240,180,41,.4);color:var(--white)}
+.count-btn:hover{border-color:rgba(184,135,58,.4);color:var(--white)}
 .count-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--navy)}
 
 /* SUBMIT BTN */
 .submit-btn{width:100%;padding:15px;border-radius:var(--rs);background:var(--gold);
   border:none;color:var(--navy);font-family:var(--sans);font-size:1rem;font-weight:700;
-  cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(240,180,41,.35)}
+  cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(184,135,58,.35)}
 .submit-btn:hover{background:var(--gold2);transform:translateY(-1px)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
@@ -315,7 +315,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.5}
 .add-btn{width:100%;padding:10px;border-radius:var(--rs);background:transparent;
   border:1px dashed rgba(255,255,255,.15);color:var(--muted);font-family:var(--sans);
   font-size:.82rem;cursor:pointer;transition:all .2s}
-.add-btn:hover{border-color:rgba(240,180,41,.3);color:var(--gold)}
+.add-btn:hover{border-color:rgba(184,135,58,.3);color:var(--gold)}
 </style>
 <link rel="stylesheet" href="/design.css">
 </head>
@@ -461,7 +461,7 @@ function showSyncBadge(status, text) {
     document.body.appendChild(badge);
   }
   const styles = {
-    saving: 'border-color:rgba(240,180,41,.35);color:#F0B429;background:rgba(240,180,41,.1)',
+    saving: 'border-color:rgba(184,135,58,.35);color:#B8873A;background:rgba(184,135,58,.1)',
     saved:  'border-color:rgba(22,163,74,.4);color:#4ade80;background:rgba(22,163,74,.1)',
     local:  'border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)',
   };
@@ -956,7 +956,7 @@ function renderSetup() {
     <div class="card-sub">Este formulario recopila toda la informacion necesaria para gestionar su solicitud de visa americana de turismo. Tomara aproximadamente 15-25 minutos.</div>
 
     <!-- UPLOAD DS-160 ANTERIORES -->
-    <div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--r);padding:14px;margin-bottom:20px">
+    <div style="background:rgba(184,135,58,.08);border:1px solid rgba(184,135,58,.2);border-radius:var(--r);padding:14px;margin-bottom:20px">
       <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:3px">¿Tiene formularios DS-160 anteriores?</div>
       <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Suba los PDFs y pre-llenaremos el formulario automaticamente. Ahorra hasta 30 min por persona.</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:7px" id="uploadSlotsGrid">${uploadSlots}</div>
@@ -1459,8 +1459,8 @@ function saveRF(ctx, fieldId, value, uid) {
     if (inp) inp.style.borderColor = 'rgba(74,222,128,.5)';
   } else {
     row.dataset.rf = 'missing';
-    row.style.background = 'rgba(240,180,41,.06)';
-    row.style.borderColor = 'rgba(240,180,41,.25)';
+    row.style.background = 'rgba(184,135,58,.06)';
+    row.style.borderColor = 'rgba(184,135,58,.25)';
   }
 
   // Actualizar barra de progreso
@@ -1468,7 +1468,7 @@ function saveRF(ctx, fieldId, value, uid) {
   const nowFilled = allRows.filter(r => r.dataset.rf === 'filled').length;
   const total = allRows.length;
   const pct = total > 0 ? Math.round((nowFilled / total) * 100) : 0;
-  const pc = pct >= 80 ? '#4ade80' : pct >= 50 ? '#F0B429' : '#f87171';
+  const pc = pct >= 80 ? '#4ade80' : pct >= 50 ? '#B8873A' : '#f87171';
   const pctEl = document.getElementById('review_pct');
   const barEl = document.getElementById('review_bar');
   const msgEl = document.getElementById('review_msg');
@@ -1486,7 +1486,7 @@ function renderReview() {
   let total = 0, filled = 0;
 
   // Estilo base para inputs de revision
-  const INP = 'width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(240,180,41,.5);border-radius:6px;color:#fff;font-family:var(--sans);font-size:.85rem;padding:8px 11px;box-sizing:border-box;transition:border-color .2s,background .2s;';
+  const INP = 'width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(184,135,58,.5);border-radius:6px;color:#fff;font-family:var(--sans);font-size:.85rem;padding:8px 11px;box-sizing:border-box;transition:border-color .2s,background .2s;';
 
   // Fila de campo completado (compacta)
   function rowFilled(label, value) {
@@ -1511,31 +1511,31 @@ function renderReview() {
     } else if (inputType === 'select' && inputOptions && inputOptions.length) {
       const opts = inputOptions.map(o => `<option value="${esc(o)}">${o}</option>`).join('');
       inp = `<select oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
-        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
-        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        onfocus="this.style.borderColor='rgba(184,135,58,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(184,135,58,.5)';this.style.background='rgba(255,255,255,.08)'"
         style="${INP}margin-top:5px"><option value="">Seleccionar...</option>${opts}</select>`;
     } else if (inputType === 'date') {
       inp = `<input type="date"
         oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
-        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
-        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        onfocus="this.style.borderColor='rgba(184,135,58,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(184,135,58,.5)';this.style.background='rgba(255,255,255,.08)'"
         style="${INP}margin-top:5px">`;
     } else if (inputType === 'textarea') {
       inp = `<textarea rows="2"
         oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
-        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
-        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        onfocus="this.style.borderColor='rgba(184,135,58,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(184,135,58,.5)';this.style.background='rgba(255,255,255,.08)'"
         placeholder="Escribir aqui..." style="${INP}margin-top:5px;resize:vertical;"></textarea>`;
     } else {
       inp = `<input type="${inputType === 'number' ? 'number' : 'text'}"
         oninput="saveRF('${ctx}','${fieldId}',this.value,'${uid}')"
-        onfocus="this.style.borderColor='rgba(240,180,41,.9)';this.style.background='rgba(255,255,255,.12)'"
-        onblur="this.style.borderColor='rgba(240,180,41,.5)';this.style.background='rgba(255,255,255,.08)'"
+        onfocus="this.style.borderColor='rgba(184,135,58,.9)';this.style.background='rgba(255,255,255,.12)'"
+        onblur="this.style.borderColor='rgba(184,135,58,.5)';this.style.background='rgba(255,255,255,.08)'"
         placeholder="Escribir aqui..." style="${INP}margin-top:5px">`;
     }
 
     return `<div id="rfrow_${uid}" data-rf="missing"
-      style="padding:8px 10px;border-radius:7px;border:1px solid rgba(240,180,41,.25);background:rgba(240,180,41,.06);margin-bottom:6px">
+      style="padding:8px 10px;border-radius:7px;border:1px solid rgba(184,135,58,.25);background:rgba(184,135,58,.06);margin-bottom:6px">
       <div class="rf-label" style="font-size:.67rem;font-weight:700;color:var(--gold);letter-spacing:.04em">${label}</div>
       ${inp}
     </div>`;
@@ -1552,7 +1552,7 @@ function renderReview() {
   // ── Sección: Datos del Viaje ──────────────────────────
   const sharedHtml = `
   <div style="margin-bottom:16px">
-    <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:6px 0;border-bottom:1px solid rgba(240,180,41,.2);margin-bottom:10px">Datos del Viaje — comunes a todos</div>
+    <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:6px 0;border-bottom:1px solid rgba(184,135,58,.2);margin-bottom:10px">Datos del Viaje — comunes a todos</div>
     ${rf('Llegada estimada a USA',  sd.intendedArrival ? fmtDate(sd.intendedArrival) : '', 'intendedArrival','shared','date')}
     ${rf('Dias de estancia',        sd.lengthOfStayDays,  'lengthOfStayDays', 'shared','number')}
     ${rf('Proposito del viaje',     sd.purposeNote ? sd.purposeNote.substring(0,80) : '', 'purposeNote','shared','textarea')}
@@ -1575,7 +1575,7 @@ function renderReview() {
 
       <!-- Cabecera viajero -->
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(240,180,41,.3);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:var(--gold);flex-shrink:0">${initial(t.name)}</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:var(--gold);flex-shrink:0">${initial(t.name)}</div>
         <div>
           <div style="font-size:.95rem;font-weight:700">${t.name}</div>
           <div style="font-size:.7rem;color:var(--muted)">${t.role}${minor?' · Menor':''}</div>
@@ -1623,7 +1623,7 @@ function renderReview() {
 
   const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
   const miss = total - filled;
-  const pctColor = pct >= 80 ? '#4ade80' : pct >= 50 ? '#F0B429' : '#f87171';
+  const pctColor = pct >= 80 ? '#4ade80' : pct >= 50 ? '#B8873A' : '#f87171';
 
   return `<div class="phase-label">Revision Final</div>
   <div class="card">
@@ -1652,10 +1652,10 @@ function renderReview() {
     <div class="divider"></div>
 
     <!-- BOTON ASESOR -->
-    <div style="background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);padding:14px;margin-bottom:16px">
+    <div style="background:rgba(184,135,58,.08);border:1px solid rgba(184,135,58,.2);border-radius:var(--rs);padding:14px;margin-bottom:16px">
       <div style="font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:3px">Para el asesor — Roberto</div>
       <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Genera el analisis IA ahora con los datos actuales. Los campos en dorado apareceran como pendientes en el informe.</div>
-      <button onclick="regenerarInforme(this)" style="width:100%;padding:12px;border-radius:var(--rs);background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.4);color:var(--gold);font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s">Enviar analisis con datos actuales</button>
+      <button onclick="regenerarInforme(this)" style="width:100%;padding:12px;border-radius:var(--rs);background:rgba(184,135,58,.15);border:1px solid rgba(184,135,58,.4);color:var(--gold);font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s">Enviar analisis con datos actuales</button>
     </div>
 
     <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px">
@@ -1893,7 +1893,7 @@ async function forceSaveNow(btn) {
   const orig = btn.textContent;
   btn.textContent = 'Guardando...';
   btn.disabled = true;
-  btn.style.color = '#F0B429';
+  btn.style.color = '#B8873A';
   save(); // localStorage inmediato
   try {
     // POST
@@ -2007,7 +2007,7 @@ async function init() {
     const source = fromCloud ? 'nube' : 'este dispositivo';
     const banner = document.createElement('div');
     // top:62px = justo debajo del header (60px) sin tapar el logo Visa Global
-    banner.style.cssText = 'position:fixed;top:62px;left:0;right:0;z-index:150;background:rgba(6,14,31,.95);border-bottom:1px solid rgba(240,180,41,.25);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.78rem;gap:12px;backdrop-filter:blur(8px)';
+    banner.style.cssText = 'position:fixed;top:62px;left:0;right:0;z-index:150;background:rgba(10,30,90,.95);border-bottom:1px solid rgba(184,135,58,.25);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.78rem;gap:12px;backdrop-filter:blur(8px)';
 
     if (S.phase === 'review') {
       banner.innerHTML = `<span style="color:var(--white)">Datos de <strong style="color:var(--gold)">${S.travelers[0]?.name?.split(' ')[0] || 'cliente'}</strong> cargados desde ${source}</span>

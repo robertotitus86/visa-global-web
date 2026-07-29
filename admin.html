@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#060E1F;--navy2:#0d1a30;--navy3:#1a2a45;
-  --gold:#F0B429;--gold-dim:rgba(240,180,41,.12);
+  --navy:#0A1E5A;--navy2:#0E2670;--navy3:#16307A;
+  --gold:#B8873A;--gold-dim:rgba(184,135,58,.12);
   --white:#fff;--muted:rgba(255,255,255,.5);--muted2:rgba(255,255,255,.2);
   --border:rgba(255,255,255,.08);--input-bg:rgba(255,255,255,.06);
   --green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--red:#ef4444;--amber:#f59e0b;--gray:#6b7280;
@@ -30,7 +30,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .pin-input{width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);
   color:var(--white);font-family:var(--sans);font-size:1.1rem;padding:12px 14px;outline:none;
   letter-spacing:.2em;text-align:center;margin-bottom:14px}
-.pin-input:focus{border-color:rgba(240,180,41,.5)}
+.pin-input:focus{border-color:rgba(184,135,58,.5)}
 .pin-btn{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:var(--rs);
   font-family:var(--sans);font-size:.9rem;font-weight:700;padding:12px;cursor:pointer;transition:background .2s}
 .pin-btn:hover{background:#ffd166}
@@ -38,12 +38,12 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* HEADER */
 .hdr{display:flex;align-items:center;gap:12px;padding:12px 20px;
-  background:rgba(6,14,31,.95);border-bottom:1px solid var(--border);
+  background:rgba(10,30,90,.95);border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
 .logo{font-size:.95rem;font-weight:700;white-space:nowrap}
 .logo em{color:var(--gold);font-style:italic}
 .hdr-badge{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(240,180,41,.2);
+  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(184,135,58,.2);
   padding:3px 10px;border-radius:99px}
 .hdr-stats{display:flex;gap:10px;margin-left:auto;align-items:center;flex-wrap:wrap}
 .stat-pill{font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
@@ -76,7 +76,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .card-urgente{border-color:rgba(239,68,68,.35)!important;background:rgba(239,68,68,.04)!important}
 .card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .card-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.82rem;font-weight:700;flex-shrink:0;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(240,180,41,.25)}
+  font-size:.82rem;font-weight:700;flex-shrink:0;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,135,58,.25)}
 .card-name{font-size:.85rem;font-weight:700;color:var(--white);line-height:1.2}
 .card-type{font-size:.65rem;color:var(--muted);margin-top:1px}
 .card-meta{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
@@ -87,7 +87,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .action-btn{width:26px;height:26px;border-radius:var(--rs);border:1px solid var(--border);
   background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;
   display:flex;align-items:center;justify-content:center;font-size:.8rem}
-.action-btn:hover{border-color:rgba(240,180,41,.4);color:var(--gold);background:var(--gold-dim)}
+.action-btn:hover{border-color:rgba(184,135,58,.4);color:var(--gold);background:var(--gold-dim)}
 .action-btn.green:hover{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08)}
 
 /* EMPTY COL */
@@ -117,7 +117,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.1);
   border-radius:var(--rs);color:var(--white);font-family:var(--sans);font-size:.85rem;
   padding:9px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(240,180,41,.5)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(184,135,58,.5)}
 .field textarea{resize:vertical;min-height:60px}
 .field select option{background:var(--navy2)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -134,9 +134,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   border-radius:var(--rs);font-family:var(--sans);font-size:.85rem;font-weight:600;padding:9px 16px;cursor:pointer;transition:all .2s}
 
 /* LINK BOX */
-.link-box{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.2);border-radius:var(--rs);
+.link-box{background:rgba(184,135,58,.08);border:1px solid rgba(184,135,58,.2);border-radius:var(--rs);
   padding:10px 12px;font-size:.78rem;color:var(--gold);word-break:break-all;margin:10px 0;cursor:pointer}
-.link-box:hover{background:rgba(240,180,41,.14)}
+.link-box:hover{background:rgba(184,135,58,.14)}
 
 /* STATUS SELECT */
 .status-select{background:var(--input-bg);border:1px solid rgba(255,255,255,.1);border-radius:var(--rs);
@@ -158,7 +158,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* TOAST */
 .toast{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--navy2);
-  border:1px solid rgba(240,180,41,.3);border-radius:var(--r);padding:12px 18px;
+  border:1px solid rgba(184,135,58,.3);border-radius:var(--r);padding:12px 18px;
   font-size:.82rem;color:var(--white);max-width:300px;transform:translateY(80px);
   opacity:0;transition:all .3s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
@@ -479,7 +479,7 @@ function renderCard(c, accentColor) {
     </div>
     <div class="card-meta">
       ${prob ? `<span class="meta-pill" style="background:${probColor}22;color:${probColor};border:1px solid ${probColor}40">${prob}</span>` : ''}
-      ${paquete && paquete!=='—' ? `<span class="meta-pill" style="background:rgba(240,180,41,.12);color:#F0B429;border:1px solid rgba(240,180,41,.25)">${paquete}</span>` : ''}
+      ${paquete && paquete!=='—' ? `<span class="meta-pill" style="background:rgba(184,135,58,.12);color:#B8873A;border:1px solid rgba(184,135,58,.25)">${paquete}</span>` : ''}
       ${pago && pago!=='Pendiente' && pago!=='—' ? `<span class="meta-pill" style="background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.25)">${pago}</span>` : ''}
       ${isCita ? `<span class="meta-pill" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.25)">Cita: ${cita}</span>` : ''}
     </div>
@@ -659,10 +659,10 @@ function openDetail(refId) {
         </div>
       </div>
 
-      <div style="background:rgba(240,180,41,.06);border:1px solid rgba(240,180,41,.2);border-radius:8px;padding:11px">
+      <div style="background:rgba(184,135,58,.06);border:1px solid rgba(184,135,58,.2);border-radius:8px;padding:11px">
         <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--gold);letter-spacing:.07em;margin-bottom:5px">Guia DS-160</div>
         <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Campos exactos a copiar en cada formulario</div>
-        <a href="${SCRIPT_URL}?action=ds160guide&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#F0B429;color:#060E1F;text-decoration:none">Ver guia DS-160</a>
+        <a href="${SCRIPT_URL}?action=ds160guide&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#B8873A;color:#0A1E5A;text-decoration:none">Ver guia DS-160</a>
       </div>
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
@@ -682,7 +682,7 @@ function openDetail(refId) {
     <!-- SUBIR DS-160 ANTERIORES -->
     <div class="section-title" style="margin-top:16px">Analizar DS-160 anteriores (rechazos previos)</div>
     <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">Sube los PDFs de los DS-160 rechazados. El sistema extrae el texto, lo cruza con los datos actuales y actualiza la guia DS-160 del caso.</div>
-    <div id="pdf_drop_${refId}" style="border:2px dashed rgba(255,255,255,.15);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="document.getElementById('pdf_input_${refId}').click()" ondragover="event.preventDefault();this.style.borderColor='#F0B429'" ondragleave="this.style.borderColor='rgba(255,255,255,.15)'" ondrop="handlePdfDrop(event,'${refId}')">
+    <div id="pdf_drop_${refId}" style="border:2px dashed rgba(255,255,255,.15);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="document.getElementById('pdf_input_${refId}').click()" ondragover="event.preventDefault();this.style.borderColor='#B8873A'" ondragleave="this.style.borderColor='rgba(255,255,255,.15)'" ondrop="handlePdfDrop(event,'${refId}')">
       <div style="font-size:.78rem;color:var(--muted)">Arrastra PDFs aqui o haz clic para seleccionar</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.25);margin-top:4px">Maximo 5 PDFs &middot; DS-160 de cada viajero</div>
     </div>
@@ -836,7 +836,7 @@ async function procesarPDFs(files, refId) {
   const statusEl = document.getElementById('pdf_status_' + refId);
   if (files.length > 5) { showToast('Maximo 5 PDFs', 'error'); return; }
 
-  statusEl.innerHTML = '<span style="color:#F0B429">Extrayendo texto de ' + files.length + ' PDF(s)...</span>';
+  statusEl.innerHTML = '<span style="color:#B8873A">Extrayendo texto de ' + files.length + ' PDF(s)...</span>';
 
   const formData = new FormData();
   files.forEach(f => formData.append('files', f));
@@ -864,7 +864,7 @@ async function procesarPDFs(files, refId) {
     });
     const gasData = await gasRes.json();
 
-    statusEl.innerHTML = '<span style="color:#4ade80">Analisis completado. </span><a href="' + SCRIPT_URL + '?action=ds160guide&ref=' + refId + '&pin=' + encodeURIComponent(PIN) + '" target="_blank" style="color:#F0B429;font-size:.72rem">Ver guia DS-160 actualizada →</a>';
+    statusEl.innerHTML = '<span style="color:#4ade80">Analisis completado. </span><a href="' + SCRIPT_URL + '?action=ds160guide&ref=' + refId + '&pin=' + encodeURIComponent(PIN) + '" target="_blank" style="color:#B8873A;font-size:.72rem">Ver guia DS-160 actualizada →</a>';
     showToast('DS-160 anteriores analizados correctamente', 'success');
 
   } catch(e) {

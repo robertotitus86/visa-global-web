@@ -26,12 +26,12 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #060E1F;
-  --navy2: #0d1a30;
-  --navy3: #1a2a45;
-  --gold: #F0B429;
+  --navy: #0A1E5A;
+  --navy2: #0E2670;
+  --navy3: #16307A;
+  --gold: #B8873A;
   --gold2: #ffd166;
-  --gold-dim: rgba(240,180,41,0.15);
+  --gold-dim: rgba(184,135,58,0.15);
   --white: #ffffff;
   --muted: rgba(255,255,255,0.5);
   --border: rgba(255,255,255,0.08);
@@ -62,15 +62,15 @@ body {
 .bg-wrap {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 50% at 10% 0%, rgba(240,180,41,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 50% at 10% 0%, rgba(184,135,58,.06) 0%, transparent 55%),
     radial-gradient(ellipse 60% 70% at 90% 100%, rgba(14,30,60,.8) 0%, transparent 60%),
     var(--navy);
 }
 .mesh {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(240,180,41,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240,180,41,.025) 1px, transparent 1px);
+    linear-gradient(rgba(184,135,58,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,135,58,.025) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
 }
@@ -81,7 +81,7 @@ body {
   padding: 0 40px;
   height: 66px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(6,14,31,.85);
+  background: rgba(10,30,90,.85);
   backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
 }
@@ -95,7 +95,7 @@ body {
   font-size: .7rem; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; color: var(--gold);
   background: var(--gold-dim);
-  border: 1px solid rgba(240,180,41,.2);
+  border: 1px solid rgba(184,135,58,.2);
   padding: 5px 14px; border-radius: 99px;
 }
 
@@ -117,7 +117,7 @@ body {
   font-size: .7rem; font-weight: 600; letter-spacing: .12em;
   text-transform: uppercase; color: var(--gold);
   background: var(--gold-dim);
-  border: 1px solid rgba(240,180,41,.2);
+  border: 1px solid rgba(184,135,58,.2);
   padding: 5px 16px; border-radius: 99px;
   margin-bottom: 20px;
 }
@@ -164,7 +164,7 @@ body {
   background: var(--gold);
   color: var(--navy);
   font-weight: 700;
-  box-shadow: 0 4px 16px rgba(240,180,41,.3);
+  box-shadow: 0 4px 16px rgba(184,135,58,.3);
 }
 .tab-btn span {
   display: block;
@@ -208,11 +208,11 @@ body {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--navy);
-  box-shadow: 0 0 0 4px rgba(240,180,41,.2);
+  box-shadow: 0 0 0 4px rgba(184,135,58,.2);
 }
 .step-dot.done {
-  background: rgba(240,180,41,.2);
-  border-color: rgba(240,180,41,.4);
+  background: rgba(184,135,58,.2);
+  border-color: rgba(184,135,58,.4);
   color: var(--gold);
 }
 .step-line {
@@ -221,7 +221,7 @@ body {
   margin: 0 4px;
   transition: background .3s;
 }
-.step-line.done { background: rgba(240,180,41,.35); }
+.step-line.done { background: rgba(184,135,58,.35); }
 .step-label {
   font-size: .62rem; font-weight: 600;
   letter-spacing: .04em; text-transform: uppercase;
@@ -308,9 +308,9 @@ select option { background: var(--navy2); color: var(--white); }
 textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 
 input:focus, select:focus, textarea:focus {
-  border-color: rgba(240,180,41,.5);
+  border-color: rgba(184,135,58,.5);
   background: rgba(255,255,255,.07);
-  box-shadow: 0 0 0 3px rgba(240,180,41,.1);
+  box-shadow: 0 0 0 3px rgba(184,135,58,.1);
 }
 input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
 
@@ -330,21 +330,21 @@ input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
   text-align: center;
   transition: all .2s var(--ease2);
 }
-.radio-btn:hover { border-color: rgba(240,180,41,.3); color: var(--white); }
+.radio-btn:hover { border-color: rgba(184,135,58,.3); color: var(--white); }
 .radio-btn.selected {
   background: var(--gold-dim);
-  border-color: rgba(240,180,41,.5);
+  border-color: rgba(184,135,58,.5);
   color: var(--gold);
   font-weight: 600;
 }
 
 /* ── DOCUMENT UPLOAD ────────────────────── */
 .upload-section {
-  border: 1px dashed rgba(240,180,41,.25);
+  border: 1px dashed rgba(184,135,58,.25);
   border-radius: var(--radius);
   padding: 24px;
   margin-top: 8px;
-  background: rgba(240,180,41,.03);
+  background: rgba(184,135,58,.03);
 }
 .upload-title {
   font-family: var(--serif);
@@ -379,9 +379,9 @@ input[type="file"] {
   cursor: pointer;
   width: 100%;
 }
-input[type="file"]:hover { border-color: rgba(240,180,41,.3); }
+input[type="file"]:hover { border-color: rgba(184,135,58,.3); }
 input[type="file"]::file-selector-button {
-  background: rgba(240,180,41,.15);
+  background: rgba(184,135,58,.15);
   border: none; border-radius: 5px;
   color: var(--gold);
   font-family: var(--sans);
@@ -391,7 +391,7 @@ input[type="file"]::file-selector-button {
   transition: background .2s;
 }
 input[type="file"]::file-selector-button:hover {
-  background: rgba(240,180,41,.25);
+  background: rgba(184,135,58,.25);
 }
 
 /* ── NAVIGATION ─────────────────────────── */
@@ -422,7 +422,7 @@ input[type="file"]::file-selector-button:hover {
 }
 .btn-next:hover, .btn-submit:hover {
   background: var(--gold2);
-  box-shadow: 0 6px 20px rgba(240,180,41,.35);
+  box-shadow: 0 6px 20px rgba(184,135,58,.35);
   transform: translateY(-1px);
 }
 .btn-next:active, .btn-submit:active { transform: translateY(0); }
@@ -436,7 +436,7 @@ input[type="file"]::file-selector-button:hover {
 .submit-state.active { display: block; }
 .spinner {
   width: 36px; height: 36px;
-  border: 2px solid rgba(240,180,41,.2);
+  border: 2px solid rgba(184,135,58,.2);
   border-top-color: var(--gold);
   border-radius: 50%;
   animation: spin .7s linear infinite;
@@ -476,7 +476,7 @@ input[type="file"]::file-selector-button:hover {
   display: inline-block;
   margin-top: 20px;
   background: var(--gold-dim);
-  border: 1px solid rgba(240,180,41,.2);
+  border: 1px solid rgba(184,135,58,.2);
   color: var(--gold);
   font-size: .8rem; font-weight: 700;
   letter-spacing: .06em;
@@ -501,8 +501,8 @@ input[type="file"]::file-selector-button:hover {
 
 /* ── INFO BOX ───────────────────────────── */
 .info-box {
-  background: rgba(240,180,41,.06);
-  border: 1px solid rgba(240,180,41,.15);
+  background: rgba(184,135,58,.06);
+  border: 1px solid rgba(184,135,58,.15);
   border-radius: var(--radius-sm);
   padding: 14px 18px;
   margin-bottom: 24px;
@@ -1427,13 +1427,13 @@ function loadDraft() {
   const banner = document.createElement('div');
   banner.id = 'resume-banner';
   banner.innerHTML =
-    '<span style="color:#F0B429;font-size:1.1rem">&#10003;</span>' +
+    '<span style="color:#B8873A;font-size:1.1rem">&#10003;</span>' +
     '<span>Progreso restaurado &mdash; guardado el ' + fecha + '</span>' +
     '<button onclick="this.parentElement.remove()" style="background:none;border:none;' +
     'color:rgba(255,255,255,.5);cursor:pointer;font-size:1.2rem;line-height:1;padding:0 2px">&times;</button>';
   Object.assign(banner.style, {
     position:'fixed', bottom:'24px', left:'50%', transform:'translateX(-50%)',
-    background:'#0d1a30', border:'1px solid rgba(240,180,41,.4)', color:'#fff',
+    background:'#0E2670', border:'1px solid rgba(184,135,58,.4)', color:'#fff',
     padding:'12px 20px', borderRadius:'12px', fontSize:'.85rem',
     zIndex:'9999', display:'flex', alignItems:'center', gap:'12px',
     boxShadow:'0 4px 24px rgba(0,0,0,.5)', whiteSpace:'nowrap'

@@ -28,7 +28,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #060E1F; --navy-mid: #0d1e3a; --gold: #F0B429; --gold-dark: #c9941f;
+      --navy: #0A1E5A; --navy-mid: #0d1e3a; --gold: #B8873A; --gold-dark: #c9941f;
       --white: #fff; --g50: #f9fafb; --g100: #f3f4f6; --g300: #d1d5db;
       --g500: #6b7280; --g700: #374151; --g900: #111827;
       --green: #059669; --red: #dc2626;
@@ -59,7 +59,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     /* â”€â”€ LANDING â”€â”€ */
     .hero { background: var(--navy); color: var(--white); padding: 5rem 2rem 4rem; text-align: center; }
     .hero-tag {
-      display: inline-block; background: rgba(240,180,41,0.15); color: var(--gold);
+      display: inline-block; background: rgba(184,135,58,0.15); color: var(--gold);
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1.5rem;
     }
@@ -194,7 +194,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     .pkgs-section > p { color: rgba(255,255,255,0.65); font-size: 0.88rem; margin-bottom: 1.75rem; }
     .pkgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; max-width: 580px; margin: 0 auto; }
     .pkg { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1.4rem 0.9rem; text-align: center; }
-    .pkg.rec { background: rgba(240,180,41,0.1); border-color: var(--gold); }
+    .pkg.rec { background: rgba(184,135,58,0.1); border-color: var(--gold); }
     .pkg-rec-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.5rem; min-height: 1rem; }
     .pkg h4 { font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
     .pkg-price { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--gold); margin-bottom: 0.2rem; }
@@ -306,7 +306,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
         <span class="item">Diagnostico de perfil visa <span style="font-size:0.75rem; color:#dc2626; font-weight:700;">(oferta hoy)</span></span>
         <span class="total" style="display:flex; flex-direction:column; align-items:flex-end;">
           <span style="font-size:0.85rem; text-decoration:line-through; color:#9ca3af;">$50.00</span>
-          <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#060E1F;">$37.00</span>
+          <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#0A1E5A;">$37.00</span>
         </span>
       </div>
       <button class="btn-primary" id="pay-btn" style="width:100%; font-size:1rem; padding:1rem;" onclick="redirectPayphone()">
@@ -519,7 +519,7 @@ async function redirectPayphone() {
     btn.textContent = 'Reintentar';
     btn.disabled = false;
     if (errArea) {
-      errArea.innerHTML = 'No se pudo generar el link automaticamente. <a href="https://wa.me/593987846751?text=Quiero%20hacer%20el%20Diagnostico%20de%20Visa" target="_blank" style="color:#F0B429;font-weight:700;">EscrÃ­benos por WhatsApp</a> y te enviamos el link de pago directamente.';
+      errArea.innerHTML = 'No se pudo generar el link automaticamente. <a href="https://wa.me/593987846751?text=Quiero%20hacer%20el%20Diagnostico%20de%20Visa" target="_blank" style="color:#B8873A;font-weight:700;">EscrÃ­benos por WhatsApp</a> y te enviamos el link de pago directamente.';
       errArea.style.display = 'block';
     }
   }
