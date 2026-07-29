@@ -28,7 +28,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #0A1E5A; --navy-mid: #0d1e3a; --gold: #B8873A; --gold-dark: #c9941f;
+      --navy: #0A1E5A; --navy-mid: #0d1e3a; --accent-gold: #B8873A; --gold-dark: #c9941f;
       --white: #fff; --g50: #f9fafb; --g100: #f3f4f6; --g300: #d1d5db;
       --g500: #6b7280; --g700: #374151; --g900: #111827;
       --green: #059669; --red: #dc2626;
@@ -38,7 +38,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     /* NAV */
     nav { background: var(--navy); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
     .nav-logo { color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
-    .nav-logo span { color: var(--gold); }
+    .nav-logo span { color: var(--accent-gold); }
     .nav-back { color: var(--g300); font-size: 0.85rem; text-decoration: none; }
     .nav-back:hover { color: var(--white); }
 
@@ -48,7 +48,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 
     /* BUTTONS */
     .btn-primary {
-      display: inline-block; background: var(--gold); color: var(--navy);
+      display: inline-block; background: var(--accent-gold); color: var(--navy);
       font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
       padding: 1rem 2.5rem; border-radius: 0.5rem; border: none; cursor: pointer;
       text-decoration: none; transition: background 0.2s, transform 0.15s;
@@ -59,16 +59,16 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     /* â”€â”€ LANDING â”€â”€ */
     .hero { background: var(--navy); color: var(--white); padding: 5rem 2rem 4rem; text-align: center; }
     .hero-tag {
-      display: inline-block; background: rgba(184,135,58,0.15); color: var(--gold);
+      display: inline-block; background: rgba(184,135,58,0.15); color: var(--accent-gold);
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 0.4rem 1rem; border-radius: 2rem; margin-bottom: 1.5rem;
     }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 5vw, 2.9rem); line-height: 1.22; max-width: 680px; margin: 0 auto 1.25rem; }
-    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero h1 em { color: var(--accent-gold); font-style: normal; }
     .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.72); max-width: 540px; margin: 0 auto 2.5rem; }
     .price-badge {
       display: inline-flex; flex-direction: column; align-items: center;
-      background: var(--gold); color: var(--navy); padding: 1.2rem 2.5rem;
+      background: var(--accent-gold); color: var(--navy); padding: 1.2rem 2.5rem;
       border-radius: 1rem; margin-bottom: 2rem;
     }
     .price-badge .amount { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; }
@@ -89,23 +89,23 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
       background: rgba(255,255,255,0.08); padding: 0.6rem 1.25rem; border-radius: 0.65rem;
     }
     .cd-unit { text-align: center; }
-    .cd-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .cd-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-gold); line-height: 1; }
     .cd-lbl { font-size: 0.62rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
-    .cd-sep { font-size: 1.3rem; color: var(--gold); opacity: 0.5; margin-bottom: 0.8rem; }
+    .cd-sep { font-size: 1.3rem; color: var(--accent-gold); opacity: 0.5; margin-bottom: 0.8rem; }
 
     .includes { background: var(--white); padding: 4rem 2rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; text-align: center; margin-bottom: 0.65rem; color: var(--navy); }
     .section-sub { text-align: center; color: var(--g500); margin-bottom: 2.75rem; max-width: 480px; margin-left: auto; margin-right: auto; }
     .includes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem; max-width: 880px; margin: 0 auto; }
     .inc-card { background: var(--g50); border: 1px solid var(--g100); border-radius: 0.75rem; padding: 1.5rem; }
-    .inc-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .inc-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 0.5rem; }
     .inc-card h3 { font-size: 0.92rem; font-weight: 600; color: var(--navy); margin-bottom: 0.35rem; }
     .inc-card p { font-size: 0.83rem; color: var(--g500); line-height: 1.5; }
 
     .how { background: var(--g50); padding: 4rem 2rem; }
     .steps { display: flex; gap: 2rem; max-width: 780px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
     .step { flex: 1; min-width: 190px; text-align: center; max-width: 220px; }
-    .step-num { width: 2.75rem; height: 2.75rem; background: var(--navy); color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.9rem; }
+    .step-num { width: 2.75rem; height: 2.75rem; background: var(--navy); color: var(--accent-gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.9rem; }
     .step h3 { font-size: 0.92rem; font-weight: 600; color: var(--navy); margin-bottom: 0.35rem; }
     .step p { font-size: 0.82rem; color: var(--g500); }
 
@@ -138,7 +138,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     .form-wrap { max-width: 620px; margin: 0 auto; padding: 3rem 2rem; }
     .prog-label { font-size: 0.78rem; color: var(--g500); margin-bottom: 0.4rem; }
     .prog-bar { background: var(--g100); border-radius: 999px; height: 5px; margin-bottom: 1.75rem; overflow: hidden; }
-    .prog-fill { background: var(--gold); height: 100%; border-radius: 999px; transition: width 0.3s; }
+    .prog-fill { background: var(--accent-gold); height: 100%; border-radius: 999px; transition: width 0.3s; }
     .q-card { background: var(--white); border: 1px solid var(--g100); border-radius: 1rem; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
     .q-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 1.4rem; line-height: 1.4; }
     .opts { display: grid; gap: 0.65rem; }
@@ -156,7 +156,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     .analyzing-wrap { max-width: 500px; margin: 6rem auto; padding: 0 2rem; text-align: center; }
     .analyzing-wrap h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--navy); margin-bottom: 0.65rem; }
     .analyzing-wrap p { color: var(--g500); margin-bottom: 2rem; }
-    .loader { width: 2.75rem; height: 2.75rem; border: 3px solid var(--g100); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.85s linear infinite; margin: 0 auto; }
+    .loader { width: 2.75rem; height: 2.75rem; border: 3px solid var(--g100); border-top-color: var(--accent-gold); border-radius: 50%; animation: spin 0.85s linear infinite; margin: 0 auto; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .steps-loading { list-style: none; text-align: left; max-width: 320px; margin: 2rem auto 0; }
     .steps-loading li { font-size: 0.85rem; color: var(--g500); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.6rem; }
@@ -171,7 +171,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     .rep-header p { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
     .rep-meta { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 1.1rem; }
     .rep-meta span { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
-    .rep-meta strong { color: var(--gold); }
+    .rep-meta strong { color: var(--accent-gold); }
     .risk-badge { display: inline-block; padding: 0.25rem 0.8rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.9rem; }
     .risk-alto { background: rgba(220,38,38,0.25); color: #fca5a5; }
     .risk-medio { background: rgba(245,158,11,0.25); color: #fcd34d; }
@@ -194,10 +194,10 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
     .pkgs-section > p { color: rgba(255,255,255,0.65); font-size: 0.88rem; margin-bottom: 1.75rem; }
     .pkgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; max-width: 580px; margin: 0 auto; }
     .pkg { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1.4rem 0.9rem; text-align: center; }
-    .pkg.rec { background: rgba(184,135,58,0.1); border-color: var(--gold); }
-    .pkg-rec-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.5rem; min-height: 1rem; }
+    .pkg.rec { background: rgba(184,135,58,0.1); border-color: var(--accent-gold); }
+    .pkg-rec-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-gold); margin-bottom: 0.5rem; min-height: 1rem; }
     .pkg h4 { font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
-    .pkg-price { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--gold); margin-bottom: 0.2rem; }
+    .pkg-price { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 0.2rem; }
     .pkg-per { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-bottom: 0.9rem; }
     .btn-wa { display: block; background: #25D366; color: var(--white); border: none; border-radius: 0.4rem; padding: 0.55rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; }
     .btn-wa:hover { background: #1da851; }

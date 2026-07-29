@@ -26,7 +26,7 @@ src="https://www.facebook.com/tr?id=1713317820112908&ev=PageView&noscript=1"
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-:root{--navy:#0A1E5A;--gold:#B8873A;--gold-dim:rgba(184,135,58,.13);--white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);--green:#4ade80;--red:#f87171;--sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif;--r:14px;--rs:8px}
+:root{--navy:#0A1E5A;--accent-gold:#B8873A;--gold-dim:rgba(184,135,58,.13);--white:#fff;--app-muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);--green:#4ade80;--red:#f87171;--sans:'DM Sans',sans-serif;--serif:'Playfair Display',serif;--r:14px;--rs:8px}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 90% 50% at 10% 0%,rgba(184,135,58,.07) 0%,transparent 55%),var(--navy)}
@@ -34,13 +34,13 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* HEADER */
 .logo{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:8px}
-.logo em{color:var(--gold);font-style:italic}
+.logo em{color:var(--accent-gold);font-style:italic}
 .page-title{font-family:var(--serif);font-size:1.6rem;font-weight:700;line-height:1.2;margin-bottom:6px}
-.page-sub{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:32px}
+.page-sub{font-size:.85rem;color:var(--app-muted);line-height:1.6;margin-bottom:32px}
 
 /* CARD */
 .card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;margin-bottom:16px}
-.card-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.card-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-gold);margin-bottom:14px}
 
 /* REF */
 .ref-row{display:flex;gap:10px;align-items:center;margin-bottom:20px}
@@ -50,16 +50,16 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* COUNT */
 .count-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.count-btn{width:44px;height:44px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);background:transparent;color:var(--muted);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.count-btn{width:44px;height:44px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.12);background:transparent;color:var(--app-muted);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
 .count-btn:hover{border-color:rgba(184,135,58,.4);color:var(--white)}
-.count-btn.sel{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.count-btn.sel{background:var(--accent-gold);border-color:var(--accent-gold);color:var(--navy)}
 
 /* VIAJERO SLOT */
 .traveler-slot{border:1px solid var(--border);border-radius:var(--rs);padding:14px;margin-bottom:10px;transition:border-color .3s}
 .traveler-slot.ready{border-color:rgba(74,222,128,.35);background:rgba(74,222,128,.04)}
 .traveler-slot.processing{border-color:rgba(184,135,58,.4);background:var(--gold-dim)}
 .slot-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.slot-num{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.slot-num{width:26px;height:26px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(184,135,58,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--accent-gold);flex-shrink:0}
 .slot-name{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);font-family:var(--sans);font-size:.85rem;padding:7px 11px;outline:none}
 .slot-name:focus{border-color:rgba(184,135,58,.4)}
 .slot-name::placeholder{color:rgba(255,255,255,.25)}
@@ -68,29 +68,29 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .upload-area.loaded{border-color:rgba(74,222,128,.4);border-style:solid;background:rgba(74,222,128,.06)}
 .upload-area.processing{border-color:rgba(184,135,58,.5);border-style:solid}
 .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-label{font-size:.78rem;color:var(--muted)}
+.upload-label{font-size:.78rem;color:var(--app-muted)}
 .upload-status{font-size:.72rem;margin-top:4px}
 
 /* STATUS FIELDS */
 .extracted-summary{margin-top:10px;padding:8px 10px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:6px;font-size:.72rem;color:var(--green);line-height:1.6}
 
 /* SPINNER */
-.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(184,135,58,.2);border-top-color:var(--gold);border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(184,135,58,.2);border-top-color:var(--accent-gold);border-radius:50%;animation:sp .6s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
 
 /* BOTÓN PRINCIPAL */
-.btn-main{width:100%;padding:15px;border-radius:var(--rs);background:var(--gold);border:none;color:var(--navy);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(184,135,58,.3)}
+.btn-main{width:100%;padding:15px;border-radius:var(--rs);background:var(--accent-gold);border:none;color:var(--navy);font-family:var(--sans);font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(184,135,58,.3)}
 .btn-main:hover{filter:brightness(1.08);transform:translateY(-1px)}
 .btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
 
 /* PROGRESO */
 .progress-box{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-top:16px;display:none}
 .progress-box.visible{display:block}
-.progress-step{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.85rem;color:var(--muted)}
+.progress-step{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.85rem;color:var(--app-muted)}
 .progress-step.active{color:var(--white)}
 .progress-step.done{color:var(--green)}
 .step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0}
-.progress-step.active .step-dot{background:var(--gold)}
+.progress-step.active .step-dot{background:var(--accent-gold)}
 .progress-step.done .step-dot{background:var(--green)}
 
 /* DONE */
@@ -98,9 +98,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .done-box.visible{display:block}
 .done-icon{width:64px;height:64px;border-radius:50%;background:rgba(74,222,128,.15);border:2px solid rgba(74,222,128,.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 20px}
 .done-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px}
-.done-sub{font-size:.85rem;color:var(--muted);line-height:1.7}
+.done-sub{font-size:.85rem;color:var(--app-muted);line-height:1.7}
 
-.hint{font-size:.72rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.hint{font-size:.72rem;color:var(--app-muted);margin-top:6px;line-height:1.5}
 </style>
 <link rel="stylesheet" href="/design.css">
 </head>
@@ -143,7 +143,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
   <!-- PROGRESO -->
   <div class="progress-box" id="progressBox">
-    <div style="font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:.07em">Procesando...</div>
+    <div style="font-size:.75rem;font-weight:700;color:var(--accent-gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:.07em">Procesando...</div>
     <div class="progress-step" id="step1"><div class="step-dot"></div>Extrayendo texto de los PDFs</div>
     <div class="progress-step" id="step2"><div class="step-dot"></div>Analizando datos con IA experta</div>
     <div class="progress-step" id="step3"><div class="step-dot"></div>Generando estrategia completa</div>
@@ -153,9 +153,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   <!-- DONE -->
   <div class="done-box" id="doneBox">
     <div class="done-icon">&#10003;</div>
-    <div class="done-title">Informe <em style="color:var(--gold)">enviado</em></div>
+    <div class="done-title">Informe <em style="color:var(--accent-gold)">enviado</em></div>
     <div class="done-sub" id="doneSub">El analisis completo con datos y estrategia fue enviado a nanotiendaec@gmail.com</div>
-    <button onclick="resetForm()" style="margin-top:20px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--sans);font-size:.85rem;padding:10px 24px;border-radius:var(--rs);cursor:pointer">Analizar otro caso</button>
+    <button onclick="resetForm()" style="margin-top:20px;background:transparent;border:1px solid var(--border);color:var(--app-muted);font-family:var(--sans);font-size:.85rem;padding:10px 24px;border-radius:var(--rs);cursor:pointer">Analizar otro caso</button>
   </div>
 </div>
 
@@ -188,7 +188,7 @@ function renderSlots() {
       <div class="upload-area" id="upload_${i}">
         <input type="file" accept="application/pdf,.pdf" onchange="handlePDF(${i},this)">
         <div class="upload-label">Toca para subir el DS-160 en PDF</div>
-        <div class="upload-status" id="status_${i}" style="color:var(--muted)"></div>
+        <div class="upload-status" id="status_${i}" style="color:var(--app-muted)"></div>
       </div>`;
     wrap.appendChild(slot);
   }
@@ -247,7 +247,7 @@ function setStep(n) {
   for (let i = 1; i <= 4; i++) {
     const el = document.getElementById('step' + i);
     if (i < n) { el.className = 'progress-step done'; el.querySelector('.step-dot').style.background='var(--green)'; }
-    else if (i === n) { el.className = 'progress-step active'; el.querySelector('.step-dot').style.background='var(--gold)'; }
+    else if (i === n) { el.className = 'progress-step active'; el.querySelector('.step-dot').style.background='var(--accent-gold)'; }
     else { el.className = 'progress-step'; el.querySelector('.step-dot').style.background=''; }
   }
 }

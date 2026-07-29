@@ -10,8 +10,8 @@
 <style>
 :root{
   --navy:#0A1E5A;--navy2:#0E2670;--navy3:#16307A;
-  --gold:#B8873A;--gold-dim:rgba(184,135,58,.12);
-  --white:#fff;--muted:rgba(255,255,255,.5);--muted2:rgba(255,255,255,.2);
+  --accent-gold:#B8873A;--gold-dim:rgba(184,135,58,.12);
+  --white:#fff;--app-muted:rgba(255,255,255,.5);--app-muted2:rgba(255,255,255,.2);
   --border:rgba(255,255,255,.08);--input-bg:rgba(255,255,255,.06);
   --green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;--red:#ef4444;--amber:#f59e0b;--gray:#6b7280;
   --sans:'DM Sans',system-ui,sans-serif;
@@ -24,14 +24,14 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .pin-overlay{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;align-items:center;justify-content:center}
 .pin-box{width:340px;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center}
 .pin-logo{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:4px}
-.pin-logo em{color:var(--gold);font-style:italic}
-.pin-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px}
-.pin-label{font-size:.72rem;font-weight:600;color:var(--muted);text-align:left;margin-bottom:6px;display:block}
+.pin-logo em{color:var(--accent-gold);font-style:italic}
+.pin-sub{font-size:.78rem;color:var(--app-muted);margin-bottom:24px}
+.pin-label{font-size:.72rem;font-weight:600;color:var(--app-muted);text-align:left;margin-bottom:6px;display:block}
 .pin-input{width:100%;background:var(--input-bg);border:1px solid rgba(255,255,255,.12);border-radius:var(--rs);
   color:var(--white);font-family:var(--sans);font-size:1.1rem;padding:12px 14px;outline:none;
   letter-spacing:.2em;text-align:center;margin-bottom:14px}
 .pin-input:focus{border-color:rgba(184,135,58,.5)}
-.pin-btn{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:var(--rs);
+.pin-btn{width:100%;background:var(--accent-gold);color:var(--navy);border:none;border-radius:var(--rs);
   font-family:var(--sans);font-size:.9rem;font-weight:700;padding:12px;cursor:pointer;transition:background .2s}
 .pin-btn:hover{background:#ffd166}
 .pin-err{font-size:.75rem;color:#f87171;margin-top:8px;display:none}
@@ -41,9 +41,9 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   background:rgba(10,30,90,.95);border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
 .logo{font-size:.95rem;font-weight:700;white-space:nowrap}
-.logo em{color:var(--gold);font-style:italic}
+.logo em{color:var(--accent-gold);font-style:italic}
 .hdr-badge{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);background:var(--gold-dim);border:1px solid rgba(184,135,58,.2);
+  color:var(--accent-gold);background:var(--gold-dim);border:1px solid rgba(184,135,58,.2);
   padding:3px 10px;border-radius:99px}
 .hdr-stats{display:flex;gap:10px;margin-left:auto;align-items:center;flex-wrap:wrap}
 .stat-pill{font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
@@ -51,11 +51,11 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .stat-active{color:#60a5fa;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.08)}
 .stat-cita{color:#f87171;border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.08)}
 .hdr-btns{display:flex;gap:8px;margin-left:12px}
-.btn-sync{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);
+.btn-sync{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--app-muted);
   font-family:var(--sans);font-size:.78rem;font-weight:600;padding:7px 14px;border-radius:var(--rs);
   cursor:pointer;transition:all .2s}
 .btn-sync:hover{color:var(--white);background:rgba(255,255,255,.12)}
-.btn-new{background:var(--gold);color:var(--navy);border:none;
+.btn-new{background:var(--accent-gold);color:var(--navy);border:none;
   font-family:var(--sans);font-size:.78rem;font-weight:700;padding:7px 16px;border-radius:var(--rs);
   cursor:pointer;transition:background .2s}
 .btn-new:hover{background:#ffd166}
@@ -76,18 +76,18 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .card-urgente{border-color:rgba(239,68,68,.35)!important;background:rgba(239,68,68,.04)!important}
 .card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .card-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.82rem;font-weight:700;flex-shrink:0;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,135,58,.25)}
+  font-size:.82rem;font-weight:700;flex-shrink:0;background:var(--gold-dim);color:var(--accent-gold);border:1px solid rgba(184,135,58,.25)}
 .card-name{font-size:.85rem;font-weight:700;color:var(--white);line-height:1.2}
-.card-type{font-size:.65rem;color:var(--muted);margin-top:1px}
+.card-type{font-size:.65rem;color:var(--app-muted);margin-top:1px}
 .card-meta{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
 .meta-pill{font-size:.62rem;padding:2px 7px;border-radius:99px;font-weight:600}
 .card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border)}
-.card-date{font-size:.62rem;color:var(--muted)}
+.card-date{font-size:.62rem;color:var(--app-muted)}
 .card-actions{display:flex;gap:5px}
 .action-btn{width:26px;height:26px;border-radius:var(--rs);border:1px solid var(--border);
-  background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;
+  background:transparent;color:var(--app-muted);cursor:pointer;transition:all .2s;
   display:flex;align-items:center;justify-content:center;font-size:.8rem}
-.action-btn:hover{border-color:rgba(184,135,58,.4);color:var(--gold);background:var(--gold-dim)}
+.action-btn:hover{border-color:rgba(184,135,58,.4);color:var(--accent-gold);background:var(--gold-dim)}
 .action-btn.green:hover{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08)}
 
 /* EMPTY COL */
@@ -105,7 +105,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
   padding:18px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--navy2);z-index:1}
 .modal-title{font-size:1rem;font-weight:700}
 .modal-close{width:28px;height:28px;border-radius:var(--rs);border:1px solid var(--border);
-  background:transparent;color:var(--muted);cursor:pointer;font-size:1rem;transition:all .2s}
+  background:transparent;color:var(--app-muted);cursor:pointer;font-size:1rem;transition:all .2s}
 .modal-close:hover{color:var(--white)}
 .modal-body{padding:20px}
 .modal-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
@@ -123,11 +123,11 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* BUTTONS */
-.btn-primary{background:var(--gold);color:var(--navy);border:none;border-radius:var(--rs);
+.btn-primary{background:var(--accent-gold);color:var(--navy);border:none;border-radius:var(--rs);
   font-family:var(--sans);font-size:.85rem;font-weight:700;padding:9px 20px;cursor:pointer;transition:all .2s}
 .btn-primary:hover{background:#ffd166}
 .btn-primary:disabled{opacity:.6;cursor:not-allowed}
-.btn-secondary{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);
+.btn-secondary{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--app-muted);
   border-radius:var(--rs);font-family:var(--sans);font-size:.85rem;font-weight:600;padding:9px 16px;cursor:pointer;transition:all .2s}
 .btn-secondary:hover{color:var(--white);background:rgba(255,255,255,.12)}
 .btn-danger{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#f87171;
@@ -135,7 +135,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* LINK BOX */
 .link-box{background:rgba(184,135,58,.08);border:1px solid rgba(184,135,58,.2);border-radius:var(--rs);
-  padding:10px 12px;font-size:.78rem;color:var(--gold);word-break:break-all;margin:10px 0;cursor:pointer}
+  padding:10px 12px;font-size:.78rem;color:var(--accent-gold);word-break:break-all;margin:10px 0;cursor:pointer}
 .link-box:hover{background:rgba(184,135,58,.14)}
 
 /* STATUS SELECT */
@@ -144,15 +144,15 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 
 /* SECTION */
 .section-title{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:10px;margin-top:16px}
+  color:var(--app-muted);margin-bottom:10px;margin-top:16px}
 .detail-row{display:flex;justify-content:space-between;align-items:flex-start;
   padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
-.detail-key{color:var(--muted);flex-shrink:0;width:42%}
+.detail-key{color:var(--app-muted);flex-shrink:0;width:42%}
 .detail-val{color:var(--white);font-weight:500;text-align:right;word-break:break-word}
 
 /* AI BOX */
 .ai-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);padding:12px;margin-top:8px}
-.ai-label{font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ai-label{font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--app-muted);margin-bottom:6px}
 .ai-text{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.6}
 .prob-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:99px;margin-left:8px}
 
@@ -168,7 +168,7 @@ body{font-family:var(--sans);background:var(--navy);color:var(--white);min-heigh
 /* SPINNER */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);
-  border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+  border-top-color:var(--accent-gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
 .hidden{display:none!important}
 </style>
 <link rel="stylesheet" href="/design.css">
@@ -571,7 +571,7 @@ function openDetail(refId) {
     </div>
 
     <!-- DATOS -->
-    <div class="section-title" style="margin-top:16px">Datos del cliente <span style="font-size:.68rem;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">— haz clic en cualquier campo para editar</span></div>
+    <div class="section-title" style="margin-top:16px">Datos del cliente <span style="font-size:.68rem;font-weight:400;color:var(--app-muted);text-transform:none;letter-spacing:0">— haz clic en cualquier campo para editar</span></div>
     <div class="grid-2">
       <div class="field">
         <label class="field-label">Nombre completo</label>
@@ -624,26 +624,26 @@ function openDetail(refId) {
 
     <!-- RE-ANALIZAR -->
     <div class="section-title" style="margin-top:16px">Completar datos y re-analizar</div>
-    <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">
+    <div style="font-size:.72rem;color:var(--app-muted);margin-bottom:8px">
       Agrega la informacion que falta — respuestas a preguntas pendientes, aclaraciones, cambios de situacion. Claude re-analizara el caso completo y te enviara un nuevo analisis al email.
     </div>
     <div class="field">
       <textarea id="det_extra" rows="5" placeholder="Ej:&#10;Carlos — Salario: $1,200/mes, lleva 4 años en la empresa&#10;Sofia (menor) — Tiene autorización notariada del padre, lista&#10;Motivo rechazo anterior: sin carta laboral — ahora sí la tiene&#10;Carlos y Luisa llevan 2 años juntos, conviven desde hace 1 año"></textarea>
     </div>
     <button class="btn-primary" id="btnReanalizar" onclick="reanalizar('${refId}')">Re-analizar con IA</button>
-    <div id="reanalizar_status" style="font-size:.72rem;color:var(--muted);margin-top:8px"></div>
+    <div id="reanalizar_status" style="font-size:.72rem;color:var(--app-muted);margin-top:8px"></div>
     <div class="divider"></div>
 
     <!-- ANALISIS IA -->
     <div class="section-title" style="margin-top:16px">Analisis IA del perfil</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">Probabilidad aprobacion</div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--app-muted);margin-bottom:4px">Probabilidad aprobacion</div>
         <div style="font-size:1.6rem;font-weight:700;color:${parseFloat(prob)>=70?'#4ade80':parseFloat(prob)>=50?'#fbbf24':'#f87171'}">${prob}</div>
       </div>
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px">Paquete recomendado</div>
-        <div style="font-size:.85rem;font-weight:700;color:var(--gold)">${paquete}</div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--app-muted);margin-bottom:4px">Paquete recomendado</div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--accent-gold)">${paquete}</div>
       </div>
     </div>
 
@@ -652,7 +652,7 @@ function openDetail(refId) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Formulario del cliente</div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--app-muted);letter-spacing:.07em;margin-bottom:5px">Formulario del cliente</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <button onclick="copyLink('${intakeLink}')" class="btn-secondary" style="font-size:.72rem;padding:5px 10px">Copiar link</button>
           ${tel ? `<a href="https://wa.me/${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Hola '+nombre.split(' ')[0]+', le comparto el link para completar su formulario: '+intakeLink)}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">WhatsApp</a>` : ''}
@@ -660,20 +660,20 @@ function openDetail(refId) {
       </div>
 
       <div style="background:rgba(184,135,58,.06);border:1px solid rgba(184,135,58,.2);border-radius:8px;padding:11px">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--gold);letter-spacing:.07em;margin-bottom:5px">Guia DS-160</div>
-        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Campos exactos a copiar en cada formulario</div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--accent-gold);letter-spacing:.07em;margin-bottom:5px">Guia DS-160</div>
+        <div style="font-size:.7rem;color:var(--app-muted);margin-bottom:6px">Campos exactos a copiar en cada formulario</div>
         <a href="${SCRIPT_URL}?action=ds160guide&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" style="font-size:.72rem;padding:5px 12px;border-radius:5px;font-weight:700;display:inline-block;background:#B8873A;color:#0A1E5A;text-decoration:none">Ver guia DS-160</a>
       </div>
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Expediente completo</div>
-        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Datos enviados por el cliente</div>
-        ${url && url!=='—' ? `<a href="${url}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver expediente</a>` : '<span style="font-size:.7rem;color:var(--muted)">Pendiente de recibir</span>'}
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--app-muted);letter-spacing:.07em;margin-bottom:5px">Expediente completo</div>
+        <div style="font-size:.7rem;color:var(--app-muted);margin-bottom:6px">Datos enviados por el cliente</div>
+        ${url && url!=='—' ? `<a href="${url}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver expediente</a>` : '<span style="font-size:.7rem;color:var(--app-muted)">Pendiente de recibir</span>'}
       </div>
 
       <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:11px">
-        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:5px">Carta del cliente</div>
-        <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">Generada automaticamente del analisis IA</div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--app-muted);letter-spacing:.07em;margin-bottom:5px">Carta del cliente</div>
+        <div style="font-size:.7rem;color:var(--app-muted);margin-bottom:6px">Generada automaticamente del analisis IA</div>
         <a href="${SCRIPT_URL}?action=carta&ref=${refId}&pin=${encodeURIComponent(PIN)}" target="_blank" class="btn-secondary" style="font-size:.72rem;padding:5px 10px;text-decoration:none;display:inline-block">Ver carta</a>
       </div>
 
@@ -681,18 +681,18 @@ function openDetail(refId) {
 
     <!-- SUBIR DS-160 ANTERIORES -->
     <div class="section-title" style="margin-top:16px">Analizar DS-160 anteriores (rechazos previos)</div>
-    <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px">Sube los PDFs de los DS-160 rechazados. El sistema extrae el texto, lo cruza con los datos actuales y actualiza la guia DS-160 del caso.</div>
+    <div style="font-size:.72rem;color:var(--app-muted);margin-bottom:8px">Sube los PDFs de los DS-160 rechazados. El sistema extrae el texto, lo cruza con los datos actuales y actualiza la guia DS-160 del caso.</div>
     <div id="pdf_drop_${refId}" style="border:2px dashed rgba(255,255,255,.15);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s" onclick="document.getElementById('pdf_input_${refId}').click()" ondragover="event.preventDefault();this.style.borderColor='#B8873A'" ondragleave="this.style.borderColor='rgba(255,255,255,.15)'" ondrop="handlePdfDrop(event,'${refId}')">
-      <div style="font-size:.78rem;color:var(--muted)">Arrastra PDFs aqui o haz clic para seleccionar</div>
+      <div style="font-size:.78rem;color:var(--app-muted)">Arrastra PDFs aqui o haz clic para seleccionar</div>
       <div style="font-size:.68rem;color:rgba(255,255,255,.25);margin-top:4px">Maximo 5 PDFs &middot; DS-160 de cada viajero</div>
     </div>
     <input type="file" id="pdf_input_${refId}" accept=".pdf" multiple style="display:none" onchange="subirPDFs(this,'${refId}')">
-    <div id="pdf_status_${refId}" style="font-size:.72rem;color:var(--muted);margin-top:8px"></div>
+    <div id="pdf_status_${refId}" style="font-size:.72rem;color:var(--app-muted);margin-top:8px"></div>
 
     </div>
 
     <!-- LINK FORMULARIO CLIENTE -->
-    <div style="font-size:.68rem;color:var(--muted);margin-bottom:4px">Link del formulario (clic para copiar)</div>
+    <div style="font-size:.68rem;color:var(--app-muted);margin-bottom:4px">Link del formulario (clic para copiar)</div>
     <div class="link-box" onclick="copyLink('${intakeLink}')" title="Clic para copiar" style="margin-bottom:16px">${intakeLink}</div>
   `;
 
