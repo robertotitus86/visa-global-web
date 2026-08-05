@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Shirma Cortés Sanmiguel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;
+  --gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.04);--sans:'Space Grotesk',sans-serif;
+  --serif:'Playfair Display',serif;--ease:cubic-bezier(.22,.68,0,1.2);--r:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(245,200,66,.06),transparent 55%),
+             radial-gradient(ellipse 60% 40% at 85% 100%,rgba(59,130,246,.05),transparent 60%),var(--navy)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+.main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.screen{opacity:1;animation:fadeUp .3s ease-out}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);
+  padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.fam-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.welcome-title{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600;text-align:right}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);
+  font-size:.9375rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(245,200,66,.3)}
+
+@media(max-width:520px){
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
+}
+
+/* ── practica (oficial consular) ── */
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+/* ── estudio ── */
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <div class="logo">Asesoría <em>Visa</em> Global</div>
+  <div class="hdr-right"><span class="hdr-prog" id="hdrProg">Shirma <strong>Cortés</strong></span></div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+'use strict';
+const PAGE='shirma-cortes.html';
+
+const persona={
+  nombre:'Shirma Consuelo Cortés Sanmiguel',
+  cita:'POR AGENDAR — DS-160 recién enviado (4 ago 2026)',
+  ubicacion:'Consulado de Estados Unidos, Quito (por confirmar con la cita)',
+  ds160:'AA00FPKGRL', pasaporte:'A9349382',
+  viaje:{
+    destino:'Nueva York, NY',
+    fechas:'20-28 septiembre 2026',
+    hotel:'891 Amsterdam Avenue, Upper West Side, NY 10025',
+    propósito:'Semana del Clima de Nueva York — delegación ICLEI (B1/B2)'
+  }
+};
+
+/* Fuente: DS-160 + carta oficial de invitación ICLEI (dirigida a Shirma como
+   Alcaldesa). No inventar datos fuera de esto. */
+const expedienteContext=`Shirma Consuelo Cortes Sanmiguel, nacida 29 dic 1973 en Fco. de Orellana. Soltera. Alcaldesa del GAD Municipal del Canton Fco. de Orellana (Coca), maxima autoridad, ingreso $4,508/mes. Funciones: direccion administracion municipal, representacion legal e institucional, planificacion y supervision de programas/proyectos, administracion de recursos publicos. Empleo previo: Presidenta de EMOFOIL SA (marzo 2020-junio 2023). Estudios: Tecnologa en Secretariado Ejecutivo Computarizado, Instituto Tecnologico Superior Republica Federal de Alemania, Riobamba. Viajes previos: Uruguay, Brasil, Colombia (ultimos 5 anos), siempre regreso. PRIMER VIAJE A ESTADOS UNIDOS. Sin rechazos previos. Sin familiares en USA. Padres Nelson Cortes y Matilde Sanmiguel, ambos en Ecuador. INVITACION OFICIAL: carta formal de ICLEI - Gobiernos Locales por la Sostenibilidad, dirigida a Shirma Cortes Sanmiguel como Alcaldesa del GAD Francisco de Orellana, invitandola a la delegacion de gobiernos locales en la Semana del Clima de Nueva York (New York Climate Week, organizada por Climate Group), del 20 al 27 de septiembre 2026, en paralelo a la Asamblea General de la ONU. ICLEI es una red global de mas de 2,500 gobiernos locales/regionales en mas de 125 paises. La carta destaca el compromiso de Francisco de Orellana con el desarrollo sostenible urbano. Firmada por Rodrigo de Oliveira Perpetuo, Secretario Ejecutivo de ICLEI America del Sur. Contactos: Bianca Cantoni (bianca.cantoni@iclei.org) y Luz Camacho (luz.camacho@iclei.org). Viaja acompanada de Michelle Revelo, funcionaria de su GAD, designada por ella como delegada oficial. Hospedaje: 891 Amsterdam Avenue, Upper West Side, NY 10025. DS-160: AA00FPKGRL, pasaporte A9349382. Cita consular: POR AGENDAR, DS-160 firmado 4 agosto 2026.`;
+
+const QB=[
+  {q:"¿Cuál es el propósito de su viaje a Estados Unidos?",
+   tip:"Fue invitada oficialmente por ICLEI a la Semana del Clima de Nueva York, fechas exactas.",
+   model:"Viajo a Nueva York invitada oficialmente por ICLEI, una red internacional de gobiernos locales, para participar en la Semana del Clima de Nueva York, del 20 al 28 de septiembre de 2026.",
+   kw:["iclei","semana del clima","nueva york","septiembre","2026","invitada"]},
+  {q:"¿A qué se dedica usted?",
+   tip:"Alcaldesa del GAD Municipal de Fco. de Orellana, máxima autoridad electa.",
+   model:"Soy la Alcaldesa del Gobierno Autónomo Descentralizado Municipal del Cantón Francisco de Orellana. Soy la máxima autoridad y represento legal e institucionalmente al municipio.",
+   kw:["alcaldesa","gad","orellana","municipal","maxima autoridad"]},
+  {q:"¿Tiene una invitación formal para este evento?",
+   tip:"Sí, carta oficial de ICLEI firmada por su Secretario Ejecutivo — llevarla impresa a la entrevista.",
+   model:"Sí, tengo la carta de invitación oficial de ICLEI, firmada por su Secretario Ejecutivo para América del Sur, dirigida a mí como Alcaldesa de Francisco de Orellana. La traigo impresa.",
+   kw:["carta","invitacion","iclei","secretario ejecutivo","impresa"]},
+  {q:"¿Quién viaja con usted?",
+   tip:"Michelle Revelo, funcionaria de su GAD, designada por ella como delegada oficial.",
+   model:"Viajo con Michelle Revelo, funcionaria de mi municipio, a quien designé como delegada oficial para acompañarme y apoyarme en representación del GAD durante el evento.",
+   kw:["michelle","revelo","delegada","designe","funcionaria"]},
+  {q:"¿Dónde se van a hospedar?",
+   tip:"891 Amsterdam Avenue, Upper West Side, Nueva York.",
+   model:"En el 891 de Amsterdam Avenue, en el Upper West Side de Nueva York. Ya tenemos la dirección confirmada.",
+   kw:["amsterdam","upper west side","nueva york","891"]}
+];
+const QI=[
+  {q:"¿Cuánto gana usted como Alcaldesa?",
+   tip:"$4,508 mensuales exactos.",
+   model:"Cuatro mil quinientos ocho dólares mensuales, como salario de Alcaldesa del Gobierno Autónomo Descentralizado Municipal de Francisco de Orellana.",
+   kw:["4508","cuatro mil","quinientos","ocho","salario"]},
+  {q:"¿Qué es ICLEI y por qué la invitan a usted?",
+   tip:"Red global de gobiernos locales por sostenibilidad; la invitan por el compromiso de Orellana con desarrollo sostenible urbano.",
+   model:"ICLEI es una red global de más de 2,500 gobiernos locales comprometidos con el desarrollo urbano sostenible. Me invitan por el compromiso que Francisco de Orellana ha demostrado con la sostenibilidad urbana.",
+   kw:["iclei","2500","gobiernos locales","sostenibilidad","orellana"]},
+  {q:"¿Ha viajado antes fuera de Ecuador?",
+   tip:"Sí, a Uruguay, Brasil y Colombia en los últimos 5 años.",
+   model:"Sí, he viajado a Uruguay, Brasil y Colombia en los últimos cinco años, y en todas las ocasiones regresé a Ecuador sin ningún inconveniente.",
+   kw:["uruguay","brasil","colombia","regrese","ecuador"]},
+  {q:"¿Es la primera vez que solicita una visa a Estados Unidos?",
+   tip:"Sí, primer viaje a USA, sin rechazos previos.",
+   model:"Sí, es mi primera solicitud de visa a Estados Unidos. No tengo rechazos previos de ningún tipo.",
+   kw:["primera","primer viaje","sin rechazos"]},
+  {q:"¿Cuándo regresa a Ecuador y por qué?",
+   tip:"28 de septiembre. Debe retomar sus funciones como Alcaldesa.",
+   model:"Regreso el 28 de septiembre de 2026. Debo retomar mis funciones como Alcaldesa, ya que soy la máxima autoridad del municipio y mi presencia es indispensable.",
+   kw:["28","septiembre","2026","funciones","alcaldesa"]}
+];
+const QD=[
+  {q:"¿Por qué la máxima autoridad del municipio viaja al extranjero, quién queda a cargo?",
+   tip:"Viaje institucional planificado y coordinado, corto (8 días), respaldado por invitación oficial de ICLEI.",
+   model:"Es un viaje institucional respaldado por una invitación oficial de ICLEI, planificado y coordinado con mi municipio. Es un viaje corto, de ocho días, y las funciones administrativas continúan con normalidad durante mi ausencia.",
+   kw:["institucional","iclei","planificado","ocho","dias"]},
+  {q:"¿Cómo se relaciona la Semana del Clima de Nueva York con su municipio?",
+   tip:"Evento paralelo a la Asamblea General ONU sobre desarrollo sostenible urbano — tema directamente ligado a su gestión municipal.",
+   model:"La Semana del Clima de Nueva York reúne a gobiernos locales en paralelo a la Asamblea General de la ONU para tratar temas de sostenibilidad urbana, un área directamente ligada a mi gestión como Alcaldesa.",
+   kw:["semana del clima","onu","sostenibilidad","gestion","municipal"]},
+  {q:"¿Por qué viaja acompañada y quién es la persona que la acompaña?",
+   tip:"Michelle Revelo, Jefa de Uso y Ocupación de Suelo, designada delegada oficial por su perfil técnico relevante al tema del evento.",
+   model:"Me acompaña Michelle Revelo, Jefa de Uso y Ocupación de Suelo de mi municipio. La designé delegada oficial porque su perfil técnico en ordenamiento territorial es relevante para los temas de sostenibilidad urbana que se tratarán.",
+   kw:["michelle","uso","ocupacion","suelo","delegada","tecnico"]},
+  {q:"¿Qué garantía tengo de que usted regresará a Ecuador?",
+   tip:"Cargo público electo, máxima autoridad, familia y patrimonio en Ecuador, sin familiares en USA.",
+   model:"Soy la máxima autoridad electa de mi municipio, tengo responsabilidades públicas ineludibles, toda mi familia y mi vida están en Ecuador, y no tengo ningún familiar en Estados Unidos.",
+   kw:["autoridad","electa","familia","ecuador","sin familiares"]},
+  {q:"¿Cómo se financia este viaje?",
+   tip:"Viaje institucional respaldado por invitación de ICLEI; sus ingresos como Alcaldesa cubren gastos personales.",
+   model:"Es un viaje de carácter institucional respaldado por la invitación de ICLEI, y mis ingresos como Alcaldesa, de cuatro mil quinientos ocho dólares mensuales, respaldan cómodamente mis gastos personales.",
+   kw:["institucional","iclei","ingresos","4508","gastos"]}
+];
+
+function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
+
+let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const NIVELES=[
+  {qs:QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
+  {qs:QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
+  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'}
+];
+
+function mkDots(pqs){return pqs.map(function(_,i){return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';}).join('');}
+function localCheck(q,resp){const hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;}
+
+async function check(){
+  const pqs=NIVELES[nivelIdx].qs;
+  const wasFollowup=!!pendingFollowup;
+  const q=pendingFollowup||pqs[qIdx];
+  const respRaw=(document.getElementById('qa').value||'').trim();
+  const resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+  const evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  const historial=answersLog.slice(-3).map(function(a){return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};});
+  let iaResult=null;
+  try{
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,respuestaUsuario:respRaw,expedienteContext:expedienteContext,historial:historial})}).catch(function(){});
+    for(let attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        const r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        const d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+  let ok, fbClass, fbEstado, fbMsg;
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial está conforme':iaResult.evaluacion==='riesgo'?'Riesgo — respuesta débil':'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales que el oficial consular espera escuchar.':'Revisa la respuesta modelo. Asegúrate de incluir los detalles específicos de tu expediente.';
+  }
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, model:q.model, kw:q.kw};
+  }else{ pendingFollowup=null; }
+  const fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  const repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
+
+function nextQ(){ if(!pendingFollowup) qIdx++; renderPractica(); }
+function siguienteNivel(){ nivelIdx++; qIdx=0; pendingFollowup=null; renderPractica(); }
+function repetirNivel(){ qIdx=0; pendingFollowup=null; renderPractica(); }
+
+function renderPractica(){
+  const nv=NIVELES[nivelIdx];
+  document.getElementById('hdrProg').innerHTML='Practicando · <strong>Shirma</strong>';
+  document.getElementById('prog-fill').style.width=Math.round(((nivelIdx+qIdx/nv.qs.length)/NIVELES.length)*100)+'%';
+  window.scrollTo(0,0);
+  if(qIdx>=nv.qs.length){
+    const t=nv.qs.length; let b=0;
+    for(let i=scores.length-t;i<scores.length;i++){ if(scores[i]) b++; }
+    const hayMas=nivelIdx+1<NIVELES.length;
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'🎉':'💪')+'</div>'
+      +'<div class="welcome-title" style="font-size:1.6rem">Nivel '+nv.nivel+'<br><em>completado</em></div>'
+      +'<p class="welcome-sub">'+b+' de '+t+' respuestas completas.</p>'
+      +(hayMas?'<button class="btn-p" onclick="siguienteNivel()">Siguiente nivel →</button>':'<button class="btn-p" onclick="location.href=\''+PAGE+'\'">Volver al inicio →</button>')
+      +'<button class="btn-s" onclick="repetirNivel()">Repetir este nivel</button></div>';
+    return;
+  }
+  const q=pendingFollowup||nv.qs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="mod-tag practice">Practicando</span><br>'
+    +'<span class="nivel-badge '+nv.cls+'">'+nv.titulo+' — '+(qIdx+1)+' de '+nv.qs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">⚠ El oficial no quedó conforme — insiste en el mismo punto</div>':'')
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(nv.qs)+'</div></div>'
+    +'<p class="q-text">« '+q.q+' »</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aquí..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar →</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div><div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div><div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ()">'+(qIdx+1<nv.qs.length?'Siguiente pregunta →':'Ver resumen →')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="renderEstudio()">← Ver respuestas de nuevo</button>'
+    +'</div>';
+}
+
+function renderEstudio(){
+  document.getElementById('hdrProg').innerHTML='Estudiando · <strong>Shirma</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  window.scrollTo(0,0);
+  let html='<div class="screen">'
+    +'<span class="mod-tag" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)">Paso 1 · Estudiar</span>'
+    +'<h1 class="welcome-title" style="font-size:1.8rem">Tus <em>respuestas</em></h1>'
+    +'<p class="welcome-sub">Lee cada pregunta y su respuesta modelo con calma, todas basadas en tu DS-160 y la carta de invitación oficial de ICLEI. Cuando ya te las sepas de memoria, pasa a practicar sin ver la respuesta.</p>';
+  NIVELES.forEach(function(nv){
+    const color=nv.cls==='n1'?'var(--green)':nv.cls==='n2'?'var(--amber)':'var(--red)';
+    html+='<div class="study-nivel-hdr" style="color:'+color+'">'+nv.titulo.replace('● ','')+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card"><div class="study-q">« '+q.q+' »</div><div class="study-tip">💡 '+q.tip+'</div><div class="study-a-label">Respuesta modelo</div><div class="study-a">'+q.model+'</div></div>';
+    });
+  });
+  html+='<button class="btn-p" onclick="empezarPractica()">Ya me las sé — empezar práctica →</button></div>';
+  document.getElementById('wrap').innerHTML=html;
+}
+
+function empezarPractica(){ nivelIdx=0; qIdx=0; scores=[]; pendingFollowup=null; renderPractica(); }
+
+function renderPanel(){
+  document.getElementById('hdrProg').innerHTML='Shirma <strong>Cortés</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('wrap').innerHTML=`
+<div class="screen">
+  <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
+  <h1 class="welcome-title">Shirma <em>Cortés Sanmiguel</em></h1>
+  <p class="welcome-sub">Alcaldesa del GAD Municipal de Francisco de Orellana — esto lo preparé especialmente para usted. Fue invitada oficialmente por ICLEI a la Semana del Clima de Nueva York, un evento internacional de gobiernos locales en paralelo a la Asamblea General de la ONU. Es su primer viaje a Estados Unidos, sin rechazos previos y sin familiares en USA — su caso es sólido: cargo público de máxima autoridad e invitación institucional documentada.</p>
+
+  <div style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.04));border:1.5px solid rgba(245,200,66,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-size:1.4rem;flex-shrink:0">🏛️</div>
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,200,66,.7);margin-bottom:2px">Entrevista Consular</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">${persona.cita}</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">${persona.ubicacion}</div>
+      <div style="font-size:.65rem;color:rgba(245,200,66,.75);margin-top:6px">⏳ Roberto actualizará esta sección en cuanto tengamos fecha y hora reales</div>
+    </div>
+  </div>
+
+  <div class="trip-box">
+    <div class="trip-ttl">📋 Datos del viaje</div>
+    <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">${persona.viaje.destino}</span></div>
+    <div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">${persona.viaje.fechas}</span></div>
+    <div class="trip-row"><span class="trip-l">Hospedaje</span><span class="trip-v">${persona.viaje.hotel}</span></div>
+    <div class="trip-row"><span class="trip-l">Propósito</span><span class="trip-v">${persona.viaje.propósito}</span></div>
+    <div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:#F5C842">${persona.ds160}</span></div>
+  </div>
+
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">✅ Fortalezas del caso</div>
+    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
+      <li>Invitación oficial de ICLEI (organismo internacional reconocido) — no es un viaje personal ambiguo</li>
+      <li>Alcaldesa en funciones, cargo público de máxima autoridad, ingresos verificables</li>
+      <li>Patrimonio y familia en Ecuador, sin rechazos previos, sin familiares en Estados Unidos</li>
+      <li><strong>Llevar impresa la carta de invitación de ICLEI a la entrevista</strong></li>
+    </ul>
+  </div>
+
+  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar</p>
+  <button class="btn-primary" onclick="renderEstudio()">Empezar preparación →</button>
+</div>`;
+}
+
+renderPanel();
+</script>
+</body>
+</html>
