@@ -205,6 +205,32 @@ const QD=[
    kw:["ocho","dias","planificado","coordinado","municipio"]}
 ];
 
+const QO=[
+  {q:"¿Ha sufrido daños, violencia o maltrato en su país de origen o en su última residencia habitual?",
+   tip:"CRÍTICA — pregunta obligatoria 2026 para detectar posibles solicitantes de asilo. Un «sí» puede derivar en negativa automática. Responder con seguridad, sin dudar.",
+   model:"No, nunca he sufrido daños, violencia ni maltrato en Ecuador. Vivo y trabajo con normalidad en mi país.",
+   kw:["no","nunca","ecuador","normalidad"]},
+  {q:"¿Teme sufrir daños, persecución o maltrato si regresa a ese país?",
+   tip:"CRÍTICA — la segunda pregunta obligatoria 2026. No tiene motivo real para temer volver: empleo, familia y vida en Ecuador.",
+   model:"No, no tengo ningún temor de regresar a Ecuador. Es mi país, donde vivo, trabajo y tengo mi carrera profesional.",
+   kw:["no","temor","ecuador","vivo","trabajo"]},
+  {q:"La invitación de ICLEI es para la Alcaldesa, no para usted. ¿Por qué viaja usted entonces?",
+   tip:"El punto más sensible de su caso — responda con seguridad, sin sonar como si se estuviera colando en el viaje de otra persona.",
+   model:"Fui designada delegada oficial por la Alcaldesa Shirma Cortés para acompañarla y apoyarla en representación del municipio, dado mi perfil técnico en uso de suelo, directamente relevante a los temas del evento.",
+   kw:["designada","delegada","alcaldesa","representacion","perfil tecnico"]},
+  {q:"¿Tiene algún documento que acredite esa designación como delegada?",
+   tip:"RIESGO REAL — el oficio formal del GAD aún no está listo. Sea honesta: tiene la carta de ICLEI como contexto y está gestionando el oficio. No invente un documento que no existe.",
+   model:"Cuento con la carta de invitación oficial de ICLEI dirigida a la Alcaldesa como contexto del viaje, y mi municipio está gestionando el oficio formal de mi designación como delegada.",
+   kw:["carta","iclei","contexto","oficio","gestionando"]},
+  {q:"¿Por qué la Alcaldesa no viaja con otro funcionario de mayor rango?",
+   tip:"Justifique por relevancia técnica al tema del evento, no por jerarquía.",
+   model:"Mi perfil técnico en uso de suelo y ordenamiento territorial es directamente relevante a los temas de sostenibilidad urbana que se tratarán en el evento — por eso fui la persona designada.",
+   kw:["perfil","tecnico","uso","suelo","relevante"]},
+  {q:"¿Cuánto gana usted y quién paga su viaje?",
+   tip:"$1,612/mes, ingresos propios cubren gastos personales; viaje institucional respaldado por el municipio.",
+   model:"Gano mil seiscientos doce dólares mensuales. Mis gastos personales los cubro con mis propios ingresos; es un viaje de carácter institucional en representación del GAD.",
+   kw:["1612","ingresos","institucional","gad","gastos"]}
+];
 function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
 
 let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
@@ -212,7 +238,8 @@ const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0
 const NIVELES=[
   {qs:QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
   {qs:QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
-  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'}
+  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'},
+  {qs:QO,nivel:'oficial consular — preguntas trampa',cls:'n3',titulo:'● Modo oficial consular'}
 ];
 
 function mkDots(pqs){return pqs.map(function(_,i){return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';}).join('');}
@@ -371,6 +398,12 @@ function renderPanel(){
       <li>Empleo público estable, maestría, sin rechazos previos, sin familiares en USA</li>
       <li style="color:#F59E0B"><strong>Pendiente:</strong> conseguir memo/oficio formal del GAD que la designe como delegada — respaldo ideal si Roberto lo obtiene a tiempo</li>
     </ul>
+  </div>
+
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠ Modo oficial consular — preguntas trampa</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo — un «sí» puede causar negativa automática. También cubre el punto más sensible de su caso: por qué viaja usted sin invitación propia.</p>
+    <p style="font-size:.7rem;color:rgba(245,158,11,.85);line-height:1.5;margin:0">Recomendaciones del oficial: respuestas breves (2-3 frases), sin elaborar de más · nunca se contradiga aunque repitan la pregunta de otra forma · mantenga la calma y el contacto visual · si no entiende, pida que repitan — no adivine.</p>
   </div>
 
   <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar</p>

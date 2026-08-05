@@ -207,6 +207,32 @@ const QD=[
    kw:["institucional","iclei","ingresos","4508","gastos"]}
 ];
 
+const QO=[
+  {q:"¿Ha sufrido daños, violencia o maltrato en su país de origen o en su última residencia habitual?",
+   tip:"CRÍTICA — pregunta obligatoria 2026 para detectar posibles solicitantes de asilo. Un «sí» puede derivar en negativa automática. Responder con seguridad, sin dudar.",
+   model:"No, nunca he sufrido daños, violencia ni maltrato en Ecuador. Vivo y trabajo con normalidad en mi país.",
+   kw:["no","nunca","ecuador","normalidad"]},
+  {q:"¿Teme sufrir daños, persecución o maltrato si regresa a ese país?",
+   tip:"CRÍTICA — la segunda pregunta obligatoria 2026. No tiene motivo real para temer volver: cargo público, familia y vida en Ecuador.",
+   model:"No, no tengo ningún temor de regresar a Ecuador. Es mi país, donde vivo, trabajo y ejerzo mi cargo público.",
+   kw:["no","temor","ecuador","vivo","trabajo"]},
+  {q:"¿Por qué debería darle la visa a usted y no a cualquier otra persona?",
+   tip:"La ley (Sección 214(b)) presume que todo solicitante quiere quedarse — usted debe demostrar lo contrario con hechos concretos, sin sonar a súplica.",
+   model:"Porque tengo un caso sólido y verificable: soy Alcaldesa en ejercicio, tengo una invitación oficial de un organismo internacional, y toda mi vida, familia y responsabilidades están en Ecuador.",
+   kw:["alcaldesa","invitacion","oficial","ecuador","verificable"]},
+  {q:"¿Conoce personalmente a alguien de ICLEI en Estados Unidos?",
+   tip:"En el DS-160 el contacto quedó como 'DO NOT KNOW' — es honesto y normal, no oculte ni invente un nombre.",
+   model:"No los conozco personalmente todavía. Mi contacto ha sido institucional, por correo electrónico, con las coordinadoras Bianca Cantoni y Luz Camacho de ICLEI.",
+   kw:["no","conozco","institucional","correo","cantoni"]},
+  {q:"Dice que es un viaje institucional corto, pero ¿por qué necesita ocho días para un evento de una semana?",
+   tip:"Las fechas del viaje (20-28 sept) cubren exactamente el evento (20-27 sept) más un día de margen para el regreso — explíquelo con ese dato concreto.",
+   model:"El evento es del 20 al 27 de septiembre. Mi viaje es del 20 al 28, con un día adicional únicamente para el regreso. No hay tiempo de más.",
+   kw:["20","27","28","septiembre","evento","regreso"]},
+  {q:"¿Qué pasaría con su cargo si decide quedarse más tiempo en Estados Unidos?",
+   tip:"No contemple esa opción ni siquiera hipotéticamente — reafirme la obligación de regreso.",
+   model:"Eso no es algo que contemple. Como máxima autoridad electa del municipio, mis responsabilidades exigen mi regreso puntual el 28 de septiembre.",
+   kw:["no","contemplo","autoridad","regreso","28"]}
+];
 function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
 
 let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
@@ -214,7 +240,8 @@ const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0
 const NIVELES=[
   {qs:QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
   {qs:QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
-  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'}
+  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'},
+  {qs:QO,nivel:'oficial consular — preguntas trampa',cls:'n3',titulo:'● Modo oficial consular'}
 ];
 
 function mkDots(pqs){return pqs.map(function(_,i){return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';}).join('');}
@@ -373,6 +400,12 @@ function renderPanel(){
       <li>Patrimonio y familia en Ecuador, sin rechazos previos, sin familiares en Estados Unidos</li>
       <li><strong>Llevar impresa la carta de invitación de ICLEI a la entrevista</strong></li>
     </ul>
+  </div>
+
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠ Modo oficial consular — preguntas trampa</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo — un «sí» puede causar negativa automática. Practíquelas con la misma calma que el resto.</p>
+    <p style="font-size:.7rem;color:rgba(245,158,11,.85);line-height:1.5;margin:0">Recomendaciones del oficial: respuestas breves (2-3 frases), sin elaborar de más · nunca se contradiga aunque repitan la pregunta de otra forma · mantenga la calma y el contacto visual · si no entiende, pida que repitan — no adivine.</p>
   </div>
 
   <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar</p>
