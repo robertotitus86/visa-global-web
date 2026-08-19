@@ -135,7 +135,7 @@ const persona={
 };
 
 /* Fuente: DS-160 + confirmación de cita consular. No inventar datos fuera de esto. */
-const expedienteContext=`Jennifer Paola Samaniego Marines, nacida 8 jun 1984 en Esmeraldas. Casada con Antonio Vinicio Menendez Portilla (el no viaja, se queda en Ecuador). Cargo actual: Direccion Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME) en Quito — dirige y representa legalmente a la institucion ante entidades publicas, privadas, nacionales e internacionales; planifica, coordina y supervisa programas de asistencia tecnica a los GAD municipales del pais; gestiona convenios de cooperacion internacional con organismos multilaterales; supervisa las areas juridica, financiera, administrativa, ambiental y de cooperacion internacional; autoriza procesos de contratacion publica y administra el presupuesto institucional. Ingreso $4,283/mes. IMPORTANTE sobre su trayectoria: trabajo 2018-2025 (hasta oct 2025) como Analista Distrital de Adquisiciones en el Ministerio de Salud Publica, Santo Domingo. Del 1 al 18 de noviembre de 2025 fue Coordinadora de Contratacion Publica en AME. Desde entonces fue promovida a su cargo actual de Direccion Ejecutiva en AME, por su trayectoria de 7+ anos en gestion de contratacion publica del sector salud. Estudios: Ingenieria de Empresas (ESPOCH, Riobamba, 2001-2007) y Maestria en Administracion de Empresas mencion Planeacion (PUCE Esmeraldas, 2015-2017). Viajes previos: Colombia (ultimos 5 anos), siempre regreso. PRIMER VIAJE A ESTADOS UNIDOS. Sin rechazos previos de visa. Sin familiares en Estados Unidos. Padres Segundo Flavio Samaniego Solano y Julia Nela Marines Batalla, ambos en Ecuador. Proposito de viaje: temporal de negocios/turismo (B1/B2), como Directora Ejecutiva de AME viaja como delegada/asociada de negocios de ICLEI - Gobiernos Locales por la Sostenibilidad, organizacion con la que AME coordina cooperacion internacional en sostenibilidad urbana, para participar en la Semana del Clima de Nueva York (New York Climate Week), del 18 al 28 de septiembre 2026. Contacto en EE.UU. declarado en el DS-160: organizacion ICLEI USA, Wynkoop 536 Suite 901, Denver Colorado 80202, relacion "business associate", nombre de contacto individual no lo conoce ("DO NOT KNOW"). Hospedaje: 507 West 181st Street, Washington Heights, Nueva York 10033. Viaja sola, sin acompanantes declarados en el DS-160. El viaje (vuelos, hospedaje y viaticos) es financiado por AME como gasto institucional, no con fondos personales. DS-160: AA00FQMKP1, pasaporte A8733853 (vence 14 abr 2033). Cita consular: jueves 24 de septiembre 2026, 7:30 AM, Embajada de EE.UU. en Quito. Redes sociales declaradas: Facebook @JENNIFER SAMANIEGO MARINES, Instagram @JPAOLEINS, TikTok @PAOLEINS4.`;
+const expedienteContext=`Jennifer Paola Samaniego Marines, nacida 8 jun 1984 en Esmeraldas. Casada con Antonio Vinicio Menendez Portilla (el no viaja, se queda en Ecuador). Tiene 2 hijos que se quedan en Ecuador: Elheo Amai Menendez Samaniego (nacido 16 dic 2019, Esmeraldas, en edad escolar) y Bruna Alaia Menendez Samaniego (nacida 29 jul 2024, Esmeraldas). Cargo actual: Direccion Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME) en Quito — dirige y representa legalmente a la institucion ante entidades publicas, privadas, nacionales e internacionales; planifica, coordina y supervisa programas de asistencia tecnica a los GAD municipales del pais; gestiona convenios de cooperacion internacional con organismos multilaterales; supervisa las areas juridica, financiera, administrativa, ambiental y de cooperacion internacional; autoriza procesos de contratacion publica y administra el presupuesto institucional. Ingreso $4,283/mes. IMPORTANTE sobre su trayectoria: trabajo 2018-2025 (hasta oct 2025) como Analista Distrital de Adquisiciones en el Ministerio de Salud Publica, Santo Domingo. Del 1 al 18 de noviembre de 2025 fue Coordinadora de Contratacion Publica en AME. Desde entonces fue promovida a su cargo actual de Direccion Ejecutiva en AME, por su trayectoria de 7+ anos en gestion de contratacion publica del sector salud. Estudios: Ingenieria de Empresas (ESPOCH, Riobamba, 2001-2007) y Maestria en Administracion de Empresas mencion Planeacion (PUCE Esmeraldas, 2015-2017). Viajes previos: Colombia (ultimos 5 anos), siempre regreso. PRIMER VIAJE A ESTADOS UNIDOS. Sin rechazos previos de visa. Sin familiares en Estados Unidos. Padres Segundo Flavio Samaniego Solano y Julia Nela Marines Batalla, ambos en Ecuador. Proposito de viaje: temporal de negocios/turismo (B1/B2), como Directora Ejecutiva de AME viaja como delegada/asociada de negocios de ICLEI - Gobiernos Locales por la Sostenibilidad, organizacion con la que AME coordina cooperacion internacional en sostenibilidad urbana, para participar en la Semana del Clima de Nueva York (New York Climate Week), del 18 al 28 de septiembre 2026. Contacto en EE.UU. declarado en el DS-160: organizacion ICLEI USA, Wynkoop 536 Suite 901, Denver Colorado 80202, relacion "business associate", nombre de contacto individual no lo conoce ("DO NOT KNOW"). Hospedaje: 507 West 181st Street, Washington Heights, Nueva York 10033. Viaja sola, sin acompanantes declarados en el DS-160. El viaje (vuelos, hospedaje y viaticos) es financiado por AME como gasto institucional, no con fondos personales. DS-160: AA00FQMKP1, pasaporte A8733853 (vence 14 abr 2033). Cita consular: jueves 24 de septiembre 2026, 7:30 AM, Embajada de EE.UU. en Quito. Redes sociales declaradas: Facebook @JENNIFER SAMANIEGO MARINES, Instagram @JPAOLEINS, TikTok @PAOLEINS4.`;
 
 const QB=[
   {q:"¿Cuál es el propósito de su viaje a Estados Unidos?",
@@ -157,7 +157,11 @@ const QB=[
   {q:"¿Tiene familiares en los Estados Unidos?",
    tip:"No tiene ningún familiar en USA. Respuesta directa.",
    model:"No, no tengo ningún familiar en los Estados Unidos.",
-   kw:["no"]}
+   kw:["no"]},
+  {q:"¿Tiene hijos?",
+   tip:"Dos hijos pequeños que se quedan en Ecuador — vínculo de retorno fuerte.",
+   model:"Sí, tengo dos hijos, de 6 y 2 años, que se quedan en Ecuador al cuidado de mi esposo mientras dura mi viaje.",
+   kw:["dos","hijos","ecuador","esposo"]}
 ];
 const QI=[
   {q:"¿Cuánto gana usted como Directora Ejecutiva de AME?",
@@ -169,9 +173,9 @@ const QI=[
    model:"ICLEI es una red internacional de gobiernos locales comprometidos con la sostenibilidad urbana. AME mantiene una relación de cooperación institucional con ellos, y viajo como asociada de negocios en representación de mi institución.",
    kw:["iclei","gobiernos locales","sostenibilidad","cooperacion","asociada"]},
   {q:"¿Es casada? ¿Su esposo viaja con usted?",
-   tip:"Casada con Antonio Menéndez Portilla; él se queda en Ecuador. No oculte el estado civil, pero deje claro que es un viaje institucional individual.",
-   model:"Sí, soy casada. Mi esposo se queda en Ecuador — este es un viaje institucional, por mi cargo en AME, y viajo sola.",
-   kw:["casada","esposo","ecuador","sola","institucional"]},
+   tip:"Casada con Antonio Menéndez Portilla; él y sus dos hijos se quedan en Ecuador. No oculte el estado civil, pero deje claro que es un viaje institucional individual.",
+   model:"Sí, soy casada y tengo dos hijos. Mi esposo y mis hijos se quedan en Ecuador — este es un viaje institucional, por mi cargo en AME, y viajo sola.",
+   kw:["casada","esposo","hijos","ecuador","sola","institucional"]},
   {q:"¿Ha viajado antes fuera de Ecuador?",
    tip:"Sí, a Colombia en los últimos 5 años.",
    model:"Sí, he viajado a Colombia en los últimos cinco años, y regresé a Ecuador sin ningún inconveniente.",
@@ -195,9 +199,9 @@ const QD=[
    model:"AME agrupa y representa a los gobiernos municipales del Ecuador, y la sostenibilidad urbana es un tema central de la cooperación internacional que gestionamos. La Semana del Clima de Nueva York es el espacio donde se coordina esa cooperación con ICLEI y otros gobiernos locales.",
    kw:["ame","municipios","sostenibilidad","cooperacion","iclei"]},
   {q:"¿Qué garantía tengo de que usted regresará a Ecuador?",
-   tip:"Cargo ejecutivo de alta responsabilidad institucional, esposo y padres en Ecuador, sin familiares en USA, viaje corto y con fecha de regreso fija.",
-   model:"Tengo un cargo de alta responsabilidad institucional en AME al que debo regresar, mi esposo y mis padres viven en Ecuador, y no tengo ningún familiar en Estados Unidos. Mi viaje tiene fecha de regreso fija, el 28 de septiembre.",
-   kw:["cargo","ame","esposo","padres","ecuador","28"]},
+   tip:"Cargo ejecutivo de alta responsabilidad institucional, esposo, dos hijos pequeños y padres en Ecuador, sin familiares en USA, viaje corto y con fecha de regreso fija.",
+   model:"Tengo un cargo de alta responsabilidad institucional en AME al que debo regresar, y mi esposo, mis dos hijos pequeños y mis padres viven en Ecuador. No tengo ningún familiar en Estados Unidos. Mi viaje tiene fecha de regreso fija, el 28 de septiembre.",
+   kw:["cargo","ame","esposo","hijos","padres","ecuador","28"]},
   {q:"¿Quién financia este viaje?",
    tip:"AME cubre el viaje como gasto institucional (vuelos, hospedaje, viáticos) — no es un gasto personal.",
    model:"El viaje lo cubre la Asociación de Municipalidades Ecuatorianas como gasto institucional, incluyendo vuelos, hospedaje y viáticos, ya que participo en representación oficial de AME.",
@@ -393,7 +397,7 @@ function renderPanel(){
     <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
       <li>Cargo ejecutivo real y verificable: Directora Ejecutiva de AME, con más de 7 años de trayectoria en el sector público</li>
       <li>Motivo de viaje institucional documentado — cooperación AME/ICLEI, no un viaje personal ambiguo</li>
-      <li>Casada, esposo y padres en Ecuador, sin rechazos previos, sin familiares en Estados Unidos</li>
+      <li>Casada, con esposo, dos hijos pequeños (6 y 2 años) y padres en Ecuador — sin rechazos previos, sin familiares en Estados Unidos</li>
       <li>Viaje financiado por AME como gasto institucional (vuelos, hospedaje y viáticos) — no es un gasto personal</li>
     </ul>
   </div>
