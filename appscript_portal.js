@@ -907,6 +907,7 @@ function doGet(e) {
   if (action === 'payphone_verify')  return payphoneVerify(e);
   if (action === 'bot_history')      return botHistory(e);
   if (action === 'getEvalOficial')   return getEvalOficial(e);
+  if (action === 'resumenPractica')  return resumenPracticaSimulador(e);
 
   const refId = e.parameter.id;
   const tipo  = e.parameter.tipo || 'USA DS-160';
@@ -1049,6 +1050,45 @@ function iniciarEvaluacionOficial(payload) {
   } catch(err) {
     console.error('iniciarEvaluacionOficial error:', err.toString());
     return ok({ error: err.toString() });
+  }
+}
+
+// Resumen de uso del simulador en las ultimas 24h, agrupado por cliente —
+// usado por el resumen diario de WhatsApp del bot (bot.py, 9 PM Ecuador).
+function resumenPracticaSimulador(e) {
+  try {
+    const horas = parseInt(e.parameter.horas || '24', 10);
+    const desde = new Date(Date.now() - horas * 60 * 60 * 1000);
+    const ss = SpreadsheetApp.openById(SS_ID);
+
+    const porCliente = {};
+    function contar(nombreHoja, campoFecha) {
+      const sh = ss.getSheetByName(nombreHoja);
+      if (!sh) return;
+      const data = sh.getDataRange().getValues();
+      for (let i = 1; i < data.length; i++) {
+        const fecha = new Date(data[i][0]);
+        if (fecha < desde) continue;
+        const cliente = data[i][1] || '(sin identificar)';
+        if (!porCliente[cliente]) porCliente[cliente] = { aperturas: 0, respuestas: 0, bien: 0, mejorar: 0, riesgo: 0 };
+        if (nombreHoja === 'Aperturas Simulador') {
+          porCliente[cliente].aperturas++;
+        } else {
+          porCliente[cliente].respuestas++;
+          const ev = String(data[i][4] || '').toLowerCase();
+          if (ev.indexOf('bien') >= 0) porCliente[cliente].bien++;
+          else if (ev.indexOf('riesgo') >= 0) porCliente[cliente].riesgo++;
+          else porCliente[cliente].mejorar++;
+        }
+      }
+    }
+    contar('Aperturas Simulador');
+    contar('Practica Simulador');
+
+    return ok({ status: 'ok', horas: horas, clientes: porCliente });
+  } catch(err) {
+    console.error('resumenPracticaSimulador error:', err.toString());
+    return ok({ status: 'error', error: err.toString(), clientes: {} });
   }
 }
 
