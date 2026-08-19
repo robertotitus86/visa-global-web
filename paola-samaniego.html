@@ -260,7 +260,7 @@ async function check(){
   let iaResult=null;
   try{
     fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,pregunta:q.q,respuestaUsuario:respRaw,expedienteContext:expedienteContext,historial:historial})}).catch(function(){});
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,cliente:persona.nombre,pregunta:q.q,respuestaUsuario:respRaw,expedienteContext:expedienteContext,historial:historial})}).catch(function(){});
     for(let attempt=0;attempt<9;attempt++){
       await new Promise(function(r){setTimeout(r,1500);});
       try{
@@ -413,6 +413,10 @@ function renderPanel(){
 </div>`;
 }
 
+try{
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({subtipo:'aperturaSimulador',cliente:persona.nombre})}).catch(function(){});
+}catch(e){}
 renderPanel();
 </script>
 </body>

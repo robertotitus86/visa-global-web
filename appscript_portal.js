@@ -50,6 +50,7 @@ function doPost(e) {
     if (payload.subtipo === 'analizar_ds160_anteriores') return analizarDs160AnterioresAuto(payload);
     if (payload.subtipo === 'submit_screening')         return manejarScreening(payload);
     if (payload.subtipo === 'evaluarOficialConsular')   return iniciarEvaluacionOficial(payload);
+    if (payload.subtipo === 'aperturaSimulador')        return logAperturaSimulador(payload);
     if (payload.action === 'lead_magnet')               return guardarLeadMagnet(payload);
     if (payload.action === 'run_diagnostic')            return runDiagnostico(payload);
     if (payload.action === 'chat_message')              return chatMessage(payload);
@@ -1043,10 +1044,53 @@ function iniciarEvaluacionOficial(payload) {
     const evalId = payload.evalId;
     const resultado = evaluarComoOficialConsular(payload);
     CacheService.getScriptCache().put('oficial_' + evalId, JSON.stringify(resultado), 300);
+    logPracticaSimulador(payload, resultado);
     return ok({ status: 'ok', evalId });
   } catch(err) {
     console.error('iniciarEvaluacionOficial error:', err.toString());
     return ok({ error: err.toString() });
+  }
+}
+
+// Registra cada vez que alguien abre su simulador (antes de responder nada) —
+// asi Roberto sabe si el cliente ni siquiera lo abrio.
+function logAperturaSimulador(payload) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Aperturas Simulador');
+    if (!sh) {
+      sh = ss.insertSheet('Aperturas Simulador');
+      sh.appendRow(['Fecha', 'Cliente']);
+    }
+    sh.appendRow([new Date(), payload.cliente || '(sin identificar)']);
+    return ok({ status: 'ok' });
+  } catch(err) {
+    console.error('logAperturaSimulador error:', err.toString());
+    return ok({ status: 'ok' }); // nunca bloquear al usuario por esto
+  }
+}
+
+// Registra cada intento de practica para que Roberto pueda dar seguimiento
+// (quien practica, cuando, y como le esta yendo) sin depender de Claude Code.
+// No debe romper la evaluacion si falla — el log es secundario.
+function logPracticaSimulador(payload, resultado) {
+  try {
+    const ss = SpreadsheetApp.openById(SS_ID);
+    let sh = ss.getSheetByName('Practica Simulador');
+    if (!sh) {
+      sh = ss.insertSheet('Practica Simulador');
+      sh.appendRow(['Fecha', 'Cliente', 'Pregunta', 'Respuesta', 'Evaluacion', 'Reaccion oficial']);
+    }
+    sh.appendRow([
+      new Date(),
+      payload.cliente || '(sin identificar)',
+      payload.pregunta || '',
+      payload.respuestaUsuario || '',
+      resultado.evaluacion || '',
+      resultado.reaccionOficial || '',
+    ]);
+  } catch(err) {
+    console.error('logPracticaSimulador error:', err.toString());
   }
 }
 
