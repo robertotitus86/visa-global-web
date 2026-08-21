@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Karen Pamela Beltrán Brito</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;
+  --gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.04);--sans:'Space Grotesk',sans-serif;
+  --serif:'Playfair Display',serif;--ease:cubic-bezier(.22,.68,0,1.2);--r:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(245,200,66,.06),transparent 55%),
+             radial-gradient(ellipse 60% 40% at 85% 100%,rgba(59,130,246,.05),transparent 60%),var(--navy)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+.main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.screen{opacity:1;animation:fadeUp .3s ease-out}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);
+  padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.fam-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.welcome-title{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600;text-align:right}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);
+  font-size:.9375rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(245,200,66,.3)}
+
+@media(max-width:520px){
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
+}
+
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <div class="logo">Asesoría <em>Visa</em> Global</div>
+  <div class="hdr-right"><span class="hdr-prog" id="hdrProg">Karen <strong>Beltrán</strong></span></div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+'use strict';
+const PAGE='karen-beltran.html';
+
+const persona={
+  nombre:'Karen Pamela Beltrán Brito',
+  cita:'PENDIENTE — aún no asignada por el consulado (DS-160 enviado 21 de agosto 2026)',
+  ubicacion:'Embajada de EE.UU., Quito — Avenida Avigiras E12-170 y Eloy Alfaro',
+  ds160:'AA00FQSGZV', pasaporte:'A9657309',
+  viaje:{
+    destino:'Miami, FL',
+    fechas:'25-28 septiembre 2026',
+    hotel:'439 Northwest 4th Avenue, Miami, FL',
+    propósito:'Negocios/turismo — visita a su empleadora en Miami (B1/B2)'
+  }
+};
+
+/* Fuente: DS-160 + confirmación de solicitud. No inventar datos fuera de esto. */
+const expedienteContext=`Karen Pamela Beltran Brito, nacida 13 dic 1995 en Quito, Ecuador. Soltera, sin hijos. Cedula 1751399583. Direccion en Ecuador: Av. 6 de Diciembre N32-154 y Checoslovaquia, El Batan, Quito. Trabajo actual: Isa Garcia LLC, con direccion en 25 SE 2nd Ave 550 #2021, Miami, Florida — coordina comunicaciones operativas, ciclos de lanzamiento y ejecucion de programas, gestion de relaciones con proveedores y aliados comerciales, supervision del servicio al cliente. Ingreso $2,600/mes. Trabaja de forma remota desde Ecuador. IMPORTANTE: su contacto declarado en EE.UU. en el DS-160 es Isabel Maria Garcia Donoso, de Isa Garcia Corp, con relacion "EMPLOYER" (empleadora) — la misma empresa donde trabaja. Esto puede generar dudas del oficial consular sobre si el viaje es en realidad de trabajo/reubicacion; debe explicarse siempre que la relacion laboral es remota y legal desde Ecuador, y que el viaje es una visita corta y puntual. Trabajo anterior: Telefonica Movistar Ecuador Otecel SA, Quito — Team Member Marketing Pospago B2C, del 1 mayo 2018 al 30 junio 2025 (mas de 7 anos), supervisor Ricardo Lopez, diseño y ejecucion de estrategias de retencion y fidelizacion de clientes pospago B2C. Estudios: Ingenieria Comercial (Pontificia Universidad Catolica del Ecuador, Quito, sept 2013 - jun 2018) y Maestria en Marketing Digital y Analitica (Universidad Internacional de Valencia, España, sept 2023 - jul 2024, regreso a Ecuador al terminar). Viajes previos en los ultimos 5 años, siempre regreso a Ecuador: Peru, Colombia, Republica Dominicana, Bolivia, Chile y Brasil. PRIMER VIAJE A ESTADOS UNIDOS. Sin rechazos previos de visa, sin deportaciones. Sin familiares en Estados Unidos. Padres: Luis Eduardo Beltran Flores (10 may 1976) y Ana Cristina Brito Escobar (22 feb 1976), ambos en Ecuador. Proposito de viaje: temporal de negocios/turismo (B1/B2), viaje corto de 3 dias a Miami (25-28 septiembre 2026) para reunirse con su empleadora. Hospedaje: 439 Northwest 4th Avenue, Miami, Florida. Viaja sola, sin acompañantes declarados en el DS-160. DS-160: AA00FQSGZV, firmado 21 agosto 2026, pasaporte A9657309 (vence 20 may 2033). Cita consular: PENDIENTE de asignacion por el consulado — DS-160 ya enviado. Ubicacion consular: Embajada de EE.UU. en Quito, Avenida Avigiras E12-170 y Eloy Alfaro. Redes sociales declaradas: Facebook @KAREN BELTRAN, Instagram @KAREN_BELTRAN8, LinkedIn @KAREN-BELTRAN-641557162, Twitter/X @BELTRANKAREN73, TikTok @KAREN.BELTRAN_8.`;
+
+const QB=[
+  {q:"¿Cuál es el propósito de su viaje a Estados Unidos?",
+   tip:"Viaje corto de negocios/turismo, 3 días, a Miami.",
+   model:"Viajo a Miami por un motivo de negocios y turismo, del 25 al 28 de septiembre de 2026. Es un viaje corto, de tres días.",
+   kw:["miami","negocios","turismo","septiembre","2026","tres dias"]},
+  {q:"¿A qué se dedica usted?",
+   tip:"Coordinación de comunicaciones operativas en Isa Garcia LLC.",
+   model:"Trabajo en Isa Garcia LLC, donde coordino comunicaciones operativas, ciclos de lanzamiento de programas y la relación con proveedores y aliados comerciales.",
+   kw:["isa garcia","comunicaciones","coordino","proveedores"]},
+  {q:"¿Cuánto tiempo se va a quedar?",
+   tip:"Fechas exactas del DS-160: 25 al 28 de septiembre, 3 días.",
+   model:"Tres días. Llego a Miami el 25 de septiembre y regreso a Ecuador el 28 de septiembre de 2026.",
+   kw:["tres","3","25","28","septiembre"]},
+  {q:"¿Dónde se va a hospedar?",
+   tip:"439 Northwest 4th Avenue, Miami, Florida.",
+   model:"Me hospedo en el 439 de la Northwest 4th Avenue, en Miami, Florida. Ya tengo la dirección confirmada.",
+   kw:["439","northwest","4th avenue","miami"]},
+  {q:"¿Tiene familiares en los Estados Unidos?",
+   tip:"No tiene ningún familiar en USA. Respuesta directa.",
+   model:"No, no tengo ningún familiar en los Estados Unidos.",
+   kw:["no"]}
+];
+const QI=[
+  {q:"¿Cuánto gana usted en su trabajo actual?",
+   tip:"$2,600 mensuales exactos, según lo declarado en el DS-160.",
+   model:"Dos mil seiscientos dólares mensuales, como parte de mi rol en Isa Garcia LLC.",
+   kw:["2600","dos mil","seiscientos","salario"]},
+  {q:"¿Ha viajado antes fuera de Ecuador?",
+   tip:"Sí, a Perú, Colombia, República Dominicana, Bolivia, Chile y Brasil en los últimos 5 años.",
+   model:"Sí, he viajado a Perú, Colombia, República Dominicana, Bolivia, Chile y Brasil en los últimos cinco años, y regresé a Ecuador sin ningún inconveniente en todos los casos.",
+   kw:["peru","colombia","republica dominicana","bolivia","chile","brasil","regrese"]},
+  {q:"¿Es soltera? ¿Tiene hijos?",
+   tip:"Soltera, sin hijos — el arraigo se sustenta en trayectoria laboral y familia (padres) en Ecuador.",
+   model:"Sí, soy soltera y no tengo hijos. Mi arraigo está en mi trayectoria profesional de más de siete años y en mi familia, mis padres, que viven en Quito.",
+   kw:["soltera","padres","quito","ecuador"]},
+  {q:"¿Cuánto tiempo lleva trabajando en su empleo actual?",
+   tip:"Reciente — antes trabajó 7+ años en Telefónica Movistar (2018-2025).",
+   model:"En mi rol actual llevo un tiempo corto, pero antes trabajé más de siete años en Telefónica Movistar Ecuador, en el área de marketing, hasta junio de 2025.",
+   kw:["telefonica","movistar","siete años","2018","2025"]},
+  {q:"¿Es la primera vez que solicita una visa a Estados Unidos?",
+   tip:"Sí, primer viaje a USA, sin rechazos previos.",
+   model:"Sí, es mi primera solicitud de visa a Estados Unidos. No tengo rechazos previos de ningún tipo.",
+   kw:["primera","primer viaje","sin rechazos"]}
+];
+const QD=[
+  {q:"Su empleadora Isa Garcia LLC tiene domicilio en Miami — ¿trabaja usted para una empresa estadounidense?",
+   tip:"Explique con claridad: relación laboral remota y legal desde Ecuador, sin residencia ni intención de trabajar físicamente en EE.UU.",
+   model:"Trabajo de forma remota para Isa Garcia LLC desde Ecuador, donde resido. Mi relación laboral es a distancia, coordino comunicaciones y proveedores desde Quito, y no tengo intención de trabajar físicamente dentro de Estados Unidos durante este viaje.",
+   kw:["remoto","remota","ecuador","quito","distancia"]},
+  {q:"Su contacto en Estados Unidos es la misma persona que la contrata a usted — ¿por qué?",
+   tip:"Es normal declarar al empleador como contacto si el viaje incluye reunirse con él; aclare que es un encuentro puntual de trabajo, no una reubicación.",
+   model:"Isabel García es mi empleadora y la persona con quien coordino mi trabajo. La declaré como contacto porque durante mi viaje voy a reunirme con ella para temas puntuales de trabajo, no porque busque trasladarme a vivir allá.",
+   kw:["isabel garcia","empleadora","reunion","trabajo","puntual"]},
+  {q:"¿Por qué un viaje de solo tres días si su empleadora está en Miami?",
+   tip:"Viaje corto y específico — reunión de trabajo puntual, no reubicación ni proyecto extendido.",
+   model:"Es una visita corta y puntual, de tres días, para una reunión de trabajo específica con mi empleadora. No es un traslado ni un proyecto de larga duración.",
+   kw:["corto","puntual","tres dias","reunion"]},
+  {q:"¿Qué garantía tengo de que usted regresará a Ecuador?",
+   tip:"7+ años de trayectoria laboral en Ecuador, estudios en Ecuador y España (siempre regresó), múltiples viajes previos con retorno comprobado, padres en Ecuador.",
+   model:"Tengo más de siete años de trayectoria laboral en Ecuador, hice una maestría en España y regresé a completar mi carrera aquí, y he viajado a seis países en los últimos cinco años, siempre regresando a Ecuador. Mis padres también viven aquí.",
+   kw:["siete años","españa","regrese","padres","ecuador"]},
+  {q:"¿Por qué estudió en España y no se quedó allá?",
+   tip:"Regresó a Ecuador tras la maestría (jul 2024) — patrón de retorno consistente.",
+   model:"Hice mi maestría en Marketing Digital y Analítica en la Universidad Internacional de Valencia, y al terminar en julio de 2024 regresé a Ecuador para continuar mi carrera profesional aquí.",
+   kw:["valencia","maestria","julio","2024","regrese"]}
+];
+const QO=[
+  {q:"¿Ha sufrido daños, violencia o maltrato en su país de origen o en su última residencia habitual?",
+   tip:"CRÍTICA — pregunta obligatoria 2026 para detectar posibles solicitantes de asilo. Un «sí» puede derivar en negativa automática. Responder con seguridad, sin dudar.",
+   model:"No, nunca he sufrido daños, violencia ni maltrato en Ecuador. Vivo y trabajo con normalidad en mi país.",
+   kw:["no","nunca","ecuador","normalidad"]},
+  {q:"¿Teme sufrir daños, persecución o maltrato si regresa a ese país?",
+   tip:"CRÍTICA — la segunda pregunta obligatoria 2026. No tiene motivo real para temer volver.",
+   model:"No, no tengo ningún temor de regresar a Ecuador. Es mi país, donde vivo y trabajo.",
+   kw:["no","temor","ecuador","vivo","trabajo"]},
+  {q:"¿Por qué debería darle la visa a usted y no a cualquier otra persona?",
+   tip:"La ley (Sección 214(b)) presume que todo solicitante quiere quedarse — debe demostrar lo contrario con hechos concretos, sin sonar a súplica.",
+   model:"Porque tengo un caso sólido: trayectoria laboral de más de siete años en Ecuador, estudios completados aquí y en España con retorno comprobado, y un historial de seis viajes internacionales previos, siempre regresando a mi país.",
+   kw:["siete años","españa","seis viajes","ecuador","regreso"]},
+  {q:"Usted trabaja para una empresa de Miami y visita a su empleadora en Miami — ¿no es esto en realidad un traslado laboral disfrazado de turismo?",
+   tip:"Niegue con seguridad: relación remota ya establecida desde Ecuador, viaje corto y puntual, sin intención de trabajar físicamente en EE.UU. ni de reubicarse.",
+   model:"No. Ya trabajo de forma remota para esta empresa desde Ecuador, donde vivo. Este viaje es una visita corta y puntual de tres días para una reunión de trabajo, no un traslado ni una solicitud de empleo en Estados Unidos.",
+   kw:["no","remoto","ecuador","corto","puntual"]},
+  {q:"¿Planea buscar trabajo o quedarse a vivir en Estados Unidos durante este viaje?",
+   tip:"No contemple esa opción ni siquiera hipotéticamente — reafirme la obligación de regreso.",
+   model:"No, no es algo que contemple. Mi vida, mi trabajo y mi familia están en Ecuador, y mi vuelo de regreso ya está fijado para el 28 de septiembre.",
+   kw:["no","contemplo","ecuador","regreso","28"]},
+  {q:"¿Cómo puede pagar sus gastos siendo soltera y sin ingresos altos declarados?",
+   tip:"Ingreso de $2,600/mes es estable; viaje corto de 3 días reduce el costo total — responda con seguridad sin sobre-explicar.",
+   model:"Tengo un ingreso mensual estable de dos mil seiscientos dólares, y este es un viaje corto de solo tres días, por lo que puedo cubrir todos mis gastos sin inconveniente.",
+   kw:["2600","estable","tres dias","gastos"]}
+];
+function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
+
+let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const NIVELES=[
+  {qs:QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
+  {qs:QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
+  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'},
+  {qs:QO,nivel:'oficial consular — preguntas trampa',cls:'n3',titulo:'● Modo oficial consular'}
+];
+
+function mkDots(pqs){return pqs.map(function(_,i){return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';}).join('');}
+function localCheck(q,resp){const hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;}
+
+async function check(){
+  const pqs=NIVELES[nivelIdx].qs;
+  const wasFollowup=!!pendingFollowup;
+  const q=pendingFollowup||pqs[qIdx];
+  const respRaw=(document.getElementById('qa').value||'').trim();
+  const resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+  const evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  const historial=answersLog.slice(-3).map(function(a){return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};});
+  let iaResult=null;
+  try{
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,cliente:persona.nombre,pregunta:q.q,respuestaUsuario:respRaw,expedienteContext:expedienteContext,historial:historial})}).catch(function(){});
+    for(let attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        const r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        const d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+  let ok, fbClass, fbEstado, fbMsg;
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial está conforme':iaResult.evaluacion==='riesgo'?'Riesgo — respuesta débil':'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales que el oficial consular espera escuchar.':'Revisa la respuesta modelo. Asegúrate de incluir los detalles específicos de tu expediente.';
+  }
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, model:q.model, kw:q.kw};
+  }else{ pendingFollowup=null; }
+  const fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  const repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
+
+function nextQ(){ if(!pendingFollowup) qIdx++; renderPractica(); }
+function siguienteNivel(){ nivelIdx++; qIdx=0; pendingFollowup=null; renderPractica(); }
+function repetirNivel(){ qIdx=0; pendingFollowup=null; renderPractica(); }
+
+function renderPractica(){
+  const nv=NIVELES[nivelIdx];
+  document.getElementById('hdrProg').innerHTML='Practicando · <strong>Karen</strong>';
+  document.getElementById('prog-fill').style.width=Math.round(((nivelIdx+qIdx/nv.qs.length)/NIVELES.length)*100)+'%';
+  window.scrollTo(0,0);
+  if(qIdx>=nv.qs.length){
+    const t=nv.qs.length; let b=0;
+    for(let i=scores.length-t;i<scores.length;i++){ if(scores[i]) b++; }
+    const hayMas=nivelIdx+1<NIVELES.length;
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'🎉':'💪')+'</div>'
+      +'<div class="welcome-title" style="font-size:1.6rem">Nivel '+nv.nivel+'<br><em>completado</em></div>'
+      +'<p class="welcome-sub">'+b+' de '+t+' respuestas completas.</p>'
+      +(hayMas?'<button class="btn-p" onclick="siguienteNivel()">Siguiente nivel →</button>':'<button class="btn-p" onclick="location.href=\''+PAGE+'\'">Volver al inicio →</button>')
+      +'<button class="btn-s" onclick="repetirNivel()">Repetir este nivel</button></div>';
+    return;
+  }
+  const q=pendingFollowup||nv.qs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="mod-tag practice">Practicando</span><br>'
+    +'<span class="nivel-badge '+nv.cls+'">'+nv.titulo+' — '+(qIdx+1)+' de '+nv.qs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">⚠ El oficial no quedó conforme — insiste en el mismo punto</div>':'')
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(nv.qs)+'</div></div>'
+    +'<p class="q-text">« '+q.q+' »</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aquí..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar →</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div><div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div><div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ()">'+(qIdx+1<nv.qs.length?'Siguiente pregunta →':'Ver resumen →')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="renderEstudio()">← Ver respuestas de nuevo</button>'
+    +'</div>';
+}
+
+function renderEstudio(){
+  document.getElementById('hdrProg').innerHTML='Estudiando · <strong>Karen</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  window.scrollTo(0,0);
+  let html='<div class="screen">'
+    +'<span class="mod-tag" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)">Paso 1 · Estudiar</span>'
+    +'<h1 class="welcome-title" style="font-size:1.8rem">Tus <em>respuestas</em></h1>'
+    +'<p class="welcome-sub">Lee cada pregunta y su respuesta modelo con calma, todas basadas en tu DS-160 real. Cuando ya te las sepas de memoria, pasa a practicar sin ver la respuesta.</p>';
+  NIVELES.forEach(function(nv){
+    const color=nv.cls==='n1'?'var(--green)':nv.cls==='n2'?'var(--amber)':'var(--red)';
+    html+='<div class="study-nivel-hdr" style="color:'+color+'">'+nv.titulo.replace('● ','')+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card"><div class="study-q">« '+q.q+' »</div><div class="study-tip">💡 '+q.tip+'</div><div class="study-a-label">Respuesta modelo</div><div class="study-a">'+q.model+'</div></div>';
+    });
+  });
+  html+='<button class="btn-p" onclick="empezarPractica()">Ya me las sé — empezar práctica →</button></div>';
+  document.getElementById('wrap').innerHTML=html;
+}
+
+function empezarPractica(){ nivelIdx=0; qIdx=0; scores=[]; pendingFollowup=null; renderPractica(); }
+
+function renderPanel(){
+  document.getElementById('hdrProg').innerHTML='Karen <strong>Beltrán</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('wrap').innerHTML=`
+<div class="screen">
+  <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
+  <h1 class="welcome-title">Karen <em>Beltrán</em></h1>
+  <p class="welcome-sub">Esto lo preparé especialmente para usted. Viaja a Miami por un motivo de negocios/turismo, del 25 al 28 de septiembre de 2026, para reunirse con su empleadora Isa García. Es su primer viaje a Estados Unidos, sin rechazos previos y sin familiares en USA — su caso es sólido: 7+ años de trayectoria laboral, estudios en Ecuador y España con retorno comprobado, y un historial de viajes a 6 países siempre con regreso a Ecuador.</p>
+
+  <div style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-size:1.4rem;flex-shrink:0">⏳</div>
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,158,11,.8);margin-bottom:2px">Entrevista Consular</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">${persona.cita}</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">${persona.ubicacion}</div>
+      <div style="font-size:.65rem;color:rgba(245,158,11,.85);margin-top:6px">📩 Te avisaremos por WhatsApp y correo en cuanto el consulado asigne la fecha exacta</div>
+    </div>
+  </div>
+
+  <div class="trip-box">
+    <div class="trip-ttl">📋 Datos del viaje</div>
+    <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">${persona.viaje.destino}</span></div>
+    <div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">${persona.viaje.fechas}</span></div>
+    <div class="trip-row"><span class="trip-l">Hospedaje</span><span class="trip-v">${persona.viaje.hotel}</span></div>
+    <div class="trip-row"><span class="trip-l">Propósito</span><span class="trip-v">${persona.viaje.propósito}</span></div>
+    <div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:#F5C842">${persona.ds160}</span></div>
+  </div>
+
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">✅ Fortalezas del caso</div>
+    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
+      <li>Más de 7 años de trayectoria laboral continua en Ecuador (Telefónica Movistar, 2018-2025)</li>
+      <li>Historial de 6 países visitados en los últimos 5 años, siempre con regreso comprobado a Ecuador</li>
+      <li>Maestría en España (2023-2024) con regreso a Ecuador al finalizar — patrón de retorno consistente</li>
+      <li>Viaje corto y puntual (3 días) — refuerza que no se trata de una reubicación</li>
+    </ul>
+  </div>
+
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠ Modo oficial consular — preguntas trampa</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo, y la pregunta más importante de su caso: por qué su empleadora tiene domicilio en Miami y si esto es en realidad un traslado laboral. Practíquela hasta que le salga natural.</p>
+    <p style="font-size:.7rem;color:rgba(245,158,11,.85);line-height:1.5;margin:0">Recomendaciones del oficial: respuestas breves (2-3 frases), sin elaborar de más · nunca se contradiga aunque repitan la pregunta de otra forma · mantenga la calma y el contacto visual · si no entiende, pida que repitan — no adivine.</p>
+  </div>
+
+  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar</p>
+  <button class="btn-primary" onclick="renderEstudio()">Empezar preparación →</button>
+</div>`;
+}
+
+try{
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({subtipo:'aperturaSimulador',cliente:persona.nombre})}).catch(function(){});
+}catch(e){}
+renderPanel();
+</script>
+</body>
+</html>
