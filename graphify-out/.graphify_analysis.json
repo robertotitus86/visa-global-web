@@ -1,0 +1,384 @@
+{
+  "communities": {
+    "0": [
+      "appscript_portal",
+      "appscript_portal_admingetcases",
+      "appscript_portal_adminupdatecase",
+      "appscript_portal_alertarrobertodiagnostico",
+      "appscript_portal_analizards160anteriores",
+      "appscript_portal_anthropic_key",
+      "appscript_portal_bot_secret",
+      "appscript_portal_bothistory",
+      "appscript_portal_builddiagnosticoprompt",
+      "appscript_portal_buscarportelefono",
+      "appscript_portal_callgeminidiag",
+      "appscript_portal_chatmessage",
+      "appscript_portal_col_crm",
+      "appscript_portal_col_resumen",
+      "appscript_portal_doget",
+      "appscript_portal_dopost",
+      "appscript_portal_enviaremailanalizador",
+      "appscript_portal_enviaremaildiagnostico",
+      "appscript_portal_evaluarcomooficialconsular",
+      "appscript_portal_extractards160",
+      "appscript_portal_gemini_key",
+      "appscript_portal_generarhtmlguiads160",
+      "appscript_portal_generarhtmlreporte",
+      "appscript_portal_getdraftaction",
+      "appscript_portal_getevaloficial",
+      "appscript_portal_getextraction",
+      "appscript_portal_guardarbotlog",
+      "appscript_portal_guardarchatlog",
+      "appscript_portal_guardardiagnostico",
+      "appscript_portal_guardarintentopayphone",
+      "appscript_portal_guardarleadmagnet",
+      "appscript_portal_hojas",
+      "appscript_portal_iniciarevaluacionoficial",
+      "appscript_portal_llamarclaudeoficial",
+      "appscript_portal_manejarscreening",
+      "appscript_portal_obtenersiguientepaso",
+      "appscript_portal_ok",
+      "appscript_portal_parsediagnosticojson",
+      "appscript_portal_payphone_store_id",
+      "appscript_portal_payphone_token",
+      "appscript_portal_payphoneprepare",
+      "appscript_portal_payphoneverify",
+      "appscript_portal_reconstructfromdetalle",
+      "appscript_portal_rundiagnostico",
+      "appscript_portal_savedraftaction",
+      "appscript_portal_servircarta",
+      "appscript_portal_servirguiads160",
+      "appscript_portal_testsistema"
+    ],
+    "1": [
+      "admin_checkpin",
+      "admin_creacaso",
+      "admin_deletecase",
+      "admin_html",
+      "admin_loadlocal",
+      "admin_localstorage_merge_bug",
+      "admin_opendetail",
+      "admin_rendercard",
+      "admin_renderkanban",
+      "admin_savelocal",
+      "admin_synccases",
+      "admin_updatecasefield",
+      "claude_md_visa_global_web",
+      "design_gold_dark_strategy",
+      "design_md",
+      "ds160_buildsq",
+      "ds160_enviarsheets",
+      "ds160_html",
+      "guia_proceso_visa_usa_pdf",
+      "index_animcount",
+      "index_html",
+      "index_showtoast",
+      "portal_changestep",
+      "portal_html",
+      "portal_loaddraft",
+      "portal_savedraft",
+      "portal_submitform",
+      "simulador_html",
+      "visa_global_appscript_backend",
+      "visa_global_crm_flow",
+      "visa_global_github_pages_cdn"
+    ],
+    "2": [
+      "appscript_portal_adminnewcase",
+      "appscript_portal_analizards160anterioresauto",
+      "appscript_portal_analizarperfil",
+      "appscript_portal_analizarperfilfamiliar",
+      "appscript_portal_analizarrechazo",
+      "appscript_portal_construirperfil",
+      "appscript_portal_construirpromptfamiliar",
+      "appscript_portal_formatearcabecera",
+      "appscript_portal_generarcartahtml",
+      "appscript_portal_generards160prefill",
+      "appscript_portal_generarurlreporte",
+      "appscript_portal_getorcreatesheet",
+      "appscript_portal_guardarcarta",
+      "appscript_portal_guardarguiads160",
+      "appscript_portal_llamarclaudeia",
+      "appscript_portal_manejarintakefamiliar",
+      "appscript_portal_manejarportallegacy",
+      "appscript_portal_notificarclienteintake",
+      "appscript_portal_notificarroberto",
+      "appscript_portal_notificarrobertointakefamiliar",
+      "appscript_portal_reanalizar"
+    ],
+    "3": [
+      "diagnostico_enviardiagnostico",
+      "diagnostico_html",
+      "diagnostico_redirectpayphone",
+      "diagnostico_renderreport",
+      "diagnostico_verificarretornopayphone",
+      "intake_confetti",
+      "intake_enviar",
+      "intake_html",
+      "intake_startq",
+      "portal_intake_screening_html",
+      "product_one_question_at_a_time",
+      "screening_gostep",
+      "screening_showresult",
+      "screening_submitform",
+      "simulador_buildreport",
+      "simulador_generatereport",
+      "simulador_loadquestion",
+      "simulador_nextquestion"
+    ],
+    "4": [
+      "appscript_diagnostico_addon",
+      "appscript_diagnostico_addon_alertarrobertodiagnostico",
+      "appscript_diagnostico_addon_builddiagnosticoprompt",
+      "appscript_diagnostico_addon_callgeminichat",
+      "appscript_diagnostico_addon_chatmessage",
+      "appscript_diagnostico_addon_enviaremaildiagnostico",
+      "appscript_diagnostico_addon_guardarchat",
+      "appscript_diagnostico_addon_guardardiagnostico",
+      "appscript_diagnostico_addon_guardarintentopayphone",
+      "appscript_diagnostico_addon_parsediagnosticojson",
+      "appscript_diagnostico_addon_payphone_store_id",
+      "appscript_diagnostico_addon_payphone_token",
+      "appscript_diagnostico_addon_payphoneprepare",
+      "appscript_diagnostico_addon_payphoneverify",
+      "appscript_diagnostico_addon_rundiagnostico"
+    ],
+    "5": [
+      "n8n_scoring_code",
+      "n8n_scoring_code_bien",
+      "n8n_scoring_code_civil",
+      "n8n_scoring_code_credito",
+      "n8n_scoring_code_familiares_indog",
+      "n8n_scoring_code_hijos",
+      "n8n_scoring_code_ingresos",
+      "n8n_scoring_code_laboral",
+      "n8n_scoring_code_mensajes",
+      "n8n_scoring_code_rechazos",
+      "n8n_scoring_code_scoretotal",
+      "n8n_scoring_code_viajes"
+    ],
+    "6": [
+      "admin_save_validate_order_bug",
+      "informes_readme",
+      "intake_ds160_html",
+      "intake_ds160_regenerarinforme",
+      "intake_ds160_save",
+      "intake_ds160_savetocloud",
+      "intake_ds160_startautosave",
+      "intake_ds160_submitform",
+      "intake_ds160_validateandcontinue",
+      "product_md",
+      "product_we_handle_everything_promise"
+    ],
+    "7": [
+      "appscript_ds160",
+      "appscript_ds160_analizarconia",
+      "appscript_ds160_anthropic_key",
+      "appscript_ds160_col_resumen",
+      "appscript_ds160_doget",
+      "appscript_ds160_dopost",
+      "appscript_ds160_formatearcabecera",
+      "appscript_ds160_getorcreatesheet",
+      "appscript_ds160_notificarroberto",
+      "appscript_ds160_ok",
+      "appscript_ds160_sheet_id"
+    ],
+    "8": [
+      "chat",
+      "chat_addmsg",
+      "chat_clearquickreplies",
+      "chat_greet",
+      "chat_hidetyping",
+      "chat_inject",
+      "chat_scrollbottom",
+      "chat_sendmessage",
+      "chat_setquickreplies",
+      "chat_showtyping"
+    ],
+    "9": [
+      "appscript_followups",
+      "appscript_followups_cancelarfollowups",
+      "appscript_followups_cols",
+      "appscript_followups_creartrigger",
+      "appscript_followups_dopost",
+      "appscript_followups_ejecutarfollowupspendientes",
+      "appscript_followups_getorcreatefollowupsheet",
+      "appscript_followups_guardarfollowup"
+    ],
+    "10": [
+      "intake_ds160_applyextracteddata",
+      "intake_ds160_extractpdftext",
+      "intake_ds160_handlepdfupload",
+      "intake_ds160_perTraveler_pdf_bug"
+    ],
+    "11": [
+      "admin_handlepdfdrop",
+      "admin_procesarpdfs",
+      "admin_subirpdfs"
+    ],
+    "12": [
+      "fix_viajes"
+    ]
+  },
+  "cohesion": {
+    "0": 0.08776595744680851,
+    "1": 0.07956989247311828,
+    "2": 0.14761904761904762,
+    "3": 0.1111111111111111,
+    "4": 0.21904761904761905,
+    "5": 0.16666666666666666,
+    "6": 0.21818181818181817,
+    "7": 0.2909090909090909,
+    "8": 0.4,
+    "9": 0.35714285714285715,
+    "10": 0.6666666666666666,
+    "11": 0.6666666666666666,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "appscript_portal_ok",
+      "label": "ok()",
+      "degree": 20
+    },
+    {
+      "id": "appscript_portal_doget",
+      "label": "doGet()",
+      "degree": 17
+    },
+    {
+      "id": "appscript_portal_dopost",
+      "label": "doPost()",
+      "degree": 13
+    },
+    {
+      "id": "appscript_portal_manejarintakefamiliar",
+      "label": "manejarIntakeFamiliar()",
+      "degree": 13
+    },
+    {
+      "id": "admin_html",
+      "label": "admin.html (CRM)",
+      "degree": 12
+    },
+    {
+      "id": "claude_md_visa_global_web",
+      "label": "visa-global-web Project Instructions",
+      "degree": 10
+    },
+    {
+      "id": "appscript_portal_manejarportallegacy",
+      "label": "manejarPortalLegacy()",
+      "degree": 9
+    },
+    {
+      "id": "appscript_portal_getorcreatesheet",
+      "label": "getOrCreateSheet()",
+      "degree": 9
+    },
+    {
+      "id": "appscript_portal_formatearcabecera",
+      "label": "formatearCabecera()",
+      "degree": 9
+    },
+    {
+      "id": "appscript_portal_rundiagnostico",
+      "label": "runDiagnostico()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Guía Proceso Visa USA (PDF)",
+      "target": "ds160.html (Interactive DS-160 Guide)",
+      "source_files": [
+        "guia-proceso-visa-usa.pdf",
+        "ds160.html"
+      ],
+      "confidence": "AMBIGUOUS",
+      "relation": "conceptually_related_to",
+      "why": "ambiguous connection - not explicitly stated in source; crosses file types (paper ↔ doc); connects across different repos/directories; peripheral node `Guía Proceso Visa USA (PDF)` unexpectedly reaches hub `ds160.html (Interactive DS-160 Guide)`"
+    },
+    {
+      "source": "Guía Proceso Visa USA (PDF)",
+      "target": "simulador.html (Eligibility Simulator)",
+      "source_files": [
+        "guia-proceso-visa-usa.pdf",
+        "simulador.html"
+      ],
+      "confidence": "AMBIGUOUS",
+      "relation": "conceptually_related_to",
+      "why": "ambiguous connection - not explicitly stated in source; crosses file types (paper ↔ doc); connects across different repos/directories"
+    },
+    {
+      "source": "ds160.html (Interactive DS-160 Guide)",
+      "target": "intake-ds160.html (DS-160 Intake Form)",
+      "source_files": [
+        "ds160.html",
+        "intake-ds160.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "intake.html (New Client Intake Form)",
+      "target": "goStep",
+      "source_files": [
+        "intake.html",
+        "screening.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "visa-global-web Project Instructions",
+      "target": "screening.html (Pre-onboarding Screening)",
+      "source_files": [
+        "CLAUDE.md",
+        "screening.html"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities; peripheral node `screening.html (Pre-onboarding Screening)` unexpectedly reaches hub `visa-global-web Project Instructions`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Guía Proceso Visa USA (PDF)` and `ds160.html (Interactive DS-160 Guide)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Guía Proceso Visa USA (PDF)` and `simulador.html (Eligibility Simulator)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `visa-global-web Project Instructions` connect `Community 1` to `Community 3`?",
+      "why": "High betweenness centrality (0.061) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `ds160.html (Interactive DS-160 Guide)` connect `Community 1` to `Community 6`?",
+      "why": "High betweenness centrality (0.028) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 3 inferred relationships involving `admin.html (CRM)` (e.g. with `Google Apps Script Backend (appscript_*.js)` and `Gold-on-Dark Color Strategy (70/30 rule)`) actually correct?",
+      "why": "`admin.html (CRM)` has 3 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `PAYPHONE_TOKEN`, `PAYPHONE_STORE_ID`, `ANTHROPIC_KEY` to the rest of the system?",
+      "why": "51 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.08776595744680851 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
