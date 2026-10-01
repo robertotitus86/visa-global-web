@@ -251,7 +251,7 @@ a{text-decoration:none;color:inherit}
       </div>
 
       <div class="stats">
-        <div class="stat hi"><div class="stat-val">15</div><div class="stat-label">Preguntas</div></div>
+        <div class="stat hi"><div class="stat-val">22</div><div class="stat-label">Preguntas hoy</div></div>
         <div class="stat"><div class="stat-val">B1/B2</div><div class="stat-label">Tipo de visa</div></div>
         <div class="stat"><div class="stat-val">3</div><div class="stat-label">PDFs listos</div></div>
         <div class="stat"><div class="stat-val">18</div><div class="stat-label">Días para la cita</div></div>
@@ -337,6 +337,12 @@ a{text-decoration:none;color:inherit}
         <span class="q-num">15</span><span class="q-text">What do you do exactly in your job?</span>
         <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I provide legal advisory to the presidency and executive direction, draft and review contracts and administrative resolutions, and represent the institution in judicial and administrative processes involving Ecuador's municipal governments.</div>
       </div>
+
+      <div class="page-title" style="padding-top:28px">Preguntas <em>trampa</em> · octubre 2026</div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:20px">
+        Estas dos preguntas son <strong>obligatorias desde el 28 de abril de 2026</strong> en todos los consulados. Responde corto y directo. Las demás cambian cada día: son las que más tropiezan a quienes viajan por trabajo.
+      </p>
+      <div id="trampa"></div>
     </div>
 
     <!-- DOCUMENTOS -->
@@ -415,6 +421,38 @@ function showPage(id){
   if(pg){pg.classList.add('active');document.getElementById('content').scrollTop=0}
   document.querySelectorAll('[data-page="'+id+'"]').forEach(t=>t.classList.add('active'));
 }
+
+(function(){
+  var fijas=[
+   ["Have you suffered harm or mistreatment in Ecuador, your country of nationality or last habitual residence?","No."],
+   ["Do you fear harm or mistreatment if you return to Ecuador?","No. (Nueva regla 2026: cualquier respuesta distinta de un “No” claro, o dudar, puede terminar la entrevista con visa negada. Responde sin pausa.)"]
+  ];
+  var banco=[
+   ["Why is a government institution paying for a trip that you call business AND tourism?","The purpose is the ICMA annual conference, which is related to my work advising municipalities. Tourism is only my free time around it. My employer covers the trip."],
+   ["Will you work or receive any payment in the United States?","No. I will attend the conference on behalf of my employer and I am paid only in Ecuador."],
+   ["Do you have proof that AME is paying for your trip?","I can show my employment certificate from AME and my recent pay stub. (Lleva el certificado laboral y, si AME te lo da, una carta que confirme que cubre el viaje.)"],
+   ["You recently joined AME. What happens to your job if you travel?","I have over 12 years of continuous public service, my position is stable, and this trip is part of my work for the institution."],
+   ["Why did you leave Banco Central after so many years?","(Dato tuyo: responde con la razón real, en una frase, sin inventar. El oficial compara con tu DS-160.)"],
+   ["Who will take care of your children while you are away?","My husband, Jorge. It is only a six-day trip. (Confirma con Roberto con quién se quedan realmente.)"],
+   ["Why are you not taking your husband or your children?","Because it is a short work trip and my family stays in Ecuador. I return on October 22nd."],
+   ["Do you have any relatives or friends in the United States?","(Responde exactamente lo que pusiste en el DS-160. Si no tienes, di: “No, my only contact is Sergio Arredondo from ICMA, a professional contact.”)"],
+   ["What exactly will you do each day of your trip?","Attend the conference sessions related to municipal management, and use my free time to see Long Beach, near my hotel."],
+   ["Why have you never traveled to the United States before?","I never had a professional reason to travel there until this conference."],
+   ["How much does the trip cost and how will you cover your personal expenses?","My employer covers the trip. For personal expenses I have my salary of $3,247 per month and my own bank account. (Confirma el monto de tus ahorros.)"],
+   ["Which social media accounts do you use?","(Los mismos que declaraste en el DS-160, sin omitir ninguno. Omitir una cuenta de los últimos 5 años puede causar negación.)"],
+   ["Has anyone told you what to say in this interview?","I received help preparing my documents, but my answers are my own and everything I say is true."],
+   ["Do you plan to study, work or look for a job in the United States?","No. I already have a stable job and a Master's degree. My life and my family are in Ecuador."],
+   ["Do you have a return ticket?","Yes. My return flight to Ecuador is on October 22nd, 2026."],
+   ["Can you prove your income?","Yes. My salary is $3,247 per month, and I can show my pay stubs and my last three bank statements."],
+   ["What will you talk about at ICMA? Who invited you?","(Dato tuyo: explica en una frase quién te registró en la conferencia y qué temas te interesan. Sergio Arredondo es tu contacto en ICMA.)"],
+   ["Why would an officer believe you will come back?","Because my husband, my two children, my parents, my home and my government job are all in Ecuador."]
+  ];
+  function card(n,q,a){return '<div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)"><span class="q-num">'+n+'</span><span class="q-text">'+q+'</span><div class="q-answer"><div class="q-tag">Respuesta modelo</div>'+a+'</div></div>';}
+  var d=new Date(), dia=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5), N=5, h='', i, n=16;
+  fijas.forEach(function(f){h+=card(n++,f[0],f[1]);});
+  for(i=0;i<N;i++){var f=banco[(dia*N+i)%banco.length];h+=card(n++,f[0],f[1]);}
+  document.getElementById('trampa').innerHTML=h;
+})();
 document.querySelectorAll('.tab,.bn-item').forEach(el=>{
   el.addEventListener('click',()=>showPage(el.dataset.page));
 });
