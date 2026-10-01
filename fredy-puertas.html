@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Fredy Mera — Visa USA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;height:100%}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:#05101C;
+  color:#CBD5E1;height:100%;overflow:hidden;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+:root{
+  --gold:#F5C842;--gold2:#C8861A;--blue:#3B82F6;
+  --purple:#7C3AED;--green:#10B981;--red:#EF4444;
+  --card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);
+  --muted:rgba(255,255,255,.4);--serif:'Playfair Display',serif;
+}
+
+.app{display:flex;flex-direction:column;height:100dvh;max-width:100%;position:relative}
+
+.topbar{
+  flex-shrink:0;height:60px;background:rgba(5,16,28,.98);
+  border-bottom:1px solid var(--border);backdrop-filter:blur(20px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;z-index:50;
+}
+.tb-logo{font-family:var(--serif);font-size:.875rem;font-weight:700;color:#F1F5F9}
+.tb-logo em{color:var(--gold);font-style:italic}
+.tb-pill{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--gold);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);
+  padding:4px 10px;border-radius:99px;display:flex;align-items:center;gap:5px}
+.tb-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);
+  animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.2}}
+
+.tabs{
+  flex-shrink:0;height:48px;background:rgba(5,16,28,.95);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:stretch;padding:0 12px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  display:flex;align-items:center;gap:7px;padding:0 16px;
+  font-size:.78rem;font-weight:600;color:var(--muted);
+  border-bottom:2px solid transparent;white-space:nowrap;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover:not(.active){color:rgba(255,255,255,.65)}
+.tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.td-g{background:var(--green)}
+.td-b{background:var(--blue)}
+.td-p{background:var(--purple)}
+.td-gold{background:var(--gold)}
+.td-r{background:var(--red)}
+
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.page{display:none;padding:20px;max-width:960px;margin:0 auto}
+.page.active{display:block}
+
+.home-hero{
+  background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
+  border:1px solid rgba(245,200,66,.15);border-radius:20px;padding:28px;
+  margin-bottom:16px;position:relative;overflow:hidden;
+}
+.home-eyebrow{font-size:.62rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.15em;color:rgba(245,200,66,.6);margin-bottom:10px}
+.home-title{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.8rem);
+  font-weight:700;color:#F1F5F9;line-height:1.15;margin-bottom:8px}
+.home-title em{color:var(--gold);font-style:italic}
+.home-sub{font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:24px;max-width:440px}
+.home-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#05101C;
+  font-weight:800;font-size:.9rem;padding:14px 28px;border-radius:100px;
+  transition:all .25s;box-shadow:0 4px 24px rgba(245,200,66,.2);border:none;cursor:pointer}
+.btn-gold:hover,.btn-gold:active{transform:scale(1.03);
+  box-shadow:0 8px 32px rgba(245,200,66,.35)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.stat-val{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:#F1F5F9;margin-bottom:3px}
+.stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.stat.hi{border-color:rgba(245,200,66,.2);background:rgba(245,200,66,.05)}
+.stat.hi .stat-val{color:var(--gold)}
+
+.d-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:600px){.d-grid{grid-template-columns:repeat(3,1fr)}}
+.dcard{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:22px;display:flex;flex-direction:column;gap:12px;
+  transition:all .25s;text-decoration:none;color:inherit}
+.dcard:hover{border-color:rgba(59,130,246,.3);transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.d-icon{width:44px;height:44px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem}
+.da{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.18)}
+.db{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.18)}
+.dc{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.18)}
+.d-name{font-size:.9rem;font-weight:700;color:#F1F5F9}
+.d-desc{font-size:.78rem;color:var(--muted);line-height:1.6;flex:1}
+.d-dl{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.25);
+  display:flex;align-items:center;gap:5px;margin-top:auto;transition:color .15s}
+.dcard:hover .d-dl{color:var(--blue)}
+
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:20px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+.q-card:hover{border-color:rgba(245,200,66,.25)}
+.q-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+  border-radius:50%;background:rgba(245,200,66,.12);color:var(--gold);font-weight:800;
+  font-size:.72rem;margin-right:10px}
+.q-text{font-size:.92rem;font-weight:700;color:#F1F5F9;display:inline}
+.q-answer{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);
+  font-size:.82rem;color:var(--muted);line-height:1.7}
+.q-card.open .q-answer{display:block}
+.q-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:rgba(59,130,246,.8);margin-bottom:6px}
+
+.zcard{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(124,58,237,.04));
+  border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:24px}
+.z-date{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:#F1F5F9;margin-bottom:4px}
+.z-time{font-size:.9rem;font-weight:700;color:#A78BFA;margin-bottom:12px}
+.z-desc{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.rem-card{background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(245,200,66,.03));
+  border:1px solid rgba(245,200,66,.18);border-radius:18px;padding:24px;
+  display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:20px}
+@media(max-width:500px){.rem-card{grid-template-columns:1fr}}
+.rem-ico{width:52px;height:52px;border-radius:14px;
+  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.rem-title{font-size:.9rem;font-weight:700;color:#F1F5F9;margin-bottom:6px}
+.rem-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+.contact-card{background:linear-gradient(135deg,rgba(37,211,102,.1),rgba(37,211,102,.04));
+  border:1px solid rgba(37,211,102,.2);border-radius:18px;padding:28px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;margin-top:16px}
+.contact-info .ctitle{font-family:var(--serif);font-size:1.1rem;font-weight:700;
+  color:#F1F5F9;margin-bottom:6px}
+.contact-info .csub{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:320px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  font-weight:700;font-size:.9rem;padding:14px 28px;border-radius:100px;
+  transition:all .25s;white-space:nowrap;box-shadow:0 4px 24px rgba(37,211,102,.2)}
+.wa-btn:hover,.wa-btn:active{transform:scale(1.04);
+  box-shadow:0 12px 36px rgba(37,211,102,.3)}
+
+.page-title{font-family:var(--serif);font-size:clamp(1.4rem,4vw,2rem);
+  font-weight:700;color:#F1F5F9;margin-bottom:6px;padding:4px 0 16px}
+.page-title em{color:var(--gold);font-style:italic}
+.sdiv{height:1px;background:var(--border);margin:24px 0}
+
+.bottom-nav{
+  display:none;flex-shrink:0;height:64px;background:rgba(5,16,28,.98);
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;color:var(--muted);transition:color .2s;padding:8px 0}
+.bn-item.active{color:var(--gold)}
+.bn-icon{font-size:1.2rem;line-height:1}
+.bn-label{font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+
+@media(max-width:768px){
+  .tabs{display:none}
+  .bottom-nav{display:grid}
+  .content{padding-bottom:0}
+  .page{padding:16px}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none}
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh}
+  .content{overflow:visible;height:auto}
+  .page{display:none;min-height:60vh}
+  .page.active{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <div class="topbar">
+    <div class="tb-logo">Asesoría <em>Visa</em> Global</div>
+    <div class="tb-pill">Fredy Mera</div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-page="home"><span class="tab-dot td-gold"></span>Inicio</div>
+    <div class="tab" data-page="simulador"><span class="tab-dot td-b"></span>Simulador</div>
+    <div class="tab" data-page="documentos"><span class="tab-dot td-p"></span>Documentos</div>
+    <div class="tab" data-page="zoom"><span class="tab-dot td-r"></span>Zoom & Recordatorios</div>
+    <div class="tab" data-page="contacto"><span class="tab-dot td-g"></span>Contacto</div>
+  </div>
+
+  <div class="content" id="content">
+
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+
+      <div id="banner-cita" style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(245,200,66,.05));border:1.5px solid rgba(245,200,66,.4);border-radius:16px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+        <div style="font-size:2rem;flex-shrink:0">🏛️</div>
+        <div style="flex:1">
+          <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,200,66,.7);margin-bottom:3px">Entrevista Consular Confirmada</div>
+          <div style="font-weight:700;font-size:.95rem;color:#fff">Jueves 8 de octubre 2026 · 9:30 AM</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:2px">Embajada de EE.UU. Quito · Avigiras E12-170, frente al Hospital SOLCA</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div id="dias-cita" style="font-size:1.8rem;font-weight:700;color:#F5C842;line-height:1">--</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">días</div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var hoy=new Date(), cita=new Date('2026-10-08');
+        var dias=Math.ceil((cita-hoy)/(1000*60*60*24));
+        document.getElementById('dias-cita').textContent=dias>0?dias:'HOY';
+      })();
+      </script>
+
+      <div class="hero-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div class="home-hero" style="margin-bottom:0">
+          <div class="home-eyebrow">Portal de preparación · Visa USA B1/B2</div>
+          <h1 class="home-title">Fredy<br><em>Mera Puertas</em></h1>
+          <p class="home-sub" style="margin-bottom:20px">Simulador, documentos y recordatorios diarios para llegar lista a tu entrevista.</p>
+          <div class="home-btns">
+            <a class="btn-gold" href="#" onclick="showPage('simulador');return false;">Abrir simulador →</a>
+            <a class="btn-gold" style="background:transparent;border:1px solid rgba(245,200,66,.4);color:var(--gold);box-shadow:none" href="brochure-fredy-puertas-icma.html">Su viaje a Long Beach →</a>
+          </div>
+        </div>
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:0">
+          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:rgba(59,130,246,.8);margin-bottom:14px">📅 Fechas importantes</div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🇺🇸 Entrevista</span><span style="font-weight:700;color:#F5C842">8 oct 2026 · 9:30 AM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">🏛️ Consulado</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:150px">Quito · frente al SOLCA</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">⚠️ Límite reagenda</span><span style="font-weight:700;color:#F59E0B">6 oct 2026, 5:00 PM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.82rem"><span style="color:rgba(255,255,255,.4)">✈️ Viaje a USA</span><span style="font-weight:700;color:#F1F5F9">16–22 oct 2026</span></div>
+          <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:.82rem"><span style="color:rgba(255,255,255,.4)">📍 Destino</span><span style="font-weight:700;color:#F1F5F9;text-align:right;max-width:140px">Long Beach, California</span></div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat hi"><div class="stat-val">22</div><div class="stat-label">Preguntas hoy</div></div>
+        <div class="stat"><div class="stat-val">B1/B2</div><div class="stat-label">Tipo de visa</div></div>
+        <div class="stat"><div class="stat-val">3</div><div class="stat-label">PDFs listos</div></div>
+        <div class="stat"><div class="stat-val">18</div><div class="stat-label">Días para la cita</div></div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.04));border:1.5px solid rgba(16,185,129,.25);border-radius:20px;padding:20px;margin-bottom:12px">
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#34D399;margin-bottom:12px">Tu perfil es sólido</div>
+        <ul style="margin:0;padding-left:18px;font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.9">
+          <li>Dirige y representa legalmente a la Asociación de Municipalidades Ecuatorianas (AME) — cargo de alta responsabilidad, ingreso de $4,283 al mes</li>
+          <li>Trayectoria pública: Gerente Cantonal de BanEcuador (2020-2021) y Coordinador General del GAD de Muisne (2023-2026)</li>
+          <li>Ingeniero en Contabilidad y Auditoría y Máster en Administración Pública (UNEMI, 2025-2026)</li>
+          <li>Casado, su esposa (Edie Carriel) vive con él en Esmeraldas; sus padres también residen en Ecuador — vínculo familiar fuerte</li>
+          <li>Viajes internacionales previos (Colombia, China) sin ninguna irregularidad migratoria</li>
+          <li>Viaje corto y puntual (6 días), pagado por su empleador, con contacto profesional verificable (ICMA, Washington D.C.)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SIMULADOR -->
+    <div class="page" id="page-simulador">
+      <div class="page-title">Simulador de <em>entrevista</em></div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:20px">
+        Toca cada pregunta para ver la respuesta modelo basada en tu DS-160 real. Practica en voz alta hasta que salga natural — el oficial nota cuando algo suena memorizado.
+      </p>
+
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">1</span><span class="q-text">What is the purpose of your trip to the United States?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I'm traveling to Long Beach, California for six days, from October 16th to 22nd, for business and tourism purposes — I'm attending the ICMA annual conference and I have a professional contact there.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">2</span><span class="q-text">How long have you worked at the Asociación de Municipalidades Ecuatorianas?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I recently joined AME, where I lead and legally represent the institution. Before that I was General Coordinator at the municipal government of Muisne. (Confirma tu fecha exacta de ingreso a AME.)</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">3</span><span class="q-text">What is your monthly salary?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>My monthly salary is $4,283.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">4</span><span class="q-text">Are you married? What does your wife do?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>Yes, I'm married to Edie Harry Carriel Mejía. She lives with me in Esmeraldas, Ecuador — same home address. (Prepara a qué se dedica ella: el DS-160 no lo dice.)</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">5</span><span class="q-text">Do you have children? How old are they?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>(Dato tuyo: el DS-160 no registra hijos. Responde con la verdad: cuántos y qué edades. Si tienes hijos, lleva sus actas de nacimiento.)</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">6</span><span class="q-text">Who is paying for your trip?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>My employer, the Asociación de Municipalidades Ecuatorianas, is covering the cost of this trip — it's tied to my professional work with ICMA.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">7</span><span class="q-text">Have you traveled outside Ecuador before? Where?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>Yes, to Colombia and China in the last five years, and I always returned to Ecuador on schedule. (Prepara el motivo de cada viaje.)</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">8</span><span class="q-text">Who is Sergio Arredondo / what is ICMA?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>Sergio Arredondo is a business associate at ICMA (International City/County Management Association), an organization related to municipal management — relevant to my work supporting municipal governments in Ecuador.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">9</span><span class="q-text">Do you plan to return to Ecuador after your trip?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>Yes, absolutely. I hold a stable government position, my wife and my parents are in Ecuador, and my return flight is on October 22nd.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">10</span><span class="q-text">Have you ever been denied a US visa or been to the US before?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>No, this is my first time applying for a US visa and I've never been to the United States.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">11</span><span class="q-text">Where will you be staying in the US?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>At 185 Atlantic Ave, Long Beach, California.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">12</span><span class="q-text">What did you study? Where?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I studied Accounting and Auditing Engineering at Universidad Luis Vargas Torres in Esmeraldas, and I completed a Master's degree in Public Administration, Institutional Development, at Universidad Estatal de Milagro between 2025 and 2026.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">13</span><span class="q-text">Where do you live, and where do you work?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I live in Esmeraldas with my wife, and my workplace, AME, is in Quito. (Dato tuyo: explica en una frase cómo te organizas entre Esmeraldas y Quito.)</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">14</span><span class="q-text">Do you have other ties to Ecuador?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>Yes. My wife, my parents and my home are in Ecuador, and I have a stable government position at AME.</div>
+      </div>
+      <div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)">
+        <span class="q-num">15</span><span class="q-text">What do you do exactly in your job?</span>
+        <div class="q-answer"><div class="q-tag">Respuesta modelo</div>I lead and legally represent the institution before public, private, national and international entities. I plan and supervise technical assistance programs for Ecuador's municipal governments, manage international cooperation agreements, supervise the legal, financial, administrative and environmental areas, and manage the institutional budget.</div>
+      </div>
+      <div class="page-title" style="padding-top:28px">Preguntas <em>trampa</em> · octubre 2026</div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:20px">
+        Estas dos preguntas son <strong>obligatorias desde el 28 de abril de 2026</strong> en todos los consulados. Responde corto y directo. Las demás cambian cada día: son las que más tropiezan a quienes viajan por trabajo.
+      </p>
+      <div id="trampa"></div>
+    </div>
+
+    <!-- DOCUMENTOS -->
+    <div class="page" id="page-documentos">
+      <div class="page-title"><em>Documentos</em> descargables</div>
+      <div class="d-grid">
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/guia-simulador-fredy-puertas.pdf" target="_blank">
+          <div class="d-icon da">📋</div>
+          <div class="d-name">Guía del Simulador</div>
+          <div class="d-desc">Cómo usar el portal y el plan de práctica diaria recomendado.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/plan-fredy-puertas.pdf" target="_blank">
+          <div class="d-icon db">📅</div>
+          <div class="d-name">Plan de Acción</div>
+          <div class="d-desc">Fortalezas de tu perfil y etapas semana a semana hasta la entrevista.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+        <a class="dcard" href="https://www.asesoriadevisadosglobal.com/checklist-fredy-puertas.pdf" target="_blank">
+          <div class="d-icon dc">✅</div>
+          <div class="d-name">Checklist de Documentos</div>
+          <div class="d-desc">Todo lo que debes llevar el día de tu cita en el consulado.</div>
+          <div class="d-dl">↓ Descargar PDF</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ZOOM -->
+    <div class="page" id="page-zoom">
+      <div class="page-title">Preparación y <em>recordatorios</em></div>
+      <div class="zcard">
+        <div class="z-date">Jueves 8 de octubre 2026</div>
+        <div class="z-time">🕤 9:30 AM · hora Ecuador</div>
+        <div class="z-desc">Tu entrevista consular en la Embajada de EE.UU. en Quito (Avigiras E12-170, frente al Hospital SOLCA). Llega máximo 15 minutos antes, no más.</div>
+      </div>
+      <div class="rem-card">
+        <div class="rem-ico">📧</div>
+        <div>
+          <div class="rem-title">Recordatorios automáticos diarios</div>
+          <div class="rem-desc">Recibirás un correo todos los días con el link a tu simulador y un consejo del día, hasta tu entrevista.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div class="page" id="page-contacto">
+      <div class="page-title">¿Tienes <em>preguntas?</em></div>
+      <p style="font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:8px">Roberto está disponible por WhatsApp para cualquier consulta sobre el proceso, los documentos o tu preparación.</p>
+      <div class="contact-card">
+        <div class="contact-info">
+          <div class="ctitle">Escribir a Roberto</div>
+          <div class="csub">Respuesta en menos de 24 horas · +593 99 444 2512</div>
+        </div>
+        <a class="wa-btn" href="https://wa.me/593994442512?text=Hola+Roberto%2C+soy+Fredy+Mera.+Tengo+una+consulta." target="_blank">
+          💬 WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="bottom-nav" id="bnav">
+    <div class="bn-item active" data-page="home"><div class="bn-icon">🏠</div><div class="bn-label">Inicio</div></div>
+    <div class="bn-item" data-page="simulador"><div class="bn-icon">🎯</div><div class="bn-label">Simulador</div></div>
+    <div class="bn-item" data-page="documentos"><div class="bn-icon">📄</div><div class="bn-label">Docs</div></div>
+    <div class="bn-item" data-page="zoom"><div class="bn-icon">📅</div><div class="bn-label">Cita</div></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab,.bn-item').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg){pg.classList.add('active');document.getElementById('content').scrollTop=0}
+  document.querySelectorAll('[data-page="'+id+'"]').forEach(t=>t.classList.add('active'));
+}
+
+(function(){
+  var fijas=[
+   ["Have you suffered harm or mistreatment in Ecuador, your country of nationality or last habitual residence?","No."],
+   ["Do you fear harm or mistreatment if you return to Ecuador?","No. (Nueva regla 2026: cualquier respuesta distinta de un “No” claro, o dudar, puede terminar la entrevista con visa negada. Responde sin pausa.)"]
+  ];
+  var banco=[
+   ["Why is a government institution paying for a trip that you call business AND tourism?","The purpose is the ICMA annual conference, which is related to my work supporting municipalities. Tourism is only my free time around it. My employer covers the trip."],
+   ["Will you work or receive any payment in the United States?","No. I will attend the conference on behalf of my employer and I am paid only in Ecuador."],
+   ["Do you have proof that AME is paying for your trip?","I can show my employment certificate from AME and my recent pay stub. (Lleva el certificado laboral y, si AME te lo da, una carta que confirme que cubre el viaje.)"],
+   ["You left your previous job on September 9th. What happened with it?","I was General Coordinator at the municipal government of Muisne until September 9, 2026, and then I joined AME. (Explica en una frase por qué cambiaste, con la verdad.)"],
+   ["Why did you leave Muisne after three years?","(Dato tuyo: responde con la razón real, en una frase, sin inventar. El oficial compara con tu DS-160.)"],
+   ["You lead AME. Who covers your duties while you are away?","(Dato tuyo: di quién te reemplaza esos días. Es una pregunta para ver si tu cargo te obliga a volver.)"],
+   ["What did you do in China?","(Dato tuyo: motivo, fechas y con quién viajaste. Responde corto y con la verdad; el oficial pregunta por viajes a China con atención.)"],
+   ["Do you have any relatives or friends in the United States?","No. Neither my parents nor any other relative are in the U.S. My only contact is Sergio Arredondo from ICMA, a professional contact."],
+   ["What exactly will you do each day of your trip?","Attend the conference sessions related to municipal management, and use my free time to see Long Beach, near my hotel."],
+   ["Why have you never traveled to the United States before?","I never had a professional reason to travel there until this conference."],
+   ["How much does the trip cost and how will you cover your personal expenses?","My employer covers the trip. For personal expenses I have my salary of $4,283 per month and my own bank account. (Confirma el monto de tus ahorros.)"],
+   ["Which social media accounts do you use?","Facebook, Instagram, Twitter/X and TikTok, all as @JANIOR MERA, and all of them are listed on my DS-160."],
+   ["Has anyone told you what to say in this interview?","I received help preparing my documents, but my answers are my own and everything I say is true."],
+   ["Do you plan to study, work or look for a job in the United States?","No. I already have a stable government position and a Master's degree. My life and my family are in Ecuador."],
+   ["Do you have a return ticket?","Yes. My return flight to Ecuador is on October 22nd, 2026."],
+   ["Can you prove your income?","Yes. My salary is $4,283 per month, and I can show my pay stubs and my last three bank statements."],
+   ["What will you talk about at ICMA? Who invited you?","(Dato tuyo: explica en una frase quién te registró en la conferencia y qué temas te interesan. Sergio Arredondo es tu contacto en ICMA.)"],
+   ["Why would an officer believe you will come back?","Because my wife, my parents, my home and my government job are all in Ecuador."],
+   ["You finished a Master's degree in July 2026. Why did you study it and who paid for it?","(Dato tuyo: motivo y quién lo pagó. Debe ser coherente con tu salario y tus ingresos.)"]
+  ];
+  function card(n,q,a){return '<div class="q-card" onclick="this.classList.toggle(&quot;open&quot;)"><span class="q-num">'+n+'</span><span class="q-text">'+q+'</span><div class="q-answer"><div class="q-tag">Respuesta modelo</div>'+a+'</div></div>';}
+  var d=new Date(), dia=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5), N=5, h='', i, n=16;
+  fijas.forEach(function(f){h+=card(n++,f[0],f[1]);});
+  for(i=0;i<N;i++){var f=banco[(dia*N+i)%banco.length];h+=card(n++,f[0],f[1]);}
+  document.getElementById('trampa').innerHTML=h;
+})();
+document.querySelectorAll('.tab,.bn-item').forEach(el=>{
+  el.addEventListener('click',()=>showPage(el.dataset.page));
+});
+</script>
+</body>
+</html>
