@@ -136,7 +136,7 @@ const persona={
 };
 
 /* Fuente: DS-160 + confirmación de cita. No inventar datos fuera de esto. */
-const expedienteContext="Freddy Wilfrido Vasconez Freire, nacido 9 abril 1965 en Ambato, Tungurahua. Divorciado (matrimonio con Ines Susana Garcia Morales, 6 sept 1991 - terminado por mutuo acuerdo 25 marzo 2011). Cedula 1708764632. Vive y trabaja en la misma direccion: Rafael Larrea 3-59 y Simon Bolivar, sector San Francisco, Ibarra, Imbabura. Ocupacion declarada en el DS-160: 'ARTIST/PERFORMER' (artista/interprete) pero su empleo declarado es 'COSEDORA DE CALZADOS': confeccion, elaboracion y reparacion de calzado y todo tipo de articulos de cuero. INCONSISTENCIA CLAVE entre ocupacion y empleo; debe explicarse siempre igual y con la verdad. Ingreso declarado $3,000/mes. No tuvo empleos anteriores segun el DS-160. Estudios: Instituto Tecnologico Superior Liceo Aduanero, Ibarra, Administracion Aduanera, abril 2011 - octubre 2013. Padres segun DS-160: Segundo Alfredo Vasconez Vasconez (nac. 1934) y Zoila Irene Freire Paredes (nac. 1937), ninguno en EE.UU. Sin familiares en Estados Unidos. Viaje: turismo/negocios B1/B2, 6 dias, llegada prevista 10 febrero 2027, sin planes especificos de viaje, viaja solo, paga el viaje el mismo. Hospedaje: Days Inn by Wyndham Miami Airport, 4767 Northwest 36 Street, Miami Springs, Florida 33166; no tiene contacto personal en EE.UU. (contacto declarado: el hotel). PRIMER VIAJE a Estados Unidos, nunca ha tenido visa, sin rechazos previos. Viajes de los ultimos 5 anos: solo Colombia. Pasaporte B1032986 emitido en Ibarra el 3 oct 2025, vence 3 oct 2035. DS-160 AA00FTWGBH firmado 5 octubre 2026. Facebook: @FREDDY VASCONEZ. Telefono +593988484970, correo freddyvasc@hotmail.com. Cita consular: lunes 9 noviembre 2026, 9:00 AM, Embajada de EE.UU. en Quito. No inventar datos fuera de esto (no consta si tiene hijos, ni si sus padres viven, ni el motivo especifico de elegir Miami).";
+const expedienteContext="Freddy Wilfrido Vasconez Freire, nacido 9 abril 1965 en Ambato, Tungurahua. Divorciado (matrimonio con Ines Susana Garcia Morales, 6 sept 1991 - terminado por mutuo acuerdo 25 marzo 2011). Cedula 1708764632. Vive y trabaja en la misma direccion: Rafael Larrea 3-59 y Simon Bolivar, sector San Francisco, Ibarra, Imbabura. Ocupacion declarada en el DS-160: 'ARTIST/PERFORMER' (artista/interprete) pero su empleo declarado es 'COSEDORA DE CALZADOS': confeccion, elaboracion y reparacion de calzado y todo tipo de articulos de cuero. INCONSISTENCIA CLAVE entre ocupacion y empleo; el cliente confirmo que es ARTESANO (calzado y cuero) y que artista fue la categoria mas cercana a su oficio; explicarlo siempre igual. Motivo real del viaje confirmado: TURISMO. Ingreso declarado $3,000/mes. No tuvo empleos anteriores segun el DS-160. Estudios: Instituto Tecnologico Superior Liceo Aduanero, Ibarra, Administracion Aduanera, abril 2011 - octubre 2013. Padres segun DS-160: Segundo Alfredo Vasconez Vasconez (nac. 1934) y Zoila Irene Freire Paredes (nac. 1937), ninguno en EE.UU. Sin familiares en Estados Unidos. Viaje: turismo/negocios B1/B2, 6 dias, llegada prevista 10 febrero 2027, sin planes especificos de viaje, viaja solo, paga el viaje el mismo. Hospedaje: Days Inn by Wyndham Miami Airport, 4767 Northwest 36 Street, Miami Springs, Florida 33166; no tiene contacto personal en EE.UU. (contacto declarado: el hotel). PRIMER VIAJE a Estados Unidos, nunca ha tenido visa, sin rechazos previos. Viajes de los ultimos 5 anos: solo Colombia. Pasaporte B1032986 emitido en Ibarra el 3 oct 2025, vence 3 oct 2035. DS-160 AA00FTWGBH firmado 5 octubre 2026. Facebook: @FREDDY VASCONEZ. Telefono +593988484970, correo freddyvasc@hotmail.com. Cita consular: lunes 9 noviembre 2026, 9:00 AM, Embajada de EE.UU. en Quito. No inventar datos fuera de esto (no consta si tiene hijos, ni si sus padres viven, ni el motivo especifico de elegir Miami).";
 
 const QB=[
  {
@@ -154,7 +154,7 @@ const QB=[
  {
   "q": "¿A qué se dedica usted?",
   "tip": "Su trabajo real: calzado y artículos de cuero, en Ibarra.",
-  "model": "Me dedico a la confección, elaboración y reparación de calzado y de artículos de cuero, en Ibarra.",
+  "model": "Soy artesano: confecciono, elaboro y reparo calzado y artículos de cuero, en Ibarra.",
   "kw": [
    "calzado",
    "cuero",
@@ -274,8 +274,8 @@ const QI=[
 const QD=[
  {
   "q": "En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?",
-  "tip": "LA pregunta clave de su caso. Una sola explicación, clara y verdadera; igual las dos veces que se la hagan.",
-  "model": "Mi oficio es la confección y reparación de calzado y artículos de cuero. Es un trabajo artesanal y en el formulario marqué la categoría que me pareció más cercana; mi actividad real es el calzado.",
+  "tip": "LA pregunta clave. Su respuesta: es artesano, y la categoría «artista» es la más cercana a su oficio. Dígalo igual cada vez.",
+  "model": "Soy artesano. Elaboro y reparo calzado y artículos de cuero con mis propias manos, y por eso en el formulario marqué la categoría de artista, que es la más cercana a un oficio artesanal. Mi actividad real es el calzado.",
   "kw": [
    "calzado",
    "cuero",
@@ -286,8 +286,8 @@ const QD=[
  },
  {
   "q": "¿Por qué quiere viajar a Miami?",
-  "tip": "Dígalo con sus propias palabras: lo importante es que sea su motivo REAL. Esta es una base.",
-  "model": "Quiero conocer Miami por turismo. Es la primera vez que viajo a Estados Unidos y lo hago por seis días, pagando yo mismo mi viaje.",
+  "tip": "Su motivo real: turismo. Dígalo con sus propias palabras y nombre 2 o 3 cosas concretas que quiere conocer.",
+  "model": "Viajo a Miami de turismo, a conocerlo. Es la primera vez que viajo a Estados Unidos, voy seis días y pago yo mismo mi viaje.",
   "kw": [
    "conocer",
    "miami",
