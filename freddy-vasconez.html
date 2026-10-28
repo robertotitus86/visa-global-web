@@ -391,6 +391,117 @@ const QO=[
    "regreso",
    "ibarra"
   ]
+ },
+ {
+  "q": "Su hotel queda junto al aeropuerto, lejos de la playa. ¿Cómo va a llegar a los sitios turísticos?",
+  "tip": "TRAMPA de logística: prueba si el viaje es real. Nombre el medio (Uber/Lyft, Metrorail, a pie) y los lugares concretos. Si duda, suena a viaje inventado.",
+  "model": "Desde el hotel pido un Uber o Lyft con la aplicación a South Beach, Wynwood y Little Havana, y también puedo usar el metro y los buses de Miami. En Downtown camino o uso el Metromover.",
+  "kw": [
+   "uber",
+   "lyft",
+   "aplicacion",
+   "metro",
+   "south beach",
+   "wynwood",
+   "little havana"
+  ]
+ },
+ {
+  "q": "Dígame tres lugares que va a visitar y qué día irá a cada uno.",
+  "tip": "TRAMPA: «sin planes específicos» no sirve aquí. Tenga 3 lugares y un orden sencillo, como en su brochure, dicho natural, sin recitar.",
+  "model": "El primer día descanso. Luego Downtown y Bayside Marketplace, después los murales de Wynwood, y otro día la playa de South Beach y Ocean Drive. Si me da tiempo, camino por Little Havana.",
+  "kw": [
+   "bayside",
+   "wynwood",
+   "south beach",
+   "ocean drive",
+   "little havana",
+   "descanso"
+  ]
+ },
+ {
+  "q": "¿Ya conoce Miami? ¿Cómo sabe de esos lugares?",
+  "tip": "Es su primer viaje: no diga que ya estuvo. Cuente cómo se informó (internet, videos, Google Maps) con honestidad.",
+  "model": "No, es mi primera vez en Miami. Los conozco por internet y videos, y los tengo ubicados en Google Maps.",
+  "kw": [
+   "no",
+   "primera",
+   "internet",
+   "google maps"
+  ]
+ },
+ {
+  "q": "Usted tiene una empresa de calzado. ¿Va a comprar mercadería, contactar proveedores o ir a ferias en Miami?",
+  "tip": "TRAMPA CLAVE: si dice sí, el oficial lo pasa a visa de negocios o sospecha trabajo. Respuesta firme: es turismo, solo recuerdos personales.",
+  "model": "No. Voy solo de turismo. No voy a comprar mercadería ni a reunirme con proveedores; como mucho, algunos recuerdos para mí y mi familia.",
+  "kw": [
+   "no",
+   "turismo",
+   "mercaderia",
+   "proveedores",
+   "recuerdos"
+  ]
+ },
+ {
+  "q": "¿Quién queda a cargo de su empresa mientras viaja seis días?",
+  "tip": "TRAMPA de arraigo. Responda con la verdad de su caso (empleado, familiar, o cierra unos días). Confirme con Roberto antes de la cita: no hay dato en el expediente.",
+  "model": "Dejo mi taller organizado y mi trabajo me espera. Son solo seis días y regreso a Ibarra a retomar mi actividad.",
+  "kw": [
+   "taller",
+   "trabajo",
+   "seis",
+   "regreso",
+   "ibarra"
+  ]
+ },
+ {
+  "q": "¿Cuánto dinero va a llevar y cuánto piensa gastar en el viaje?",
+  "tip": "TRAMPA: no invente cifras. Defina con Roberto el monto real y respáldelo con estados de cuenta. Hotel ya reservado.",
+  "model": "El hotel ya lo tengo reservado. Llevo mis ahorros y tarjeta para transporte, comida y paseos, que salen de los ingresos de mi trabajo.",
+  "kw": [
+   "hotel",
+   "ahorros",
+   "tarjeta",
+   "transporte",
+   "comida",
+   "trabajo"
+  ]
+ },
+ {
+  "q": "¿Por qué viaja solo y por qué en febrero?",
+  "tip": "TRAMPA: no necesita justificar demasiado. Motivo real y breve; nada de inventar un evento o una invitación.",
+  "model": "Viajo solo porque es un viaje personal de descanso, y escogí febrero por esas fechas libres en mi trabajo. Son solo seis días.",
+  "kw": [
+   "solo",
+   "personal",
+   "descanso",
+   "febrero",
+   "seis"
+  ]
+ },
+ {
+  "q": "¿Habla inglés? ¿Cómo se va a comunicar allá?",
+  "tip": "Diga su nivel real. Miami es muy hispano; apóyese en Google Translate y en que en Little Havana se habla español. No exagere.",
+  "model": "Hablo poco inglés, pero en Miami se habla mucho español, y uso Google Maps y el traductor del celular para moverme.",
+  "kw": [
+   "poco",
+   "espanol",
+   "google",
+   "traductor",
+   "miami"
+  ]
+ },
+ {
+  "q": "¿Alguien le recomendó Miami o lo invitó? ¿Va a visitar a algún conocido?",
+  "tip": "TRAMPA: el DS-160 dice sin contactos en EE.UU. Responda igual, sin cambiar la versión.",
+  "model": "No me invitó nadie ni visito a ningún conocido. Escogí Miami por mi cuenta, para conocerlo como turista.",
+  "kw": [
+   "no",
+   "nadie",
+   "conocido",
+   "cuenta",
+   "turista"
+  ]
  }
 ];
 function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
