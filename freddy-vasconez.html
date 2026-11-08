@@ -136,7 +136,7 @@ const persona={
 };
 
 /* Fuente: DS-160 + confirmación de cita. No inventar datos fuera de esto. */
-const expedienteContext="Freddy Wilfrido Vasconez Freire, nacido 9 abril 1965 en Ambato, Tungurahua. Divorciado (matrimonio con Ines Susana Garcia Morales, 6 sept 1991 - terminado por mutuo acuerdo 25 marzo 2011). Cedula 1708764632. Vive y trabaja en la misma direccion: Rafael Larrea 3-59 y Simon Bolivar, sector San Francisco, Ibarra, Imbabura. Ocupacion declarada en el DS-160: 'ARTIST/PERFORMER' (artista/interprete) pero su empleo declarado es 'COSEDORA DE CALZADOS': confeccion, elaboracion y reparacion de calzado y todo tipo de articulos de cuero. INCONSISTENCIA CLAVE entre ocupacion y empleo; el cliente confirmo que es ARTESANO (calzado y cuero) y que artista fue la categoria mas cercana a su oficio; explicarlo siempre igual. Motivo real del viaje confirmado: TURISMO. Ingreso declarado $3,000/mes. No tuvo empleos anteriores segun el DS-160. Estudios: Instituto Tecnologico Superior Liceo Aduanero, Ibarra, Administracion Aduanera, abril 2011 - octubre 2013. Padres segun DS-160: Segundo Alfredo Vasconez Vasconez (nac. 1934) y Zoila Irene Freire Paredes (nac. 1937), ninguno en EE.UU. Sin familiares en Estados Unidos. Viaje: TURISMO (el tipo de visa B1/B2 es solo la categoria; el motivo real es turismo, no negocios), 6 dias, llegada prevista 10 febrero 2027, sin planes especificos de viaje, viaja solo, paga el viaje el mismo. Hospedaje: Days Inn by Wyndham Miami Airport, 4767 Northwest 36 Street, Miami Springs, Florida 33166; no tiene contacto personal en EE.UU. (contacto declarado: el hotel). PRIMER VIAJE a Estados Unidos, nunca ha tenido visa, sin rechazos previos. Viajes de los ultimos 5 anos: solo Colombia. Pasaporte B1032986 emitido en Ibarra el 3 oct 2025, vence 3 oct 2035. DS-160 AA00FTWGBH firmado 5 octubre 2026. Facebook: @FREDDY VASCONEZ. Telefono +593988484970, correo freddyvasc@hotmail.com. Cita consular: lunes 9 noviembre 2026, 9:00 AM, Embajada de EE.UU. en Quito. No inventar datos fuera de esto (no consta si tiene hijos, ni si sus padres viven, ni el motivo especifico de elegir Miami).";
+const expedienteContext="Freddy Wilfrido Vasconez Freire, nacido 9 abril 1965 en Ambato, Tungurahua. Divorciado (matrimonio con Ines Susana Garcia Morales, 6 sept 1991 - terminado por mutuo acuerdo 25 marzo 2011). Cedula 1708764632. Vive y trabaja en la misma direccion: Rafael Larrea 3-59 y Simon Bolivar, sector San Francisco, Ibarra, Imbabura. Ocupacion declarada en el DS-160: 'ARTIST/PERFORMER' (artista/interprete) pero su empleo declarado es 'COSEDORA DE CALZADOS': confeccion, elaboracion y reparacion de calzado y todo tipo de articulos de cuero. INCONSISTENCIA CLAVE entre ocupacion y empleo; Freddy es DUENO de una empresa de calzado y cuero (no 'artesano'), con calificacion artesanal; marco 'artista' por ser la categoria mas cercana a su oficio; explicarlo siempre igual. Motivo real del viaje confirmado: TURISMO. Ingreso declarado $3,000/mes. No tuvo empleos anteriores segun el DS-160. Estudios: Instituto Tecnologico Superior Liceo Aduanero, Ibarra, Administracion Aduanera, abril 2011 - octubre 2013. Padres segun DS-160: Segundo Alfredo Vasconez Vasconez (nac. 1934) y Zoila Irene Freire Paredes (nac. 1937), ninguno en EE.UU. Sin familiares en Estados Unidos. Viaje: TURISMO (el tipo de visa B1/B2 es solo la categoria; el motivo real es turismo, no negocios), 6 dias, llegada prevista 10 febrero 2027, sin planes especificos de viaje, viaja solo, paga el viaje el mismo. Hospedaje: Days Inn by Wyndham Miami Airport, 4767 Northwest 36 Street, Miami Springs, Florida 33166; no tiene contacto personal en EE.UU. (contacto declarado: el hotel). PRIMER VIAJE a Estados Unidos, nunca ha tenido visa, sin rechazos previos. Viajes de los ultimos 5 anos: solo Colombia. Pasaporte B1032986 emitido en Ibarra el 3 oct 2025, vence 3 oct 2035. DS-160 AA00FTWGBH firmado 5 octubre 2026. Facebook: @FREDDY VASCONEZ. Telefono +593988484970, correo freddyvasc@hotmail.com. Cita consular: lunes 9 noviembre 2026, 9:00 AM, Embajada de EE.UU. en Quito. No inventar datos fuera de esto (no consta si tiene hijos, ni si sus padres viven, ni el motivo especifico de elegir Miami).";
 
 const QB=[
  {
@@ -153,8 +153,8 @@ const QB=[
  },
  {
   "q": "¿A qué se dedica usted?",
-  "tip": "Su trabajo real: calzado y artículos de cuero, en Ibarra.",
-  "model": "Soy artesano: confecciono, elaboro y reparo calzado y artículos de cuero, en Ibarra.",
+  "tip": "Su trabajo real: es dueño de una empresa de calzado y cuero, en Ibarra.",
+  "model": "Soy dueño de una empresa de calzado en Ibarra: elaboramos y reparamos calzado y cualquier artículo de cuero.",
   "kw": [
    "calzado",
    "cuero",
@@ -274,8 +274,8 @@ const QI=[
 const QD=[
  {
   "q": "En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?",
-  "tip": "LA pregunta clave. Su respuesta: es artesano, y la categoría «artista» es la más cercana a su oficio. Dígalo igual cada vez.",
-  "model": "Soy artesano. Elaboro y reparo calzado y artículos de cuero con mis propias manos, y por eso en el formulario marqué la categoría de artista, que es la más cercana a un oficio artesanal. Mi actividad real es el calzado.",
+  "tip": "LA pregunta clave. Es dueño de una empresa de calzado y cuero con calificación artesanal; «artista» fue la categoría más cercana a su oficio. Dígalo igual cada vez.",
+  "model": "Soy dueño de una empresa de calzado en Ibarra: elaboramos y reparamos calzado y cualquier artículo de cuero. Tengo calificación artesanal, y por eso en el formulario marqué la categoría de artista, que es la más cercana a mi oficio. Mi actividad real es el calzado.",
   "kw": [
    "calzado",
    "cuero",
@@ -444,10 +444,10 @@ const QO=[
  },
  {
   "q": "¿Quién queda a cargo de su empresa mientras viaja seis días?",
-  "tip": "TRAMPA de arraigo. Responda con la verdad de su caso (empleado, familiar, o cierra unos días). Confirme con Roberto antes de la cita: no hay dato en el expediente.",
-  "model": "Dejo mi taller organizado y mi trabajo me espera. Son solo seis días y regreso a Ibarra a retomar mi actividad.",
+  "tip": "TRAMPA de arraigo. Responda con la verdad de su caso (empleado, familiar o cierra unos días) y tenga esta respuesta lista antes de la cita.",
+  "model": "Dejo mi empresa organizada y mi trabajo me espera. Son solo seis días y regreso a Ibarra a retomar mi actividad.",
   "kw": [
-   "taller",
+   "empresa",
    "trabajo",
    "seis",
    "regreso",
@@ -456,7 +456,7 @@ const QO=[
  },
  {
   "q": "¿Cuánto dinero va a llevar y cuánto piensa gastar en el viaje?",
-  "tip": "TRAMPA: no invente cifras. Defina con Roberto el monto real y respáldelo con estados de cuenta. Hotel ya reservado.",
+  "tip": "TRAMPA: no invente cifras. Tenga claro el monto real que llevará y respáldelo con estados de cuenta. Hotel ya reservado.",
   "model": "El hotel ya lo tengo reservado. Llevo mis ahorros y tarjeta para transporte, comida y paseos, que salen de los ingresos de mi trabajo.",
   "kw": [
    "hotel",
@@ -501,6 +501,66 @@ const QO=[
    "conocido",
    "cuenta",
    "turista"
+  ]
+ },
+ {
+  "q": "Usted estudió Administración Aduanera. ¿Por qué hoy se dedica al calzado?",
+  "tip": "TRAMPA de coherencia. Sea breve y verdadero: el estudio es una cosa y su negocio otra; no invente una historia larga.",
+  "model": "Estudié Administración Aduanera entre 2011 y 2013, pero mi negocio es el calzado y el cuero, y de eso vivo en Ibarra.",
+  "kw": [
+   "aduanera",
+   "2013",
+   "calzado",
+   "cuero",
+   "ibarra"
+  ]
+ },
+ {
+  "q": "En el formulario figura como artista o intérprete. ¿Va a actuar, exponer o vender su trabajo en Estados Unidos?",
+  "tip": "TRAMPA CLAVE ligada a la categoría «artista»: la respuesta es un NO firme. Es turismo, nada más.",
+  "model": "No. Voy solo de turismo. No voy a actuar, ni a exponer, ni a vender nada en Estados Unidos.",
+  "kw": [
+   "no",
+   "turismo",
+   "actuar",
+   "vender",
+   "nada"
+  ]
+ },
+ {
+  "q": "¿Desde cuándo tiene su empresa y cuántas personas trabajan con usted?",
+  "tip": "TRAMPA de arraigo y solvencia. Diga su año real y su número real de personas: si no los sabe de memoria, el oficial lo nota. No invente.",
+  "model": "Mi empresa funciona en Ibarra desde hace varios años y le puedo dar el año exacto y cuántas personas trabajan conmigo. De ahí vienen mis ingresos.",
+  "kw": [
+   "empresa",
+   "ibarra",
+   "ingresos",
+   "personas",
+   "anos"
+  ]
+ },
+ {
+  "q": "¿Qué fue a hacer a Colombia y cuánto tiempo estuvo?",
+  "tip": "TRAMPA sobre su único viaje previo. Diga el motivo y la duración reales; lo importante es que regresó sin problemas.",
+  "model": "Viajé a Colombia y regresé a Ecuador sin ningún inconveniente. Fue un viaje corto y volví a mi trabajo.",
+  "kw": [
+   "colombia",
+   "regrese",
+   "ecuador",
+   "corto",
+   "trabajo"
+  ]
+ },
+ {
+  "q": "Si hoy le niego la visa, ¿qué haría?",
+  "tip": "TRAMPA emocional. Calma y madurez: acepte la decisión sin discutir ni suplicar.",
+  "model": "Aceptaría la decisión con respeto y seguiría con mi vida y mi trabajo en Ibarra. Más adelante podría volver a intentarlo.",
+  "kw": [
+   "aceptaria",
+   "respeto",
+   "trabajo",
+   "ibarra",
+   "intentarlo"
   ]
  }
 ];
@@ -642,7 +702,7 @@ function renderPanel(){
 <div class="screen">
   <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
   <h1 class="welcome-title">Freddy <em>Vásconez</em></h1>
-  <p class="welcome-sub">Esto lo preparé especialmente para usted. Viaja a Miami de turismo (B1/B2), seis días desde el 10 de febrero de 2027, pagando usted mismo el viaje. Es su primer viaje a Estados Unidos, sin rechazos previos y sin familiares ni contactos en EE.UU. Su arraigo está en Ibarra, donde vive y trabaja. El punto que más debe preparar: la diferencia entre la ocupación que figura en su DS-160 («artista») y su trabajo real en calzado.</p>
+  <p class="welcome-sub">Esto lo preparé especialmente para usted. Viaja a Miami de turismo (B1/B2), seis días desde el 10 de febrero de 2027, pagando usted mismo el viaje. Es su primer viaje a Estados Unidos, sin rechazos previos y sin familiares ni contactos en EE.UU. Su arraigo está en Ibarra, donde vive y trabaja. El punto que más debe preparar: la diferencia entre la ocupación que figura en su DS-160 («artista») y su trabajo real como dueño de una empresa de calzado.</p>
 
   <div style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
     <div style="font-size:1.4rem;flex-shrink:0">📅</div>
@@ -650,7 +710,7 @@ function renderPanel(){
       <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,158,11,.8);margin-bottom:2px">Entrevista Consular</div>
       <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">${persona.cita}</div>
       <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">${persona.ubicacion}</div>
-      <div style="font-size:.65rem;color:rgba(245,158,11,.85);margin-top:6px">Cancelar o reprogramar solo hasta el 5 de noviembre de 2026, 5:00 AM (portal de citas)</div>
+      <div style="font-size:.65rem;color:rgba(245,158,11,.85);margin-top:6px">Lunes 9 de noviembre: llegue no más de 15 minutos antes y sin celular</div>
     </div>
   </div>
 
@@ -676,7 +736,7 @@ function renderPanel(){
 
   <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:14px;margin-bottom:16px">
     <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠ Modo oficial consular — preguntas trampa</div>
-    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo, y la pregunta más importante de su caso: por qué en su solicitud figura como «artista» si su trabajo es el calzado. Practíquela hasta que le salga natural y siempre igual.</p>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo, y la pregunta más importante de su caso: por qué en su solicitud figura como «artista» si es dueño de una empresa de calzado. Practíquela hasta que le salga natural y siempre igual.</p>
     <p style="font-size:.7rem;color:rgba(245,158,11,.85);line-height:1.5;margin:0">Recomendaciones del oficial: respuestas breves (2-3 frases), sin elaborar de más · nunca se contradiga aunque repitan la pregunta de otra forma · mantenga la calma y el contacto visual · si no entiende, pida que repitan — no adivine.</p>
   </div>
 
