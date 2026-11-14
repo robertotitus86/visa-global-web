@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script>if(location.protocol!=="https:")location.replace("https:"+location.href.substring(location.protocol.length));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparación Entrevista — Jorge Cristhian Mora Larrea</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#060E1F;--navy2:#0d1a30;--navy3:#162840;
+  --gold:#F5C842;--gold2:#C8861A;--gold-dim:rgba(245,200,66,.1);
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --white:#fff;--muted:rgba(255,255,255,.5);--border:rgba(255,255,255,.08);
+  --card:rgba(255,255,255,.04);--sans:'Space Grotesk',sans-serif;
+  --serif:'Playfair Display',serif;--ease:cubic-bezier(.22,.68,0,1.2);--r:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 15% 0%,rgba(245,200,66,.06),transparent 55%),
+             radial-gradient(ellipse 60% 40% at 85% 100%,rgba(59,130,246,.05),transparent 60%),var(--navy)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,14,31,.95);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:0 20px;height:56px;display:flex;align-items:center;gap:12px}
+.logo{font-family:var(--serif);font-size:.875rem;font-weight:700}
+.logo em{color:var(--gold);font-style:italic}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.hdr-prog{font-size:.7rem;color:var(--muted)}
+.hdr-prog strong{color:var(--gold)}
+.prog-bar{position:fixed;top:56px;left:0;right:0;z-index:99;height:3px;background:rgba(255,255,255,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--blue));transition:width .5s ease;width:0%}
+.main{position:relative;z-index:1;padding:72px 16px 48px;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto}
+.screen{opacity:1;animation:fadeUp .3s ease-out}
+.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.fam-badge{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(245,200,66,.2);
+  padding:5px 14px;border-radius:99px;margin-bottom:20px}
+.fam-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.welcome-title{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.15;margin-bottom:14px}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+
+.trip-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);
+  border-radius:var(--r);padding:16px;margin-bottom:20px}
+.trip-ttl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:10px}
+.trip-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);font-size:.8rem}
+.trip-row:last-child{border-bottom:none}
+.trip-l{color:var(--muted)}.trip-v{font-weight:600;text-align:right}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);
+  font-size:.9375rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(245,200,66,.3)}
+
+@media(max-width:520px){
+  .welcome-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .trip-row{font-size:.75rem;flex-wrap:wrap;gap:2px}
+}
+
+.mod-tag{display:inline-block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.mod-tag.practice{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.nivel-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:14px}
+.n1{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.n2{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.n3{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.q-counter{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.qc-label{font-size:.75rem;color:var(--muted)}
+.qc-dots{display:flex;gap:5px}
+.qc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15)}
+.qc-dot.done{background:var(--green)}
+.qc-dot.cur{background:var(--gold)}
+.q-text{font-family:var(--serif);font-size:1.1rem;line-height:1.4;margin-bottom:6px}
+.q-input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--white);font-family:var(--sans);font-size:.875rem;resize:vertical;min-height:80px}
+.q-input:focus{outline:none;border-color:rgba(245,200,66,.4)}
+.q-input::placeholder{color:rgba(255,255,255,.2)}
+.fb{display:none;margin-top:12px;border-radius:var(--r);padding:14px}
+.fb.bien{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25)}
+.fb.mejorar{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.fb.riesgo{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.fb-estado{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.fb.bien .fb-estado{color:var(--green)}
+.fb.mejorar .fb-estado{color:var(--amber)}
+.fb.riesgo .fb-estado{color:var(--red)}
+.fb-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.6}
+.fb-repregunta{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(245,200,66,.85);font-style:italic;line-height:1.6}
+.fb-model{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.fb-model-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:5px}
+.fb-model-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;font-style:italic}
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.9375rem;font-weight:800;cursor:pointer;margin-bottom:10px}
+.btn-s{width:100%;padding:13px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;cursor:pointer;margin-bottom:10px}
+.btn-vrf{width:100%;margin-top:10px;padding:13px;background:var(--navy3);color:var(--white);border:1px solid var(--border);border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer}
+.btn-nxt{width:100%;margin-top:10px;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);border:none;border-radius:50px;font-family:var(--sans);font-size:.875rem;font-weight:800;cursor:pointer}
+
+.study-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.study-q{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;line-height:1.4}
+.study-tip{font-size:.72rem;color:var(--muted);font-style:italic;margin-bottom:8px;line-height:1.5}
+.study-a-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:4px}
+.study-a{font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6}
+.study-nivel-hdr{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:16px 0 8px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<header class="hdr">
+  <div class="logo">Asesoría <em>Visa</em> Global</div>
+  <div class="hdr-right"><span class="hdr-prog" id="hdrProg">Cristhian <strong>Mora</strong></span></div>
+</header>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+<main class="main"><div class="wrap" id="wrap"></div></main>
+
+<script>
+'use strict';
+const PAGE='cristhian-mora.html';
+
+const persona={
+ "nombre": "Jorge Cristhian Mora Larrea",
+ "cita": "Lunes 30 de noviembre 2026 · 08:00 AM",
+ "ubicacion": "Embajada de EE.UU. en Quito — Av. Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+ "ds160": "AA00FWQ991",
+ "pasaporte": "B1579196",
+ "viaje": {
+  "destino": "Miami, Florida",
+  "fechas": "3 al 6 de diciembre de 2026 · 3 noches",
+  "hotel": "5301 Northwest 36th Street (dirección del DS-160; no consta ciudad ni nombre del hotel)",
+  "propósito": "Evento de negocios (B1)"
+ }
+};
+
+/* Fuente: DS-160 + confirmación de cita. No inventar datos fuera de esto. */
+const expedienteContext="Jorge Cristhian Mora Larrea, nacido 8 junio 1979 en Tulcan, Carchi. Casado con Johanna Elizabeth Peralta Velez (nac. 4 mayo 1985, Manta, ecuatoriana). Cedula 0401049150. Vive en Autopista Manuel Cordova Galarza y Garcia Moreno, Conjunto Alcazar, Quito. Telefono +593987308982. Correo cristhian.moralarrea@gmail.com. ATENCION: en el DS-160 la direccion de la esposa dice 'SAME AS U.S. CONTACT ADDRESS' (la misma del contacto en EE.UU., Hotel Indigo Miami Brickell), aunque el DS-160 dice que no tiene familiares en EE.UU. Esto hay que aclararlo. Ocupacion: GOVERNMENT. Empleador actual: Viceministerio de Gobierno del Ecuador (Benalcazar N4-24 y Espejo, Centro Historico, Quito); coordina y supervisa a las gobernaciones e intendencias a nivel nacional para garantizar el orden publico y el control territorial, lidera mesas de dialogo, mantiene acercamientos con actores politicos, gremios y organizaciones sociales para prevenir conflictos y articula las politicas del Ejecutivo con otras funciones del Estado (incluido el trabajo legislativo de la Asamblea y los gobiernos autonomos descentralizados). Salario mensual declarado: $4,283. El DS-160 no trae el titulo del cargo actual ni la fecha de ingreso (su empleo anterior termino el 30 mayo 2025). Empleos anteriores: (1) Asamblea Nacional del Ecuador, Asesor Legislativo de la Comision de Gobiernos Autonomos Descentralizados, 1 agosto 2021 al 30 mayo 2025 (analisis de proyectos de ley, elaboracion de proyectos de ley); (2) Asociacion de Municipalidades Ecuatorianas (AME), Asesor de Gestion Juridico y Politico, 1 mayo 2019 al 31 julio 2021 (posicionamiento politico, soporte tecnico juridico y politico a los 221 municipios del pais). ESTUDIOS: (1) Universidad Tecnica Particular de Loja (UTPL), Derecho, sept 2018 a 26 junio 2023; (2) ILADES, Tecnologo en Politica y Gobierno, sept 2016 a 7 oct 2019; (3) Universidad de Lleida (Espana), Maestria en Comunicacion Politica Avanzada, sept 2022 a 1 julio 2023. No consta la modalidad: el DS-160 no registra ningun viaje a Espana (solo Colombia y Peru en los ultimos 5 anos), asi que hay que confirmar con Roberto si fue en linea. Habla solo espanol. Padres: Jorge Abraham Mora Gonzalez (nac. 19 abril 1952) y Zoila Ines Larrea Burbano (nac. 23 junio 1952), ninguno en EE.UU. Sin familiares inmediatos ni otros familiares en EE.UU. segun el DS-160. El DS-160 no menciona hijos. Viaje: B1/B2, llegada 3 diciembre 2026 a Miami, salida 6 diciembre 2026, no viaja con nadie. Direccion donde se hospeda segun el DS-160: 5301 Northwest 36th Street (sin ciudad ni nombre de hotel). Contacto en EE.UU.: Jaime Narvaez Pina, organizacion 'Comite Int Cumbre Lat de New York', relacion: socio de negocios (business associate), 145 SW 11th Street, Hotel Indigo Miami Brickell, Miami, Florida, tel 4444479377, correo contacto@cumbrelatinoamericana.com. Quien paga el viaje: el DS-160 lo dejo EN BLANCO (confirmar con Roberto). No consta el nombre oficial ni el programa del evento. Primera vez en EE.UU., nunca ha tenido visa. NEGATIVA PREVIA: declaro en el DS-160 que en 1999, a los 20 anos, le negaron una visa bajo la seccion 214(b) en la Embajada en Quito, y que desde entonces ha tenido 27 anos de carrera profesional estable en los sectores publico y privado de Ecuador, sin ningun otro problema migratorio. Nadie ha presentado peticion de inmigrante por el. Viajes en los ultimos 5 anos: Colombia y Peru. Pasaporte B1579196 emitido en Quito el 7 agosto 2026, vence 7 agosto 2036. DS-160 AA00FWQ991 firmado 13 noviembre 2026. Redes: Facebook @CRISTHIAN MORA LARREA, Instagram @CRISTHIANMORALARREA, Twitter/X @CRISTHIANMORAL. Nadie le ayudo a llenar el DS-160. Cita consular: lunes 30 noviembre 2026, 8:00 AM, Embajada de EE.UU. en Quito (se puede reagendar hasta el 25 nov 2026, 5:00 AM). No inventar datos fuera de esto (no constan hijos, ocupacion de la esposa, titulo del cargo actual, quien paga, ni el detalle del evento de Miami).";
+
+const QB=[
+ {
+  "q": "¿Cuál es el propósito de su viaje a Estados Unidos?",
+  "tip": "Evento de negocios en Miami. Respuesta directa y corta.",
+  "model": "Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, a un evento de negocios organizado por el comité cuyo contacto es el señor Jaime Narváez.",
+  "kw": [
+   "miami",
+   "evento",
+   "diciembre",
+   "negocios",
+   "comite"
+  ]
+ },
+ {
+  "q": "¿A qué se dedica usted?",
+  "tip": "Tu cargo real en el Viceministerio de Gobierno. El DS-160 no trae el título del cargo: di solo lo que consta.",
+  "model": "Trabajo en el Viceministerio de Gobierno del Ecuador, donde coordino y superviso a las gobernaciones e intendencias del país para garantizar el orden público y el control territorial.",
+  "kw": [
+   "viceministerio",
+   "gobierno",
+   "gobernaciones",
+   "coordino",
+   "supervis"
+  ]
+ },
+ {
+  "q": "¿Cuánto tiempo se va a quedar?",
+  "tip": "Tres noches: del 3 al 6 de diciembre.",
+  "model": "Tres noches. Llego el 3 de diciembre y regreso a Ecuador el 6 de diciembre.",
+  "kw": [
+   "tres",
+   "3",
+   "6",
+   "diciembre"
+  ]
+ },
+ {
+  "q": "¿Dónde se va a hospedar?",
+  "tip": "Dirección del DS-160: 5301 Northwest 36th Street (sin ciudad ni nombre). Ten el nombre del hotel y tu reserva a mano.",
+  "model": "En la dirección que declaré en mi solicitud, 5301 Northwest 36th Street, en Miami. Tengo mi reserva para las tres noches.",
+  "kw": [
+   "5301",
+   "36",
+   "miami",
+   "reserva",
+   "hotel"
+  ]
+ }
+];
+const QI=[
+ {
+  "q": "¿Le han negado alguna visa? ¿Es la primera vez que va a Estados Unidos?",
+  "tip": "CRÍTICA — Sí: en 1999 te negaron una visa (214b). Dilo sin dudar y sin adornos. Primera vez en EE.UU.",
+  "model": "Sí. En 1999, a los 20 años, me negaron una visa por la sección 214(b). Desde entonces he tenido una carrera estable en Ecuador, sin ningún otro problema migratorio. Esta es la primera vez que viajaría a Estados Unidos.",
+  "kw": [
+   "1999",
+   "20",
+   "214",
+   "carrera",
+   "estable",
+   "primera"
+  ]
+ },
+ {
+  "q": "¿Quién paga su viaje?",
+  "tip": "El DS-160 dejó en blanco quién paga. Define hoy la verdad y ten el respaldo a mano. [Confirma con Roberto].",
+  "model": "El viaje lo cubro [completa con tu verdad: yo mismo con mis ingresos / otra persona o institución]. Tengo el respaldo.",
+  "kw": [
+   "cubro",
+   "pago",
+   "ingresos",
+   "respaldo",
+   "viaje"
+  ]
+ },
+ {
+  "q": "¿Cuánto gana usted al mes?",
+  "tip": "$4,283 mensuales, exactos como en el DS-160.",
+  "model": "Cuatro mil doscientos ochenta y tres dólares mensuales, en el Viceministerio de Gobierno.",
+  "kw": [
+   "4283",
+   "cuatro mil",
+   "mensuales",
+   "viceministerio"
+  ]
+ },
+ {
+  "q": "¿Desde cuándo trabaja ahí y dónde trabajaba antes?",
+  "tip": "Antes: Asamblea Nacional (ago 2021 – may 2025) y AME (may 2019 – jul 2021). La fecha de ingreso al Viceministerio no consta en el DS-160: tenla clara.",
+  "model": "Fui Asesor Legislativo en la Asamblea Nacional hasta mayo de 2025, y antes asesor de gestión jurídico y político en AME. Hoy trabajo en el Viceministerio de Gobierno desde [fecha de ingreso].",
+  "kw": [
+   "asamblea",
+   "ame",
+   "asesor",
+   "viceministerio",
+   "legislativo"
+  ]
+ },
+ {
+  "q": "¿Ha viajado antes fuera de Ecuador?",
+  "tip": "Sí: Colombia y Perú. Cítalos tal cual están en el DS-160.",
+  "model": "Sí. En los últimos cinco años viajé a Colombia y a Perú, y siempre regresé a Ecuador.",
+  "kw": [
+   "colombia",
+   "peru",
+   "regrese",
+   "ecuador"
+  ]
+ },
+ {
+  "q": "¿Qué estudió usted?",
+  "tip": "Tres estudios. Dilos en orden y aclara la modalidad de la maestría.",
+  "model": "Estudié Derecho en la UTPL, soy tecnólogo en Política y Gobierno por ILADES, y tengo una maestría en Comunicación Política Avanzada de la Universidad de Lleida.",
+  "kw": [
+   "derecho",
+   "utpl",
+   "ilades",
+   "lleida",
+   "comunicacion"
+  ]
+ },
+ {
+  "q": "¿Está casado? ¿Su familia viaja con usted?",
+  "tip": "Casado con Johanna Peralta. Viajas solo. El DS-160 no menciona hijos.",
+  "model": "Sí, estoy casado con Johanna. Viajo solo y regreso el 6 de diciembre; mi esposa, mi hogar y mi trabajo están en Quito.",
+  "kw": [
+   "casado",
+   "johanna",
+   "solo",
+   "quito",
+   "6"
+  ]
+ }
+];
+const QD=[
+ {
+  "q": "Hace 27 años le negaron una visa. ¿Qué ha cambiado desde entonces?",
+  "tip": "Tu pregunta más probable. Breve, tranquila, sin discutir la negativa.",
+  "model": "Tenía 20 años y no tenía mi vida formada. Hoy tengo 47, una carrera estable de 27 años en Ecuador, un cargo en el Viceministerio de Gobierno, mi esposa y mi hogar en Quito. Viajo tres noches y regreso.",
+  "kw": [
+   "20",
+   "carrera",
+   "estable",
+   "viceministerio",
+   "esposa",
+   "regreso"
+  ]
+ },
+ {
+  "q": "¿Qué garantía tengo de que usted regresará a Ecuador?",
+  "tip": "Tu arraigo: trabajo, esposa, hogar en Quito, padres en Ecuador, viaje corto.",
+  "model": "Mi trabajo en el Viceministerio me espera, mi esposa, mi casa y mis padres están en Ecuador, y el viaje dura tres noches con regreso el 6 de diciembre.",
+  "kw": [
+   "trabajo",
+   "esposa",
+   "padres",
+   "ecuador",
+   "6"
+  ]
+ },
+ {
+  "q": "¿Qué va a hacer exactamente en ese evento en Miami?",
+  "tip": "Explica el valor para tu trabajo, con detalles del programa. Ten la invitación o inscripción a mano.",
+  "model": "Voy a participar en las sesiones del evento y a reunirme con otros participantes. Regreso a mi trabajo a aplicar lo aprendido.",
+  "kw": [
+   "sesiones",
+   "evento",
+   "participantes",
+   "regreso",
+   "trabajo"
+  ]
+ },
+ {
+  "q": "¿Quién es Jaime Narváez y qué relación tiene con usted?",
+  "tip": "Es tu contacto en EE.UU. según el DS-160 (business associate, Comité Int Cumbre Lat de New York). Ten claro cómo lo conoces.",
+  "model": "El señor Jaime Narváez es el contacto del comité organizador del evento al que asisto. Lo conozco por [cómo lo conoces] y por la invitación al evento.",
+  "kw": [
+   "jaime",
+   "narvaez",
+   "comite",
+   "evento",
+   "organizador"
+  ]
+ },
+ {
+  "q": "Su maestría es de la Universidad de Lleida, en España. ¿Viajó para estudiarla?",
+  "tip": "El DS-160 no registra viaje a España. Si fue en línea, dilo claro. [Confirma con Roberto].",
+  "model": "No viajé a España. Fue un programa [en línea]; lo cursé desde Ecuador mientras trabajaba en la Asamblea Nacional.",
+  "kw": [
+   "no",
+   "linea",
+   "ecuador",
+   "trabajaba",
+   "asamblea"
+  ]
+ },
+ {
+  "q": "Su solicitud dice que la dirección de su esposa es la misma de su contacto en Miami. ¿Dónde vive su esposa?",
+  "tip": "Es una inconsistencia del DS-160. Ten clara la verdad y dila sin dudar. [Confirma con Roberto].",
+  "model": "Mi esposa, Johanna, vive conmigo en Quito. [Esa dirección salió así por un error al llenar el formulario.]",
+  "kw": [
+   "esposa",
+   "johanna",
+   "quito",
+   "vive",
+   "error"
+  ]
+ }
+];
+const QO=[
+ {
+  "q": "¿Ha sufrido daños, violencia o maltrato en su país de origen o en su última residencia habitual?",
+  "tip": "CRÍTICA — pregunta obligatoria 2026 para detectar posibles solicitantes de asilo. Un «sí» puede derivar en negativa automática. Responde con seguridad.",
+  "model": "No, nunca he sufrido daños, violencia ni maltrato en Ecuador. Vivo y trabajo con normalidad en mi país.",
+  "kw": [
+   "no",
+   "nunca",
+   "ecuador",
+   "normalidad"
+  ]
+ },
+ {
+  "q": "¿Teme sufrir daños, persecución o maltrato si regresa a ese país?",
+  "tip": "CRÍTICA — segunda pregunta obligatoria 2026. No tienes motivo real para temer volver.",
+  "model": "No, no tengo ningún temor de regresar a Ecuador. Es mi país, donde vivo y trabajo.",
+  "kw": [
+   "no",
+   "temor",
+   "ecuador",
+   "vivo",
+   "trabajo"
+  ]
+ },
+ {
+  "q": "Usted trabaja para el gobierno. ¿Viaja en misión oficial?",
+  "tip": "Aplicas con visa B1/B2 (visitante), o sea un viaje no oficial. Dilo claro y corto.",
+  "model": "No. Viajo por mi cuenta a un evento de negocios, de tres noches, y regreso a mi trabajo en el Viceministerio el 6 de diciembre.",
+  "kw": [
+   "no",
+   "cuenta",
+   "evento",
+   "negocios",
+   "regreso"
+  ]
+ },
+ {
+  "q": "¿Piensa trabajar o quedarse a vivir en Estados Unidos?",
+  "tip": "No lo contemples ni como hipótesis. Respuesta corta.",
+  "model": "No. Voy tres noches al evento y regreso a mi trabajo y a mi hogar en Quito.",
+  "kw": [
+   "no",
+   "tres",
+   "regreso",
+   "quito"
+  ]
+ }
+];
+function norm(s){return s.toLowerCase().replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e').replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o').replace(/[úùüû]/g,'u').replace(/[ñ]/g,'n');}
+
+let nivelIdx=0, qIdx=0, scores=[], answersLog=[], pendingFollowup=null;
+const WEBHOOK='https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec';
+const NIVELES=[
+  {qs:QB,nivel:'basico',cls:'n1',titulo:'● Nivel básico'},
+  {qs:QI,nivel:'intermedio',cls:'n2',titulo:'● Nivel intermedio'},
+  {qs:QD,nivel:'dificil',cls:'n3',titulo:'● Nivel difícil'},
+  {qs:QO,nivel:'oficial consular — preguntas trampa',cls:'n3',titulo:'● Modo oficial consular'}
+];
+
+function mkDots(pqs){return pqs.map(function(_,i){return '<div class="qc-dot'+(i<qIdx?' done':i===qIdx?' cur':'')+'"></div>';}).join('');}
+function localCheck(q,resp){const hits=q.kw.filter(function(k){return resp.indexOf(k)>=0;}).length;return hits>=Math.ceil(q.kw.length*0.4)&&resp.length>15;}
+
+async function check(){
+  const pqs=NIVELES[nivelIdx].qs;
+  const wasFollowup=!!pendingFollowup;
+  const q=pendingFollowup||pqs[qIdx];
+  const respRaw=(document.getElementById('qa').value||'').trim();
+  const resp=norm(respRaw);
+  document.getElementById('btn-vrf').disabled=true;
+  document.getElementById('btn-vrf').textContent='Consultando al oficial...';
+  const evalId='ev'+Date.now()+Math.floor(Math.random()*1000);
+  const historial=answersLog.slice(-3).map(function(a){return {pregunta:a.pregunta,respuesta:a.respuesta,evaluacion:a.evaluacion};});
+  let iaResult=null;
+  try{
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({subtipo:'evaluarOficialConsular',evalId:evalId,cliente:persona.nombre,pregunta:q.q,respuestaUsuario:respRaw,expedienteContext:expedienteContext,historial:historial})}).catch(function(){});
+    for(let attempt=0;attempt<9;attempt++){
+      await new Promise(function(r){setTimeout(r,1500);});
+      try{
+        const r=await fetch(WEBHOOK+'?action=getEvalOficial&evalId='+evalId);
+        const d=await r.json();
+        if(d.status==='ok' && d.evaluacion && d.evaluacion!=='error'){ iaResult=d; break; }
+      }catch(e){}
+    }
+  }catch(e){}
+  let ok, fbClass, fbEstado, fbMsg;
+  if(iaResult){
+    ok=iaResult.evaluacion==='bien';
+    fbClass=iaResult.evaluacion;
+    fbEstado=iaResult.evaluacion==='bien'?'Bien — el oficial está conforme':iaResult.evaluacion==='riesgo'?'Riesgo — respuesta débil':'Mejorar — faltan detalles';
+    fbMsg=iaResult.reaccionOficial+(iaResult.consejo?(' '+iaResult.consejo):'');
+  }else{
+    ok=localCheck(q,resp);
+    fbClass=ok?'bien':'mejorar';
+    fbEstado=ok?'Bien — respuesta completa':'Mejorar — faltan elementos clave';
+    fbMsg=ok?'Buena respuesta. Cubre los puntos esenciales que el oficial consular espera escuchar.':'Revisa la respuesta modelo. Asegúrate de incluir los detalles específicos de tu expediente.';
+  }
+  scores.push(ok);
+  answersLog.push({pregunta:q.q, respuesta:respRaw, evaluacion:fbClass});
+  if(!wasFollowup && iaResult && iaResult.evaluacion!=='bien' && iaResult.repregunta){
+    pendingFollowup={q:iaResult.repregunta, model:q.model, kw:q.kw};
+  }else{ pendingFollowup=null; }
+  const fb=document.getElementById('fb');
+  fb.className='fb '+fbClass;
+  document.getElementById('fb-estado').textContent=fbEstado;
+  document.getElementById('fb-msg').textContent=fbMsg;
+  document.getElementById('fb-model').textContent=q.model;
+  const repregEl=document.getElementById('fb-repregunta');
+  if(repregEl){
+    if(pendingFollowup){ repregEl.textContent='El oficial insiste: «'+pendingFollowup.q+'»'; repregEl.style.display='block'; }
+    else{ repregEl.style.display='none'; }
+  }
+  fb.style.display='block';
+  document.getElementById('btn-nxt').classList.remove('hidden');
+  document.getElementById('qa').disabled=true;
+  document.getElementById('btn-vrf').textContent='Verificado';
+}
+
+function nextQ(){ if(!pendingFollowup) qIdx++; renderPractica(); }
+function siguienteNivel(){ nivelIdx++; qIdx=0; pendingFollowup=null; renderPractica(); }
+function repetirNivel(){ qIdx=0; pendingFollowup=null; renderPractica(); }
+
+function renderPractica(){
+  const nv=NIVELES[nivelIdx];
+  document.getElementById('hdrProg').innerHTML='Practicando · <strong>Cristhian</strong>';
+  document.getElementById('prog-fill').style.width=Math.round(((nivelIdx+qIdx/nv.qs.length)/NIVELES.length)*100)+'%';
+  window.scrollTo(0,0);
+  if(qIdx>=nv.qs.length){
+    const t=nv.qs.length; let b=0;
+    for(let i=scores.length-t;i<scores.length;i++){ if(scores[i]) b++; }
+    const hayMas=nivelIdx+1<NIVELES.length;
+    document.getElementById('wrap').innerHTML='<div class="screen" style="text-align:center">'
+      +'<div style="font-size:2rem;margin-bottom:12px">'+(b===t?'🎉':'💪')+'</div>'
+      +'<div class="welcome-title" style="font-size:1.6rem">Nivel '+nv.nivel+'<br><em>completado</em></div>'
+      +'<p class="welcome-sub">'+b+' de '+t+' respuestas completas.</p>'
+      +(hayMas?'<button class="btn-p" onclick="siguienteNivel()">Siguiente nivel →</button>':'<button class="btn-p" onclick="location.href=\''+PAGE+'\'">Volver al inicio →</button>')
+      +'<button class="btn-s" onclick="repetirNivel()">Repetir este nivel</button></div>';
+    return;
+  }
+  const q=pendingFollowup||nv.qs[qIdx];
+  document.getElementById('wrap').innerHTML='<div class="screen">'
+    +'<span class="mod-tag practice">Practicando</span><br>'
+    +'<span class="nivel-badge '+nv.cls+'">'+nv.titulo+' — '+(qIdx+1)+' de '+nv.qs.length+'</span>'
+    +(pendingFollowup?'<div style="font-size:.7rem;color:var(--red);font-weight:700;margin-bottom:8px">⚠ El oficial no quedó conforme — insiste en el mismo punto</div>':'')
+    +'<div class="q-counter"><span class="qc-label">Preguntas</span><div class="qc-dots">'+mkDots(nv.qs)+'</div></div>'
+    +'<p class="q-text">« '+q.q+' »</p>'
+    +'<textarea class="q-input" id="qa" placeholder="Escribe tu respuesta aquí..."></textarea>'
+    +'<button class="btn-vrf" id="btn-vrf" onclick="check()">Verificar →</button>'
+    +'<div class="fb" id="fb" style="display:none">'
+      +'<div class="fb-estado" id="fb-estado"></div><div class="fb-msg" id="fb-msg"></div>'
+      +'<div class="fb-repregunta" id="fb-repregunta"></div>'
+      +'<div class="fb-model"><div class="fb-model-label">Respuesta modelo</div><div class="fb-model-text" id="fb-model"></div></div>'
+    +'</div>'
+    +'<button class="btn-nxt hidden" id="btn-nxt" onclick="nextQ()">'+(qIdx+1<nv.qs.length?'Siguiente pregunta →':'Ver resumen →')+'</button>'
+    +'<button class="btn-s" style="margin-top:20px" onclick="renderEstudio()">← Ver respuestas de nuevo</button>'
+    +'</div>';
+}
+
+function renderEstudio(){
+  document.getElementById('hdrProg').innerHTML='Estudiando · <strong>Cristhian</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  window.scrollTo(0,0);
+  let html='<div class="screen">'
+    +'<span class="mod-tag" style="background:rgba(59,130,246,.15);color:var(--blue);border:1px solid rgba(59,130,246,.2)">Paso 1 · Estudiar</span>'
+    +'<h1 class="welcome-title" style="font-size:1.8rem">Tus <em>respuestas</em></h1>'
+    +'<p class="welcome-sub">Lee cada pregunta y su respuesta modelo con calma, todas basadas en tu DS-160 real. Cuando ya te las sepas de memoria, pasa a practicar sin ver la respuesta.</p>';
+  NIVELES.forEach(function(nv){
+    const color=nv.cls==='n1'?'var(--green)':nv.cls==='n2'?'var(--amber)':'var(--red)';
+    html+='<div class="study-nivel-hdr" style="color:'+color+'">'+nv.titulo.replace('● ','')+'</div>';
+    nv.qs.forEach(function(q){
+      html+='<div class="study-card"><div class="study-q">« '+q.q+' »</div><div class="study-tip">💡 '+q.tip+'</div><div class="study-a-label">Respuesta modelo</div><div class="study-a">'+q.model+'</div></div>';
+    });
+  });
+  html+='<button class="btn-p" onclick="empezarPractica()">Ya me las sé — empezar práctica →</button></div>';
+  document.getElementById('wrap').innerHTML=html;
+}
+
+function empezarPractica(){ nivelIdx=0; qIdx=0; scores=[]; pendingFollowup=null; renderPractica(); }
+
+function renderPanel(){
+  document.getElementById('hdrProg').innerHTML='Cristhian <strong>Mora</strong>';
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('wrap').innerHTML=`
+<div class="screen">
+  <div class="fam-badge"><span></span>Preparación entrevista consular USA</div>
+  <h1 class="welcome-title">Cristhian <em>Mora</em></h1>
+  <p class="welcome-sub">Esto lo preparé especialmente para ti. Viajas a Miami, Florida, del 3 al 6 de diciembre de 2026, a un evento de negocios con el comité organizador cuyo contacto es Jaime Narváez. Es tu primer viaje a Estados Unidos. Declaraste una negativa en 1999 y eso se prepara con calma y con la verdad: desde entonces tienes 27 años de carrera estable. Tu arraigo: tu cargo en el Viceministerio de Gobierno, tu esposa y tu hogar en Quito, y tus padres en Ecuador. Los puntos que más debes preparar: la negativa de 1999 y quién paga el viaje. <br><strong style="color:#F59E0B">Tu entrevista: lunes 30 de noviembre de 2026, 8:00 AM, Embajada de EE.UU. en Quito.</strong></p>
+
+  <div style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.4);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-size:1.4rem;flex-shrink:0">📅</div>
+    <div style="flex:1;min-width:160px">
+      <div style="font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(245,158,11,.8);margin-bottom:2px">Entrevista Consular</div>
+      <div style="font-weight:700;font-size:.82rem;color:#fff;line-height:1.4">${persona.cita}</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">${persona.ubicacion}</div>
+      <div style="font-size:.65rem;color:rgba(245,158,11,.85);margin-top:6px">Lunes 30 de noviembre de 2026, 8:00 AM — Embajada de EE.UU. en Quito</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.22);border-radius:14px;padding:16px;margin-bottom:16px">
+    <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#3B82F6;margin-bottom:10px">Tu contacto y tu trayectoria (ten los datos claros)</div>
+    <p style="font-size:.82rem;line-height:1.7;margin-bottom:10px"><strong>Contacto en EE.UU.:</strong> Jaime Narv&aacute;ez Pi&ntilde;a, del &laquo;Comit&eacute; Int Cumbre Lat de New York&raquo; (socio de negocios). Direcci&oacute;n: 145 SW 11th Street, Hotel Indigo Miami Brickell, Miami, Florida.</p>
+    <p style="font-size:.82rem;line-height:1.7;margin-bottom:10px"><strong>Trayectoria:</strong> Asesor de Gesti&oacute;n Jur&iacute;dico y Pol&iacute;tico en AME (may 2019 - jul 2021), Asesor Legislativo en la Asamblea Nacional (ago 2021 - may 2025) y hoy en el Viceministerio de Gobierno. Estudios: Derecho (UTPL), Tecnolog&iacute;a en Pol&iacute;tica y Gobierno (ILADES) y maestr&iacute;a en Comunicaci&oacute;n Pol&iacute;tica Avanzada (Universidad de Lleida).</p>
+    <p style="font-size:.82rem;line-height:1.7;margin-bottom:10px"><strong>Tu negativa de 1999:</strong> te negaron una visa (secci&oacute;n 214b) a los 20 a&ntilde;os. Lo declaraste en tu DS-160. Resp&oacute;ndelo breve, con calma y sin discutir: desde entonces tienes una carrera estable en Ecuador.</p>
+    <p style="font-size:.75rem;color:var(--muted);line-height:1.6;margin:0">Si el oficial te pregunta en ingl&eacute;s: <em>&ldquo;I am traveling to Miami for three nights to attend a business event, and I return to my job in Quito on December 6th.&rdquo;</em></p>
+  </div>
+
+  <div class="trip-box">
+    <div class="trip-ttl">📋 Datos del viaje</div>
+    <div class="trip-row"><span class="trip-l">Destino</span><span class="trip-v">${persona.viaje.destino}</span></div>
+    <div class="trip-row"><span class="trip-l">Fechas USA</span><span class="trip-v">${persona.viaje.fechas}</span></div>
+    <div class="trip-row"><span class="trip-l">Hospedaje</span><span class="trip-v">${persona.viaje.hotel}</span></div>
+    <div class="trip-row"><span class="trip-l">Propósito</span><span class="trip-v">${persona.viaje.propósito}</span></div>
+    <div class="trip-row"><span class="trip-l">DS-160</span><span class="trip-v" style="font-family:monospace;color:#F5C842">${persona.ds160}</span></div>
+  </div>
+
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">✅ Fortalezas del caso</div>
+    <ul style="font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0;padding-left:16px">
+      <li>Carrera estable de 27 años</li>
+      <li>Cargo actual en el Viceministerio de Gobierno</li>
+      <li>Trayectoria coherente y verificable</li>
+      <li>Formación sólida</li>
+      <li>Arraigo en Ecuador</li>
+      <li>Honestidad al declarar</li>
+    </ul>
+  </div>
+
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:var(--r);padding:14px;margin-bottom:16px">
+    <div style="font-size:.7rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">⚠ Modo oficial consular — preguntas trampa</div>
+    <p style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;margin:0 0 8px">Incluye las 2 preguntas obligatorias que el gobierno de EE.UU. agregó en 2026 para detectar posibles solicitantes de asilo, y las preguntas más delicadas de tu caso: tu negativa de 1999, quién paga el viaje y los datos de tu DS-160. Practícalas hasta que te salgan naturales y siempre iguales.</p>
+    <p style="font-size:.7rem;color:rgba(245,158,11,.85);line-height:1.5;margin:0">Recomendaciones del oficial: respuestas breves (2-3 frases), sin elaborar de más · nunca se contradiga aunque repitan la pregunta de otra forma · mantenga la calma y el contacto visual · si no entiende, pida que repitan — no adivine.</p>
+  </div>
+
+  <p style="font-size:.7rem;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Estudiar y practicar</p>
+  <button class="btn-primary" onclick="renderEstudio()">Empezar preparación →</button>
+</div>`;
+}
+
+try{
+  fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({subtipo:'aperturaSimulador',cliente:persona.nombre})}).catch(function(){});
+}catch(e){}
+renderPanel();
+</script>
+</body>
+</html>
