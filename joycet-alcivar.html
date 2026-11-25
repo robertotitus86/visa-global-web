@@ -176,9 +176,36 @@ const QB=[
   ]
  },
  {
+  "q": "¿A qué se dedica su mamá?",
+  "tip": "Tu mamá, Maira Alcivar, trabaja en el área comercial, en atención al cliente, en Yambal. Dilo con naturalidad y lleva su certificado laboral por si preguntan.",
+  "model": "Mi mamá trabaja en el área comercial, en atención al cliente, en Yambal.",
+  "kw": [
+   "mama",
+   "maira",
+   "comercial",
+   "atencion",
+   "cliente",
+   "yambal"
+  ]
+ },
+ {
+  "q": "¿Alguien de su familia tiene visa de Estados Unidos?",
+  "tip": "Tu mamá, Armando y tus dos hermanas ya tienen visa de EE.UU.; tú eres la única que aún no la tiene. Dilo con naturalidad y solo lo que puedas respaldar: lleva copia de sus visas vigentes y no menciones viajes anteriores que no puedas comprobar.",
+  "model": "Sí. Mi mamá, Armando, mi padrastro, y mis dos hermanas, Ashlyn y Clarissa, ya tienen visa de Estados Unidos. Yo soy la única de la familia que aún no la tiene.",
+  "kw": [
+   "visa",
+   "familia",
+   "mama",
+   "armando",
+   "hermanas",
+   "ashlyn",
+   "clarissa"
+  ]
+ },
+ {
   "q": "¿Con quién viaja?",
-  "tip": "El DS-160 pone a 4 personas: tu mamá (Maira Alcivar), Armando Weir, Ashlyn y Clarissa Weir Alcivar. A tres los marcaste como «otro familiar»: ten clara la relación exacta con cada uno y explícala con naturalidad.",
-  "model": "Viajo con mi mamá, Maira Alcivar; con Armando Weir, que es familiar mío; y con Ashlyn y Clarissa Weir Alcivar, también familiares.",
+  "tip": "El DS-160 pone a 4 personas: tu mamá (Maira Alcivar), Armando Weir, Ashlyn y Clarissa Weir Alcivar. A tres los marcaste como «otro familiar»: Armando es el esposo de tu mamá (tu padrastro) y Ashlyn y Clarissa son tus hermanas, hijas de tu mamá y de Armando; el DS-160 las pone como «otro familiar» y lo explicas con naturalidad.",
+  "model": "Viajo con mi mamá, Maira Alcivar; con Armando Weir, el esposo de mi mamá, mi padrastro; y con mis hermanas, Ashlyn y Clarissa Weir Alcivar, hijas de mi mamá y de Armando.",
   "kw": [
    "mama",
    "maira",
@@ -205,8 +232,8 @@ const QI=[
  },
  {
   "q": "¿A qué se dedica usted?",
-  "tip": "Trabajas como cajera en Corporación La Favorita y estudias Odontología. Dilo en ese orden y con tranquilidad.",
-  "model": "Trabajo como cajera en Corporación La Favorita, en Plaza Vistana, en Daule, y estudio Odontología.",
+  "tip": "Estudias Odontología en la mañana, trabajas en la tarde en una empresa de publicidad y los fines de semana en Corporación La Favorita. Cuéntalo en ese orden, con naturalidad: es tu rutina real. Ojo: el DS-160 solo menciona La Favorita; si el oficial pregunta por el otro trabajo, responde con la verdad.",
+  "model": "Estudio Odontología por las mañanas, en la tarde trabajo en Ultra UV como asistente de ventas, y los fines de semana trabajo en Corporación La Favorita, en Plaza Vistana, en Daule.",
   "kw": [
    "cajera",
    "favorita",
@@ -217,8 +244,8 @@ const QI=[
  },
  {
   "q": "¿Cuánto gana usted al mes?",
-  "tip": "$800 mensuales, exactos como en el DS-160.",
-  "model": "Ochocientos dólares mensuales, como cajera en La Favorita.",
+  "tip": "Tus ingresos son $500 en Ultra UV (coincide con tu certificado laboral) y $300 en La Favorita: en total, $800 al mes. El DS-160 pone $800 en el campo de La Favorita: es la suma de tus dos ingresos. Explícalo con naturalidad y lleva los roles de pago de ambos trabajos.",
+  "model": "En Ultra UV gano quinientos dólares al mes y en La Favorita trescientos; en total, ochocientos dólares mensuales, que es la cifra que puse en el formulario.",
   "kw": [
    "800",
    "ochocientos",
@@ -228,8 +255,8 @@ const QI=[
  },
  {
   "q": "¿Desde cuándo trabaja ahí y dónde trabajaba antes?",
-  "tip": "Antes: asistente de ventas en Ultra UV (2 oct 2023 – 11 mar 2025). La fecha de ingreso a La Favorita no consta en el DS-160: tenla clara, junto con qué hiciste entre ambos trabajos.",
-  "model": "Trabajo en La Favorita desde [fecha de ingreso]. Antes fui asistente de ventas en Ultra UV, en Guayaquil, de octubre de 2023 a marzo de 2025.",
+  "tip": "En el DS-160 Ultra UV figura como trabajo anterior (2 oct 2023 – 11 mar 2025), pero hoy trabajas ahí por las tardes. Tu certificado laboral de Ultra UV (6 nov 2026) dice que trabajas ahí desde el 2 de octubre de 2023 hasta la fecha, como asistente de ventas: tu explicación debe coincidir con ese documento. La fecha de ingreso a La Favorita tampoco consta en el DS-160: tenla a mano.",
+  "model": "Trabajo en Ultra UV, en Guayaquil, desde el 2 de octubre de 2023, como asistente de ventas, por las tardes. En La Favorita trabajo los fines de semana desde [fecha de ingreso].",
   "kw": [
    "favorita",
    "ultra",
@@ -240,9 +267,22 @@ const QI=[
   ]
  },
  {
+  "q": "Su formulario dice que trabajó en Ultra UV hasta marzo de 2025. ¿Sigue trabajando ahí?",
+  "tip": "Pregunta probable por el desfase del DS-160: allí Ultra UV figura como empleo anterior y como empleo actual solo aparece La Favorita. Responde con la verdad, sin dramatizar: el formulario en línea solo permite un empleo actual y, para poder registrar tu empleo principal, a Ultra UV se le puso fecha de fin aunque sigues trabajando ahí. Lleva el certificado laboral de Ultra UV con fecha de ingreso, horario y que está vigente, y los roles de pago de tus dos trabajos.",
+  "model": "Sí, sigo trabajando en Ultra UV por las tardes. El formulario en línea solo permitía un empleo actual, y por eso a Ultra UV le puse fecha de fin, el 11 de marzo de 2025, aunque sigo ahí. Estudio por las mañanas y los fines de semana trabajo en La Favorita.",
+  "kw": [
+   "ultra",
+   "uv",
+   "tardes",
+   "formulario",
+   "favorita",
+   "fines"
+  ]
+ },
+ {
   "q": "¿Qué estudia y dónde?",
-  "tip": "Odontología en la Universidad Bolivariana del Ecuador (Durán), desde octubre de 2024. El DS-160 pone fin de asistencia el 1 de noviembre de 2026: ten claro si sigues matriculada, qué ciclo cursas y cómo combinas estudio y trabajo.",
-  "model": "Estudio Odontología en la Universidad Bolivariana del Ecuador, en Durán, desde octubre de 2024. Actualmente [ciclo / estado de matrícula].",
+  "tip": "Odontología en la Universidad Bolivariana del Ecuador (Durán), desde octubre de 2024, en jornada de la mañana. El DS-160 pone fin de asistencia el 1 de noviembre de 2026: ten claro si sigues matriculada y qué ciclo cursas.",
+  "model": "Estudio Odontología en la Universidad Bolivariana del Ecuador, en Durán, desde octubre de 2024, en la jornada de la mañana. Actualmente [ciclo / estado de matrícula].",
   "kw": [
    "odontologia",
    "bolivariana",
@@ -289,8 +329,8 @@ const QI=[
 const QD=[
  {
   "q": "Hace más de tres años le negaron la visa. ¿Qué ha cambiado desde entonces?",
-  "tip": "Tu pregunta más probable. Breve, tranquila, sin discutir la negativa. Habla de lo que cambió: tu trabajo, tu carrera, tu vida en Ecuador.",
-  "model": "Sí, en agosto de 2023 me negaron la visa porque no demostré suficientes lazos con mi país. Desde entonces he trabajado en Ultra UV y ahora en La Favorita, y estudio Odontología desde octubre de 2024. Mi vida y mi futuro están en Ecuador, y esta vez viajo cinco días de vacaciones con mi mamá.",
+  "tip": "Tu pregunta más probable. Breve, tranquila, sin discutir la negativa. Habla de lo que cambió: tu carrera, tus trabajos, tu vida en Ecuador.",
+  "model": "Sí, en agosto de 2023 me negaron la visa porque no demostré suficientes lazos con mi país. Desde entonces estudio Odontología, desde octubre de 2024, y trabajo: por la tarde en Ultra UV y los fines de semana en La Favorita. Mi vida y mi futuro están en Ecuador, y esta vez viajo cinco días de vacaciones con mi mamá.",
   "kw": [
    "2023",
    "214",
@@ -302,8 +342,8 @@ const QD=[
  },
  {
   "q": "¿Qué garantía tengo de que usted regresará a Ecuador?",
-  "tip": "Tu arraigo: trabajo en La Favorita, carrera de Odontología, familia en Ecuador, viaje corto de cinco días.",
-  "model": "Mi trabajo en La Favorita, mi carrera de Odontología y mi familia están en Ecuador, y el viaje dura solo cinco días. Tengo mi vida y mi futuro aquí.",
+  "tip": "Tu arraigo: dos trabajos, carrera de Odontología, familia en Ecuador, viaje corto de cinco días.",
+  "model": "Mis trabajos en Ultra UV y en La Favorita, mi carrera de Odontología y mi familia están en Ecuador, y el viaje dura solo cinco días. Tengo mi vida y mi futuro aquí.",
   "kw": [
    "trabajo",
    "favorita",
@@ -315,8 +355,8 @@ const QD=[
  },
  {
   "q": "Su viaje lo paga Armando Weir. ¿Quién es él, a qué se dedica y por qué paga?",
-  "tip": "Es la pregunta más delicada: quien paga no es tu papá ni tu mamá. El DS-160 no trae su ocupación ni sus ingresos: ten claro quién es, a qué se dedica y por qué paga, y lleva su carta y sus documentos.",
-  "model": "Armando Weir es familiar mío [relación exacta]. Él es [su ocupación] y cubre los gastos de la familia para estas vacaciones. Viaja con nosotros y tengo su carta de respaldo.",
+  "tip": "Es la pregunta más delicada: quien paga es tu padrastro, Armando Weir, esposo de tu mamá, que trabaja en la Asociación de Municipalidades Ecuatorianas (AME) y gana $3.500 al mes. El DS-160 lo marca como «otro familiar» y no trae su cargo ni sus ingresos: ten claro su cargo y por qué paga, y lleva su carta de respaldo, su certificado laboral de la AME con el sueldo, sus roles de pago y sus estados de cuenta.",
+  "model": "Armando Weir es el esposo de mi mamá, mi padrastro. Trabaja en la Asociación de Municipalidades Ecuatorianas, AME, como [cargo], y gana tres mil quinientos dólares al mes. Cubre los gastos de la familia para estas vacaciones. Viaja con nosotros y tengo su carta de respaldo.",
   "kw": [
    "armando",
    "familiar",
@@ -328,7 +368,7 @@ const QD=[
  },
  {
   "q": "¿Cuánto costará el viaje y cómo se financia?",
-  "tip": "Ten un estimado de vuelos, hotel y gastos, y qué parte cubre Armando. Con $800 al mes no cubrirías todo tú sola, y está bien: lo importante es que el respaldo de quien paga sea real y puedas explicarlo.",
+  "tip": "Ten un estimado de vuelos, hotel y gastos, y qué parte cubre Armando (gana $3.500 al mes en la AME). Con tus ingresos de $800 al mes no cubrirías todo tú sola, y está bien: lo importante es que el respaldo de quien paga sea real y puedas explicarlo.",
   "model": "Calculamos aproximadamente [monto] entre vuelos, hotel y gastos. Armando lo cubre y tengo sus documentos de respaldo.",
   "kw": [
    "armando",
@@ -341,8 +381,8 @@ const QD=[
  },
  {
   "q": "Su mamá, Armando y su familia viajan con usted. ¿Quién se queda en Ecuador?",
-  "tip": "El oficial busca qué te ata a Ecuador cuando viaja la familia entera. Ten claro quién se queda (tu papá, otros familiares) y que tu trabajo y tu universidad te esperan.",
-  "model": "Mi papá [y demás familiares] se quedan en Ecuador, y yo tengo mi trabajo en La Favorita y mi carrera esperándome. Es un viaje de vacaciones de cinco días.",
+  "tip": "El oficial busca qué te ata a Ecuador cuando viaja la familia entera. Ten claro quién se queda (tu papá, otros familiares) y que tus trabajos y tu universidad te esperan.",
+  "model": "Mi papá [y demás familiares] se quedan en Ecuador, y yo tengo mis dos trabajos y mi carrera esperándome. Es un viaje de vacaciones de cinco días.",
   "kw": [
    "papa",
    "familiares",
@@ -354,8 +394,8 @@ const QD=[
  },
  {
   "q": "¿Cómo pidió permiso en su trabajo y en la universidad para viajar?",
-  "tip": "Ten claro si ya tienes vacaciones aprobadas en La Favorita para esas fechas y qué pasa con tus clases. Si aún no las pides, dilo con honestidad: las pedirás cuando tengas la visa.",
-  "model": "En La Favorita [vacaciones aprobadas / las solicitaré con la visa] para esos días, y en la universidad [calendario / vacaciones]. Regreso a mi trabajo y a mis clases.",
+  "tip": "Ten claro si ya tienes vacaciones o permiso aprobados en la empresa de publicidad y en La Favorita para esas fechas, y qué pasa con tus clases. Si aún no los pides, dilo con honestidad: los pedirás cuando tengas la visa.",
+  "model": "En Ultra UV y en La Favorita [vacaciones aprobadas / las solicitaré con la visa] para esos días, y en la universidad [calendario / vacaciones]. Regreso a mis trabajos y a mis clases.",
   "kw": [
    "favorita",
    "vacaciones",
@@ -391,8 +431,8 @@ const QO=[
  },
  {
   "q": "En su DS-160 su ocupación dice «Business». ¿A qué negocio se dedica?",
-  "tip": "En el formulario la ocupación principal quedó como «Business», pero tu empleo real es cajera y estudias Odontología. Aclara con naturalidad y sin inventar razones: no tienes negocio propio.",
-  "model": "No tengo un negocio propio. Trabajo como cajera en La Favorita y estudio Odontología; esa casilla quedó así en el formulario, pero mi ocupación real es la que le acabo de decir.",
+  "tip": "En el formulario la ocupación principal quedó como «Business», pero tu situación real es: estudias Odontología por la mañana, trabajas en la tarde en una empresa de publicidad y los fines de semana en La Favorita. Aclara con naturalidad y sin inventar razones: no tienes negocio propio.",
+  "model": "No tengo un negocio propio. Estudio Odontología por la mañana, trabajo por la tarde en Ultra UV y los fines de semana en La Favorita; esa casilla quedó así en el formulario, pero esa es mi ocupación real.",
   "kw": [
    "no",
    "negocio",
@@ -426,7 +466,7 @@ const QO=[
  {
   "q": "¿Piensa trabajar o quedarse a vivir en Estados Unidos?",
   "tip": "No lo contemples ni como hipótesis. Respuesta corta.",
-  "model": "No. Voy cinco días de vacaciones y regreso a mi trabajo, a mi universidad y a mi casa en Guayaquil.",
+  "model": "No. Voy cinco días de vacaciones y regreso a mis trabajos, a mi universidad y a mi casa en Guayaquil.",
   "kw": [
    "no",
    "cinco",
